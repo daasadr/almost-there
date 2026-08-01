@@ -5,6 +5,14 @@
 # (viz README, sekce Nasazení) — po jeho spuštění si tenhle soubor
 # certbot sám doplní o cesty k certifikátům.
 
+# Kam nginx posílá požadavky. Port musí sedět s APP_PORT v .env — nginx
+# si ho z .env nepřečte, je to jediné místo, kde ho ladíš ručně. Když na
+# serveru běží víc projektů a 3000 je obsazený, změň ho tady i tam.
+upstream almostthere_app {
+    server 127.0.0.1:3000;
+    keepalive 16;
+}
+
 # Rate limit na demo endpoint. Aplikace má vlastní strop na IP, tohle je
 # druhá vrstva před ní — sem se útok nedostane ani k Node procesu.
 limit_req_zone $binary_remote_addr zone=demo_api:10m rate=10r/m;
@@ -53,7 +61,7 @@ server {
     # --- Statické soubory Next.js ---
     # Mají hash v názvu, takže je lze cachovat natrvalo.
     location /_next/static/ {
-        proxy_pass http://127.0.0.1:3000;
+        proxy_pass http://almostthere_app;
         proxy_cache_valid 200 365d;
         add_header Cache-Control "public, max-age=31536000, immutable";
     }
@@ -64,7 +72,7 @@ server {
         limit_req zone=demo_api burst=5 nodelay;
         limit_req_status 429;
 
-        proxy_pass http://127.0.0.1:3000;
+        proxy_pass http://almostthere_app;
         proxy_http_version 1.1;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
@@ -78,7 +86,7 @@ server {
 
     # --- Zbytek aplikace ---
     location / {
-        proxy_pass http://127.0.0.1:3000;
+        proxy_pass http://almostthere_app;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";

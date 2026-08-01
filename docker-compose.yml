@@ -16,7 +16,11 @@ services:
     ports:
       # Jen loopback: kdyby port zůstal otevřený do internetu,
       # obešel by se tím nginx i TLS.
-      - "127.0.0.1:3000:3000"
+      #
+      # Vlevo je port na serveru, vpravo uvnitř kontejneru. Když na serveru
+      # běží víc projektů, nastav APP_PORT v .env na volný port — uvnitř
+      # kontejneru zůstává 3000 vždy.
+      - "127.0.0.1:${APP_PORT:-3000}:3000"
     environment:
       NODE_ENV: production
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}

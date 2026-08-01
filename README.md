@@ -133,6 +133,21 @@ uživatelé, `-v` nikdy nepoužívej — smazalo by jejich data.
 
 Aplikace poslouchá na `127.0.0.1:3000` — do internetu ji pouští až nginx.
 
+**Když na serveru běží víc projektů**, může být 3000 obsazený. Poznáš to podle
+chyby `Bind for 0.0.0.0:3000 failed: port is already allocated`. Zjisti, kdo ho
+drží, a přepni se na volný port:
+
+```bash
+sudo ss -tlnp | grep :3000     # co na portu sedí
+docker ps                      # a jestli je to jiný kontejner
+
+echo "APP_PORT=3001" >> .env    # zvol volný port
+docker compose up -d            # rebuild není potřeba, port je jen mapování
+```
+
+Uvnitř kontejneru zůstává 3000 vždy; mění se jen port na serveru. Stejný port
+pak nastav v nginx konfiguraci v bloku `upstream almostthere_app`.
+
 ### 2. nginx a HTTPS
 
 ```bash

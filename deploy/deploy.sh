@@ -14,6 +14,11 @@ if [ ! -f .env ]; then
   exit 1
 fi
 
+# Na kterém portu appka poslouchá — musí sedět s APP_PORT v .env,
+# jinak by kontrola níž ťukala na cizí projekt.
+APP_PORT="$(grep -E '^APP_PORT=' .env | cut -d= -f2 | tr -d '[:space:]')"
+APP_PORT="${APP_PORT:-3000}"
+
 echo "==> Stahuji změny z gitu"
 git pull --ff-only
 
@@ -28,7 +33,7 @@ docker image prune -f
 
 echo "==> Čekám, až aplikace naběhne"
 for i in $(seq 1 30); do
-  if curl -fsS -o /dev/null http://127.0.0.1:3000/en; then
+  if curl -fsS -o /dev/null "http://127.0.0.1:${APP_PORT}/en"; then
     echo "Hotovo — aplikace odpovídá."
     exit 0
   fi
