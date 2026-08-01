@@ -140,8 +140,18 @@
       "dateLabel": "Do kdy?",
       "dateHint": "Vyber datum mezi měsícem a třemi lety od dneška.",
       "submit": "Rozložit cíl",
-      "submitting": "Sestavuju plán…",
-      "again": "Zkusit jiný cíl"
+      "submitting": "Generuji…",
+      "again": "Zkusit jiný cíl",
+      "progress": {
+        "stages": [
+          "Čtu zadání a odhaduju rozsah cíle…",
+          "Plánuju pozpátku od termínu…",
+          "Sestavuju měsíční milníky…",
+          "Kontroluju, jestli termín vychází…"
+        ],
+        "elapsed": "{seconds} s",
+        "note": "Poctivý rozpad chvíli trvá — počítej zhruba s půl minutou. Stránku zatím nezavírej."
+      }
     },
     "errors": {
       "goalRequired": "Popiš prosím svůj cíl.",

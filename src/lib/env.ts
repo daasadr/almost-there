@@ -44,7 +44,7 @@ export const env = {
     return value === "low" || value === "high" ? value : "medium";
   },
   get demoRateLimitPerHour(): number {
-    return optionalInt("DEMO_RATE_LIMIT_PER_HOUR", 5);
+    return optionalInt("DEMO_RATE_LIMIT_PER_HOUR", 15);
   },
   get appUrl(): string {
     return process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";

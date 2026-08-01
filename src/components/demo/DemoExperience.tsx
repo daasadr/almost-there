@@ -14,6 +14,7 @@ import {
   type DemoErrorKey,
 } from "@/lib/demo-validation";
 import { DemoResult } from "./DemoResult";
+import { GenerationProgress } from "./GenerationProgress";
 
 type State =
   | { status: "form" }
@@ -150,7 +151,7 @@ export function DemoExperience() {
         {loading ? t("form.submitting") : t("form.submit")}
       </button>
 
-      {loading && <LoadingHint />}
+      {loading && <GenerationProgress />}
     </form>
   );
 }
@@ -168,31 +169,3 @@ function Spinner() {
   );
 }
 
-/**
- * Rozpad trvá desítky sekund. Bez vysvětlení to působí jako zamrznutá
- * stránka, takže říkáme, co se právě děje.
- */
-function LoadingHint() {
-  const t = useTranslations("how");
-  const steps = t.raw("steps") as { title: string }[];
-
-  return (
-    <p className="mt-4 text-sm text-[var(--color-paper-faint)]">
-      {steps[1]?.title}
-      <span className="ml-1 inline-flex gap-0.5">
-        <Dot delay="0ms" />
-        <Dot delay="200ms" />
-        <Dot delay="400ms" />
-      </span>
-    </p>
-  );
-}
-
-function Dot({ delay }: { delay: string }) {
-  return (
-    <span
-      className="inline-block h-1 w-1 animate-pulse rounded-full bg-[var(--color-lime-soft)]"
-      style={{ animationDelay: delay }}
-    />
-  );
-}

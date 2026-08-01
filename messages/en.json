@@ -140,8 +140,18 @@
       "dateLabel": "By when?",
       "dateHint": "Pick a date between one month and three years from now.",
       "submit": "Break it down",
-      "submitting": "Building your plan…",
-      "again": "Try another goal"
+      "submitting": "Generating…",
+      "again": "Try another goal",
+      "progress": {
+        "stages": [
+          "Reading your goal and sizing it up…",
+          "Planning backwards from your deadline…",
+          "Building the monthly milestones…",
+          "Checking whether the deadline holds…"
+        ],
+        "elapsed": "{seconds}s",
+        "note": "A proper breakdown takes a moment — expect around half a minute. Please keep this page open."
+      }
     },
     "errors": {
       "goalRequired": "Please describe your goal.",

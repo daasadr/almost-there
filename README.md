@@ -75,7 +75,7 @@ Všechny proměnné jsou popsané v [.env.example](.env.example). Nejdůležitě
 | `ANTHROPIC_API_KEY`        | Klíč z <https://console.anthropic.com/settings/keys>             |
 | `ANTHROPIC_MODEL`          | Výchozí `claude-opus-5`                                          |
 | `ANTHROPIC_EFFORT`         | `low` / `medium` / `high` — kvalita rozpadu vs. rychlost a cena  |
-| `DEMO_RATE_LIMIT_PER_HOUR` | Kolik demo generování povolit z jedné IP za hodinu               |
+| `DEMO_RATE_LIMIT_PER_HOUR` | Kolik demo generování povolit z jedné IP za hodinu (výchozí 15)  |
 | `DEMO_MOCK`                | `true` = negeneruje se přes AI                                   |
 | `NEXT_PUBLIC_APP_URL`      | Veřejná adresa — zapéká se do buildu, nastav ji **před** buildem |
 

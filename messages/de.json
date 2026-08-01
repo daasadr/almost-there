@@ -140,8 +140,18 @@
       "dateLabel": "Bis wann?",
       "dateHint": "Wähle ein Datum zwischen einem Monat und drei Jahren ab heute.",
       "submit": "Ziel zerlegen",
-      "submitting": "Plan wird gebaut…",
-      "again": "Anderes Ziel probieren"
+      "submitting": "Wird generiert…",
+      "again": "Anderes Ziel probieren",
+      "progress": {
+        "stages": [
+          "Ich lese dein Ziel und schätze den Umfang ein…",
+          "Ich plane rückwärts von deiner Frist…",
+          "Ich baue die Monatsmeilensteine…",
+          "Ich prüfe, ob die Frist hält…"
+        ],
+        "elapsed": "{seconds} s",
+        "note": "Eine saubere Zerlegung braucht einen Moment — rechne mit etwa einer halben Minute. Lass diese Seite bitte offen."
+      }
     },
     "errors": {
       "goalRequired": "Bitte beschreibe dein Ziel.",
