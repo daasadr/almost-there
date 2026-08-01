@@ -10,7 +10,7 @@ services:
     build:
       context: .
       args:
-        NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL}
+        NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://localhost:3000}
     image: almostthere:latest
     restart: unless-stopped
     ports:
@@ -24,8 +24,10 @@ services:
       ANTHROPIC_EFFORT: ${ANTHROPIC_EFFORT:-medium}
       DEMO_RATE_LIMIT_PER_HOUR: ${DEMO_RATE_LIMIT_PER_HOUR:-5}
       DEMO_MOCK: ${DEMO_MOCK:-false}
-      NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL}
-      DATABASE_URL: ${DATABASE_URL}
+      NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://localhost:3000}
+      # Adresa se skládá ze stejných proměnných, jaké dostane databáze —
+      # heslo tak píšeš do .env jen jednou a nemůže se rozejít.
+      DATABASE_URL: postgresql://${POSTGRES_USER:-almostthere}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-almostthere}?schema=public
     depends_on:
       db:
         condition: service_healthy

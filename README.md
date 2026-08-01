@@ -77,7 +77,22 @@ Všechny proměnné jsou popsané v [.env.example](.env.example). Nejdůležitě
 | `ANTHROPIC_EFFORT`         | `low` / `medium` / `high` — kvalita rozpadu vs. rychlost a cena  |
 | `DEMO_RATE_LIMIT_PER_HOUR` | Kolik demo generování povolit z jedné IP za hodinu (výchozí 15)  |
 | `DEMO_MOCK`                | `true` = negeneruje se přes AI                                   |
-| `NEXT_PUBLIC_APP_URL`      | Veřejná adresa — zapéká se do buildu, nastav ji **před** buildem |
+| `POSTGRES_PASSWORD`        | Vymyslíš si ho. `openssl rand -hex 24`, jen písmena a číslice     |
+| `NEXT_PUBLIC_APP_URL`      | Veřejná adresa — zapéká se do buildu, viz poznámka níž           |
+
+**Heslo k databázi** nikde nehledáš, vymyslíš si ho. `DATABASE_URL` v Dockeru
+nenastavuj — `docker-compose.yml` si ji poskládá z `POSTGRES_USER`,
+`POSTGRES_PASSWORD` a `POSTGRES_DB`, takže heslo píšeš jen na jedno místo.
+Používej jen písmena a číslice; znaky jako `@`, `:` nebo `/` by adresu rozbily.
+
+Pozor: Postgres si heslo zapamatuje **při první inicializaci** datového svazku.
+Pozdější změna v `.env` se na existující databázi neprojeví — musel by se smazat
+svazek (`docker compose down -v`), což zároveň smaže všechna data.
+
+**`NEXT_PUBLIC_APP_URL`** ovlivňuje jen `robots.txt` a `sitemap.xml`. Zapéká se
+do buildu, takže po změně je potřeba přestavět image — ale nic z toho, co
+uživatel vidí, na ní nestojí. Dokud nemáš doménu, klidně tam nech IP serveru
+a přestav to, až doménu nasměruješ.
 
 **Poznámka k rychlosti a ceně.** Rozpad běží na `claude-opus-5` s úsilím
 `medium` a trvá zhruba 30–45 sekund. Když bude demo působit pomale, sniž
@@ -99,10 +114,22 @@ git clone https://github.com/daasadr/almost-there.git almostthere
 cd almostthere
 
 cp .env.example .env
-nano .env        # doplň ANTHROPIC_API_KEY, POSTGRES_PASSWORD, NEXT_PUBLIC_APP_URL
+nano .env        # doplň ANTHROPIC_API_KEY a POSTGRES_PASSWORD (viz Konfigurace)
 
 docker compose up -d --build
 ```
+
+Když build spadne nebo ho přerušíš, nic se nerozbije — Docker si nechá, co
+už stihl, a příště naváže. Před dalším pokusem ukliď zbytky:
+
+```bash
+docker compose down -v     # -v smaže i svazek databáze
+docker image prune -f      # zahodí nedodělané vrstvy z přerušeného buildu
+docker compose up -d --build
+```
+
+`-v` je bezpečné jen dokud v databázi nic není. Jakmile budou v appce reální
+uživatelé, `-v` nikdy nepoužívej — smazalo by jejich data.
 
 Aplikace poslouchá na `127.0.0.1:3000` — do internetu ji pouští až nginx.
 
