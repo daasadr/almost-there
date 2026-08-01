@@ -1,0 +1,243 @@
+@import "tailwindcss";
+
+/*
+  AlmostThere — vizuální jazyk.
+
+  Paleta: smaragdová a limetková (organický růst) proti purpurové
+  (prémiovost, ambice), položené na téměř černém podkladu se zeleným
+  spodním tónem. Cíl je business/premium, ne hravé ani účetnické.
+*/
+
+@theme {
+  /* Podklad — ne čistá černá, má zelený spodní tón */
+  --color-ink-950: #04100c;
+  --color-ink-900: #071a14;
+  --color-ink-800: #0b241c;
+  --color-ink-700: #123227;
+  --color-ink-600: #1b4436;
+
+  /* Smaragdová — základní barva růstu */
+  --color-emerald-glow: #10b981;
+  --color-emerald-soft: #34d399;
+
+  /* Limetková — akcent, nejvyšší kontrast na tmavém podkladu */
+  --color-lime-glow: #a3e635;
+  --color-lime-soft: #bef264;
+
+  /* Purpurová — ambice a prémiovost */
+  --color-violet-glow: #8b5cf6;
+  --color-violet-soft: #a78bfa;
+
+  /* Text */
+  --color-paper: #f2f7f4;
+  --color-paper-dim: #a9bdb4;
+  --color-paper-faint: #6d8479;
+
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-card: 1.25rem;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Pevný offset pro kotvy, ať je nepřekryje sticky hlavička */
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    background-color: var(--color-ink-950);
+    color: var(--color-paper);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--color-lime-glow);
+    color: var(--color-ink-950);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-lime-glow);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Nativní date picker je na tmavém podkladu jinak nečitelný */
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1) opacity(0.6);
+    cursor: pointer;
+  }
+}
+
+@layer components {
+  /* Nadpisy: velké, těsné, s jemným optickým odsazením */
+  .display {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+  }
+
+  /* Text vyplněný přechodem — pro akcentovanou část nadpisu */
+  .text-gradient {
+    background-image: linear-gradient(
+      100deg,
+      var(--color-lime-soft) 0%,
+      var(--color-emerald-soft) 45%,
+      var(--color-violet-soft) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Karta: sklo nad tmavým podkladem, hrana jen naznačená */
+  .card {
+    background: linear-gradient(
+      160deg,
+      color-mix(in oklab, var(--color-ink-800) 80%, transparent),
+      color-mix(in oklab, var(--color-ink-900) 90%, transparent)
+    );
+    border: 1px solid color-mix(in oklab, var(--color-emerald-glow) 14%, transparent);
+    border-radius: var(--radius-card);
+    backdrop-filter: blur(8px);
+  }
+
+  .card-hover {
+    transition:
+      border-color 240ms ease,
+      transform 240ms ease,
+      box-shadow 240ms ease;
+  }
+
+  .card-hover:hover {
+    border-color: color-mix(in oklab, var(--color-lime-glow) 34%, transparent);
+    transform: translateY(-2px);
+    box-shadow: 0 18px 40px -24px color-mix(in oklab, var(--color-emerald-glow) 60%, transparent);
+  }
+
+  /* Primární tlačítko — limetková, nejvyšší priorita na stránce */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.75rem;
+    border-radius: 999px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--color-ink-950);
+    background-image: linear-gradient(
+      100deg,
+      var(--color-lime-soft),
+      var(--color-emerald-soft)
+    );
+    box-shadow: 0 10px 30px -12px color-mix(in oklab, var(--color-lime-glow) 70%, transparent);
+    transition:
+      transform 180ms ease,
+      box-shadow 180ms ease,
+      filter 180ms ease;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.06);
+    box-shadow: 0 16px 40px -14px color-mix(in oklab, var(--color-lime-glow) 85%, transparent);
+  }
+
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+
+  .btn-primary:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
+    filter: none;
+  }
+
+  /* Sekundární tlačítko — rovnocenné postavení, jiná váha */
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.75rem;
+    border-radius: 999px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--color-paper);
+    background: color-mix(in oklab, var(--color-violet-glow) 16%, transparent);
+    border: 1px solid color-mix(in oklab, var(--color-violet-soft) 42%, transparent);
+    transition:
+      background 180ms ease,
+      border-color 180ms ease,
+      transform 180ms ease;
+  }
+
+  .btn-secondary:hover {
+    background: color-mix(in oklab, var(--color-violet-glow) 26%, transparent);
+    border-color: color-mix(in oklab, var(--color-violet-soft) 70%, transparent);
+    transform: translateY(-1px);
+  }
+
+  /* Štítek nad nadpisem sekce */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-lime-soft);
+  }
+
+  /* Jemná vodorovná linka na okrajích sekcí */
+  .hairline {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in oklab, var(--color-emerald-glow) 30%, transparent),
+      transparent
+    );
+  }
+}
+
+/* Postupné odhalení při scrollu — třídu přidává IntersectionObserver */
+@layer utilities {
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .card-hover:hover,
+  .btn-primary:hover,
+  .btn-secondary:hover {
+    transform: none;
+  }
+}

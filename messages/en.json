@@ -1,0 +1,206 @@
+{
+  "meta": {
+    "title": "AlmostThere — turn any goal into today's checklist",
+    "description": "AI breaks your goal down into monthly milestones, weekly targets and a concrete daily checklist. Rest and reflection included, pace adapts to how you actually do."
+  },
+  "nav": {
+    "howItWorks": "How it works",
+    "features": "Why AlmostThere",
+    "pricing": "Pricing",
+    "demo": "Try the demo",
+    "buy": "Get started",
+    "backHome": "Back to home",
+    "language": "Language"
+  },
+  "hero": {
+    "eyebrow": "Goal → months → weeks → today",
+    "title": "You're almost there.",
+    "titleAccent": "Every single day.",
+    "subtitle": "Tell us your goal and your deadline. AI breaks it down into monthly milestones, weekly targets and a daily checklist you can actually tick off — with rest and reflection built into the plan, not bolted on.",
+    "ctaDemo": "Try the demo",
+    "ctaBuy": "Get started",
+    "ctaNote": "The demo needs no account. See how your goal breaks down in under a minute.",
+    "trustLine": "Built for networkers, freelancers, founders and long-haul students."
+  },
+  "how": {
+    "title": "One goal. Three levels. Today's list.",
+    "subtitle": "The whole product lives or dies on the quality of this breakdown, so that's where we put the work.",
+    "steps": [
+      {
+        "step": "01",
+        "title": "You set the goal and the date",
+        "body": "\"Reach A2 in German by the end of the year.\" That's enough. Add your rest and reflection preferences and we take it from there."
+      },
+      {
+        "step": "02",
+        "title": "AI builds the skeleton",
+        "body": "Monthly milestones first — what has to be done by the end of each month for the deadline to hold. Then each month splits into weekly targets."
+      },
+      {
+        "step": "03",
+        "title": "You get today's checklist",
+        "body": "Concrete tasks for today, sized to the time you actually have. Rest days and reflection blocks are items on the list, not gaps between them."
+      }
+    ]
+  },
+  "features": {
+    "title": "What makes it different",
+    "subtitle": "Not another task list. A planner that keeps up with real life.",
+    "items": [
+      {
+        "title": "Top-down breakdown that holds up",
+        "body": "Goal → months → weeks → days. Every level is derived from the one above it, so the daily task you tick off today provably moves the deadline closer."
+      },
+      {
+        "title": "Several goals, one honest day",
+        "body": "Your day is a fixed budget shared by every goal you're chasing. AlmostThere schedules across all of them at once, so two goals never quietly demand the same evening."
+      },
+      {
+        "title": "Rest is part of the plan",
+        "body": "Say you want one task-free day a week, or ten minutes of reflection daily — and the AI plans around it. Rest shows up as a checklist item, because a plan that ignores recovery is a plan you'll drop."
+      },
+      {
+        "title": "The pace adapts to you",
+        "body": "We track how much you actually complete. Falling behind for a couple of weeks? You'll get the choice: slow the plan down, move the date, or push on unchanged. Nothing is ever rescheduled behind your back."
+      },
+      {
+        "title": "Milestones you look forward to",
+        "body": "Attach your own reward to each milestone — or let the AI suggest a few, sized to what you just pulled off. Small win, small treat. Big one, big one."
+      }
+    ]
+  },
+  "example": {
+    "title": "What a breakdown looks like",
+    "subtitle": "Goal: reach A2 in German. Deadline: six months. One rest day a week, ten minutes of reflection daily.",
+    "monthLabel": "Month {n}",
+    "months": [
+      "Core vocabulary (greetings, numbers, days), pronunciation of the alphabet, the 100 most common words",
+      "Present tense of regular and irregular verbs, simple sentences about yourself",
+      "Everyday vocabulary (shops, restaurants, travel), asking questions",
+      "Past tense (Perfekt), longer conversations, listening to simple texts",
+      "Vocabulary expanded to A2 level, reading simple texts",
+      "Practice and prep for the exam or real conversation, full A2 recap"
+    ],
+    "weekTitle": "Month 1, broken into weeks",
+    "weeks": [
+      "Alphabet, pronunciation, greetings and basic phrases",
+      "Numbers 1–100, days of the week, months",
+      "First 50 most common words + simple phrases",
+      "Another 50 words, recap the month, self-test"
+    ],
+    "dayTitle": "Week 1, Monday",
+    "days": [
+      { "type": "action", "text": "Go through the alphabet and its pronunciation (20 min)" },
+      { "type": "action", "text": "Learn 5 basic greetings and phrases" },
+      { "type": "reflection", "text": "10 minutes — write down what was hardest to remember today" }
+    ],
+    "fullOnly": "Full version only"
+  },
+  "pricing": {
+    "title": "One plan. No tiers, no upsells.",
+    "subtitle": "Everyone uses this for the same thing, so there's nothing to upgrade to.",
+    "price": "179 CZK",
+    "period": "/ month",
+    "yearlyNote": "Or pay yearly and get two months free.",
+    "cta": "Get started",
+    "includes": [
+      "Unlimited goals, planned together without collisions",
+      "Monthly, weekly and daily breakdown for every goal",
+      "Daily checklist with rest and reflection built in",
+      "Adaptive re-planning when your pace changes",
+      "Milestones with your own or AI-suggested rewards"
+    ],
+    "limitsTitle": "About AI usage limits",
+    "limitsBody": "There's a monthly cap on AI usage per account. It exists to stop abuse — a script hammering the AI to burn through our costs — not to ration normal use. No realistic use case, even with several goals running at once, comes close to it. The cap and its purpose are spelled out in the terms of service."
+  },
+  "finalCta": {
+    "title": "Your goal already has a deadline.",
+    "subtitle": "It just doesn't have a plan yet. That part takes about a minute.",
+    "ctaDemo": "Try the demo",
+    "ctaBuy": "Get started"
+  },
+  "footer": {
+    "tagline": "Turn any goal into today's checklist.",
+    "product": "Product",
+    "legal": "Legal",
+    "terms": "Terms of service",
+    "privacy": "Privacy policy",
+    "contact": "Contact",
+    "rights": "All rights reserved.",
+    "madeWith": "Planning is a skill. We just gave you the scaffolding."
+  },
+  "demo": {
+    "badge": "Demo",
+    "title": "See your goal broken down",
+    "subtitle": "Enter one goal and a deadline. The AI returns the monthly skeleton of your plan — no account, no card.",
+    "form": {
+      "goalLabel": "What's your goal?",
+      "goalPlaceholder": "e.g. Reach A2 in German, or build a team of 20 partners",
+      "goalHint": "One sentence is enough. The more concrete, the better the plan.",
+      "dateLabel": "By when?",
+      "dateHint": "Pick a date between one month and three years from now.",
+      "submit": "Break it down",
+      "submitting": "Building your plan…",
+      "again": "Try another goal"
+    },
+    "errors": {
+      "goalRequired": "Please describe your goal.",
+      "goalTooShort": "Give us a little more to work with — at least a few words.",
+      "goalTooLong": "That's a bit long. Keep it under 300 characters.",
+      "dateRequired": "Please pick a target date.",
+      "dateTooSoon": "Pick a date at least a month out — anything shorter isn't a plan, it's a sprint.",
+      "dateTooFar": "Pick a date within the next three years.",
+      "rateLimited": "You've used up the free demo runs for now. Try again in an hour, or get the full version.",
+      "aiFailed": "The plan couldn't be generated right now. Please try again in a moment.",
+      "generic": "Something went wrong. Please try again."
+    },
+    "result": {
+      "title": "Your monthly breakdown",
+      "goalLabel": "Goal",
+      "deadlineLabel": "Deadline",
+      "monthsLabel": "{count, plural, one {# month} other {# months}}",
+      "monthLabel": "Month {n}",
+      "noticeTitle": "This is a simplified preview",
+      "noticeBody": "You're seeing the monthly layout only. The full version breaks every month into weeks and every week into concrete daily tasks that land straight in your checklist — then tracks your progress, adapts the pace, and lets you run several goals side by side without them colliding.",
+      "ctaTitle": "Want this for all of your goals?",
+      "ctaBody": "Saved, tracked daily, with the pace adjusting to how you actually do. 179 CZK a month.",
+      "cta": "Get started",
+      "assumptionsTitle": "What the AI assumed",
+      "aiNote": "Generated by AI from your goal and deadline. Treat it as a starting draft — in the full version you can adjust anything.",
+      "feasibility": {
+        "comfortable": "Comfortable timeframe",
+        "realistic": "Realistic timeframe",
+        "ambitious": "Ambitious timeframe",
+        "unrealistic": "Deadline doesn't fit"
+      }
+    }
+  },
+  "legal": {
+    "draftNotice": "Working draft — this text has not yet been reviewed by a lawyer and is not the final wording.",
+    "lastUpdated": "Last updated",
+    "terms": {
+      "title": "Terms of service"
+    },
+    "privacy": {
+      "title": "Privacy policy"
+    }
+  },
+  "cookies": {
+    "title": "Cookies",
+    "body": "We use cookies that are strictly necessary for the site to work. We'd also like to use analytics cookies to understand what's working — only with your consent.",
+    "acceptAll": "Accept all",
+    "necessaryOnly": "Necessary only",
+    "more": "Privacy policy"
+  },
+  "notFound": {
+    "title": "This page took a wrong turn.",
+    "body": "The page you're looking for doesn't exist — or it moved.",
+    "cta": "Back to home"
+  },
+  "error": {
+    "title": "Something broke on our side.",
+    "body": "Sorry about that. Try again — and if it keeps happening, let us know.",
+    "retry": "Try again",
+    "home": "Back to home"
+  }
+}

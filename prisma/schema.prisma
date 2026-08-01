@@ -1,0 +1,354 @@
+// Datový model AlmostThere.
+//
+// Odpovídá bodu 5 zadání, rozšířenému o entity, které jsou potřeba pro
+// právní a provozní část (souhlasy, sledování spotřeby AI, demo cíle).
+//
+// Ve fázi "landing + demo" se databáze ještě nepoužívá — schéma je tu proto,
+// aby další vrstva (registrace, platby, plné cíle) měla na čem stavět a
+// aby bylo od začátku vidět, kam produkt míří.
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Uživatel a předplatné
+// ---------------------------------------------------------------------------
+
+enum AuthProvider {
+  CREDENTIALS
+  GOOGLE
+}
+
+enum SubscriptionStatus {
+  NONE
+  TRIAL
+  ACTIVE
+  PAST_DUE
+  CANCELED
+}
+
+enum SubscriptionSource {
+  STRIPE
+  APPLE
+  GOOGLE_PLAY
+}
+
+model User {
+  id            String       @id @default(cuid())
+  email         String       @unique
+  emailVerified DateTime?
+  passwordHash  String? // null u OAuth účtů
+  authProvider  AuthProvider @default(CREDENTIALS)
+  name          String?
+
+  // Předplatné
+  subscriptionStatus SubscriptionStatus  @default(NONE)
+  subscriptionSource SubscriptionSource?
+  // Externí identifikátory pro párování webhooků
+  stripeCustomerId     String? @unique
+  stripeSubscriptionId String? @unique
+  appleOriginalTxId    String? @unique
+  googlePurchaseToken  String? @unique
+  subscriptionEndsAt   DateTime?
+
+  // Preference (zadání 5) — vstupují do AI promptu při plánování
+  restFrequency         RestFrequency @default(ONE_DAY_PER_WEEK)
+  reflectionMinutesDay  Int           @default(10)
+  dailyCapacityMinutes  Int           @default(60)
+  timezone              String        @default("Europe/Prague")
+  locale                String        @default("en")
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  // Soft delete pro retenční politiku; skutečný výmaz řeší GDPR job.
+  deletedAt DateTime?
+
+  goals          Goal[]
+  checkIns       CheckIn[]
+  consents       Consent[]
+  aiUsage        AiUsageEvent[]
+  passwordResets PasswordResetToken[]
+
+  @@index([subscriptionStatus])
+}
+
+enum RestFrequency {
+  NONE
+  ONE_DAY_PER_WEEK
+  TWO_DAYS_PER_WEEK
+  EVERY_OTHER_DAY
+}
+
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  userId    String
+  tokenHash String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+/// Záznam souhlasu s obchodními podmínkami a zpracováním osobních údajů.
+/// Uchováváme verzi dokumentu a čas — bez toho je souhlas neprokazatelný.
+model Consent {
+  id        String      @id @default(cuid())
+  userId    String
+  type      ConsentType
+  version   String
+  granted   Boolean
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime    @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, type])
+}
+
+enum ConsentType {
+  TERMS
+  PRIVACY
+  ANALYTICS_COOKIES
+  MARKETING_COOKIES
+}
+
+// ---------------------------------------------------------------------------
+// Cíle a hierarchie plánu
+// ---------------------------------------------------------------------------
+
+enum GoalStatus {
+  ACTIVE
+  PAUSED
+  COMPLETED
+  ABANDONED
+}
+
+model Goal {
+  id          String     @id @default(cuid())
+  userId      String
+  title       String
+  description String?
+  targetDate  DateTime
+  status      GoalStatus @default(ACTIVE)
+
+  /// Váha pro harmonizaci více cílů — kolik z denní kapacity smí cíl brát.
+  priorityWeight Int @default(50)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  timeBlocks   TimeBlock[]
+  tasks        Task[]
+  milestones   Milestone[]
+  replanEvents ReplanEvent[]
+
+  @@index([userId, status])
+}
+
+enum BlockLevel {
+  MONTH
+  WEEK
+  DAY
+}
+
+/// Uzel v hierarchii plánu. Self-reference přes parentBlockId:
+/// měsíc → týdny → dny.
+model TimeBlock {
+  id            String     @id @default(cuid())
+  goalId        String
+  level         BlockLevel
+  startDate     DateTime   @db.Date
+  endDate       DateTime   @db.Date
+  /// Co má být na konci bloku hotové.
+  summary       String
+  parentBlockId String?
+  /// Pořadí v rámci rodiče (měsíc 1, 2, 3…; týden 1, 2…).
+  position      Int        @default(0)
+
+  createdAt DateTime @default(now())
+
+  goal       Goal        @relation(fields: [goalId], references: [id], onDelete: Cascade)
+  parent     TimeBlock?  @relation("BlockHierarchy", fields: [parentBlockId], references: [id], onDelete: Cascade)
+  children   TimeBlock[] @relation("BlockHierarchy")
+  tasks      Task[]
+  milestones Milestone[]
+
+  @@index([goalId, level])
+  @@index([parentBlockId])
+}
+
+enum TaskType {
+  ACTION
+  REST
+  REFLECTION
+}
+
+enum TaskStatus {
+  PENDING
+  DONE
+  SKIPPED
+}
+
+model Task {
+  id          String     @id @default(cuid())
+  /// Denní blok, do kterého úkol patří.
+  timeBlockId String
+  goalId      String
+  title       String
+  description String?
+  type        TaskType   @default(ACTION)
+  status      TaskStatus @default(PENDING)
+  /// Odhad délky v minutách — vstup do rozpočtu dne napříč cíli.
+  estimatedMinutes Int?
+  completedAt DateTime?
+  position    Int        @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  timeBlock TimeBlock @relation(fields: [timeBlockId], references: [id], onDelete: Cascade)
+  goal      Goal      @relation(fields: [goalId], references: [id], onDelete: Cascade)
+
+  @@index([timeBlockId])
+  @@index([goalId, status])
+}
+
+enum RewardSource {
+  USER
+  AI_SUGGESTED
+}
+
+model Milestone {
+  id          String   @id @default(cuid())
+  goalId      String
+  timeBlockId String?
+  title       String
+  targetDate  DateTime @db.Date
+
+  rewardText    String?
+  rewardSource  RewardSource?
+  rewardClaimed Boolean       @default(false)
+  achievedAt    DateTime?
+
+  createdAt DateTime @default(now())
+
+  goal      Goal       @relation(fields: [goalId], references: [id], onDelete: Cascade)
+  timeBlock TimeBlock? @relation(fields: [timeBlockId], references: [id], onDelete: SetNull)
+
+  @@index([goalId])
+}
+
+/// Denní souhrn plnění — vstup pro vyhodnocení tempa.
+model CheckIn {
+  id             String   @id @default(cuid())
+  userId         String
+  date           DateTime @db.Date
+  tasksCompleted Int
+  tasksTotal     Int
+  note           String?
+
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, date])
+}
+
+enum ReplanReason {
+  BEHIND_SCHEDULE
+  AHEAD_OF_SCHEDULE
+  MANUAL
+  USER_DECLINED_REPLAN
+}
+
+enum ReplanScope {
+  /// „Jen časově“ — obsah zůstává, mění se rozvržení v čase.
+  SCHEDULE_ONLY
+  /// „Celkově“ — cíl se rozpadne znovu od aktuálního stavu.
+  FULL_REDECOMPOSITION
+  /// Uživatel přeplánování odmítl; ukládáme kvůli pozdějšímu kontextu.
+  NONE
+}
+
+model ReplanEvent {
+  id            String       @id @default(cuid())
+  goalId        String
+  reason        ReplanReason
+  scope         ReplanScope  @default(NONE)
+  oldTargetDate DateTime?
+  newTargetDate DateTime?
+  /// Co a proč se změnilo — uživatel to musí vidět.
+  aiSummary     String?
+  completionRate Float?
+
+  triggeredAt DateTime @default(now())
+
+  goal Goal @relation(fields: [goalId], references: [id], onDelete: Cascade)
+
+  @@index([goalId, triggeredAt])
+}
+
+// ---------------------------------------------------------------------------
+// Provoz: spotřeba AI a demo cíle
+// ---------------------------------------------------------------------------
+
+enum AiOperation {
+  DEMO_MONTHLY
+  DECOMPOSE_MONTHLY
+  DECOMPOSE_WEEKLY
+  DECOMPOSE_DAILY
+  PACE_CHECK
+  REPLAN
+  REWARD_SUGGESTION
+}
+
+/// Jeden záznam na volání AI. Součet za kalendářní měsíc slouží
+/// k vyhodnocení stropu spotřeby (zadání 9).
+model AiUsageEvent {
+  id           String      @id @default(cuid())
+  userId       String?
+  operation    AiOperation
+  model        String
+  inputTokens  Int
+  outputTokens Int
+  /// Odhad nákladů v haléřích, ať se nepočítá s plovoucí desetinnou čárkou.
+  costHellers  Int         @default(0)
+
+  createdAt DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+}
+
+/// Cíl zadaný v demu — drží se odděleně od plnohodnotných Goal záznamů
+/// (zadání 8) a slouží k převzetí do plné verze po zaplacení.
+model DemoGoal {
+  id         String   @id @default(cuid())
+  title      String
+  targetDate DateTime @db.Date
+  locale     String
+  /// Měsíční rozpad tak, jak ho vrátila AI.
+  months     Json
+  /// Hash IP pro rate limiting a antifraud — neukládáme IP v čitelné podobě.
+  ipHash     String?
+  /// Po převzetí do plné verze odkaz na vzniklý cíl.
+  claimedByGoalId String?
+
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+
+  @@index([expiresAt])
+}

@@ -1,0 +1,16 @@
+node_modules
+.next
+.git
+.github
+.env
+.env.local
+.env.*.local
+npm-debug.log*
+README.md
+zadani-goal-app.md
+deploy
+.vscode
+.idea
+Dockerfile
+docker-compose.yml
+.dockerignore

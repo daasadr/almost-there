@@ -1,0 +1,206 @@
+{
+  "meta": {
+    "title": "AlmostThere — aus jedem Ziel wird die Checkliste für heute",
+    "description": "Die KI zerlegt dein Ziel in Monatsmeilensteine, Wochenziele und konkrete Tagesaufgaben. Pausen und Reflexion gehören zum Plan, das Tempo passt sich an, wie es tatsächlich läuft."
+  },
+  "nav": {
+    "howItWorks": "So funktioniert's",
+    "features": "Warum AlmostThere",
+    "pricing": "Preis",
+    "demo": "Demo testen",
+    "buy": "Jetzt starten",
+    "backHome": "Zurück zur Startseite",
+    "language": "Sprache"
+  },
+  "hero": {
+    "eyebrow": "Ziel → Monate → Wochen → heute",
+    "title": "Du bist fast da.",
+    "titleAccent": "An jedem einzelnen Tag.",
+    "subtitle": "Nenn uns dein Ziel und deine Frist. Die KI zerlegt beides in Monatsmeilensteine, Wochenziele und eine Tagescheckliste, die man wirklich abhaken kann — mit Pausen und Reflexion fest im Plan, nicht nachträglich drangeklebt.",
+    "ctaDemo": "Demo testen",
+    "ctaBuy": "Jetzt starten",
+    "ctaNote": "Die Demo braucht kein Konto. In unter einer Minute siehst du, wie sich dein Ziel aufteilt.",
+    "trustLine": "Für Networker, Freelancer, Gründerinnen und Langzeitprüflinge."
+  },
+  "how": {
+    "title": "Ein Ziel. Drei Ebenen. Die Liste für heute.",
+    "subtitle": "Das ganze Produkt steht und fällt mit der Qualität dieser Zerlegung — deshalb steckt dort die meiste Arbeit.",
+    "steps": [
+      {
+        "step": "01",
+        "title": "Du legst Ziel und Datum fest",
+        "body": "„Bis Jahresende Deutsch auf A2.“ Das reicht. Sag noch, wie viel Pause und Reflexion du willst, den Rest übernehmen wir."
+      },
+      {
+        "step": "02",
+        "title": "Die KI baut das Gerüst",
+        "body": "Zuerst die Monatsmeilensteine — was am Ende jedes Monats fertig sein muss, damit die Frist hält. Dann teilt sich jeder Monat in Wochenziele auf."
+      },
+      {
+        "step": "03",
+        "title": "Du bekommst die Checkliste für heute",
+        "body": "Konkrete Aufgaben für heute, zugeschnitten auf die Zeit, die du wirklich hast. Ruhetage und Reflexionsblöcke stehen als Punkte auf der Liste, nicht als Lücken dazwischen."
+      }
+    ]
+  },
+  "features": {
+    "title": "Was den Unterschied macht",
+    "subtitle": "Keine weitere To-do-Liste. Ein Planer, der mit dem echten Leben mithält.",
+    "items": [
+      {
+        "title": "Eine Zerlegung von oben nach unten, die trägt",
+        "body": "Ziel → Monate → Wochen → Tage. Jede Ebene leitet sich aus der darüber ab — die Aufgabe, die du heute abhakst, bringt die Frist nachweislich näher."
+      },
+      {
+        "title": "Mehrere Ziele, ein ehrlicher Tag",
+        "body": "Dein Tag ist ein festes Budget, das sich alle Ziele teilen. AlmostThere plant über alle gleichzeitig, damit nicht zwei Ziele still denselben Abend beanspruchen."
+      },
+      {
+        "title": "Erholung gehört zum Plan",
+        "body": "Sag, dass du einen aufgabenfreien Tag pro Woche willst oder zehn Minuten Reflexion täglich — und die KI plant darum herum. Erholung erscheint als Punkt auf der Checkliste, denn ein Plan ohne Regeneration ist ein Plan, den du abbrichst."
+      },
+      {
+        "title": "Das Tempo passt sich dir an",
+        "body": "Wir verfolgen, wie viel du tatsächlich schaffst. Zwei Wochen hinterher? Du bekommst die Wahl: Plan verlangsamen, Datum verschieben oder unverändert weitermachen. Nichts wird jemals hinter deinem Rücken umgeplant."
+      },
+      {
+        "title": "Meilensteine, auf die du dich freust",
+        "body": "Häng an jeden Meilenstein deine eigene Belohnung — oder lass dir von der KI ein paar vorschlagen, passend zu dem, was du gerade geschafft hast. Kleiner Erfolg, kleine Belohnung. Großer, große."
+      }
+    ]
+  },
+  "example": {
+    "title": "So sieht eine Zerlegung aus",
+    "subtitle": "Ziel: Deutsch auf A2. Frist: sechs Monate. Ein freier Tag pro Woche, zehn Minuten Reflexion täglich.",
+    "monthLabel": "Monat {n}",
+    "months": [
+      "Grundwortschatz (Begrüßungen, Zahlen, Wochentage), Alphabet und Aussprache, die 100 häufigsten Wörter",
+      "Präsens regelmäßiger und unregelmäßiger Verben, einfache Sätze über sich selbst",
+      "Wortschatz für Alltagssituationen (Geschäft, Restaurant, Reisen), Fragen stellen",
+      "Vergangenheit (Perfekt), längere Gespräche, Hörverstehen einfacher Texte",
+      "Wortschatz auf A2-Niveau erweitern, einfache Texte lesen",
+      "Üben und Vorbereitung auf Prüfung oder echtes Gespräch, gesamter A2-Stoff im Rückblick"
+    ],
+    "weekTitle": "Monat 1, aufgeteilt in Wochen",
+    "weeks": [
+      "Alphabet, Aussprache, Begrüßungen und Grundfloskeln",
+      "Zahlen 1–100, Wochentage, Monate",
+      "Die ersten 50 häufigsten Wörter + einfache Wendungen",
+      "Weitere 50 Wörter, Monat wiederholen, Selbsttest"
+    ],
+    "dayTitle": "Woche 1, Montag",
+    "days": [
+      { "type": "action", "text": "Alphabet und Aussprache durchgehen (20 Min.)" },
+      { "type": "action", "text": "5 grundlegende Begrüßungen und Wendungen lernen" },
+      { "type": "reflection", "text": "10 Minuten — aufschreiben, was heute am schwersten zu merken war" }
+    ],
+    "fullOnly": "Nur in der Vollversion"
+  },
+  "pricing": {
+    "title": "Ein Tarif. Keine Stufen, keine Zusatzkäufe.",
+    "subtitle": "Alle nutzen es für dasselbe — es gibt also nichts zum Upgraden.",
+    "price": "179 CZK",
+    "period": "/ Monat",
+    "yearlyNote": "Oder jährlich zahlen und zwei Monate geschenkt bekommen.",
+    "cta": "Jetzt starten",
+    "includes": [
+      "Unbegrenzt viele Ziele, gemeinsam und kollisionsfrei geplant",
+      "Monats-, Wochen- und Tageszerlegung für jedes Ziel",
+      "Tagescheckliste mit eingebauter Erholung und Reflexion",
+      "Adaptive Umplanung, wenn sich dein Tempo ändert",
+      "Meilensteine mit eigener oder KI-vorgeschlagener Belohnung"
+    ],
+    "limitsTitle": "Zu den Limits der KI-Nutzung",
+    "limitsBody": "Pro Konto gilt eine monatliche Obergrenze für die KI-Nutzung. Sie existiert, um Missbrauch zu verhindern — etwa ein Skript, das gezielt unsere Kosten verbrennt — nicht um normale Nutzung zu rationieren. Kein realistischer Anwendungsfall kommt ihr nahe, auch nicht bei mehreren gleichzeitigen Zielen. Die Obergrenze und ihr Zweck stehen in den AGB."
+  },
+  "finalCta": {
+    "title": "Dein Ziel hat schon eine Frist.",
+    "subtitle": "Nur noch keinen Plan. Das dauert ungefähr eine Minute.",
+    "ctaDemo": "Demo testen",
+    "ctaBuy": "Jetzt starten"
+  },
+  "footer": {
+    "tagline": "Aus jedem Ziel wird die Checkliste für heute.",
+    "product": "Produkt",
+    "legal": "Rechtliches",
+    "terms": "AGB",
+    "privacy": "Datenschutzerklärung",
+    "contact": "Kontakt",
+    "rights": "Alle Rechte vorbehalten.",
+    "madeWith": "Planen ist eine Fähigkeit. Wir liefern nur das Gerüst."
+  },
+  "demo": {
+    "badge": "Demo",
+    "title": "Sieh, wie sich dein Ziel aufteilt",
+    "subtitle": "Gib ein Ziel und eine Frist ein. Die KI liefert das Monatsgerüst deines Plans — ohne Konto, ohne Karte.",
+    "form": {
+      "goalLabel": "Was ist dein Ziel?",
+      "goalPlaceholder": "z. B. Deutsch auf A2 lernen oder ein Team aus 20 Partnern aufbauen",
+      "goalHint": "Ein Satz genügt. Je konkreter, desto besser der Plan.",
+      "dateLabel": "Bis wann?",
+      "dateHint": "Wähle ein Datum zwischen einem Monat und drei Jahren ab heute.",
+      "submit": "Ziel zerlegen",
+      "submitting": "Plan wird gebaut…",
+      "again": "Anderes Ziel probieren"
+    },
+    "errors": {
+      "goalRequired": "Bitte beschreibe dein Ziel.",
+      "goalTooShort": "Schreib bitte etwas mehr — mindestens ein paar Wörter.",
+      "goalTooLong": "Das ist etwas lang. Bitte unter 300 Zeichen bleiben.",
+      "dateRequired": "Bitte wähle ein Zieldatum.",
+      "dateTooSoon": "Wähle ein Datum mindestens einen Monat voraus — alles Kürzere ist kein Plan, sondern ein Sprint.",
+      "dateTooFar": "Wähle ein Datum innerhalb der nächsten drei Jahre.",
+      "rateLimited": "Die freien Demo-Durchläufe sind vorerst aufgebraucht. Versuch es in einer Stunde erneut oder hol dir die Vollversion.",
+      "aiFailed": "Der Plan konnte gerade nicht erzeugt werden. Bitte versuch es gleich noch einmal.",
+      "generic": "Etwas ist schiefgelaufen. Bitte versuch es erneut."
+    },
+    "result": {
+      "title": "Deine Monatszerlegung",
+      "goalLabel": "Ziel",
+      "deadlineLabel": "Frist",
+      "monthsLabel": "{count, plural, one {# Monat} other {# Monate}}",
+      "monthLabel": "Monat {n}",
+      "noticeTitle": "Das ist eine vereinfachte Vorschau",
+      "noticeBody": "Du siehst nur die Monatsaufteilung. Die Vollversion zerlegt jeden Monat in Wochen und jede Woche in konkrete Tagesaufgaben, die direkt in deiner Checkliste landen — verfolgt dann deinen Fortschritt, passt das Tempo an und lässt dich mehrere Ziele nebeneinander führen, ohne dass sie kollidieren.",
+      "ctaTitle": "Willst du das für all deine Ziele?",
+      "ctaBody": "Gespeichert, täglich verfolgt, mit einem Tempo, das sich anpasst. 179 CZK im Monat.",
+      "cta": "Jetzt starten",
+      "assumptionsTitle": "Wovon die KI ausgegangen ist",
+      "aiNote": "Von der KI aus deinem Ziel und deiner Frist erzeugt. Betrachte es als ersten Entwurf — in der Vollversion kannst du alles anpassen.",
+      "feasibility": {
+        "comfortable": "Frist mit Puffer",
+        "realistic": "Realistische Frist",
+        "ambitious": "Ambitionierte Frist",
+        "unrealistic": "Frist passt nicht"
+      }
+    }
+  },
+  "legal": {
+    "draftNotice": "Arbeitsentwurf — dieser Text wurde noch nicht juristisch geprüft und ist nicht die endgültige Fassung.",
+    "lastUpdated": "Zuletzt aktualisiert",
+    "terms": {
+      "title": "Allgemeine Geschäftsbedingungen"
+    },
+    "privacy": {
+      "title": "Datenschutzerklärung"
+    }
+  },
+  "cookies": {
+    "title": "Cookies",
+    "body": "Wir verwenden Cookies, die für den Betrieb der Seite unbedingt nötig sind. Analyse-Cookies würden wir gern nutzen, um zu verstehen, was funktioniert — aber nur mit deiner Einwilligung.",
+    "acceptAll": "Alle akzeptieren",
+    "necessaryOnly": "Nur notwendige",
+    "more": "Datenschutzerklärung"
+  },
+  "notFound": {
+    "title": "Diese Seite hat falsch abgebogen.",
+    "body": "Die gesuchte Seite gibt es nicht — oder sie ist umgezogen.",
+    "cta": "Zurück zur Startseite"
+  },
+  "error": {
+    "title": "Bei uns ist etwas kaputtgegangen.",
+    "body": "Tut uns leid. Versuch es noch einmal — und wenn es wieder passiert, sag uns Bescheid.",
+    "retry": "Erneut versuchen",
+    "home": "Zurück zur Startseite"
+  }
+}

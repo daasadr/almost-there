@@ -1,0 +1,206 @@
+{
+  "meta": {
+    "title": "AlmostThere — z velkého cíle dnešní checklist",
+    "description": "AI rozloží tvůj cíl na měsíční milníky, týdenní cíle a konkrétní denní úkoly. Odpočinek a reflexe jsou součástí plánu, tempo se přizpůsobí tomu, jak ti to reálně jde."
+  },
+  "nav": {
+    "howItWorks": "Jak to funguje",
+    "features": "Proč AlmostThere",
+    "pricing": "Cena",
+    "demo": "Vyzkoušet demo",
+    "buy": "Koupit rovnou",
+    "backHome": "Zpět na úvod",
+    "language": "Jazyk"
+  },
+  "hero": {
+    "eyebrow": "Cíl → měsíce → týdny → dnešek",
+    "title": "Už tam skoro jsi.",
+    "titleAccent": "Každý jednotlivý den.",
+    "subtitle": "Řekni nám svůj cíl a termín. AI ho rozloží na měsíční milníky, týdenní cíle a denní checklist, který se dá reálně odškrtat — s odpočinkem a reflexí zabudovanými přímo v plánu, ne přilepenými navrch.",
+    "ctaDemo": "Vyzkoušet demo",
+    "ctaBuy": "Koupit rovnou",
+    "ctaNote": "Demo je bez registrace. Za necelou minutu uvidíš, jak se tvůj cíl rozpadne.",
+    "trustLine": "Pro networkery, freelancery, podnikatele a studenty dlouhých zkoušek."
+  },
+  "how": {
+    "title": "Jeden cíl. Tři úrovně. Dnešní seznam.",
+    "subtitle": "Na kvalitě tohohle rozpadu stojí a padá celý produkt, takže jsme do něj dali nejvíc práce.",
+    "steps": [
+      {
+        "step": "01",
+        "title": "Zadáš cíl a termín",
+        "body": "„Do konce roku němčina na úrovni A2.“ To stačí. Přidáš, jak často chceš odpočívat a přemýšlet, a zbytek je na nás."
+      },
+      {
+        "step": "02",
+        "title": "AI postaví kostru",
+        "body": "Nejdřív měsíční milníky — co musí být hotové na konci každého měsíce, aby termín vyšel. Pak se každý měsíc rozpadne na týdenní cíle."
+      },
+      {
+        "step": "03",
+        "title": "Dostaneš dnešní checklist",
+        "body": "Konkrétní úkoly na dnešek, velikostně na čas, který reálně máš. Dny volna a bloky reflexe jsou položky v seznamu, ne mezery mezi nimi."
+      }
+    ]
+  },
+  "features": {
+    "title": "V čem je to jiné",
+    "subtitle": "Ne další seznam úkolů. Plánovač, který stíhá skutečný život.",
+    "items": [
+      {
+        "title": "Rozpad shora dolů, který drží",
+        "body": "Cíl → měsíce → týdny → dny. Každá úroveň vychází z té nad sebou, takže úkol, který dnes odškrtneš, prokazatelně posouvá termín blíž."
+      },
+      {
+        "title": "Víc cílů, jeden poctivý den",
+        "body": "Den je pevný rozpočet, o který se dělí všechny tvoje cíle. AlmostThere plánuje napříč nimi současně, takže dva cíle si potichu nenárokují stejný večer."
+      },
+      {
+        "title": "Odpočinek je součást plánu",
+        "body": "Řekneš, že chceš jeden den v týdnu bez úkolů nebo deset minut reflexe denně — a AI plánuje kolem toho. Odpočinek se objeví jako položka v checklistu, protože plán, který ignoruje regeneraci, je plán, který vzdáš."
+      },
+      {
+        "title": "Tempo se přizpůsobí tobě",
+        "body": "Sledujeme, kolik toho reálně stihneš. Dva týdny nestíháš? Dostaneš na výběr: zpomalit plán, posunout termín, nebo jet dál beze změny. Nic se nikdy nepřeplánuje za tvými zády."
+      },
+      {
+        "title": "Milníky, na které se těšíš",
+        "body": "Ke každému milníku si přiřaď vlastní odměnu — nebo si nech od AI navrhnout pár variant přiměřených tomu, co jsi právě zvládl. Malý úspěch, malá odměna. Velký velkou."
+      }
+    ]
+  },
+  "example": {
+    "title": "Jak takový rozpad vypadá",
+    "subtitle": "Cíl: němčina na úrovni A2. Termín: šest měsíců. Jeden den v týdnu volno, deset minut reflexe denně.",
+    "monthLabel": "Měsíc {n}",
+    "months": [
+      "Základní slovní zásoba (pozdravy, čísla, dny), abeceda a výslovnost, 100 nejčastějších slov",
+      "Přítomný čas pravidelných i nepravidelných sloves, jednoduché věty o sobě",
+      "Slovní zásoba běžných situací (obchod, restaurace, cestování), otázky",
+      "Minulý čas (perfektum), delší konverzace, poslech jednoduchých textů",
+      "Rozšíření slovní zásoby na úroveň A2, čtení jednoduchých textů",
+      "Procvičení a příprava na zkoušku či reálnou konverzaci, zopakování celého A2"
+    ],
+    "weekTitle": "Měsíc 1 rozložený na týdny",
+    "weeks": [
+      "Abeceda, výslovnost, pozdravy a základní fráze",
+      "Čísla 1–100, dny v týdnu, měsíce",
+      "Prvních 50 nejčastějších slov + jednoduché fráze",
+      "Dalších 50 slov, zopakování měsíce, mini test sám sobě"
+    ],
+    "dayTitle": "Týden 1, pondělí",
+    "days": [
+      { "type": "action", "text": "Projít abecedu a její výslovnost (20 min)" },
+      { "type": "action", "text": "Naučit se 5 základních pozdravů a frází" },
+      { "type": "reflection", "text": "10 minut — zapsat si, co bylo dnes nejtěžší zapamatovat" }
+    ],
+    "fullOnly": "Jen v plné verzi"
+  },
+  "pricing": {
+    "title": "Jeden tarif. Žádné úrovně, žádné dokupování.",
+    "subtitle": "Všichni to používají na totéž, takže není na co upgradovat.",
+    "price": "179 Kč",
+    "period": "/ měsíc",
+    "yearlyNote": "Nebo roční platba a dva měsíce zdarma.",
+    "cta": "Koupit rovnou",
+    "includes": [
+      "Neomezeně cílů, plánovaných společně bez kolizí",
+      "Měsíční, týdenní i denní rozpad pro každý cíl",
+      "Denní checklist se zabudovaným odpočinkem a reflexí",
+      "Adaptivní přeplánování, když se změní tvoje tempo",
+      "Milníky s vlastní nebo AI navrženou odměnou"
+    ],
+    "limitsTitle": "K limitům použití AI",
+    "limitsBody": "Na účet platí měsíční strop spotřeby AI. Existuje proto, aby zabránil zneužití — třeba skriptu, který by cíleně pálil naše náklady — ne aby přiděloval běžné používání. Žádný reálný způsob použití, ani při několika souběžných cílech, se k němu nepřiblíží. Strop i jeho účel jsou popsané v obchodních podmínkách."
+  },
+  "finalCta": {
+    "title": "Tvůj cíl už termín má.",
+    "subtitle": "Jenom zatím nemá plán. To je práce asi na minutu.",
+    "ctaDemo": "Vyzkoušet demo",
+    "ctaBuy": "Koupit rovnou"
+  },
+  "footer": {
+    "tagline": "Z velkého cíle dnešní checklist.",
+    "product": "Produkt",
+    "legal": "Právní informace",
+    "terms": "Obchodní podmínky",
+    "privacy": "Zásady ochrany osobních údajů",
+    "contact": "Kontakt",
+    "rights": "Všechna práva vyhrazena.",
+    "madeWith": "Plánování je dovednost. My jsme jen dodali lešení."
+  },
+  "demo": {
+    "badge": "Demo",
+    "title": "Podívej se, jak se tvůj cíl rozpadne",
+    "subtitle": "Zadej jeden cíl a termín. AI vrátí měsíční kostru tvého plánu — bez registrace, bez karty.",
+    "form": {
+      "goalLabel": "Jaký je tvůj cíl?",
+      "goalPlaceholder": "např. Naučit se němčinu na úroveň A2 nebo vybudovat tým 20 partnerů",
+      "goalHint": "Stačí jedna věta. Čím konkrétnější, tím lepší plán.",
+      "dateLabel": "Do kdy?",
+      "dateHint": "Vyber datum mezi měsícem a třemi lety od dneška.",
+      "submit": "Rozložit cíl",
+      "submitting": "Sestavuju plán…",
+      "again": "Zkusit jiný cíl"
+    },
+    "errors": {
+      "goalRequired": "Popiš prosím svůj cíl.",
+      "goalTooShort": "Napiš toho o kousek víc — alespoň pár slov.",
+      "goalTooLong": "To je trochu dlouhé. Vejdi se prosím do 300 znaků.",
+      "dateRequired": "Vyber prosím cílové datum.",
+      "dateTooSoon": "Vyber datum aspoň měsíc dopředu — cokoliv kratšího není plán, ale sprint.",
+      "dateTooFar": "Vyber datum v horizontu tří let.",
+      "rateLimited": "Vyčerpal jsi zatím volná demo generování. Zkus to za hodinu, nebo pořiď plnou verzi.",
+      "aiFailed": "Plán se teď nepodařilo vygenerovat. Zkus to prosím za chvíli znovu.",
+      "generic": "Něco se pokazilo. Zkus to prosím znovu."
+    },
+    "result": {
+      "title": "Tvůj měsíční rozpad",
+      "goalLabel": "Cíl",
+      "deadlineLabel": "Termín",
+      "monthsLabel": "{count, plural, one {# měsíc} few {# měsíce} other {# měsíců}}",
+      "monthLabel": "Měsíc {n}",
+      "noticeTitle": "Toto je zjednodušená ukázka",
+      "noticeBody": "Vidíš pouze měsíční rozvržení. Plná verze rozloží každý měsíc na týdny a každý týden na konkrétní denní úkoly, které rovnou uvidíš v checklistu — pak sleduje tvůj postup, přizpůsobuje tempo a umí vést několik cílů vedle sebe, aniž by se srazily.",
+      "ctaTitle": "Chceš tohle mít pro všechny svoje cíle?",
+      "ctaBody": "Uložené, s denním trackingem a tempem, které se přizpůsobí tomu, jak ti to jde. 179 Kč měsíčně.",
+      "cta": "Koupit rovnou",
+      "assumptionsTitle": "Z čeho AI vycházela",
+      "aiNote": "Vygenerováno AI z tvého cíle a termínu. Ber to jako výchozí návrh — v plné verzi si můžeš upravit cokoliv.",
+      "feasibility": {
+        "comfortable": "Termín s rezervou",
+        "realistic": "Reálný termín",
+        "ambitious": "Ambiciózní termín",
+        "unrealistic": "Termín nevychází"
+      }
+    }
+  },
+  "legal": {
+    "draftNotice": "Pracovní návrh — text zatím neprošel kontrolou právníka a není finálním zněním.",
+    "lastUpdated": "Poslední aktualizace",
+    "terms": {
+      "title": "Obchodní podmínky"
+    },
+    "privacy": {
+      "title": "Zásady ochrany osobních údajů"
+    }
+  },
+  "cookies": {
+    "title": "Cookies",
+    "body": "Používáme cookies nezbytné pro fungování webu. Rádi bychom používali i analytické cookies, abychom věděli, co funguje — ale jen s tvým souhlasem.",
+    "acceptAll": "Přijmout vše",
+    "necessaryOnly": "Jen nezbytné",
+    "more": "Zásady ochrany osobních údajů"
+  },
+  "notFound": {
+    "title": "Tahle stránka někde odbočila.",
+    "body": "Stránka, kterou hledáš, neexistuje — nebo se přesunula.",
+    "cta": "Zpět na úvod"
+  },
+  "error": {
+    "title": "Něco se nám rozbilo.",
+    "body": "Omlouváme se. Zkus to znovu — a jestli se to bude opakovat, dej nám vědět.",
+    "retry": "Zkusit znovu",
+    "home": "Zpět na úvod"
+  }
+}

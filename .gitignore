@@ -1,0 +1,43 @@
+# dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# next.js
+.next/
+out/
+build/
+next-env.d.ts
+
+# production
+dist/
+
+# env — NIKDY necommitovat skutečné klíče
+.env
+.env.local
+.env.*.local
+.env.production
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# testing
+coverage/
+
+# prisma
+prisma/*.db
+prisma/*.db-journal
+
+# misc
+*.pem
+.vercel
+tsconfig.tsbuildinfo

@@ -1,0 +1,60 @@
+# Produkční sestava pro Hetzner VPS.
+#
+# Aplikace naslouchá jen na localhost:3000 — do světa ji pouští nginx,
+# který běží mimo Docker a řeší TLS (viz deploy/nginx.conf.example).
+#
+# Hodnoty se berou ze souboru .env vedle tohoto compose souboru.
+
+services:
+  app:
+    build:
+      context: .
+      args:
+        NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL}
+    image: almostthere:latest
+    restart: unless-stopped
+    ports:
+      # Jen loopback: kdyby port zůstal otevřený do internetu,
+      # obešel by se tím nginx i TLS.
+      - "127.0.0.1:3000:3000"
+    environment:
+      NODE_ENV: production
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+      ANTHROPIC_MODEL: ${ANTHROPIC_MODEL:-claude-opus-5}
+      ANTHROPIC_EFFORT: ${ANTHROPIC_EFFORT:-medium}
+      DEMO_RATE_LIMIT_PER_HOUR: ${DEMO_RATE_LIMIT_PER_HOUR:-5}
+      DEMO_MOCK: ${DEMO_MOCK:-false}
+      NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL}
+      DATABASE_URL: ${DATABASE_URL}
+    depends_on:
+      db:
+        condition: service_healthy
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # Databáze zatím nikdo nepoužívá — běží proto, aby byla připravená
+  # na další vrstvu (registrace, plné cíle) a aby se datový svazek
+  # vytvořil dřív, než v něm budou reálná data.
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-almostthere}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB:-almostthere}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-almostthere}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    # Port ven nevystavujeme — do databáze se dostaneš přes `docker compose exec`
+    # nebo přes SSH tunel, ne z internetu.
+
+volumes:
+  pgdata:
