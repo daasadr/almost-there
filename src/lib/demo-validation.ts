@@ -7,8 +7,15 @@ import { locales } from "@/i18n/routing";
  * v překladech — server nikdy neposílá hotový text, jen kód.
  */
 
-export const MIN_DAYS_AHEAD = 28;
-export const MAX_DAYS_AHEAD = 365 * 3;
+/**
+ * Kratší než dva týdny už není plán, ale seznam úkolů na tenhle týden —
+ * a delší než deset let je věštění, ne plánování. Uvnitř tohohle rozpětí
+ * si horní úroveň rozpadu (roky / měsíce / týdny) volí sama dekompozice.
+ */
+export const MIN_DAYS_AHEAD = 14;
+/** 366 × 10, ne 365 × 10 — jinak by kvůli přestupným rokům neprošlo
+ *  datum „přesně za deset let“, které si uživatel vybere v kalendáři. */
+export const MAX_DAYS_AHEAD = 366 * 10;
 export const MAX_GOAL_LENGTH = 300;
 export const MIN_GOAL_LENGTH = 8;
 

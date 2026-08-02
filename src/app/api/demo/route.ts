@@ -11,9 +11,9 @@ import {
   validateTargetDate,
   type DemoErrorKey,
 } from "@/lib/demo-validation";
-import { decomposeIntoMonths } from "@/lib/ai/decompose";
-import { mockDecomposeIntoMonths } from "@/lib/ai/mock";
-import type { MonthlyPlan } from "@/lib/ai/schemas";
+import { decomposeGoal } from "@/lib/ai/decompose";
+import { mockDecomposeGoal } from "@/lib/ai/mock";
+import type { Plan } from "@/lib/ai/schemas";
 
 /**
  * Demo endpoint — fáze 1 rozpadu (měsíční milníky) bez registrace.
@@ -26,7 +26,7 @@ export const runtime = "nodejs";
 // Rozpad trvá řádově desítky sekund; výchozí limit by ho uřízl.
 export const maxDuration = 120;
 
-type DemoSuccess = { ok: true; plan: MonthlyPlan };
+type DemoSuccess = { ok: true; plan: Plan };
 type DemoFailure = { ok: false; error: DemoErrorKey };
 
 function fail(error: DemoErrorKey, status: number) {
@@ -72,12 +72,12 @@ export async function POST(request: Request) {
 
   try {
     const result = env.demoMock
-      ? await mockDecomposeIntoMonths({
+      ? await mockDecomposeGoal({
           goal: goal.trim(),
           targetDate,
           locale,
         })
-      : await decomposeIntoMonths({
+      : await decomposeGoal({
           goal: goal.trim(),
           targetDate,
           locale,

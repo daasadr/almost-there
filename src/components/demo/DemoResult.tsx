@@ -2,7 +2,7 @@
 
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import type { MonthlyPlan } from "@/lib/ai/schemas";
+import type { Plan } from "@/lib/ai/schemas";
 
 /**
  * Výstup dema — pouze měsíční rozpad (fáze 1).
@@ -17,7 +17,7 @@ export function DemoResult({
   targetDate,
   onReset,
 }: {
-  plan: MonthlyPlan;
+  plan: Plan;
   goal: string;
   targetDate: string;
   onReset: () => void;
@@ -55,7 +55,7 @@ export function DemoResult({
               {formattedDate}
             </dd>
             <dd className="mt-1 text-sm text-[var(--color-paper-faint)]">
-              {t("monthsLabel", { count: plan.months.length })}
+              {t(`levels.${plan.level}.count`, { count: plan.periods.length })}
             </dd>
           </div>
         </dl>
@@ -72,15 +72,16 @@ export function DemoResult({
         </div>
       </header>
 
-      {/* Měsíční osa — jediná úroveň, kterou demo generuje */}
+      {/* Osa nejvyšší úrovně — jediná, kterou demo generuje. Jednotka se
+          řídí délkou horizontu: u dlouhých cílů roky, u krátkých týdny. */}
       <ol className="card divide-y divide-white/5 p-2">
-        {plan.months.map((month) => (
-          <li key={month.index} className="flex gap-5 p-5 sm:p-6">
+        {plan.periods.map((period) => (
+          <li key={period.index} className="flex gap-5 p-5 sm:p-6">
             <div className="flex shrink-0 flex-col items-center">
               <span className="flex h-9 w-9 items-center justify-center rounded-full border border-[color-mix(in_oklab,var(--color-lime-glow)_30%,transparent)] text-sm font-semibold text-[var(--color-lime-soft)]">
-                {month.index}
+                {period.index}
               </span>
-              {month.index < plan.months.length && (
+              {period.index < plan.periods.length && (
                 <span
                   aria-hidden="true"
                   className="mt-2 w-px flex-1 bg-gradient-to-b from-[color-mix(in_oklab,var(--color-emerald-glow)_35%,transparent)] to-transparent"
@@ -88,9 +89,12 @@ export function DemoResult({
               )}
             </div>
             <div className="min-w-0 pb-1">
-              <h3 className="display text-lg">{month.title}</h3>
+              <p className="text-xs font-semibold uppercase tracking-wider text-[var(--color-paper-faint)]">
+                {t(`levels.${plan.level}.item`, { n: period.index })}
+              </p>
+              <h3 className="display mt-1 text-lg">{period.title}</h3>
               <p className="mt-1.5 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
-                {month.milestone}
+                {period.milestone}
               </p>
             </div>
           </li>
@@ -147,12 +151,12 @@ export function DemoResult({
   );
 }
 
-function FeasibilityBadge({ value }: { value: MonthlyPlan["feasibility"] }) {
+function FeasibilityBadge({ value }: { value: Plan["feasibility"] }) {
   const t = useTranslations("demo.result.feasibility");
 
   // Hodnocení termínu barvíme, ať je čitelné na první pohled —
   // od "v pohodě" po "takhle to nevyjde".
-  const styles: Record<MonthlyPlan["feasibility"], string> = {
+  const styles: Record<Plan["feasibility"], string> = {
     comfortable:
       "border-[color-mix(in_oklab,var(--color-emerald-soft)_45%,transparent)] text-[var(--color-emerald-soft)]",
     realistic:

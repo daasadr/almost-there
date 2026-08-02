@@ -16,11 +16,11 @@
     "eyebrow": "Goal → months → weeks → today",
     "title": "You're almost there.",
     "titleAccent": "Every single day.",
-    "subtitle": "Tell us your goal and your deadline. AI breaks it down into monthly milestones, weekly targets and a daily checklist you can actually tick off — with rest and reflection built into the plan, not bolted on.",
+    "subtitle": "Tell us your goal and your deadline. AI breaks it down into monthly milestones, weekly targets and a daily checklist you can actually tick off — with rest and reflection built into the plan.",
     "ctaDemo": "Try the demo",
     "ctaBuy": "Get started",
     "ctaNote": "The demo needs no account. See how your goal breaks down in under a minute.",
-    "trustLine": "Built for networkers, freelancers, founders and long-haul students."
+    "trustLine": "For freelancers, founders, networkers, students — and anyone who wants a life with something to show for it."
   },
   "how": {
     "title": "One goal. Three levels. Today's list.",
@@ -45,7 +45,7 @@
   },
   "features": {
     "title": "What makes it different",
-    "subtitle": "Not another task list. A planner that keeps up with real life.",
+    "subtitle": "Not another task list. A planner that actually gets you there.",
     "items": [
       {
         "title": "Top-down breakdown that holds up",
@@ -61,11 +61,11 @@
       },
       {
         "title": "The pace adapts to you",
-        "body": "We track how much you actually complete. Falling behind for a couple of weeks? You'll get the choice: slow the plan down, move the date, or push on unchanged. Nothing is ever rescheduled behind your back."
+        "body": "We track how much you actually complete. Falling behind for a couple of weeks? You'll get the choice: slow the plan down and move the date, or catch up and carry on unchanged. Nothing is ever rescheduled behind your back."
       },
       {
         "title": "Milestones you look forward to",
-        "body": "Attach your own reward to each milestone — or let the AI suggest a few, sized to what you just pulled off. Small win, small treat. Big one, big one."
+        "body": "Attach your own reward to each milestone — or let the AI suggest a few, sized to what you just pulled off. Something small for a weekly milestone; for the finish line, something you'll remember."
       }
     ]
   },
@@ -90,9 +90,18 @@
     ],
     "dayTitle": "Week 1, Monday",
     "days": [
-      { "type": "action", "text": "Go through the alphabet and its pronunciation (20 min)" },
-      { "type": "action", "text": "Learn 5 basic greetings and phrases" },
-      { "type": "reflection", "text": "10 minutes — write down what was hardest to remember today" }
+      {
+        "type": "action",
+        "text": "Go through the alphabet and its pronunciation (20 min)"
+      },
+      {
+        "type": "action",
+        "text": "Learn 5 basic greetings and phrases"
+      },
+      {
+        "type": "reflection",
+        "text": "10 minutes — write down what was hardest to remember today"
+      }
     ],
     "fullOnly": "Full version only"
   },
@@ -132,13 +141,13 @@
   "demo": {
     "badge": "Demo",
     "title": "See your goal broken down",
-    "subtitle": "Enter one goal and a deadline. The AI returns the monthly skeleton of your plan — no account, no card.",
+    "subtitle": "Enter one goal and a deadline. The AI returns the skeleton of your plan — no account, no card.",
     "form": {
       "goalLabel": "What's your goal?",
       "goalPlaceholder": "e.g. Reach A2 in German, or build a team of 20 partners",
       "goalHint": "One sentence is enough. The more concrete, the better the plan.",
       "dateLabel": "By when?",
-      "dateHint": "Pick a date between one month and three years from now.",
+      "dateHint": "Pick a date between two weeks and ten years from now.",
       "submit": "Break it down",
       "submitting": "Generating…",
       "again": "Try another goal",
@@ -146,7 +155,7 @@
         "stages": [
           "Reading your goal and sizing it up…",
           "Planning backwards from your deadline…",
-          "Building the monthly milestones…",
+          "Building the main milestones…",
           "Checking whether the deadline holds…"
         ],
         "elapsed": "{seconds}s",
@@ -158,8 +167,8 @@
       "goalTooShort": "Give us a little more to work with — at least a few words.",
       "goalTooLong": "That's a bit long. Keep it under 300 characters.",
       "dateRequired": "Please pick a target date.",
-      "dateTooSoon": "Pick a date at least a month out — anything shorter isn't a plan, it's a sprint.",
-      "dateTooFar": "Pick a date within the next three years.",
+      "dateTooSoon": "Pick a date at least two weeks out — anything shorter isn't a plan, it's a to-do list.",
+      "dateTooFar": "Pick a date within the next ten years.",
       "rateLimited": "You've used up the free demo runs for now. Try again in an hour, or get the full version.",
       "aiFailed": "The plan couldn't be generated right now. Please try again in a moment.",
       "generic": "Something went wrong. Please try again."
@@ -168,10 +177,8 @@
       "title": "Your monthly breakdown",
       "goalLabel": "Goal",
       "deadlineLabel": "Deadline",
-      "monthsLabel": "{count, plural, one {# month} other {# months}}",
-      "monthLabel": "Month {n}",
       "noticeTitle": "This is a simplified preview",
-      "noticeBody": "You're seeing the monthly layout only. The full version breaks every month into weeks and every week into concrete daily tasks that land straight in your checklist — then tracks your progress, adapts the pace, and lets you run several goals side by side without them colliding.",
+      "noticeBody": "You're seeing the coarse timeline only. The full version breaks every month into weeks and every week into concrete daily tasks that land straight in your checklist — then tracks your progress, adapts the pace, and lets you run several goals side by side without them colliding.",
       "ctaTitle": "Want this for all of your goals?",
       "ctaBody": "Saved, tracked daily, with the pace adjusting to how you actually do. 179 CZK a month.",
       "cta": "Get started",
@@ -182,6 +189,20 @@
         "realistic": "Realistic timeframe",
         "ambitious": "Ambitious timeframe",
         "unrealistic": "Deadline doesn't fit"
+      },
+      "levels": {
+        "year": {
+          "item": "Year {n}",
+          "count": "{count, plural, one {# year} other {# years}}"
+        },
+        "month": {
+          "item": "Month {n}",
+          "count": "{count, plural, one {# month} other {# months}}"
+        },
+        "week": {
+          "item": "Week {n}",
+          "count": "{count, plural, one {# week} other {# weeks}}"
+        }
       }
     }
   },

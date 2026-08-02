@@ -340,8 +340,12 @@ model DemoGoal {
   title      String
   targetDate DateTime @db.Date
   locale     String
-  /// Měsíční rozpad tak, jak ho vrátila AI.
-  months     Json
+  /// Na jakou jednotku byl cíl rozložen: year / month / week.
+  /// Volí se podle délky horizontu — desetiletý cíl se rozpadá na roky,
+  /// třítýdenní na týdny.
+  level      String   @default("month")
+  /// Rozpad nejvyšší úrovně tak, jak ho vrátila AI.
+  periods    Json
   /// Hash IP pro rate limiting a antifraud — neukládáme IP v čitelné podobě.
   ipHash     String?
   /// Po převzetí do plné verze odkaz na vzniklý cíl.

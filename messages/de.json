@@ -16,11 +16,11 @@
     "eyebrow": "Ziel → Monate → Wochen → heute",
     "title": "Du bist fast da.",
     "titleAccent": "An jedem einzelnen Tag.",
-    "subtitle": "Nenn uns dein Ziel und deine Frist. Die KI zerlegt beides in Monatsmeilensteine, Wochenziele und eine Tagescheckliste, die man wirklich abhaken kann — mit Pausen und Reflexion fest im Plan, nicht nachträglich drangeklebt.",
+    "subtitle": "Nenn uns dein Ziel und deine Frist. Die KI zerlegt beides in Monatsmeilensteine, Wochenziele und eine Tagescheckliste, die man wirklich abhaken kann — mit Pausen und Reflexion fest im Plan.",
     "ctaDemo": "Demo testen",
     "ctaBuy": "Jetzt starten",
     "ctaNote": "Die Demo braucht kein Konto. In unter einer Minute siehst du, wie sich dein Ziel aufteilt.",
-    "trustLine": "Für Networker, Freelancer, Gründerinnen und Langzeitprüflinge."
+    "trustLine": "Für Freelancer, Gründerinnen, Networker, Studierende — und alle, die ihr Leben mit Erfolgen füllen wollen."
   },
   "how": {
     "title": "Ein Ziel. Drei Ebenen. Die Liste für heute.",
@@ -45,7 +45,7 @@
   },
   "features": {
     "title": "Was den Unterschied macht",
-    "subtitle": "Keine weitere To-do-Liste. Ein Planer, der mit dem echten Leben mithält.",
+    "subtitle": "Keine weitere To-do-Liste. Ein Planer, der dich wirklich ans Ziel bringt.",
     "items": [
       {
         "title": "Eine Zerlegung von oben nach unten, die trägt",
@@ -61,11 +61,11 @@
       },
       {
         "title": "Das Tempo passt sich dir an",
-        "body": "Wir verfolgen, wie viel du tatsächlich schaffst. Zwei Wochen hinterher? Du bekommst die Wahl: Plan verlangsamen, Datum verschieben oder unverändert weitermachen. Nichts wird jemals hinter deinem Rücken umgeplant."
+        "body": "Wir verfolgen, wie viel du tatsächlich schaffst. Zwei Wochen hinterher? Du bekommst die Wahl: den Plan verlangsamen und das Datum verschieben, oder aufholen und unverändert weitermachen. Nichts wird jemals hinter deinem Rücken umgeplant."
       },
       {
         "title": "Meilensteine, auf die du dich freust",
-        "body": "Häng an jeden Meilenstein deine eigene Belohnung — oder lass dir von der KI ein paar vorschlagen, passend zu dem, was du gerade geschafft hast. Kleiner Erfolg, kleine Belohnung. Großer, große."
+        "body": "Häng an jeden Meilenstein deine eigene Belohnung — oder lass dir von der KI ein paar vorschlagen, passend zu dem, was du gerade geschafft hast. Für einen Wochenmeilenstein eine Kleinigkeit, fürs Ziel etwas, an das du dich erinnerst."
       }
     ]
   },
@@ -90,9 +90,18 @@
     ],
     "dayTitle": "Woche 1, Montag",
     "days": [
-      { "type": "action", "text": "Alphabet und Aussprache durchgehen (20 Min.)" },
-      { "type": "action", "text": "5 grundlegende Begrüßungen und Wendungen lernen" },
-      { "type": "reflection", "text": "10 Minuten — aufschreiben, was heute am schwersten zu merken war" }
+      {
+        "type": "action",
+        "text": "Alphabet und Aussprache durchgehen (20 Min.)"
+      },
+      {
+        "type": "action",
+        "text": "5 grundlegende Begrüßungen und Wendungen lernen"
+      },
+      {
+        "type": "reflection",
+        "text": "10 Minuten — aufschreiben, was heute am schwersten zu merken war"
+      }
     ],
     "fullOnly": "Nur in der Vollversion"
   },
@@ -132,13 +141,13 @@
   "demo": {
     "badge": "Demo",
     "title": "Sieh, wie sich dein Ziel aufteilt",
-    "subtitle": "Gib ein Ziel und eine Frist ein. Die KI liefert das Monatsgerüst deines Plans — ohne Konto, ohne Karte.",
+    "subtitle": "Gib ein Ziel und eine Frist ein. Die KI liefert das Gerüst deines Plans — ohne Konto, ohne Karte.",
     "form": {
       "goalLabel": "Was ist dein Ziel?",
       "goalPlaceholder": "z. B. Deutsch auf A2 lernen oder ein Team aus 20 Partnern aufbauen",
       "goalHint": "Ein Satz genügt. Je konkreter, desto besser der Plan.",
       "dateLabel": "Bis wann?",
-      "dateHint": "Wähle ein Datum zwischen einem Monat und drei Jahren ab heute.",
+      "dateHint": "Wähle ein Datum zwischen zwei Wochen und zehn Jahren ab heute.",
       "submit": "Ziel zerlegen",
       "submitting": "Wird generiert…",
       "again": "Anderes Ziel probieren",
@@ -146,7 +155,7 @@
         "stages": [
           "Ich lese dein Ziel und schätze den Umfang ein…",
           "Ich plane rückwärts von deiner Frist…",
-          "Ich baue die Monatsmeilensteine…",
+          "Ich baue die Hauptmeilensteine…",
           "Ich prüfe, ob die Frist hält…"
         ],
         "elapsed": "{seconds} s",
@@ -158,8 +167,8 @@
       "goalTooShort": "Schreib bitte etwas mehr — mindestens ein paar Wörter.",
       "goalTooLong": "Das ist etwas lang. Bitte unter 300 Zeichen bleiben.",
       "dateRequired": "Bitte wähle ein Zieldatum.",
-      "dateTooSoon": "Wähle ein Datum mindestens einen Monat voraus — alles Kürzere ist kein Plan, sondern ein Sprint.",
-      "dateTooFar": "Wähle ein Datum innerhalb der nächsten drei Jahre.",
+      "dateTooSoon": "Wähle ein Datum mindestens zwei Wochen voraus — für kürzer gibt es nichts zu planen.",
+      "dateTooFar": "Wähle ein Datum innerhalb der nächsten zehn Jahre.",
       "rateLimited": "Die freien Demo-Durchläufe sind vorerst aufgebraucht. Versuch es in einer Stunde erneut oder hol dir die Vollversion.",
       "aiFailed": "Der Plan konnte gerade nicht erzeugt werden. Bitte versuch es gleich noch einmal.",
       "generic": "Etwas ist schiefgelaufen. Bitte versuch es erneut."
@@ -168,10 +177,8 @@
       "title": "Deine Monatszerlegung",
       "goalLabel": "Ziel",
       "deadlineLabel": "Frist",
-      "monthsLabel": "{count, plural, one {# Monat} other {# Monate}}",
-      "monthLabel": "Monat {n}",
       "noticeTitle": "Das ist eine vereinfachte Vorschau",
-      "noticeBody": "Du siehst nur die Monatsaufteilung. Die Vollversion zerlegt jeden Monat in Wochen und jede Woche in konkrete Tagesaufgaben, die direkt in deiner Checkliste landen — verfolgt dann deinen Fortschritt, passt das Tempo an und lässt dich mehrere Ziele nebeneinander führen, ohne dass sie kollidieren.",
+      "noticeBody": "Du siehst nur die grobe Zeitaufteilung. Die Vollversion zerlegt jeden Monat in Wochen und jede Woche in konkrete Tagesaufgaben, die direkt in deiner Checkliste landen — verfolgt dann deinen Fortschritt, passt das Tempo an und lässt dich mehrere Ziele nebeneinander führen, ohne dass sie kollidieren.",
       "ctaTitle": "Willst du das für all deine Ziele?",
       "ctaBody": "Gespeichert, täglich verfolgt, mit einem Tempo, das sich anpasst. 179 CZK im Monat.",
       "cta": "Jetzt starten",
@@ -182,6 +189,20 @@
         "realistic": "Realistische Frist",
         "ambitious": "Ambitionierte Frist",
         "unrealistic": "Frist passt nicht"
+      },
+      "levels": {
+        "year": {
+          "item": "Jahr {n}",
+          "count": "{count, plural, one {# Jahr} other {# Jahre}}"
+        },
+        "month": {
+          "item": "Monat {n}",
+          "count": "{count, plural, one {# Monat} other {# Monate}}"
+        },
+        "week": {
+          "item": "Woche {n}",
+          "count": "{count, plural, one {# Woche} other {# Wochen}}"
+        }
       }
     }
   },

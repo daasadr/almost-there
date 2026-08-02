@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import type { Locale } from "@/i18n/routing";
-import type { MonthlyPlan } from "@/lib/ai/schemas";
+import type { Plan } from "@/lib/ai/schemas";
 import {
   defaultTargetDate,
   maxTargetDate,
@@ -19,7 +19,7 @@ import { GenerationProgress } from "./GenerationProgress";
 type State =
   | { status: "form" }
   | { status: "loading" }
-  | { status: "done"; plan: MonthlyPlan; goal: string; targetDate: string };
+  | { status: "done"; plan: Plan; goal: string; targetDate: string };
 
 export function DemoExperience() {
   const t = useTranslations("demo");
@@ -59,7 +59,7 @@ export function DemoExperience() {
 
       setState({
         status: "done",
-        plan: data.plan as MonthlyPlan,
+        plan: data.plan as Plan,
         goal: goal.trim(),
         targetDate,
       });

@@ -16,14 +16,14 @@
     "eyebrow": "Cíl → měsíce → týdny → dnešek",
     "title": "Už tam skoro jsi.",
     "titleAccent": "Každý jednotlivý den.",
-    "subtitle": "Řekni nám svůj cíl a termín. AI ho rozloží na měsíční milníky, týdenní cíle a denní checklist, který se dá reálně odškrtat — s odpočinkem a reflexí zabudovanými přímo v plánu, ne přilepenými navrch.",
+    "subtitle": "Řekni nám svůj cíl a termín. AI ho rozloží na měsíční milníky, týdenní cíle a denní checklist, který se dá reálně odškrtat — s odpočinkem a reflexí zabudovanými přímo v plánu.",
     "ctaDemo": "Vyzkoušet demo",
     "ctaBuy": "Koupit rovnou",
     "ctaNote": "Demo je bez registrace. Za necelou minutu uvidíš, jak se tvůj cíl rozpadne.",
-    "trustLine": "Pro networkery, freelancery, podnikatele a studenty dlouhých zkoušek."
+    "trustLine": "Pro freelancery, podnikatele, networkery, studenty i pro každého, kdo chce svůj život naplnit úspěchy."
   },
   "how": {
-    "title": "Jeden cíl. Tři úrovně. Dnešní seznam.",
+    "title": "Jeden cíl. Tři úrovně. To Do list na dnešek.",
     "subtitle": "Na kvalitě tohohle rozpadu stojí a padá celý produkt, takže jsme do něj dali nejvíc práce.",
     "steps": [
       {
@@ -45,7 +45,7 @@
   },
   "features": {
     "title": "V čem je to jiné",
-    "subtitle": "Ne další seznam úkolů. Plánovač, který stíhá skutečný život.",
+    "subtitle": "Ne další seznam úkolů. Plánovač, který ti pomůže cílů dosáhnout.",
     "items": [
       {
         "title": "Rozpad shora dolů, který drží",
@@ -61,11 +61,11 @@
       },
       {
         "title": "Tempo se přizpůsobí tobě",
-        "body": "Sledujeme, kolik toho reálně stihneš. Dva týdny nestíháš? Dostaneš na výběr: zpomalit plán, posunout termín, nebo jet dál beze změny. Nic se nikdy nepřeplánuje za tvými zády."
+        "body": "Sledujeme, kolik toho reálně stihneš. Dva týdny nestíháš? Dostaneš na výběr: zpomalit plán a posunout termín, nebo dohnat pokrok a jet dál beze změny. Nic se nikdy nepřeplánuje za tvými zády."
       },
       {
         "title": "Milníky, na které se těšíš",
-        "body": "Ke každému milníku si přiřaď vlastní odměnu — nebo si nech od AI navrhnout pár variant přiměřených tomu, co jsi právě zvládl. Malý úspěch, malá odměna. Velký velkou."
+        "body": "Ke každému milníku si přiřaď vlastní odměnu — nebo si nech od AI navrhnout pár variant přiměřených tomu, co jsi právě zvládl. Za týdenní milník drobnost, za dokončený cíl něco, na co budeš vzpomínat."
       }
     ]
   },
@@ -90,9 +90,18 @@
     ],
     "dayTitle": "Týden 1, pondělí",
     "days": [
-      { "type": "action", "text": "Projít abecedu a její výslovnost (20 min)" },
-      { "type": "action", "text": "Naučit se 5 základních pozdravů a frází" },
-      { "type": "reflection", "text": "10 minut — zapsat si, co bylo dnes nejtěžší zapamatovat" }
+      {
+        "type": "action",
+        "text": "Projít abecedu a její výslovnost (20 min)"
+      },
+      {
+        "type": "action",
+        "text": "Naučit se 5 základních pozdravů a frází"
+      },
+      {
+        "type": "reflection",
+        "text": "10 minut — zapsat si, co bylo dnes nejtěžší zapamatovat"
+      }
     ],
     "fullOnly": "Jen v plné verzi"
   },
@@ -132,13 +141,13 @@
   "demo": {
     "badge": "Demo",
     "title": "Podívej se, jak se tvůj cíl rozpadne",
-    "subtitle": "Zadej jeden cíl a termín. AI vrátí měsíční kostru tvého plánu — bez registrace, bez karty.",
+    "subtitle": "Zadej jeden cíl a termín. AI vrátí kostru tvého plánu — bez registrace, bez karty.",
     "form": {
       "goalLabel": "Jaký je tvůj cíl?",
       "goalPlaceholder": "např. Naučit se němčinu na úroveň A2 nebo vybudovat tým 20 partnerů",
       "goalHint": "Stačí jedna věta. Čím konkrétnější, tím lepší plán.",
       "dateLabel": "Do kdy?",
-      "dateHint": "Vyber datum mezi měsícem a třemi lety od dneška.",
+      "dateHint": "Vyber datum mezi dvěma týdny a deseti lety od dneška.",
       "submit": "Rozložit cíl",
       "submitting": "Generuji…",
       "again": "Zkusit jiný cíl",
@@ -146,7 +155,7 @@
         "stages": [
           "Čtu zadání a odhaduju rozsah cíle…",
           "Plánuju pozpátku od termínu…",
-          "Sestavuju měsíční milníky…",
+          "Sestavuju hlavní milníky…",
           "Kontroluju, jestli termín vychází…"
         ],
         "elapsed": "{seconds} s",
@@ -158,8 +167,8 @@
       "goalTooShort": "Napiš toho o kousek víc — alespoň pár slov.",
       "goalTooLong": "To je trochu dlouhé. Vejdi se prosím do 300 znaků.",
       "dateRequired": "Vyber prosím cílové datum.",
-      "dateTooSoon": "Vyber datum aspoň měsíc dopředu — cokoliv kratšího není plán, ale sprint.",
-      "dateTooFar": "Vyber datum v horizontu tří let.",
+      "dateTooSoon": "Vyber datum aspoň dva týdny dopředu — na kratší dobu už není co plánovat.",
+      "dateTooFar": "Vyber datum v horizontu deseti let.",
       "rateLimited": "Vyčerpal jsi zatím volná demo generování. Zkus to za hodinu, nebo pořiď plnou verzi.",
       "aiFailed": "Plán se teď nepodařilo vygenerovat. Zkus to prosím za chvíli znovu.",
       "generic": "Něco se pokazilo. Zkus to prosím znovu."
@@ -168,10 +177,8 @@
       "title": "Tvůj měsíční rozpad",
       "goalLabel": "Cíl",
       "deadlineLabel": "Termín",
-      "monthsLabel": "{count, plural, one {# měsíc} few {# měsíce} other {# měsíců}}",
-      "monthLabel": "Měsíc {n}",
       "noticeTitle": "Toto je zjednodušená ukázka",
-      "noticeBody": "Vidíš pouze měsíční rozvržení. Plná verze rozloží každý měsíc na týdny a každý týden na konkrétní denní úkoly, které rovnou uvidíš v checklistu — pak sleduje tvůj postup, přizpůsobuje tempo a umí vést několik cílů vedle sebe, aniž by se srazily.",
+      "noticeBody": "Vidíš jen hrubé rozvržení v čase. Plná verze rozloží každý měsíc na týdny a každý týden na konkrétní denní úkoly, které rovnou uvidíš v checklistu — pak sleduje tvůj postup, přizpůsobuje tempo a umí vést několik cílů vedle sebe, aniž by se srazily.",
       "ctaTitle": "Chceš tohle mít pro všechny svoje cíle?",
       "ctaBody": "Uložené, s denním trackingem a tempem, které se přizpůsobí tomu, jak ti to jde. 179 Kč měsíčně.",
       "cta": "Koupit rovnou",
@@ -182,6 +189,20 @@
         "realistic": "Reálný termín",
         "ambitious": "Ambiciózní termín",
         "unrealistic": "Termín nevychází"
+      },
+      "levels": {
+        "year": {
+          "item": "Rok {n}",
+          "count": "{count, plural, one {# rok} few {# roky} other {# let}}"
+        },
+        "month": {
+          "item": "Měsíc {n}",
+          "count": "{count, plural, one {# měsíc} few {# měsíce} other {# měsíců}}"
+        },
+        "week": {
+          "item": "Týden {n}",
+          "count": "{count, plural, one {# týden} few {# týdny} other {# týdnů}}"
+        }
       }
     }
   },
