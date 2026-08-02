@@ -148,6 +148,25 @@ docker compose up -d            # rebuild není potřeba, port je jen mapování
 Uvnitř kontejneru zůstává 3000 vždy; mění se jen port na serveru. Stejný port
 pak nastav v nginx konfiguraci v bloku `upstream almostthere_app`.
 
+### 2a. Bez domény — dočasný přístup přes IP
+
+Když chceš appku vidět dřív, než vyřídíš doménu, použij
+[deploy/nginx-ip-docasny.conf.example](deploy/nginx-ip-docasny.conf.example).
+nginx rozlišuje projekty podle hlavičky `Host`, takže blok se `server_name`
+nastaveným na IP nesebere provoz projektu, který má vlastní doménu.
+
+```bash
+sudo cp deploy/nginx-ip-docasny.conf.example /etc/nginx/sites-available/almostthere-ip
+sudo nano /etc/nginx/sites-available/almostthere-ip   # doplň IP a port
+sudo ln -s /etc/nginx/sites-available/almostthere-ip /etc/nginx/sites-enabled/
+sudo nginx -t && sudo systemctl reload nginx
+```
+
+Běží to po HTTP, tedy nešifrovaně — Let's Encrypt certifikát na holou IP
+adresu nevystaví. Dokud v appce nejsou účty ani platby, je to únosné
+provizorium pro ukázku. **Než přibude registrace, musí být doména s HTTPS**,
+jinak by hesla uživatelů šla po síti čitelně.
+
 ### 2. nginx a HTTPS
 
 ```bash

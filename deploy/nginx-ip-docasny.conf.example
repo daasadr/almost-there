@@ -1,0 +1,89 @@
+# DOČASNÁ nginx konfigurace — přístup přes IP serveru, bez domény a bez HTTPS.
+#
+# K čemu je: chceš appku vidět naživo dřív, než vyřídíš doménu. Na serveru
+# už běží jiný projekt s vlastní doménou, takže se musí rozlišit, komu který
+# požadavek patří — nginx to pozná podle hlavičky Host, tedy podle `server_name`.
+#
+#   Host: handmade.net   -> blok toho druhého projektu
+#   Host: <IP serveru>   -> tenhle blok
+#
+# Umísti jako /etc/nginx/sites-available/almostthere-ip a nalinkuj do
+# sites-enabled. Nahraď PORT a IP_SERVERU skutečnými hodnotami.
+#
+# ⚠️ Tohle je provizorium, ne cílový stav:
+#
+#   - Běží po HTTP, tedy nešifrovaně. Let's Encrypt certifikát na holou IP
+#     adresu nevystaví, certifikáty se vydávají jen na doménová jména.
+#   - Prohlížeč bude psát „Nezabezpečeno“.
+#   - Dokud tu nejsou účty, hesla ani platby, riziko je omezené. Jakmile
+#     přibude registrace, musí tu být doména s HTTPS — jinak by uživatelská
+#     hesla létala po síti čitelně.
+#   - Až doménu nasměruješ, tenhle soubor smaž a použij nginx.conf.example.
+
+upstream almostthere_app_ip {
+    # PORT musí sedět s APP_PORT v .env
+    server 127.0.0.1:3002;
+    keepalive 16;
+}
+
+limit_req_zone $binary_remote_addr zone=demo_api_ip:10m rate=10r/m;
+
+server {
+    listen 80;
+    listen [::]:80;
+
+    # Sem doplň IP adresu serveru. Uvedením konkrétní hodnoty se blok
+    # aktivuje jen pro požadavky mířené na IP a nepřebere provoz
+    # patřící druhému projektu.
+    server_name IP_SERVERU;
+
+    # Vyhledávače sem nemají chodit — je to dočasná adresa bez HTTPS
+    # a nechceme, aby se zaindexovala místo budoucí domény.
+    add_header X-Robots-Tag "noindex, nofollow" always;
+    add_header X-Content-Type-Options "nosniff" always;
+
+    # HSTS tu vědomě NENÍ. Přinutilo by prohlížeč chodit na tuhle IP jen
+    # přes HTTPS, které tu neběží — a appka by se stala nedostupnou.
+
+    gzip on;
+    gzip_types text/plain text/css application/json application/javascript
+               application/x-javascript text/xml application/xml image/svg+xml;
+    gzip_min_length 1024;
+
+    client_max_body_size 2m;
+
+    location /_next/static/ {
+        proxy_pass http://almostthere_app_ip;
+        proxy_cache_valid 200 365d;
+        add_header Cache-Control "public, max-age=31536000, immutable";
+    }
+
+    # Generování plánu trvá desítky sekund, výchozí 60s timeout by ho uřízl.
+    location /api/demo {
+        limit_req zone=demo_api_ip burst=5 nodelay;
+        limit_req_status 429;
+
+        proxy_pass http://almostthere_app_ip;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        proxy_read_timeout 180s;
+        proxy_send_timeout 180s;
+        proxy_buffering off;
+    }
+
+    location / {
+        proxy_pass http://almostthere_app_ip;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
