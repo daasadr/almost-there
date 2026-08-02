@@ -169,19 +169,44 @@ jinak by hesla uživatelů šla po síti čitelně.
 
 ### 2. nginx a HTTPS
 
+Doména projektu je **almost-there.eu**. Nejdřív u registrátora nastav
+A záznamy na IP serveru — pro kořen i pro `www`. Ověř, že se to rozšířilo:
+
+```bash
+dig +short almost-there.eu
+dig +short www.almost-there.eu
+```
+
+Obojí musí vrátit IP serveru. Teprve pak pokračuj — certbot ověřuje vlastnictví
+domény tím, že si na ni sáhne, takže bez funkčního DNS certifikát nevystaví.
+
 ```bash
 sudo cp deploy/nginx.conf.example /etc/nginx/sites-available/almostthere
-sudo nano /etc/nginx/sites-available/almostthere    # nahraď doménu
 sudo ln -s /etc/nginx/sites-available/almostthere /etc/nginx/sites-enabled/
 sudo nginx -t && sudo systemctl reload nginx
 
 # certifikát
-sudo certbot --nginx -d almostthere.app -d www.almostthere.app
+sudo certbot --nginx -d almost-there.eu -d www.almost-there.eu
 ```
 
 Certbot si do konfigurace sám doplní cesty k certifikátům a přesměrování
-na HTTPS. Až ověříš, že HTTPS funguje, odkomentuj v konfiguraci řádek
-s `Strict-Transport-Security`.
+na HTTPS. Až ověříš, že HTTPS funguje, odkomentuj řádek
+s `Strict-Transport-Security` — dřív ne, protože jakmile ho prohlížeč
+jednou dostane, rok odmítne jít na HTTP.
+
+Pak přepiš veřejnou adresu a přestav image, aby seděl `sitemap.xml`:
+
+```bash
+sed -i 's|^NEXT_PUBLIC_APP_URL=.*|NEXT_PUBLIC_APP_URL=https://almost-there.eu|' .env
+./deploy/deploy.sh
+```
+
+Nakonec vypni dočasný přístup přes IP, ať appka neběží na dvou adresách:
+
+```bash
+sudo rm /etc/nginx/sites-enabled/almostthere-ip
+sudo nginx -t && sudo systemctl reload nginx
+```
 
 ### 3. Další nasazení
 

@@ -1,7 +1,7 @@
 # nginx konfigurace pro AlmostThere na Hetzner VPS.
 #
 # Umísti jako /etc/nginx/sites-available/almostthere a nalinkuj do
-# sites-enabled. Doménu nahraď svou. TLS certifikát vystaví certbot
+# sites-enabled. TLS certifikát vystaví certbot
 # (viz README, sekce Nasazení) — po jeho spuštění si tenhle soubor
 # certbot sám doplní o cesty k certifikátům.
 
@@ -9,7 +9,9 @@
 # si ho z .env nepřečte, je to jediné místo, kde ho ladíš ručně. Když na
 # serveru běží víc projektů a 3000 je obsazený, změň ho tady i tam.
 upstream almostthere_app {
-    server 127.0.0.1:3000;
+    # Musí sedět s APP_PORT v .env — na tomhle serveru 3002,
+    # protože 3000 a 3001 drží jiný projekt.
+    server 127.0.0.1:3002;
     keepalive 16;
 }
 
@@ -20,7 +22,7 @@ limit_req_zone $binary_remote_addr zone=demo_api:10m rate=10r/m;
 server {
     listen 80;
     listen [::]:80;
-    server_name almostthere.app www.almostthere.app;
+    server_name almost-there.eu www.almost-there.eu;
 
     # Certbot si sem doplní přesměrování na HTTPS.
     location /.well-known/acme-challenge/ {
@@ -36,17 +38,19 @@ server {
     listen 443 ssl;
     listen [::]:443 ssl;
     http2 on;
-    server_name almostthere.app www.almostthere.app;
+    server_name almost-there.eu www.almost-there.eu;
 
     # --- TLS (doplní certbot) ---
-    # ssl_certificate     /etc/letsencrypt/live/almostthere.app/fullchain.pem;
-    # ssl_certificate_key /etc/letsencrypt/live/almostthere.app/privkey.pem;
+    # ssl_certificate     /etc/letsencrypt/live/almost-there.eu/fullchain.pem;
+    # ssl_certificate_key /etc/letsencrypt/live/almost-there.eu/privkey.pem;
     # include /etc/letsencrypt/options-ssl-nginx.conf;
     # ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
 
     # --- Bezpečnostní hlavičky ---
-    # HSTS zapni až když víš, že HTTPS funguje — vrátit se zpět nejde hned.
-    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+    # HSTS je schválně zakomentované. Až ověříš, že HTTPS funguje, odkomentuj —
+    # jakmile ho prohlížeč jednou dostane, rok odmítne jít na HTTP, a kdyby
+    # certifikát nefungoval, byl by web nedostupný.
+    # add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
     add_header X-Content-Type-Options "nosniff" always;
     add_header Referrer-Policy "strict-origin-when-cross-origin" always;
 
