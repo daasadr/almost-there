@@ -35,9 +35,12 @@ server {
 }
 
 server {
-    listen 443 ssl;
-    listen [::]:443 ssl;
-    http2 on;
+    # HTTP/2 zapnuté starším zápisem. Samostatná direktiva `http2 on;`
+    # existuje až od nginx 1.25.1 a na starších verzích shodí konfiguraci
+    # chybou "unknown directive". Tenhle tvar funguje na obou; na novém
+    # nginxu jen upozorní, že je zastaralý.
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
     server_name almost-there.eu www.almost-there.eu;
 
     # --- TLS (doplní certbot) ---
