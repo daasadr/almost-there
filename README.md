@@ -180,19 +180,44 @@ dig +short www.almost-there.eu
 Obojí musí vrátit IP serveru. Teprve pak pokračuj — certbot ověřuje vlastnictví
 domény tím, že si na ni sáhne, takže bez funkčního DNS certifikát nevystaví.
 
+Nasazuje se ve dvou krocích, a to schválně. Ostrá konfigurace má blok
+s `listen ... ssl`, který nginx bez existujícího certifikátu odmítne
+načíst — a certbot potřebuje běžící nginx, aby si přes něj doménu ověřil.
+Zaváděcí konfigurace ten kruh rozetne.
+
+**Krok 1 — zavedení a certifikát:**
+
 ```bash
-sudo cp deploy/nginx.conf.example /etc/nginx/sites-available/almostthere
-sudo ln -s /etc/nginx/sites-available/almostthere /etc/nginx/sites-enabled/
+sudo cp deploy/nginx-bootstrap.conf.example /etc/nginx/sites-available/almostthere
+sudo ln -s /etc/nginx/sites-available/almostthere /etc/nginx/sites-enabled/   # jen poprvé
 sudo nginx -t && sudo systemctl reload nginx
 
-# certifikát
-sudo certbot --nginx -d almost-there.eu -d www.almost-there.eu
+sudo mkdir -p /var/www/html
+sudo certbot certonly --webroot -w /var/www/html \
+  -d almost-there.eu -d www.almost-there.eu
 ```
 
-Certbot si do konfigurace sám doplní cesty k certifikátům a přesměrování
-na HTTPS. Až ověříš, že HTTPS funguje, odkomentuj řádek
-s `Strict-Transport-Security` — dřív ne, protože jakmile ho prohlížeč
-jednou dostane, rok odmítne jít na HTTP.
+Používáme `certonly --webroot`, ne `--nginx`. Certbot tak jen vydá certifikát
+a do konfigurace nesahá — zůstává naše, ne půl na půl s generovanou.
+
+**Krok 2 — ostrá konfigurace s HTTPS:**
+
+```bash
+sudo cp deploy/nginx.conf.example /etc/nginx/sites-available/almostthere
+sudo nginx -t && sudo systemctl reload nginx
+```
+
+Až ověříš v prohlížeči, že HTTPS funguje, odkomentuj v konfiguraci řádek
+s `Strict-Transport-Security` a znovu načti nginx — dřív ne, protože jakmile
+tu hlavičku prohlížeč jednou dostane, rok odmítne jít na HTTP.
+
+Obnovu certifikátu řeší certbot sám časovačem. Ověřovací cesta
+`/.well-known/acme-challenge/` proto musí zůstat i v ostré konfiguraci.
+Otestovat to jde nanečisto:
+
+```bash
+sudo certbot renew --dry-run
+```
 
 Pak přepiš veřejnou adresu a přestav image, aby seděl `sitemap.xml`:
 

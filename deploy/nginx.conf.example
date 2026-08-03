@@ -40,14 +40,25 @@ server {
     # chybou "unknown directive". Tenhle tvar funguje na obou; na novém
     # nginxu jen upozorní, že je zastaralý.
     listen 443 ssl http2;
-    listen [::]:443 ssl http2;
+    # Na IPv6 schválně bez http2 — jiný projekt na serveru už pro [::]:443
+    # nastavil vlastní volby a nginx by hlásil "protocol options redefined".
+    listen [::]:443 ssl;
     server_name almost-there.eu www.almost-there.eu;
 
-    # --- TLS (doplní certbot) ---
-    # ssl_certificate     /etc/letsencrypt/live/almost-there.eu/fullchain.pem;
-    # ssl_certificate_key /etc/letsencrypt/live/almost-there.eu/privkey.pem;
-    # include /etc/letsencrypt/options-ssl-nginx.conf;
-    # ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+    # --- TLS ---
+    # Cesty odpovídají certifikátu vydanému příkazem z README. Tuhle
+    # konfiguraci nasazuj až potom — bez existujícího certifikátu nginx
+    # blok s `listen ... ssl` nenačte a shodí se celá konfigurace.
+    ssl_certificate     /etc/letsencrypt/live/almost-there.eu/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/almost-there.eu/privkey.pem;
+
+    # Nastavení píšeme sami, ne přes include od certbotu — ten vzniká jen
+    # při použití nginx pluginu a my certifikát vydáváme přes webroot.
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers off;
+    ssl_session_cache shared:AlmostThereSSL:10m;
+    ssl_session_timeout 1d;
+    ssl_session_tickets off;
 
     # --- Bezpečnostní hlavičky ---
     # HSTS je schválně zakomentované. Až ověříš, že HTTPS funguje, odkomentuj —
