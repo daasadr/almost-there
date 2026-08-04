@@ -175,18 +175,25 @@ Při ceně 179 Kč včetně DPH:
 |---|---|---|
 | Cena s DPH | 179 Kč | 179 Kč |
 | Po odvodu DPH 21 % | ~148 Kč | řeší obchod |
-| Po provizi platební brány | ~139 Kč | ~125 Kč (15 %) až ~103 Kč (30 %) |
-| Po AI u běžného uživatele (~35 Kč) | **~104 Kč** | **~68 až 90 Kč** |
+| Po provizi | ~139 Kč (Stripe ~1,5 % + pár Kč) | ~125 Kč (15 %) |
+| Po AI u běžného uživatele (~35 Kč) | **~104 Kč** | **~90 Kč** |
 
 Z toho ještě jde server, e-maily, případná podpora.
+
+**K provizi obchodů.** Předplatné prodané uvnitř mobilní aplikace musí projít
+platebním systémem Applu nebo Googlu — Stripe je tam zakázaný. Základní sazba
+je 30 %, ale pro vývojáře pod 1 milion USD ročního obratu platí **15 %**:
+u Applu přes Small Business Program (nutno se přihlásit), u Googlu
+u předplatného automaticky. Počítáme proto s 15 %. Prodej přes web provizi
+obchodů nemá vůbec — proto se obě cesty počítají zvlášť.
 
 ### ⚠️ Strop v zadání je nastavený špatně
 
 Zadání v bodě 9 počítá s tím, že náklady na AI nesmí překročit **150 Kč
 měsíčně** na uživatele. To bylo nastavené od stolu a při ceně 179 Kč
 nedává smysl: po odvodu DPH a provizi obchodu by 150 Kč **spotřebovalo
-celou marži a ještě by se prodělávalo** — obzvlášť na mobilu, kde po
-třicetiprocentní provizi zbývá kolem 103 Kč.
+celou marži a ještě by se prodělávalo** — na webu i na mobilu, kde po
+patnáctiprocentní provizi zbývá kolem 125 Kč.
 
 Realističtější nastavení, až budou data z provozu:
 
