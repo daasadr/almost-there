@@ -4,7 +4,8 @@ Webová aplikace, která vezme cíl a termín a pomocí AI ho rozloží do hiera
 **cíl → měsíce → týdny → denní checklist**. Odpočinek a reflexe jsou součástí
 plánu, ne bonusem; tempo se přizpůsobuje skutečnému plnění.
 
-Kompletní zadání je v [zadani-goal-app.md](zadani-goal-app.md).
+Popis projektu, jeho stav a ekonomika jsou v [PROJEKT.md](PROJEKT.md),
+kompletní technické zadání v [zadani-goal-app.md](zadani-goal-app.md).
 
 ---
 

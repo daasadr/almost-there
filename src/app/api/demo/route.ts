@@ -13,6 +13,7 @@ import {
 } from "@/lib/demo-validation";
 import { decomposeGoal } from "@/lib/ai/decompose";
 import { mockDecomposeGoal } from "@/lib/ai/mock";
+import { formatUsage } from "@/lib/ai/cost";
 import type { Plan } from "@/lib/ai/schemas";
 
 /**
@@ -82,6 +83,15 @@ export async function POST(request: Request) {
           targetDate,
           locale,
         });
+
+    // Spotřebu logujeme už teď, i když ji zatím nikam neukládáme —
+    // bez reálných čísel se strop podle bodu 9 zadání nastavit nedá.
+    console.log(
+      formatUsage(
+        `demo level=${result.plan.level} obdobi=${result.plan.periods.length}`,
+        result.usage,
+      ),
+    );
 
     // TODO (další vrstva): uložit jako DemoGoal a evidovat AiUsageEvent,
     // aby šel demo cíl po zaplacení převzít do plné verze (zadání 8).
