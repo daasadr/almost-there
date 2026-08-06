@@ -233,5 +233,26 @@
     "body": "Tut uns leid. Versuch es noch einmal — und wenn es wieder passiert, sag uns Bescheid.",
     "retry": "Erneut versuchen",
     "home": "Zurück zur Startseite"
+  },
+  "emails": {
+    "verify": {
+      "subject": "Bestätige deine E-Mail-Adresse",
+      "heading": "Willkommen, {name}!",
+      "body": "Ein letzter Schritt — bestätige, dass diese Adresse wirklich dir gehört. Danach kannst du dein erstes Ziel setzen.",
+      "expiry": "Der Link ist 24 Stunden gültig.",
+      "button": "Adresse bestätigen",
+      "fallback": "Falls der Button nicht funktioniert, kopiere diesen Link in deinen Browser:",
+      "footer": "Du hast diese E-Mail erhalten, weil sich jemand mit dieser Adresse bei AlmostThere registriert hat. Warst du das nicht, ignoriere sie einfach — ohne Bestätigung bleibt das Konto inaktiv."
+    },
+    "reset": {
+      "subject": "Neues Passwort festlegen",
+      "heading": "Neues Passwort für AlmostThere",
+      "body": "Klicke auf den Button, um ein neues Passwort festzulegen.",
+      "expiry": "Der Link ist 1 Stunde gültig und funktioniert nur einmal.",
+      "ignore": "Wenn du keine Passwortänderung angefordert hast, musst du nichts tun. Dein aktuelles Passwort gilt weiter.",
+      "button": "Neues Passwort festlegen",
+      "fallback": "Falls der Button nicht funktioniert, kopiere diesen Link in deinen Browser:",
+      "footer": "Du hast diese E-Mail erhalten, weil jemand für das AlmostThere-Konto mit dieser Adresse eine Passwortzurücksetzung angefordert hat."
+    }
   }
 }

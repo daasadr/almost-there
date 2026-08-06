@@ -233,5 +233,26 @@
     "body": "Sorry about that. Try again — and if it keeps happening, let us know.",
     "retry": "Try again",
     "home": "Back to home"
+  },
+  "emails": {
+    "verify": {
+      "subject": "Confirm your email address",
+      "heading": "Welcome, {name}!",
+      "body": "One last step — confirm this address is really yours. Then you can set your first goal.",
+      "expiry": "The link is valid for 24 hours.",
+      "button": "Confirm address",
+      "fallback": "If the button does not work, copy this link into your browser:",
+      "footer": "You received this because someone signed up to AlmostThere with this address. If that was not you, just ignore it — the account stays inactive without confirmation."
+    },
+    "reset": {
+      "subject": "Set a new password",
+      "heading": "New password for AlmostThere",
+      "body": "Click the button to set a new password.",
+      "expiry": "The link is valid for 1 hour and works only once.",
+      "ignore": "If you did not ask to change your password, you do not need to do anything. Your current password still works.",
+      "button": "Set new password",
+      "fallback": "If the button does not work, copy this link into your browser:",
+      "footer": "You received this because someone requested a password reset for the AlmostThere account with this address."
+    }
   }
 }

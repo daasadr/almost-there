@@ -14,7 +14,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  // Adresa je v prisma.config.ts (CLI) a v src/lib/db.ts (běh aplikace).
 }
 
 // ---------------------------------------------------------------------------
@@ -47,6 +47,8 @@ model User {
   passwordHash  String? // null u OAuth účtů
   authProvider  AuthProvider @default(CREDENTIALS)
   name          String?
+  /// Profilový obrázek z OAuth. NextAuth ho očekává pod tímhle názvem.
+  image         String?
 
   // Předplatné
   subscriptionStatus SubscriptionStatus  @default(NONE)
@@ -75,8 +77,57 @@ model User {
   consents       Consent[]
   aiUsage        AiUsageEvent[]
   passwordResets PasswordResetToken[]
+  accounts       Account[]
+  sessions       Session[]
 
   @@index([subscriptionStatus])
+}
+
+// --- Modely vyžadované NextAuth --------------------------------------------
+// Tvar je daný adaptérem, ne námi — názvy polí měnit nelze.
+
+/// Propojení účtu s externím poskytovatelem (Google). U přihlášení
+/// e-mailem a heslem žádný Account nevzniká.
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+/// Používá se jen při databázových sessions. Držíme ho kvůli možnosti
+/// přepnout z JWT na databázové sessions bez migrace.
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+/// Jednorázové tokeny — ověření e-mailové adresy.
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
 }
 
 enum RestFrequency {

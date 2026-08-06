@@ -233,5 +233,26 @@
     "body": "Omlouváme se. Zkus to znovu — a jestli se to bude opakovat, dej nám vědět.",
     "retry": "Zkusit znovu",
     "home": "Zpět na úvod"
+  },
+  "emails": {
+    "verify": {
+      "subject": "Potvrď svoji e-mailovou adresu",
+      "heading": "Vítej, {name}!",
+      "body": "Zbývá poslední krok — potvrď, že tahle adresa je opravdu tvoje. Pak už můžeš zadat svůj první cíl.",
+      "expiry": "Odkaz platí 24 hodin.",
+      "button": "Potvrdit adresu",
+      "fallback": "Kdyby tlačítko nefungovalo, zkopíruj si tenhle odkaz do prohlížeče:",
+      "footer": "Tenhle e-mail ti přišel, protože se někdo zaregistroval do AlmostThere s touto adresou. Pokud jsi to nebyl/a ty, stačí ho ignorovat — bez potvrzení se účet neaktivuje."
+    },
+    "reset": {
+      "subject": "Nastavení nového hesla",
+      "heading": "Nové heslo k AlmostThere",
+      "body": "Klikni na tlačítko a nastav si nové heslo.",
+      "expiry": "Odkaz platí 1 hodinu a použít ho jde jen jednou.",
+      "ignore": "Pokud jsi o změnu hesla nežádal/a, nemusíš dělat nic. Tvoje současné heslo platí dál.",
+      "button": "Nastavit nové heslo",
+      "fallback": "Kdyby tlačítko nefungovalo, zkopíruj si tenhle odkaz do prohlížeče:",
+      "footer": "Tenhle e-mail ti přišel, protože někdo požádal o obnovu hesla k účtu AlmostThere s touto adresou."
+    }
   }
 }

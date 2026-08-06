@@ -41,3 +41,6 @@ prisma/*.db-journal
 *.pem
 .vercel
 tsconfig.tsbuildinfo
+
+# Prisma generovaný klient — vzniká při buildu z schema.prisma
+src/generated/
