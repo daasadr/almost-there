@@ -351,5 +351,33 @@
       "rateLimited": "Zu viele Versuche. Bitte versuch es gleich noch einmal.",
       "generic": "Etwas ist schiefgelaufen. Bitte versuch es erneut."
     }
+  },
+  "billing": {
+    "title": "Vollversion freischalten",
+    "subtitle": "Die Demo hat dir gezeigt, wie sich ein Ziel aufteilt. Die Vollversion führt es bis zur heutigen Checkliste und behält dein Tempo für dich im Blick.",
+    "period": {
+      "monthly": "Monatlich",
+      "yearly": "Jährlich"
+    },
+    "per": {
+      "monthly": "pro Monat",
+      "yearly": "pro Jahr"
+    },
+    "yearlySaving": "{months} Monate geschenkt",
+    "includes": [
+      "Unbegrenzt viele Ziele, gemeinsam und kollisionsfrei geplant",
+      "Zerlegung bis hin zu konkreten Tagesaufgaben",
+      "Erholung und Reflexion fest im Plan",
+      "Das Tempo passt sich an, wie es tatsächlich läuft",
+      "Meilensteine mit eigener oder KI-vorgeschlagener Belohnung"
+    ],
+    "cta": "Weiter zur Zahlung",
+    "redirecting": "Weiterleitung zur Zahlung…",
+    "failed": "Die Zahlung konnte nicht gestartet werden. Bitte versuch es erneut.",
+    "note": "Jederzeit kündbar. Die Zahlung wickelt Stripe ab.",
+    "successTitle": "Zahlung eingegangen",
+    "successBody": "Danke! Dein Abonnement wird aktiv, sobald der Zahlungsdienstleister bestätigt — meist innerhalb von Sekunden.",
+    "cancelledTitle": "Zahlung nicht abgeschlossen",
+    "cancelledBody": "Es wurde nichts abgebucht. Du kannst es jederzeit erneut versuchen."
   }
 }

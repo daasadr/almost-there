@@ -351,5 +351,33 @@
       "rateLimited": "Too many attempts. Please try again in a moment.",
       "generic": "Something went wrong. Please try again."
     }
+  },
+  "billing": {
+    "title": "Unlock the full version",
+    "subtitle": "The demo showed you how a goal breaks down. The full version takes it all the way to today's checklist and watches your pace for you.",
+    "period": {
+      "monthly": "Monthly",
+      "yearly": "Yearly"
+    },
+    "per": {
+      "monthly": "per month",
+      "yearly": "per year"
+    },
+    "yearlySaving": "{months} months free",
+    "includes": [
+      "Unlimited goals, planned together without collisions",
+      "Breakdown all the way to concrete daily tasks",
+      "Rest and reflection built into the plan",
+      "Pace adapts to how you actually do",
+      "Milestones with your own or AI-suggested rewards"
+    ],
+    "cta": "Continue to payment",
+    "redirecting": "Redirecting to payment…",
+    "failed": "We could not start the payment. Please try again.",
+    "note": "Cancel any time. Payment is processed by Stripe.",
+    "successTitle": "Payment received",
+    "successBody": "Thank you! Your subscription activates as soon as the payment provider confirms it — usually within seconds.",
+    "cancelledTitle": "Payment not completed",
+    "cancelledBody": "Nothing was charged. You can try again whenever you like."
   }
 }

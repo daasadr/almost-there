@@ -351,5 +351,33 @@
       "rateLimited": "Příliš mnoho pokusů. Zkus to prosím za chvíli.",
       "generic": "Něco se pokazilo. Zkus to prosím znovu."
     }
+  },
+  "billing": {
+    "title": "Odemkni plnou verzi",
+    "subtitle": "Demo ti ukázalo, jak se cíl rozpadne. Plná verze ho dotáhne až na dnešní checklist a hlídá tempo za tebe.",
+    "period": {
+      "monthly": "Měsíčně",
+      "yearly": "Ročně"
+    },
+    "per": {
+      "monthly": "za měsíc",
+      "yearly": "za rok"
+    },
+    "yearlySaving": "{months} měsíce zdarma",
+    "includes": [
+      "Neomezeně cílů, plánovaných společně bez kolizí",
+      "Rozpad až na konkrétní denní úkoly",
+      "Odpočinek a reflexe jako součást plánu",
+      "Tempo se přizpůsobí tomu, jak ti to reálně jde",
+      "Milníky s vlastní nebo AI navrženou odměnou"
+    ],
+    "cta": "Pokračovat k platbě",
+    "redirecting": "Přesměrovávám k platbě…",
+    "failed": "Platbu se nepodařilo zahájit. Zkus to prosím znovu.",
+    "note": "Předplatné můžeš kdykoliv zrušit. Platbu zpracovává Stripe.",
+    "successTitle": "Platba proběhla",
+    "successBody": "Díky! Jakmile potvrzení dorazí od platební brány, předplatné se aktivuje — obvykle to trvá pár vteřin.",
+    "cancelledTitle": "Platba nedokončena",
+    "cancelledBody": "Nic se nestrhlo. Můžeš to zkusit znovu, až budeš chtít."
   }
 }

@@ -177,16 +177,32 @@ se dostane na 35–45 Kč, a u víc cílů rostou i prompty kvůli harmonizaci.
 
 ### Kolik z toho zbude
 
-Při ceně 179 Kč včetně DPH:
+Platby na webu jdou přes **Stripe Managed Payments** — Stripe je právním
+prodejcem a přebírá DPH, reklamace i podvodné platby. Ceny jsou nastavené
+jako **včetně daně**, takže zákazník platí inzerovaných 179 Kč a DPH se
+odvádí z nich.
 
-| | Web (Stripe) | Mobil (Apple/Google) |
+Důsledek, který stojí za zdůraznění: **DPH se účtuje i českým zákazníkům**,
+přestože provozovatelka není plátcem. Daň se řídí registrací Linku jako
+prodejce, ne její. Byl to vědomý kompromis — výměnou odpadá řešení DPH
+v zahraničí, včetně režimu OSS.
+
+| | Web (Managed Payments) | Mobil (Apple/Google) |
 |---|---|---|
-| Cena s DPH | 179 Kč | 179 Kč |
-| Po odvodu DPH 21 % | ~148 Kč | řeší obchod |
-| Po provizi | ~139 Kč (Stripe ~1,5 % + pár Kč) | ~125 Kč (15 %) |
-| Po AI u běžného uživatele (~35 Kč) | **~104 Kč** | **~90 Kč** |
+| Zákazník zaplatí | 179 Kč | 179 Kč |
+| DPH (21 % u ČR, jinde jinak) | −31 Kč | řeší obchod |
+| Poplatek Managed Payments 3,5 % | −6 Kč | — |
+| Zpracování platby (~1,4 % + 6 Kč) | −9 Kč | −27 Kč (provize 15 %) |
+| **Zbude** | **~133 Kč** | **~125 Kč** |
+| Po AI u běžného uživatele (~35 Kč) | **~98 Kč** | **~90 Kč** |
 
-Z toho ještě jde server, e-maily, případná podpora.
+Marže se liší podle země zákazníka, protože se liší sazba DPH — Německo
+19 %, Česko 21 %, Maďarsko 27 %.
+
+Pro srovnání: bez Managed Payments by z českého zákazníka zbylo asi 170 Kč,
+protože by se žádná DPH neúčtovala. Rozdíl zhruba 37 Kč měsíčně je cena
+za to, že se o daně nikde nestará provozovatelka.
+
 
 **K provizi obchodů.** Předplatné prodané uvnitř mobilní aplikace musí projít
 platebním systémem Applu nebo Googlu — Stripe je tam zakázaný. Základní sazba

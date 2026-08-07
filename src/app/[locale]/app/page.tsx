@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { SignOutButton } from "@/components/auth/SignOutButton";
+import { Paywall } from "@/components/billing/Paywall";
 
 export async function generateMetadata({
   params,
@@ -32,6 +33,12 @@ export default async function AppPage({
 
   const t = await getTranslations({ locale, namespace: "auth.app" });
 
+  // ACTIVE i TRIAL znamenají „má přístup". PAST_DUE ne — neuhrazená platba
+  // nesmí držet přístup otevřený donekonečna.
+  const hasSubscription = ["ACTIVE", "TRIAL"].includes(
+    session.user.subscriptionStatus,
+  );
+
   return (
     <section className="mx-auto max-w-3xl px-5 py-16 sm:px-8 sm:py-24">
       <h1 className="display text-3xl sm:text-4xl">
@@ -46,6 +53,14 @@ export default async function AppPage({
           <p className="mt-1.5 text-sm leading-relaxed text-amber-100/80">
             {t("verifyBody")}
           </p>
+        </div>
+      )}
+
+      {/* Dokud není zaplaceno, je paywall to hlavní na stránce.
+          Stav bereme ze session, kterou plní jen webhook od Stripu. */}
+      {!hasSubscription && (
+        <div className="mt-8">
+          <Paywall />
         </div>
       )}
 
