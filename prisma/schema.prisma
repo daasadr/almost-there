@@ -196,6 +196,18 @@ model Goal {
   /// Váha pro harmonizaci více cílů — kolik z denní kapacity smí cíl brát.
   priorityWeight Int @default(50)
 
+  // --- Co k plánu řekla AI při rozpadu -------------------------------------
+  // Uživatel to musí vidět, jinak neví, na čem plán stojí a proč vypadá,
+  // jak vypadá. Bez toho je z plánu neprůhledný příkaz.
+
+  /// Jak AI cíl pochopila — kontrola, že se rozumíme.
+  restatement String?
+  /// Předpoklady, ze kterých plán vychází (dostupný čas, výchozí úroveň…).
+  assumptions String[] @default([])
+  /// comfortable | realistic | ambitious | unrealistic
+  feasibility     String?
+  feasibilityNote String?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -209,6 +221,9 @@ model Goal {
 }
 
 enum BlockLevel {
+  /// Nejvyšší úroveň u dlouhých cílů. Desetiletý cíl se na měsíce
+  /// rozpadat nemá — je to drahé a stejně se to celé přepočítá.
+  YEAR
   MONTH
   WEEK
   DAY
@@ -222,6 +237,8 @@ model TimeBlock {
   level         BlockLevel
   startDate     DateTime   @db.Date
   endDate       DateTime   @db.Date
+  /// Krátký štítek do přehledu, pár slov.
+  title         String?
   /// Co má být na konci bloku hotové.
   summary       String
   parentBlockId String?

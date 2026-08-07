@@ -326,8 +326,6 @@
       "signOut": "Abmelden",
       "verifyTitle": "Bestätige deine E-Mail-Adresse",
       "verifyBody": "Ohne bestätigte Adresse kannst du dein Passwort nicht zurücksetzen. Den Link haben wir bei der Registrierung geschickt.",
-      "nextTitle": "Hier ist noch nichts",
-      "nextBody": "Konten funktionieren. Als Nächstes kommen Zahlungen, dann Ziele mit Tagescheckliste.",
       "accountEmail": "E-Mail",
       "accountPlan": "Abonnement",
       "plan": {
@@ -336,7 +334,8 @@
         "ACTIVE": "Aktiv",
         "PAST_DUE": "Offen",
         "CANCELED": "Gekündigt"
-      }
+      },
+      "accountTitle": "Konto"
     },
     "errors": {
       "nameRequired": "Sag uns bitte, wie wir dich nennen sollen.",
@@ -379,5 +378,102 @@
     "successBody": "Danke! Dein Abonnement wird aktiv, sobald der Zahlungsdienstleister bestätigt — meist innerhalb von Sekunden.",
     "cancelledTitle": "Zahlung nicht abgeschlossen",
     "cancelledBody": "Es wurde nichts abgebucht. Du kannst es jederzeit erneut versuchen."
+  },
+  "plan": {
+    "nav": {
+      "today": "Heute",
+      "goals": "Ziele",
+      "newGoal": "Neues Ziel"
+    },
+    "today": {
+      "title": "Heute",
+      "empty": "Für heute steht nichts an",
+      "emptyBody": "Entweder gibt dir der Plan heute frei, oder du hast noch kein Ziel angelegt. Deine Ziele stehen weiter unten.",
+      "allDone": "Fertig. Heute kommt nichts mehr.",
+      "progress": "{done} von {total} erledigt",
+      "minutes": "{minutes} Min.",
+      "type": {
+        "ACTION": "Arbeit",
+        "REST": "Erholung",
+        "REFLECTION": "Rückblick"
+      },
+      "preparingTitle": "Dein Tag wird vorbereitet",
+      "preparingBody": "Der nächste Abschnitt wird in konkrete Tage zerlegt. Das dauert einen Moment, passiert aber nur einmal pro Abschnitt.",
+      "preparingCta": "Heute planen",
+      "preparingFailed": "Die Zerlegung wurde nicht fertig. Bitte versuch es gleich noch einmal."
+    },
+    "goals": {
+      "title": "Ziele",
+      "empty": "Noch keine Ziele",
+      "emptyBody": "Leg dein erstes Ziel an — die KI zerlegt es bis hin zu dem, was du heute tust.",
+      "create": "Neues Ziel",
+      "targetDate": "Termin {date}",
+      "progress": "{done} von {total} Aufgaben",
+      "noTasks": "Noch keine Aufgaben ausgeschrieben",
+      "open": "Plan öffnen",
+      "status": {
+        "ACTIVE": "Läuft",
+        "PAUSED": "Pausiert",
+        "COMPLETED": "Erreicht",
+        "ABANDONED": "Aufgegeben"
+      }
+    },
+    "form": {
+      "title": "Neues Ziel",
+      "subtitle": "Schreib auf, was du erreichen willst und bis wann. Die Zerlegung ist ein Vorschlag, den du ändern kannst.",
+      "goalLabel": "Was willst du erreichen",
+      "goalPlaceholder": "z. B. zwölf Bücher auf Englisch lesen",
+      "goalHint": "Je konkreter du bist, desto besser wird der Plan.",
+      "dateLabel": "Bis wann",
+      "descriptionLabel": "Zusätzlicher Kontext (optional)",
+      "descriptionPlaceholder": "Was du schon kannst, was dich einschränkt, worauf es dir ankommt…",
+      "submit": "Ziel zerlegen",
+      "cancel": "Zurück",
+      "progress": {
+        "stages": [
+          "Ich lese dein Ziel…",
+          "Ich plane rückwärts vom Termin…",
+          "Ich teile das Ziel in Abschnitte…",
+          "Ich prüfe, ob der Termin hält…"
+        ],
+        "elapsed": "{seconds} s",
+        "note": "Die Zerlegung läuft im Hintergrund. Schließ die Seite nicht."
+      }
+    },
+    "detail": {
+      "back": "Zurück zur Übersicht",
+      "restatement": "So habe ich das Ziel verstanden",
+      "assumptions": "Wovon der Plan ausgeht",
+      "feasibilityTitle": "Hält der Termin",
+      "feasibility": {
+        "comfortable": "Mit Reserve",
+        "realistic": "Realistisch",
+        "ambitious": "Ambitioniert",
+        "unrealistic": "Unrealistisch"
+      },
+      "planTitle": "Plan",
+      "expandHint": "Die Details entstehen nach und nach — immer nur für den nächsten Abschnitt. Weiter entfernte Teile bleiben grob, bis du sie erreichst.",
+      "noDetail": "Noch nicht im Detail zerlegt",
+      "tasksTitle": "Aufgaben",
+      "level": {
+        "YEAR": "Jahr",
+        "MONTH": "Monat",
+        "WEEK": "Woche",
+        "DAY": "Tag"
+      }
+    },
+    "errors": {
+      "goalRequired": "Schreib auf, was du erreichen willst.",
+      "goalTooShort": "Das ist zu kurz. Beschreib das Ziel in einem Satz.",
+      "goalTooLong": "Das ist zu lang. Kürz es auf ein paar Sätze.",
+      "dateRequired": "Wähl einen Termin.",
+      "dateTooSoon": "Wähl einen Termin mindestens zwei Wochen in der Zukunft.",
+      "dateTooFar": "Wähl einen Termin innerhalb der nächsten zehn Jahre.",
+      "aiFailed": "Die Zerlegung hat nicht geklappt. Bitte versuch es erneut.",
+      "budgetExhausted": "Du hast das Monatslimit für Generierungen aufgebraucht. Es setzt sich am Ersten des nächsten Monats zurück — fertige Pläne bleiben verfügbar.",
+      "tooManyGoals": "Du kannst höchstens fünf Ziele gleichzeitig verfolgen. Schließ erst eines ab oder pausier es.",
+      "notSubscribed": "Dafür brauchst du ein Abonnement.",
+      "generic": "Etwas ist schiefgelaufen. Bitte versuch es erneut."
+    }
   }
 }

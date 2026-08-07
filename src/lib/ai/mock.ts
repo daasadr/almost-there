@@ -1,17 +1,24 @@
 import type { DecomposeInput, DecomposeResult } from "./decompose";
-import { daysUntil, periodCount, pickPlanLevel } from "./decompose";
+import { daysUntil, pickPlanLevel, planUnit } from "./decompose";
+import { parseIsoDate, splitRange, todayIso } from "@/lib/plan/calendar";
 
 /**
  * Ukázková odpověď pro vývoj bez spotřeby tokenů (DEMO_MOCK=true).
- * Struktura je shodná s reálným výstupem včetně volby úrovně, takže se
- * dá naslepo ladit i chování u víceletých cílů.
+ * Struktura je shodná s reálným výstupem včetně volby úrovně a rozsahů dat,
+ * takže se dá naslepo ladit i chování u víceletých cílů.
  */
 export async function mockDecomposeGoal(
   input: DecomposeInput,
 ): Promise<DecomposeResult> {
-  const days = daysUntil(input.targetDate);
+  const today = input.today ?? todayIso("UTC");
+  const days = daysUntil(input.targetDate, parseIsoDate(today));
   const level = pickPlanLevel(days);
-  const count = periodCount(days, level);
+  const ranges = splitRange(
+    parseIsoDate(today),
+    parseIsoDate(input.targetDate),
+    planUnit(level),
+  );
+  const count = ranges.length;
 
   // Malé zdržení, ať je vidět stav načítání.
   await new Promise((resolve) => setTimeout(resolve, 900));
@@ -39,5 +46,6 @@ export async function mockDecomposeGoal(
         "The timeframe works if you keep a steady rhythm rather than working in bursts.",
     },
     usage: { inputTokens: 0, outputTokens: 0, model: "mock" },
+    ranges,
   };
 }

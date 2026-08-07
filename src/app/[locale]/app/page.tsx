@@ -5,7 +5,13 @@ import { auth } from "@/auth";
 import { SignOutButton } from "@/components/auth/SignOutButton";
 import { Paywall } from "@/components/billing/Paywall";
 import { CheckoutPending } from "@/components/billing/CheckoutPending";
+import { GoalList } from "@/components/plan/GoalList";
+import { PlanTrigger } from "@/components/plan/PlanTrigger";
+import { TodayChecklist } from "@/components/plan/TodayChecklist";
 import { getAccess } from "@/lib/billing/access";
+import { getToday, listGoals } from "@/lib/goals/queries";
+import { db } from "@/lib/db";
+import Link from "next/link";
 
 export async function generateMetadata({
   params,
@@ -91,13 +97,19 @@ export default async function AppPage({
         </div>
       )}
 
-      <div className="card mt-8 p-6 sm:p-8">
-        <h2 className="display text-lg">{t("nextTitle")}</h2>
-        <p className="mt-2 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
-          {t("nextBody")}
-        </p>
+      {/* Vlastní obsah aplikace. Bez předplatného se nenačítá vůbec —
+          nemá cenu sahat do databáze pro data, která se nezobrazí. */}
+      {hasAccess && (
+        <div className="mt-10 space-y-10">
+          <Today userId={session.user.id} locale={locale} />
+          <Goals userId={session.user.id} locale={locale} />
+        </div>
+      )}
 
-        <dl className="mt-6 grid gap-4 text-sm sm:grid-cols-2">
+      <div className="card mt-10 p-6 sm:p-8">
+        <h2 className="display text-lg">{t("accountTitle")}</h2>
+
+        <dl className="mt-5 grid gap-4 text-sm sm:grid-cols-2">
           <div>
             <dt className="text-[var(--color-paper-faint)]">
               {t("accountEmail")}
@@ -119,6 +131,86 @@ export default async function AppPage({
 
       <div className="mt-8">
         <SignOutButton label={t("signOut")} />
+      </div>
+    </section>
+  );
+}
+
+/**
+ * Dnešní checklist.
+ *
+ * Když na dnešek úkoly nejsou, spustí se dorozpad. Prázdný den totiž může
+ * znamenat dvě věci — buď je podle plánu volno, nebo se ještě nerozepsal —
+ * a uživatel ten rozdíl sám nepozná.
+ */
+async function Today({ userId, locale }: { userId: string; locale: string }) {
+  const t = await getTranslations({ locale, namespace: "plan.today" });
+
+  const profile = await db.user.findUnique({
+    where: { id: userId },
+    select: { timezone: true },
+  });
+  const today = await getToday(userId, profile?.timezone ?? "Europe/Prague");
+
+  const heading = new Intl.DateTimeFormat(locale, {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+  }).format(new Date(`${today.date}T12:00:00Z`));
+
+  return (
+    <section>
+      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+        <h2 className="display text-2xl">{t("title")}</h2>
+        <span className="text-sm text-[var(--color-paper-faint)]">
+          {heading}
+        </span>
+      </div>
+
+      <div className="mt-5 space-y-4">
+        {today.goalsNeedingPlan.length > 0 && (
+          <PlanTrigger goalIds={today.goalsNeedingPlan.map((goal) => goal.id)} />
+        )}
+
+        {today.tasks.length > 0 ? (
+          <TodayChecklist tasks={today.tasks} />
+        ) : (
+          today.goalsNeedingPlan.length === 0 && (
+            <div className="card p-6">
+              <p className="text-[15px] text-[var(--color-paper)]">
+                {t("empty")}
+              </p>
+              <p className="mt-1.5 text-sm leading-relaxed text-[var(--color-paper-dim)]">
+                {t("emptyBody")}
+              </p>
+            </div>
+          )
+        )}
+      </div>
+    </section>
+  );
+}
+
+async function Goals({ userId, locale }: { userId: string; locale: string }) {
+  const t = await getTranslations({ locale, namespace: "plan.goals" });
+  const goals = await listGoals(userId);
+
+  return (
+    <section>
+      <div className="flex flex-wrap items-baseline justify-between gap-4">
+        <h2 className="display text-2xl">{t("title")}</h2>
+        {goals.length > 0 && (
+          <Link
+            href={`/${locale}/app/goals/new`}
+            className="text-sm font-medium text-[var(--color-lime-soft)] hover:underline"
+          >
+            {t("create")}
+          </Link>
+        )}
+      </div>
+
+      <div className="mt-5">
+        <GoalList goals={goals} locale={locale} />
       </div>
     </section>
   );

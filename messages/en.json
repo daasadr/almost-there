@@ -326,8 +326,6 @@
       "signOut": "Sign out",
       "verifyTitle": "Confirm your email address",
       "verifyBody": "Without a confirmed address you cannot reset your password. We sent the link when you registered.",
-      "nextTitle": "Nothing here yet",
-      "nextBody": "Accounts work. Payments come next, then goals with a daily checklist.",
       "accountEmail": "Email",
       "accountPlan": "Subscription",
       "plan": {
@@ -336,7 +334,8 @@
         "ACTIVE": "Active",
         "PAST_DUE": "Past due",
         "CANCELED": "Canceled"
-      }
+      },
+      "accountTitle": "Account"
     },
     "errors": {
       "nameRequired": "Please tell us what to call you.",
@@ -379,5 +378,102 @@
     "successBody": "Thank you! Your subscription activates as soon as the payment provider confirms it — usually within seconds.",
     "cancelledTitle": "Payment not completed",
     "cancelledBody": "Nothing was charged. You can try again whenever you like."
+  },
+  "plan": {
+    "nav": {
+      "today": "Today",
+      "goals": "Goals",
+      "newGoal": "New goal"
+    },
+    "today": {
+      "title": "Today",
+      "empty": "Nothing scheduled for today",
+      "emptyBody": "Either the plan gives you the day off, or you have not set a goal yet. Your goals are below.",
+      "allDone": "Done. Nothing else today.",
+      "progress": "{done} of {total} done",
+      "minutes": "{minutes} min",
+      "type": {
+        "ACTION": "Work",
+        "REST": "Rest",
+        "REFLECTION": "Reflection"
+      },
+      "preparingTitle": "Preparing your day",
+      "preparingBody": "Breaking the nearest period down into actual days. It takes a moment, but only happens once per period.",
+      "preparingCta": "Plan today",
+      "preparingFailed": "The breakdown did not finish. Please try again shortly."
+    },
+    "goals": {
+      "title": "Goals",
+      "empty": "No goals yet",
+      "emptyBody": "Set your first goal and the AI will break it down all the way to what you do today.",
+      "create": "New goal",
+      "targetDate": "Due {date}",
+      "progress": "{done} of {total} tasks",
+      "noTasks": "No tasks written out yet",
+      "open": "Open plan",
+      "status": {
+        "ACTIVE": "Running",
+        "PAUSED": "Paused",
+        "COMPLETED": "Completed",
+        "ABANDONED": "Abandoned"
+      }
+    },
+    "form": {
+      "title": "New goal",
+      "subtitle": "Write down what you want to reach and by when. Treat the breakdown as a proposal you can change.",
+      "goalLabel": "What do you want to reach",
+      "goalPlaceholder": "e.g. read twelve books in English",
+      "goalHint": "The more specific you are, the better the plan.",
+      "dateLabel": "By when",
+      "descriptionLabel": "Extra context (optional)",
+      "descriptionPlaceholder": "What you already know, what limits you, what matters most…",
+      "submit": "Break it down",
+      "cancel": "Back",
+      "progress": {
+        "stages": [
+          "Reading your goal…",
+          "Working backwards from the deadline…",
+          "Splitting the goal into periods…",
+          "Checking whether the deadline holds…"
+        ],
+        "elapsed": "{seconds}s",
+        "note": "The breakdown runs in the background. Do not close the page."
+      }
+    },
+    "detail": {
+      "back": "Back to overview",
+      "restatement": "How I understood the goal",
+      "assumptions": "What the plan assumes",
+      "feasibilityTitle": "Is the deadline realistic",
+      "feasibility": {
+        "comfortable": "Comfortable",
+        "realistic": "Realistic",
+        "ambitious": "Ambitious",
+        "unrealistic": "Unrealistic"
+      },
+      "planTitle": "Plan",
+      "expandHint": "Detail is filled in as you go — always just for the nearest period. Further parts stay as a rough breakdown until you reach them.",
+      "noDetail": "Not broken down in detail yet",
+      "tasksTitle": "Tasks",
+      "level": {
+        "YEAR": "Year",
+        "MONTH": "Month",
+        "WEEK": "Week",
+        "DAY": "Day"
+      }
+    },
+    "errors": {
+      "goalRequired": "Write down what you want to reach.",
+      "goalTooShort": "That is too short. Describe the goal in a sentence.",
+      "goalTooLong": "That is too long. Cut it down to a few sentences.",
+      "dateRequired": "Pick a target date.",
+      "dateTooSoon": "Pick a date at least two weeks from now.",
+      "dateTooFar": "Pick a date within the next ten years.",
+      "aiFailed": "The breakdown failed. Please try again.",
+      "budgetExhausted": "You have used up this month's generation limit. It resets on the first of next month — finished plans stay available until then.",
+      "tooManyGoals": "You can run at most five goals at once. Finish or pause one first.",
+      "notSubscribed": "This needs a subscription.",
+      "generic": "Something went wrong. Please try again."
+    }
   }
 }

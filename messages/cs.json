@@ -326,8 +326,6 @@
       "signOut": "Odhlásit se",
       "verifyTitle": "Potvrď svoji e-mailovou adresu",
       "verifyBody": "Bez potvrzené adresy ti nepůjde obnovit heslo. Odkaz jsme ti poslali při registraci.",
-      "nextTitle": "Tady zatím nic není",
-      "nextBody": "Účty fungují. Dalším krokem jsou platby a pak zakládání cílů s denním checklistem.",
       "accountEmail": "E-mail",
       "accountPlan": "Předplatné",
       "plan": {
@@ -336,7 +334,8 @@
         "ACTIVE": "Aktivní",
         "PAST_DUE": "Neuhrazeno",
         "CANCELED": "Zrušeno"
-      }
+      },
+      "accountTitle": "Účet"
     },
     "errors": {
       "nameRequired": "Napiš prosím, jak ti máme říkat.",
@@ -379,5 +378,102 @@
     "successBody": "Díky! Jakmile potvrzení dorazí od platební brány, předplatné se aktivuje — obvykle to trvá pár vteřin.",
     "cancelledTitle": "Platba nedokončena",
     "cancelledBody": "Nic se nestrhlo. Můžeš to zkusit znovu, až budeš chtít."
+  },
+  "plan": {
+    "nav": {
+      "today": "Dnešek",
+      "goals": "Cíle",
+      "newGoal": "Nový cíl"
+    },
+    "today": {
+      "title": "Dnešek",
+      "empty": "Na dnešek nemáš žádné úkoly",
+      "emptyBody": "Buď máš volno podle plánu, nebo si zatím žádný cíl nezaložil. Cíle najdeš níž.",
+      "allDone": "Hotovo. Dneska už nic dalšího není.",
+      "progress": "{done} z {total} hotovo",
+      "minutes": "{minutes} min",
+      "type": {
+        "ACTION": "Práce",
+        "REST": "Odpočinek",
+        "REFLECTION": "Ohlédnutí"
+      },
+      "preparingTitle": "Připravuji tvůj den",
+      "preparingBody": "Rozepisuji nejbližší období na konkrétní dny. Chvíli to trvá, ale dělá se to jen jednou za období.",
+      "preparingCta": "Rozepsat dnešek",
+      "preparingFailed": "Rozpis se nepodařilo dokončit. Zkus to prosím za chvíli znovu."
+    },
+    "goals": {
+      "title": "Cíle",
+      "empty": "Zatím žádný cíl",
+      "emptyBody": "Založ první cíl a AI ho rozpadne až na to, co máš dělat dnes.",
+      "create": "Nový cíl",
+      "targetDate": "Termín {date}",
+      "progress": "{done} z {total} úkolů",
+      "noTasks": "Zatím bez rozepsaných úkolů",
+      "open": "Otevřít plán",
+      "status": {
+        "ACTIVE": "Běží",
+        "PAUSED": "Pozastaveno",
+        "COMPLETED": "Splněno",
+        "ABANDONED": "Opuštěno"
+      }
+    },
+    "form": {
+      "title": "Nový cíl",
+      "subtitle": "Napiš, čeho chceš dosáhnout a do kdy. Zbytek rozpadu si vezmi jako návrh, který se dá měnit.",
+      "goalLabel": "Čeho chceš dosáhnout",
+      "goalPlaceholder": "Např. přečíst dvanáct knih v angličtině",
+      "goalHint": "Čím konkrétněji to napíšeš, tím lepší plán dostaneš.",
+      "dateLabel": "Do kdy",
+      "descriptionLabel": "Kontext navíc (nepovinné)",
+      "descriptionPlaceholder": "Co už umíš, co tě omezuje, na čem ti nejvíc záleží…",
+      "submit": "Rozpadnout cíl",
+      "cancel": "Zpět",
+      "progress": {
+        "stages": [
+          "Čtu zadání…",
+          "Plánuji pozpátku od termínu…",
+          "Rozděluji cíl na období…",
+          "Kontroluji, jestli termín vychází…"
+        ],
+        "elapsed": "{seconds} s",
+        "note": "Rozpad běží na pozadí. Nezavírej stránku."
+      }
+    },
+    "detail": {
+      "back": "Zpět na přehled",
+      "restatement": "Jak jsem cíl pochopil",
+      "assumptions": "Z čeho plán vychází",
+      "feasibilityTitle": "Reálnost termínu",
+      "feasibility": {
+        "comfortable": "S rezervou",
+        "realistic": "Reálné",
+        "ambitious": "Ambiciózní",
+        "unrealistic": "Nereálné"
+      },
+      "planTitle": "Plán",
+      "expandHint": "Podrobnosti se dopisují postupně — vždy jen na nejbližší období. Starší i vzdálenější části zůstávají v hrubém rozpadu, dokud na ně nedojde.",
+      "noDetail": "Zatím bez podrobného rozpisu",
+      "tasksTitle": "Úkoly",
+      "level": {
+        "YEAR": "Rok",
+        "MONTH": "Měsíc",
+        "WEEK": "Týden",
+        "DAY": "Den"
+      }
+    },
+    "errors": {
+      "goalRequired": "Napiš, čeho chceš dosáhnout.",
+      "goalTooShort": "To je moc krátké. Popiš cíl aspoň větou.",
+      "goalTooLong": "To je moc dlouhé. Zkrať to na pár vět.",
+      "dateRequired": "Vyber termín.",
+      "dateTooSoon": "Vyber termín aspoň dva týdny dopředu.",
+      "dateTooFar": "Vyber termín do deseti let.",
+      "aiFailed": "Rozpad se nepovedl. Zkus to prosím znovu.",
+      "budgetExhausted": "Vyčerpal jsi měsíční limit generování. Obnoví se prvního dne dalšího měsíce — do té doby zůstávají hotové plány dostupné.",
+      "tooManyGoals": "Najednou můžeš mít nejvýš pět běžících cílů. Nějaký nejdřív dokonči nebo pozastav.",
+      "notSubscribed": "Na tohle je potřeba předplatné.",
+      "generic": "Něco se pokazilo. Zkus to prosím znovu."
+    }
   }
 }

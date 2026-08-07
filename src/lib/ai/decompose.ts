@@ -1,6 +1,5 @@
 import "server-only";
-import { getAnthropic } from "./client";
-import { env } from "@/lib/env";
+import { callStructured, type AiUsage } from "./call";
 import {
   planSchema,
   buildPlanJsonSchema,
@@ -8,6 +7,19 @@ import {
   type PlanLevel,
 } from "./schemas";
 import { localeAiNames, type Locale } from "@/i18n/routing";
+import {
+  daysInclusive,
+  parseIsoDate,
+  splitRange,
+  toIsoDate,
+  todayIso,
+  type DateRange,
+  type Unit,
+} from "@/lib/plan/calendar";
+
+// Chyby žijí v call.ts, ale volající je znají odsud — necháváme je tu
+// viditelné, ať se kvůli refaktoru nemusí přepisovat importy.
+export { AiRefusalError, AiFormatError } from "./call";
 
 /**
  * Fáze 1 dekompozice cíle: nejvyšší úroveň plánu.
@@ -36,11 +48,15 @@ export type DecomposeInput = {
   dailyCapacityMinutes?: number;
   /** Ostatní aktivní cíle — kvůli harmonizaci (fáze 2 produktu). */
   otherActiveGoals?: { title: string; targetDate: string }[];
+  /** Dnešek v pásmu uživatele. V demu se nezadává a bere se UTC. */
+  today?: string;
 };
 
 export type DecomposeResult = {
   plan: Plan;
-  usage: { inputTokens: number; outputTokens: number; model: string };
+  usage: AiUsage;
+  /** Kalendářní rozsahy období — v tomtéž pořadí jako `plan.periods`. */
+  ranges: DateRange[];
 };
 
 const SYSTEM_PROMPT = `You are the planning engine behind AlmostThere, an app that turns ambitious goals into daily action.
@@ -76,9 +92,10 @@ With a short horizon, be concrete. Each week's milestone should read like someth
 function buildUserPrompt(
   input: DecomposeInput,
   level: PlanLevel,
-  count: number,
+  ranges: DateRange[],
+  today: string,
 ): string {
-  const today = new Date().toISOString().slice(0, 10);
+  const count = ranges.length;
   const unit = level === "year" ? "year" : level === "month" ? "month" : "week";
 
   const lines = [
@@ -111,6 +128,19 @@ function buildUserPrompt(
       ),
     );
   }
+
+  // Konkrétní data období. Bez nich model neví, že první měsíc může být
+  // useknutý na pár dní, a naplánoval by do něj plnou porci práce.
+  lines.push(
+    "",
+    `The ${count} ${unit}s cover these exact date ranges:`,
+    ...ranges.map(
+      (range, i) =>
+        `  ${i + 1}. ${toIsoDate(range.startDate)} to ${toIsoDate(range.endDate)}` +
+        ` (${daysInclusive(range.startDate, range.endDate)} days)`,
+    ),
+    "Some ranges are shorter than a full calendar period. Scale what you expect from them accordingly.",
+  );
 
   lines.push(
     "",
@@ -147,90 +177,60 @@ export function pickPlanLevel(days: number): PlanLevel {
   return "year";
 }
 
-/** Kolik období dané jednotky se do horizontu vejde. */
-export function periodCount(days: number, level: PlanLevel): number {
-  switch (level) {
-    case "week":
-      return clamp(Math.round(days / 7), 2, 12);
-    case "month":
-      return clamp(Math.round(days / 30.44), 2, 18);
-    case "year":
-      return clamp(Math.round(days / 365.25), 2, 15);
-  }
-}
-
-function clamp(value: number, min: number, max: number): number {
-  return Math.min(max, Math.max(min, value));
+/** Úroveň plánu jako jednotka kalendáře. */
+export function planUnit(level: PlanLevel): Unit {
+  return level.toUpperCase() as Unit;
 }
 
 export async function decomposeGoal(
   input: DecomposeInput,
 ): Promise<DecomposeResult> {
-  const days = daysUntil(input.targetDate);
+  const today = input.today ?? todayIso("UTC");
+  const days = daysUntil(input.targetDate, parseIsoDate(today));
   const level = pickPlanLevel(days);
-  const count = periodCount(days, level);
-  const model = env.anthropicModel;
 
-  const response = await getAnthropic().messages.create({
-    model,
-    max_tokens: 16000,
+  // Počet období si nevymýšlíme — vyplyne z kalendáře. Kdybychom modelu
+  // řekli jiné číslo, než na kolik rozsah reálně vychází, nesedělo by
+  // pak přiřazení období k datům.
+  const ranges = splitRange(
+    parseIsoDate(today),
+    parseIsoDate(input.targetDate),
+    planUnit(level),
+  );
+
+  const { data, usage } = await callStructured({
     system: SYSTEM_PROMPT,
-    output_config: {
-      // Laditelné přes ANTHROPIC_EFFORT — viz komentář v env.ts.
-      effort: env.anthropicEffort,
-      format: {
-        type: "json_schema",
-        schema: buildPlanJsonSchema(level),
-      },
-    },
-    messages: [{ role: "user", content: buildUserPrompt(input, level, count) }],
+    user: buildUserPrompt(input, level, ranges, today),
+    jsonSchema: buildPlanJsonSchema(level),
+    parser: planSchema,
   });
 
-  if (response.stop_reason === "refusal") {
-    throw new AiRefusalError(
-      response.stop_details?.explanation ?? "Request declined.",
-    );
-  }
-
-  const textBlock = response.content.find((block) => block.type === "text");
-  if (!textBlock || textBlock.type !== "text") {
-    throw new AiFormatError("Model returned no text content.");
-  }
-
-  let parsed: unknown;
-  try {
-    parsed = JSON.parse(textBlock.text);
-  } catch {
-    throw new AiFormatError("Model returned malformed JSON.");
-  }
-
-  const result = planSchema.safeParse(parsed);
-  if (!result.success) {
-    throw new AiFormatError(
-      `Model output did not match the schema: ${result.error.message}`,
-    );
-  }
-
-  // Přečíslujeme podle pořadí — model občas indexy přeskočí a UI na ně spoléhá.
-  const periods = result.data.periods.map((period, i) => ({
+  // Počet období modelu zadáváme, ale vynutit se nedá. Přebytek zahodíme —
+  // období bez data by v UI nemělo kam patřit — a přečíslujeme podle pořadí,
+  // protože model občas indexy přeskočí.
+  const periods = data.periods.slice(0, ranges.length).map((period, i) => ({
     ...period,
     index: i + 1,
   }));
 
   return {
-    plan: { ...result.data, level, periods },
-    usage: {
-      inputTokens: response.usage.input_tokens,
-      outputTokens: response.usage.output_tokens,
-      model,
-    },
+    plan: { ...data, level, periods },
+    usage,
+    ranges: fitRanges(ranges, periods.length),
   };
 }
 
-export class AiRefusalError extends Error {
-  readonly name = "AiRefusalError";
-}
+/**
+ * Zkrátí rozsahy na počet období, která model vrátil. Poslední se přitom
+ * natáhne až k původnímu konci — cíl nesmí skončit dřív, než má termín.
+ */
+function fitRanges(ranges: DateRange[], wanted: number): DateRange[] {
+  if (wanted >= ranges.length) return ranges;
 
-export class AiFormatError extends Error {
-  readonly name = "AiFormatError";
+  const kept = ranges.slice(0, wanted);
+  kept[wanted - 1] = {
+    startDate: kept[wanted - 1].startDate,
+    endDate: ranges[ranges.length - 1].endDate,
+  };
+  return kept;
 }

@@ -45,6 +45,158 @@ export const planSchema = z.object({
 export type PlanPeriod = z.infer<typeof planPeriodSchema>;
 export type Plan = z.infer<typeof planSchema>;
 
+// ---------------------------------------------------------------------------
+// Nižší úrovně rozpadu (zadání, bod 6 — fáze 2 a 3)
+// ---------------------------------------------------------------------------
+
+/**
+ * Rozpad jednoho bloku na bloky o úroveň níž: rok → měsíce, měsíc → týdny.
+ *
+ * Je to jedna funkce pro obě úrovně schválně. Zadání je pokaždé stejné —
+ * „vezmi tenhle úsek a rozděl ho na kratší" — a dvě skoro totožné větve
+ * by se časem rozešly.
+ */
+export const childBlockSchema = z.object({
+  /** Pořadí v rámci rodiče, 1 = první. */
+  index: z.number().int().positive(),
+  title: z.string().min(1),
+  /** Co musí být na konci tohohle úseku hotové. */
+  summary: z.string().min(1),
+});
+
+export const blockChildrenSchema = z.object({
+  children: z.array(childBlockSchema).min(1),
+});
+
+export type ChildBlock = z.infer<typeof childBlockSchema>;
+
+/** Typ denního úkolu. Odpočinek a reflexe jsou plnohodnotné položky
+ *  plánu, ne poznámka pod čarou — v tom je celý rozdíl oproti to-do listu. */
+export const taskTypes = ["ACTION", "REST", "REFLECTION"] as const;
+export type TaskTypeName = (typeof taskTypes)[number];
+
+export const dayTaskSchema = z.object({
+  title: z.string().min(1),
+  /** Nepovinné upřesnění — co přesně dělat, když z názvu není jasné. */
+  description: z.string().optional(),
+  type: z.enum(taskTypes),
+  estimatedMinutes: z.number().int().positive().max(600),
+});
+
+export const daySchema = z.object({
+  /** Pořadí dne v týdnu, 1 = první den bloku. */
+  index: z.number().int().positive(),
+  /** Čím je ten den daný — jedna věta. */
+  summary: z.string().min(1),
+  tasks: z.array(dayTaskSchema),
+});
+
+export const weekDaysSchema = z.object({
+  days: z.array(daySchema).min(1),
+});
+
+export type DayTask = z.infer<typeof dayTaskSchema>;
+export type PlannedDay = z.infer<typeof daySchema>;
+
+/** JSON Schema pro rozpad bloku na podbloky. */
+export function buildChildrenJsonSchema(childUnit: string, count: number) {
+  return {
+    type: "object",
+    properties: {
+      children: {
+        type: "array",
+        description: `Exactly ${count} ${childUnit}s, in chronological order.`,
+        items: {
+          type: "object",
+          properties: {
+            index: {
+              type: "integer",
+              description: `1-based position of this ${childUnit} within the parent period.`,
+            },
+            title: {
+              type: "string",
+              description:
+                "Short label, at most six words. No numbering, no dates.",
+            },
+            summary: {
+              type: "string",
+              description: `What must be true at the end of this ${childUnit}. One or two sentences, concrete and checkable.`,
+            },
+          },
+          required: ["index", "title", "summary"],
+          additionalProperties: false,
+        },
+      },
+    },
+    required: ["children"],
+    additionalProperties: false,
+  } as const;
+}
+
+/** JSON Schema pro rozpad týdne na dny s úkoly. */
+export function buildDaysJsonSchema(count: number) {
+  return {
+    type: "object",
+    properties: {
+      days: {
+        type: "array",
+        description: `Exactly ${count} days, in chronological order.`,
+        items: {
+          type: "object",
+          properties: {
+            index: {
+              type: "integer",
+              description: "1-based position of this day within the week.",
+            },
+            summary: {
+              type: "string",
+              description:
+                "One sentence describing what this day is for. On a rest day, say so plainly.",
+            },
+            tasks: {
+              type: "array",
+              description:
+                "Tasks for this day. A working day usually has one to three. A rest day has a REST task and nothing else.",
+              items: {
+                type: "object",
+                properties: {
+                  title: {
+                    type: "string",
+                    description:
+                      "What to do, phrased so the person knows when it is finished. At most twelve words.",
+                  },
+                  description: {
+                    type: "string",
+                    description:
+                      "Optional one-sentence detail. Leave out when the title says everything.",
+                  },
+                  type: {
+                    type: "string",
+                    enum: ["ACTION", "REST", "REFLECTION"],
+                    description:
+                      "ACTION moves the goal forward, REST is deliberate recovery, REFLECTION is reviewing how it is going.",
+                  },
+                  estimatedMinutes: {
+                    type: "integer",
+                    description:
+                      "Realistic time in minutes. Must fit within the person's stated daily capacity together with the other tasks of that day.",
+                  },
+                },
+                required: ["title", "type", "estimatedMinutes"],
+                additionalProperties: false,
+              },
+            },
+          },
+          required: ["index", "summary", "tasks"],
+          additionalProperties: false,
+        },
+      },
+    },
+    required: ["days"],
+    additionalProperties: false,
+  } as const;
+}
+
 /**
  * JSON Schema pro `output_config.format`. Anthropic API vyžaduje
  * `additionalProperties: false` a explicitní `required` u každého objektu.

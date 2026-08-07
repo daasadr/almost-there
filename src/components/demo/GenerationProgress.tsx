@@ -20,8 +20,13 @@ const CEILING = 95;
 /** Kdy (v sekundách) přepnout na další popisek fáze. */
 const STAGE_THRESHOLDS = [0, 8, 20, 34];
 
-export function GenerationProgress() {
-  const t = useTranslations("demo.form.progress");
+export function GenerationProgress({
+  // Stejný ukazatel používá demo i zakládání cíle — liší se jen popisky fází.
+  namespace = "demo.form.progress",
+}: {
+  namespace?: "demo.form.progress" | "plan.form.progress";
+} = {}) {
+  const t = useTranslations(namespace);
   const stages = t.raw("stages") as string[];
 
   const [elapsedMs, setElapsedMs] = useState(0);
