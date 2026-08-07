@@ -1,12 +1,26 @@
 import { NextResponse } from "next/server";
+import type Stripe from "stripe";
 import { hasLocale } from "next-intl";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
+import { getAccess } from "@/lib/billing/access";
 import { getStripe } from "@/lib/stripe/client";
 import { isBillingPeriod, stripePriceId } from "@/lib/stripe/plans";
 import { routing, type Locale } from "@/i18n/routing";
 
 export const runtime = "nodejs";
+
+/**
+ * Stavy, ve kterých už předplatné existuje a druhé by znamenalo dvojí
+ * placení. `incomplete` mezi ně nepatří — to je rozdělaná, nezaplacená
+ * pokladna, a ta bránit v nové platbě nesmí.
+ */
+const BLOCKING_STATUSES: Stripe.Subscription.Status[] = [
+  "active",
+  "trialing",
+  "past_due",
+  "unpaid",
+];
 
 /**
  * Zahájení platby. Vrací adresu platební stránky, na kterou klient přesměruje.
@@ -49,6 +63,40 @@ export async function POST(request: Request) {
   }
 
   const stripe = getStripe();
+
+  // Kdo už platí, nesmí založit druhé předplatné — platilo by dvakrát.
+  const access = await getAccess(user.id);
+  if (access.hasAccess) {
+    return NextResponse.json(
+      { ok: false, error: "already_subscribed" },
+      { status: 409 },
+    );
+  }
+
+  // Databáze se o platbě dozví až z webhooku, který může mít pár vteřin
+  // zpoždění. V tom okně by kontrola výš druhou platbu propustila, proto
+  // se ptáme ještě přímo Stripu.
+  if (user.stripeCustomerId) {
+    try {
+      const existing = await stripe.subscriptions.list({
+        customer: user.stripeCustomerId,
+        status: "all",
+        limit: 20,
+      });
+
+      if (existing.data.some((s) => BLOCKING_STATUSES.includes(s.status))) {
+        return NextResponse.json(
+          { ok: false, error: "already_subscribed" },
+          { status: 409 },
+        );
+      }
+    } catch (error) {
+      // Výpadek Stripu tady platbu neblokuje — kontrola v databázi výš
+      // prošla, takže nanejvýš přijdeme o pojistku na těch pár vteřin.
+      console.error("[stripe] kontrolu předplatných nešlo provést", error);
+    }
+  }
+
   const base = (process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000")
     .replace(/\/+$/, "");
 

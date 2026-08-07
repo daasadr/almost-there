@@ -37,6 +37,14 @@ export function Paywall() {
       });
       const data = await response.json();
 
+      // Uživatel už předplatné má a jen o tom neví — typicky proto, že mu
+      // tahle stránka zůstala otevřená ve druhé záložce. Chybu hlásit nemá
+      // smysl, stačí načíst stránku znovu a paywall zmizí.
+      if (response.status === 409) {
+        window.location.reload();
+        return;
+      }
+
       if (!response.ok || !data.ok || !data.url) {
         setFailed(true);
         setLoading(false);
