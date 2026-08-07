@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
+import { useSession } from "next-auth/react";
 import { Link } from "@/i18n/navigation";
 import { LogoMark, Wordmark } from "./Logo";
 import { LocaleSwitcher } from "./LocaleSwitcher";
@@ -9,6 +10,7 @@ import { LocaleSwitcher } from "./LocaleSwitcher";
 export function SiteHeader() {
   const t = useTranslations("nav");
   const [scrolled, setScrolled] = useState(false);
+  const { status } = useSession();
 
   // Hlavička je průhledná nad hero sekcí a po odscrollování ztmavne,
   // aby text pod ní nesplýval s pozadím.
@@ -56,12 +58,25 @@ export function SiteHeader() {
 
         <div className="ml-auto flex items-center gap-3 md:ml-0">
           <LocaleSwitcher />
-          <Link
-            href="/demo"
-            className="hidden rounded-full border border-white/10 px-4 py-1.5 text-sm font-medium text-[var(--color-paper-dim)] transition hover:border-white/25 hover:text-[var(--color-paper)] sm:inline-flex"
-          >
-            {t("demo")}
-          </Link>
+          {/* Stav přihlášení se dotahuje na klientovi, aby stránky
+              zůstaly staticky předgenerované. */}
+          {status === "authenticated" ? (
+            <Link href="/app" className="btn-primary !px-4 !py-1.5 text-sm">
+              {t("account")}
+            </Link>
+          ) : (
+            <>
+              <Link
+                href="/login"
+                className="hidden rounded-full border border-white/10 px-4 py-1.5 text-sm font-medium text-[var(--color-paper-dim)] transition hover:border-white/25 hover:text-[var(--color-paper)] sm:inline-flex"
+              >
+                {t("login")}
+              </Link>
+              <Link href="/demo" className="btn-primary !px-4 !py-1.5 text-sm">
+                {t("demo")}
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </header>

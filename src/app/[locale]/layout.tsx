@@ -9,6 +9,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { CookieBanner } from "@/components/CookieBanner";
 import { RevealOnScroll } from "@/components/RevealOnScroll";
+import { AuthSessionProvider } from "@/components/SessionProvider";
 import "@/app/globals.css";
 
 export function generateStaticParams() {
@@ -59,6 +60,7 @@ export default async function LocaleLayout({
       className={`${bricolage.variable} ${instrument.variable}`}
     >
       <body className="min-h-dvh antialiased">
+        <AuthSessionProvider>
         <NextIntlClientProvider>
           <a
             href="#main"
@@ -72,6 +74,7 @@ export default async function LocaleLayout({
           <CookieBanner />
           <RevealOnScroll />
         </NextIntlClientProvider>
+        </AuthSessionProvider>
       </body>
     </html>
   );

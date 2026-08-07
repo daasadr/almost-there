@@ -10,7 +10,9 @@
     "demo": "Try the demo",
     "buy": "Get started",
     "backHome": "Back to home",
-    "language": "Language"
+    "language": "Language",
+    "login": "Sign in",
+    "account": "My account"
   },
   "hero": {
     "eyebrow": "Goal → months → weeks → today",
@@ -253,6 +255,101 @@
       "button": "Set new password",
       "fallback": "If the button does not work, copy this link into your browser:",
       "footer": "You received this because someone requested a password reset for the AlmostThere account with this address."
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome back",
+      "subtitle": "Sign in and pick up where you left off.",
+      "emailLabel": "Email",
+      "passwordLabel": "Password",
+      "submit": "Sign in",
+      "submitting": "Signing in…",
+      "or": "or",
+      "google": "Continue with Google",
+      "noAccount": "No account yet?",
+      "registerLink": "Create one",
+      "forgotLink": "Forgot your password?"
+    },
+    "register": {
+      "title": "Create your account",
+      "subtitle": "A minute from now, your first goal can be broken down to today.",
+      "nameLabel": "What should we call you?",
+      "emailLabel": "Email",
+      "passwordLabel": "Password",
+      "passwordHint": "At least {min} characters. A longer phrase beats short complexity.",
+      "consentLabel": "I agree to the <terms>terms of service</terms> and the <privacy>privacy policy</privacy>.",
+      "submit": "Create account",
+      "submitting": "Creating account…",
+      "or": "or",
+      "google": "Continue with Google",
+      "googleConsent": "By continuing with Google you agree to the <terms>terms of service</terms> and the <privacy>privacy policy</privacy>.",
+      "hasAccount": "Already have an account?",
+      "loginLink": "Sign in",
+      "successTitle": "Check your inbox",
+      "successBody": "We sent a confirmation link to {email}. Click it and you can sign in.",
+      "toLogin": "Go to sign in"
+    },
+    "forgot": {
+      "title": "Forgot password",
+      "subtitle": "Enter your email and we will send a link to set a new password.",
+      "emailLabel": "Email",
+      "submit": "Send link",
+      "submitting": "Sending…",
+      "successTitle": "Done",
+      "successBody": "If an account with that address exists, a link to set a new password is on its way. It is valid for one hour.",
+      "backToLogin": "Back to sign in"
+    },
+    "reset": {
+      "title": "New password",
+      "subtitle": "Enter the password you will sign in with.",
+      "passwordLabel": "New password",
+      "passwordHint": "At least {min} characters.",
+      "submit": "Save password",
+      "submitting": "Saving…",
+      "successTitle": "Password changed",
+      "successBody": "You can sign in with your new password.",
+      "toLogin": "Go to sign in",
+      "requestNew": "Request a new link"
+    },
+    "verify": {
+      "title": "Email verification",
+      "checking": "Checking the link…",
+      "successTitle": "Address confirmed",
+      "successBody": "Your account is active. You can sign in now.",
+      "errorBody": "The link may already have been used, or it has expired. Try signing in — if that fails, request a new one.",
+      "toLogin": "Go to sign in"
+    },
+    "app": {
+      "title": "My account",
+      "welcome": "Welcome, {name}",
+      "signOut": "Sign out",
+      "verifyTitle": "Confirm your email address",
+      "verifyBody": "Without a confirmed address you cannot reset your password. We sent the link when you registered.",
+      "nextTitle": "Nothing here yet",
+      "nextBody": "Accounts work. Payments come next, then goals with a daily checklist.",
+      "accountEmail": "Email",
+      "accountPlan": "Subscription",
+      "plan": {
+        "NONE": "None yet",
+        "TRIAL": "Trial",
+        "ACTIVE": "Active",
+        "PAST_DUE": "Past due",
+        "CANCELED": "Canceled"
+      }
+    },
+    "errors": {
+      "nameRequired": "Please tell us what to call you.",
+      "emailInvalid": "That does not look like a valid email address.",
+      "emailTaken": "An account with this address already exists. Try signing in.",
+      "passwordTooShort": "The password needs at least 10 characters.",
+      "consentRequired": "You cannot create an account without agreeing to the terms.",
+      "invalidCredentials": "Email or password does not match.",
+      "emailNotVerified": "Please confirm your email address first.",
+      "tokenInvalid": "The link is invalid or has already been used.",
+      "tokenExpired": "The link has expired.",
+      "rateLimited": "Too many attempts. Please try again in a moment.",
+      "generic": "Something went wrong. Please try again."
     }
   }
 }

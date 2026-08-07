@@ -25,6 +25,14 @@ git pull --ff-only
 echo "==> Sestavuji image"
 docker compose build
 
+echo "==> Spouštím databázi"
+docker compose up -d db
+
+echo "==> Aplikuji migrace databáze"
+# Běží před startem aplikace — kdyby appka naběhla dřív než schéma,
+# první požadavky by spadly na chybějící tabulky.
+docker compose run --rm migrate
+
 echo "==> Spouštím novou verzi"
 docker compose up -d
 

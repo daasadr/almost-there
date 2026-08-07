@@ -11,6 +11,13 @@ import type { Locale } from "@/i18n/routing";
  * Doplň také skutečné údaje provozovatele — všude, kde je [DOPLNIT].
  */
 
+/**
+ * Verze právních dokumentů. Ukládá se ke každému souhlasu — bez ní
+ * nejde doložit, s JAKÝM zněním uživatel souhlasil (zadání, bod 13).
+ * Při každé věcné změně podmínek tuhle hodnotu zvyš.
+ */
+export const LEGAL_VERSION = "2026-08-01";
+
 export type LegalSection = { heading: string; paragraphs: string[] };
 export type LegalDocument = {
   lastUpdated: string;

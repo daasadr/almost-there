@@ -10,7 +10,9 @@
     "demo": "Demo testen",
     "buy": "Jetzt starten",
     "backHome": "Zurück zur Startseite",
-    "language": "Sprache"
+    "language": "Sprache",
+    "login": "Anmelden",
+    "account": "Mein Konto"
   },
   "hero": {
     "eyebrow": "Ziel → Monate → Wochen → heute",
@@ -253,6 +255,101 @@
       "button": "Neues Passwort festlegen",
       "fallback": "Falls der Button nicht funktioniert, kopiere diesen Link in deinen Browser:",
       "footer": "Du hast diese E-Mail erhalten, weil jemand für das AlmostThere-Konto mit dieser Adresse eine Passwortzurücksetzung angefordert hat."
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Willkommen zurück",
+      "subtitle": "Melde dich an und mach dort weiter, wo du aufgehört hast.",
+      "emailLabel": "E-Mail",
+      "passwordLabel": "Passwort",
+      "submit": "Anmelden",
+      "submitting": "Anmeldung läuft…",
+      "or": "oder",
+      "google": "Mit Google fortfahren",
+      "noAccount": "Noch kein Konto?",
+      "registerLink": "Jetzt registrieren",
+      "forgotLink": "Passwort vergessen?"
+    },
+    "register": {
+      "title": "Konto erstellen",
+      "subtitle": "In einer Minute ist dein erstes Ziel bis auf heute heruntergebrochen.",
+      "nameLabel": "Wie sollen wir dich nennen?",
+      "emailLabel": "E-Mail",
+      "passwordLabel": "Passwort",
+      "passwordHint": "Mindestens {min} Zeichen. Eine längere Phrase schlägt kurze Komplexität.",
+      "consentLabel": "Ich stimme den <terms>AGB</terms> und der <privacy>Datenschutzerklärung</privacy> zu.",
+      "submit": "Konto erstellen",
+      "submitting": "Konto wird erstellt…",
+      "or": "oder",
+      "google": "Mit Google fortfahren",
+      "googleConsent": "Wenn du mit Google fortfährst, stimmst du den <terms>AGB</terms> und der <privacy>Datenschutzerklärung</privacy> zu.",
+      "hasAccount": "Schon ein Konto?",
+      "loginLink": "Anmelden",
+      "successTitle": "Sieh in dein Postfach",
+      "successBody": "Wir haben einen Bestätigungslink an {email} geschickt. Danach kannst du dich anmelden.",
+      "toLogin": "Zur Anmeldung"
+    },
+    "forgot": {
+      "title": "Passwort vergessen",
+      "subtitle": "Gib deine E-Mail ein, wir schicken dir einen Link für ein neues Passwort.",
+      "emailLabel": "E-Mail",
+      "submit": "Link senden",
+      "submitting": "Wird gesendet…",
+      "successTitle": "Erledigt",
+      "successBody": "Falls ein Konto mit dieser Adresse existiert, ist der Link für ein neues Passwort unterwegs. Er gilt eine Stunde.",
+      "backToLogin": "Zurück zur Anmeldung"
+    },
+    "reset": {
+      "title": "Neues Passwort",
+      "subtitle": "Gib das Passwort ein, mit dem du dich anmelden willst.",
+      "passwordLabel": "Neues Passwort",
+      "passwordHint": "Mindestens {min} Zeichen.",
+      "submit": "Passwort speichern",
+      "submitting": "Wird gespeichert…",
+      "successTitle": "Passwort geändert",
+      "successBody": "Du kannst dich jetzt mit dem neuen Passwort anmelden.",
+      "toLogin": "Zur Anmeldung",
+      "requestNew": "Neuen Link anfordern"
+    },
+    "verify": {
+      "title": "E-Mail-Bestätigung",
+      "checking": "Link wird geprüft…",
+      "successTitle": "Adresse bestätigt",
+      "successBody": "Dein Konto ist aktiv. Du kannst dich jetzt anmelden.",
+      "errorBody": "Der Link wurde vielleicht schon benutzt oder ist abgelaufen. Versuch dich anzumelden — klappt das nicht, fordere einen neuen an.",
+      "toLogin": "Zur Anmeldung"
+    },
+    "app": {
+      "title": "Mein Konto",
+      "welcome": "Willkommen, {name}",
+      "signOut": "Abmelden",
+      "verifyTitle": "Bestätige deine E-Mail-Adresse",
+      "verifyBody": "Ohne bestätigte Adresse kannst du dein Passwort nicht zurücksetzen. Den Link haben wir bei der Registrierung geschickt.",
+      "nextTitle": "Hier ist noch nichts",
+      "nextBody": "Konten funktionieren. Als Nächstes kommen Zahlungen, dann Ziele mit Tagescheckliste.",
+      "accountEmail": "E-Mail",
+      "accountPlan": "Abonnement",
+      "plan": {
+        "NONE": "Noch keins",
+        "TRIAL": "Testphase",
+        "ACTIVE": "Aktiv",
+        "PAST_DUE": "Offen",
+        "CANCELED": "Gekündigt"
+      }
+    },
+    "errors": {
+      "nameRequired": "Sag uns bitte, wie wir dich nennen sollen.",
+      "emailInvalid": "Das sieht nicht nach einer gültigen E-Mail-Adresse aus.",
+      "emailTaken": "Ein Konto mit dieser Adresse existiert bereits. Versuch dich anzumelden.",
+      "passwordTooShort": "Das Passwort braucht mindestens 10 Zeichen.",
+      "consentRequired": "Ohne Zustimmung zu den AGB lässt sich kein Konto erstellen.",
+      "invalidCredentials": "E-Mail oder Passwort stimmt nicht.",
+      "emailNotVerified": "Bitte bestätige zuerst deine E-Mail-Adresse.",
+      "tokenInvalid": "Der Link ist ungültig oder wurde bereits verwendet.",
+      "tokenExpired": "Der Link ist abgelaufen.",
+      "rateLimited": "Zu viele Versuche. Bitte versuch es gleich noch einmal.",
+      "generic": "Etwas ist schiefgelaufen. Bitte versuch es erneut."
     }
   }
 }

@@ -10,7 +10,9 @@
     "demo": "Vyzkoušet demo",
     "buy": "Koupit rovnou",
     "backHome": "Zpět na úvod",
-    "language": "Jazyk"
+    "language": "Jazyk",
+    "login": "Přihlásit se",
+    "account": "Můj účet"
   },
   "hero": {
     "eyebrow": "Cíl → měsíce → týdny → dnešek",
@@ -253,6 +255,101 @@
       "button": "Nastavit nové heslo",
       "fallback": "Kdyby tlačítko nefungovalo, zkopíruj si tenhle odkaz do prohlížeče:",
       "footer": "Tenhle e-mail ti přišel, protože někdo požádal o obnovu hesla k účtu AlmostThere s touto adresou."
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Vítej zpátky",
+      "subtitle": "Přihlas se a pokračuj tam, kde jsi skončil.",
+      "emailLabel": "E-mail",
+      "passwordLabel": "Heslo",
+      "submit": "Přihlásit se",
+      "submitting": "Přihlašuji…",
+      "or": "nebo",
+      "google": "Pokračovat přes Google",
+      "noAccount": "Ještě nemáš účet?",
+      "registerLink": "Zaregistruj se",
+      "forgotLink": "Zapomenuté heslo?"
+    },
+    "register": {
+      "title": "Založ si účet",
+      "subtitle": "Za minutu můžeš mít první cíl rozložený až na dnešek.",
+      "nameLabel": "Jak ti máme říkat?",
+      "emailLabel": "E-mail",
+      "passwordLabel": "Heslo",
+      "passwordHint": "Aspoň {min} znaků. Delší fráze je bezpečnější než krátká složitost.",
+      "consentLabel": "Souhlasím s <terms>obchodními podmínkami</terms> a se <privacy>zpracováním osobních údajů</privacy>.",
+      "submit": "Založit účet",
+      "submitting": "Zakládám účet…",
+      "or": "nebo",
+      "google": "Pokračovat přes Google",
+      "googleConsent": "Pokračováním přes Google souhlasíš s <terms>obchodními podmínkami</terms> a se <privacy>zpracováním osobních údajů</privacy>.",
+      "hasAccount": "Už máš účet?",
+      "loginLink": "Přihlas se",
+      "successTitle": "Podívej se do e-mailu",
+      "successBody": "Poslali jsme potvrzovací odkaz na {email}. Po kliknutí se budeš moct přihlásit.",
+      "toLogin": "Přejít na přihlášení"
+    },
+    "forgot": {
+      "title": "Zapomenuté heslo",
+      "subtitle": "Napiš svůj e-mail a pošleme ti odkaz na nastavení nového hesla.",
+      "emailLabel": "E-mail",
+      "submit": "Poslat odkaz",
+      "submitting": "Odesílám…",
+      "successTitle": "Hotovo",
+      "successBody": "Pokud u nás účet s touhle adresou existuje, odkaz na nastavení nového hesla je na cestě. Platí hodinu.",
+      "backToLogin": "Zpět na přihlášení"
+    },
+    "reset": {
+      "title": "Nové heslo",
+      "subtitle": "Zadej heslo, kterým se budeš přihlašovat.",
+      "passwordLabel": "Nové heslo",
+      "passwordHint": "Aspoň {min} znaků.",
+      "submit": "Uložit heslo",
+      "submitting": "Ukládám…",
+      "successTitle": "Heslo změněno",
+      "successBody": "Můžeš se přihlásit novým heslem.",
+      "toLogin": "Přejít na přihlášení",
+      "requestNew": "Požádat o nový odkaz"
+    },
+    "verify": {
+      "title": "Ověření adresy",
+      "checking": "Ověřuji odkaz…",
+      "successTitle": "Adresa potvrzena",
+      "successBody": "Účet je aktivní. Teď se můžeš přihlásit.",
+      "errorBody": "Odkaz už mohl být použitý nebo mu vypršela platnost. Zkus se přihlásit — pokud to nepůjde, nech si poslat nový.",
+      "toLogin": "Přejít na přihlášení"
+    },
+    "app": {
+      "title": "Můj účet",
+      "welcome": "Vítej, {name}",
+      "signOut": "Odhlásit se",
+      "verifyTitle": "Potvrď svoji e-mailovou adresu",
+      "verifyBody": "Bez potvrzené adresy ti nepůjde obnovit heslo. Odkaz jsme ti poslali při registraci.",
+      "nextTitle": "Tady zatím nic není",
+      "nextBody": "Účty fungují. Dalším krokem jsou platby a pak zakládání cílů s denním checklistem.",
+      "accountEmail": "E-mail",
+      "accountPlan": "Předplatné",
+      "plan": {
+        "NONE": "Zatím žádné",
+        "TRIAL": "Zkušební období",
+        "ACTIVE": "Aktivní",
+        "PAST_DUE": "Neuhrazeno",
+        "CANCELED": "Zrušeno"
+      }
+    },
+    "errors": {
+      "nameRequired": "Napiš prosím, jak ti máme říkat.",
+      "emailInvalid": "Tohle nevypadá na platnou e-mailovou adresu.",
+      "emailTaken": "Účet s touhle adresou už existuje. Zkus se přihlásit.",
+      "passwordTooShort": "Heslo musí mít aspoň 10 znaků.",
+      "consentRequired": "Bez souhlasu s podmínkami účet založit nelze.",
+      "invalidCredentials": "E-mail nebo heslo nesouhlasí.",
+      "emailNotVerified": "Nejdřív prosím potvrď e-mailovou adresu.",
+      "tokenInvalid": "Odkaz je neplatný nebo už byl použitý.",
+      "tokenExpired": "Odkazu vypršela platnost.",
+      "rateLimited": "Příliš mnoho pokusů. Zkus to prosím za chvíli.",
+      "generic": "Něco se pokazilo. Zkus to prosím znovu."
     }
   }
 }
