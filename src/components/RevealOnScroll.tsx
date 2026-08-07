@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 /**
  * Postupné odhalení obsahu při scrollu. Jeden observer pro celou stránku
@@ -8,8 +9,15 @@ import { useEffect } from "react";
  *
  * Prvky se označují třídou `reveal`. Bez JS (nebo při prefers-reduced-motion)
  * zůstanou viditelné, protože CSS je v takovém případě nezakrývá.
+ *
+ * Závislost na cestě je zásadní: komponenta žije v layoutu, a ten se při
+ * přechodu mezi stránkami nevytváří znovu. S prázdnými závislostmi by se
+ * observer nastavil jen při prvním načtení a obsah stránky, na kterou se
+ * uživatel proklikal, by zůstal navždy neviditelný.
  */
 export function RevealOnScroll() {
+  const pathname = usePathname();
+
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
@@ -30,7 +38,7 @@ export function RevealOnScroll() {
     }
 
     return () => observer.disconnect();
-  }, []);
+  }, [pathname]);
 
   return null;
 }
