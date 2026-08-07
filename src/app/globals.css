@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./fonts.css";
 
 /*
   AlmostThere — vizuální jazyk.
@@ -33,8 +34,8 @@
   --color-paper-dim: #a9bdb4;
   --color-paper-faint: #6d8479;
 
-  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
-  --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
 
   --radius-card: 1.25rem;
 }

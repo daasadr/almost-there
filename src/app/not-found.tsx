@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { bricolage, instrument } from "@/app/fonts";
 import "@/app/globals.css";
 
 /**
@@ -8,7 +7,7 @@ import "@/app/globals.css";
  */
 export default function RootNotFound() {
   return (
-    <html lang="en" className={`${bricolage.variable} ${instrument.variable}`}>
+    <html lang="en">
       <body className="grid min-h-dvh place-items-center px-6">
         <div className="text-center">
           <h1 className="display text-4xl">This page took a wrong turn.</h1>

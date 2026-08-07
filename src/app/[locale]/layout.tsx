@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
-import { bricolage, instrument } from "@/app/fonts";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { CookieBanner } from "@/components/CookieBanner";
@@ -55,10 +54,25 @@ export default async function LocaleLayout({
   setRequestLocale(locale);
 
   return (
-    <html
-      lang={locale}
-      className={`${bricolage.variable} ${instrument.variable}`}
-    >
+    <html lang={locale}>
+      <head>
+        {/* Předběžné načtení základní latinky — bez toho se text na okamžik
+            vykreslí náhradním písmem a pak přeskočí. */}
+        <link
+          rel="preload"
+          href="/fonts/instrument-sans-latin.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/bricolage-latin.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body className="min-h-dvh antialiased">
         <AuthSessionProvider>
         <NextIntlClientProvider>

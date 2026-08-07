@@ -1,0 +1,10 @@
+Písma v tomto adresáři jsou licencovaná pod SIL Open Font License 1.1,
+která vlastní hostování výslovně povoluje.
+
+  Bricolage Grotesque — Copyright (c) 2022 The Bricolage Project Authors
+  https://github.com/ateliertriay/bricolage
+
+  Instrument Sans — Copyright (c) 2023 The Instrument Sans Project Authors
+  https://github.com/Instrument/instrument-sans
+
+Úplné znění licence: https://openfontlicense.org
