@@ -23,7 +23,11 @@ echo "==> Stahuji změny z gitu"
 git pull --ff-only
 
 echo "==> Sestavuji image"
-docker compose build
+# `migrate` se vyjmenovává schválně. Je v profilu `tools`, a služby
+# z neaktivních profilů `docker compose build` bez vyjmenování přeskočí.
+# Následné `run` by pak použilo starý image, ve kterém nové migrace ještě
+# nejsou — a nová verze aplikace by běžela nad starým schématem.
+docker compose build app migrate
 
 echo "==> Spouštím databázi"
 docker compose up -d db
