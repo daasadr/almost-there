@@ -30,8 +30,17 @@ docker compose up -d db
 
 echo "==> Aplikuji migrace databáze"
 # Běží před startem aplikace — kdyby appka naběhla dřív než schéma,
-# první požadavky by spadly na chybějící tabulky.
+# první požadavky by spadly na chybějící sloupce.
 docker compose run --rm migrate
+
+# Kontrola navíc: `migrate deploy` umí skončit s nulou i tehdy, když se
+# k databázi vůbec nedostane k tomu, co čekáme. Nová verze aplikace se
+# nesmí rozjet nad starým schématem — projeví se to až u uživatele.
+echo "==> Ověřuji, že schéma odpovídá kódu"
+if ! docker compose run --rm migrate npx prisma migrate status; then
+  echo "Databáze neodpovídá migracím. Aplikaci nespouštím." >&2
+  exit 1
+fi
 
 echo "==> Spouštím novou verzi"
 docker compose up -d
