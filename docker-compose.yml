@@ -46,6 +46,12 @@ services:
       # --- E-maily ---
       RESEND_API_KEY: ${RESEND_API_KEY}
       EMAIL_FROM: ${EMAIL_FROM:-AlmostThere <noreply@almost-there.eu>}
+
+      # --- Platby ---
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY}
+      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET}
+      STRIPE_PRICE_MONTHLY: ${STRIPE_PRICE_MONTHLY}
+      STRIPE_PRICE_YEARLY: ${STRIPE_PRICE_YEARLY}
     depends_on:
       db:
         condition: service_healthy
