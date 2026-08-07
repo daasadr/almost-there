@@ -120,7 +120,7 @@ V pořadí, jak na sebe navazuje:
 | 7 | Multi-goal harmonizace | Fáze 2 zadání |
 | 8 | Milníky s odměnami | Fáze 2 zadání |
 | 9 | Service worker pro offline checklist | Manifest pro instalaci už je |
-| 10 | Capacitor, App Store, Google Play | Fáze 3, nativní nákupy povinné |
+| 10 | Capacitor, App Store, Google Play | Fáze 3, nativní nákupy povinné. **Tehdy přehodnotit daňovou kategorii produktu ve Stripu** — teď je nastavená jako SaaS bez mobilní aplikace, což s vydáním v obchodech přestane platit |
 
 ### Paralelně, nezávisle na kódu
 
