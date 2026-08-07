@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { hasLocale } from "next-intl";
+import { routing, type Locale } from "@/i18n/routing";
 import { db } from "@/lib/db";
 import { requireSubscriber } from "@/lib/api/guard";
 import { createGoalWithPlan } from "@/lib/goals/planner";
@@ -22,6 +24,7 @@ const bodySchema = z.object({
   title: z.string(),
   description: z.string().max(1000).optional(),
   targetDate: z.string(),
+  locale: z.string().optional(),
 });
 
 export async function POST(request: Request) {
@@ -63,11 +66,21 @@ export async function POST(request: Request) {
   }
 
   try {
+    // Jazyk stránky, ne účtu. U účtů z Googlu zakládá uživatele adaptér
+    // a preferenci jazyka nezná, takže by plán vyšel anglicky i člověku,
+    // který má aplikaci celou v češtině.
+    const locale: Locale = hasLocale(routing.locales, parsed.data.locale)
+      ? parsed.data.locale
+      : hasLocale(routing.locales, guard.user.locale)
+        ? guard.user.locale
+        : routing.defaultLocale;
+
     const goalId = await createGoalWithPlan({
       userId: guard.user.id,
       title,
       description: parsed.data.description?.slice(0, MAX_GOAL_LENGTH * 4),
       targetDate: parsed.data.targetDate,
+      locale,
     });
 
     return NextResponse.json({ ok: true, goalId });

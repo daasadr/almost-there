@@ -460,7 +460,12 @@
         "MONTH": "Monat",
         "WEEK": "Woche",
         "DAY": "Tag"
-      }
+      },
+      "delete": "Ziel löschen",
+      "deleteConfirm": "Das Ziel wird samt der gesamten Zerlegung in Abschnitte, Wochen und Tage gelöscht. Das lässt sich nicht rückgängig machen.",
+      "deleteYes": "Ja, löschen",
+      "deleteNo": "Behalten",
+      "deleting": "Wird gelöscht…"
     },
     "errors": {
       "goalRequired": "Schreib auf, was du erreichen willst.",

@@ -460,7 +460,12 @@
         "MONTH": "Month",
         "WEEK": "Week",
         "DAY": "Day"
-      }
+      },
+      "delete": "Delete goal",
+      "deleteConfirm": "This removes the goal together with its whole breakdown into periods, weeks and days. It cannot be undone.",
+      "deleteYes": "Yes, delete",
+      "deleteNo": "Keep it",
+      "deleting": "Deleting…"
     },
     "errors": {
       "goalRequired": "Write down what you want to reach.",

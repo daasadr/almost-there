@@ -460,7 +460,12 @@
         "MONTH": "Měsíc",
         "WEEK": "Týden",
         "DAY": "Den"
-      }
+      },
+      "delete": "Smazat cíl",
+      "deleteConfirm": "Smaže se cíl i s celým rozpadem na období, týdny a dny. Vrátit to nejde.",
+      "deleteYes": "Ano, smazat",
+      "deleteNo": "Ponechat",
+      "deleting": "Mažu…"
     },
     "errors": {
       "goalRequired": "Napiš, čeho chceš dosáhnout.",

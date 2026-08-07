@@ -51,6 +51,8 @@ export function GoalForm() {
           title: title.trim(),
           description: description.trim() || undefined,
           targetDate,
+          // Plán bude v jazyce, ve kterém uživatel aplikaci právě používá.
+          locale,
         }),
       });
       const data = await response.json();

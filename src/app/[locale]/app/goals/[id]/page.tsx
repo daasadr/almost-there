@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { auth } from "@/auth";
+import { DeleteGoalButton } from "@/components/plan/DeleteGoalButton";
 import { PlanTree } from "@/components/plan/PlanTree";
 import { PlanTrigger } from "@/components/plan/PlanTrigger";
 import { getAccess } from "@/lib/billing/access";
@@ -126,6 +127,10 @@ export default async function GoalPage({
 
       <div className="mt-6">
         <PlanTree nodes={goal.tree} locale={locale} />
+      </div>
+
+      <div className="mt-12 border-t border-white/10 pt-8">
+        <DeleteGoalButton goalId={goal.id} />
       </div>
     </section>
   );

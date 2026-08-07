@@ -30,7 +30,47 @@ export class AiFormatError extends Error {
   readonly name = "AiFormatError";
 }
 
-export async function callStructured<T>({
+/**
+ * Kolikrát celkem to zkusit, když model vrátí něco, co neodpovídá schématu.
+ *
+ * Chyba tvaru je nedeterministická — druhý pokus se stejným zadáním obvykle
+ * projde. Bez toho se selhání dostane až k uživateli, který si stejně nemůže
+ * pomoct ničím jiným než kliknutím na „zkusit znovu“. Dvě jsou kompromis:
+ * spolehlivost za nejvýš dvojnásobnou cenu ve vzácném případě.
+ */
+const ATTEMPTS = 2;
+
+export async function callStructured<T>(options: {
+  system: string;
+  user: string;
+  /** JSON Schema pro `output_config.format` — vynutí tvar odpovědi. */
+  jsonSchema: Record<string, unknown>;
+  /** Zod schéma. Model tvar dodržet má, ale spoléhat se na to nebudeme. */
+  parser: z.ZodType<T>;
+  maxTokens?: number;
+}): Promise<AiCallResult<T>> {
+  let lastError: unknown;
+
+  for (let attempt = 1; attempt <= ATTEMPTS; attempt++) {
+    try {
+      return await callOnce(options);
+    } catch (error) {
+      // Odmítnutí modelu je rozhodnutí, ne výpadek — opakování by ho
+      // jen zopakovalo a stálo dvakrát tolik.
+      if (error instanceof AiRefusalError) throw error;
+
+      lastError = error;
+      console.warn(
+        `[ai] pokus ${attempt} z ${ATTEMPTS} selhal`,
+        error instanceof Error ? error.message : error,
+      );
+    }
+  }
+
+  throw lastError;
+}
+
+async function callOnce<T>({
   system,
   user,
   jsonSchema,
@@ -39,9 +79,7 @@ export async function callStructured<T>({
 }: {
   system: string;
   user: string;
-  /** JSON Schema pro `output_config.format` — vynutí tvar odpovědi. */
   jsonSchema: Record<string, unknown>;
-  /** Zod schéma. Model tvar dodržet má, ale spoléhat se na to nebudeme. */
   parser: z.ZodType<T>;
   maxTokens?: number;
 }): Promise<AiCallResult<T>> {

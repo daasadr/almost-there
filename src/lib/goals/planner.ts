@@ -51,7 +51,7 @@ function goalContext(
     title: string;
     targetDate: Date;
     restatement: string | null;
-    priorityWeight: number;
+    locale: string;
   },
   minutesForThisGoal: number,
 ): GoalContext {
@@ -59,7 +59,8 @@ function goalContext(
     title: goal.title,
     targetDate: toIsoDate(goal.targetDate),
     restatement: goal.restatement,
-    locale: asLocale(user.locale),
+    // Z cíle, ne z uživatele — plán nesmí v půlce změnit jazyk.
+    locale: asLocale(goal.locale),
     dailyCapacityMinutes: minutesForThisGoal,
     restFrequency: REST_WORDS[user.restFrequency] ?? REST_WORDS.ONE_DAY_PER_WEEK,
     reflectionMinutesPerDay: user.reflectionMinutesDay,
@@ -75,11 +76,14 @@ export async function createGoalWithPlan({
   title,
   description,
   targetDate,
+  locale,
 }: {
   userId: string;
   title: string;
   description?: string;
   targetDate: string;
+  /** Jazyk stránky, ze které se cíl zakládá. V něm bude celý plán. */
+  locale: Locale;
 }): Promise<string> {
   const user = await db.user.findUniqueOrThrow({
     where: { id: userId },
@@ -109,7 +113,7 @@ export async function createGoalWithPlan({
   const { plan, usage, ranges } = await decomposeGoal({
     goal: title,
     targetDate,
-    locale: asLocale(user.locale),
+    locale,
     today,
     dailyCapacityMinutes: user.dailyCapacityMinutes,
     restFrequency: REST_WORDS[user.restFrequency],
@@ -135,6 +139,7 @@ export async function createGoalWithPlan({
       title,
       description: description || null,
       targetDate: parseIsoDate(targetDate),
+      locale,
       restatement: plan.goalRestated,
       assumptions: plan.assumptions,
       feasibility: plan.feasibility,
@@ -247,7 +252,7 @@ export async function ensureCurrentPlan(
       title: true,
       targetDate: true,
       restatement: true,
-      priorityWeight: true,
+      locale: true,
       status: true,
       user: {
         select: {

@@ -196,6 +196,14 @@ model Goal {
   /// Váha pro harmonizaci více cílů — kolik z denní kapacity smí cíl brát.
   priorityWeight Int @default(50)
 
+  /// Jazyk, ve kterém je plán napsaný.
+  ///
+  /// Drží se u cíle, ne u uživatele: plán se dopisuje po částech měsíce
+  /// i roky a nesmí se v půlce přepnout do jiného jazyka jen proto, že si
+  /// člověk mezitím přepnul rozhraní. Zároveň je to jistota u účtů z Googlu,
+  /// kde uživatele zakládá adaptér a preferenci jazyka nezná.
+  locale String @default("en")
+
   // --- Co k plánu řekla AI při rozpadu -------------------------------------
   // Uživatel to musí vidět, jinak neví, na čem plán stojí a proč vypadá,
   // jak vypadá. Bez toho je z plánu neprůhledný příkaz.
