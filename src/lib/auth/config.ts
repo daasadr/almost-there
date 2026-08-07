@@ -21,9 +21,12 @@ export const authConfig = {
   },
   callbacks: {
     /**
-     * Do tokenu si uložíme jen to, co potřebujeme v UI a v middleware.
-     * Stav předplatného sem patří, aby se paywall dal vyhodnotit bez
-     * dotazu do databáze při každém požadavku.
+     * Do tokenu patří jen to, co se během přihlášení nemění.
+     *
+     * Stav předplatného sem výslovně NEPATŘÍ: mění ho webhook od Stripu,
+     * tedy zvenčí, a token by o tom nevěděl. Uživatel by zaplatil a paywall
+     * by mu zůstal až do dalšího přihlášení. Čte se z databáze —
+     * viz lib/billing/access.ts.
      */
     jwt({ token, user, trigger, session }) {
       if (user) {
@@ -31,18 +34,12 @@ export const authConfig = {
         token.isEmailVerified = Boolean(
           (user as { emailVerified?: Date | null }).emailVerified,
         );
-        token.subscriptionStatus =
-          (user as { subscriptionStatus?: string }).subscriptionStatus ??
-          "NONE";
       }
 
-      // Po zaplacení nebo ověření e-mailu se token obnoví bez odhlášení.
+      // Po ověření e-mailu se token obnoví bez odhlášení.
       if (trigger === "update" && session) {
         if (typeof session.isEmailVerified === "boolean") {
           token.isEmailVerified = session.isEmailVerified;
-        }
-        if (typeof session.subscriptionStatus === "string") {
-          token.subscriptionStatus = session.subscriptionStatus;
         }
       }
 
@@ -52,9 +49,6 @@ export const authConfig = {
       if (session.user) {
         session.user.id = token.id as string;
         session.user.isEmailVerified = Boolean(token.isEmailVerified);
-        session.user.subscriptionStatus = String(
-          token.subscriptionStatus ?? "NONE",
-        );
       }
       return session;
     },

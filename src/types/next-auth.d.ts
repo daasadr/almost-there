@@ -12,22 +12,20 @@ declare module "next-auth" {
       /** Zda má uživatel ověřenou e-mailovou adresu.
        *  Vlastní název — NextAuth má `emailVerified` jako Date. */
       isEmailVerified: boolean;
-      /** NONE | TRIAL | ACTIVE | PAST_DUE | CANCELED */
-      subscriptionStatus: string;
     } & DefaultSession["user"];
   }
 
   interface User {
     emailVerified?: Date | null;
-    subscriptionStatus?: string;
     authProvider?: "CREDENTIALS" | "GOOGLE";
   }
 }
 
+// Stav předplatného tu schválně není — mění ho webhook od Stripu mimo
+// přihlášení, takže by v tokenu zastaral. Bere se z databáze.
 declare module "next-auth/jwt" {
   interface JWT {
     id: string;
     isEmailVerified: boolean;
-    subscriptionStatus: string;
   }
 }

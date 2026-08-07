@@ -4,6 +4,8 @@ import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { SignOutButton } from "@/components/auth/SignOutButton";
 import { Paywall } from "@/components/billing/Paywall";
+import { CheckoutPending } from "@/components/billing/CheckoutPending";
+import { getAccess } from "@/lib/billing/access";
 
 export async function generateMetadata({
   params,
@@ -21,8 +23,10 @@ export async function generateMetadata({
  */
 export default async function AppPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{ checkout?: string }>;
 }) {
   const { locale } = await params;
   const session = await auth();
@@ -32,12 +36,14 @@ export default async function AppPage({
   if (!session?.user) redirect(`/${locale}/login`);
 
   const t = await getTranslations({ locale, namespace: "auth.app" });
+  const tb = await getTranslations({ locale, namespace: "billing" });
 
-  // ACTIVE i TRIAL znamenají „má přístup". PAST_DUE ne — neuhrazená platba
-  // nesmí držet přístup otevřený donekonečna.
-  const hasSubscription = ["ACTIVE", "TRIAL"].includes(
-    session.user.subscriptionStatus,
-  );
+  // Z databáze, ne ze session — viz komentář v lib/billing/access.ts.
+  const { status, hasAccess } = await getAccess(session.user.id);
+
+  // Návrat od pokladny. Sama o sobě tahle adresa nic neodemyká, jen mění
+  // to, co uživatel po návratu uvidí — otevřít si ji může kdokoliv.
+  const { checkout } = await searchParams;
 
   return (
     <section className="mx-auto max-w-3xl px-5 py-16 sm:px-8 sm:py-24">
@@ -56,10 +62,31 @@ export default async function AppPage({
         </div>
       )}
 
-      {/* Dokud není zaplaceno, je paywall to hlavní na stránce.
-          Stav bereme ze session, kterou plní jen webhook od Stripu. */}
-      {!hasSubscription && (
+      {/* Zaplaceno, ale potvrzení od Stripu ještě nedorazilo. Místo paywallu
+          ukážeme, že se čeká — jinak by to vypadalo, že platba propadla. */}
+      {!hasAccess && checkout === "success" && (
+        <div className="mt-8 rounded-2xl border border-[color-mix(in_oklab,var(--color-lime-glow)_35%,transparent)] bg-[color-mix(in_oklab,var(--color-lime-glow)_8%,transparent)] p-5 sm:p-6">
+          <h2 className="display text-lg">{tb("successTitle")}</h2>
+          <p className="mt-1.5 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+            {tb("successBody")}
+          </p>
+          <CheckoutPending />
+        </div>
+      )}
+
+      {/* Dokud není zaplaceno, je paywall to hlavní na stránce. */}
+      {!hasAccess && checkout !== "success" && (
         <div className="mt-8">
+          {checkout === "cancelled" && (
+            <div className="mb-4 rounded-2xl border border-white/10 p-5">
+              <h2 className="text-sm font-semibold text-[var(--color-paper)]">
+                {tb("cancelledTitle")}
+              </h2>
+              <p className="mt-1.5 text-sm leading-relaxed text-[var(--color-paper-dim)]">
+                {tb("cancelledBody")}
+              </p>
+            </div>
+          )}
           <Paywall />
         </div>
       )}
@@ -84,7 +111,7 @@ export default async function AppPage({
               {t("accountPlan")}
             </dt>
             <dd className="mt-1 text-[var(--color-paper)]">
-              {t(`plan.${session.user.subscriptionStatus}`)}
+              {t(`plan.${status}`)}
             </dd>
           </div>
         </dl>
