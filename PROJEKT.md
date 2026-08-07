@@ -125,6 +125,14 @@ V pořadí, jak na sebe navazuje:
 ### Paralelně, nezávisle na kódu
 
 - **Kontrola obchodních podmínek právníkem** — trvá týdny, rozjet dřív než platby
+- **Daně — konzultace s účetní, dřív než ostré platby.** Provozovatelka není
+  plátcem DPH, ale dvě věci s tuzemskou hranicí obratu nesouvisí:
+  (1) nákup služeb ze zahraničí (Anthropic, Stripe, Resend, Hetzner) typicky
+  zakládá povinnost registrace jako **identifikovaná osoba** — vzniká hned,
+  ne až u nějakého obratu; (2) prodej digitálních služeb spotřebitelům v EU
+  má vlastní hranici kolem 10 000 € ročně, nad níž se DPH odvádí podle země
+  zákazníka přes režim OSS. V obchodních podmínkách je zatím uvedeno, že
+  provozovatel není plátcem DPH, označené k ověření.
 - **Ochranná známka** — v rejstříku ÚPV je jediný nález „almostthere beyond
   sport", obrazová známka ve třídách 25/28/41, stav **zaniklá**. Třídy 9
   (software) a 42 (SaaS) jsou volné. Zbývá ověřit i tvar **„almost there"**

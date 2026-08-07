@@ -50,7 +50,8 @@ export const termsByLocale: Record<Locale, LegalDocument> = {
       {
         heading: "3. Předplatné, cena a platby",
         paragraphs: [
-          "Služba je zpoplatněna jednotným měsíčním předplatným ve výši 179 Kč včetně DPH. K dispozici je i roční varianta se slevou. Cena uvedená na webu a v obchodě s aplikacemi je cena konečná — žádné skryté příplatky se neúčtují.",
+          "Služba je zpoplatněna jednotným měsíčním předplatným ve výši 179 Kč. K dispozici je i roční varianta za 1790 Kč. Cena uvedená na webu a v obchodě s aplikacemi je cena konečná — žádné skryté příplatky se neúčtují.",
+          "Provozovatel není plátcem DPH. [OVĚŘIT S ÚČETNÍ — pokud se registrace k DPH změní, je nutné tento odstavec i ceny upravit.]",
           "Předplatné se automaticky obnovuje na konci každého zúčtovacího období, dokud ho nezrušíš. Zrušit ho můžeš kdykoliv v nastavení účtu; služba pak zůstává dostupná do konce už zaplaceného období.",
           "Platby na webu zpracovává Stripe. Platby uvnitř mobilních aplikací zpracovává Apple App Store nebo Google Play podle jejich vlastních pravidel; správu a rušení takového předplatného řeší přímo příslušný obchod.",
           "Změnu ceny oznámíme nejméně 30 dní předem. Stávajícím předplatitelům zůstává původní cena, dokud předplatné nezruší.",
@@ -132,7 +133,8 @@ export const termsByLocale: Record<Locale, LegalDocument> = {
       {
         heading: "3. Subscription, price and payment",
         paragraphs: [
-          "The service costs a single monthly subscription of 179 CZK including VAT. An annual option at a discount is available. The price shown on the website and in the app store is the final price — there are no hidden charges.",
+          "The service costs a single monthly subscription of 179 CZK, or 1790 CZK a year. The price shown on the website and in the app store is the final price — there are no hidden charges.",
+          "The operator is not registered for VAT. [VERIFY WITH AN ACCOUNTANT — if VAT registration changes, this paragraph and the prices must be updated.]",
           "The subscription renews automatically at the end of each billing period until you cancel. You can cancel any time in your account settings; the service remains available until the end of the period already paid for.",
           "Payments on the web are processed by Stripe. Payments made inside the mobile apps are processed by the Apple App Store or Google Play under their own rules; managing and cancelling such subscriptions is handled directly through that store.",
           "We will announce any price change at least 30 days in advance. Existing subscribers keep their original price until they cancel.",
@@ -214,7 +216,8 @@ export const termsByLocale: Record<Locale, LegalDocument> = {
       {
         heading: "3. Abonnement, Preis und Zahlung",
         paragraphs: [
-          "Der Dienst kostet ein einheitliches Monatsabonnement von 179 CZK inklusive Mehrwertsteuer. Eine vergünstigte Jahresvariante ist verfügbar. Der auf der Website und im App-Store angegebene Preis ist der Endpreis — versteckte Zuschläge gibt es nicht.",
+          "Der Dienst kostet ein einheitliches Monatsabonnement von 179 CZK oder 1790 CZK pro Jahr. Der auf der Website und im App-Store angegebene Preis ist der Endpreis — versteckte Zuschläge gibt es nicht.",
+          "Der Betreiber ist nicht umsatzsteuerpflichtig. [MIT STEUERBERATUNG PRÜFEN — ändert sich die Registrierung, müssen dieser Absatz und die Preise angepasst werden.]",
           "Das Abonnement verlängert sich am Ende jedes Abrechnungszeitraums automatisch, bis du kündigst. Kündigen kannst du jederzeit in den Kontoeinstellungen; der Dienst bleibt bis zum Ende des bereits bezahlten Zeitraums verfügbar.",
           "Zahlungen im Web werden über Stripe abgewickelt. Zahlungen innerhalb der mobilen Apps laufen nach den eigenen Regeln über den Apple App Store oder Google Play; Verwaltung und Kündigung erfolgen dort direkt.",
           "Preisänderungen kündigen wir mindestens 30 Tage im Voraus an. Bestehende Abonnentinnen und Abonnenten behalten ihren ursprünglichen Preis, bis sie kündigen.",
