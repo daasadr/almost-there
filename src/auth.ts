@@ -64,22 +64,33 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       },
     }),
   ],
+  callbacks: {
+    ...authConfig.callbacks,
+    /**
+     * Přihlášení přes Google nevyžaduje potvrzení adresy — Google ji ověřil
+     * za nás a posílat vlastní potvrzovací e-mail by uživatele jen zdržovalo.
+     *
+     * Spoléháme se ale na to, co Google skutečně tvrdí. Když u účtu hlásí
+     * neověřenou adresu (stává se to u některých firemních účtů), přihlášení
+     * odmítneme — jinak by šlo cizí adresu obsadit účtem, který ji nevlastní.
+     */
+    signIn({ account, profile }) {
+      if (account?.provider !== "google") return true;
+      return profile?.email_verified === true;
+    },
+  },
   events: {
     /**
-     * Když se někdo poprvé přihlásí přes Google, adaptér vytvoří uživatele
-     * s výchozími hodnotami. Dorovnáme, co adaptér neumí — způsob
-     * přihlášení a souhlas s podmínkami, který u OAuth vzniká tím,
-     * že projde přes naši přihlašovací stránku.
+     * Adaptér vytvoří uživatele s výchozími hodnotami. Dorovnáme způsob
+     * přihlášení, který adaptér nezná — ověření adresy už nastavuje
+     * mapování v `profile()` výš.
      */
     async linkAccount({ user, account }) {
       if (account.provider !== "google" || !user.id) return;
 
       await db.user.update({
         where: { id: user.id },
-        data: {
-          authProvider: "GOOGLE",
-          emailVerified: new Date(),
-        },
+        data: { authProvider: "GOOGLE" },
       });
     },
   },
