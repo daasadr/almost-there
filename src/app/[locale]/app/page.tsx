@@ -182,7 +182,7 @@ async function Today({ userId, locale }: { userId: string; locale: string }) {
         )}
 
         {today.tasks.length > 0 ? (
-          <TodayChecklist tasks={today.tasks} />
+          <TodayChecklist tasks={today.tasks} daySeed={daySeed(today.date)} />
         ) : (
           today.goalsNeedingPlan.length === 0 && (
             <div className="card p-6">
@@ -198,6 +198,16 @@ async function Today({ userId, locale }: { userId: string; locale: string }) {
       </div>
     </section>
   );
+}
+
+/**
+ * Číslo dne pro výběr dnešní pochvaly.
+ *
+ * Počítá se z data, ne z náhody — jeden den, jedna hláška. Zároveň se
+ * tím vyhneme rozdílu mezi tím, co vykreslí server a co klient.
+ */
+function daySeed(isoDate: string): number {
+  return Math.floor(Date.parse(`${isoDate}T00:00:00Z`) / 86_400_000);
 }
 
 async function Goals({ userId, locale }: { userId: string; locale: string }) {

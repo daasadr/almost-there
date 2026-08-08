@@ -18,6 +18,8 @@ import {
  * Založení cíle. Validace je stejná jako v demu a běží i na serveru —
  * tady jen proto, aby uživatel nečekal na kolečko kvůli prázdnému poli.
  */
+const importanceLevels = [1, 2, 3, 4, 5] as const;
+
 export function GoalForm() {
   const t = useTranslations("plan.form");
   const tError = useTranslations("plan.errors");
@@ -27,6 +29,7 @@ export function GoalForm() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [targetDate, setTargetDate] = useState(defaultTargetDate());
+  const [importance, setImportance] = useState(3);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -51,6 +54,7 @@ export function GoalForm() {
           title: title.trim(),
           description: description.trim() || undefined,
           targetDate,
+          importance,
           // Plán bude v jazyce, ve kterém uživatel aplikaci právě používá.
           locale,
         }),
@@ -107,6 +111,42 @@ export function GoalForm() {
           className="mt-2.5 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-[15px] text-[var(--color-paper)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] focus:outline-none disabled:opacity-60 sm:w-auto"
         />
       </div>
+
+      {/* Důležitost řídí, jak velký díl denní kapacity cíl dostane, když
+          jich běží víc. Slovní stupnice schválně — číslo od jedné do pěti
+          si každý vyloží jinak. */}
+      <fieldset className="mt-6">
+        <legend className="block text-sm font-medium">
+          {t("importanceLabel")}
+        </legend>
+        <p className="mt-1.5 text-xs text-[var(--color-paper-faint)]">
+          {t("importanceHint")}
+        </p>
+
+        <div className="mt-3 flex flex-col gap-2">
+          {importanceLevels.map((level) => (
+            <label
+              key={level}
+              className={`flex cursor-pointer items-center gap-3 rounded-xl border px-4 py-2.5 text-[15px] transition ${
+                importance === level
+                  ? "border-[color-mix(in_oklab,var(--color-lime-glow)_50%,transparent)] bg-[color-mix(in_oklab,var(--color-lime-glow)_7%,transparent)]"
+                  : "border-white/10 hover:border-white/25"
+              }`}
+            >
+              <input
+                type="radio"
+                name="importance"
+                value={level}
+                checked={importance === level}
+                disabled={pending}
+                onChange={() => setImportance(level)}
+                className="h-4 w-4 accent-[var(--color-lime-soft)]"
+              />
+              <span>{t(`importance.${level}`)}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
 
       <div className="mt-6">
         <label htmlFor="goal-context" className="block text-sm font-medium">

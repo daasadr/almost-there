@@ -392,7 +392,6 @@
       "title": "Dnešek",
       "empty": "Na dnešek nemáš žádné úkoly",
       "emptyBody": "Buď máš volno podle plánu, nebo si zatím žádný cíl nezaložil. Cíle najdeš níž.",
-      "allDone": "Hotovo. Dneska už nic dalšího není.",
       "progress": "{done} z {total} hotovo",
       "minutes": "{minutes} min",
       "type": {
@@ -405,7 +404,29 @@
       "preparingCta": "Rozepsat dnešek",
       "preparingFailed": "Rozpis se nepodařilo dokončit. Zkus to prosím za chvíli znovu.",
       "readyTitle": "Rozepsat na konkrétní dny",
-      "readyBody": "Horní rozpad máš hotový. Vypsání nejbližšího období na dny s úkoly spustíš tlačítkem — schválně se to neděje samo, ať se negeneruje plán, který si třeba nenecháš."
+      "readyBody": "Horní rozpad máš hotový. Vypsání nejbližšího období na dny s úkoly spustíš tlačítkem — schválně se to neděje samo, ať se negeneruje plán, který si třeba nenecháš.",
+      "celebrations": [
+        "Hotovo. Dneska už tě nic nečeká.",
+        "Máš to za sebou — a je to o den blíž.",
+        "Celý den odškrtaný. Tohle se počítá.",
+        "Zase hotovo. Jde ti to.",
+        "Dneska splněno. Zítra zas, ale teď si dej pokoj.",
+        "Všechno hotové. Přesně takhle se to dělá.",
+        "Máš čisto. Odpočiň si, zasloužíš.",
+        "Den zvládnutý. Postup se dnes nekonal náhodou.",
+        "A je to. Dneska jsi udělal, co jsi si řekl.",
+        "Vyřízeno. Zítřek počká.",
+        "Hotovo — a mezi tím, co jsi chtěl, a tím, co jsi udělal, není rozdíl.",
+        "Dnešek sedí. Takhle se z plánu stává výsledek.",
+        "Všechno odškrtané. Za tohle se plácá po rameni.",
+        "Hotovo. Zase o kousek dál než včera.",
+        "Máš splněno. Nic dalšího dnes nemusíš.",
+        "Dneska čistý stůl. Takové dny to táhnou.",
+        "Konec práce. Odpoledne je tvoje.",
+        "Splněno. Tyhle dny se sčítají rychleji, než se zdá.",
+        "Hotovo a bez odkladů. To je vzácnější, než si myslíš.",
+        "Den uzavřený. Tak zase zítra."
+      ]
     },
     "goals": {
       "title": "Cíle",
@@ -443,6 +464,15 @@
         ],
         "elapsed": "{seconds} s",
         "note": "Rozpad běží na pozadí. Nezavírej stránku."
+      },
+      "importanceLabel": "Jak je pro tebe tenhle cíl důležitý",
+      "importanceHint": "Podle toho se rozdělí tvůj denní čas, když poběží víc cílů najednou.",
+      "importance": {
+        "1": "Zkouším to, uvidíme",
+        "2": "Když zbude čas",
+        "3": "Záleží mi na tom",
+        "4": "Jedna z hlavních věcí",
+        "5": "Tohle je teď priorita"
       }
     },
     "detail": {

@@ -12,7 +12,14 @@ import type { TodayTask } from "@/lib/goals/queries";
  * odpověď u kliknutí, které uživatel udělá desetkrát denně, by bylo znát.
  * Když zápis selže, políčko se vrátí zpátky.
  */
-export function TodayChecklist({ tasks }: { tasks: TodayTask[] }) {
+export function TodayChecklist({
+  tasks,
+  daySeed,
+}: {
+  tasks: TodayTask[];
+  /** Číslo dne — vybírá dnešní pochvalu. Viz `celebration()`. */
+  daySeed: number;
+}) {
   const t = useTranslations("plan.today");
   const router = useRouter();
   const [, startTransition] = useTransition();
@@ -50,17 +57,25 @@ export function TodayChecklist({ tasks }: { tasks: TodayTask[] }) {
 
   const done = tasks.filter((task) => statuses[task.id] === "DONE").length;
   const byGoal = groupByGoal(tasks);
+  const allDone = tasks.length > 0 && done === tasks.length;
+
+  // Jedna hláška na den, ne náhoda při každém překreslení. Kdyby se měnila
+  // pod rukama, bylo by okamžitě vidět, že je to ruleta, a přestala by
+  // znamenat cokoliv.
+  const celebrations = t.raw("celebrations") as string[];
+  const celebration = celebrations[daySeed % celebrations.length];
 
   return (
     <div>
-      <div className="flex items-baseline justify-between gap-4">
-        <p className="text-sm text-[var(--color-paper-dim)]">
-          {t("progress", { done, total: tasks.length })}
+      <p className="text-sm text-[var(--color-paper-dim)]">
+        {t("progress", { done, total: tasks.length })}
+      </p>
+
+      {allDone && (
+        <p className="mt-4 rounded-2xl border border-[color-mix(in_oklab,var(--color-lime-glow)_35%,transparent)] bg-[color-mix(in_oklab,var(--color-lime-glow)_8%,transparent)] px-5 py-4 text-[15px] text-[var(--color-lime-soft)]">
+          {celebration}
         </p>
-        {done === tasks.length && (
-          <p className="text-sm text-[var(--color-lime-soft)]">{t("allDone")}</p>
-        )}
-      </div>
+      )}
 
       {failed && (
         <p

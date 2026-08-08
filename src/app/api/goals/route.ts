@@ -22,6 +22,7 @@ const bodySchema = z.object({
   description: z.string().max(1000).optional(),
   targetDate: z.string(),
   locale: z.string().optional(),
+  importance: z.number().int().min(1).max(5).optional(),
 });
 
 export async function POST(request: Request) {
@@ -78,6 +79,7 @@ export async function POST(request: Request) {
       description: parsed.data.description?.slice(0, MAX_GOAL_LENGTH * 4),
       targetDate: parsed.data.targetDate,
       locale,
+      importance: parsed.data.importance,
     });
 
     return NextResponse.json({ ok: true, goalId });

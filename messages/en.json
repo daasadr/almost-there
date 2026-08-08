@@ -392,7 +392,6 @@
       "title": "Today",
       "empty": "Nothing scheduled for today",
       "emptyBody": "Either the plan gives you the day off, or you have not set a goal yet. Your goals are below.",
-      "allDone": "Done. Nothing else today.",
       "progress": "{done} of {total} done",
       "minutes": "{minutes} min",
       "type": {
@@ -405,7 +404,29 @@
       "preparingCta": "Plan today",
       "preparingFailed": "The breakdown did not finish. Please try again shortly.",
       "readyTitle": "Write it out into actual days",
-      "readyBody": "The top-level breakdown is done. Turning the nearest period into days with tasks starts on the button — deliberately not automatic, so nothing gets generated for a plan you may not keep."
+      "readyBody": "The top-level breakdown is done. Turning the nearest period into days with tasks starts on the button — deliberately not automatic, so nothing gets generated for a plan you may not keep.",
+      "celebrations": [
+        "Done. Nothing else waiting for you today.",
+        "That is behind you — and a day closer.",
+        "Whole day ticked off. That counts.",
+        "Done again. You have got the hang of this.",
+        "Today is finished. Tomorrow will keep.",
+        "Everything done. That is exactly how it works.",
+        "All clear. Go rest, you earned it.",
+        "Day handled. Today's progress was not an accident.",
+        "There it is. You did what you said you would.",
+        "Cleared. Tomorrow can wait.",
+        "Done — no gap between what you meant to do and what you did.",
+        "Today lines up. This is how a plan turns into a result.",
+        "All ticked. Worth a moment of being pleased with yourself.",
+        "Done. A little further along than yesterday.",
+        "Finished. Nothing more is asked of you today.",
+        "Clean slate today. These are the days that carry it.",
+        "Work is over. The rest of the day is yours.",
+        "Complete. These days add up faster than they feel.",
+        "Done, and no putting off. Rarer than you think.",
+        "Day closed. See you tomorrow."
+      ]
     },
     "goals": {
       "title": "Goals",
@@ -443,6 +464,15 @@
         ],
         "elapsed": "{seconds}s",
         "note": "The breakdown runs in the background. Do not close the page."
+      },
+      "importanceLabel": "How much does this goal matter to you",
+      "importanceHint": "This decides how your daily time is split when several goals are running.",
+      "importance": {
+        "1": "Just trying it out",
+        "2": "If time allows",
+        "3": "It matters to me",
+        "4": "One of my main things",
+        "5": "This is the priority right now"
       }
     },
     "detail": {

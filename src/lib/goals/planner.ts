@@ -50,6 +50,21 @@ function asLocale(value: string): Locale {
   return (value === "cs" || value === "de" ? value : "en") as Locale;
 }
 
+/**
+ * Důležitost cíle na stupnici 1–5 převedená na váhu.
+ *
+ * Podle vah se dělí denní kapacita mezi běžící cíle. Rozestupy jsou
+ * schválně nerovnoměrné: rozdíl mezi „hlavní věc, kterou teď řeším“
+ * a „něco, k čemu se dostanu“ má být znát mnohem víc než rozdíl mezi
+ * dvěma prostředními stupni.
+ */
+const IMPORTANCE_WEIGHTS = [20, 35, 50, 75, 110] as const;
+
+export function weightForImportance(importance: number): number {
+  const index = Math.min(5, Math.max(1, Math.round(importance))) - 1;
+  return IMPORTANCE_WEIGHTS[index];
+}
+
 function goalContext(
   user: UserPrefs,
   goal: {
@@ -82,6 +97,7 @@ export async function createGoalWithPlan({
   description,
   targetDate,
   locale,
+  importance = 3,
 }: {
   userId: string;
   title: string;
@@ -89,6 +105,8 @@ export async function createGoalWithPlan({
   targetDate: string;
   /** Jazyk stránky, ze které se cíl zakládá. V něm bude celý plán. */
   locale: Locale;
+  /** Jak je cíl pro uživatele důležitý, 1–5. Řídí podíl na denní kapacitě. */
+  importance?: number;
 }): Promise<string> {
   const user = await db.user.findUniqueOrThrow({
     where: { id: userId },
@@ -153,6 +171,7 @@ export async function createGoalWithPlan({
       description: description || null,
       targetDate: parseIsoDate(targetDate),
       locale,
+      priorityWeight: weightForImportance(importance),
       restatement: plan.goalRestated,
       assumptions: plan.assumptions,
       feasibility: plan.feasibility,

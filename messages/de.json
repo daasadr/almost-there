@@ -392,7 +392,6 @@
       "title": "Heute",
       "empty": "Für heute steht nichts an",
       "emptyBody": "Entweder gibt dir der Plan heute frei, oder du hast noch kein Ziel angelegt. Deine Ziele stehen weiter unten.",
-      "allDone": "Fertig. Heute kommt nichts mehr.",
       "progress": "{done} von {total} erledigt",
       "minutes": "{minutes} Min.",
       "type": {
@@ -405,7 +404,29 @@
       "preparingCta": "Heute planen",
       "preparingFailed": "Die Zerlegung wurde nicht fertig. Bitte versuch es gleich noch einmal.",
       "readyTitle": "In konkrete Tage zerlegen",
-      "readyBody": "Die obere Zerlegung steht. Den nächsten Abschnitt in Tage mit Aufgaben zu übersetzen startest du per Klick — bewusst nicht automatisch, damit nichts für einen Plan entsteht, den du vielleicht gar nicht behältst."
+      "readyBody": "Die obere Zerlegung steht. Den nächsten Abschnitt in Tage mit Aufgaben zu übersetzen startest du per Klick — bewusst nicht automatisch, damit nichts für einen Plan entsteht, den du vielleicht gar nicht behältst.",
+      "celebrations": [
+        "Fertig. Heute wartet nichts mehr auf dich.",
+        "Das hast du hinter dir — und einen Tag näher dran.",
+        "Ganzer Tag abgehakt. Das zählt.",
+        "Wieder geschafft. Du hast den Dreh raus.",
+        "Heute erledigt. Morgen ist auch noch ein Tag.",
+        "Alles erledigt. Genau so geht das.",
+        "Alles frei. Ruh dich aus, du hast es dir verdient.",
+        "Tag gemeistert. Der Fortschritt heute kam nicht von allein.",
+        "Da ist es. Du hast getan, was du dir vorgenommen hast.",
+        "Abgehakt. Morgen kann warten.",
+        "Fertig — zwischen Vorsatz und Tat liegt heute nichts.",
+        "Der Tag passt. So wird aus einem Plan ein Ergebnis.",
+        "Alles abgehakt. Da darfst du kurz zufrieden sein.",
+        "Fertig. Ein Stück weiter als gestern.",
+        "Erledigt. Mehr wird heute nicht von dir verlangt.",
+        "Heute reiner Tisch. Solche Tage tragen das Ganze.",
+        "Feierabend. Der Rest des Tages gehört dir.",
+        "Vollständig. Diese Tage summieren sich schneller, als es sich anfühlt.",
+        "Fertig, und nichts aufgeschoben. Seltener, als du denkst.",
+        "Tag abgeschlossen. Bis morgen."
+      ]
     },
     "goals": {
       "title": "Ziele",
@@ -443,6 +464,15 @@
         ],
         "elapsed": "{seconds} s",
         "note": "Die Zerlegung läuft im Hintergrund. Schließ die Seite nicht."
+      },
+      "importanceLabel": "Wie wichtig ist dir dieses Ziel",
+      "importanceHint": "Danach wird deine Tageszeit aufgeteilt, wenn mehrere Ziele laufen.",
+      "importance": {
+        "1": "Ich probier's mal",
+        "2": "Wenn Zeit bleibt",
+        "3": "Es liegt mir am Herzen",
+        "4": "Eine meiner Hauptsachen",
+        "5": "Das hat gerade Vorrang"
       }
     },
     "detail": {
