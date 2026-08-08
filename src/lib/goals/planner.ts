@@ -18,7 +18,8 @@ import {
   type Unit,
 } from "@/lib/plan/calendar";
 import type { Locale } from "@/i18n/routing";
-import type { BlockLevel, Prisma } from "@/generated/prisma";
+import { AiFormatError } from "@/lib/ai/call";
+import type { AiOperation, BlockLevel, Prisma } from "@/generated/prisma";
 
 /**
  * Založení cíle a průběžné dorozpadávání plánu.
@@ -63,6 +64,29 @@ const IMPORTANCE_WEIGHTS = [20, 35, 50, 75, 110] as const;
 export function weightForImportance(importance: number): number {
   const index = Math.min(5, Math.max(1, Math.round(importance))) - 1;
   return IMPORTANCE_WEIGHTS[index];
+}
+
+/**
+ * Zaúčtuje spotřebu i u volání, které skončilo chybou.
+ *
+ * Tokeny se platí za každou odpověď, i za tu zahozenou. Kdyby se
+ * zapisovaly jen úspěchy, strop by neviděl právě ten případ, proti
+ * kterému má chránit — volání, které selhává dokola.
+ */
+async function accountFailure(
+  userId: string,
+  operation: AiOperation,
+  label: string,
+  error: unknown,
+): Promise<void> {
+  if (!(error instanceof AiFormatError) || !error.usage) return;
+
+  await recordUsage({
+    userId,
+    operation,
+    usage: error.usage,
+    label: `${label} — NEÚSPĚCH`,
+  });
 }
 
 function goalContext(
@@ -139,7 +163,7 @@ export async function createGoalWithPlan({
 
   const today = todayIso(user.timezone);
 
-  const { plan, usage, ranges } = await decomposeGoal({
+  const decomposed = await decomposeGoal({
     goal: title,
     targetDate,
     locale,
@@ -151,7 +175,12 @@ export async function createGoalWithPlan({
       title: goal.title,
       targetDate: toIsoDate(goal.targetDate),
     })),
+  }).catch(async (error) => {
+    await accountFailure(userId, "DECOMPOSE_GOAL", `cíl „${title}“`, error);
+    throw error;
   });
+
+  const { plan, usage, ranges } = decomposed;
 
   // DECOMPOSE_GOAL, ne DECOMPOSE_MONTHLY: podle počtu těchhle záznamů se
   // počítá měsíční limit nových plánů, který zákazník zná z ceníku.
@@ -400,12 +429,17 @@ async function generateChildren({
     range: { startDate: parent.startDate, endDate: parent.endDate },
   };
 
+  const label = `${unit.toLowerCase()} pod ${toIsoDate(parent.startDate)}`;
+
   if (unit === "DAY") {
     const { days, usage } = await expandIntoDays({
       goal: context,
       parent: parentInput,
       ranges,
       otherGoalMinutesPerDay: otherGoalMinutes,
+    }).catch(async (error) => {
+      await accountFailure(userId, "DECOMPOSE_DAILY", label, error);
+      throw error;
     });
 
     await recordUsage({
@@ -457,6 +491,8 @@ async function generateChildren({
     });
   }
 
+  const operation = unit === "WEEK" ? "DECOMPOSE_WEEKLY" : "DECOMPOSE_MONTHLY";
+
   const { children, usage } = await expandIntoBlocks({
     goal: context,
     parent: parentInput,
@@ -465,13 +501,16 @@ async function generateChildren({
     siblingSummaries: parentSiblings
       .filter((sibling) => sibling.id !== parent.id)
       .map((sibling) => sibling.summary),
+  }).catch(async (error) => {
+    await accountFailure(userId, operation, label, error);
+    throw error;
   });
 
   await recordUsage({
     userId,
-    operation: unit === "WEEK" ? "DECOMPOSE_WEEKLY" : "DECOMPOSE_MONTHLY",
+    operation,
     usage,
-    label: `${unit.toLowerCase()} pod ${toIsoDate(parent.startDate)} počet=${children.length}`,
+    label: `${label} počet=${children.length}`,
   });
 
   const rows: Prisma.TimeBlockCreateManyInput[] = children.map((child, i) => ({

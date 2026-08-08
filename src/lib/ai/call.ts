@@ -28,6 +28,30 @@ export class AiRefusalError extends Error {
 
 export class AiFormatError extends Error {
   readonly name = "AiFormatError";
+
+  /**
+   * Spotřeba, kterou neúspěšný pokus stál.
+   *
+   * Tokeny se platí i za odpověď, kterou zahodíme. Bez tohohle údaje by
+   * účtování nevidělo právě ten případ, proti kterému má strop chránit —
+   * volání, které selhává dokola.
+   */
+  constructor(
+    message: string,
+    readonly usage?: AiUsage,
+  ) {
+    super(message);
+  }
+}
+
+/** Součet spotřeby napříč pokusy. Model je u všech stejný. */
+function addUsage(a: AiUsage | null, b: AiUsage): AiUsage {
+  if (!a) return b;
+  return {
+    model: b.model,
+    inputTokens: a.inputTokens + b.inputTokens,
+    outputTokens: a.outputTokens + b.outputTokens,
+  };
 }
 
 /**
@@ -58,14 +82,24 @@ export async function callStructured<T>(
   options: AiCallOptions<T>,
 ): Promise<AiCallResult<T>> {
   let lastError: unknown;
+  // Spotřeba zahozených pokusů. Připočte se k úspěšnému volání, aby se
+  // zaplacené tokeny objevily v účtování i tehdy, když se odpověď nepoužila.
+  let wasted: AiUsage | null = null;
 
   for (let attempt = 1; attempt <= ATTEMPTS; attempt++) {
     try {
-      return await callOnce(options);
+      const result = await callOnce(options);
+      return wasted
+        ? { ...result, usage: addUsage(wasted, result.usage) }
+        : result;
     } catch (error) {
       // Odmítnutí modelu je rozhodnutí, ne výpadek — opakování by ho
       // jen zopakovalo a stálo dvakrát tolik.
       if (error instanceof AiRefusalError) throw error;
+
+      if (error instanceof AiFormatError && error.usage) {
+        wasted = addUsage(wasted, error.usage);
+      }
 
       lastError = error;
       console.warn(
@@ -73,6 +107,14 @@ export async function callStructured<T>(
         error instanceof Error ? error.message : error,
       );
     }
+  }
+
+  // I když se nakonec nepovedlo nic, spotřebu musí volající zaúčtovat.
+  if (wasted) {
+    throw new AiFormatError(
+      lastError instanceof Error ? lastError.message : "Rozpad se nezdařil.",
+      wasted,
+    );
   }
 
   throw lastError;
@@ -98,6 +140,16 @@ async function callOnce<T>({
     messages: [{ role: "user", content: user }],
   });
 
+  // Spotřeba se čte dřív než výsledek: tokeny jsou zaplacené i tehdy,
+  // když se odpověď ukáže jako nepoužitelná.
+  const usage: AiUsage = {
+    inputTokens: response.usage.input_tokens ?? 0,
+    // Podle dokumentace API je `output_tokens` závazný součet pro účtování
+    // a tokeny přemýšlení jsou v něm už zahrnuté.
+    outputTokens: response.usage.output_tokens,
+    model,
+  };
+
   if (response.stop_reason === "refusal") {
     throw new AiRefusalError(
       response.stop_details?.explanation ?? "Request declined.",
@@ -106,14 +158,14 @@ async function callOnce<T>({
 
   const textBlock = response.content.find((block) => block.type === "text");
   if (!textBlock || textBlock.type !== "text") {
-    throw new AiFormatError("Model returned no text content.");
+    throw new AiFormatError("Model nevrátil žádný text.", usage);
   }
 
   let parsed: unknown;
   try {
     parsed = JSON.parse(textBlock.text);
   } catch {
-    throw new AiFormatError("Model returned malformed JSON.");
+    throw new AiFormatError("Model vrátil poškozený JSON.", usage);
   }
 
   const result = parser.safeParse(parsed);
@@ -125,15 +177,8 @@ async function callOnce<T>({
       .map((issue) => `${issue.path.join(".") || "(kořen)"} — ${issue.message}`)
       .join("; ");
 
-    throw new AiFormatError(`Odpověď neodpovídá schématu: ${issues}`);
+    throw new AiFormatError(`Odpověď neodpovídá schématu: ${issues}`, usage);
   }
 
-  return {
-    data: result.data,
-    usage: {
-      inputTokens: response.usage.input_tokens,
-      outputTokens: response.usage.output_tokens,
-      model,
-    },
-  };
+  return { data: result.data, usage };
 }
