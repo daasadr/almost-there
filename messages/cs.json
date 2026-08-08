@@ -401,7 +401,9 @@
       "preparingTitle": "Připravuji tvůj den",
       "preparingBody": "Rozepisuji nejbližší období na konkrétní dny. Chvíli to trvá, ale dělá se to jen jednou za období.",
       "preparingCta": "Rozepsat dnešek",
-      "preparingFailed": "Rozpis se nepodařilo dokončit. Zkus to prosím za chvíli znovu."
+      "preparingFailed": "Rozpis se nepodařilo dokončit. Zkus to prosím za chvíli znovu.",
+      "readyTitle": "Rozepsat na konkrétní dny",
+      "readyBody": "Horní rozpad máš hotový. Vypsání nejbližšího období na dny s úkoly spustíš tlačítkem — schválně se to neděje samo, ať se negeneruje plán, který si třeba nenecháš."
     },
     "goals": {
       "title": "Cíle",
@@ -480,6 +482,12 @@
       "tooManyGoals": "Najednou můžeš mít nejvýš pět běžících cílů. Nějaký nejdřív dokonči nebo pozastav.",
       "notSubscribed": "Na tohle je potřeba předplatné.",
       "generic": "Něco se pokazilo. Zkus to prosím znovu."
+    },
+    "budget": {
+      "warningTitle": "Blížíš se k měsíčnímu limitu generování",
+      "warningBody": "Vyčerpáno {percent} % limitu. Hotové plány zůstávají dostupné vždycky — limit se týká jen nového generování a obnoví se prvního dne dalšího měsíce.",
+      "exhaustedTitle": "Měsíční limit generování je vyčerpaný",
+      "exhaustedBody": "Nové cíle ani rozpisy se teď nevygenerují. Všechno, co už máš hotové, zůstává dostupné. Limit se obnoví prvního dne dalšího měsíce."
     }
   }
 }

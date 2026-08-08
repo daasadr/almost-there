@@ -401,7 +401,9 @@
       "preparingTitle": "Dein Tag wird vorbereitet",
       "preparingBody": "Der nächste Abschnitt wird in konkrete Tage zerlegt. Das dauert einen Moment, passiert aber nur einmal pro Abschnitt.",
       "preparingCta": "Heute planen",
-      "preparingFailed": "Die Zerlegung wurde nicht fertig. Bitte versuch es gleich noch einmal."
+      "preparingFailed": "Die Zerlegung wurde nicht fertig. Bitte versuch es gleich noch einmal.",
+      "readyTitle": "In konkrete Tage zerlegen",
+      "readyBody": "Die obere Zerlegung steht. Den nächsten Abschnitt in Tage mit Aufgaben zu übersetzen startest du per Klick — bewusst nicht automatisch, damit nichts für einen Plan entsteht, den du vielleicht gar nicht behältst."
     },
     "goals": {
       "title": "Ziele",
@@ -480,6 +482,12 @@
       "tooManyGoals": "Du kannst höchstens fünf Ziele gleichzeitig verfolgen. Schließ erst eines ab oder pausier es.",
       "notSubscribed": "Dafür brauchst du ein Abonnement.",
       "generic": "Etwas ist schiefgelaufen. Bitte versuch es erneut."
+    },
+    "budget": {
+      "warningTitle": "Du näherst dich dem Monatslimit für Generierungen",
+      "warningBody": "{percent} % verbraucht. Fertige Pläne bleiben in jedem Fall verfügbar — das Limit betrifft nur neue Generierungen und setzt sich am Ersten des nächsten Monats zurück.",
+      "exhaustedTitle": "Das Monatslimit für Generierungen ist aufgebraucht",
+      "exhaustedBody": "Neue Ziele und Zerlegungen lassen sich gerade nicht erzeugen. Alles Fertige bleibt verfügbar. Das Limit setzt sich am Ersten des nächsten Monats zurück."
     }
   }
 }

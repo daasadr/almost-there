@@ -401,7 +401,9 @@
       "preparingTitle": "Preparing your day",
       "preparingBody": "Breaking the nearest period down into actual days. It takes a moment, but only happens once per period.",
       "preparingCta": "Plan today",
-      "preparingFailed": "The breakdown did not finish. Please try again shortly."
+      "preparingFailed": "The breakdown did not finish. Please try again shortly.",
+      "readyTitle": "Write it out into actual days",
+      "readyBody": "The top-level breakdown is done. Turning the nearest period into days with tasks starts on the button — deliberately not automatic, so nothing gets generated for a plan you may not keep."
     },
     "goals": {
       "title": "Goals",
@@ -480,6 +482,12 @@
       "tooManyGoals": "You can run at most five goals at once. Finish or pause one first.",
       "notSubscribed": "This needs a subscription.",
       "generic": "Something went wrong. Please try again."
+    },
+    "budget": {
+      "warningTitle": "You are close to this month’s generation limit",
+      "warningBody": "{percent}% used. Finished plans stay available no matter what — the limit only applies to new generation and resets on the first of next month.",
+      "exhaustedTitle": "This month’s generation limit is used up",
+      "exhaustedBody": "New goals and breakdowns will not generate right now. Everything you already have stays available. The limit resets on the first of next month."
     }
   }
 }

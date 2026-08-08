@@ -8,12 +8,13 @@ import { planErrorKey } from "@/lib/plan/errors";
 /**
  * Dorozpad plánu na nejbližší období.
  *
- * Spouští se sám, jakmile se zjistí, že na dnešek nejsou úkoly. Nechat to
- * na uživateli by znamenalo, že přijde do aplikace a najde prázdno, aniž by
- * tušil, že si má o den říct.
+ * Na přehledu dnešku se spouští sám: kdo se přijde podívat, co má dnes
+ * dělat, nemá řešit, že si o to musí říct. Na detailu cíle se ale spouští
+ * až na kliknutí — tam si uživatel čte horní rozpad a rozhoduje se, jestli
+ * si cíl vůbec nechá. Rozpad na dny je nejdražší část a nemá se utrácet
+ * za plán, který za minutu smaže.
  *
- * Generování je drahé, takže se hlídá, aby jedno načtení stránky spustilo
- * nejvýš jeden pokus na cíl.
+ * Hlídá se, aby jedno načtení stránky spustilo nejvýš jeden běh na cíl.
  */
 /** Nejhlubší cesta je rok → měsíc → týden → den, tedy tři sestupy.
  *  Čtvrté kolo je rezerva, ne očekávaný stav. */
@@ -78,9 +79,13 @@ export function PlanTrigger({
 
   return (
     <div className="rounded-2xl border border-white/10 p-5 sm:p-6">
-      <h2 className="display text-lg">{t("preparingTitle")}</h2>
+      {/* Text se liší podle toho, jestli rozpad běží sám, nebo na něj
+          uživatel teprve čeká s prstem nad tlačítkem. */}
+      <h2 className="display text-lg">
+        {auto ? t("preparingTitle") : t("readyTitle")}
+      </h2>
       <p className="mt-1.5 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
-        {t("preparingBody")}
+        {auto ? t("preparingBody") : t("readyBody")}
       </p>
 
       {running && (
@@ -96,24 +101,27 @@ export function PlanTrigger({
       )}
 
       {error && (
-        <>
-          <p
-            role="alert"
-            className="mt-4 rounded-xl border border-red-400/25 bg-red-400/10 px-4 py-3 text-sm text-red-200"
-          >
-            {tError(error)}
-          </p>
-          <button
-            type="button"
-            className="btn-primary mt-4"
-            onClick={() => {
-              started.current = false;
-              void run();
-            }}
-          >
-            {t("preparingCta")}
-          </button>
-        </>
+        <p
+          role="alert"
+          className="mt-4 rounded-xl border border-red-400/25 bg-red-400/10 px-4 py-3 text-sm text-red-200"
+        >
+          {tError(error)}
+        </p>
+      )}
+
+      {/* Tlačítko je vidět, dokud rozpad neběží: buď proto, že se nespouští
+          sám, nebo proto, že první pokus selhal. */}
+      {!running && (
+        <button
+          type="button"
+          className="btn-primary mt-4"
+          onClick={() => {
+            started.current = false;
+            void run();
+          }}
+        >
+          {t("preparingCta")}
+        </button>
       )}
     </div>
   );

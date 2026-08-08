@@ -5,6 +5,7 @@ import { auth } from "@/auth";
 import { SignOutButton } from "@/components/auth/SignOutButton";
 import { Paywall } from "@/components/billing/Paywall";
 import { CheckoutPending } from "@/components/billing/CheckoutPending";
+import { BudgetNotice } from "@/components/plan/BudgetNotice";
 import { GoalList } from "@/components/plan/GoalList";
 import { PlanTrigger } from "@/components/plan/PlanTrigger";
 import { TodayChecklist } from "@/components/plan/TodayChecklist";
@@ -101,6 +102,7 @@ export default async function AppPage({
           nemá cenu sahat do databáze pro data, která se nezobrazí. */}
       {hasAccess && (
         <div className="mt-10 space-y-10">
+          <BudgetNotice userId={session.user.id} locale={locale} />
           <Today userId={session.user.id} locale={locale} />
           <Goals userId={session.user.id} locale={locale} />
         </div>

@@ -114,9 +114,12 @@ export default async function GoalPage({
         </div>
       )}
 
+      {/* Bez `auto`: na detailu se rozpad na dny spustí až na kliknutí.
+          Uživatel si tu čte horní rozpad a teprve se rozhoduje, jestli si
+          cíl nechá — utrácet za dny dřív než on sám řekne, je zbytečné. */}
       {!hasDays && (
         <div className="mt-8">
-          <PlanTrigger goalIds={[goal.id]} />
+          <PlanTrigger goalIds={[goal.id]} auto={false} />
         </div>
       )}
 

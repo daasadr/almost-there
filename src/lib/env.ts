@@ -49,16 +49,17 @@ export const env = {
   /**
    * Měsíční strop spotřeby AI na uživatele, v korunách (zadání, bod 9).
    *
-   * Měření na reálných cílech dalo 12–15 Kč za cíl a měsíc, takže 70 Kč
-   * pokryje čtyři až pět souběžných cílů. Z předplatného 179 Kč zůstane
-   * i po provizi rezerva. Kdo na strop narazí, není běžný uživatel.
+   * Měření dalo 12–15 Kč za cíl a měsíc, a aplikace povoluje pět cílů
+   * naráz — pět aktivních cílů tedy vyjde na 60–75 Kč. Strop je nad tím
+   * schválně s rezervou: má chytat útok, ne aktivního zákazníka. Ze 179 Kč
+   * zbývá po provizi zhruba 133 Kč, takže i v krajním případě neproděláme.
    */
   get aiMonthlyCapCzk(): number {
-    return optionalInt("AI_MONTHLY_CAP_CZK", 70);
+    return optionalInt("AI_MONTHLY_CAP_CZK", 100);
   },
   /** Od kolika korun uživatele upozorníme, že se blíží ke stropu. */
   get aiMonthlyWarnCzk(): number {
-    return optionalInt("AI_MONTHLY_WARN_CZK", 45);
+    return optionalInt("AI_MONTHLY_WARN_CZK", 70);
   },
   get appUrl(): string {
     return process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
