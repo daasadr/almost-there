@@ -77,6 +77,7 @@ export type GoalDetail = {
   feasibility: string | null;
   feasibilityNote: string | null;
   tree: PlanNode[];
+  images: { id: string; width: number; height: number; alt: string | null }[];
 };
 
 export async function getGoalDetail(
@@ -97,6 +98,10 @@ export async function getGoalDetail(
       assumptions: true,
       feasibility: true,
       feasibilityNote: true,
+      images: {
+        orderBy: { createdAt: "asc" },
+        select: { id: true, width: true, height: true, alt: true },
+      },
     },
   });
   if (!goal) return null;
@@ -171,6 +176,14 @@ export type TodayView = {
   tasks: TodayTask[];
   /** Aktivní cíle, které na dnešek zatím rozpad nemají. */
   goalsNeedingPlan: { id: string; title: string }[];
+  /**
+   * Jeden obrázek na cíl, vybraný podle data.
+   *
+   * Vybírá se na serveru, ne v prohlížeči: náhoda při každém překreslení
+   * by obrázek měnila pod rukama a z připomínky, proč to člověk dělá, by
+   * byla blikající dekorace.
+   */
+  dailyImages: Record<string, { id: string; alt: string | null }>;
 };
 
 export async function getToday(
@@ -219,6 +232,27 @@ export async function getToday(
     .filter((goal) => goal.targetDate >= day && !plannedGoalIds.has(goal.id))
     .map((goal) => ({ id: goal.id, title: goal.title }));
 
+  const goalIds = [...new Set(tasks.map((task) => task.goalId))];
+  const images = goalIds.length
+    ? await db.goalImage.findMany({
+        where: { goalId: { in: goalIds } },
+        orderBy: { createdAt: "asc" },
+        select: { id: true, goalId: true, alt: true },
+      })
+    : [];
+
+  // Den jako číslo — stejný postup jako u pochval za dokončený den.
+  const dayNumber = Math.floor(Date.parse(`${date}T00:00:00Z`) / 86_400_000);
+  const dailyImages: TodayView["dailyImages"] = {};
+
+  for (const goalId of goalIds) {
+    const forGoal = images.filter((image) => image.goalId === goalId);
+    if (forGoal.length === 0) continue;
+
+    const chosen = forGoal[dayNumber % forGoal.length];
+    dailyImages[goalId] = { id: chosen.id, alt: chosen.alt };
+  }
+
   return {
     date,
     tasks: tasks.map(({ goal, ...task }) => ({
@@ -226,5 +260,6 @@ export async function getToday(
       goalTitle: goal.title,
     })),
     goalsNeedingPlan,
+    dailyImages,
   };
 }

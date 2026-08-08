@@ -524,6 +524,19 @@
       "warningBody": "Využito {percent} %. Běžící cíle to neomezuje — rozpisy, denní úkoly i přeplánování fungují dál. Limit se obnoví prvního dne dalšího měsíce.",
       "exhaustedTitle": "Měsíční limit nových plánů je vyčerpaný",
       "exhaustedBody": "Nový cíl teď nezaložíš. Všechny běžící cíle fungují dál včetně rozpisů a denních úkolů. Limit se obnoví prvního dne dalšího měsíce."
+    },
+    "images": {
+      "title": "Obrázky, které tě k cíli táhnou",
+      "body": "Vlož cokoliv, co ti připomene, proč do toho jdeš. U denního checklistu se pak jeden z nich ukáže — čím víc jich vložíš, tím pestřejší to budeš mít.",
+      "remove": "Odebrat",
+      "counter": "{used} z {max}",
+      "uploading": "Nahrávám… ({count})",
+      "errors": {
+        "tooManyImages": "U jednoho cíle může být nejvýš třicet obrázků.",
+        "imageTooLarge": "Tenhle soubor je moc velký. Vejde se do osmi megabajtů.",
+        "imageUnreadable": "Tenhle soubor se nepodařilo přečíst jako obrázek.",
+        "uploadFailed": "Nahrání se nepovedlo. Zkus to prosím znovu."
+      }
     }
   }
 }

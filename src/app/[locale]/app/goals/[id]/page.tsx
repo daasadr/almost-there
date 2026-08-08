@@ -4,6 +4,8 @@ import { notFound, redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { auth } from "@/auth";
 import { DeleteGoalButton } from "@/components/plan/DeleteGoalButton";
+import { GoalImages } from "@/components/plan/GoalImages";
+import { MAX_IMAGES_PER_GOAL } from "@/lib/uploads/images";
 import { PlanTree } from "@/components/plan/PlanTree";
 import { PlanTrigger } from "@/components/plan/PlanTrigger";
 import { getAccess } from "@/lib/billing/access";
@@ -113,6 +115,14 @@ export default async function GoalPage({
           )}
         </div>
       )}
+
+      <div className="mt-8">
+        <GoalImages
+          goalId={goal.id}
+          images={goal.images}
+          maxImages={MAX_IMAGES_PER_GOAL}
+        />
+      </div>
 
       {/* Bez `auto`: na detailu se rozpad na dny spustí až na kliknutí.
           Uživatel si tu čte horní rozpad a teprve se rozhoduje, jestli si

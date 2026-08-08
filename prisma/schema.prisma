@@ -224,8 +224,33 @@ model Goal {
   tasks        Task[]
   milestones   Milestone[]
   replanEvents ReplanEvent[]
+  images       GoalImage[]
 
   @@index([userId, status])
+}
+
+/// Obrázek, který uživatele k cíli motivuje. U denního checklistu se
+/// z nich jeden ukazuje — čím víc jich vloží, tím pestřejší to má.
+///
+/// Samotný soubor leží na disku, v databázi je jen odkaz. Obrázky mohou
+/// být osobní, takže se neservírují přímo webserverem, ale přes aplikaci,
+/// která ověří, že patří přihlášenému uživateli.
+model GoalImage {
+  id     String @id @default(cuid())
+  goalId String
+  /// Cesta v úložišti, relativní ke kořeni pro nahrané soubory.
+  storageKey String @unique
+  width      Int
+  height     Int
+  byteSize   Int
+  /// Popisek pro čtečky obrazovky. Uživatel ho zadat může, nemusí.
+  alt String?
+
+  createdAt DateTime @default(now())
+
+  goal Goal @relation(fields: [goalId], references: [id], onDelete: Cascade)
+
+  @@index([goalId])
 }
 
 enum BlockLevel {

@@ -524,6 +524,19 @@
       "warningBody": "{percent}% used. Running goals are unaffected — breakdowns, daily tasks and replanning all keep working. The limit resets on the first of next month.",
       "exhaustedTitle": "This month's limit on new plans is used up",
       "exhaustedBody": "You cannot create a new goal right now. Every running goal keeps working, including breakdowns and daily tasks. The limit resets on the first of next month."
+    },
+    "images": {
+      "title": "Images that pull you towards the goal",
+      "body": "Add anything that reminds you why you are doing this. One of them shows up with your daily checklist — the more you add, the more variety you get.",
+      "remove": "Remove",
+      "counter": "{used} of {max}",
+      "uploading": "Uploading… ({count})",
+      "errors": {
+        "tooManyImages": "A goal can hold at most thirty images.",
+        "imageTooLarge": "That file is too large. Eight megabytes is the limit.",
+        "imageUnreadable": "That file could not be read as an image.",
+        "uploadFailed": "The upload failed. Please try again."
+      }
     }
   }
 }

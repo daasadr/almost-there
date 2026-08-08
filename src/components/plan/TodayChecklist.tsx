@@ -15,10 +15,13 @@ import type { TodayTask } from "@/lib/goals/queries";
 export function TodayChecklist({
   tasks,
   daySeed,
+  dailyImages,
 }: {
   tasks: TodayTask[];
   /** Číslo dne — vybírá dnešní pochvalu. Viz `celebration()`. */
   daySeed: number;
+  /** Dnešní obrázek pro každý cíl, který nějaký má. */
+  dailyImages: Record<string, { id: string; alt: string | null }>;
 }) {
   const t = useTranslations("plan.today");
   const router = useRouter();
@@ -93,6 +96,16 @@ export function TodayChecklist({
               <h3 className="text-xs font-semibold uppercase tracking-wider text-[var(--color-paper-faint)]">
                 {goalTasks[0].goalTitle}
               </h3>
+            )}
+
+            {/* Připomínka, proč to člověk dělá — dřív než seznam práce. */}
+            {dailyImages[goalId] && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={`/api/images/${dailyImages[goalId].id}`}
+                alt={dailyImages[goalId].alt ?? ""}
+                className="mt-3 max-h-56 w-full rounded-2xl object-cover"
+              />
             )}
 
             <ul className="mt-3 space-y-2">

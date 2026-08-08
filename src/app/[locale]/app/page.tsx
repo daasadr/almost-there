@@ -182,7 +182,11 @@ async function Today({ userId, locale }: { userId: string; locale: string }) {
         )}
 
         {today.tasks.length > 0 ? (
-          <TodayChecklist tasks={today.tasks} daySeed={daySeed(today.date)} />
+          <TodayChecklist
+            tasks={today.tasks}
+            daySeed={daySeed(today.date)}
+            dailyImages={today.dailyImages}
+          />
         ) : (
           today.goalsNeedingPlan.length === 0 && (
             <div className="card p-6">

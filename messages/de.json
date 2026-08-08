@@ -524,6 +524,19 @@
       "warningBody": "{percent} % verbraucht. Laufende Ziele sind nicht betroffen — Zerlegungen, Tagesaufgaben und Neuplanung funktionieren weiter. Das Limit setzt sich am Ersten des nächsten Monats zurück.",
       "exhaustedTitle": "Das Monatslimit für neue Pläne ist aufgebraucht",
       "exhaustedBody": "Ein neues Ziel lässt sich gerade nicht anlegen. Alle laufenden Ziele funktionieren weiter, samt Zerlegungen und Tagesaufgaben. Das Limit setzt sich am Ersten des nächsten Monats zurück."
+    },
+    "images": {
+      "title": "Bilder, die dich zum Ziel ziehen",
+      "body": "Leg alles ab, was dich daran erinnert, warum du das machst. Bei der Tagescheckliste erscheint eines davon — je mehr du hinterlegst, desto abwechslungsreicher wird es.",
+      "remove": "Entfernen",
+      "counter": "{used} von {max}",
+      "uploading": "Wird hochgeladen… ({count})",
+      "errors": {
+        "tooManyImages": "Ein Ziel fasst höchstens dreißig Bilder.",
+        "imageTooLarge": "Diese Datei ist zu groß. Acht Megabyte sind das Limit.",
+        "imageUnreadable": "Diese Datei ließ sich nicht als Bild lesen.",
+        "uploadFailed": "Der Upload ist fehlgeschlagen. Bitte versuch es erneut."
+      }
     }
   }
 }

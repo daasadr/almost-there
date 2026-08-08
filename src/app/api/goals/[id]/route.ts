@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { requireSubscriber } from "@/lib/api/guard";
+import { deleteGoalImages } from "@/lib/uploads/images";
 
 export const runtime = "nodejs";
 
@@ -29,6 +30,10 @@ export async function DELETE(
   if (result.count === 0) {
     return NextResponse.json({ ok: false, error: "notFound" }, { status: 404 });
   }
+
+  // Kaskáda v databázi smaže záznamy o obrázcích, ale na disk nedosáhne.
+  // Soubory smazaného cíle by tam jinak zůstaly ležet napořád.
+  await deleteGoalImages(id);
 
   return NextResponse.json({ ok: true });
 }

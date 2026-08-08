@@ -44,3 +44,6 @@ tsconfig.tsbuildinfo
 
 # Prisma generovaný klient — vzniká při buildu z schema.prisma
 src/generated/
+
+# Nahrané obrázky (lokální vývoj)
+uploads/

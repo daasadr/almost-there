@@ -8,6 +8,27 @@ const nextConfig: NextConfig = {
   output: "standalone",
   poweredByHeader: false,
   reactStrictMode: true,
+
+  /**
+   * Co se nemá dostat do produkčního balíčku.
+   *
+   * Ukládání obrázků skládá cesty za běhu (`path.resolve`, `fs.readFile`)
+   * a sledovač závislostí z toho usoudí, že modul může sáhnout kamkoliv —
+   * pro jistotu proto přibalí celý projekt. Tady mu říkáme, co v běhovém
+   * image nemá co dělat: zadání, dokumentace, nasazovací skripty a
+   * migrace, které spouští samostatný kontejner.
+   */
+  outputFileTracingExcludes: {
+    "*": [
+      "**/*.md",
+      "Dockerfile",
+      "docker-compose.yml",
+      "deploy/**",
+      "prisma/migrations/**",
+      "tsconfig.tsbuildinfo",
+      "uploads/**",
+    ],
+  },
   async headers() {
     return [
       {

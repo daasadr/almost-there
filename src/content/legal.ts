@@ -288,6 +288,7 @@ export const privacyByLocale: Record<Locale, LegalDocument> = {
         paragraphs: [
           "Údaje účtu: e-mailová adresa, heslo v podobě nevratného otisku, případně identifikátor z přihlášení přes Google, datum vytvoření účtu.",
           "Obsah, který zadáš: znění cílů, cílová data, preference odpočinku a reflexe, vygenerované plány, stav plnění úkolů a případné poznámky.",
+          "Obrázky, které nahraješ k cíli: ukládají se na našem serveru mimo databázi. Při nahrání je překódujeme, čímž se odstraní metadata fotografie včetně údajů o poloze. Obrázky se nepředávají poskytovateli AI ani nikomu jinému a zobrazují se jen tobě po přihlášení. Se smazáním cíle nebo účtu se smažou i soubory.",
           "Platební údaje: stav a typ předplatného a identifikátor u platební brány. Čísla platebních karet neuchováváme ani k nim nemáme přístup.",
           "Technické údaje: údaje nezbytné pro provoz a bezpečnost, například otisk IP adresy pro ochranu proti zneužití. IP adresu v čitelné podobě neukládáme.",
         ],
@@ -360,6 +361,7 @@ export const privacyByLocale: Record<Locale, LegalDocument> = {
         paragraphs: [
           "Account data: email address, password stored as an irreversible hash, optionally a Google sign-in identifier, and the account creation date.",
           "Content you enter: the wording of your goals, target dates, rest and reflection preferences, generated plans, task completion status and any notes.",
+          "Images you upload to a goal: stored on our server outside the database. We re-encode them on upload, which strips photo metadata including location data. Images are never sent to the AI provider or anyone else, and are shown only to you once signed in. Deleting the goal or your account deletes the files as well.",
           "Payment data: subscription status and type, and an identifier at the payment provider. We do not store or have access to card numbers.",
           "Technical data: what is necessary for operation and security, for example a hash of your IP address for abuse protection. We do not store IP addresses in readable form.",
         ],
@@ -432,6 +434,7 @@ export const privacyByLocale: Record<Locale, LegalDocument> = {
         paragraphs: [
           "Kontodaten: E-Mail-Adresse, Passwort als nicht umkehrbarer Hash, gegebenenfalls eine Kennung aus der Google-Anmeldung sowie das Erstellungsdatum des Kontos.",
           "Von dir eingegebene Inhalte: Formulierung deiner Ziele, Zieldaten, Präferenzen zu Erholung und Reflexion, erzeugte Pläne, Erledigungsstatus und etwaige Notizen.",
+          "Bilder, die du zu einem Ziel hochlädst: gespeichert auf unserem Server außerhalb der Datenbank. Beim Hochladen kodieren wir sie neu, wodurch Foto-Metadaten einschließlich Standortdaten entfernt werden. Die Bilder gehen weder an den KI-Anbieter noch an sonst jemanden und werden nur dir nach der Anmeldung angezeigt. Mit dem Ziel oder dem Konto werden auch die Dateien gelöscht.",
           "Zahlungsdaten: Status und Art des Abonnements sowie eine Kennung beim Zahlungsdienstleister. Kartennummern speichern wir nicht und haben keinen Zugriff darauf.",
           "Technische Daten: was für Betrieb und Sicherheit nötig ist, etwa ein Hash deiner IP-Adresse zum Missbrauchsschutz. IP-Adressen speichern wir nicht im Klartext.",
         ],

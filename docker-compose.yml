@@ -21,6 +21,10 @@ services:
       # běží víc projektů, nastav APP_PORT v .env na volný port — uvnitř
       # kontejneru zůstává 3000 vždy.
       - "127.0.0.1:${APP_PORT:-3000}:3000"
+    volumes:
+      # Nahrané obrázky přežijí přestavbu i výměnu kontejneru. Do image
+      # nepatří — smazaly by se s každým nasazením.
+      - uploads:/app/uploads
     environment:
       NODE_ENV: production
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
@@ -39,6 +43,8 @@ services:
       AI_MONTHLY_CAP_CZK: ${AI_MONTHLY_CAP_CZK:-100}
       AI_MONTHLY_WARN_CZK: ${AI_MONTHLY_WARN_CZK:-70}
       USD_CZK_RATE: ${USD_CZK_RATE:-23.5}
+      # Kam se ukládají nahrané obrázky. Musí sedět s připojeným svazkem výš.
+      UPLOADS_DIR: /app/uploads
       DEMO_RATE_LIMIT_PER_HOUR: ${DEMO_RATE_LIMIT_PER_HOUR:-5}
       DEMO_MOCK: ${DEMO_MOCK:-false}
       NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://localhost:3000}
@@ -111,3 +117,6 @@ services:
 
 volumes:
   pgdata:
+  # Uživatelská data mimo databázi. V zálohách musí být zvlášť —
+  # dump databáze je nezachytí.
+  uploads:

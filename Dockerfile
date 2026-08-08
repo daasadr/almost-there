@@ -40,6 +40,11 @@ COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
+# Složka pro nahrané obrázky musí v image existovat a patřit aplikaci.
+# Docker při připojení svazku převezme vlastníka z image; bez tohohle by
+# svazek patřil rootovi a aplikace by do něj nesměla zapisovat.
+RUN mkdir -p /app/uploads && chown nextjs:nodejs /app/uploads
+
 USER nextjs
 EXPOSE 3000
 
