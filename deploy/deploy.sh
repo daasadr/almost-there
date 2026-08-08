@@ -52,6 +52,11 @@ docker compose up -d
 echo "==> Uklízím staré images"
 docker image prune -f
 
+# Cache z buildů si Docker drží donekonečna a na serveru s víc projekty
+# z ní během měsíců narostou desítky gigabajtů. Týden je kompromis:
+# běžné nasazení má cache pořád k dispozici, staré vrstvy odejdou.
+docker builder prune -f --filter until=168h
+
 echo "==> Čekám, až aplikace naběhne"
 for i in $(seq 1 30); do
   if curl -fsS -o /dev/null "http://127.0.0.1:${APP_PORT}/en"; then
