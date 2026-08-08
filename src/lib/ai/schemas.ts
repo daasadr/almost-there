@@ -17,8 +17,14 @@ export const planLevels = ["year", "month", "week"] as const;
 export type PlanLevel = (typeof planLevels)[number];
 
 export const planPeriodSchema = z.object({
-  /** Pořadí od dneška, 1 = první období. */
-  index: z.number().int().positive(),
+  /**
+   * Pořadí od dneška, 1 = první období.
+   *
+   * Bez omezení na kladné číslo schválně: hodnotu přepisujeme podle pořadí
+   * v poli, takže by validace shodila celý rozpad kvůli údaji, který stejně
+   * zahodíme.
+   */
+  index: z.number().int(),
   /** Krátký štítek, pár slov — nadpis v UI. */
   title: z.string().min(1),
   /** Co musí být na konci období hotové, aby termín vyšel. */
@@ -57,8 +63,8 @@ export type Plan = z.infer<typeof planSchema>;
  * by se časem rozešly.
  */
 export const childBlockSchema = z.object({
-  /** Pořadí v rámci rodiče, 1 = první. */
-  index: z.number().int().positive(),
+  /** Pořadí v rámci rodiče. Přepisujeme ho, tak na něm netrváme. */
+  index: z.number().int(),
   title: z.string().min(1),
   /** Co musí být na konci tohohle úseku hotové. */
   summary: z.string().min(1),
@@ -80,12 +86,18 @@ export const dayTaskSchema = z.object({
   /** Nepovinné upřesnění — co přesně dělat, když z názvu není jasné. */
   description: z.string().optional(),
   type: z.enum(taskTypes),
-  estimatedMinutes: z.number().int().positive().max(600),
+  /**
+   * Nula je platná hodnota, ne chyba. U odpočinku a někdy i u reflexe
+   * nedává odhad v minutách smysl a model ji vrací správně — dřívější
+   * podmínka „kladné číslo“ kvůli tomu zahazovala celý týdenní rozpad.
+   */
+  estimatedMinutes: z.number().int().min(0).max(1440),
 });
 
 export const daySchema = z.object({
-  /** Pořadí dne v týdnu, 1 = první den bloku. */
-  index: z.number().int().positive(),
+  /** Pořadí dne v týdnu. Hodnotu stejně přepisujeme podle pořadí v poli,
+   *  tak na ní nemá cenu trvat — viz `index` u období. */
+  index: z.number().int(),
   /** Čím je ten den daný — jedna věta. */
   summary: z.string().min(1),
   tasks: z.array(dayTaskSchema),
@@ -179,7 +191,7 @@ export function buildDaysJsonSchema(count: number) {
                   estimatedMinutes: {
                     type: "integer",
                     description:
-                      "Realistic time in minutes. Must fit within the person's stated daily capacity together with the other tasks of that day.",
+                      "Realistic time in minutes. Must fit within the person's stated daily capacity together with the other tasks of that day. Use 0 when a duration makes no sense, typically for a REST task.",
                   },
                 },
                 required: ["title", "type", "estimatedMinutes"],

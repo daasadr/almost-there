@@ -441,7 +441,9 @@ async function generateChildren({
                   title: task.title,
                   description: task.description || null,
                   type: task.type,
-                  estimatedMinutes: task.estimatedMinutes,
+                  // Nula znamená „doba nedává smysl“, typicky u odpočinku.
+                  // V databázi je to prázdná hodnota, ať UI nepíše „0 min“.
+                  estimatedMinutes: task.estimatedMinutes || null,
                   position: position + 1,
                 })),
               },

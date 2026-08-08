@@ -118,9 +118,14 @@ async function callOnce<T>({
 
   const result = parser.safeParse(parsed);
   if (!result.success) {
-    throw new AiFormatError(
-      `Model output did not match the schema: ${result.error.message}`,
-    );
+    // Cesta a důvod na jednom řádku. Celý výpis zoda je v logu nečitelný
+    // a přesně kvůli tomu se posledně těžko hledalo, které pole zlobí.
+    const issues = result.error.issues
+      .slice(0, 5)
+      .map((issue) => `${issue.path.join(".") || "(kořen)"} — ${issue.message}`)
+      .join("; ");
+
+    throw new AiFormatError(`Odpověď neodpovídá schématu: ${issues}`);
   }
 
   return {
