@@ -9,6 +9,7 @@ import { BudgetNotice } from "@/components/plan/BudgetNotice";
 import { GoalList } from "@/components/plan/GoalList";
 import { PlanTrigger } from "@/components/plan/PlanTrigger";
 import { TodayChecklist } from "@/components/plan/TodayChecklist";
+import { UsageMeter } from "@/components/plan/UsageMeter";
 import { getAccess } from "@/lib/billing/access";
 import { getToday, listGoals } from "@/lib/goals/queries";
 import { db } from "@/lib/db";
@@ -129,6 +130,12 @@ export default async function AppPage({
             </dd>
           </div>
         </dl>
+
+        {hasAccess && (
+          <div className="mt-7 border-t border-white/5 pt-6 text-sm">
+            <UsageMeter userId={session.user.id} locale={locale} />
+          </div>
+        )}
       </div>
 
       <div className="mt-8">

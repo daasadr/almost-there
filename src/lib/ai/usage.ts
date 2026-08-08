@@ -36,11 +36,56 @@ export async function monthlySpendHellers(userId: string): Promise<number> {
   return result._sum.costHellers ?? 0;
 }
 
+export class PlanAllowanceError extends Error {
+  readonly name = "PlanAllowanceError";
+}
+
+export type PlanAllowance = {
+  used: number;
+  allowed: number;
+  /** Kolik z limitu je spotřebováno, 0–100. Tohle uživatel vidí. */
+  percent: number;
+  remaining: number;
+  exhausted: boolean;
+};
+
+/**
+ * Měsíční limit nových plánů — to, co zákazník zná z ceníku.
+ *
+ * Počítá se ze záznamů o spotřebě, ne z počtu cílů v databázi. Cíle se
+ * mažou natvrdo, takže podle nich by se limit obcházel zakládáním
+ * a mazáním dokola. Záznam o volání modelu zůstane i po smazání cíle —
+ * peníze jsme utratili tak jako tak.
+ */
+export async function getPlanAllowance(
+  userId: string,
+): Promise<PlanAllowance> {
+  const used = await db.aiUsageEvent.count({
+    where: {
+      userId,
+      operation: "DECOMPOSE_GOAL",
+      createdAt: { gte: startOfMonth() },
+    },
+  });
+
+  const allowed = env.monthlyPlanAllowance;
+
+  return {
+    used,
+    allowed,
+    percent: Math.min(100, Math.round((used / allowed) * 100)),
+    remaining: Math.max(0, allowed - used),
+    exhausted: used >= allowed,
+  };
+}
+
 export type BudgetState = {
   spentHellers: number;
   capHellers: number;
   /** Zbývá do stropu; nikdy záporné. */
   remainingHellers: number;
+  /** Kolik ze stropu je vyčerpáno, 0–100. */
+  percent: number;
   /** Přes strop — další generování se nespustí. */
   exhausted: boolean;
   /** Blíží se ke stropu; ukazujeme varování, ale generujeme dál. */
@@ -56,6 +101,7 @@ export async function getBudget(userId: string): Promise<BudgetState> {
     spentHellers,
     capHellers,
     remainingHellers: Math.max(0, capHellers - spentHellers),
+    percent: Math.min(100, Math.round((spentHellers / capHellers) * 100)),
     exhausted: spentHellers >= capHellers,
     warning: spentHellers >= warnHellers,
   };

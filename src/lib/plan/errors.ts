@@ -14,6 +14,7 @@ const KNOWN = new Set([
   "dateTooFar",
   "aiFailed",
   "budgetExhausted",
+  "planLimitReached",
   "tooManyGoals",
   "notSubscribed",
   "generic",

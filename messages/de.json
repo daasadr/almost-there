@@ -116,14 +116,15 @@
     "yearlyNote": "Oder jährlich zahlen und zwei Monate geschenkt bekommen.",
     "cta": "Jetzt starten",
     "includes": [
-      "Unbegrenzt viele Ziele, gemeinsam und kollisionsfrei geplant",
+      "Bis zu 5 Ziele gleichzeitig, gemeinsam und kollisionsfrei geplant",
+      "10 neue Pläne pro Monat",
       "Monats-, Wochen- und Tageszerlegung für jedes Ziel",
-      "Tagescheckliste mit eingebauter Erholung und Reflexion",
-      "Adaptive Umplanung, wenn sich dein Tempo ändert",
+      "Tagescheckliste mit fest eingeplanter Erholung und Reflexion",
+      "Adaptive Neuplanung, wenn sich dein Tempo ändert",
       "Meilensteine mit eigener oder KI-vorgeschlagener Belohnung"
     ],
-    "limitsTitle": "Zu den Limits der KI-Nutzung",
-    "limitsBody": "Pro Konto gilt eine monatliche Obergrenze für die KI-Nutzung. Sie existiert, um Missbrauch zu verhindern — etwa ein Skript, das gezielt unsere Kosten verbrennt — nicht um normale Nutzung zu rationieren. Kein realistischer Anwendungsfall kommt ihr nahe, auch nicht bei mehreren gleichzeitigen Zielen. Die Obergrenze und ihr Zweck stehen in den AGB."
+    "limitsTitle": "Was zehn Pläne pro Monat bedeuten",
+    "limitsBody": "Ein neuer Plan zählt beim Anlegen eines Ziels. Alles danach — die Zerlegung in Wochen und Tage, die Tagesaufgaben, die Neuplanung bei geändertem Tempo — zählt nicht und ist bei laufenden Zielen unbegrenzt. Zehn neue Pläne sind Raum, verschiedene Formulierungen und Termine auszuprobieren; wer ein Ziel setzt und daran arbeitet, verbraucht im Monat nicht einmal die Hälfte. Wie viel übrig ist, zeigt dir die App."
   },
   "finalCta": {
     "title": "Dein Ziel hat schon eine Frist.",
@@ -365,7 +366,8 @@
     },
     "yearlySaving": "{months} Monate geschenkt",
     "includes": [
-      "Unbegrenzt viele Ziele, gemeinsam und kollisionsfrei geplant",
+      "Bis zu 5 Ziele gleichzeitig, gemeinsam und kollisionsfrei geplant",
+      "10 neue Pläne pro Monat",
       "Zerlegung bis hin zu konkreten Tagesaufgaben",
       "Erholung und Reflexion fest im Plan",
       "Das Tempo passt sich an, wie es tatsächlich läuft",
@@ -481,13 +483,17 @@
       "budgetExhausted": "Du hast das Monatslimit für Generierungen aufgebraucht. Es setzt sich am Ersten des nächsten Monats zurück — fertige Pläne bleiben verfügbar.",
       "tooManyGoals": "Du kannst höchstens fünf Ziele gleichzeitig verfolgen. Schließ erst eines ab oder pausier es.",
       "notSubscribed": "Dafür brauchst du ein Abonnement.",
-      "generic": "Etwas ist schiefgelaufen. Bitte versuch es erneut."
+      "generic": "Etwas ist schiefgelaufen. Bitte versuch es erneut.",
+      "planLimitReached": "Du hast das Monatslimit für neue Pläne erreicht. Laufende Ziele funktionieren weiter; das Limit setzt sich am Ersten des nächsten Monats zurück."
     },
     "budget": {
-      "warningTitle": "Du näherst dich dem Monatslimit für Generierungen",
-      "warningBody": "{percent} % verbraucht. Fertige Pläne bleiben in jedem Fall verfügbar — das Limit betrifft nur neue Generierungen und setzt sich am Ersten des nächsten Monats zurück.",
-      "exhaustedTitle": "Das Monatslimit für Generierungen ist aufgebraucht",
-      "exhaustedBody": "Neue Ziele und Zerlegungen lassen sich gerade nicht erzeugen. Alles Fertige bleibt verfügbar. Das Limit setzt sich am Ersten des nächsten Monats zurück."
+      "meter": "Monatslimit für Pläne",
+      "meterValue": "{percent} % verbraucht",
+      "meterNote": "Betrifft nur das Anlegen neuer Ziele. Setzt sich am Ersten des nächsten Monats zurück.",
+      "warningTitle": "Du näherst dich dem Monatslimit für neue Pläne",
+      "warningBody": "{percent} % verbraucht. Laufende Ziele sind nicht betroffen — Zerlegungen, Tagesaufgaben und Neuplanung funktionieren weiter. Das Limit setzt sich am Ersten des nächsten Monats zurück.",
+      "exhaustedTitle": "Das Monatslimit für neue Pläne ist aufgebraucht",
+      "exhaustedBody": "Ein neues Ziel lässt sich gerade nicht anlegen. Alle laufenden Ziele funktionieren weiter, samt Zerlegungen und Tagesaufgaben. Das Limit setzt sich am Ersten des nächsten Monats zurück."
     }
   }
 }

@@ -1,15 +1,16 @@
 import { getTranslations } from "next-intl/server";
-import { getBudget } from "@/lib/ai/usage";
+import { getBudget, getPlanAllowance } from "@/lib/ai/usage";
 
 /**
- * Upozornění na měsíční strop spotřeby AI.
+ * Upozornění, že se blíží konec měsíčního limitu.
  *
- * Ukazuje se až od hranice varování — do té doby by to byl jen šum. Když
- * někdo na strop narazí, musí vědět dvě věci: že o hotové plány nepřijde
- * a kdy se limit obnoví. Bez toho to vypadá, že se aplikace rozbila.
+ * Ukazuje se až od 70 % — do té doby by to byl jen šum. Kdo na limit
+ * narazí, musí se dozvědět dvě věci: že o hotové plány nepřijde a kdy se
+ * limit obnoví. Bez toho to vypadá, že se aplikace rozbila.
  *
- * Záměrně nezobrazujeme koruny. Zákazník koupil paušál, ne kredit; kolik
- * nás jeho plán stál, není jeho starost.
+ * Hlídají se dva limity. Zákazník zná ten na počet nových plánů; strop
+ * v korunách je tichá pojistka proti zneužití a poctivé použití na něj
+ * nedosáhne. Hlásíme oba stejně — pro uživatele je to jedna a tatáž věc.
  */
 export async function BudgetNotice({
   userId,
@@ -18,16 +19,16 @@ export async function BudgetNotice({
   userId: string;
   locale: string;
 }) {
-  const budget = await getBudget(userId);
-  if (!budget.warning) return null;
+  const [allowance, budget] = await Promise.all([
+    getPlanAllowance(userId),
+    getBudget(userId),
+  ]);
+
+  const exhausted = allowance.exhausted || budget.exhausted;
+  const percent = Math.max(allowance.percent, budget.percent);
+  if (!exhausted && percent < 70) return null;
 
   const t = await getTranslations({ locale, namespace: "plan.budget" });
-  const percent = Math.min(
-    100,
-    Math.round((budget.spentHellers / budget.capHellers) * 100),
-  );
-
-  const exhausted = budget.exhausted;
 
   return (
     <div

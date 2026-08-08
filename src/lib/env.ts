@@ -61,6 +61,22 @@ export const env = {
   get aiMonthlyWarnCzk(): number {
     return optionalInt("AI_MONTHLY_WARN_CZK", 70);
   },
+  /**
+   * Kolik nových plánů smí uživatel za měsíc vygenerovat.
+   *
+   * Tohle je limit, který zákazník zná — je napsaný v ceníku i v podmínkách
+   * a aplikace mu ukazuje, kolik z něj spotřeboval. Strop v korunách výš je
+   * proti němu jen tichá pojistka: při pěti běžících cílech a deseti nových
+   * plánech vyjde nejhorší měsíc na zhruba 80 Kč, takže se k němu poctivé
+   * použití nedostane.
+   */
+  get monthlyPlanAllowance(): number {
+    return optionalInt("MONTHLY_PLAN_ALLOWANCE", 10);
+  },
+  /** Kolik cílů smí běžet najednou. Nad tím se den nedá poctivě rozvrhnout. */
+  get maxActiveGoals(): number {
+    return optionalInt("MAX_ACTIVE_GOALS", 5);
+  },
   get appUrl(): string {
     return process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
   },

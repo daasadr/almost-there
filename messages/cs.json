@@ -116,14 +116,15 @@
     "yearlyNote": "Nebo roční platba a dva měsíce zdarma.",
     "cta": "Koupit rovnou",
     "includes": [
-      "Neomezeně cílů, plánovaných společně bez kolizí",
+      "Až 5 cílů najednou, plánovaných společně bez kolizí",
+      "10 nových plánů měsíčně",
       "Měsíční, týdenní i denní rozpad pro každý cíl",
       "Denní checklist se zabudovaným odpočinkem a reflexí",
       "Adaptivní přeplánování, když se změní tvoje tempo",
       "Milníky s vlastní nebo AI navrženou odměnou"
     ],
-    "limitsTitle": "K limitům použití AI",
-    "limitsBody": "Na účet platí měsíční strop spotřeby AI. Existuje proto, aby zabránil zneužití — třeba skriptu, který by cíleně pálil naše náklady — ne aby přiděloval běžné používání. Žádný reálný způsob použití, ani při několika souběžných cílech, se k němu nepřiblíží. Strop i jeho účel jsou popsané v obchodních podmínkách."
+    "limitsTitle": "Co znamená deset plánů měsíčně",
+    "limitsBody": "Nový plán se počítá při založení cíle. Všechno další — rozpad na týdny a dny, denní úkoly, přeplánování, když se změní tempo — se u běžícího cíle nepočítá a je bez omezení. Deset nových plánů je prostor na to zkoušet různá zadání i termíny; kdo si cíl založí a pracuje na něm, nevyčerpá za měsíc ani polovinu. Kolik ti zbývá, vidíš v aplikaci."
   },
   "finalCta": {
     "title": "Tvůj cíl už termín má.",
@@ -365,7 +366,8 @@
     },
     "yearlySaving": "{months} měsíce zdarma",
     "includes": [
-      "Neomezeně cílů, plánovaných společně bez kolizí",
+      "Až 5 cílů najednou, plánovaných společně bez kolizí",
+      "10 nových plánů měsíčně",
       "Rozpad až na konkrétní denní úkoly",
       "Odpočinek a reflexe jako součást plánu",
       "Tempo se přizpůsobí tomu, jak ti to reálně jde",
@@ -478,16 +480,20 @@
       "dateTooSoon": "Vyber termín aspoň dva týdny dopředu.",
       "dateTooFar": "Vyber termín do deseti let.",
       "aiFailed": "Rozpad se nepovedl. Zkus to prosím znovu.",
-      "budgetExhausted": "Vyčerpal jsi měsíční limit generování. Obnoví se prvního dne dalšího měsíce — do té doby zůstávají hotové plány dostupné.",
+      "budgetExhausted": "Vyčerpal jsi měsíční limit generování. Obnoví se prvního dne dalšího měsíce — hotové plány zůstávají dostupné.",
       "tooManyGoals": "Najednou můžeš mít nejvýš pět běžících cílů. Nějaký nejdřív dokonči nebo pozastav.",
       "notSubscribed": "Na tohle je potřeba předplatné.",
-      "generic": "Něco se pokazilo. Zkus to prosím znovu."
+      "generic": "Něco se pokazilo. Zkus to prosím znovu.",
+      "planLimitReached": "Vyčerpal jsi měsíční limit nových plánů. Běžící cíle fungují dál; limit se obnoví prvního dne dalšího měsíce."
     },
     "budget": {
-      "warningTitle": "Blížíš se k měsíčnímu limitu generování",
-      "warningBody": "Vyčerpáno {percent} % limitu. Hotové plány zůstávají dostupné vždycky — limit se týká jen nového generování a obnoví se prvního dne dalšího měsíce.",
-      "exhaustedTitle": "Měsíční limit generování je vyčerpaný",
-      "exhaustedBody": "Nové cíle ani rozpisy se teď nevygenerují. Všechno, co už máš hotové, zůstává dostupné. Limit se obnoví prvního dne dalšího měsíce."
+      "meter": "Měsíční limit plánů",
+      "meterValue": "{percent} % využito",
+      "meterNote": "Týká se jen zakládání nových cílů. Obnoví se prvního dne dalšího měsíce.",
+      "warningTitle": "Blížíš se k měsíčnímu limitu nových plánů",
+      "warningBody": "Využito {percent} %. Běžící cíle to neomezuje — rozpisy, denní úkoly i přeplánování fungují dál. Limit se obnoví prvního dne dalšího měsíce.",
+      "exhaustedTitle": "Měsíční limit nových plánů je vyčerpaný",
+      "exhaustedBody": "Nový cíl teď nezaložíš. Všechny běžící cíle fungují dál včetně rozpisů a denních úkolů. Limit se obnoví prvního dne dalšího měsíce."
     }
   }
 }

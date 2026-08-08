@@ -116,14 +116,15 @@
     "yearlyNote": "Or pay yearly and get two months free.",
     "cta": "Get started",
     "includes": [
-      "Unlimited goals, planned together without collisions",
+      "Up to 5 goals at once, planned together without collisions",
+      "10 new plans per month",
       "Monthly, weekly and daily breakdown for every goal",
       "Daily checklist with rest and reflection built in",
-      "Adaptive re-planning when your pace changes",
+      "Adaptive replanning when your pace changes",
       "Milestones with your own or AI-suggested rewards"
     ],
-    "limitsTitle": "About AI usage limits",
-    "limitsBody": "There's a monthly cap on AI usage per account. It exists to stop abuse — a script hammering the AI to burn through our costs — not to ration normal use. No realistic use case, even with several goals running at once, comes close to it. The cap and its purpose are spelled out in the terms of service."
+    "limitsTitle": "What ten plans a month means",
+    "limitsBody": "A new plan counts when you create a goal. Everything after that — the breakdown into weeks and days, the daily tasks, replanning when your pace changes — does not count and is unlimited for a running goal. Ten new plans is room to try different wordings and deadlines; someone who sets a goal and works on it will not use half of it in a month. The app shows you how much is left."
   },
   "finalCta": {
     "title": "Your goal already has a deadline.",
@@ -365,7 +366,8 @@
     },
     "yearlySaving": "{months} months free",
     "includes": [
-      "Unlimited goals, planned together without collisions",
+      "Up to 5 goals at once, planned together without collisions",
+      "10 new plans per month",
       "Breakdown all the way to concrete daily tasks",
       "Rest and reflection built into the plan",
       "Pace adapts to how you actually do",
@@ -478,16 +480,20 @@
       "dateTooSoon": "Pick a date at least two weeks from now.",
       "dateTooFar": "Pick a date within the next ten years.",
       "aiFailed": "The breakdown failed. Please try again.",
-      "budgetExhausted": "You have used up this month's generation limit. It resets on the first of next month — finished plans stay available until then.",
+      "budgetExhausted": "You have used up this month's generation limit. It resets on the first of next month — finished plans stay available.",
       "tooManyGoals": "You can run at most five goals at once. Finish or pause one first.",
       "notSubscribed": "This needs a subscription.",
-      "generic": "Something went wrong. Please try again."
+      "generic": "Something went wrong. Please try again.",
+      "planLimitReached": "You have used this month's limit on new plans. Running goals keep working; the limit resets on the first of next month."
     },
     "budget": {
-      "warningTitle": "You are close to this month’s generation limit",
-      "warningBody": "{percent}% used. Finished plans stay available no matter what — the limit only applies to new generation and resets on the first of next month.",
-      "exhaustedTitle": "This month’s generation limit is used up",
-      "exhaustedBody": "New goals and breakdowns will not generate right now. Everything you already have stays available. The limit resets on the first of next month."
+      "meter": "Monthly plan limit",
+      "meterValue": "{percent}% used",
+      "meterNote": "Applies only to creating new goals. Resets on the first of next month.",
+      "warningTitle": "You are close to this month's limit on new plans",
+      "warningBody": "{percent}% used. Running goals are unaffected — breakdowns, daily tasks and replanning all keep working. The limit resets on the first of next month.",
+      "exhaustedTitle": "This month's limit on new plans is used up",
+      "exhaustedBody": "You cannot create a new goal right now. Every running goal keeps working, including breakdowns and daily tasks. The limit resets on the first of next month."
     }
   }
 }

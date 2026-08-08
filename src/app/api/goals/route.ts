@@ -5,7 +5,8 @@ import { routing, type Locale } from "@/i18n/routing";
 import { db } from "@/lib/db";
 import { requireSubscriber } from "@/lib/api/guard";
 import { createGoalWithPlan } from "@/lib/goals/planner";
-import { AiBudgetError } from "@/lib/ai/usage";
+import { AiBudgetError, PlanAllowanceError } from "@/lib/ai/usage";
+import { env } from "@/lib/env";
 import {
   validateGoal,
   validateTargetDate,
@@ -15,10 +16,6 @@ import {
 export const runtime = "nodejs";
 // Rozpad trvá desítky sekund; výchozí limit by ho uřízl uprostřed.
 export const maxDuration = 300;
-
-/** Kolik cílů smí běžet najednou. Nad tímhle počtem se plán stejně
- *  nedá poctivě harmonizovat — den má jen tolik hodin. */
-const MAX_ACTIVE_GOALS = 5;
 
 const bodySchema = z.object({
   title: z.string(),
@@ -58,7 +55,7 @@ export async function POST(request: Request) {
   const activeCount = await db.goal.count({
     where: { userId: guard.user.id, status: "ACTIVE" },
   });
-  if (activeCount >= MAX_ACTIVE_GOALS) {
+  if (activeCount >= env.maxActiveGoals) {
     return NextResponse.json(
       { ok: false, error: "tooManyGoals" },
       { status: 409 },
@@ -85,6 +82,13 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ ok: true, goalId });
   } catch (error) {
+    if (error instanceof PlanAllowanceError) {
+      return NextResponse.json(
+        { ok: false, error: "planLimitReached" },
+        { status: 429 },
+      );
+    }
+
     if (error instanceof AiBudgetError) {
       return NextResponse.json(
         { ok: false, error: "budgetExhausted" },

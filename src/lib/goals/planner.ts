@@ -2,7 +2,12 @@ import "server-only";
 import { db } from "@/lib/db";
 import { decomposeGoal, planUnit } from "@/lib/ai/decompose";
 import { expandIntoBlocks, expandIntoDays, type GoalContext } from "@/lib/ai/expand";
-import { assertWithinBudget, recordUsage } from "@/lib/ai/usage";
+import {
+  assertWithinBudget,
+  getPlanAllowance,
+  PlanAllowanceError,
+  recordUsage,
+} from "@/lib/ai/usage";
 import {
   childUnit,
   parseIsoDate,
@@ -97,6 +102,12 @@ export async function createGoalWithPlan({
     },
   });
 
+  // Dvě různé pojistky: limit plánů zná zákazník z ceníku, strop v korunách
+  // je tichá ochrana proti zneužití. Poctivé použití narazí jen na ten první.
+  const allowance = await getPlanAllowance(userId);
+  if (allowance.exhausted) {
+    throw new PlanAllowanceError("Měsíční limit nových plánů je vyčerpaný.");
+  }
   await assertWithinBudget(userId);
 
   // Ostatní běžící cíle jdou do promptu, aby si AI nenaplánovala náročné
@@ -124,9 +135,11 @@ export async function createGoalWithPlan({
     })),
   });
 
+  // DECOMPOSE_GOAL, ne DECOMPOSE_MONTHLY: podle počtu těchhle záznamů se
+  // počítá měsíční limit nových plánů, který zákazník zná z ceníku.
   await recordUsage({
     userId,
-    operation: "DECOMPOSE_MONTHLY",
+    operation: "DECOMPOSE_GOAL",
     usage,
     label: `cíl level=${plan.level} období=${plan.periods.length}`,
   });

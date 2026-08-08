@@ -16,7 +16,7 @@ import type { Locale } from "@/i18n/routing";
  * nejde doložit, s JAKÝM zněním uživatel souhlasil (zadání, bod 13).
  * Při každé věcné změně podmínek tuhle hodnotu zvyš.
  */
-export const LEGAL_VERSION = "2026-08-01";
+export const LEGAL_VERSION = "2026-08-08";
 
 export type LegalSection = { heading: string; paragraphs: string[] };
 export type LegalDocument = {
@@ -66,11 +66,11 @@ export const termsByLocale: Record<Locale, LegalDocument> = {
         ],
       },
       {
-        heading: "5. Limit použití AI a ochrana proti zneužití",
+        heading: "5. Rozsah předplatného a ochrana proti zneužití",
         paragraphs: [
-          "Generování plánů probíhá přes API třetí strany a je pro provozovatele nákladové. Na účet proto platí měsíční strop spotřeby AI.",
-          "Tento strop není nástrojem k omezování běžných zákazníků. Je nastavený tak, aby ho žádné reálné používání služby — ani při několika souběžných cílech a pravidelném přeplánování — nemohlo vyčerpat. Slouží výhradně k ochraně před zneužitím, typicky automatizovanými požadavky generovanými ve velkém objemu s cílem vyčerpat prostředky provozovatele.",
-          "Pokud se ke stropu přiblížíš, upozorníme tě informační hláškou a případně snížíme frekvenci nákladných operací (například opakovaného ručního přegenerování plánu). Ve zcela výjimečném případě může být další AI generování dočasně nedostupné do začátku dalšího zúčtovacího období; vždy ti vysvětlíme proč. Ostatní funkce aplikace zůstávají dostupné.",
+          "Předplatné zahrnuje až pět souběžně běžících cílů a deset nových plánů za kalendářní měsíc. Nový plán se počítá ve chvíli, kdy založíš cíl a služba k němu vytvoří rozpad.",
+          "Práce s již založeným cílem se do limitu nepočítá a není nijak omezena: rozpad na týdny a dny, denní úkoly i přeplánování při změně tempa zůstávají dostupné i po vyčerpání měsíčního limitu nových plánů. Kolik z limitu jsi využil, ti aplikace kdykoliv ukáže; limit se obnovuje prvního dne kalendářního měsíce a nevyčerpaná část se nepřevádí.",
+          "Nad rámec tohoto limitu platí na účet ještě technický strop celkové spotřeby AI. Slouží výhradně k ochraně před zneužitím — typicky automatizovanými požadavky ve velkém objemu — a je nastavený tak, aby na něj používání v mezích uvedených výše nedosáhlo. Pokud by k jeho vyčerpání přesto došlo, upozorníme tě a vysvětlíme proč; hotové plány a ostatní funkce aplikace zůstávají dostupné.",
         ],
       },
       {
@@ -149,11 +149,11 @@ export const termsByLocale: Record<Locale, LegalDocument> = {
         ],
       },
       {
-        heading: "5. AI usage limit and abuse protection",
+        heading: "5. What the subscription covers, and abuse protection",
         paragraphs: [
-          "Plan generation runs through a third-party API and costs the operator money. A monthly cap on AI usage therefore applies to each account.",
-          "This cap is not a way of rationing normal customers. It is set so that no realistic use of the service — not even several goals running at once with regular re-planning — can exhaust it. Its sole purpose is protection against abuse, typically high-volume automated requests aimed at burning through the operator's resources.",
-          "If you approach the cap we will tell you, and may reduce the frequency of costly operations (for example repeated manual re-generation of a plan). In an exceptional case further AI generation may be temporarily unavailable until the next billing period; we will always explain why. All other features remain available.",
+          "The subscription covers up to five goals running at once and ten new plans per calendar month. A new plan counts at the moment you create a goal and the service builds its breakdown.",
+          "Working with a goal you already have does not count towards the limit and is not restricted: the breakdown into weeks and days, the daily tasks and replanning when your pace changes all stay available even after the monthly limit on new plans is used up. The app shows you how much of the limit you have used at any time; the limit resets on the first day of each calendar month and unused capacity does not carry over.",
+          "On top of this limit, a technical cap on total AI usage applies to each account. Its sole purpose is protection against abuse — typically high-volume automated requests — and it is set so that use within the limits above will not reach it. Should it nonetheless be reached, we will tell you and explain why; finished plans and all other features remain available.",
         ],
       },
       {
@@ -232,11 +232,11 @@ export const termsByLocale: Record<Locale, LegalDocument> = {
         ],
       },
       {
-        heading: "5. KI-Nutzungslimit und Missbrauchsschutz",
+        heading: "5. Leistungsumfang des Abonnements und Missbrauchsschutz",
         paragraphs: [
-          "Die Planerstellung läuft über eine API eines Drittanbieters und verursacht dem Betreiber Kosten. Für jedes Konto gilt daher eine monatliche Obergrenze der KI-Nutzung.",
-          "Diese Obergrenze dient nicht dazu, normale Kundinnen und Kunden einzuschränken. Sie ist so bemessen, dass keine realistische Nutzung — auch nicht mehrere gleichzeitige Ziele mit regelmäßiger Umplanung — sie ausschöpfen kann. Sie schützt ausschließlich vor Missbrauch, typischerweise vor massenhaft automatisierten Anfragen, die gezielt die Ressourcen des Betreibers verbrauchen sollen.",
-          "Näherst du dich der Grenze, weisen wir dich darauf hin und verringern gegebenenfalls die Frequenz kostenintensiver Vorgänge (etwa wiederholtes manuelles Neugenerieren eines Plans). Im Ausnahmefall kann weitere KI-Generierung bis zum nächsten Abrechnungszeitraum vorübergehend nicht verfügbar sein; wir erklären dir immer den Grund. Alle übrigen Funktionen bleiben nutzbar.",
+          "Das Abonnement umfasst bis zu fünf gleichzeitig laufende Ziele und zehn neue Pläne pro Kalendermonat. Ein neuer Plan zählt in dem Moment, in dem du ein Ziel anlegst und der Dienst dafür eine Zerlegung erstellt.",
+          "Die Arbeit an einem bereits angelegten Ziel zählt nicht auf das Limit und ist nicht eingeschränkt: Die Zerlegung in Wochen und Tage, die Tagesaufgaben und die Neuplanung bei geändertem Tempo bleiben auch dann verfügbar, wenn das Monatslimit für neue Pläne aufgebraucht ist. Wie viel du verbraucht hast, zeigt dir die App jederzeit; das Limit setzt sich am ersten Tag jedes Kalendermonats zurück, nicht genutzte Kapazität verfällt.",
+          "Zusätzlich gilt für jedes Konto eine technische Obergrenze der gesamten KI-Nutzung. Sie schützt ausschließlich vor Missbrauch — typischerweise vor massenhaft automatisierten Anfragen — und ist so bemessen, dass eine Nutzung im oben genannten Rahmen sie nicht erreicht. Sollte sie dennoch erreicht werden, weisen wir dich darauf hin und erklären den Grund; fertige Pläne und alle übrigen Funktionen bleiben verfügbar.",
         ],
       },
       {

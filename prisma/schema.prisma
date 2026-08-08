@@ -382,6 +382,12 @@ model ReplanEvent {
 
 enum AiOperation {
   DEMO_MONTHLY
+  /// Rozpad nově založeného cíle na nejvyšší úroveň.
+  ///
+  /// Vlastní hodnota schválně: podle počtu těchhle záznamů se počítá
+  /// měsíční limit nových plánů. Záznam přežije smazání cíle, takže limit
+  /// nejde obejít tím, že se cíle zakládají a hned mažou.
+  DECOMPOSE_GOAL
   DECOMPOSE_MONTHLY
   DECOMPOSE_WEEKLY
   DECOMPOSE_DAILY
