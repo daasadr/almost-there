@@ -9,6 +9,7 @@ import {
   type PlannedDay,
 } from "./schemas";
 import { localeAiNames, type Locale } from "@/i18n/routing";
+import { env } from "@/lib/env";
 import { daysInclusive, toIsoDate, type DateRange, type Unit } from "@/lib/plan/calendar";
 
 /**
@@ -151,6 +152,8 @@ export async function expandIntoBlocks({
     user: lines.join("\n"),
     jsonSchema: buildChildrenJsonSchema(child, ranges.length),
     parser: blockChildrenSchema,
+    model: env.aiBlocksModel,
+    effort: env.aiBlocksEffort,
   });
 
   const children = data.children
@@ -216,6 +219,10 @@ export async function expandIntoDays({
     user: lines.join("\n"),
     jsonSchema: buildDaysJsonSchema(ranges.length),
     parser: weekDaysSchema,
+    // Nejčastější volání v celém provozu — každý týden každého běžícího
+    // cíle. Tady se rozhoduje, jestli předplatné vydělá, nebo prodělá.
+    model: env.aiDaysModel,
+    effort: env.aiDaysEffort,
   });
 
   const days = data.days

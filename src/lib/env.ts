@@ -23,6 +23,13 @@ function optionalInt(name: string, fallback: number): number {
   return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
 }
 
+function effortFrom(
+  raw: string | undefined,
+  fallback: "low" | "medium" | "high",
+): "low" | "medium" | "high" {
+  return raw === "low" || raw === "medium" || raw === "high" ? raw : fallback;
+}
+
 export const env = {
   /** Mock režim: negeneruje se přes AI, vrací se ukázková data. */
   get demoMock(): boolean {
@@ -40,8 +47,30 @@ export const env = {
    * (rozpad trvá zhruba půl minuty); "low" znatelně zrychlí, "high" zpřesní.
    */
   get anthropicEffort(): "low" | "medium" | "high" {
-    const value = process.env.ANTHROPIC_EFFORT;
-    return value === "low" || value === "high" ? value : "medium";
+    return effortFrom(process.env.ANTHROPIC_EFFORT, "medium");
+  },
+  /**
+   * Model a míra přemýšlení zvlášť pro každou fázi rozpadu.
+   *
+   * Fáze nejsou stejně těžké a nesmí stát stejně. Rozpad cíle na nejvyšší
+   * úroveň je to, co zákazník kupuje — tam se nešetří. Převod hotového
+   * týdenního milníku na sedm dní úkolů je proti tomu mechanická práce,
+   * a je jí nejvíc: každý týden běžícího cíle znamená jedno volání. Tam
+   * se rozhoduje, jestli je provoz udržitelný.
+   *
+   * Přenastavitelné z prostředí, aby šlo měnit kvalitu i cenu bez buildu.
+   */
+  get aiBlocksModel(): string {
+    return process.env.AI_BLOCKS_MODEL || "claude-sonnet-5";
+  },
+  get aiBlocksEffort(): "low" | "medium" | "high" {
+    return effortFrom(process.env.AI_BLOCKS_EFFORT, "medium");
+  },
+  get aiDaysModel(): string {
+    return process.env.AI_DAYS_MODEL || "claude-sonnet-5";
+  },
+  get aiDaysEffort(): "low" | "medium" | "high" {
+    return effortFrom(process.env.AI_DAYS_EFFORT, "low");
   },
   get demoRateLimitPerHour(): number {
     return optionalInt("DEMO_RATE_LIMIT_PER_HOUR", 15);

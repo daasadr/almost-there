@@ -40,7 +40,7 @@ export class AiFormatError extends Error {
  */
 const ATTEMPTS = 2;
 
-export async function callStructured<T>(options: {
+export type AiCallOptions<T> = {
   system: string;
   user: string;
   /** JSON Schema pro `output_config.format` — vynutí tvar odpovědi. */
@@ -48,7 +48,15 @@ export async function callStructured<T>(options: {
   /** Zod schéma. Model tvar dodržet má, ale spoléhat se na to nebudeme. */
   parser: z.ZodType<T>;
   maxTokens?: number;
-}): Promise<AiCallResult<T>> {
+  /** Model pro tuhle fázi. Bez uvedení ten hlavní z prostředí. */
+  model?: string;
+  /** Míra přemýšlení. Tvoří většinu ceny, tak se volí podle fáze. */
+  effort?: "low" | "medium" | "high";
+};
+
+export async function callStructured<T>(
+  options: AiCallOptions<T>,
+): Promise<AiCallResult<T>> {
   let lastError: unknown;
 
   for (let attempt = 1; attempt <= ATTEMPTS; attempt++) {
@@ -76,21 +84,15 @@ async function callOnce<T>({
   jsonSchema,
   parser,
   maxTokens = 16000,
-}: {
-  system: string;
-  user: string;
-  jsonSchema: Record<string, unknown>;
-  parser: z.ZodType<T>;
-  maxTokens?: number;
-}): Promise<AiCallResult<T>> {
-  const model = env.anthropicModel;
-
+  model = env.anthropicModel,
+  effort = env.anthropicEffort,
+}: AiCallOptions<T>): Promise<AiCallResult<T>> {
   const response = await getAnthropic().messages.create({
     model,
     max_tokens: maxTokens,
     system,
     output_config: {
-      effort: env.anthropicEffort,
+      effort,
       format: { type: "json_schema", schema: jsonSchema },
     },
     messages: [{ role: "user", content: user }],
