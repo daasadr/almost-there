@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
+import { LandingCta } from "@/components/LandingCta";
 import { TreeBackground } from "@/components/TreeBackground";
 import { ExampleBreakdown } from "@/components/ExampleBreakdown";
 
@@ -29,6 +29,7 @@ export default async function HomePage({
 
 function Hero() {
   const t = useTranslations("hero");
+  const tNav = useTranslations("nav");
 
   return (
     <section className="relative isolate overflow-hidden">
@@ -51,14 +52,14 @@ function Hero() {
             {t("subtitle")}
           </p>
 
-          {/* Dvě rovnocenná CTA vedle sebe — ne každý chce demo (zadání, bod 8) */}
+          {/* Dvě rovnocenná CTA vedle sebe — ne každý chce demo (zadání, bod 8).
+              Přihlášenému se místo nich nabídne vstup do aplikace. */}
           <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <Link href="/demo" className="btn-primary">
-              {t("ctaDemo")}
-            </Link>
-            <a href="#pricing" className="btn-secondary">
-              {t("ctaBuy")}
-            </a>
+            <LandingCta
+              primaryLabel={t("ctaDemo")}
+              secondaryLabel={t("ctaBuy")}
+              appLabel={tNav("openApp")}
+            />
           </div>
 
           <p className="mt-5 text-sm text-[var(--color-paper-faint)]">
@@ -162,6 +163,7 @@ function Features() {
 
 function Pricing() {
   const t = useTranslations("pricing");
+  const tNav = useTranslations("nav");
   const includes = t.raw("includes") as string[];
 
   return (
@@ -216,9 +218,12 @@ function Pricing() {
             </ul>
 
             <div className="relative mt-9">
-              <Link href="/demo" className="btn-primary w-full sm:w-auto">
-                {t("cta")}
-              </Link>
+              <LandingCta
+                primaryLabel={t("cta")}
+                primaryHref="/register"
+                appLabel={tNav("openApp")}
+                fullWidth
+              />
             </div>
           </div>
 
@@ -239,6 +244,7 @@ function Pricing() {
 
 function FinalCta() {
   const t = useTranslations("finalCta");
+  const tNav = useTranslations("nav");
 
   return (
     <section className="relative py-24 sm:py-32">
@@ -251,12 +257,11 @@ function FinalCta() {
             <span className="text-gradient">{t("subtitle")}</span>
           </h2>
           <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
-            <Link href="/demo" className="btn-primary">
-              {t("ctaDemo")}
-            </Link>
-            <a href="#pricing" className="btn-secondary">
-              {t("ctaBuy")}
-            </a>
+            <LandingCta
+              primaryLabel={t("ctaDemo")}
+              secondaryLabel={t("ctaBuy")}
+              appLabel={tNav("openApp")}
+            />
           </div>
         </div>
       </div>

@@ -12,7 +12,8 @@
     "backHome": "Back to home",
     "language": "Language",
     "login": "Sign in",
-    "account": "My account"
+    "account": "My account",
+    "openApp": "Open the app"
   },
   "hero": {
     "eyebrow": "Goal → months → weeks → today",
