@@ -65,7 +65,7 @@ export const termsByLocale: Record<Locale, LegalDocument> = {
         heading: "4. Odstoupení od smlouvy a reklamace",
         paragraphs: [
           "Jako spotřebitel máš právo odstoupit od smlouvy do 14 dnů od jejího uzavření bez udání důvodu.",
-          "Při objednávce samostatně potvrzuješ, že služba má začít fungovat ihned, tedy před uplynutím této lhůty, a že jsi byl poučen o důsledcích. Potvrzení o tomto souhlasu i o poučení ti pošleme e-mailem hned po nákupu.",
+          "Odsouhlasením těchto podmínek výslovně žádáš, aby služba začala fungovat ihned po zaplacení, tedy před uplynutím této lhůty, a potvrzuješ, že jsi byl poučen o důsledcích. Potvrzení o tomto souhlasu i o poučení ti pošleme e-mailem hned po nákupu.",
           "Odstoupíš-li po zahájení služby, právo na odstoupení tím nezaniká celé: zaplatíš poměrnou část ceny odpovídající době, po kterou ti byla služba k dispozici, a zbytek se vrací. Poměr se počítá z délky zaplaceného období.",
           "Odstoupit můžeš jakýmkoliv jednoznačným prohlášením, například e-mailem. Vzorový formulář pro odstoupení najdeš na samostatné stránce, na kterou odkazuje i potvrzovací e-mail; jeho použití je dobrovolné.",
           "Peníze vracíme stejným způsobem, jakým jsi platil, nejpozději do 14 dnů od doručení odstoupení. Vzhledem k tomu, že prodejcem platby je Stripe, může vrácení proběhnout přímo od něj.",
@@ -155,7 +155,7 @@ export const termsByLocale: Record<Locale, LegalDocument> = {
         heading: "4. Withdrawal and complaints",
         paragraphs: [
           "As a consumer you have the right to withdraw from the contract within 14 days of concluding it, without giving a reason.",
-          "When ordering you separately confirm that the service should start working immediately, that is before this period expires, and that you have been informed of the consequences. We send you confirmation of that consent and of the information by email right after the purchase.",
+          "By accepting these terms you expressly request that the service starts working immediately after payment, that is before this period expires, and you confirm that you have been informed of the consequences. We send you confirmation of that consent and of the information by email right after the purchase.",
           "If you withdraw after the service has started, the right of withdrawal does not disappear entirely: you pay a proportionate part of the price corresponding to the time the service was available to you, and the rest is refunded. The proportion is calculated from the length of the period paid for.",
           "You may withdraw by any clear statement, for example by email. A model withdrawal form is available on a separate page, also linked from the confirmation email; using it is optional.",
           "We refund by the same means you used to pay, no later than 14 days after the withdrawal reaches us. Because Stripe is the seller of the payment, the refund may come directly from them.",
@@ -245,7 +245,7 @@ export const termsByLocale: Record<Locale, LegalDocument> = {
         heading: "4. Widerruf und Reklamation",
         paragraphs: [
           "Als Verbraucherin oder Verbraucher hast du das Recht, den Vertrag innerhalb von 14 Tagen nach Abschluss ohne Angabe von Gründen zu widerrufen.",
-          "Bei der Bestellung bestätigst du gesondert, dass der Dienst sofort starten soll, also vor Ablauf dieser Frist, und dass du über die Folgen belehrt wurdest. Eine Bestätigung dieser Zustimmung und der Belehrung senden wir dir direkt nach dem Kauf per E-Mail.",
+          "Mit der Annahme dieser Bedingungen verlangst du ausdrücklich, dass der Dienst sofort nach der Zahlung startet, also vor Ablauf dieser Frist, und bestätigst, dass du über die Folgen belehrt wurdest. Eine Bestätigung dieser Zustimmung und der Belehrung senden wir dir direkt nach dem Kauf per E-Mail.",
           "Widerrufst du nach dem Start des Dienstes, erlischt das Widerrufsrecht nicht vollständig: Du zahlst einen anteiligen Preis für die Zeit, in der dir der Dienst zur Verfügung stand, der Rest wird erstattet. Der Anteil bemisst sich an der Länge des bezahlten Zeitraums.",
           "Der Widerruf ist mit jeder eindeutigen Erklärung möglich, etwa per E-Mail. Ein Musterformular findest du auf einer eigenen Seite, auf die auch die Bestätigungs-E-Mail verweist; seine Nutzung ist freiwillig.",
           "Wir erstatten auf demselben Weg, auf dem du gezahlt hast, spätestens 14 Tage nach Eingang des Widerrufs. Da Stripe Verkäufer der Zahlung ist, kann die Erstattung direkt von dort kommen.",

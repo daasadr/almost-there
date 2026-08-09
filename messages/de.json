@@ -262,7 +262,7 @@
       "subject": "Bestätigung von Kauf und Zustimmung — AlmostThere",
       "heading": "Dein Abo ist aktiv",
       "body": "Danke. Dein AlmostThere-Abo läuft und alle Funktionen stehen dir zur Verfügung.",
-      "consent": "Hiermit bestätigen wir, dass du bei der Bestellung ausdrücklich zugestimmt hast, dass der Dienst vor Ablauf der vierzehntägigen Widerrufsfrist beginnt, und dass du über die Folgen dieser Zustimmung belehrt wurdest.",
+      "consent": "Hiermit bestätigen wir, dass du mit der Annahme der Geschäftsbedingungen bei der Bestellung ausdrücklich verlangt hast, dass der Dienst vor Ablauf der vierzehntägigen Widerrufsfrist beginnt, und dass du über die Folgen belehrt wurdest.",
       "withdrawal": "Du kannst den Vertrag innerhalb von vierzehn Tagen widerrufen. Da der Dienst bereits läuft, zahlst du einen anteiligen Betrag für die Zeit, in der er dir zur Verfügung stand; der Rest wird erstattet. Das Musterformular und das Vorgehen findest du unter dem Link unten.",
       "button": "Widerrufsformular",
       "fallback": "Falls der Button nicht funktioniert, öffne diese Adresse:",
@@ -402,8 +402,7 @@
       "resume": "Abo doch behalten",
       "working": "Einen Moment…",
       "failed": "Das hat nicht geklappt. Bitte versuch es erneut."
-    },
-    "immediateStart": "Mit dem Klick auf den Button unten stimmst du zu, dass der Dienst sofort startet, also vor Ablauf der vierzehntägigen Widerrufsfrist. Widerrufen kannst du auch danach — du zahlst dann nur einen anteiligen Betrag für die Zeit, in der dir der Dienst zur Verfügung stand. Eine Bestätigung schicken wir dir per E-Mail."
+    }
   },
   "plan": {
     "nav": {

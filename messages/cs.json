@@ -262,7 +262,7 @@
       "subject": "Potvrzení nákupu a souhlasu — AlmostThere",
       "heading": "Předplatné je aktivní",
       "body": "Děkujeme. Tvoje předplatné AlmostThere běží a všechny funkce máš k dispozici.",
-      "consent": "Tímto potvrzujeme, že jsi při objednávce výslovně souhlasil se zahájením poskytování služby před uplynutím čtrnáctidenní lhůty pro odstoupení od smlouvy, a že jsi byl poučen o důsledcích tohoto souhlasu.",
+      "consent": "Tímto potvrzujeme, že jsi odsouhlasením obchodních podmínek při objednávce výslovně požádal o zahájení poskytování služby před uplynutím čtrnáctidenní lhůty pro odstoupení od smlouvy, a že jsi byl poučen o důsledcích.",
       "withdrawal": "Od smlouvy můžeš do čtrnácti dnů odstoupit. Protože služba už běží, zaplatíš poměrnou část za dobu, po kterou jsi ji měl k dispozici; zbytek se vrací. Vzorový formulář i postup najdeš na odkazu níž.",
       "button": "Formulář pro odstoupení",
       "fallback": "Kdyby tlačítko nefungovalo, otevři tuhle adresu:",
@@ -402,8 +402,7 @@
       "resume": "Nechat si předplatné dál",
       "working": "Pracuji…",
       "failed": "Nepovedlo se to. Zkus to prosím znovu."
-    },
-    "immediateStart": "Kliknutím na tlačítko níž souhlasíš, aby služba začala fungovat hned, tedy před uplynutím čtrnáctidenní lhůty pro odstoupení. Odstoupit můžeš i pak — zaplatíš jen poměrnou část za dobu, kterou jsi službu měl k dispozici. Potvrzení ti přijde e-mailem."
+    }
   },
   "plan": {
     "nav": {

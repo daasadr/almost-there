@@ -133,18 +133,14 @@ export function Paywall() {
         </p>
       )}
 
-      {/* Prohlášení u tlačítka, ne zaškrtávátko navíc. Úkonem je samo
-          kliknutí — uživatel má text před očima ve chvíli, kdy ho činí,
-          a nestojí ho to krok navíc. Potvrzení pak dostane e-mailem. */}
-      <p className="mt-7 text-sm leading-relaxed text-[var(--color-paper-dim)]">
-        {t("immediateStart")}
-      </p>
-
+      {/* Souhlas se zahájením plnění je v obchodních podmínkách, ne tady.
+          Nabízet vrácení peněz vteřinu před nákupem zní jako pochybnost
+          o vlastním produktu — a odsouhlasení podmínek k tomu stačí. */}
       <button
         type="button"
         onClick={start}
         disabled={loading}
-        className="btn-primary mt-5 w-full"
+        className="btn-primary mt-7 w-full"
       >
         {loading ? t("redirecting") : t("cta")}
       </button>

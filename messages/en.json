@@ -262,7 +262,7 @@
       "subject": "Purchase and consent confirmation — AlmostThere",
       "heading": "Your subscription is active",
       "body": "Thank you. Your AlmostThere subscription is running and all features are available to you.",
-      "consent": "We hereby confirm that when ordering you expressly agreed to the service starting before the fourteen-day withdrawal period ends, and that you were informed of the consequences of that consent.",
+      "consent": "We hereby confirm that by accepting the terms of service when ordering you expressly requested that the service start before the fourteen-day withdrawal period ends, and that you were informed of the consequences.",
       "withdrawal": "You may withdraw from the contract within fourteen days. Because the service has already started, you pay a proportionate amount for the time it was available to you; the rest is refunded. The model form and the procedure are at the link below.",
       "button": "Withdrawal form",
       "fallback": "If the button does not work, open this address:",
@@ -402,8 +402,7 @@
       "resume": "Keep my subscription after all",
       "working": "Working…",
       "failed": "That did not work. Please try again."
-    },
-    "immediateStart": "By clicking the button below you agree that the service starts working immediately, that is before the fourteen-day withdrawal period ends. You can still withdraw afterwards — you only pay a proportionate amount for the time the service was available to you. We will send you a confirmation by email."
+    }
   },
   "plan": {
     "nav": {
