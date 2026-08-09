@@ -26,6 +26,17 @@ export function LocaleSwitcher() {
         disabled={isPending}
         onChange={(event) => {
           const next = event.target.value as Locale;
+
+          // Přihlášenému si volbu zapamatujeme na účtu — podle ní chodí
+          // e-maily a zakládají se nové cíle. Přepnutí jazyka na to nemá
+          // čekat, takže se odpověď neřeší; nepřihlášenému skončí na 401
+          // a nic se nestane.
+          void fetch("/api/account/locale", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ locale: next }),
+          }).catch(() => {});
+
           startTransition(() => {
             // `params` drží případné dynamické segmenty aktuální cesty.
             router.replace(
