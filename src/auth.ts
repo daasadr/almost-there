@@ -6,11 +6,15 @@ import { compare } from "bcryptjs";
 import { db } from "@/lib/db";
 import { authConfig } from "@/lib/auth/config";
 import { loginSchema } from "@/lib/auth/validation";
+import { checkRateLimit, getClientIp, hashIp } from "@/lib/rate-limit";
 
 /**
  * Plná konfigurace přihlašování. Importuj jen v Node runtimu —
  * middleware používá `src/lib/auth/config.ts`, který je bez databáze.
  */
+/** Okno pro počítání pokusů o přihlášení. */
+const LOGIN_WINDOW_MS = 15 * 60 * 1000;
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
   adapter: PrismaAdapter(db),
@@ -37,13 +41,31 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         email: { label: "E-mail", type: "email" },
         password: { label: "Heslo", type: "password" },
       },
-      async authorize(credentials) {
+      async authorize(credentials, request) {
         const parsed = loginSchema.safeParse(credentials);
         if (!parsed.success) return null;
 
-        const user = await db.user.findUnique({
-          where: { email: parsed.data.email.toLowerCase() },
-        });
+        const email = parsed.data.email.toLowerCase();
+
+        // Bez tohohle jde heslo zkoušet donekonečna. Dvě počítadla vedle
+        // sebe: podle adresy útočníka a podle napadeného účtu. Samotné IP
+        // by nestačilo — kdo má botnet, obejde ho; samotný e-mail taky ne,
+        // protože útok se dá vést proti mnoha účtům naráz.
+        //
+        // Vedlejší efekt je stejně důležitý: bcrypt schválně trvá čtvrt
+        // vteřiny, takže bez stropu je přihlašovací formulář páka, kterou
+        // jde vyčerpat procesor serveru.
+        const ip = getClientIp(request.headers);
+        const blocked =
+          !checkRateLimit(`login:ip:${hashIp(ip)}`, 30, LOGIN_WINDOW_MS)
+            .allowed ||
+          !checkRateLimit(`login:email:${email}`, 10, LOGIN_WINDOW_MS).allowed;
+
+        // Mlčky jako u špatného hesla. Kdybychom rozlišili „moc pokusů“,
+        // útočník by věděl, že trefil existující účet.
+        if (blocked) return null;
+
+        const user = await db.user.findUnique({ where: { email } });
 
         // Účet bez hesla vznikl přes Google. Neříkáme to nahlas —
         // odpověď musí být stejná jako u neexistujícího účtu, jinak

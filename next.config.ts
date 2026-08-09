@@ -41,6 +41,39 @@ const nextConfig: NextConfig = {
             key: "Permissions-Policy",
             value: "camera=(), microphone=(), geolocation=()",
           },
+          {
+            /**
+             * Obrana do hloubky proti vloženému skriptu.
+             *
+             * React sám o sobě text escapuje, takže XSS by musel vzniknout
+             * chybou v kódu — jenže právě proti chybám tahle hlavička je.
+             * I kdyby se skript do stránky dostal, nesmí načíst nic zvenčí
+             * ani nikam odeslat, co našel.
+             *
+             * `unsafe-inline` u skriptů je ústupek Next.js, který vkládá
+             * vlastní inline kód pro hydrataci. Odstranit ho jde jen přes
+             * nonce v každém požadavku, což u staticky předgenerovaných
+             * stránek nejde. Zbytek pravidel platí i tak: cizí doména se
+             * nenačte, stránku nejde vložit do rámu a formulář nejde
+             * přesměrovat jinam.
+             */
+            key: "Content-Security-Policy",
+            value: [
+              "default-src 'self'",
+              "script-src 'self' 'unsafe-inline'",
+              "style-src 'self' 'unsafe-inline'",
+              "img-src 'self' data: blob:",
+              "font-src 'self'",
+              "connect-src 'self'",
+              // Platební stránka běží u Stripu, ne v rámu u nás.
+              "frame-src 'none'",
+              "frame-ancestors 'none'",
+              "base-uri 'self'",
+              "form-action 'self'",
+              "object-src 'none'",
+              "upgrade-insecure-requests",
+            ].join("; "),
+          },
         ],
       },
     ];

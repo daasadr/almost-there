@@ -64,7 +64,10 @@ server {
     # HSTS je schválně zakomentované. Až ověříš, že HTTPS funguje, odkomentuj —
     # jakmile ho prohlížeč jednou dostane, rok odmítne jít na HTTP, a kdyby
     # certifikát nefungoval, byl by web nedostupný.
-    # add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+    # Prohlížeč si po první návštěvě zapamatuje, že sem chodí jen přes HTTPS,
+    # a odmítne i pokus o nešifrované spojení. Zapíná se až po vydání
+    # certifikátu — dřív by si prohlížeč zapamatoval nedostupný web.
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
     add_header X-Content-Type-Options "nosniff" always;
     add_header Referrer-Policy "strict-origin-when-cross-origin" always;
 

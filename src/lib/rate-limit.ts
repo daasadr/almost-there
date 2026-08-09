@@ -12,7 +12,7 @@ import { createHash } from "node:crypto";
 type Bucket = { count: number; resetAt: number };
 
 const buckets = new Map<string, Bucket>();
-const WINDOW_MS = 60 * 60 * 1000; // 1 hodina
+const DEFAULT_WINDOW_MS = 60 * 60 * 1000; // 1 hodina
 
 /** Kvůli GDPR neukládáme IP v čitelné podobě, jen její otisk. */
 export function hashIp(ip: string): string {
@@ -25,12 +25,16 @@ export type RateLimitResult = {
   resetAt: number;
 };
 
-export function checkRateLimit(key: string, limit: number): RateLimitResult {
+export function checkRateLimit(
+  key: string,
+  limit: number,
+  windowMs: number = DEFAULT_WINDOW_MS,
+): RateLimitResult {
   const now = Date.now();
   const existing = buckets.get(key);
 
   if (!existing || existing.resetAt <= now) {
-    const bucket = { count: 1, resetAt: now + WINDOW_MS };
+    const bucket = { count: 1, resetAt: now + windowMs };
     buckets.set(key, bucket);
     pruneExpired(now);
     return { allowed: true, remaining: limit - 1, resetAt: bucket.resetAt };
@@ -57,14 +61,29 @@ function pruneExpired(now: number): void {
 }
 
 /**
- * IP klienta. Za nginx reverse proxy chodí ve `X-Forwarded-For`;
- * bereme první hodnotu, protože zbytek si může nastavit klient sám.
+ * IP klienta.
+ *
+ * Bere se `X-Real-IP`, kterou nastavuje náš nginx z `$remote_addr` — tedy
+ * z adresy, ze které spojení skutečně přišlo. Klient ji přepsat nemůže,
+ * nginx ji vždy přepíše svou hodnotou.
+ *
+ * `X-Forwarded-For` se používá jen jako záloha a bere se z něj POSLEDNÍ
+ * hodnota, ne první. Nginx totiž tuhle hlavičku doplňuje (`$proxy_add_…`),
+ * takže když útočník pošle vlastní `X-Forwarded-For: 1.2.3.4`, dorazí
+ * k aplikaci jako `1.2.3.4, <skutečná adresa>`. Kdo by četl první položku,
+ * dostal by hodnotu, kterou si útočník sám vymyslel — a mohl by tím
+ * obcházet každý limit, včetně toho, který chrání placený AI klíč.
  */
 export function getClientIp(headers: Headers): string {
+  const real = headers.get("x-real-ip")?.trim();
+  if (real) return real;
+
   const forwarded = headers.get("x-forwarded-for");
   if (forwarded) {
-    const first = forwarded.split(",")[0]?.trim();
-    if (first) return first;
+    const parts = forwarded.split(",");
+    const last = parts[parts.length - 1]?.trim();
+    if (last) return last;
   }
-  return headers.get("x-real-ip")?.trim() || "unknown";
+
+  return "unknown";
 }
