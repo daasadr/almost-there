@@ -386,7 +386,8 @@
     "nav": {
       "today": "Today",
       "goals": "Goals",
-      "newGoal": "New goal"
+      "newGoal": "New goal",
+      "settings": "How to plan"
     },
     "today": {
       "title": "Today",
@@ -566,6 +567,33 @@
       "moveDeadline": "Recalculate the deadline",
       "moveDeadlineBody": "A new date based on the pace you are actually keeping: {date}. The plan gets rewritten at a calmer spread.",
       "later": "Not now, ask me in a week"
+    },
+    "settings": {
+      "title": "How to plan",
+      "subtitle": "Every plan is built from these. The closer they are to reality, the less you will fight your own plan.",
+      "back": "Back to the app",
+      "capacityLabel": "How much time you have for your goals each day",
+      "capacityHint": "In total, not per goal. Use the time you actually have, not the time you wish you had — a plan built on an inflated number cannot be kept, and stops being opened.",
+      "restLabel": "Rest",
+      "restHint": "Days off are part of the plan, not what is left over. No work gets scheduled on a rest day.",
+      "rest": {
+        "NONE": "No fixed days off",
+        "ONE_DAY_PER_WEEK": "One day off per week",
+        "TWO_DAYS_PER_WEEK": "Two days off per week",
+        "EVERY_OTHER_DAY": "Every other day off"
+      },
+      "reflectionLabel": "Time for reflection",
+      "reflectionHint": "A short pause over what worked and what did not. Scheduled as its own task, not as an extra.",
+      "noReflection": "No reflection",
+      "timezoneLabel": "Time zone",
+      "timezoneHint": "It decides when your new day starts. With the wrong zone you would see tomorrow's tasks in the evening.",
+      "useDetected": "Use {zone} from your browser",
+      "minutes": "{minutes} minutes a day",
+      "save": "Save",
+      "saving": "Saving…",
+      "saved": "Saved",
+      "failed": "Saving failed. Please try again.",
+      "appliesNote": "Changes apply from the next breakdown — each further week of your running goals gets laid out with the new values. Days already written stay as they are."
     }
   }
 }

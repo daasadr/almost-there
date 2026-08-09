@@ -42,6 +42,9 @@ export function RegisterForm() {
           password,
           consent,
           locale,
+          // Ať se nový účet netrefí do pražského času jen proto, že je
+          // výchozí. Plán se podle pásma rozhoduje, kdy začíná nový den.
+          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
         }),
       });
       const data = await response.json();

@@ -386,7 +386,8 @@
     "nav": {
       "today": "Dnešek",
       "goals": "Cíle",
-      "newGoal": "Nový cíl"
+      "newGoal": "Nový cíl",
+      "settings": "Jak plánovat"
     },
     "today": {
       "title": "Dnešek",
@@ -566,6 +567,33 @@
       "moveDeadline": "Přepočítat termín",
       "moveDeadlineBody": "Nový termín podle tempa, kterým ti to reálně jde: {date}. Plán se přepíše na klidnější rozvržení.",
       "later": "Teď ne, zeptej se za týden"
+    },
+    "settings": {
+      "title": "Jak plánovat",
+      "subtitle": "Z těchhle údajů se staví každý plán. Čím blíž budou skutečnosti, tím míň se budeš s plánem přetahovat.",
+      "back": "Zpět do aplikace",
+      "capacityLabel": "Kolik času denně máš na své cíle",
+      "capacityHint": "Dohromady, ne na každý cíl zvlášť. Počítej reálný čas, ne ten, který bys chtěl mít — plán z nadsazeného čísla se nedá plnit a přestane se otevírat.",
+      "restLabel": "Odpočinek",
+      "restHint": "Volné dny jsou součástí plánu, ne to, co zbude. Na odpočinkový den se práce neplánuje.",
+      "rest": {
+        "NONE": "Bez pevných volných dnů",
+        "ONE_DAY_PER_WEEK": "Jeden den v týdnu volno",
+        "TWO_DAYS_PER_WEEK": "Dva dny v týdnu volno",
+        "EVERY_OTHER_DAY": "Obden volno"
+      },
+      "reflectionLabel": "Čas na ohlédnutí",
+      "reflectionHint": "Krátké zastavení nad tím, co fungovalo a co ne. Plánuje se jako vlastní úkol, ne jako něco navíc.",
+      "noReflection": "Bez ohlédnutí",
+      "timezoneLabel": "Časové pásmo",
+      "timezoneHint": "Podle něj se pozná, kdy ti začíná nový den. Bez správného pásma bys večer viděl úkoly na zítřek.",
+      "useDetected": "Použít {zone} podle prohlížeče",
+      "minutes": "{minutes} minut denně",
+      "save": "Uložit",
+      "saving": "Ukládám…",
+      "saved": "Uloženo",
+      "failed": "Uložení se nepovedlo. Zkus to prosím znovu.",
+      "appliesNote": "Změna se projeví od příštího rozpisu — každý další týden běžících cílů se rozvrhne už podle nových hodnot. Hotové dny zůstanou, jak jsou."
     }
   }
 }

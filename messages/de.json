@@ -386,7 +386,8 @@
     "nav": {
       "today": "Heute",
       "goals": "Ziele",
-      "newGoal": "Neues Ziel"
+      "newGoal": "Neues Ziel",
+      "settings": "Wie geplant wird"
     },
     "today": {
       "title": "Heute",
@@ -566,6 +567,33 @@
       "moveDeadline": "Termin neu berechnen",
       "moveDeadlineBody": "Ein neuer Termin nach dem Tempo, das du tatsächlich hältst: {date}. Der Plan wird ruhiger verteilt.",
       "later": "Jetzt nicht, frag mich in einer Woche"
+    },
+    "settings": {
+      "title": "Wie geplant wird",
+      "subtitle": "Aus diesen Angaben entsteht jeder Plan. Je näher sie an der Wirklichkeit sind, desto weniger musst du dich mit deinem Plan herumschlagen.",
+      "back": "Zurück zur App",
+      "capacityLabel": "Wie viel Zeit du täglich für deine Ziele hast",
+      "capacityHint": "Insgesamt, nicht pro Ziel. Nimm die Zeit, die du wirklich hast, nicht die, die du gern hättest — ein Plan auf einer geschönten Zahl lässt sich nicht halten und wird nicht mehr geöffnet.",
+      "restLabel": "Erholung",
+      "restHint": "Freie Tage gehören zum Plan, sie sind nicht der Rest. An einem Ruhetag wird keine Arbeit eingeplant.",
+      "rest": {
+        "NONE": "Keine festen freien Tage",
+        "ONE_DAY_PER_WEEK": "Ein freier Tag pro Woche",
+        "TWO_DAYS_PER_WEEK": "Zwei freie Tage pro Woche",
+        "EVERY_OTHER_DAY": "Jeden zweiten Tag frei"
+      },
+      "reflectionLabel": "Zeit zum Rückblick",
+      "reflectionHint": "Ein kurzes Innehalten darüber, was funktioniert hat und was nicht. Wird als eigene Aufgabe eingeplant, nicht als Zugabe.",
+      "noReflection": "Kein Rückblick",
+      "timezoneLabel": "Zeitzone",
+      "timezoneHint": "Sie bestimmt, wann dein neuer Tag beginnt. Mit der falschen Zone sähest du abends schon die Aufgaben von morgen.",
+      "useDetected": "{zone} aus dem Browser übernehmen",
+      "minutes": "{minutes} Minuten pro Tag",
+      "save": "Speichern",
+      "saving": "Wird gespeichert…",
+      "saved": "Gespeichert",
+      "failed": "Das Speichern hat nicht geklappt. Bitte versuch es erneut.",
+      "appliesNote": "Änderungen greifen ab der nächsten Zerlegung — jede weitere Woche deiner laufenden Ziele wird mit den neuen Werten verteilt. Bereits geschriebene Tage bleiben, wie sie sind."
     }
   }
 }

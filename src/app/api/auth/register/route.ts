@@ -27,6 +27,15 @@ function fail(error: AuthErrorKey, status: number) {
   return NextResponse.json({ ok: false, error }, { status });
 }
 
+function isKnownTimeZone(value: string): boolean {
+  try {
+    new Intl.DateTimeFormat("en", { timeZone: value });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 export async function POST(request: Request) {
   let body: unknown;
   try {
@@ -54,6 +63,14 @@ export async function POST(request: Request) {
   const limit = checkRateLimit(`register:${hashIp(ip)}`, 10);
   if (!limit.allowed) return fail("rateLimited", 429);
 
+  // Pásmo z prohlížeče. Ověřuje se proti systému, ne proti vlastnímu
+  // seznamu — ten by zastaral a odmítal by platná pásma.
+  const bodyTimezone = (body as { timezone?: string }).timezone;
+  const timezone =
+    typeof bodyTimezone === "string" && isKnownTimeZone(bodyTimezone)
+      ? bodyTimezone
+      : "Europe/Prague";
+
   const bodyLocale = (body as { locale?: string }).locale;
   const locale: Locale = hasLocale(routing.locales, bodyLocale)
     ? bodyLocale
@@ -78,6 +95,7 @@ export async function POST(request: Request) {
       passwordHash,
       authProvider: "CREDENTIALS",
       locale,
+      timezone,
       consents: {
         create: [
           {

@@ -50,6 +50,7 @@ export default async function AppPage({
 
   const t = await getTranslations({ locale, namespace: "auth.app" });
   const tb = await getTranslations({ locale, namespace: "billing" });
+  const tPlan = await getTranslations({ locale, namespace: "plan.nav" });
 
   // Z databáze, ne ze session — viz komentář v lib/billing/access.ts.
   const { status, hasAccess } = await getAccess(session.user.id);
@@ -145,6 +146,13 @@ export default async function AppPage({
 
       <div className="mt-8 flex flex-wrap items-center gap-6">
         <SignOutButton label={t("signOut")} />
+
+        <Link
+          href={`/${locale}/app/settings`}
+          className="text-sm text-[var(--color-paper-faint)] hover:text-[var(--color-paper)]"
+        >
+          {tPlan("settings")}
+        </Link>
 
         {/* Odkaz vidí jen správce. Stránka si oprávnění stejně ověřuje
             sama — tohle je pohodlí, ne ochrana. */}
