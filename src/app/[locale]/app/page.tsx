@@ -11,12 +11,14 @@ import { GoalList } from "@/components/plan/GoalList";
 import { PlanTrigger } from "@/components/plan/PlanTrigger";
 import { TodayChecklist } from "@/components/plan/TodayChecklist";
 import { PaceCheck } from "@/components/plan/PaceCheck";
+import { ReachedMilestones } from "@/components/plan/ReachedMilestones";
 import { UnfinishedTasks } from "@/components/plan/UnfinishedTasks";
 import { UsageMeter } from "@/components/plan/UsageMeter";
 import { isAdminEmail } from "@/lib/admin/guard";
 import { getAccess } from "@/lib/billing/access";
 import { getOverdue, getToday, listGoals } from "@/lib/goals/queries";
 import { getBehindGoals } from "@/lib/goals/pace";
+import { getReachedMilestones } from "@/lib/goals/milestones";
 import { toIsoDate } from "@/lib/plan/calendar";
 import { db } from "@/lib/db";
 import Link from "next/link";
@@ -205,10 +207,11 @@ async function Today({ userId, locale }: { userId: string; locale: string }) {
     select: { timezone: true },
   });
   const timezone = profile?.timezone ?? "Europe/Prague";
-  const [today, overdue, behind] = await Promise.all([
+  const [today, overdue, behind, reached] = await Promise.all([
     getToday(userId, timezone),
     getOverdue(userId, timezone),
     getBehindGoals(userId, timezone),
+    getReachedMilestones(userId),
   ]);
 
   const heading = new Intl.DateTimeFormat(locale, {
@@ -227,6 +230,20 @@ async function Today({ userId, locale }: { userId: string; locale: string }) {
       </div>
 
       <div className="mt-5 space-y-4">
+        {/* Dosažený milník má přednost před vším ostatním — je to jediná
+            dobrá zpráva na stránce a schovat ji pod seznam úkolů by z ní
+            udělalo poznámku pod čarou. */}
+        <ReachedMilestones
+          milestones={reached.map((milestone) => ({
+            id: milestone.id,
+            title: milestone.title,
+            rewardText: milestone.rewardText,
+            summary: milestone.timeBlock?.summary ?? null,
+            goalTitle: milestone.goal.title,
+            goalColor: milestone.goal.color,
+          }))}
+        />
+
         {/* Nejdřív nabídka přeplánování: když se cíl rozešel se
             skutečností, nemá cenu odškrtávat úkoly ze starého plánu. */}
         {behind.map((goal) => (

@@ -632,6 +632,28 @@
       "back": "Zpět do aplikace",
       "collection": "Dotažené cíle",
       "collectionEmpty": "Až nějaký cíl dotáhneš, zůstane ti tady."
+    },
+    "milestones": {
+      "title": "Milníky a odměny",
+      "body": "Každá etapa plánu je místo, kde je co ukázat. Dlouhý cíl nemá měsíce žádnou zpětnou vazbu — odměna za etapu je to, co ho drží při životě.",
+      "suggest": "Nech si poradit s odměnami",
+      "suggesting": "Vymýšlím…",
+      "suggested": "návrh",
+      "rewardIs": "Odměna:",
+      "noReward": "Zatím bez odměny",
+      "setReward": "Přidat odměnu",
+      "change": "Změnit",
+      "rewardPlaceholder": "Např. celé odpoledne s knížkou",
+      "save": "Uložit",
+      "cancel": "Zpět",
+      "markAchieved": "Mám to",
+      "achieved": "Dosaženo",
+      "claim": "Vybrat odměnu",
+      "claimed": "Odměna vybraná",
+      "undo": "Přece jen ne",
+      "failed": "Nepovedlo se to. Zkus to prosím znovu.",
+      "reachedTitle": "Došel jsi k milníku",
+      "reachedBody": "Podle plánu má být tahle etapa za tebou. Je?"
     }
   }
 }

@@ -632,6 +632,28 @@
       "back": "Zurück zur App",
       "collection": "Erreichte Ziele",
       "collectionEmpty": "Sobald du ein Ziel erreichst, bleibt es hier."
+    },
+    "milestones": {
+      "title": "Meilensteine und Belohnungen",
+      "body": "Jede Etappe des Plans ist ein Punkt, an dem es etwas vorzuzeigen gibt. Ein langes Ziel gibt monatelang keine Rückmeldung — die Belohnung für eine Etappe hält es am Leben.",
+      "suggest": "Belohnungen vorschlagen lassen",
+      "suggesting": "Ich überlege…",
+      "suggested": "Vorschlag",
+      "rewardIs": "Belohnung:",
+      "noReward": "Noch keine Belohnung",
+      "setReward": "Belohnung hinzufügen",
+      "change": "Ändern",
+      "rewardPlaceholder": "z. B. ein ganzer Nachmittag mit einem Buch",
+      "save": "Speichern",
+      "cancel": "Zurück",
+      "markAchieved": "Geschafft",
+      "achieved": "Erreicht",
+      "claim": "Belohnung einlösen",
+      "claimed": "Belohnung eingelöst",
+      "undo": "Doch noch nicht",
+      "failed": "Das hat nicht geklappt. Bitte versuch es erneut.",
+      "reachedTitle": "Du hast einen Meilenstein erreicht",
+      "reachedBody": "Laut Plan sollte diese Etappe hinter dir liegen. Stimmt das?"
     }
   }
 }

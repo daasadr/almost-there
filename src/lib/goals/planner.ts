@@ -19,6 +19,7 @@ import {
 } from "@/lib/plan/calendar";
 import type { Locale } from "@/i18n/routing";
 import { AiFormatError } from "@/lib/ai/call";
+import { syncMilestones } from "./milestones";
 import type { AiOperation, BlockLevel, Prisma } from "@/generated/prisma";
 
 /**
@@ -222,6 +223,10 @@ export async function createGoalWithPlan({
     },
     select: { id: true },
   });
+
+  // Milníky vycházejí z období nejvyšší úrovně — každá etapa je místo,
+  // kde je co ukázat, a tedy i místo pro odměnu.
+  await syncMilestones(goal.id);
 
   return goal.id;
 }

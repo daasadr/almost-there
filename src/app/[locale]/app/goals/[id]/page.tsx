@@ -7,6 +7,7 @@ import { DeleteGoalButton } from "@/components/plan/DeleteGoalButton";
 import { GoalImages } from "@/components/plan/GoalImages";
 import { MAX_IMAGES_PER_GOAL } from "@/lib/uploads/images";
 import { GoalStatusControls } from "@/components/plan/GoalStatusControls";
+import { Milestones } from "@/components/plan/Milestones";
 import { PaceCheck } from "@/components/plan/PaceCheck";
 import { PlanTree } from "@/components/plan/PlanTree";
 import { PlanTrigger } from "@/components/plan/PlanTrigger";
@@ -14,6 +15,7 @@ import { getAccess } from "@/lib/billing/access";
 import { getGoalDetail } from "@/lib/goals/queries";
 import { getPaceStatus } from "@/lib/goals/pace";
 import { getFinishState } from "@/lib/goals/complete";
+import { listMilestones, syncMilestones } from "@/lib/goals/milestones";
 import { toIsoDate } from "@/lib/plan/calendar";
 import { db } from "@/lib/db";
 
@@ -59,6 +61,13 @@ export default async function GoalPage({
   });
   const pace = await getPaceStatus(goal.id, profile?.timezone ?? "Europe/Prague");
   const finish = await getFinishState(goal.id, goal.targetDate);
+  // Cíle založené dřív, než milníky existovaly, je dostanou při prvním
+  // otevření. Operace je idempotentní, takže se to stane jen jednou.
+  let milestones = await listMilestones(goal.id);
+  if (milestones.length === 0 && goal.tree.length > 0) {
+    await syncMilestones(goal.id);
+    milestones = await listMilestones(goal.id);
+  }
 
   const t = await getTranslations({ locale, namespace: "plan.detail" });
   const tGoals = await getTranslations({ locale, namespace: "plan.goals" });
@@ -161,6 +170,20 @@ export default async function GoalPage({
           />
         </div>
       )}
+
+      <div className="mt-8">
+        <Milestones
+          goalId={goal.id}
+          goalColor={goal.color}
+          milestones={milestones.map((milestone) => ({
+            ...milestone,
+            // Do klientské komponenty jdou data jako řetězce; Date by se
+            // při serializaci stejně proměnil v řetězec, jen bez typu.
+            targetDate: milestone.targetDate.toISOString(),
+            achievedAt: milestone.achievedAt?.toISOString() ?? null,
+          }))}
+        />
+      </div>
 
       <div className="mt-8">
         <GoalImages

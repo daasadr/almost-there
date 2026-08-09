@@ -5,6 +5,7 @@ import { AiFormatError } from "@/lib/ai/call";
 import { assertWithinBudget, recordUsage } from "@/lib/ai/usage";
 import { parseIsoDate, toIsoDate, todayIso } from "@/lib/plan/calendar";
 import { estimateNewTarget, getPaceStatus } from "./pace";
+import { syncMilestones } from "./milestones";
 import type { BlockLevel } from "@/generated/prisma";
 import type { Locale } from "@/i18n/routing";
 
@@ -197,6 +198,10 @@ export async function replanGoal({
       },
     });
   });
+
+  // Nová období, nové milníky. Dosažené zůstávají — jsou to zážitky,
+  // ne položky rozvrhu.
+  await syncMilestones(goalId);
 
   return { newTargetDate };
 }

@@ -632,6 +632,28 @@
       "back": "Back to the app",
       "collection": "Goals you finished",
       "collectionEmpty": "Once you finish a goal, it stays here."
+    },
+    "milestones": {
+      "title": "Milestones and rewards",
+      "body": "Every stage of the plan is a point where there is something to show. A long goal gives no feedback for months — the reward for a stage is what keeps it alive.",
+      "suggest": "Suggest rewards for me",
+      "suggesting": "Thinking…",
+      "suggested": "suggested",
+      "rewardIs": "Reward:",
+      "noReward": "No reward yet",
+      "setReward": "Add a reward",
+      "change": "Change",
+      "rewardPlaceholder": "e.g. a whole afternoon with a book",
+      "save": "Save",
+      "cancel": "Back",
+      "markAchieved": "I have it",
+      "achieved": "Reached",
+      "claim": "Take the reward",
+      "claimed": "Reward taken",
+      "undo": "Not yet after all",
+      "failed": "That did not work. Please try again.",
+      "reachedTitle": "You have reached a milestone",
+      "reachedBody": "By the plan, this stage should be behind you. Is it?"
     }
   }
 }
