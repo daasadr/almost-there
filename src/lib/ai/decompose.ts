@@ -37,6 +37,12 @@ export { AiRefusalError, AiFormatError } from "./call";
 
 export type DecomposeInput = {
   goal: string;
+  /**
+   * Co uživatel k cíli dopsal — výchozí úroveň, omezení, co je pro něj
+   * důležité. Je to nejcennější vstup, jaký od něj dostaneme: název cíle
+   * říká co, tohle říká za jakých okolností.
+   */
+  context?: string;
   /** ISO datum (YYYY-MM-DD). */
   targetDate: string;
   /** Jazyk, ve kterém má být plán napsaný. */
@@ -119,6 +125,16 @@ function buildUserPrompt(
     `${unit}s available: ${count}`,
     `Write the plan in: ${localeAiNames[input.locale]}`,
   ];
+
+  if (input.context) {
+    lines.push(
+      "",
+      "What the person added about their situation. Take it seriously — it is",
+      "the difference between a generic plan and one that fits them:",
+      input.context,
+      "",
+    );
+  }
 
   if (input.dailyCapacityMinutes) {
     lines.push(

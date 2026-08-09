@@ -97,6 +97,20 @@ export default async function GoalPage({
         {tGoals("targetDate", { date: formatDate.format(goal.targetDate) })}
       </p>
 
+      {goal.description && (
+        <p className="mt-4 whitespace-pre-line text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+          {goal.description}
+        </p>
+      )}
+
+      {/* Když už jsou dny hotové, hlavní cesta vede na dnešek — ne zpátky
+          do čtení plánu. Bez tohohle musel uživatel hledat cestu sám. */}
+      {hasDays && goal.status === "ACTIVE" && (
+        <Link href={`/${locale}/app`} className="btn-primary mt-6 inline-flex">
+          {tStatus("seeToday")}
+        </Link>
+      )}
+
       {goal.status === "PAUSED" && (
         <p className="mt-6 rounded-2xl border border-white/10 bg-white/[0.02] p-5 text-sm leading-relaxed text-[var(--color-paper-dim)]">
           {tStatus("paused")}

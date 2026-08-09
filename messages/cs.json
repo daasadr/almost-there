@@ -460,12 +460,7 @@
     "form": {
       "title": "Nový cíl",
       "subtitle": "Napiš, čeho chceš dosáhnout a do kdy. Výsledné fáze si vezmi jako návrh, který se dá měnit.",
-      "goalLabel": "Čeho chceš dosáhnout",
-      "goalPlaceholder": "Např. přečíst dvanáct knih v angličtině",
-      "goalHint": "Čím konkrétněji to napíšeš, tím lepší plán dostaneš.",
       "dateLabel": "Do kdy",
-      "descriptionLabel": "Kontext navíc (nepovinné)",
-      "descriptionPlaceholder": "Co už umíš, co tě omezuje, na čem ti nejvíc záleží…",
       "submit": "Rozfázovat cíl",
       "cancel": "Zpět",
       "progress": {
@@ -498,7 +493,15 @@
         "pink": "Růžová",
         "rose": "Korálová",
         "amber": "Jantarová"
-      }
+      },
+      "nameLabel": "Název cíle",
+      "namePlaceholder": "Např. Security+ certifikát",
+      "nameHint": "Krátce, pár slov. Uvidíš ho v seznamu cílů a u denních úkolů.",
+      "detailLabel": "Cíl podrobně",
+      "detailPlaceholder": "Čeho přesně chceš dosáhnout, co už umíš, co tě omezuje, kolik času tomu reálně dáš, na čem ti nejvíc záleží…",
+      "detailHint": "Tohle je nejdůležitější pole na stránce. Z něj vzniká plán, který sedí tobě, a ne obecné šabloně — čím konkrétnější budeš, tím lepší výsledek dostaneš.",
+      "capacityNote": "Plánuje se na {minutes} minut denně napříč všemi cíli.",
+      "capacityChange": "Změnit"
     },
     "detail": {
       "back": "Zpět na přehled",
@@ -540,7 +543,9 @@
       "notSubscribed": "Na tohle je potřeba předplatné.",
       "generic": "Něco se pokazilo. Zkus to prosím znovu.",
       "planLimitReached": "Vyčerpal jsi měsíční limit nových plánů. Běžící cíle fungují dál; limit se obnoví prvního dne dalšího měsíce.",
-      "replanTooSoon": "Cíl jsi přeplánoval nedávno. Zkus to prosím zítra — plán potřebuje aspoň den, aby bylo co vyhodnocovat."
+      "replanTooSoon": "Cíl jsi přeplánoval nedávno. Zkus to prosím zítra — plán potřebuje aspoň den, aby bylo co vyhodnocovat.",
+      "nameTooShort": "Název je moc krátký. Stačí pár slov.",
+      "nameTooLong": "Název je moc dlouhý. Zkrať ho na pár slov — podrobnosti patří do pole níž."
     },
     "budget": {
       "meter": "Měsíční limit plánů",
@@ -619,7 +624,8 @@
       "seeCelebration": "Zobrazit shrnutí",
       "failed": "Nepovedlo se to. Zkus to prosím znovu.",
       "paused": "Cíl je pozastavený. Denní úkoly nedostává a nepočítá se do pětice běžících — plán čeká, až se k němu vrátíš.",
-      "leftover": "{count, plural, one {Zbývá jeden nedodělaný úkol} few {Zbývají # nedodělané úkoly} other {Zbývá # nedodělaných úkolů}}. Plán je návrh, ne podmínka — jestli je cíl podle tebe splněný, uzavři ho."
+      "leftover": "{count, plural, one {Zbývá jeden nedodělaný úkol} few {Zbývají # nedodělané úkoly} other {Zbývá # nedodělaných úkolů}}. Plán je návrh, ne podmínka — jestli je cíl podle tebe splněný, uzavři ho.",
+      "seeToday": "Zobrazit dnešní úkoly"
     },
     "done": {
       "eyebrow": "Dotaženo",

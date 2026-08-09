@@ -169,6 +169,9 @@ export async function createGoalWithPlan({
 
   const decomposed = await decomposeGoal({
     goal: title,
+    // Popis od uživatele patří modelu, ne jen do databáze. Bez něj plánuje
+    // podle názvu cíle a všechno ostatní si domýšlí.
+    context: description,
     targetDate,
     locale,
     today,

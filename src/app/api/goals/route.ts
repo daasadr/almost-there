@@ -9,9 +9,9 @@ import { AiBudgetError, PlanAllowanceError } from "@/lib/ai/usage";
 import { env } from "@/lib/env";
 import { isGoalColor } from "@/lib/plan/colors";
 import {
-  validateGoal,
+  validateGoalTitle,
   validateTargetDate,
-  MAX_GOAL_LENGTH,
+  MAX_GOAL_DETAIL,
 } from "@/lib/demo-validation";
 
 export const runtime = "nodejs";
@@ -20,7 +20,7 @@ export const maxDuration = 300;
 
 const bodySchema = z.object({
   title: z.string(),
-  description: z.string().max(1000).optional(),
+  description: z.string().max(MAX_GOAL_DETAIL).optional(),
   targetDate: z.string(),
   locale: z.string().optional(),
   importance: z.number().int().min(1).max(5).optional(),
@@ -45,7 +45,8 @@ export async function POST(request: Request) {
 
   const title = parsed.data.title.trim();
 
-  const titleError = validateGoal(title);
+  // Název je krátký štítek do seznamu, ne celé zadání — to patří do popisu.
+  const titleError = validateGoalTitle(title);
   if (titleError) {
     return NextResponse.json({ ok: false, error: titleError }, { status: 400 });
   }
@@ -78,7 +79,7 @@ export async function POST(request: Request) {
     const goalId = await createGoalWithPlan({
       userId: guard.user.id,
       title,
-      description: parsed.data.description?.slice(0, MAX_GOAL_LENGTH * 4),
+      description: parsed.data.description?.trim() || undefined,
       targetDate: parsed.data.targetDate,
       locale,
       importance: parsed.data.importance,

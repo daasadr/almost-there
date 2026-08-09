@@ -460,12 +460,7 @@
     "form": {
       "title": "New goal",
       "subtitle": "Write down what you want to reach and by when. Treat the breakdown as a proposal you can change.",
-      "goalLabel": "What do you want to reach",
-      "goalPlaceholder": "e.g. read twelve books in English",
-      "goalHint": "The more specific you are, the better the plan.",
       "dateLabel": "By when",
-      "descriptionLabel": "Extra context (optional)",
-      "descriptionPlaceholder": "What you already know, what limits you, what matters most…",
       "submit": "Break it down",
       "cancel": "Back",
       "progress": {
@@ -498,7 +493,15 @@
         "pink": "Pink",
         "rose": "Coral",
         "amber": "Amber"
-      }
+      },
+      "nameLabel": "Goal name",
+      "namePlaceholder": "e.g. Security+ certification",
+      "nameHint": "Keep it to a few words. You will see it in your goal list and on daily tasks.",
+      "detailLabel": "The goal in detail",
+      "detailPlaceholder": "What exactly you want to reach, what you already know, what limits you, how much time you will really give it, what matters most…",
+      "detailHint": "This is the most important field on the page. It is what turns a generic plan into one that fits you — the more concrete you are, the better the result.",
+      "capacityNote": "Planning assumes {minutes} minutes a day across all your goals.",
+      "capacityChange": "Change"
     },
     "detail": {
       "back": "Back to overview",
@@ -540,7 +543,9 @@
       "notSubscribed": "This needs a subscription.",
       "generic": "Something went wrong. Please try again.",
       "planLimitReached": "You have used this month's limit on new plans. Running goals keep working; the limit resets on the first of next month.",
-      "replanTooSoon": "You replanned this goal recently. Try again tomorrow — the plan needs at least a day before there is anything to judge."
+      "replanTooSoon": "You replanned this goal recently. Try again tomorrow — the plan needs at least a day before there is anything to judge.",
+      "nameTooShort": "That name is too short. A few words is enough.",
+      "nameTooLong": "That name is too long. Cut it to a few words — details belong in the field below."
     },
     "budget": {
       "meter": "Monthly plan limit",
@@ -619,7 +624,8 @@
       "seeCelebration": "See the summary",
       "failed": "That did not work. Please try again.",
       "paused": "This goal is paused. It gets no daily tasks and does not count towards your five running goals — the plan waits until you come back.",
-      "leftover": "{count, plural, one {One task is still unfinished} other {# tasks are still unfinished}}. The plan is a proposal, not a condition — if the goal is reached as far as you are concerned, close it."
+      "leftover": "{count, plural, one {One task is still unfinished} other {# tasks are still unfinished}}. The plan is a proposal, not a condition — if the goal is reached as far as you are concerned, close it.",
+      "seeToday": "Show today’s tasks"
     },
     "done": {
       "eyebrow": "Finished",

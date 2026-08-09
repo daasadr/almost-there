@@ -460,12 +460,7 @@
     "form": {
       "title": "Neues Ziel",
       "subtitle": "Schreib auf, was du erreichen willst und bis wann. Die Phasenplanung ist ein Vorschlag, den du ändern kannst.",
-      "goalLabel": "Was willst du erreichen",
-      "goalPlaceholder": "z. B. zwölf Bücher auf Englisch lesen",
-      "goalHint": "Je konkreter du bist, desto besser wird der Plan.",
       "dateLabel": "Bis wann",
-      "descriptionLabel": "Zusätzlicher Kontext (optional)",
-      "descriptionPlaceholder": "Was du schon kannst, was dich einschränkt, worauf es dir ankommt…",
       "submit": "Ziel in Phasen gliedern",
       "cancel": "Zurück",
       "progress": {
@@ -498,7 +493,15 @@
         "pink": "Rosa",
         "rose": "Koralle",
         "amber": "Bernstein"
-      }
+      },
+      "nameLabel": "Name des Ziels",
+      "namePlaceholder": "z. B. Security+ Zertifikat",
+      "nameHint": "Ein paar Wörter genügen. Du siehst ihn in der Zielliste und bei den Tagesaufgaben.",
+      "detailLabel": "Das Ziel im Detail",
+      "detailPlaceholder": "Was du genau erreichen willst, was du schon kannst, was dich einschränkt, wie viel Zeit du wirklich investierst, worauf es dir ankommt…",
+      "detailHint": "Das ist das wichtigste Feld der Seite. Daraus entsteht ein Plan, der zu dir passt und nicht zu einer Vorlage — je konkreter, desto besser.",
+      "capacityNote": "Geplant wird mit {minutes} Minuten pro Tag über alle Ziele hinweg.",
+      "capacityChange": "Ändern"
     },
     "detail": {
       "back": "Zurück zur Übersicht",
@@ -540,7 +543,9 @@
       "notSubscribed": "Dafür brauchst du ein Abonnement.",
       "generic": "Etwas ist schiefgelaufen. Bitte versuch es erneut.",
       "planLimitReached": "Du hast das Monatslimit für neue Pläne erreicht. Laufende Ziele funktionieren weiter; das Limit setzt sich am Ersten des nächsten Monats zurück.",
-      "replanTooSoon": "Du hast dieses Ziel gerade erst neu geplant. Versuch es morgen — der Plan braucht mindestens einen Tag, bevor es etwas zu bewerten gibt."
+      "replanTooSoon": "Du hast dieses Ziel gerade erst neu geplant. Versuch es morgen — der Plan braucht mindestens einen Tag, bevor es etwas zu bewerten gibt.",
+      "nameTooShort": "Der Name ist zu kurz. Ein paar Wörter genügen.",
+      "nameTooLong": "Der Name ist zu lang. Kürz ihn auf ein paar Wörter — Details gehören ins Feld darunter."
     },
     "budget": {
       "meter": "Monatslimit für Pläne",
@@ -619,7 +624,8 @@
       "seeCelebration": "Zusammenfassung ansehen",
       "failed": "Das hat nicht geklappt. Bitte versuch es erneut.",
       "paused": "Dieses Ziel ist pausiert. Es bekommt keine Tagesaufgaben und zählt nicht zu deinen fünf laufenden Zielen — der Plan wartet, bis du zurückkommst.",
-      "leftover": "{count, plural, one {Eine Aufgabe ist noch offen} other {# Aufgaben sind noch offen}}. Der Plan ist ein Vorschlag, keine Bedingung — wenn das Ziel für dich erreicht ist, schließ es ab."
+      "leftover": "{count, plural, one {Eine Aufgabe ist noch offen} other {# Aufgaben sind noch offen}}. Der Plan ist ein Vorschlag, keine Bedingung — wenn das Ziel für dich erreicht ist, schließ es ab.",
+      "seeToday": "Heutige Aufgaben anzeigen"
     },
     "done": {
       "eyebrow": "Erreicht",

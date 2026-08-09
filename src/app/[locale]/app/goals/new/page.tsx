@@ -5,6 +5,7 @@ import { getTranslations } from "next-intl/server";
 import { auth } from "@/auth";
 import { GoalForm } from "@/components/plan/GoalForm";
 import { getAccess } from "@/lib/billing/access";
+import { db } from "@/lib/db";
 
 export async function generateMetadata({
   params,
@@ -34,6 +35,13 @@ export default async function NewGoalPage({
   if (revoked) redirect(`/${locale}/login`);
   if (!hasAccess) redirect(`/${locale}/app`);
 
+  // Kapacita se ve formuláři jen ukazuje — nastavuje se v předvolbách,
+  // ale je to nejsilnější vstup do plánu a nemá být neviditelná.
+  const profile = await db.user.findUniqueOrThrow({
+    where: { id: session.user.id },
+    select: { dailyCapacityMinutes: true },
+  });
+
   const t = await getTranslations({ locale, namespace: "plan.form" });
 
   return (
@@ -51,7 +59,7 @@ export default async function NewGoalPage({
       </p>
 
       <div className="card mt-8 p-6 sm:p-8">
-        <GoalForm />
+        <GoalForm dailyCapacityMinutes={profile.dailyCapacityMinutes} />
       </div>
     </section>
   );

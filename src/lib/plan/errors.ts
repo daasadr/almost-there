@@ -8,6 +8,8 @@
 const KNOWN = new Set([
   "goalRequired",
   "goalTooShort",
+  "nameTooShort",
+  "nameTooLong",
   "goalTooLong",
   "dateRequired",
   "dateTooSoon",

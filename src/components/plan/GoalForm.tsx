@@ -6,13 +6,15 @@ import { useLocale, useTranslations } from "next-intl";
 import { GenerationProgress } from "@/components/demo/GenerationProgress";
 import { planErrorKey } from "@/lib/plan/errors";
 import { goalColors, goalHex, type GoalColor } from "@/lib/plan/colors";
+import Link from "next/link";
 import {
   defaultTargetDate,
   maxTargetDate,
   minTargetDate,
-  validateGoal,
+  validateGoalTitle,
   validateTargetDate,
-  MAX_GOAL_LENGTH,
+  MAX_GOAL_DETAIL,
+  MAX_GOAL_TITLE,
 } from "@/lib/demo-validation";
 
 /**
@@ -21,7 +23,12 @@ import {
  */
 const importanceLevels = [1, 2, 3, 4, 5] as const;
 
-export function GoalForm() {
+export function GoalForm({
+  dailyCapacityMinutes,
+}: {
+  /** Kolik minut denně má uživatel nastavených. Jen se ukazuje. */
+  dailyCapacityMinutes: number;
+}) {
   const t = useTranslations("plan.form");
   const tError = useTranslations("plan.errors");
   const router = useRouter();
@@ -39,7 +46,7 @@ export function GoalForm() {
     event.preventDefault();
     if (pending) return;
 
-    const titleError = validateGoal(title);
+    const titleError = validateGoalTitle(title);
     if (titleError) return setError(titleError);
 
     const dateError = validateTargetDate(targetDate);
@@ -80,22 +87,44 @@ export function GoalForm() {
 
   return (
     <form onSubmit={submit} noValidate>
+      {/* Krátký štítek do seznamů a do denního checklistu. */}
       <div>
         <label htmlFor="goal-title" className="block text-sm font-medium">
-          {t("goalLabel")}
+          {t("nameLabel")}
         </label>
-        <textarea
+        <input
           id="goal-title"
+          type="text"
           value={title}
           onChange={(event) => setTitle(event.target.value)}
-          rows={3}
-          maxLength={MAX_GOAL_LENGTH}
+          maxLength={MAX_GOAL_TITLE}
           disabled={pending}
-          placeholder={t("goalPlaceholder")}
-          className="mt-2.5 w-full resize-y rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-[15px] leading-relaxed text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] focus:outline-none disabled:opacity-60"
+          placeholder={t("namePlaceholder")}
+          className="mt-2.5 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-[15px] text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] focus:outline-none disabled:opacity-60"
         />
         <p className="mt-1.5 text-xs text-[var(--color-paper-faint)]">
-          {t("goalHint")}
+          {t("nameHint")}
+        </p>
+      </div>
+
+      {/* Tohle je pole, ze kterého vzniká dobrý plán. Je proto hned za
+          názvem a má víc místa než on. */}
+      <div className="mt-6">
+        <label htmlFor="goal-detail" className="block text-sm font-medium">
+          {t("detailLabel")}
+        </label>
+        <textarea
+          id="goal-detail"
+          value={description}
+          onChange={(event) => setDescription(event.target.value)}
+          rows={5}
+          maxLength={MAX_GOAL_DETAIL}
+          disabled={pending}
+          placeholder={t("detailPlaceholder")}
+          className="mt-2.5 w-full resize-y rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-[15px] leading-relaxed text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] focus:outline-none disabled:opacity-60"
+        />
+        <p className="mt-1.5 text-xs leading-relaxed text-[var(--color-paper-faint)]">
+          {t("detailHint")}
         </p>
       </div>
 
@@ -189,21 +218,17 @@ export function GoalForm() {
         </div>
       </fieldset>
 
-      <div className="mt-6">
-        <label htmlFor="goal-context" className="block text-sm font-medium">
-          {t("descriptionLabel")}
-        </label>
-        <textarea
-          id="goal-context"
-          value={description}
-          onChange={(event) => setDescription(event.target.value)}
-          rows={3}
-          maxLength={1000}
-          disabled={pending}
-          placeholder={t("descriptionPlaceholder")}
-          className="mt-2.5 w-full resize-y rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-[15px] leading-relaxed text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] focus:outline-none disabled:opacity-60"
-        />
-      </div>
+      {/* Kapacita je nejsilnější vstup do plánu a nastavuje se jinde —
+          tak ať je aspoň vidět, s jakou se právě počítá. */}
+      <p className="mt-6 text-sm text-[var(--color-paper-dim)]">
+        {t("capacityNote", { minutes: dailyCapacityMinutes })}{" "}
+        <Link
+          href={`/${locale}/app/settings`}
+          className="text-[var(--color-lime-soft)] underline-offset-4 hover:underline"
+        >
+          {t("capacityChange")}
+        </Link>
+      </p>
 
       {error && (
         <p
