@@ -1,10 +1,21 @@
-import "server-only";
 import {
   createCipheriv,
   createDecipheriv,
   randomBytes,
   timingSafeEqual,
 } from "node:crypto";
+
+/*
+ * Tenhle soubor schválně NEMÁ `import "server-only"`.
+ *
+ * Tu značku umí přeložit jen bundler Next.js; v obyčejném Node se načíst
+ * nedá a shodila by dávkový převod dat (scripts/encrypt-existing.ts),
+ * který musí umět běžet mimo aplikaci.
+ *
+ * Ochrana tím nemizí. Do klientského kódu se odsud nedá dostat: jediný,
+ * kdo tenhle modul používá, je rozšíření Prismy, a to `server-only`
+ * značku má — stejně jako klient sám.
+ */
 
 /**
  * Šifrování textových polí v databázi.
