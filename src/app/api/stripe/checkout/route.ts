@@ -7,6 +7,8 @@ import { getAccess } from "@/lib/billing/access";
 import { getStripe } from "@/lib/stripe/client";
 import { isBillingPeriod, stripePriceId } from "@/lib/stripe/plans";
 import { routing, type Locale } from "@/i18n/routing";
+import { LEGAL_VERSION } from "@/content/legal";
+import { getClientIp, hashIp } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 
@@ -41,10 +43,22 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "generic" }, { status: 400 });
   }
 
-  const { period, locale: rawLocale } = body as {
+  const { period, locale: rawLocale, immediateStart } = body as {
     period?: unknown;
     locale?: unknown;
+    immediateStart?: unknown;
   };
+
+  // Souhlas se zahájením plnění před uplynutím lhůty pro odstoupení.
+  // Bez něj se pokladna neotevře: podle § 1837 OZ musí být výslovný
+  // a projevený u nákupu, ne schovaný v obecném odsouhlasení podmínek
+  // při registraci.
+  if (immediateStart !== true) {
+    return NextResponse.json(
+      { ok: false, error: "consentRequired" },
+      { status: 400 },
+    );
+  }
 
   if (!isBillingPeriod(period)) {
     return NextResponse.json({ ok: false, error: "generic" }, { status: 400 });
@@ -61,6 +75,20 @@ export async function POST(request: Request) {
   if (!user) {
     return NextResponse.json({ ok: false, error: "unauthorized" }, { status: 401 });
   }
+
+  // Souhlas se zapisuje před přesměrováním k platbě, ne až po ní.
+  // Kdyby se zapisoval po návratu, chyběl by u lidí, kteří platbu
+  // dokončí a zavřou okno — a právě u nich by ho bylo potřeba doložit.
+  await db.consent.create({
+    data: {
+      userId: user.id,
+      type: "IMMEDIATE_PERFORMANCE",
+      version: LEGAL_VERSION,
+      granted: true,
+      ipAddress: hashIp(getClientIp(request.headers)),
+      userAgent: request.headers.get("user-agent")?.slice(0, 500) ?? null,
+    },
+  });
 
   const stripe = getStripe();
 

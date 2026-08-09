@@ -16,7 +16,7 @@ import type { Locale } from "@/i18n/routing";
  * nejde doložit, s JAKÝM zněním uživatel souhlasil (zadání, bod 13).
  * Při každé věcné změně podmínek tuhle hodnotu zvyš.
  */
-export const LEGAL_VERSION = "2026-08-10";
+export const LEGAL_VERSION = "2026-08-11";
 
 export type LegalSection = { heading: string; paragraphs: string[] };
 export type LegalDocument = {
@@ -45,6 +45,7 @@ export const termsByLocale: Record<Locale, LegalDocument> = {
           "K plnému využití služby je potřeba účet. Údaje, které při registraci uvedeš, musí být pravdivé a aktuální. Za zabezpečení přihlašovacích údajů odpovídáš ty.",
           "Součástí registrace je povinné odsouhlasení těchto podmínek a zásad zpracování osobních údajů. Bez něj registraci nelze dokončit.",
           "Účet je určen pro jednu osobu. Sdílení přístupu s dalšími osobami není dovoleno.",
+          "Službu mohou objednat osoby starší 18 let. Mladší ji mohou používat pouze se souhlasem zákonného zástupce, který za takové užívání odpovídá.",
         ],
       },
       {
@@ -53,7 +54,10 @@ export const termsByLocale: Record<Locale, LegalDocument> = {
           "Služba je zpoplatněna jednotným měsíčním předplatným ve výši 179 Kč. K dispozici je i roční varianta za 1790 Kč. Cena uvedená na webu a v obchodě s aplikacemi je cena konečná — žádné skryté příplatky se neúčtují.",
           "Provozovatel není plátcem DPH. [OVĚŘIT S ÚČETNÍ — pokud se registrace k DPH změní, je nutné tento odstavec i ceny upravit.]",
           "Předplatné se automaticky obnovuje na konci každého zúčtovacího období, dokud ho nezrušíš. Zrušit ho můžeš kdykoliv v nastavení účtu; služba pak zůstává dostupná do konce už zaplaceného období.",
-          "Platby na webu zpracovává Stripe. Platby uvnitř mobilních aplikací zpracovává Apple App Store nebo Google Play podle jejich vlastních pravidel; správu a rušení takového předplatného řeší přímo příslušný obchod.",
+          "Platby na webu probíhají v režimu Stripe Managed Payments. Stripe v něm vystupuje jako právní prodejce (merchant of record): uzavírá s tebou platební transakci, vydává doklad a odvádí daň z přidané hodnoty. Provozovatel je dodavatelem samotné služby.",
+          "Z toho plyne rozdělení odpovědnosti. S dotazy k platbě, dokladu, vrácení peněz nebo k platebnímu sporu se obracej na Stripe. S dotazy k fungování a kvalitě aplikace na provozovatele — za vady poskytované služby odpovídá on.",
+          "Stripe je jako právní prodejce oprávněn samostatně rozhodnout o vrácení platby nebo o vyřešení platebního sporu, a to i bez předchozího souhlasu provozovatele.",
+          "Platby uvnitř mobilních aplikací zpracovává Apple App Store nebo Google Play podle jejich vlastních pravidel; správu a rušení takového předplatného řeší přímo příslušný obchod.",
           "Změnu ceny oznámíme nejméně 30 dní předem. Stávajícím předplatitelům zůstává původní cena, dokud předplatné nezruší.",
         ],
       },
@@ -61,7 +65,10 @@ export const termsByLocale: Record<Locale, LegalDocument> = {
         heading: "4. Odstoupení od smlouvy a reklamace",
         paragraphs: [
           "Jako spotřebitel máš právo odstoupit od smlouvy do 14 dnů od jejího uzavření bez udání důvodu.",
-          "Protože jde o digitální obsah dodávaný okamžitě, při dokončení objednávky výslovně žádáš o zahájení plnění před uplynutím této lhůty a bereš na vědomí, že tím právo na odstoupení podle § 1837 občanského zákoníku zaniká, jakmile je plnění zahájeno v plném rozsahu.",
+          "Při objednávce samostatně potvrzuješ, že služba má začít fungovat ihned, tedy před uplynutím této lhůty, a že jsi byl poučen o důsledcích. Potvrzení o tomto souhlasu i o poučení ti pošleme e-mailem hned po nákupu.",
+          "Odstoupíš-li po zahájení služby, právo na odstoupení tím nezaniká celé: zaplatíš poměrnou část ceny odpovídající době, po kterou ti byla služba k dispozici, a zbytek se vrací. Poměr se počítá z délky zaplaceného období.",
+          "Odstoupit můžeš jakýmkoliv jednoznačným prohlášením, například e-mailem. Vzorový formulář pro odstoupení najdeš na samostatné stránce, na kterou odkazuje i potvrzovací e-mail; jeho použití je dobrovolné.",
+          "Peníze vracíme stejným způsobem, jakým jsi platil, nejpozději do 14 dnů od doručení odstoupení. Vzhledem k tomu, že prodejcem platby je Stripe, může vrácení proběhnout přímo od něj.",
           "Pokud služba nefunguje, jak má, napiš nám. Vadu se pokusíme odstranit v přiměřené lhůtě; není-li to možné, máš nárok na přiměřenou slevu nebo vrácení peněz za nevyužité období.",
         ],
       },
@@ -128,6 +135,7 @@ export const termsByLocale: Record<Locale, LegalDocument> = {
           "An account is required to use the full service. The information you provide must be accurate and current, and you are responsible for keeping your credentials secure.",
           "Accepting these terms and the privacy policy is a mandatory part of registration. Registration cannot be completed without it.",
           "An account is for one person. Sharing access with others is not permitted.",
+          "The service may be ordered by persons aged 18 or over. Younger users may use it only with the consent of a legal guardian, who is responsible for such use.",
         ],
       },
       {
@@ -136,7 +144,10 @@ export const termsByLocale: Record<Locale, LegalDocument> = {
           "The service costs a single monthly subscription of 179 CZK, or 1790 CZK a year. The price shown on the website and in the app store is the final price — there are no hidden charges.",
           "The operator is not registered for VAT. [VERIFY WITH AN ACCOUNTANT — if VAT registration changes, this paragraph and the prices must be updated.]",
           "The subscription renews automatically at the end of each billing period until you cancel. You can cancel any time in your account settings; the service remains available until the end of the period already paid for.",
-          "Payments on the web are processed by Stripe. Payments made inside the mobile apps are processed by the Apple App Store or Google Play under their own rules; managing and cancelling such subscriptions is handled directly through that store.",
+          "Payments on the web run through Stripe Managed Payments. In this arrangement Stripe acts as the merchant of record: it concludes the payment transaction with you, issues the receipt and remits value added tax. The operator is the supplier of the service itself.",
+          "Responsibility is divided accordingly. For questions about payment, receipts, refunds or payment disputes, contact Stripe. For questions about how the app works or its quality, contact the operator — defects in the service provided are the operator’s responsibility.",
+          "As the merchant of record, Stripe is entitled to decide independently on refunding a payment or resolving a payment dispute, including without the operator’s prior agreement.",
+          "Payments made inside the mobile apps are processed by the Apple App Store or Google Play under their own rules; managing and cancelling such subscriptions is handled directly through that store.",
           "We will announce any price change at least 30 days in advance. Existing subscribers keep their original price until they cancel.",
         ],
       },
@@ -144,7 +155,10 @@ export const termsByLocale: Record<Locale, LegalDocument> = {
         heading: "4. Withdrawal and complaints",
         paragraphs: [
           "As a consumer you have the right to withdraw from the contract within 14 days of concluding it, without giving a reason.",
-          "Because this is digital content supplied immediately, when you complete your order you expressly request that performance begins before that period expires and acknowledge that the right of withdrawal ends once performance has been fully provided.",
+          "When ordering you separately confirm that the service should start working immediately, that is before this period expires, and that you have been informed of the consequences. We send you confirmation of that consent and of the information by email right after the purchase.",
+          "If you withdraw after the service has started, the right of withdrawal does not disappear entirely: you pay a proportionate part of the price corresponding to the time the service was available to you, and the rest is refunded. The proportion is calculated from the length of the period paid for.",
+          "You may withdraw by any clear statement, for example by email. A model withdrawal form is available on a separate page, also linked from the confirmation email; using it is optional.",
+          "We refund by the same means you used to pay, no later than 14 days after the withdrawal reaches us. Because Stripe is the seller of the payment, the refund may come directly from them.",
           "If the service does not work as it should, contact us. We will try to fix the fault within a reasonable time; if that is not possible, you are entitled to a proportionate discount or a refund for the unused period.",
         ],
       },
@@ -211,6 +225,7 @@ export const termsByLocale: Record<Locale, LegalDocument> = {
           "Für die volle Nutzung ist ein Konto erforderlich. Deine Angaben müssen zutreffend und aktuell sein; für die Sicherheit deiner Zugangsdaten bist du verantwortlich.",
           "Die Zustimmung zu diesen Bedingungen und zur Datenschutzerklärung ist verpflichtender Teil der Registrierung. Ohne sie kann die Registrierung nicht abgeschlossen werden.",
           "Ein Konto ist für eine Person bestimmt. Die Weitergabe des Zugangs ist nicht gestattet.",
+          "Der Dienst kann von Personen ab 18 Jahren bestellt werden. Jüngere dürfen ihn nur mit Zustimmung eines gesetzlichen Vertreters nutzen, der für diese Nutzung verantwortlich ist.",
         ],
       },
       {
@@ -219,7 +234,10 @@ export const termsByLocale: Record<Locale, LegalDocument> = {
           "Der Dienst kostet ein einheitliches Monatsabonnement von 179 CZK oder 1790 CZK pro Jahr. Der auf der Website und im App-Store angegebene Preis ist der Endpreis — versteckte Zuschläge gibt es nicht.",
           "Der Betreiber ist nicht umsatzsteuerpflichtig. [MIT STEUERBERATUNG PRÜFEN — ändert sich die Registrierung, müssen dieser Absatz und die Preise angepasst werden.]",
           "Das Abonnement verlängert sich am Ende jedes Abrechnungszeitraums automatisch, bis du kündigst. Kündigen kannst du jederzeit in den Kontoeinstellungen; der Dienst bleibt bis zum Ende des bereits bezahlten Zeitraums verfügbar.",
-          "Zahlungen im Web werden über Stripe abgewickelt. Zahlungen innerhalb der mobilen Apps laufen nach den eigenen Regeln über den Apple App Store oder Google Play; Verwaltung und Kündigung erfolgen dort direkt.",
+          "Zahlungen im Web laufen über Stripe Managed Payments. Stripe tritt dabei als Verkäufer auf (merchant of record): Stripe schließt die Zahlungstransaktion mit dir ab, stellt den Beleg aus und führt die Umsatzsteuer ab. Der Betreiber ist Anbieter der Leistung selbst.",
+          "Daraus ergibt sich die Aufteilung der Verantwortung. Bei Fragen zu Zahlung, Beleg, Erstattung oder Zahlungsstreit wende dich an Stripe. Bei Fragen zur Funktion und Qualität der App an den Betreiber — für Mängel der erbrachten Leistung haftet er.",
+          "Als Verkäufer ist Stripe berechtigt, eigenständig über die Erstattung einer Zahlung oder die Beilegung eines Zahlungsstreits zu entscheiden, auch ohne vorherige Zustimmung des Betreibers.",
+          "Zahlungen innerhalb der mobilen Apps laufen nach den eigenen Regeln über den Apple App Store oder Google Play; Verwaltung und Kündigung erfolgen dort direkt.",
           "Preisänderungen kündigen wir mindestens 30 Tage im Voraus an. Bestehende Abonnentinnen und Abonnenten behalten ihren ursprünglichen Preis, bis sie kündigen.",
         ],
       },
@@ -227,7 +245,10 @@ export const termsByLocale: Record<Locale, LegalDocument> = {
         heading: "4. Widerruf und Reklamation",
         paragraphs: [
           "Als Verbraucherin oder Verbraucher hast du das Recht, den Vertrag innerhalb von 14 Tagen nach Abschluss ohne Angabe von Gründen zu widerrufen.",
-          "Da es sich um sofort bereitgestellten digitalen Inhalt handelt, verlangst du mit Abschluss der Bestellung ausdrücklich den Beginn der Leistung vor Ablauf dieser Frist und nimmst zur Kenntnis, dass das Widerrufsrecht mit vollständiger Leistungserbringung erlischt.",
+          "Bei der Bestellung bestätigst du gesondert, dass der Dienst sofort starten soll, also vor Ablauf dieser Frist, und dass du über die Folgen belehrt wurdest. Eine Bestätigung dieser Zustimmung und der Belehrung senden wir dir direkt nach dem Kauf per E-Mail.",
+          "Widerrufst du nach dem Start des Dienstes, erlischt das Widerrufsrecht nicht vollständig: Du zahlst einen anteiligen Preis für die Zeit, in der dir der Dienst zur Verfügung stand, der Rest wird erstattet. Der Anteil bemisst sich an der Länge des bezahlten Zeitraums.",
+          "Der Widerruf ist mit jeder eindeutigen Erklärung möglich, etwa per E-Mail. Ein Musterformular findest du auf einer eigenen Seite, auf die auch die Bestätigungs-E-Mail verweist; seine Nutzung ist freiwillig.",
+          "Wir erstatten auf demselben Weg, auf dem du gezahlt hast, spätestens 14 Tage nach Eingang des Widerrufs. Da Stripe Verkäufer der Zahlung ist, kann die Erstattung direkt von dort kommen.",
           "Funktioniert der Dienst nicht wie vorgesehen, melde dich bei uns. Wir versuchen, den Mangel in angemessener Frist zu beheben; ist das nicht möglich, hast du Anspruch auf eine angemessene Minderung oder Rückerstattung für den ungenutzten Zeitraum.",
         ],
       },
@@ -315,7 +336,8 @@ export const privacyByLocale: Record<Locale, LegalDocument> = {
         heading: "4. Komu údaje předáváme",
         paragraphs: [
           "Anthropic, PBC — generování plánů pomocí AI. Předává se znění cíle, termín a preference, nikoliv tvá e-mailová adresa ani identifikátor účtu.",
-          "Stripe — zpracování plateb na webu. Apple a Google — zpracování plateb v mobilních aplikacích.",
+          "Stripe — platby na webu. U plateb v režimu Managed Payments je Stripe právním prodejcem, a pro tu část údajů, která se týká platby, daní, fakturace a ochrany před podvody, vystupuje jako samostatný správce, ne jako náš zpracovatel: zpracovává je z vlastní zákonné povinnosti, ne na náš pokyn. Jak s nimi nakládá, popisují jeho vlastní zásady ochrany osobních údajů.",
+          "Apple a Google — zpracování plateb v mobilních aplikacích podle vlastních pravidel obchodů.",
           "Poskytovatel hostingu, kde běží servery aplikace.",
           "Údaje neprodáváme a nepředáváme je pro marketingové účely třetích stran.",
         ],
@@ -390,7 +412,8 @@ export const privacyByLocale: Record<Locale, LegalDocument> = {
         heading: "4. Who we share data with",
         paragraphs: [
           "Anthropic, PBC — AI plan generation. We send the goal text, deadline and preferences; we do not send your email address or account identifier.",
-          "Stripe — processing web payments. Apple and Google — processing in-app payments.",
+          "Stripe — payments on the web. Under Managed Payments, Stripe is the merchant of record, and for the part of the data concerning payment, taxes, invoicing and fraud protection it acts as an independent controller rather than our processor: it processes that data under its own legal obligations, not on our instructions. How it handles the data is described in Stripe’s own privacy policy.",
+          "Apple and Google — processing in-app payments under the stores’ own rules.",
           "Our hosting provider, where the application servers run.",
           "We do not sell your data and do not share it for third-party marketing.",
         ],
@@ -465,7 +488,8 @@ export const privacyByLocale: Record<Locale, LegalDocument> = {
         heading: "4. Empfänger der Daten",
         paragraphs: [
           "Anthropic, PBC — KI-gestützte Planerstellung. Übermittelt werden Zieltext, Frist und Präferenzen, nicht deine E-Mail-Adresse oder Kontokennung.",
-          "Stripe — Abwicklung von Web-Zahlungen. Apple und Google — Abwicklung von In-App-Zahlungen.",
+          "Stripe — Zahlungen im Web. Bei Managed Payments ist Stripe Verkäufer und tritt für den Teil der Daten, der Zahlung, Steuern, Rechnungsstellung und Betrugsschutz betrifft, als eigenständig Verantwortlicher auf, nicht als unser Auftragsverarbeiter: Stripe verarbeitet diese Daten aufgrund eigener gesetzlicher Pflichten, nicht auf unsere Weisung. Wie damit umgegangen wird, beschreibt Stripes eigene Datenschutzerklärung.",
+          "Apple und Google — Abwicklung von In-App-Zahlungen nach den eigenen Regeln der Stores.",
           "Unser Hosting-Anbieter, auf dessen Servern die Anwendung läuft.",
           "Wir verkaufen deine Daten nicht und geben sie nicht für Marketingzwecke Dritter weiter.",
         ],

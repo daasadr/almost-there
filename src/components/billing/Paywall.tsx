@@ -24,16 +24,26 @@ export function Paywall() {
   const [period, setPeriod] = useState<BillingPeriod>("monthly");
   const [loading, setLoading] = useState(false);
   const [failed, setFailed] = useState(false);
+  const [immediateStart, setImmediateStart] = useState(false);
+  const [missingConsent, setMissingConsent] = useState(false);
 
   const start = async () => {
+    // Souhlas se zahájením plnění musí být projevený u nákupu, ne
+    // schovaný v obecném odsouhlasení podmínek při registraci.
+    if (!immediateStart) {
+      setMissingConsent(true);
+      return;
+    }
+
     setFailed(false);
+    setMissingConsent(false);
     setLoading(true);
 
     try {
       const response = await fetch("/api/stripe/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ period, locale }),
+        body: JSON.stringify({ period, locale, immediateStart }),
       });
       const data = await response.json();
 
@@ -130,11 +140,37 @@ export function Paywall() {
         </p>
       )}
 
+      {/* Samostatný souhlas u pokladny. Bez zaškrtnutí se platba
+          nespustí — obecné odsouhlasení podmínek na tohle nestačí. */}
+      <label className="mt-7 flex cursor-pointer gap-3 rounded-xl border border-white/10 p-4">
+        <input
+          type="checkbox"
+          checked={immediateStart}
+          onChange={(event) => {
+            setImmediateStart(event.target.checked);
+            if (event.target.checked) setMissingConsent(false);
+          }}
+          className="mt-0.5 h-5 w-5 shrink-0 accent-[var(--color-lime-soft)]"
+        />
+        <span className="text-sm leading-relaxed text-[var(--color-paper-dim)]">
+          {t("immediateStart")}
+        </span>
+      </label>
+
+      {missingConsent && (
+        <p
+          role="alert"
+          className="mt-3 text-sm text-amber-200"
+        >
+          {t("immediateStartRequired")}
+        </p>
+      )}
+
       <button
         type="button"
         onClick={start}
         disabled={loading}
-        className="btn-primary mt-7 w-full"
+        className="btn-primary mt-5 w-full"
       >
         {loading ? t("redirecting") : t("cta")}
       </button>

@@ -257,6 +257,16 @@
       "button": "Nastavit nové heslo",
       "fallback": "Kdyby tlačítko nefungovalo, zkopíruj si tenhle odkaz do prohlížeče:",
       "footer": "Tenhle e-mail ti přišel, protože někdo požádal o obnovu hesla k účtu AlmostThere s touto adresou."
+    },
+    "purchase": {
+      "subject": "Potvrzení nákupu a souhlasu — AlmostThere",
+      "heading": "Předplatné je aktivní",
+      "body": "Děkujeme. Tvoje předplatné AlmostThere běží a všechny funkce máš k dispozici.",
+      "consent": "Tímto potvrzujeme, že jsi při objednávce výslovně souhlasil se zahájením poskytování služby před uplynutím čtrnáctidenní lhůty pro odstoupení od smlouvy, a že jsi byl poučen o důsledcích tohoto souhlasu.",
+      "withdrawal": "Od smlouvy můžeš do čtrnácti dnů odstoupit. Protože služba už běží, zaplatíš poměrnou část za dobu, po kterou jsi ji měl k dispozici; zbytek se vrací. Vzorový formulář i postup najdeš na odkazu níž.",
+      "button": "Formulář pro odstoupení",
+      "fallback": "Kdyby tlačítko nefungovalo, otevři tuhle adresu:",
+      "footer": "AlmostThere · Platbu zpracoval Stripe jako prodejce."
     }
   },
   "auth": {
@@ -392,7 +402,9 @@
       "resume": "Nechat si předplatné dál",
       "working": "Pracuji…",
       "failed": "Nepovedlo se to. Zkus to prosím znovu."
-    }
+    },
+    "immediateStart": "Souhlasím, aby služba začala fungovat hned po zaplacení, tedy před uplynutím čtrnáctidenní lhůty pro odstoupení. Beru na vědomí, že když pak od smlouvy odstoupím, zaplatím poměrnou část za dobu, po kterou jsem službu měl k dispozici.",
+    "immediateStartRequired": "Bez tohohle souhlasu platbu spustit nemůžeme — je to zákonná podmínka pro okamžité zahájení služby."
   },
   "plan": {
     "nav": {
@@ -686,5 +698,30 @@
       "claiming": "Přebírám…",
       "discard": "Nechci ho, zahodit"
     }
+  },
+  "withdrawal": {
+    "title": "Odstoupení od smlouvy",
+    "intro": "Jako spotřebitel máš právo odstoupit od smlouvy do čtrnácti dnů od jejího uzavření, bez udání důvodu. Protože jsi souhlasil se zahájením služby ihned, zaplatíš poměrnou část za dobu, po kterou jsi ji měl k dispozici; zbytek předplatného se vrací.",
+    "howTo": "Stačí nám dát vědět jakýmkoliv jednoznačným prohlášením — e-mailem na podpora@almost-there.eu. Můžeš použít formulář níž, ale nemusíš. Lhůta je zachována, když odstoupení odešleš nejpozději poslední den lhůty.",
+    "formTitle": "Vzorový formulář",
+    "formLines": [
+      "Adresát: [doplníme obchodní jméno a adresu provozovatele]",
+      "E-mail: podpora@almost-there.eu",
+      "",
+      "Oznamuji, že tímto odstupuji od smlouvy o poskytování digitální služby AlmostThere.",
+      "",
+      "Datum objednávky: ______________",
+      "E-mail účtu: ______________",
+      "Jméno spotřebitele: ______________",
+      "Adresa spotřebitele: ______________",
+      "",
+      "Podpis spotřebitele: ______________",
+      "(pouze pokud je formulář zasílán v listinné podobě)",
+      "",
+      "Datum: ______________"
+    ],
+    "note": "Peníze vracíme stejným způsobem, jakým jsi platil, nejpozději do čtrnácti dnů od doručení odstoupení. Platbu zpracovává Stripe jako prodejce, takže vrácení může proběhnout přímo od něj.",
+    "terms": "Obchodní podmínky",
+    "home": "Zpět na úvod"
   }
 }

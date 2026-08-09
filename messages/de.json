@@ -257,6 +257,16 @@
       "button": "Neues Passwort festlegen",
       "fallback": "Falls der Button nicht funktioniert, kopiere diesen Link in deinen Browser:",
       "footer": "Du hast diese E-Mail erhalten, weil jemand für das AlmostThere-Konto mit dieser Adresse eine Passwortzurücksetzung angefordert hat."
+    },
+    "purchase": {
+      "subject": "Bestätigung von Kauf und Zustimmung — AlmostThere",
+      "heading": "Dein Abo ist aktiv",
+      "body": "Danke. Dein AlmostThere-Abo läuft und alle Funktionen stehen dir zur Verfügung.",
+      "consent": "Hiermit bestätigen wir, dass du bei der Bestellung ausdrücklich zugestimmt hast, dass der Dienst vor Ablauf der vierzehntägigen Widerrufsfrist beginnt, und dass du über die Folgen dieser Zustimmung belehrt wurdest.",
+      "withdrawal": "Du kannst den Vertrag innerhalb von vierzehn Tagen widerrufen. Da der Dienst bereits läuft, zahlst du einen anteiligen Betrag für die Zeit, in der er dir zur Verfügung stand; der Rest wird erstattet. Das Musterformular und das Vorgehen findest du unter dem Link unten.",
+      "button": "Widerrufsformular",
+      "fallback": "Falls der Button nicht funktioniert, öffne diese Adresse:",
+      "footer": "AlmostThere · Zahlung abgewickelt von Stripe als Verkäufer."
     }
   },
   "auth": {
@@ -392,7 +402,9 @@
       "resume": "Abo doch behalten",
       "working": "Einen Moment…",
       "failed": "Das hat nicht geklappt. Bitte versuch es erneut."
-    }
+    },
+    "immediateStart": "Ich stimme zu, dass der Dienst sofort nach der Zahlung startet, also vor Ablauf der vierzehntägigen Widerrufsfrist. Mir ist bewusst, dass ich bei einem späteren Widerruf einen anteiligen Betrag für die Zeit zahle, in der mir der Dienst zur Verfügung stand.",
+    "immediateStartRequired": "Ohne diese Zustimmung können wir die Zahlung nicht starten — sie ist gesetzliche Voraussetzung für den sofortigen Beginn."
   },
   "plan": {
     "nav": {
@@ -686,5 +698,30 @@
       "claiming": "Wird übernommen…",
       "discard": "Nein danke, verwerfen"
     }
+  },
+  "withdrawal": {
+    "title": "Widerruf des Vertrags",
+    "intro": "Als Verbraucher hast du das Recht, den Vertrag innerhalb von vierzehn Tagen nach Abschluss ohne Angabe von Gründen zu widerrufen. Da du dem sofortigen Beginn zugestimmt hast, zahlst du einen anteiligen Betrag für die Zeit, in der dir der Dienst zur Verfügung stand; der Rest des Abos wird erstattet.",
+    "howTo": "Eine eindeutige Erklärung genügt — eine E-Mail an podpora@almost-there.eu. Du kannst das Formular unten verwenden, musst es aber nicht. Die Frist ist gewahrt, wenn du den Widerruf spätestens am letzten Tag der Frist absendest.",
+    "formTitle": "Musterformular",
+    "formLines": [
+      "An: [Firmenname und Anschrift des Betreibers werden ergänzt]",
+      "E-Mail: podpora@almost-there.eu",
+      "",
+      "Hiermit widerrufe ich den Vertrag über die Bereitstellung des digitalen Dienstes AlmostThere.",
+      "",
+      "Bestelldatum: ______________",
+      "E-Mail des Kontos: ______________",
+      "Name des Verbrauchers: ______________",
+      "Anschrift des Verbrauchers: ______________",
+      "",
+      "Unterschrift des Verbrauchers: ______________",
+      "(nur bei Mitteilung auf Papier)",
+      "",
+      "Datum: ______________"
+    ],
+    "note": "Wir erstatten auf demselben Weg, auf dem du gezahlt hast, spätestens vierzehn Tage nach Eingang des Widerrufs. Die Zahlung wickelt Stripe als Verkäufer ab, die Erstattung kann also direkt von dort kommen.",
+    "terms": "Geschäftsbedingungen",
+    "home": "Zurück zur Startseite"
   }
 }

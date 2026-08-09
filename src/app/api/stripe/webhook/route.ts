@@ -3,6 +3,11 @@ import type Stripe from "stripe";
 import { db } from "@/lib/db";
 import { getStripe } from "@/lib/stripe/client";
 import type { SubscriptionStatus } from "@/generated/prisma";
+import { hasLocale } from "next-intl";
+import { routing } from "@/i18n/routing";
+import { env } from "@/lib/env";
+import { sendEmail } from "@/lib/email/send";
+import { buildPurchaseConfirmationEmail } from "@/lib/email/templates";
 
 export const runtime = "nodejs";
 
@@ -89,6 +94,42 @@ async function applySubscription(subscription: Stripe.Subscription) {
   });
 }
 
+/**
+ * Potvrzení o souhlasu se zahájením plnění.
+ *
+ * Posílá se z webhooku, ne z pokladny: teprve tady je jisté, že platba
+ * proběhla. Selhání odeslání nesmí shodit zpracování — předplatné už
+ * platí a opakované doručení webhooku by pak zákazníka zahltilo.
+ */
+async function sendPurchaseConfirmation(
+  subscription: Stripe.Subscription,
+): Promise<void> {
+  try {
+    const userId = await findUserId(subscription);
+    if (!userId) return;
+
+    const user = await db.user.findUnique({
+      where: { id: userId },
+      select: { email: true, locale: true },
+    });
+    if (!user) return;
+
+    const locale = hasLocale(routing.locales, user.locale)
+      ? user.locale
+      : routing.defaultLocale;
+
+    const base = env.appUrl.replace(/\/+$/, "");
+    const mail = await buildPurchaseConfirmationEmail(
+      locale,
+      `${base}/${locale}/withdrawal`,
+    );
+
+    await sendEmail({ to: user.email, ...mail });
+  } catch (error) {
+    console.error("[stripe] potvrzení o nákupu se nepodařilo odeslat", error);
+  }
+}
+
 export async function POST(request: Request) {
   const signature = request.headers.get("stripe-signature");
   const secret = process.env.STRIPE_WEBHOOK_SECRET;
@@ -136,6 +177,7 @@ export async function POST(request: Request) {
         }
 
         await applySubscription(subscription);
+        await sendPurchaseConfirmation(subscription);
         break;
       }
 

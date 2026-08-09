@@ -188,6 +188,10 @@ model Consent {
 enum ConsentType {
   TERMS
   PRIVACY
+  /// Výslovný souhlas se zahájením poskytování služby před uplynutím
+  /// lhůty pro odstoupení. Podle § 1837 OZ nestačí obecný souhlas
+  /// s podmínkami — musí být samostatný, u nákupu, a potvrzený.
+  IMMEDIATE_PERFORMANCE
   ANALYTICS_COOKIES
   MARKETING_COOKIES
 }

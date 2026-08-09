@@ -164,3 +164,35 @@ export async function buildPasswordResetEmail(
     text: plainText({ heading, paragraphs, buttonUrl: resetUrl, footer }),
   };
 }
+
+/**
+ * Potvrzení o souhlasu se zahájením plnění před uplynutím lhůty
+ * pro odstoupení.
+ *
+ * Nejde o zdvořilost, ale o zákonnou náležitost: § 1837 OZ vyžaduje,
+ * aby podnikatel o takovém souhlasu vydal potvrzení. Věta v podmínkách
+ * na to nestačí.
+ */
+export async function buildPurchaseConfirmationEmail(
+  locale: Locale,
+  withdrawalUrl: string,
+): Promise<BuiltEmail> {
+  const t = await getTranslations({ locale, namespace: "emails.purchase" });
+
+  const heading = t("heading");
+  const paragraphs = [t("body"), t("consent"), t("withdrawal")];
+  const footer = t("footer");
+
+  return {
+    subject: t("subject"),
+    html: layout({
+      heading,
+      paragraphs,
+      buttonLabel: t("button"),
+      buttonUrl: withdrawalUrl,
+      fallbackNote: t("fallback"),
+      footer,
+    }),
+    text: plainText({ heading, paragraphs, buttonUrl: withdrawalUrl, footer }),
+  };
+}
