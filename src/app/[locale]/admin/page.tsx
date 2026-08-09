@@ -142,11 +142,12 @@ export default async function AdminPage({
                     isComplimentary={
                       user.subscriptionSource === "COMPLIMENTARY"
                     }
-                    hasPaidSubscription={
-                      user.subscriptionSource === "STRIPE" ||
-                      user.subscriptionSource === "APPLE" ||
-                      user.subscriptionSource === "GOOGLE_PLAY"
-                    }
+                    // Rozhoduje živé předplatné, ne to, že účet někdy
+                    // platil. Zrušenému zákazníkovi jde přístup přidělit —
+                    // jinak by po zrušení zůstal zamčený navždy.
+                    hasPaidSubscription={PAID_SOURCES.includes(
+                      user.subscriptionSource ?? "",
+                    ) && LIVE_STATUSES.includes(user.subscriptionStatus)}
                   />
                 </td>
               </tr>
@@ -191,6 +192,10 @@ export default async function AdminPage({
     </section>
   );
 }
+
+const PAID_SOURCES = ["STRIPE", "APPLE", "GOOGLE_PLAY"];
+/** Stavy, ve kterých předplatné běží a nemá se do něj sahat ručně. */
+const LIVE_STATUSES = ["ACTIVE", "TRIAL", "PAST_DUE"];
 
 const STATUS: Record<string, string> = {
   NONE: "Žádné",

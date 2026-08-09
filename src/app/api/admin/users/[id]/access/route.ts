@@ -42,16 +42,28 @@ export async function POST(
 
   const user = await db.user.findUnique({
     where: { id },
-    select: { id: true, subscriptionSource: true, stripeSubscriptionId: true },
+    select: {
+      id: true,
+      subscriptionSource: true,
+      subscriptionStatus: true,
+      stripeSubscriptionId: true,
+    },
   });
   if (!user) {
     return NextResponse.json({ ok: false, error: "notFound" }, { status: 404 });
   }
 
-  // Placené předplatné se odsud nesahá. Přepsat ho ručně by znamenalo, že
-  // aplikace tvrdí něco jiného než Stripe, a při nejbližším webhooku by se
-  // to stejně vrátilo zpátky — jen by mezitím nikdo nevěděl, co platí.
-  if (user.stripeSubscriptionId) {
+  // Nesahá se do předplatného, které právě běží. Přepsat ho ručně by
+  // znamenalo, že aplikace tvrdí něco jiného než Stripe, a nejbližší
+  // webhook by to stejně vrátil zpátky.
+  //
+  // Skončené předplatné ale překáží nemá: zrušenému zákazníkovi musí jít
+  // přidělit přístup, jinak by po zrušení zůstal zamčený navždy.
+  const hasLivePaidSubscription =
+    user.stripeSubscriptionId !== null &&
+    ["ACTIVE", "TRIAL", "PAST_DUE"].includes(user.subscriptionStatus);
+
+  if (hasLivePaidSubscription) {
     return NextResponse.json(
       { ok: false, error: "hasPaidSubscription" },
       { status: 409 },
