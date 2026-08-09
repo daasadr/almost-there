@@ -8,6 +8,7 @@ import {
   listUsers,
   USERS_PER_PAGE,
 } from "@/lib/admin/users";
+import { recentAdminActions } from "@/lib/admin/audit";
 import { env } from "@/lib/env";
 
 export const metadata: Metadata = {
@@ -39,7 +40,12 @@ export default async function AdminPage({
   const data = await listUsers({ query: q, page: Number.parseInt(page, 10) || 1 });
 
   const budget = complimentaryBudget(data.totals.paying);
+  const audit = await recentAdminActions();
   const formatDate = new Intl.DateTimeFormat("cs", { dateStyle: "medium" });
+  const formatDateTime = new Intl.DateTimeFormat("cs", {
+    dateStyle: "short",
+    timeStyle: "short",
+  });
 
   return (
     <section className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
@@ -167,6 +173,40 @@ export default async function AdminPage({
         </table>
       </div>
 
+      {/* Co jsi s cizími účty udělala. V logu kontejneru to bylo taky,
+          jenže ten se přetáčí — a záznam, který zmizí, není záznam. */}
+      {audit.length > 0 && (
+        <section className="mt-14">
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--color-paper-faint)]">
+            Poslední zásahy
+          </h2>
+          <ul className="mt-3 space-y-1.5 text-sm">
+            {audit.map((event) => (
+              <li
+                key={event.id}
+                className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5 text-[var(--color-paper-dim)]"
+              >
+                <span className="tabular-nums text-xs text-[var(--color-paper-faint)]">
+                  {formatDateTime.format(event.createdAt)}
+                </span>
+                <span className="text-[var(--color-paper)]">
+                  {ACTIONS[event.action] ?? event.action}
+                </span>
+                <span>{event.targetEmail ?? "smazaný účet"}</span>
+                {event.detail && (
+                  <span className="text-xs text-[var(--color-paper-faint)]">
+                    {event.detail}
+                  </span>
+                )}
+                <span className="text-xs text-[var(--color-paper-faint)]">
+                  · {event.adminEmail}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
       {data.pageCount > 1 && (
         <nav className="mt-6 flex items-center justify-between text-sm">
           <PageLink
@@ -192,6 +232,11 @@ export default async function AdminPage({
     </section>
   );
 }
+
+const ACTIONS: Record<string, string> = {
+  GRANT_ACCESS: "přidělen přístup",
+  REVOKE_ACCESS: "odebrán přístup",
+};
 
 const PAID_SOURCES = ["STRIPE", "APPLE", "GOOGLE_PLAY"];
 /** Stavy, ve kterých předplatné běží a nemá se do něj sahat ručně. */

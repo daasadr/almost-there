@@ -495,3 +495,32 @@ model DemoGoal {
 
   @@index([expiresAt])
 }
+
+// ---------------------------------------------------------------------------
+// Záznam zásahů provozovatele
+// ---------------------------------------------------------------------------
+
+/// Co provozovatel udělal se zákaznickým účtem.
+///
+/// Do logu kontejneru se to psalo taky, jenže ten se po čase přetáčí —
+/// a záznam, který zmizí, není záznam. Tohle je jediný způsob, jak po
+/// měsících doložit, komu a proč byl přidělen bezplatný přístup.
+///
+/// Pole se schválně jmenuje , ne : pole s názvem 
+/// se v databázi automaticky šifrují a tenhle záznam šifrovaný být nemá,
+/// aby se dal číst i při řešení sporu.
+model AdminAuditEvent {
+  id           String   @id @default(cuid())
+  /// Kdo zásah provedl. E-mail, ne odkaz na účet — správce se pozná
+  /// podle seznamu v prostředí a účet mít vůbec nemusí.
+  adminEmail   String
+  /// GRANT_ACCESS | REVOKE_ACCESS
+  action       String
+  targetUserId String
+  detail       String?
+
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([targetUserId])
+}

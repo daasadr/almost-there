@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { db } from "@/lib/db";
 import { requireAdmin } from "@/lib/admin/guard";
+import { recordAdminAction } from "@/lib/admin/audit";
 
 export const runtime = "nodejs";
 
@@ -91,9 +92,12 @@ export async function POST(
       },
     });
 
-    console.log(
-      `[admin] ${guard.admin.email} přidělil bezplatný přístup uživateli ${user.id} (${note})`,
-    );
+    await recordAdminAction({
+      adminEmail: guard.admin.email,
+      action: "GRANT_ACCESS",
+      targetUserId: user.id,
+      detail: parsed.data.until ? `${note} · do ${parsed.data.until}` : note,
+    });
 
     return NextResponse.json({ ok: true });
   }
@@ -116,9 +120,11 @@ export async function POST(
     },
   });
 
-  console.log(
-    `[admin] ${guard.admin.email} odebral bezplatný přístup uživateli ${user.id}`,
-  );
+  await recordAdminAction({
+    adminEmail: guard.admin.email,
+    action: "REVOKE_ACCESS",
+    targetUserId: user.id,
+  });
 
   return NextResponse.json({ ok: true });
 }
