@@ -660,6 +660,10 @@
       "failed": "Das hat nicht geklappt. Bitte versuch es erneut.",
       "reachedTitle": "Du hast einen Meilenstein erreicht",
       "reachedBody": "Laut Plan sollte diese Etappe hinter dir liegen. Stimmt das?"
+    },
+    "progress": {
+      "title": "Die letzten dreißig Tage",
+      "summary": "{done} von {total} Tagen komplett"
     }
   }
 }

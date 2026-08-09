@@ -11,6 +11,7 @@ import { GoalList } from "@/components/plan/GoalList";
 import { PlanTrigger } from "@/components/plan/PlanTrigger";
 import { TodayChecklist } from "@/components/plan/TodayChecklist";
 import { PaceCheck } from "@/components/plan/PaceCheck";
+import { ProgressStrip } from "@/components/plan/ProgressStrip";
 import { ReachedMilestones } from "@/components/plan/ReachedMilestones";
 import { UnfinishedTasks } from "@/components/plan/UnfinishedTasks";
 import { UsageMeter } from "@/components/plan/UsageMeter";
@@ -18,6 +19,7 @@ import { isAdminEmail } from "@/lib/admin/guard";
 import { getAccess } from "@/lib/billing/access";
 import { getOverdue, getToday, listGoals } from "@/lib/goals/queries";
 import { getBehindGoals } from "@/lib/goals/pace";
+import { getRecentProgress } from "@/lib/goals/checkin";
 import { getReachedMilestones } from "@/lib/goals/milestones";
 import { toIsoDate } from "@/lib/plan/calendar";
 import { db } from "@/lib/db";
@@ -213,11 +215,12 @@ async function Today({ userId, locale }: { userId: string; locale: string }) {
     select: { timezone: true },
   });
   const timezone = profile?.timezone ?? "Europe/Prague";
-  const [today, overdue, behind, reached] = await Promise.all([
+  const [today, overdue, behind, reached, progress] = await Promise.all([
     getToday(userId, timezone),
     getOverdue(userId, timezone),
     getBehindGoals(userId, timezone),
     getReachedMilestones(userId),
+    getRecentProgress(userId, timezone),
   ]);
 
   const heading = new Intl.DateTimeFormat(locale, {
@@ -233,6 +236,12 @@ async function Today({ userId, locale }: { userId: string; locale: string }) {
         <span className="text-sm text-[var(--color-paper-faint)]">
           {heading}
         </span>
+      </div>
+
+      {/* Proužek posledních třiceti dní. Jediné místo, kde je vidět
+          delší běh než jeden den. */}
+      <div className="mt-5">
+        <ProgressStrip days={progress} locale={locale} />
       </div>
 
       <div className="mt-5 space-y-4">

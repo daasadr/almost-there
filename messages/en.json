@@ -660,6 +660,10 @@
       "failed": "That did not work. Please try again.",
       "reachedTitle": "You have reached a milestone",
       "reachedBody": "By the plan, this stage should be behind you. Is it?"
+    },
+    "progress": {
+      "title": "Last thirty days",
+      "summary": "{done} of {total} days complete"
     }
   }
 }

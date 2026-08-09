@@ -660,6 +660,10 @@
       "failed": "Nepovedlo se to. Zkus to prosím znovu.",
       "reachedTitle": "Došel jsi k milníku",
       "reachedBody": "Podle plánu má být tahle etapa za tebou. Je?"
+    },
+    "progress": {
+      "title": "Posledních třicet dní",
+      "summary": "{done} z {total} dní celých"
     }
   }
 }

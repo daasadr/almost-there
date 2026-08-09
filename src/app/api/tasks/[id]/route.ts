@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { db } from "@/lib/db";
 import { requireSubscriber } from "@/lib/api/guard";
+import { recordCheckIn } from "@/lib/goals/checkin";
 
 export const runtime = "nodejs";
 
@@ -31,19 +32,28 @@ export async function PATCH(
     return NextResponse.json({ ok: false, error: "generic" }, { status: 400 });
   }
 
-  // updateMany s userId v podmínce: cizí úkol tak neaktualizujeme ani
-  // v případě, že by někdo poslal cizí id.
-  const result = await db.task.updateMany({
+  // Den, do kterého úkol patří — potřebný pro denní souhrn. Načítá se
+  // spolu s ověřením vlastnictví, ať to není dotaz navíc.
+  const task = await db.task.findFirst({
     where: { id, goal: { userId: guard.user.id } },
+    select: { id: true, timeBlock: { select: { startDate: true } } },
+  });
+
+  if (!task) {
+    return NextResponse.json({ ok: false, error: "notFound" }, { status: 404 });
+  }
+
+  await db.task.update({
+    where: { id: task.id },
     data: {
       status: parsed.data.status,
       completedAt: parsed.data.status === "DONE" ? new Date() : null,
     },
   });
 
-  if (result.count === 0) {
-    return NextResponse.json({ ok: false, error: "notFound" }, { status: 404 });
-  }
+  // Souhrn se přepočítá pro den úkolu, ne pro dnešek — dodělaný úkol
+  // z minulého týdne patří do svého dne, jinak by přehled postupu lhal.
+  await recordCheckIn(guard.user.id, task.timeBlock.startDate);
 
   return NextResponse.json({ ok: true });
 }

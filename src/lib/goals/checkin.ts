@@ -1,0 +1,81 @@
+import "server-only";
+import { db } from "@/lib/db";
+import { parseIsoDate, toIsoDate, todayIso } from "@/lib/plan/calendar";
+
+/**
+ * Denní souhrn plnění (zadání, bod 5).
+ *
+ * Zapisuje se při každém odškrtnutí, ne nočním úklidem. Plánovač bez
+ * naplánované úlohy je jednodušší na provoz a hlavně: souhrn je hotový
+ * hned, ne až ráno — takže se dá ukázat uživateli ve chvíli, kdy ho
+ * zajímá.
+ *
+ * Souhrn je za celý den napříč cíli. Kdo si vede dobře v jednom cíli
+ * a druhý zanedbává, má vidět skutečnost, ne dva oddělené příběhy.
+ */
+
+/** Přepočítá a uloží souhrn za jeden den. */
+export async function recordCheckIn(
+  userId: string,
+  date: Date,
+): Promise<void> {
+  const where = {
+    goal: { userId, status: "ACTIVE" as const },
+    timeBlock: { level: "DAY" as const, startDate: date },
+  };
+
+  const [tasksTotal, tasksCompleted] = await Promise.all([
+    db.task.count({ where }),
+    db.task.count({ where: { ...where, status: "DONE" } }),
+  ]);
+
+  // Den bez úkolů se nezaznamenává — prázdný řádek by v přehledu vypadal
+  // jako neúspěch, přitom to může být plánované volno nebo den, na který
+  // se ještě nedošlo.
+  if (tasksTotal === 0) return;
+
+  await db.checkIn.upsert({
+    where: { userId_date: { userId, date } },
+    create: { userId, date, tasksTotal, tasksCompleted },
+    update: { tasksTotal, tasksCompleted },
+  });
+}
+
+export type DayProgress = {
+  date: string;
+  total: number;
+  done: number;
+};
+
+/**
+ * Posledních N dní pro proužek postupu.
+ *
+ * Vrací se i dny bez záznamu, aby proužek nepřeskakoval — den, kdy se
+ * nic nedělo, je taky informace.
+ */
+export async function getRecentProgress(
+  userId: string,
+  timezone = "Europe/Prague",
+  days = 30,
+): Promise<DayProgress[]> {
+  const today = parseIsoDate(todayIso(timezone));
+  const from = new Date(today.getTime() - (days - 1) * 86_400_000);
+
+  const checkIns = await db.checkIn.findMany({
+    where: { userId, date: { gte: from, lte: today } },
+    select: { date: true, tasksTotal: true, tasksCompleted: true },
+  });
+
+  const byDate = new Map(
+    checkIns.map((entry) => [
+      toIsoDate(entry.date),
+      { total: entry.tasksTotal, done: entry.tasksCompleted },
+    ]),
+  );
+
+  return Array.from({ length: days }, (_, index) => {
+    const date = toIsoDate(new Date(from.getTime() + index * 86_400_000));
+    const entry = byDate.get(date);
+    return { date, total: entry?.total ?? 0, done: entry?.done ?? 0 };
+  });
+}
