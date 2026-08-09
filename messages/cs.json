@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "AlmostThere — z velkého cíle dnešní checklist",
-    "description": "AI rozloží tvůj cíl na měsíční milníky, týdenní cíle a konkrétní denní úkoly. Odpočinek a reflexe jsou součástí plánu, tempo se přizpůsobí tomu, jak ti to reálně jde."
+    "description": "AI rozfázuje tvůj cíl na měsíční milníky, týdenní cíle a konkrétní denní úkoly. Odpočinek a reflexe jsou součástí plánu, tempo se přizpůsobí tomu, jak ti to reálně jde."
   },
   "nav": {
     "howItWorks": "Jak to funguje",
@@ -19,15 +19,15 @@
     "eyebrow": "Cíl → měsíce → týdny → dnešek",
     "title": "Už tam skoro jsi.",
     "titleAccent": "Každý jednotlivý den.",
-    "subtitle": "Řekni nám svůj cíl a termín. AI ho rozloží na měsíční milníky, týdenní cíle a denní checklist, který se dá reálně odškrtat — s odpočinkem a reflexí zabudovanými přímo v plánu.",
+    "subtitle": "Řekni nám svůj cíl a termín. AI ho rozfázuje na měsíční milníky, týdenní cíle a denní checklist, který se dá reálně odškrtat — s odpočinkem a reflexí zabudovanými přímo v plánu.",
     "ctaDemo": "Vyzkoušet demo",
     "ctaBuy": "Koupit rovnou",
-    "ctaNote": "Demo je bez registrace. Za necelou minutu uvidíš, jak se tvůj cíl rozpadne.",
+    "ctaNote": "Demo je bez registrace. Za necelou minutu uvidíš, jak se tvůj cíl rozfázuje.",
     "trustLine": "Pro freelancery, podnikatele, networkery, studenty i pro každého, kdo chce svůj život naplnit úspěchy."
   },
   "how": {
     "title": "Jeden cíl. Tři úrovně. To Do list na dnešek.",
-    "subtitle": "Na kvalitě tohohle rozpadu stojí a padá celý produkt, takže jsme do něj dali nejvíc práce.",
+    "subtitle": "Na kvalitě tohohle rozfázování stojí a padá celý produkt, takže jsme do něj dali nejvíc práce.",
     "steps": [
       {
         "step": "01",
@@ -73,7 +73,7 @@
     ]
   },
   "example": {
-    "title": "Jak takový rozpad vypadá",
+    "title": "Jak takové rozfázování vypadá",
     "subtitle": "Cíl: němčina na úrovni A2. Termín: šest měsíců. Jeden den v týdnu volno, deset minut reflexe denně.",
     "monthLabel": "Měsíc {n}",
     "months": [
@@ -84,7 +84,7 @@
       "Rozšíření slovní zásoby na úroveň A2, čtení jednoduchých textů",
       "Procvičení a příprava na zkoušku či reálnou konverzaci, zopakování celého A2"
     ],
-    "weekTitle": "Měsíc 1 rozložený na týdny",
+    "weekTitle": "Měsíc 1 rozfázovaný na týdny",
     "weeks": [
       "Abeceda, výslovnost, pozdravy a základní fráze",
       "Čísla 1–100, dny v týdnu, měsíce",
@@ -118,13 +118,13 @@
     "includes": [
       "Až 5 cílů najednou, plánovaných společně bez kolizí",
       "10 nových plánů měsíčně",
-      "Měsíční, týdenní i denní rozpad pro každý cíl",
+      "Měsíční, týdenní i denní fáze pro každý cíl",
       "Denní checklist se zabudovaným odpočinkem a reflexí",
       "Adaptivní přeplánování, když se změní tvoje tempo",
       "Milníky s vlastní nebo AI navrženou odměnou"
     ],
     "limitsTitle": "Co znamená deset plánů měsíčně",
-    "limitsBody": "Nový plán se počítá při založení cíle. Všechno další — rozpad na týdny a dny, denní úkoly, přeplánování, když se změní tempo — se u běžícího cíle nepočítá a je bez omezení. Deset nových plánů je prostor na to zkoušet různá zadání i termíny; kdo si cíl založí a pracuje na něm, nevyčerpá za měsíc ani polovinu. Kolik ti zbývá, vidíš v aplikaci."
+    "limitsBody": "Nový plán se počítá při založení cíle. Všechno další — rozfázování na týdny a dny, denní úkoly, přeplánování, když se změní tempo — se u běžícího cíle nepočítá a je bez omezení. Deset nových plánů je prostor na to zkoušet různá zadání i termíny; kdo si cíl založí a pracuje na něm, nevyčerpá za měsíc ani polovinu. Kolik ti zbývá, vidíš v aplikaci."
   },
   "finalCta": {
     "title": "Tvůj cíl už termín má.",
@@ -144,7 +144,7 @@
   },
   "demo": {
     "badge": "Demo",
-    "title": "Podívej se, jak se tvůj cíl rozpadne",
+    "title": "Podívej se, jak se tvůj cíl rozfázuje",
     "subtitle": "Zadej jeden cíl a termín. AI vrátí kostru tvého plánu — bez registrace, bez karty.",
     "form": {
       "goalLabel": "Jaký je tvůj cíl?",
@@ -152,7 +152,7 @@
       "goalHint": "Stačí jedna věta. Čím konkrétnější, tím lepší plán.",
       "dateLabel": "Do kdy?",
       "dateHint": "Vyber datum mezi dvěma týdny a deseti lety od dneška.",
-      "submit": "Rozložit cíl",
+      "submit": "Rozfázovat cíl",
       "submitting": "Generuji…",
       "again": "Zkusit jiný cíl",
       "progress": {
@@ -163,7 +163,7 @@
           "Kontroluju, jestli termín vychází…"
         ],
         "elapsed": "{seconds} s",
-        "note": "Poctivý rozpad chvíli trvá — počítej zhruba s půl minutou. Stránku zatím nezavírej."
+        "note": "Poctivé rozfázování chvíli trvá — počítej zhruba s půl minutou. Stránku zatím nezavírej."
       }
     },
     "errors": {
@@ -178,11 +178,11 @@
       "generic": "Něco se pokazilo. Zkus to prosím znovu."
     },
     "result": {
-      "title": "Tvůj měsíční rozpad",
+      "title": "Tvé měsíční fáze",
       "goalLabel": "Cíl",
       "deadlineLabel": "Termín",
       "noticeTitle": "Toto je zjednodušená ukázka",
-      "noticeBody": "Vidíš jen hrubé rozvržení v čase. Plná verze rozloží každý měsíc na týdny a každý týden na konkrétní denní úkoly, které rovnou uvidíš v checklistu — pak sleduje tvůj postup, přizpůsobuje tempo a umí vést několik cílů vedle sebe, aniž by se srazily.",
+      "noticeBody": "Vidíš jen hrubé rozvržení v čase. Plná verze rozfázuje každý měsíc na týdny a každý týden na konkrétní denní úkoly, které rovnou uvidíš v checklistu — pak sleduje tvůj postup, přizpůsobuje tempo a umí vést několik cílů vedle sebe, aniž by se srazily.",
       "ctaTitle": "Chceš tohle mít pro všechny svoje cíle?",
       "ctaBody": "Uložené, s denním trackingem a tempem, které se přizpůsobí tomu, jak ti to jde. 179 Kč měsíčně.",
       "cta": "Koupit rovnou",
@@ -275,7 +275,7 @@
     },
     "register": {
       "title": "Založ si účet",
-      "subtitle": "Za minutu můžeš mít první cíl rozložený až na dnešek.",
+      "subtitle": "Za minutu můžeš mít první cíl rozfázovaný až na dnešek.",
       "nameLabel": "Jak ti máme říkat?",
       "emailLabel": "E-mail",
       "passwordLabel": "Heslo",
@@ -355,7 +355,7 @@
   },
   "billing": {
     "title": "Odemkni plnou verzi",
-    "subtitle": "Demo ti ukázalo, jak se cíl rozpadne. Plná verze ho dotáhne až na dnešní checklist a hlídá tempo za tebe.",
+    "subtitle": "Demo ti ukázalo, jak se cíl rozfázuje. Plná verze ho dotáhne až na dnešní checklist a hlídá tempo za tebe.",
     "period": {
       "monthly": "Měsíčně",
       "yearly": "Ročně"
@@ -368,7 +368,7 @@
     "includes": [
       "Až 5 cílů najednou, plánovaných společně bez kolizí",
       "10 nových plánů měsíčně",
-      "Rozpad až na konkrétní denní úkoly",
+      "Fáze až po konkrétní denní úkoly",
       "Odpočinek a reflexe jako součást plánu",
       "Tempo se přizpůsobí tomu, jak ti to reálně jde",
       "Milníky s vlastní nebo AI navrženou odměnou"
@@ -413,11 +413,11 @@
         "REFLECTION": "Ohlédnutí"
       },
       "preparingTitle": "Připravuji tvůj den",
-      "preparingBody": "Rozepisuji nejbližší období na konkrétní dny. Chvíli to trvá, ale dělá se to jen jednou za období.",
-      "preparingCta": "Rozepsat dnešek",
-      "preparingFailed": "Rozpis se nepodařilo dokončit. Zkus to prosím za chvíli znovu.",
-      "readyTitle": "Rozepsat na konkrétní dny",
-      "readyBody": "Horní rozpad máš hotový. Vypsání nejbližšího období na dny s úkoly spustíš tlačítkem — schválně se to neděje samo, ať se negeneruje plán, který si třeba nenecháš.",
+      "preparingBody": "Rozfázovávám nejbližší období na konkrétní dny. Chvíli to trvá, ale dělá se to jen jednou za období.",
+      "preparingCta": "Rozfázovat dnešek",
+      "preparingFailed": "Rozfázování se nepodařilo dokončit. Zkus to prosím za chvíli znovu.",
+      "readyTitle": "Rozfázovat na konkrétní dny",
+      "readyBody": "Horní fáze máš hotové. Rozfázování nejbližšího období na dny s úkoly spustíš tlačítkem — schválně se to neděje samo, ať se negeneruje plán, který si třeba nenecháš.",
       "celebrations": [
         "Hotovo. Dneska už tě nic nečeká.",
         "Máš to za sebou — a je to o den blíž.",
@@ -444,7 +444,7 @@
     "goals": {
       "title": "Cíle",
       "empty": "Zatím žádný cíl",
-      "emptyBody": "Založ první cíl a AI ho rozpadne až na to, co máš dělat dnes.",
+      "emptyBody": "Založ první cíl a AI ho rozfázuje až na to, co máš dělat dnes.",
       "create": "Nový cíl",
       "targetDate": "Termín {date}",
       "progress": "{done} z {total} úkolů",
@@ -459,14 +459,14 @@
     },
     "form": {
       "title": "Nový cíl",
-      "subtitle": "Napiš, čeho chceš dosáhnout a do kdy. Zbytek rozpadu si vezmi jako návrh, který se dá měnit.",
+      "subtitle": "Napiš, čeho chceš dosáhnout a do kdy. Výsledné fáze si vezmi jako návrh, který se dá měnit.",
       "goalLabel": "Čeho chceš dosáhnout",
       "goalPlaceholder": "Např. přečíst dvanáct knih v angličtině",
       "goalHint": "Čím konkrétněji to napíšeš, tím lepší plán dostaneš.",
       "dateLabel": "Do kdy",
       "descriptionLabel": "Kontext navíc (nepovinné)",
       "descriptionPlaceholder": "Co už umíš, co tě omezuje, na čem ti nejvíc záleží…",
-      "submit": "Rozpadnout cíl",
+      "submit": "Rozfázovat cíl",
       "cancel": "Zpět",
       "progress": {
         "stages": [
@@ -476,7 +476,7 @@
           "Kontroluji, jestli termín vychází…"
         ],
         "elapsed": "{seconds} s",
-        "note": "Rozpad běží na pozadí. Nezavírej stránku."
+        "note": "Rozfázování běží na pozadí. Nezavírej stránku."
       },
       "importanceLabel": "Jak je pro tebe tenhle cíl důležitý",
       "importanceHint": "Podle toho se rozdělí tvůj denní čas, když poběží víc cílů najednou.",
@@ -511,9 +511,9 @@
         "ambitious": "Ambiciózní",
         "unrealistic": "Nereálné"
       },
-      "planTitle": "Plán",
-      "expandHint": "Podrobnosti se dopisují postupně — vždy jen na nejbližší období. Starší i vzdálenější části zůstávají v hrubém rozpadu, dokud na ně nedojde.",
-      "noDetail": "Zatím bez podrobného rozpisu",
+      "planTitle": "Fáze",
+      "expandHint": "Podrobnosti se dopisují postupně — vždy jen na nejbližší období. Starší i vzdálenější části zůstávají v hrubých fázích, dokud na ně nedojde.",
+      "noDetail": "Zatím bez podrobných fází",
       "tasksTitle": "Úkoly",
       "level": {
         "YEAR": "Rok",
@@ -522,7 +522,7 @@
         "DAY": "Den"
       },
       "delete": "Smazat cíl",
-      "deleteConfirm": "Smaže se cíl i s celým rozpadem na období, týdny a dny. Vrátit to nejde.",
+      "deleteConfirm": "Smaže se cíl i se všemi fázemi — obdobími, týdny i dny. Vrátit to nejde.",
       "deleteYes": "Ano, smazat",
       "deleteNo": "Ponechat",
       "deleting": "Mažu…"
@@ -534,7 +534,7 @@
       "dateRequired": "Vyber termín.",
       "dateTooSoon": "Vyber termín aspoň dva týdny dopředu.",
       "dateTooFar": "Vyber termín do deseti let.",
-      "aiFailed": "Rozpad se nepovedl. Zkus to prosím znovu.",
+      "aiFailed": "Rozfázování se nepovedlo. Zkus to prosím znovu.",
       "budgetExhausted": "Vyčerpal jsi měsíční limit generování. Obnoví se prvního dne dalšího měsíce — hotové plány zůstávají dostupné.",
       "tooManyGoals": "Najednou můžeš mít nejvýš pět běžících cílů. Nějaký nejdřív dokonči nebo pozastav.",
       "notSubscribed": "Na tohle je potřeba předplatné.",
@@ -547,9 +547,9 @@
       "meterValue": "{percent} % využito",
       "meterNote": "Týká se jen zakládání nových cílů. Obnoví se prvního dne dalšího měsíce.",
       "warningTitle": "Blížíš se k měsíčnímu limitu nových plánů",
-      "warningBody": "Využito {percent} %. Běžící cíle to neomezuje — rozpisy, denní úkoly i přeplánování fungují dál. Limit se obnoví prvního dne dalšího měsíce.",
+      "warningBody": "Využito {percent} %. Běžící cíle to neomezuje — fáze, denní úkoly i přeplánování fungují dál. Limit se obnoví prvního dne dalšího měsíce.",
       "exhaustedTitle": "Měsíční limit nových plánů je vyčerpaný",
-      "exhaustedBody": "Nový cíl teď nezaložíš. Všechny běžící cíle fungují dál včetně rozpisů a denních úkolů. Limit se obnoví prvního dne dalšího měsíce."
+      "exhaustedBody": "Nový cíl teď nezaložíš. Všechny běžící cíle fungují dál včetně fází a denních úkolů. Limit se obnoví prvního dne dalšího měsíce."
     },
     "images": {
       "title": "Obrázky, které tě k cíli táhnou",
@@ -605,7 +605,7 @@
       "saving": "Ukládám…",
       "saved": "Uloženo",
       "failed": "Uložení se nepovedlo. Zkus to prosím znovu.",
-      "appliesNote": "Změna se projeví od příštího rozpisu — každý další týden běžících cílů se rozvrhne už podle nových hodnot. Hotové dny zůstanou, jak jsou."
+      "appliesNote": "Změna se projeví od příštího rozfázování — každý další týden běžících cílů se rozvrhne už podle nových hodnot. Hotové dny zůstanou, jak jsou."
     },
     "status": {
       "readyTitle": "Máš to?",

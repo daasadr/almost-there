@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "AlmostThere — aus jedem Ziel wird die Checkliste für heute",
-    "description": "Die KI zerlegt dein Ziel in Monatsmeilensteine, Wochenziele und konkrete Tagesaufgaben. Pausen und Reflexion gehören zum Plan, das Tempo passt sich an, wie es tatsächlich läuft."
+    "description": "Die KI in Phasen gliedert dein Ziel in Monatsmeilensteine, Wochenziele und konkrete Tagesaufgaben. Pausen und Reflexion gehören zum Plan, das Tempo passt sich an, wie es tatsächlich läuft."
   },
   "nav": {
     "howItWorks": "So funktioniert's",
@@ -19,7 +19,7 @@
     "eyebrow": "Ziel → Monate → Wochen → heute",
     "title": "Du bist fast da.",
     "titleAccent": "An jedem einzelnen Tag.",
-    "subtitle": "Nenn uns dein Ziel und deine Frist. Die KI zerlegt beides in Monatsmeilensteine, Wochenziele und eine Tagescheckliste, die man wirklich abhaken kann — mit Pausen und Reflexion fest im Plan.",
+    "subtitle": "Nenn uns dein Ziel und deine Frist. Die KI in Phasen gliedert beides in Monatsmeilensteine, Wochenziele und eine Tagescheckliste, die man wirklich abhaken kann — mit Pausen und Reflexion fest im Plan.",
     "ctaDemo": "Demo testen",
     "ctaBuy": "Jetzt starten",
     "ctaNote": "Die Demo braucht kein Konto. In unter einer Minute siehst du, wie sich dein Ziel aufteilt.",
@@ -27,7 +27,7 @@
   },
   "how": {
     "title": "Ein Ziel. Drei Ebenen. Die Liste für heute.",
-    "subtitle": "Das ganze Produkt steht und fällt mit der Qualität dieser Zerlegung — deshalb steckt dort die meiste Arbeit.",
+    "subtitle": "Das ganze Produkt steht und fällt mit der Qualität dieser Phasenplanung — deshalb steckt dort die meiste Arbeit.",
     "steps": [
       {
         "step": "01",
@@ -73,7 +73,7 @@
     ]
   },
   "example": {
-    "title": "So sieht eine Zerlegung aus",
+    "title": "So sieht eine Phasenplanung aus",
     "subtitle": "Ziel: Deutsch auf A2. Frist: sechs Monate. Ein freier Tag pro Woche, zehn Minuten Reflexion täglich.",
     "monthLabel": "Monat {n}",
     "months": [
@@ -124,7 +124,7 @@
       "Meilensteine mit eigener oder KI-vorgeschlagener Belohnung"
     ],
     "limitsTitle": "Was zehn Pläne pro Monat bedeuten",
-    "limitsBody": "Ein neuer Plan zählt beim Anlegen eines Ziels. Alles danach — die Zerlegung in Wochen und Tage, die Tagesaufgaben, die Neuplanung bei geändertem Tempo — zählt nicht und ist bei laufenden Zielen unbegrenzt. Zehn neue Pläne sind Raum, verschiedene Formulierungen und Termine auszuprobieren; wer ein Ziel setzt und daran arbeitet, verbraucht im Monat nicht einmal die Hälfte. Wie viel übrig ist, zeigt dir die App."
+    "limitsBody": "Ein neuer Plan zählt beim Anlegen eines Ziels. Alles danach — die Phasenplanung in Wochen und Tage, die Tagesaufgaben, die Neuplanung bei geändertem Tempo — zählt nicht und ist bei laufenden Zielen unbegrenzt. Zehn neue Pläne sind Raum, verschiedene Formulierungen und Termine auszuprobieren; wer ein Ziel setzt und daran arbeitet, verbraucht im Monat nicht einmal die Hälfte. Wie viel übrig ist, zeigt dir die App."
   },
   "finalCta": {
     "title": "Dein Ziel hat schon eine Frist.",
@@ -152,7 +152,7 @@
       "goalHint": "Ein Satz genügt. Je konkreter, desto besser der Plan.",
       "dateLabel": "Bis wann?",
       "dateHint": "Wähle ein Datum zwischen zwei Wochen und zehn Jahren ab heute.",
-      "submit": "Ziel zerlegen",
+      "submit": "Ziel in Phasen gliedern",
       "submitting": "Wird generiert…",
       "again": "Anderes Ziel probieren",
       "progress": {
@@ -163,7 +163,7 @@
           "Ich prüfe, ob die Frist hält…"
         ],
         "elapsed": "{seconds} s",
-        "note": "Eine saubere Zerlegung braucht einen Moment — rechne mit etwa einer halben Minute. Lass diese Seite bitte offen."
+        "note": "Eine saubere Phasenplanung braucht einen Moment — rechne mit etwa einer halben Minute. Lass diese Seite bitte offen."
       }
     },
     "errors": {
@@ -182,7 +182,7 @@
       "goalLabel": "Ziel",
       "deadlineLabel": "Frist",
       "noticeTitle": "Das ist eine vereinfachte Vorschau",
-      "noticeBody": "Du siehst nur die grobe Zeitaufteilung. Die Vollversion zerlegt jeden Monat in Wochen und jede Woche in konkrete Tagesaufgaben, die direkt in deiner Checkliste landen — verfolgt dann deinen Fortschritt, passt das Tempo an und lässt dich mehrere Ziele nebeneinander führen, ohne dass sie kollidieren.",
+      "noticeBody": "Du siehst nur die grobe Zeitaufteilung. Die Vollversion in Phasen gliedert jeden Monat in Wochen und jede Woche in konkrete Tagesaufgaben, die direkt in deiner Checkliste landen — verfolgt dann deinen Fortschritt, passt das Tempo an und lässt dich mehrere Ziele nebeneinander führen, ohne dass sie kollidieren.",
       "ctaTitle": "Willst du das für all deine Ziele?",
       "ctaBody": "Gespeichert, täglich verfolgt, mit einem Tempo, das sich anpasst. 179 CZK im Monat.",
       "cta": "Jetzt starten",
@@ -368,7 +368,7 @@
     "includes": [
       "Bis zu 5 Ziele gleichzeitig, gemeinsam und kollisionsfrei geplant",
       "10 neue Pläne pro Monat",
-      "Zerlegung bis hin zu konkreten Tagesaufgaben",
+      "Phasenplanung bis hin zu konkreten Tagesaufgaben",
       "Erholung und Reflexion fest im Plan",
       "Das Tempo passt sich an, wie es tatsächlich läuft",
       "Meilensteine mit eigener oder KI-vorgeschlagener Belohnung"
@@ -413,11 +413,11 @@
         "REFLECTION": "Rückblick"
       },
       "preparingTitle": "Dein Tag wird vorbereitet",
-      "preparingBody": "Der nächste Abschnitt wird in konkrete Tage zerlegt. Das dauert einen Moment, passiert aber nur einmal pro Abschnitt.",
+      "preparingBody": "Der nächste Abschnitt wird in konkrete Tage in Phasen gliedert. Das dauert einen Moment, passiert aber nur einmal pro Abschnitt.",
       "preparingCta": "Heute planen",
-      "preparingFailed": "Die Zerlegung wurde nicht fertig. Bitte versuch es gleich noch einmal.",
-      "readyTitle": "In konkrete Tage zerlegen",
-      "readyBody": "Die obere Zerlegung steht. Den nächsten Abschnitt in Tage mit Aufgaben zu übersetzen startest du per Klick — bewusst nicht automatisch, damit nichts für einen Plan entsteht, den du vielleicht gar nicht behältst.",
+      "preparingFailed": "Die Phasenplanung wurde nicht fertig. Bitte versuch es gleich noch einmal.",
+      "readyTitle": "In konkrete Tage in Phasen gliedern",
+      "readyBody": "Die obere Phasenplanung steht. Den nächsten Abschnitt in Tage mit Aufgaben zu übersetzen startest du per Klick — bewusst nicht automatisch, damit nichts für einen Plan entsteht, den du vielleicht gar nicht behältst.",
       "celebrations": [
         "Fertig. Heute wartet nichts mehr auf dich.",
         "Das hast du hinter dir — und einen Tag näher dran.",
@@ -444,7 +444,7 @@
     "goals": {
       "title": "Ziele",
       "empty": "Noch keine Ziele",
-      "emptyBody": "Leg dein erstes Ziel an — die KI zerlegt es bis hin zu dem, was du heute tust.",
+      "emptyBody": "Leg dein erstes Ziel an — die KI in Phasen gliedert es bis hin zu dem, was du heute tust.",
       "create": "Neues Ziel",
       "targetDate": "Termin {date}",
       "progress": "{done} von {total} Aufgaben",
@@ -459,14 +459,14 @@
     },
     "form": {
       "title": "Neues Ziel",
-      "subtitle": "Schreib auf, was du erreichen willst und bis wann. Die Zerlegung ist ein Vorschlag, den du ändern kannst.",
+      "subtitle": "Schreib auf, was du erreichen willst und bis wann. Die Phasenplanung ist ein Vorschlag, den du ändern kannst.",
       "goalLabel": "Was willst du erreichen",
       "goalPlaceholder": "z. B. zwölf Bücher auf Englisch lesen",
       "goalHint": "Je konkreter du bist, desto besser wird der Plan.",
       "dateLabel": "Bis wann",
       "descriptionLabel": "Zusätzlicher Kontext (optional)",
       "descriptionPlaceholder": "Was du schon kannst, was dich einschränkt, worauf es dir ankommt…",
-      "submit": "Ziel zerlegen",
+      "submit": "Ziel in Phasen gliedern",
       "cancel": "Zurück",
       "progress": {
         "stages": [
@@ -476,7 +476,7 @@
           "Ich prüfe, ob der Termin hält…"
         ],
         "elapsed": "{seconds} s",
-        "note": "Die Zerlegung läuft im Hintergrund. Schließ die Seite nicht."
+        "note": "Die Phasenplanung läuft im Hintergrund. Schließ die Seite nicht."
       },
       "importanceLabel": "Wie wichtig ist dir dieses Ziel",
       "importanceHint": "Danach wird deine Tageszeit aufgeteilt, wenn mehrere Ziele laufen.",
@@ -513,7 +513,7 @@
       },
       "planTitle": "Plan",
       "expandHint": "Die Details entstehen nach und nach — immer nur für den nächsten Abschnitt. Weiter entfernte Teile bleiben grob, bis du sie erreichst.",
-      "noDetail": "Noch nicht im Detail zerlegt",
+      "noDetail": "Noch nicht im Detail in Phasen gliedert",
       "tasksTitle": "Aufgaben",
       "level": {
         "YEAR": "Jahr",
@@ -522,7 +522,7 @@
         "DAY": "Tag"
       },
       "delete": "Ziel löschen",
-      "deleteConfirm": "Das Ziel wird samt der gesamten Zerlegung in Abschnitte, Wochen und Tage gelöscht. Das lässt sich nicht rückgängig machen.",
+      "deleteConfirm": "Das Ziel wird samt der gesamten Phasenplanung in Abschnitte, Wochen und Tage gelöscht. Das lässt sich nicht rückgängig machen.",
       "deleteYes": "Ja, löschen",
       "deleteNo": "Behalten",
       "deleting": "Wird gelöscht…"
@@ -534,7 +534,7 @@
       "dateRequired": "Wähl einen Termin.",
       "dateTooSoon": "Wähl einen Termin mindestens zwei Wochen in der Zukunft.",
       "dateTooFar": "Wähl einen Termin innerhalb der nächsten zehn Jahre.",
-      "aiFailed": "Die Zerlegung hat nicht geklappt. Bitte versuch es erneut.",
+      "aiFailed": "Die Phasenplanung hat nicht geklappt. Bitte versuch es erneut.",
       "budgetExhausted": "Du hast das Monatslimit für Generierungen aufgebraucht. Es setzt sich am Ersten des nächsten Monats zurück — fertige Pläne bleiben verfügbar.",
       "tooManyGoals": "Du kannst höchstens fünf Ziele gleichzeitig verfolgen. Schließ erst eines ab oder pausier es.",
       "notSubscribed": "Dafür brauchst du ein Abonnement.",
@@ -547,9 +547,9 @@
       "meterValue": "{percent} % verbraucht",
       "meterNote": "Betrifft nur das Anlegen neuer Ziele. Setzt sich am Ersten des nächsten Monats zurück.",
       "warningTitle": "Du näherst dich dem Monatslimit für neue Pläne",
-      "warningBody": "{percent} % verbraucht. Laufende Ziele sind nicht betroffen — Zerlegungen, Tagesaufgaben und Neuplanung funktionieren weiter. Das Limit setzt sich am Ersten des nächsten Monats zurück.",
+      "warningBody": "{percent} % verbraucht. Laufende Ziele sind nicht betroffen — Phasenplanungen, Tagesaufgaben und Neuplanung funktionieren weiter. Das Limit setzt sich am Ersten des nächsten Monats zurück.",
       "exhaustedTitle": "Das Monatslimit für neue Pläne ist aufgebraucht",
-      "exhaustedBody": "Ein neues Ziel lässt sich gerade nicht anlegen. Alle laufenden Ziele funktionieren weiter, samt Zerlegungen und Tagesaufgaben. Das Limit setzt sich am Ersten des nächsten Monats zurück."
+      "exhaustedBody": "Ein neues Ziel lässt sich gerade nicht anlegen. Alle laufenden Ziele funktionieren weiter, samt Phasenplanungen und Tagesaufgaben. Das Limit setzt sich am Ersten des nächsten Monats zurück."
     },
     "images": {
       "title": "Bilder, die dich zum Ziel ziehen",
@@ -605,7 +605,7 @@
       "saving": "Wird gespeichert…",
       "saved": "Gespeichert",
       "failed": "Das Speichern hat nicht geklappt. Bitte versuch es erneut.",
-      "appliesNote": "Änderungen greifen ab der nächsten Zerlegung — jede weitere Woche deiner laufenden Ziele wird mit den neuen Werten verteilt. Bereits geschriebene Tage bleiben, wie sie sind."
+      "appliesNote": "Änderungen greifen ab der nächsten Phasenplanung — jede weitere Woche deiner laufenden Ziele wird mit den neuen Werten verteilt. Bereits geschriebene Tage bleiben, wie sie sind."
     },
     "status": {
       "readyTitle": "Hast du es geschafft?",
