@@ -618,7 +618,8 @@
       "reopen": "Open it again",
       "seeCelebration": "See the summary",
       "failed": "That did not work. Please try again.",
-      "paused": "This goal is paused. It gets no daily tasks and does not count towards your five running goals — the plan waits until you come back."
+      "paused": "This goal is paused. It gets no daily tasks and does not count towards your five running goals — the plan waits until you come back.",
+      "leftover": "{count, plural, one {One task is still unfinished} other {# tasks are still unfinished}}. The plan is a proposal, not a condition — if the goal is reached as far as you are concerned, close it."
     },
     "done": {
       "eyebrow": "Finished",
@@ -627,7 +628,7 @@
       "tasks": "tasks",
       "rest": "days off",
       "stages": "stages",
-      "footnote": "Most goals never get finished. This one did — and not through one decision, but through all those days when you did not feel like it and did it anyway.",
+      "footnote": "Welcome to the small fraction of people who not only set a goal but see it all the way through. Believe it or not, that is rare.",
       "back": "Back to the app",
       "collection": "Goals you finished",
       "collectionEmpty": "Once you finish a goal, it stays here."

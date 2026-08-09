@@ -167,25 +167,40 @@ async function writeNote(
   }
 }
 
+export type FinishState = {
+  /** Má se aplikace sama zeptat „máš to?“. */
+  ready: boolean;
+  /** Kolik úkolů zůstalo neodškrtaných. */
+  pending: number;
+};
+
 /**
- * Je cíl zralý na to, aby se aplikace zeptala „máš to?“.
+ * Kdy se zeptat na dotažení a co u toho zmínit.
  *
  * Ptát se moc brzy je otravné, ptát se pozdě znamená, že dotažený cíl
  * visí mezi rozdělanými. Stačí jedno z toho: blíží se termín, nebo je
  * odškrtaná drtivá většina toho, co plán chtěl.
+ *
+ * Odškrtání všeho se ale nevyžaduje. Plán je návrh, ne podmínka —
+ * a hlavně: budoucí týdny se generují průběžně, takže u cíle dotaženého
+ * dřív spousta úkolů ani neexistuje a odškrtnout by nešly. Aplikace, která
+ * člověku řekne „ne, ty jsi svého cíle nedosáhl“, protože se jí nesouhlasí
+ * počet políček, si plete plán se skutečností.
  */
-export async function isReadyToFinish(
+export async function getFinishState(
   goalId: string,
   targetDate: Date,
-): Promise<boolean> {
-  const weekBeforeTarget = new Date(targetDate.getTime() - 7 * 86_400_000);
-  if (Date.now() >= weekBeforeTarget.getTime()) return true;
-
-  const [total, done] = await Promise.all([
+): Promise<FinishState> {
+  const [total, done, pending] = await Promise.all([
     db.task.count({ where: { goalId } }),
     db.task.count({ where: { goalId, status: "DONE" } }),
+    db.task.count({ where: { goalId, status: "PENDING" } }),
   ]);
 
+  const weekBeforeTarget = new Date(targetDate.getTime() - 7 * 86_400_000);
+  const nearDeadline = Date.now() >= weekBeforeTarget.getTime();
   // Pod deset úkolů je málo na to, aby poměr něco znamenal.
-  return total >= 10 && done / total >= 0.9;
+  const mostlyDone = total >= 10 && done / total >= 0.9;
+
+  return { ready: nearDeadline || mostlyDone, pending };
 }

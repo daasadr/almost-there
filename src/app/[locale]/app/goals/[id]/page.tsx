@@ -13,7 +13,7 @@ import { PlanTrigger } from "@/components/plan/PlanTrigger";
 import { getAccess } from "@/lib/billing/access";
 import { getGoalDetail } from "@/lib/goals/queries";
 import { getPaceStatus } from "@/lib/goals/pace";
-import { isReadyToFinish } from "@/lib/goals/complete";
+import { getFinishState } from "@/lib/goals/complete";
 import { toIsoDate } from "@/lib/plan/calendar";
 import { db } from "@/lib/db";
 
@@ -58,8 +58,7 @@ export default async function GoalPage({
     select: { timezone: true },
   });
   const pace = await getPaceStatus(goal.id, profile?.timezone ?? "Europe/Prague");
-  const readyToFinish =
-    goal.status === "ACTIVE" && (await isReadyToFinish(goal.id, goal.targetDate));
+  const finish = await getFinishState(goal.id, goal.targetDate);
 
   const t = await getTranslations({ locale, namespace: "plan.detail" });
   const tGoals = await getTranslations({ locale, namespace: "plan.goals" });
@@ -141,7 +140,8 @@ export default async function GoalPage({
         <GoalStatusControls
           goalId={goal.id}
           status={goal.status}
-          readyToFinish={readyToFinish}
+          readyToFinish={goal.status === "ACTIVE" && finish.ready}
+          pendingTasks={finish.pending}
         />
       </div>
 

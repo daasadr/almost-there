@@ -618,7 +618,8 @@
       "reopen": "Wieder öffnen",
       "seeCelebration": "Zusammenfassung ansehen",
       "failed": "Das hat nicht geklappt. Bitte versuch es erneut.",
-      "paused": "Dieses Ziel ist pausiert. Es bekommt keine Tagesaufgaben und zählt nicht zu deinen fünf laufenden Zielen — der Plan wartet, bis du zurückkommst."
+      "paused": "Dieses Ziel ist pausiert. Es bekommt keine Tagesaufgaben und zählt nicht zu deinen fünf laufenden Zielen — der Plan wartet, bis du zurückkommst.",
+      "leftover": "{count, plural, one {Eine Aufgabe ist noch offen} other {# Aufgaben sind noch offen}}. Der Plan ist ein Vorschlag, keine Bedingung — wenn das Ziel für dich erreicht ist, schließ es ab."
     },
     "done": {
       "eyebrow": "Erreicht",
@@ -627,7 +628,7 @@
       "tasks": "Aufgaben",
       "rest": "freie Tage",
       "stages": "Etappen",
-      "footnote": "Die meisten Ziele werden nie erreicht. Dieses schon — und nicht durch eine Entscheidung, sondern durch all die Tage, an denen du keine Lust hattest und es trotzdem getan hast.",
+      "footnote": "Willkommen bei dem kleinen Teil der Menschen, die sich ein Ziel nicht nur setzen, sondern es auch zu Ende bringen. Ob du es glaubst oder nicht — das ist selten.",
       "back": "Zurück zur App",
       "collection": "Erreichte Ziele",
       "collectionEmpty": "Sobald du ein Ziel erreichst, bleibt es hier."

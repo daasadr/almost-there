@@ -15,11 +15,14 @@ export function GoalStatusControls({
   goalId,
   status,
   readyToFinish,
+  pendingTasks,
 }: {
   goalId: string;
   status: string;
   /** Blíží se termín nebo je hotová většina úkolů. */
   readyToFinish: boolean;
+  /** Kolik úkolů zůstalo neodškrtaných. */
+  pendingTasks: number;
 }) {
   const t = useTranslations("plan.status");
   const router = useRouter();
@@ -82,6 +85,12 @@ export function GoalStatusControls({
           <p className="mt-1.5 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
             {t("readyBody")}
           </p>
+          {pendingTasks > 0 && (
+            <p className="mt-3 text-sm leading-relaxed text-[var(--color-paper-faint)]">
+              {t("leftover", { count: pendingTasks })}
+            </p>
+          )}
+
           <button
             type="button"
             onClick={() => send("COMPLETED")}

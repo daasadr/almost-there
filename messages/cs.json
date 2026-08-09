@@ -618,7 +618,8 @@
       "reopen": "Otevřít znovu",
       "seeCelebration": "Zobrazit shrnutí",
       "failed": "Nepovedlo se to. Zkus to prosím znovu.",
-      "paused": "Cíl je pozastavený. Denní úkoly nedostává a nepočítá se do pětice běžících — plán čeká, až se k němu vrátíš."
+      "paused": "Cíl je pozastavený. Denní úkoly nedostává a nepočítá se do pětice běžících — plán čeká, až se k němu vrátíš.",
+      "leftover": "{count, plural, one {Zbývá jeden nedodělaný úkol} few {Zbývají # nedodělané úkoly} other {Zbývá # nedodělaných úkolů}}. Plán je návrh, ne podmínka — jestli je cíl podle tebe splněný, uzavři ho."
     },
     "done": {
       "eyebrow": "Dotaženo",
@@ -627,7 +628,7 @@
       "tasks": "úkolů",
       "rest": "dnů volna",
       "stages": "etap",
-      "footnote": "Většina cílů se nedotáhne. Tenhle ano — a nestalo se to jedním rozhodnutím, ale všemi těmi dny, kdy se ti do toho nechtělo a udělala jsi to stejně.",
+      "footnote": "Vítej v tom procentu lidí, kteří si cíl nejen stanoví, ale i dotáhnou do konce. Věř tomu nebo ne — je to vzácné.",
       "back": "Zpět do aplikace",
       "collection": "Dotažené cíle",
       "collectionEmpty": "Až nějaký cíl dotáhneš, zůstane ti tady."
