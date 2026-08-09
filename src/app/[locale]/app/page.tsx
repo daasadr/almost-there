@@ -9,10 +9,11 @@ import { BudgetNotice } from "@/components/plan/BudgetNotice";
 import { GoalList } from "@/components/plan/GoalList";
 import { PlanTrigger } from "@/components/plan/PlanTrigger";
 import { TodayChecklist } from "@/components/plan/TodayChecklist";
+import { UnfinishedTasks } from "@/components/plan/UnfinishedTasks";
 import { UsageMeter } from "@/components/plan/UsageMeter";
 import { isAdminEmail } from "@/lib/admin/guard";
 import { getAccess } from "@/lib/billing/access";
-import { getToday, listGoals } from "@/lib/goals/queries";
+import { getOverdue, getToday, listGoals } from "@/lib/goals/queries";
 import { db } from "@/lib/db";
 import Link from "next/link";
 
@@ -171,7 +172,11 @@ async function Today({ userId, locale }: { userId: string; locale: string }) {
     where: { id: userId },
     select: { timezone: true },
   });
-  const today = await getToday(userId, profile?.timezone ?? "Europe/Prague");
+  const timezone = profile?.timezone ?? "Europe/Prague";
+  const [today, overdue] = await Promise.all([
+    getToday(userId, timezone),
+    getOverdue(userId, timezone),
+  ]);
 
   const heading = new Intl.DateTimeFormat(locale, {
     weekday: "long",
@@ -189,6 +194,10 @@ async function Today({ userId, locale }: { userId: string; locale: string }) {
       </div>
 
       <div className="mt-5 space-y-4">
+        {/* Nedodělky z minulých dnů nad dneškem: kdo je má, má je vidět
+            dřív, než začne odškrtávat další. */}
+        {overdue.length > 0 && <UnfinishedTasks tasks={overdue} />}
+
         {today.goalsNeedingPlan.length > 0 && (
           <PlanTrigger goalIds={today.goalsNeedingPlan.map((goal) => goal.id)} />
         )}

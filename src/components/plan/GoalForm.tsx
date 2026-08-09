@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { GenerationProgress } from "@/components/demo/GenerationProgress";
 import { planErrorKey } from "@/lib/plan/errors";
+import { goalColors, goalHex, type GoalColor } from "@/lib/plan/colors";
 import {
   defaultTargetDate,
   maxTargetDate,
@@ -30,6 +31,7 @@ export function GoalForm() {
   const [description, setDescription] = useState("");
   const [targetDate, setTargetDate] = useState(defaultTargetDate());
   const [importance, setImportance] = useState(3);
+  const [color, setColor] = useState<GoalColor>("lime");
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -55,6 +57,7 @@ export function GoalForm() {
           description: description.trim() || undefined,
           targetDate,
           importance,
+          color,
           // Plán bude v jazyce, ve kterém uživatel aplikaci právě používá.
           locale,
         }),
@@ -143,6 +146,44 @@ export function GoalForm() {
                 className="h-4 w-4 accent-[var(--color-lime-soft)]"
               />
               <span>{t(`importance.${level}`)}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      {/* Barva odliší úkoly tohohle cíle od ostatních v denním seznamu. */}
+      <fieldset className="mt-6">
+        <legend className="block text-sm font-medium">{t("colorLabel")}</legend>
+        <p className="mt-1.5 text-xs text-[var(--color-paper-faint)]">
+          {t("colorHint")}
+        </p>
+
+        <div className="mt-3 flex flex-wrap gap-2.5">
+          {goalColors.map((option) => (
+            <label
+              key={option}
+              title={t(`color.${option}`)}
+              className={`flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border-2 transition ${
+                color === option
+                  ? "border-[var(--color-paper)]"
+                  : "border-transparent hover:border-white/25"
+              }`}
+            >
+              <input
+                type="radio"
+                name="color"
+                value={option}
+                checked={color === option}
+                disabled={pending}
+                onChange={() => setColor(option)}
+                className="sr-only"
+              />
+              <span className="sr-only">{t(`color.${option}`)}</span>
+              <span
+                aria-hidden="true"
+                className="h-6 w-6 rounded-full"
+                style={{ backgroundColor: goalHex(option) }}
+              />
             </label>
           ))}
         </div>

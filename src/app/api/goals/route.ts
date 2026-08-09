@@ -7,6 +7,7 @@ import { requireSubscriber } from "@/lib/api/guard";
 import { createGoalWithPlan } from "@/lib/goals/planner";
 import { AiBudgetError, PlanAllowanceError } from "@/lib/ai/usage";
 import { env } from "@/lib/env";
+import { isGoalColor } from "@/lib/plan/colors";
 import {
   validateGoal,
   validateTargetDate,
@@ -23,6 +24,7 @@ const bodySchema = z.object({
   targetDate: z.string(),
   locale: z.string().optional(),
   importance: z.number().int().min(1).max(5).optional(),
+  color: z.string().optional(),
 });
 
 export async function POST(request: Request) {
@@ -80,6 +82,9 @@ export async function POST(request: Request) {
       targetDate: parsed.data.targetDate,
       locale,
       importance: parsed.data.importance,
+      // Neznámou hodnotu zahodíme, ať se do databáze nedostane barva,
+      // kterou paleta nezná a UI by ji stejně nevykreslilo.
+      color: isGoalColor(parsed.data.color) ? parsed.data.color : undefined,
     });
 
     return NextResponse.json({ ok: true, goalId });

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
+import { goalHex } from "@/lib/plan/colors";
 import type { GoalSummary } from "@/lib/goals/queries";
 
 /** Přehled cílů. Bez interakce, takže serverová komponenta. */
@@ -33,7 +34,8 @@ export async function GoalList({
         <li key={goal.id}>
           <Link
             href={`/${locale}/app/goals/${goal.id}`}
-            className="card card-hover block p-5 sm:p-6"
+            style={{ borderLeftColor: goalHex(goal.color) }}
+            className="card card-hover block border-l-[3px] p-5 sm:p-6"
           >
             <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
               <h3 className="display text-lg">{goal.title}</h3>
@@ -50,8 +52,9 @@ export async function GoalList({
               <div className="mt-4">
                 <div className="h-1.5 overflow-hidden rounded-full bg-white/10">
                   <div
-                    className="h-full rounded-full bg-gradient-to-r from-[var(--color-emerald-soft)] to-[var(--color-lime-soft)]"
+                    className="h-full rounded-full"
                     style={{
+                      backgroundColor: goalHex(goal.color),
                       width: `${Math.round((goal.tasksDone / goal.tasksTotal) * 100)}%`,
                     }}
                   />

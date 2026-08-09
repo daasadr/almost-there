@@ -122,6 +122,7 @@ export async function createGoalWithPlan({
   targetDate,
   locale,
   importance = 3,
+  color = "lime",
 }: {
   userId: string;
   title: string;
@@ -131,6 +132,8 @@ export async function createGoalWithPlan({
   locale: Locale;
   /** Jak je cíl pro uživatele důležitý, 1–5. Řídí podíl na denní kapacitě. */
   importance?: number;
+  /** Barva z palety, kterou je cíl označený napříč aplikací. */
+  color?: string;
 }): Promise<string> {
   const user = await db.user.findUniqueOrThrow({
     where: { id: userId },
@@ -200,6 +203,7 @@ export async function createGoalWithPlan({
       description: description || null,
       targetDate: parseIsoDate(targetDate),
       locale,
+      color,
       priorityWeight: weightForImportance(importance),
       restatement: plan.goalRestated,
       assumptions: plan.assumptions,

@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { goalHex } from "@/lib/plan/colors";
 import type { TodayTask } from "@/lib/goals/queries";
 
 /**
@@ -93,7 +94,10 @@ export function TodayChecklist({
         {byGoal.map(([goalId, goalTasks]) => (
           <section key={goalId}>
             {byGoal.length > 1 && (
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-[var(--color-paper-faint)]">
+              <h3
+                style={{ color: goalHex(goalTasks[0].goalColor) }}
+                className="text-xs font-semibold uppercase tracking-wider"
+              >
                 {goalTasks[0].goalTitle}
               </h3>
             )}
@@ -115,9 +119,12 @@ export function TodayChecklist({
                 return (
                   <li key={task.id}>
                     <label
-                      className={`flex cursor-pointer gap-3.5 rounded-xl border p-4 transition ${
+                      // Barva cíle drží úkol vizuálně u svého celku i tehdy,
+                      // když se v seznamu míchají tři cíle za sebou.
+                      style={{ borderLeftColor: goalHex(task.goalColor) }}
+                      className={`flex cursor-pointer gap-3.5 rounded-xl border border-l-[3px] p-4 transition ${
                         checked
-                          ? "border-[color-mix(in_oklab,var(--color-lime-glow)_30%,transparent)] bg-[color-mix(in_oklab,var(--color-lime-glow)_6%,transparent)]"
+                          ? "border-white/10 bg-white/[0.03]"
                           : "border-white/10 hover:border-white/25"
                       }`}
                     >
@@ -125,7 +132,8 @@ export function TodayChecklist({
                         type="checkbox"
                         checked={checked}
                         onChange={() => toggle(task)}
-                        className="mt-0.5 h-5 w-5 shrink-0 accent-[var(--color-lime-soft)]"
+                        style={{ accentColor: goalHex(task.goalColor) }}
+                        className="mt-0.5 h-5 w-5 shrink-0"
                       />
 
                       <span className="min-w-0">

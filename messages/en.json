@@ -473,6 +473,18 @@
         "3": "It matters to me",
         "4": "One of my main things",
         "5": "This is the priority right now"
+      },
+      "colorLabel": "Goal colour",
+      "colorHint": "It tells you at a glance which task in your day belongs to which goal.",
+      "color": {
+        "lime": "Lime",
+        "emerald": "Emerald",
+        "cyan": "Cyan",
+        "sky": "Blue",
+        "violet": "Violet",
+        "pink": "Pink",
+        "rose": "Coral",
+        "amber": "Amber"
       }
     },
     "detail": {
@@ -537,6 +549,13 @@
         "imageUnreadable": "That file could not be read as an image.",
         "uploadFailed": "The upload failed. Please try again."
       }
+    },
+    "overdue": {
+      "title": "{count, plural, one {One thing is left from earlier days} other {# things are left from earlier days}}",
+      "body": "You can finish them, or let them go and move on. Either is fine — the plan will take it into account.",
+      "markDone": "Done",
+      "letGo": "Let it go",
+      "failed": "That did not save. Please try again."
     }
   }
 }

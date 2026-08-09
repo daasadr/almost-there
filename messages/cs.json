@@ -473,6 +473,18 @@
         "3": "Záleží mi na tom",
         "4": "Jedna z hlavních věcí",
         "5": "Tohle je teď priorita"
+      },
+      "colorLabel": "Barva cíle",
+      "colorHint": "Podle ní poznáš v denním seznamu, který úkol patří ke kterému cíli.",
+      "color": {
+        "lime": "Limetková",
+        "emerald": "Smaragdová",
+        "cyan": "Tyrkysová",
+        "sky": "Modrá",
+        "violet": "Fialová",
+        "pink": "Růžová",
+        "rose": "Korálová",
+        "amber": "Jantarová"
       }
     },
     "detail": {
@@ -537,6 +549,13 @@
         "imageUnreadable": "Tenhle soubor se nepodařilo přečíst jako obrázek.",
         "uploadFailed": "Nahrání se nepovedlo. Zkus to prosím znovu."
       }
+    },
+    "overdue": {
+      "title": "{count, plural, one {Z minulých dnů zbyla jedna věc} few {Z minulých dnů zbyly # věci} other {Z minulých dnů zbylo # věcí}}",
+      "body": "Můžeš je dodělat, nebo je nechat být a jít dál. Obojí je v pořádku — plán se podle toho příště zařídí.",
+      "markDone": "Hotovo",
+      "letGo": "Nechat být",
+      "failed": "Nepovedlo se to uložit. Zkus to prosím znovu."
     }
   }
 }

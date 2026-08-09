@@ -473,6 +473,18 @@
         "3": "Es liegt mir am Herzen",
         "4": "Eine meiner Hauptsachen",
         "5": "Das hat gerade Vorrang"
+      },
+      "colorLabel": "Farbe des Ziels",
+      "colorHint": "An ihr erkennst du in der Tagesliste, welche Aufgabe zu welchem Ziel gehört.",
+      "color": {
+        "lime": "Limette",
+        "emerald": "Smaragd",
+        "cyan": "Türkis",
+        "sky": "Blau",
+        "violet": "Violett",
+        "pink": "Rosa",
+        "rose": "Koralle",
+        "amber": "Bernstein"
       }
     },
     "detail": {
@@ -537,6 +549,13 @@
         "imageUnreadable": "Diese Datei ließ sich nicht als Bild lesen.",
         "uploadFailed": "Der Upload ist fehlgeschlagen. Bitte versuch es erneut."
       }
+    },
+    "overdue": {
+      "title": "{count, plural, one {Aus den letzten Tagen ist eine Sache offen} other {Aus den letzten Tagen sind # Sachen offen}}",
+      "body": "Du kannst sie nachholen oder sie sein lassen und weitergehen. Beides ist in Ordnung — der Plan richtet sich danach.",
+      "markDone": "Erledigt",
+      "letGo": "Sein lassen",
+      "failed": "Das ließ sich nicht speichern. Bitte versuch es erneut."
     }
   }
 }

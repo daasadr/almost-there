@@ -10,6 +10,7 @@ export type GoalSummary = {
   title: string;
   targetDate: Date;
   status: string;
+  color: string;
   feasibility: string | null;
   tasksTotal: number;
   tasksDone: number;
@@ -24,6 +25,7 @@ export async function listGoals(userId: string): Promise<GoalSummary[]> {
       title: true,
       targetDate: true,
       status: true,
+      color: true,
       feasibility: true,
       _count: { select: { tasks: true } },
     },
@@ -42,6 +44,7 @@ export async function listGoals(userId: string): Promise<GoalSummary[]> {
     title: goal.title,
     targetDate: goal.targetDate,
     status: goal.status,
+    color: goal.color,
     feasibility: goal.feasibility,
     tasksTotal: goal._count.tasks,
     tasksDone: doneByGoal.get(goal.id) ?? 0,
@@ -72,6 +75,7 @@ export type GoalDetail = {
   description: string | null;
   targetDate: Date;
   status: string;
+  color: string;
   restatement: string | null;
   assumptions: string[];
   feasibility: string | null;
@@ -94,6 +98,7 @@ export async function getGoalDetail(
       description: true,
       targetDate: true,
       status: true,
+      color: true,
       restatement: true,
       assumptions: true,
       feasibility: true,
@@ -164,6 +169,7 @@ export type TodayTask = {
   id: string;
   goalId: string;
   goalTitle: string;
+  goalColor: string;
   title: string;
   description: string | null;
   type: TaskType;
@@ -186,6 +192,51 @@ export type TodayView = {
   dailyImages: Record<string, { id: string; alt: string | null }>;
 };
 
+export type OverdueTask = TodayTask & { date: Date };
+
+/**
+ * Nesplněné úkoly z minulých dnů.
+ *
+ * Bez nich plán mlčky přejde vynechaný den a učí tím, že na plnění
+ * nezáleží. Zpátky se ale nekouká donekonečna: po týdnu už zbylý úkol
+ * není připomínka, ale výčitka, a plán se mezitím posunul jinam.
+ */
+export async function getOverdue(
+  userId: string,
+  timezone = "Europe/Prague",
+  days = 7,
+): Promise<OverdueTask[]> {
+  const today = parseIsoDate(todayIso(timezone));
+  const from = new Date(today.getTime() - days * 86_400_000);
+
+  const tasks = await db.task.findMany({
+    where: {
+      goal: { userId, status: "ACTIVE" },
+      status: "PENDING",
+      timeBlock: { level: "DAY", startDate: { gte: from, lt: today } },
+    },
+    orderBy: [{ timeBlock: { startDate: "desc" } }, { position: "asc" }],
+    select: {
+      id: true,
+      goalId: true,
+      title: true,
+      description: true,
+      type: true,
+      status: true,
+      estimatedMinutes: true,
+      goal: { select: { title: true, color: true } },
+      timeBlock: { select: { startDate: true } },
+    },
+  });
+
+  return tasks.map(({ goal, timeBlock, ...task }) => ({
+    ...task,
+    goalTitle: goal.title,
+    goalColor: goal.color,
+    date: timeBlock.startDate,
+  }));
+}
+
 export async function getToday(
   userId: string,
   timezone = "Europe/Prague",
@@ -207,7 +258,7 @@ export async function getToday(
       type: true,
       status: true,
       estimatedMinutes: true,
-      goal: { select: { title: true } },
+      goal: { select: { title: true, color: true } },
     },
   });
 
@@ -258,6 +309,7 @@ export async function getToday(
     tasks: tasks.map(({ goal, ...task }) => ({
       ...task,
       goalTitle: goal.title,
+      goalColor: goal.color,
     })),
     goalsNeedingPlan,
     dailyImages,

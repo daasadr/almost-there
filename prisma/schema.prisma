@@ -203,6 +203,12 @@ model Goal {
   /// Váha pro harmonizaci více cílů — kolik z denní kapacity smí cíl brát.
   priorityWeight Int @default(50)
 
+  /// Barva, kterou je cíl označený napříč aplikací.
+  ///
+  /// Ukládá se název z palety, ne konkrétní odstín — vzhled se pak dá
+  /// doladit bez migrace dat a barvy zůstanou vzájemně sladěné.
+  color String @default("lime")
+
   /// Jazyk, ve kterém je plán napsaný.
   ///
   /// Drží se u cíle, ne u uživatele: plán se dopisuje po částech měsíce
