@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { getAccess } from "@/lib/billing/access";
+import { isTokenValid } from "@/lib/auth/session";
 
 /**
  * Vstupní kontrola pro API za paywallem.
@@ -47,8 +48,26 @@ export async function requireSubscriber(): Promise<GuardResult> {
 
   const user = await db.user.findUnique({
     where: { id: session.user.id },
-    select: { id: true, timezone: true, locale: true },
+    select: {
+      id: true,
+      timezone: true,
+      locale: true,
+      sessionsValidFrom: true,
+    },
   });
+
+  // Token vydaný před poslední změnou hesla už neplatí, i když je podpis
+  // v pořádku. Bez tohohle by ukradené přihlášení změnu hesla přežilo.
+  if (user && !isTokenValid(session.user.issuedAt, user.sessionsValidFrom)) {
+    return {
+      ok: false,
+      response: NextResponse.json(
+        { ok: false, error: "unauthorized" },
+        { status: 401 },
+      ),
+    };
+  }
+
   if (!user) {
     return {
       ok: false,

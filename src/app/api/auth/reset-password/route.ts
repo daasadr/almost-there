@@ -45,6 +45,9 @@ export async function POST(request: Request) {
         // Kdo si nastavil heslo z odkazu v e-mailu, prokázal přístup
         // k té adrese — takže ji tím zároveň ověřil.
         emailVerified: new Date(),
+        // Všechna dřívější přihlášení tím padají. Kdo měnil heslo proto,
+        // že se mu někdo dostal do účtu, ho tím zároveň vyhodí.
+        sessionsValidFrom: new Date(),
       },
     }),
     db.passwordResetToken.update({

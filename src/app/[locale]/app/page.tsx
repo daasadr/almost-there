@@ -56,7 +56,13 @@ export default async function AppPage({
   const tPlan = await getTranslations({ locale, namespace: "plan.nav" });
 
   // Z databáze, ne ze session — viz komentář v lib/billing/access.ts.
-  const { status, hasAccess } = await getAccess(session.user.id);
+  const { status, hasAccess, revoked } = await getAccess(
+    session.user.id,
+    session.user.issuedAt,
+  );
+
+  // Přihlášení vydané před změnou hesla už neplatí — ven a znovu.
+  if (revoked) redirect(`/${locale}/login`);
 
   // Návrat od pokladny. Sama o sobě tahle adresa nic neodemyká, jen mění
   // to, co uživatel po návratu uvidí — otevřít si ji může kdokoliv.

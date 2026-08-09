@@ -27,7 +27,11 @@ export default async function NewGoalPage({
 
   // Bez předplatného zpátky na rozcestí, kde je paywall. Kontrola je i v API,
   // tohle je jen proto, aby uživatel nevyplňoval formulář zbytečně.
-  const { hasAccess } = await getAccess(session.user.id);
+  const { hasAccess, revoked } = await getAccess(
+    session.user.id,
+    session.user.issuedAt,
+  );
+  if (revoked) redirect(`/${locale}/login`);
   if (!hasAccess) redirect(`/${locale}/app`);
 
   const t = await getTranslations({ locale, namespace: "plan.form" });

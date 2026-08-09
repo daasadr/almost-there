@@ -12,6 +12,8 @@ declare module "next-auth" {
       /** Zda má uživatel ověřenou e-mailovou adresu.
        *  Vlastní název — NextAuth má `emailVerified` jako Date. */
       isEmailVerified: boolean;
+      /** Kdy byl token vydán, v sekundách. Viz lib/auth/session.ts. */
+      issuedAt: number;
     } & DefaultSession["user"];
   }
 

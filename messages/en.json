@@ -173,7 +173,7 @@
       "dateRequired": "Please pick a target date.",
       "dateTooSoon": "Pick a date at least two weeks out — anything shorter isn't a plan, it's a to-do list.",
       "dateTooFar": "Pick a date within the next ten years.",
-      "rateLimited": "You've used up the free demo runs for now. Try again in an hour, or get the full version.",
+      "rateLimited": "You have used up today’s free demo runs. Try again tomorrow, or get the full version.",
       "aiFailed": "The plan couldn't be generated right now. Please try again in a moment.",
       "generic": "Something went wrong. Please try again."
     },

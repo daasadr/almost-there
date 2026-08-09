@@ -52,7 +52,8 @@ services:
       # Na kolik platících účtů připadá jeden bezplatný. Jen vodítko
       # v přehledu, nic se tím nevynucuje.
       COMPLIMENTARY_PER_PAYING: ${COMPLIMENTARY_PER_PAYING:-100}
-      DEMO_RATE_LIMIT_PER_HOUR: ${DEMO_RATE_LIMIT_PER_HOUR:-5}
+      DEMO_LIMIT_PER_DAY: ${DEMO_LIMIT_PER_DAY:-5}
+      DEMO_GLOBAL_LIMIT_PER_DAY: ${DEMO_GLOBAL_LIMIT_PER_DAY:-200}
       DEMO_MOCK: ${DEMO_MOCK:-false}
       NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://localhost:3000}
       # Adresa se skládá ze stejných proměnných, jaké dostane databáze —

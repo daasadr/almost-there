@@ -72,8 +72,25 @@ export const env = {
   get aiDaysEffort(): "low" | "medium" | "high" {
     return effortFrom(process.env.AI_DAYS_EFFORT, "low");
   },
-  get demoRateLimitPerHour(): number {
-    return optionalInt("DEMO_RATE_LIMIT_PER_HOUR", 15);
+  /**
+   * Kolik rozfázování zdarma na jednu adresu za den.
+   *
+   * Denní okno, ne hodinové: k rozhodnutí, jestli aplikace stojí za to,
+   * stačí dvě zkoušky. Hodinové okno nikoho neodradilo, jen ho naučilo
+   * počkat — a přitom každé volání stojí skutečné peníze.
+   */
+  get demoLimitPerDay(): number {
+    return optionalInt("DEMO_LIMIT_PER_DAY", 5);
+  },
+  /**
+   * Strop na celé demo za den, napříč všemi adresami.
+   *
+   * Limit na adresu obejde kdokoliv s botnetem. Tohle je druhá pojistka:
+   * i kdyby požadavky chodily z tisíce míst, přes tenhle strop se
+   * neutratí víc, než kolik jsi ochotná dát za návštěvnost jednoho dne.
+   */
+  get demoGlobalLimitPerDay(): number {
+    return optionalInt("DEMO_GLOBAL_LIMIT_PER_DAY", 200);
   },
   /**
    * Měsíční strop spotřeby AI na uživatele, v korunách (zadání, bod 9).

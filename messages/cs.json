@@ -173,7 +173,7 @@
       "dateRequired": "Vyber prosím cílové datum.",
       "dateTooSoon": "Vyber datum aspoň dva týdny dopředu — na kratší dobu už není co plánovat.",
       "dateTooFar": "Vyber datum v horizontu deseti let.",
-      "rateLimited": "Vyčerpal jsi zatím volná demo generování. Zkus to za hodinu, nebo pořiď plnou verzi.",
+      "rateLimited": "Volná demo generování jsou pro dnešek vyčerpaná. Zkus to zítra, nebo rovnou pořiď plnou verzi.",
       "aiFailed": "Plán se teď nepodařilo vygenerovat. Zkus to prosím za chvíli znovu.",
       "generic": "Něco se pokazilo. Zkus to prosím znovu."
     },

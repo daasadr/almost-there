@@ -77,6 +77,14 @@ model User {
   timezone              String        @default("Europe/Prague")
   locale                String        @default("en")
 
+  /// Od kdy jsou přihlášení platná.
+  ///
+  /// Přihlášení nosí uživatel v podepsaném tokenu, který server nedokáže
+  /// odvolat. Po změně hesla se tahle značka posune a všechny dřív vydané
+  /// tokeny tím ztratí platnost — jinak by ukradené přihlášení přežilo
+  /// změnu hesla o třicet dní.
+  sessionsValidFrom DateTime @default(now())
+
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   // Soft delete pro retenční politiku; skutečný výmaz řeší GDPR job.

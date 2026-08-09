@@ -27,6 +27,8 @@ export const runtime = "nodejs";
 // Rozpad trvá řádově desítky sekund; výchozí limit by ho uřízl.
 export const maxDuration = 120;
 
+const DAY_MS = 24 * 60 * 60 * 1000;
+
 type DemoSuccess = { ok: true; plan: Plan };
 type DemoFailure = { ok: false; error: DemoErrorKey };
 
@@ -55,10 +57,22 @@ export async function POST(request: Request) {
   const dateError = validateTargetDate(targetDate);
   if (dateError) return fail(dateError, 400);
 
-  // Strop na IP: demo běží bez účtu, takže tohle je jediná ochrana
-  // našeho API klíče před skriptem, který by ho vysál.
+  // Dvě pojistky nad sebou. Strop na adresu odradí zvědavce, kterému by
+  // jinak nevadilo vygenerovat dvacet variant; celkový denní strop chrání
+  // před tím, kdo si adresy umí měnit. Demo běží bez účtu a každé volání
+  // stojí skutečné peníze, takže jedna vrstva nestačí.
+  const today = new Date().toISOString().slice(0, 10);
+  const global = checkRateLimit(
+    `demo:global:${today}`,
+    env.demoGlobalLimitPerDay,
+    DAY_MS,
+  );
+
   const ipKey = `demo:${hashIp(getClientIp(request.headers))}`;
-  const limit = checkRateLimit(ipKey, env.demoRateLimitPerHour);
+  const limit = global.allowed
+    ? checkRateLimit(ipKey, env.demoLimitPerDay, DAY_MS)
+    : global;
+
   if (!limit.allowed) {
     return NextResponse.json<DemoFailure>(
       { ok: false, error: "rateLimited" },

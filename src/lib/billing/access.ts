@@ -1,4 +1,5 @@
 import { db } from "@/lib/db";
+import { isTokenValid } from "@/lib/auth/session";
 import type { SubscriptionStatus } from "@/generated/prisma";
 
 /**
@@ -19,15 +20,22 @@ const WITH_ACCESS: SubscriptionStatus[] = ["ACTIVE", "TRIAL"];
 export type Access = {
   status: SubscriptionStatus;
   hasAccess: boolean;
+  /** Přihlášení bylo vydáno před poslední změnou hesla a už neplatí. */
+  revoked: boolean;
 };
 
-export async function getAccess(userId: string): Promise<Access> {
+export async function getAccess(
+  userId: string,
+  /** Kdy byl token vydán, ze session. Bez něj se odvolání nekontroluje. */
+  issuedAt?: number,
+): Promise<Access> {
   const user = await db.user.findUnique({
     where: { id: userId },
     select: {
       subscriptionStatus: true,
       subscriptionSource: true,
       subscriptionEndsAt: true,
+      sessionsValidFrom: true,
     },
   });
 
@@ -51,5 +59,13 @@ export async function getAccess(userId: string): Promise<Access> {
     hasAccess = false;
   }
 
-  return { status, hasAccess };
+  // Token starší než poslední změna hesla neplatí, i když má správný
+  // podpis. Volá se tady, protože stránky aplikace stejně načítají
+  // uživatele — kontrola tak nestojí dotaz navíc.
+  const revoked =
+    issuedAt !== undefined &&
+    user !== null &&
+    !isTokenValid(issuedAt, user.sessionsValidFrom);
+
+  return { status, hasAccess: hasAccess && !revoked, revoked };
 }

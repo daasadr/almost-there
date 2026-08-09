@@ -49,6 +49,9 @@ export const authConfig = {
       if (session.user) {
         session.user.id = token.id as string;
         session.user.isEmailVerified = Boolean(token.isEmailVerified);
+        // Kdy byl token vydán. Podle toho se pozná, jestli nebyl vydán
+        // dřív, než si uživatel změnil heslo — viz lib/auth/session.ts.
+        session.user.issuedAt = typeof token.iat === "number" ? token.iat : 0;
       }
       return session;
     },

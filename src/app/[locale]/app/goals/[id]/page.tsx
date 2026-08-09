@@ -49,7 +49,11 @@ export default async function GoalPage({
   const session = await auth();
   if (!session?.user) redirect(`/${locale}/login`);
 
-  const { hasAccess } = await getAccess(session.user.id);
+  const { hasAccess, revoked } = await getAccess(
+    session.user.id,
+    session.user.issuedAt,
+  );
+  if (revoked) redirect(`/${locale}/login`);
   if (!hasAccess) redirect(`/${locale}/app`);
 
   const goal = await getGoalDetail(session.user.id, id);

@@ -173,7 +173,7 @@
       "dateRequired": "Bitte wähle ein Zieldatum.",
       "dateTooSoon": "Wähle ein Datum mindestens zwei Wochen voraus — für kürzer gibt es nichts zu planen.",
       "dateTooFar": "Wähle ein Datum innerhalb der nächsten zehn Jahre.",
-      "rateLimited": "Die freien Demo-Durchläufe sind vorerst aufgebraucht. Versuch es in einer Stunde erneut oder hol dir die Vollversion.",
+      "rateLimited": "Die kostenlosen Demo-Durchläufe für heute sind aufgebraucht. Versuch es morgen wieder oder hol dir die Vollversion.",
       "aiFailed": "Der Plan konnte gerade nicht erzeugt werden. Bitte versuch es gleich noch einmal.",
       "generic": "Etwas ist schiefgelaufen. Bitte versuch es erneut."
     },
