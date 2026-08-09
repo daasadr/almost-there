@@ -526,7 +526,8 @@
       "tooManyGoals": "You can run at most five goals at once. Finish or pause one first.",
       "notSubscribed": "This needs a subscription.",
       "generic": "Something went wrong. Please try again.",
-      "planLimitReached": "You have used this month's limit on new plans. Running goals keep working; the limit resets on the first of next month."
+      "planLimitReached": "You have used this month's limit on new plans. Running goals keep working; the limit resets on the first of next month.",
+      "replanTooSoon": "You replanned this goal recently. Try again tomorrow — the plan needs at least a day before there is anything to judge."
     },
     "budget": {
       "meter": "Monthly plan limit",
@@ -556,6 +557,15 @@
       "markDone": "Done",
       "letGo": "Let it go",
       "failed": "That did not save. Please try again."
+    },
+    "pace": {
+      "title": "{days, plural, one {One day did not get finished} other {# of the last days did not get finished}}",
+      "body": "Of everything that was already due, {percent}% got done. That is not a reproach, but the plan has to react — otherwise the remaining work gets squeezed into the time that is left and the deadline starts lying.",
+      "catchUp": "I will catch up",
+      "catchUpBody": "The deadline stays {date}. The rest of the plan gets rewritten so it can still be met — and I will tell you plainly whether it adds up.",
+      "moveDeadline": "Recalculate the deadline",
+      "moveDeadlineBody": "A new date based on the pace you are actually keeping: {date}. The plan gets rewritten at a calmer spread.",
+      "later": "Not now, ask me in a week"
     }
   }
 }

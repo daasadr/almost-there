@@ -50,6 +50,19 @@ export type DecomposeInput = {
   otherActiveGoals?: { title: string; targetDate: string }[];
   /** Dnešek v pásmu uživatele. V demu se nezadává a bere se UTC. */
   today?: string;
+  /** Když se plán dělá znovu kvůli skluzu — co se dosud stalo. */
+  replan?: ReplanContext;
+};
+
+export type ReplanContext = {
+  /** Milníky období, která už uplynula — jejich obsah je zčásti za námi. */
+  pastMilestones: string[];
+  /** Podíl hotové práce z toho, co už mělo být hotové (0–1). */
+  completionRate: number;
+  /** Kolik dní se za poslední dva týdny nedotáhlo. */
+  missedDays: number;
+  /** Posunul se termín, nebo se skluz dohání ve stejném čase? */
+  deadlineMoved: boolean;
 };
 
 export type DecomposeResult = {
@@ -120,6 +133,10 @@ function buildUserPrompt(
       `Reflection: ${input.reflectionMinutesPerDay} minutes per day, to be built into the plan`,
     );
   }
+  if (input.replan) {
+    lines.push("", buildReplanBlock(input.replan));
+  }
+
   if (input.otherActiveGoals?.length) {
     lines.push(
       "Other active goals to schedule around (do not plan them, just avoid piling their heavy periods onto the same time):",
@@ -147,6 +164,44 @@ function buildUserPrompt(
     LEVEL_GUIDANCE[level],
     "",
     `Produce exactly ${count} milestones, numbered 1 to ${count}.`,
+  );
+
+  return lines.join("\n");
+}
+
+/**
+ * Kontext pro opakovaný rozpad po skluzu.
+ *
+ * Podstatná je poslední instrukce: nedodělané úkoly se nepřenášejí.
+ * Doplňovat je mezi nadcházející dny je nejspolehlivější způsob, jak
+ * plán zabít — kupka roste rychleji, než se dá odbourat. Přenáší se
+ * to, co z milníku ještě chybí, ne seznam propadlých položek.
+ */
+function buildReplanBlock(replan: ReplanContext): string {
+  const percent = Math.round(replan.completionRate * 100);
+
+  const lines = [
+    "This is a REPLAN of a goal already in progress, not a new goal.",
+    "",
+    `Completion so far: ${percent}% of the work that was already due got done.`,
+    `Days missed in the last two weeks: ${replan.missedDays}.`,
+    replan.deadlineMoved
+      ? "The deadline has been moved to the date given above, at the person's request. Plan to the new date at a pace they can actually keep — the old one was not it."
+      : "The deadline is unchanged, at the person's request. They want to catch up. Say plainly in the feasibility note if that no longer fits, and plan the most honest version of it either way.",
+  ];
+
+  if (replan.pastMilestones.length) {
+    lines.push(
+      "",
+      "What the earlier plan asked for in the periods that have already passed. Treat it as partly done — around the completion rate above — and pick up from there:",
+      ...replan.pastMilestones.map((milestone) => `  - ${milestone}`),
+    );
+  }
+
+  lines.push(
+    "",
+    "Do not carry unfinished tasks over one by one. Work out what is still missing from those earlier milestones and fold it into the new plan where it still matters; drop what has been overtaken by events. A plan that stacks yesterday's leftovers onto today gets abandoned within a week.",
+    "Do not reproach the person anywhere in the plan. They know. Write it as if starting from where they are today.",
   );
 
   return lines.join("\n");

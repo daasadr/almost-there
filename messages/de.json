@@ -526,7 +526,8 @@
       "tooManyGoals": "Du kannst höchstens fünf Ziele gleichzeitig verfolgen. Schließ erst eines ab oder pausier es.",
       "notSubscribed": "Dafür brauchst du ein Abonnement.",
       "generic": "Etwas ist schiefgelaufen. Bitte versuch es erneut.",
-      "planLimitReached": "Du hast das Monatslimit für neue Pläne erreicht. Laufende Ziele funktionieren weiter; das Limit setzt sich am Ersten des nächsten Monats zurück."
+      "planLimitReached": "Du hast das Monatslimit für neue Pläne erreicht. Laufende Ziele funktionieren weiter; das Limit setzt sich am Ersten des nächsten Monats zurück.",
+      "replanTooSoon": "Du hast dieses Ziel gerade erst neu geplant. Versuch es morgen — der Plan braucht mindestens einen Tag, bevor es etwas zu bewerten gibt."
     },
     "budget": {
       "meter": "Monatslimit für Pläne",
@@ -556,6 +557,15 @@
       "markDone": "Erledigt",
       "letGo": "Sein lassen",
       "failed": "Das ließ sich nicht speichern. Bitte versuch es erneut."
+    },
+    "pace": {
+      "title": "{days, plural, one {Ein Tag wurde nicht fertig} other {# der letzten Tage wurden nicht fertig}}",
+      "body": "Von allem, was schon fällig war, sind {percent} % geschafft. Das ist kein Vorwurf, aber der Plan muss reagieren — sonst wird der Rest der Arbeit in die verbleibende Zeit gequetscht und der Termin fängt an zu lügen.",
+      "catchUp": "Ich hole es auf",
+      "catchUpBody": "Der Termin bleibt {date}. Der restliche Plan wird so neu geschrieben, dass es noch machbar ist — und ich sage dir offen, ob es aufgeht.",
+      "moveDeadline": "Termin neu berechnen",
+      "moveDeadlineBody": "Ein neuer Termin nach dem Tempo, das du tatsächlich hältst: {date}. Der Plan wird ruhiger verteilt.",
+      "later": "Jetzt nicht, frag mich in einer Woche"
     }
   }
 }

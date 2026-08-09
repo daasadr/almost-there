@@ -9,11 +9,14 @@ import { BudgetNotice } from "@/components/plan/BudgetNotice";
 import { GoalList } from "@/components/plan/GoalList";
 import { PlanTrigger } from "@/components/plan/PlanTrigger";
 import { TodayChecklist } from "@/components/plan/TodayChecklist";
+import { PaceCheck } from "@/components/plan/PaceCheck";
 import { UnfinishedTasks } from "@/components/plan/UnfinishedTasks";
 import { UsageMeter } from "@/components/plan/UsageMeter";
 import { isAdminEmail } from "@/lib/admin/guard";
 import { getAccess } from "@/lib/billing/access";
 import { getOverdue, getToday, listGoals } from "@/lib/goals/queries";
+import { getBehindGoals } from "@/lib/goals/pace";
+import { toIsoDate } from "@/lib/plan/calendar";
 import { db } from "@/lib/db";
 import Link from "next/link";
 
@@ -173,9 +176,10 @@ async function Today({ userId, locale }: { userId: string; locale: string }) {
     select: { timezone: true },
   });
   const timezone = profile?.timezone ?? "Europe/Prague";
-  const [today, overdue] = await Promise.all([
+  const [today, overdue, behind] = await Promise.all([
     getToday(userId, timezone),
     getOverdue(userId, timezone),
+    getBehindGoals(userId, timezone),
   ]);
 
   const heading = new Intl.DateTimeFormat(locale, {
@@ -194,8 +198,23 @@ async function Today({ userId, locale }: { userId: string; locale: string }) {
       </div>
 
       <div className="mt-5 space-y-4">
-        {/* Nedodělky z minulých dnů nad dneškem: kdo je má, má je vidět
-            dřív, než začne odškrtávat další. */}
+        {/* Nejdřív nabídka přeplánování: když se cíl rozešel se
+            skutečností, nemá cenu odškrtávat úkoly ze starého plánu. */}
+        {behind.map((goal) => (
+          <PaceCheck
+            key={goal.goalId}
+            goalId={goal.goalId}
+            goalTitle={goal.title}
+            goalColor={goal.color}
+            missedDays={goal.missedDays}
+            completionRate={goal.completionRate}
+            targetDate={toIsoDate(goal.targetDate)}
+            suggestedDate={toIsoDate(goal.suggestedDate)}
+          />
+        ))}
+
+        {/* Nedodělky z minulých dnů: kdo je má, má je vidět dřív,
+            než začne odškrtávat další. */}
         {overdue.length > 0 && <UnfinishedTasks tasks={overdue} />}
 
         {today.goalsNeedingPlan.length > 0 && (

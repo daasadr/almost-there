@@ -526,7 +526,8 @@
       "tooManyGoals": "Najednou můžeš mít nejvýš pět běžících cílů. Nějaký nejdřív dokonči nebo pozastav.",
       "notSubscribed": "Na tohle je potřeba předplatné.",
       "generic": "Něco se pokazilo. Zkus to prosím znovu.",
-      "planLimitReached": "Vyčerpal jsi měsíční limit nových plánů. Běžící cíle fungují dál; limit se obnoví prvního dne dalšího měsíce."
+      "planLimitReached": "Vyčerpal jsi měsíční limit nových plánů. Běžící cíle fungují dál; limit se obnoví prvního dne dalšího měsíce.",
+      "replanTooSoon": "Cíl jsi přeplánoval nedávno. Zkus to prosím zítra — plán potřebuje aspoň den, aby bylo co vyhodnocovat."
     },
     "budget": {
       "meter": "Měsíční limit plánů",
@@ -556,6 +557,15 @@
       "markDone": "Hotovo",
       "letGo": "Nechat být",
       "failed": "Nepovedlo se to uložit. Zkus to prosím znovu."
+    },
+    "pace": {
+      "title": "{days, plural, one {Jeden den se nedotáhl} few {Poslední dny se nedotáhly — # z nich} other {Poslední dny se nedotáhly — # z nich}}",
+      "body": "Ze všeho, co už mělo být hotové, se stihlo {percent} %. To není důvod k výčitkám, ale plán s tím musí něco udělat — jinak se zbytek práce natlačí do zbývajícího času a termín začne lhát.",
+      "catchUp": "Doženu skluz",
+      "catchUpBody": "Termín zůstane {date}. Plán zbytku se přepíše tak, aby to ještě šlo stihnout — a řeknu ti na rovinu, jestli to vychází.",
+      "moveDeadline": "Přepočítat termín",
+      "moveDeadlineBody": "Nový termín podle tempa, kterým ti to reálně jde: {date}. Plán se přepíše na klidnější rozvržení.",
+      "later": "Teď ne, zeptej se za týden"
     }
   }
 }

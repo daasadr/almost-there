@@ -6,10 +6,14 @@ import { auth } from "@/auth";
 import { DeleteGoalButton } from "@/components/plan/DeleteGoalButton";
 import { GoalImages } from "@/components/plan/GoalImages";
 import { MAX_IMAGES_PER_GOAL } from "@/lib/uploads/images";
+import { PaceCheck } from "@/components/plan/PaceCheck";
 import { PlanTree } from "@/components/plan/PlanTree";
 import { PlanTrigger } from "@/components/plan/PlanTrigger";
 import { getAccess } from "@/lib/billing/access";
 import { getGoalDetail } from "@/lib/goals/queries";
+import { getPaceStatus } from "@/lib/goals/pace";
+import { toIsoDate } from "@/lib/plan/calendar";
+import { db } from "@/lib/db";
 
 export async function generateMetadata({
   params,
@@ -46,6 +50,12 @@ export default async function GoalPage({
 
   const goal = await getGoalDetail(session.user.id, id);
   if (!goal) notFound();
+
+  const profile = await db.user.findUnique({
+    where: { id: session.user.id },
+    select: { timezone: true },
+  });
+  const pace = await getPaceStatus(goal.id, profile?.timezone ?? "Europe/Prague");
 
   const t = await getTranslations({ locale, namespace: "plan.detail" });
   const tGoals = await getTranslations({ locale, namespace: "plan.goals" });
@@ -113,6 +123,23 @@ export default async function GoalPage({
               </ul>
             </>
           )}
+        </div>
+      )}
+
+      {/* Nabídka přeplánování patří nad plán: když se cíl rozešel se
+          skutečností, je čtení starého rozpisu ztráta času. */}
+      {pace?.behind && (
+        <div className="mt-8">
+          <PaceCheck
+            goalId={goal.id}
+            goalTitle={goal.title}
+            goalColor={goal.color}
+            missedDays={pace.missedDays}
+            completionRate={pace.completionRate}
+            targetDate={toIsoDate(pace.targetDate)}
+            suggestedDate={toIsoDate(pace.suggestedDate)}
+            showTitle={false}
+          />
         </div>
       )}
 
