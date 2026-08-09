@@ -45,6 +45,13 @@ services:
       USD_CZK_RATE: ${USD_CZK_RATE:-23.5}
       # Kam se ukládají nahrané obrázky. Musí sedět s připojeným svazkem výš.
       UPLOADS_DIR: /app/uploads
+
+      # --- Správa ---
+      # E-maily s přístupem do /admin, oddělené čárkou. Prázdné = nikdo.
+      ADMIN_EMAILS: ${ADMIN_EMAILS:-}
+      # Na kolik platících účtů připadá jeden bezplatný. Jen vodítko
+      # v přehledu, nic se tím nevynucuje.
+      COMPLIMENTARY_PER_PAYING: ${COMPLIMENTARY_PER_PAYING:-100}
       DEMO_RATE_LIMIT_PER_HOUR: ${DEMO_RATE_LIMIT_PER_HOUR:-5}
       DEMO_MOCK: ${DEMO_MOCK:-false}
       NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://localhost:3000}

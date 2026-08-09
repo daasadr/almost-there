@@ -38,6 +38,9 @@ enum SubscriptionSource {
   STRIPE
   APPLE
   GOOGLE_PLAY
+  /// Přístup přidělený provozovatelem — testeři, výherci, blízcí.
+  /// Neplatí se za něj, ale limity použití platí stejně jako u ostatních.
+  COMPLIMENTARY
 }
 
 model User {
@@ -59,6 +62,10 @@ model User {
   appleOriginalTxId    String? @unique
   googlePurchaseToken  String? @unique
   subscriptionEndsAt   DateTime?
+  /// Proč byl přístup přidělen ručně — „tester“, „výherce soutěže“.
+  /// Za rok si to nikdo nepamatuje a bez poznámky nejde poznat,
+  /// který účet se má nechat a který zrušit.
+  subscriptionNote     String?
 
   // Preference (zadání 5) — vstupují do AI promptu při plánování
   restFrequency         RestFrequency @default(ONE_DAY_PER_WEEK)

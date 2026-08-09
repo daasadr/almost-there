@@ -24,10 +24,32 @@ export type Access = {
 export async function getAccess(userId: string): Promise<Access> {
   const user = await db.user.findUnique({
     where: { id: userId },
-    select: { subscriptionStatus: true },
+    select: {
+      subscriptionStatus: true,
+      subscriptionSource: true,
+      subscriptionEndsAt: true,
+    },
   });
 
   // Uživatel bez záznamu je smazaný nebo neexistuje — v obou případech neplatí.
   const status = user?.subscriptionStatus ?? "NONE";
-  return { status, hasAccess: WITH_ACCESS.includes(status) };
+  let hasAccess = WITH_ACCESS.includes(status);
+
+  // Přístup přidělený na dobu určitou nikdo neukončuje — u placeného to
+  // udělá webhook od Stripu, tady žádný takový posel není. Datum konce
+  // proto kontrolujeme při čtení.
+  //
+  // Jen u přiděleného přístupu: u placeného je `subscriptionEndsAt` konec
+  // právě běžícího období a opozdilý webhook by jinak vzal přístup člověku,
+  // který řádně platí.
+  if (
+    hasAccess &&
+    user?.subscriptionSource === "COMPLIMENTARY" &&
+    user.subscriptionEndsAt &&
+    user.subscriptionEndsAt.getTime() < Date.now()
+  ) {
+    hasAccess = false;
+  }
+
+  return { status, hasAccess };
 }

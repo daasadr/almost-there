@@ -106,6 +106,31 @@ export const env = {
   get maxActiveGoals(): number {
     return optionalInt("MAX_ACTIVE_GOALS", 5);
   },
+  /**
+   * E-maily s přístupem do správy, oddělené čárkou.
+   *
+   * Schválně z prostředí, ne z databáze. Kdyby byl příznak správce jen
+   * sloupcem, stačila by jedna chyba v API nebo jeden nalezený SQL průlom
+   * k tomu, aby si někdo správce udělal sám. Takhle je potřeba přístup
+   * na server. Přidání správce stojí restart kontejneru — při jednom
+   * provozovateli to není žádná daň.
+   */
+  get adminEmails(): string[] {
+    return (process.env.ADMIN_EMAILS ?? "")
+      .split(",")
+      .map((email) => email.trim().toLowerCase())
+      .filter(Boolean);
+  },
+  /**
+   * Na kolik platících účtů připadá jeden bezplatný.
+   *
+   * Není to vynucený limit, jen vodítko — správa podle něj ukazuje, kolik
+   * účtů sis podle vlastního pravidla mohla rozdat a kolik jsi jich už
+   * rozdala. Rozhodnutí zůstává na tobě.
+   */
+  get complimentaryPerPayingUsers(): number {
+    return optionalInt("COMPLIMENTARY_PER_PAYING", 100);
+  },
   get appUrl(): string {
     return process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
   },

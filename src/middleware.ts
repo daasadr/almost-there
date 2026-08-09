@@ -17,8 +17,14 @@ import { routing } from "@/i18n/routing";
 const intlMiddleware = createIntlMiddleware(routing);
 const { auth } = NextAuth(authConfig);
 
-/** Cesty (bez jazykového prefixu), které vyžadují přihlášení. */
-const PROTECTED_PREFIXES = ["/app"];
+/**
+ * Cesty (bez jazykového prefixu), které vyžadují přihlášení.
+ *
+ * `/admin` je tu jen kvůli tomu, aby nepřihlášený skončil na přihlášení
+ * místo na chybové stránce. Že je někdo správce, se ověřuje až na serveru —
+ * middleware má k dispozici jen podpis tokenu, ne databázi.
+ */
+const PROTECTED_PREFIXES = ["/app", "/admin"];
 
 /** Cesty, které nemá smysl ukazovat přihlášenému uživateli. */
 const GUEST_ONLY = ["/login", "/register", "/forgot-password"];

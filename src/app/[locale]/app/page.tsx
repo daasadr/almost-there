@@ -10,6 +10,7 @@ import { GoalList } from "@/components/plan/GoalList";
 import { PlanTrigger } from "@/components/plan/PlanTrigger";
 import { TodayChecklist } from "@/components/plan/TodayChecklist";
 import { UsageMeter } from "@/components/plan/UsageMeter";
+import { isAdminEmail } from "@/lib/admin/guard";
 import { getAccess } from "@/lib/billing/access";
 import { getToday, listGoals } from "@/lib/goals/queries";
 import { db } from "@/lib/db";
@@ -138,8 +139,19 @@ export default async function AppPage({
         )}
       </div>
 
-      <div className="mt-8">
+      <div className="mt-8 flex flex-wrap items-center gap-6">
         <SignOutButton label={t("signOut")} />
+
+        {/* Odkaz vidí jen správce. Stránka si oprávnění stejně ověřuje
+            sama — tohle je pohodlí, ne ochrana. */}
+        {isAdminEmail(session.user.email) && (
+          <Link
+            href={`/${locale}/admin`}
+            className="text-sm text-[var(--color-paper-faint)] hover:text-[var(--color-paper)]"
+          >
+            Správa uživatelů
+          </Link>
+        )}
       </div>
     </section>
   );
