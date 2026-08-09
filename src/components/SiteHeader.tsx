@@ -7,6 +7,43 @@ import { Link, usePathname } from "@/i18n/navigation";
 import { LogoMark, Wordmark } from "./Logo";
 import { LocaleSwitcher } from "./LocaleSwitcher";
 
+/** Kotvy na úvodní stránce, na které míří odkazy v hlavičce. */
+const SECTIONS = ["how", "features", "pricing"] as const;
+
+/**
+ * Odkaz na sekci úvodní stránky.
+ *
+ * Na úvodní stránce je to obyčejná kotva a prohlížeč jen odroluje.
+ * Odjinud — z podmínek, ze zásad, z dema — musí odkaz nejdřív dovést
+ * uživatele na úvodní stránku; samotná kotva by tam nenašla nic
+ * a tlačítko by vypadalo rozbitě.
+ */
+function SectionLink({
+  section,
+  onLanding,
+  label,
+}: {
+  section: string;
+  onLanding: boolean;
+  label: string;
+}) {
+  const className = "transition hover:text-[var(--color-paper)]";
+
+  if (onLanding) {
+    return (
+      <a href={`#${section}`} className={className}>
+        {label}
+      </a>
+    );
+  }
+
+  return (
+    <Link href={`/#${section}`} className={className}>
+      {label}
+    </Link>
+  );
+}
+
 export function SiteHeader() {
   const t = useTranslations("nav");
   const [scrolled, setScrolled] = useState(false);
@@ -19,6 +56,7 @@ export function SiteHeader() {
   const isAppSection = ["/app", "/admin"].some(
     (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
   );
+  const onLanding = pathname === "/";
 
   // Hlavička je průhledná nad hero sekcí a po odscrollování ztmavne,
   // aby text pod ní nesplýval s pozadím.
@@ -47,23 +85,16 @@ export function SiteHeader() {
         </Link>
 
         {!isAppSection && (
-        <nav className="ml-auto hidden items-center gap-7 text-sm text-[var(--color-paper-dim)] md:flex">
-          <a href="#how" className="transition hover:text-[var(--color-paper)]">
-            {t("howItWorks")}
-          </a>
-          <a
-            href="#features"
-            className="transition hover:text-[var(--color-paper)]"
-          >
-            {t("features")}
-          </a>
-          <a
-            href="#pricing"
-            className="transition hover:text-[var(--color-paper)]"
-          >
-            {t("pricing")}
-          </a>
-        </nav>
+          <nav className="ml-auto hidden items-center gap-7 text-sm text-[var(--color-paper-dim)] md:flex">
+            {SECTIONS.map((section) => (
+              <SectionLink
+                key={section}
+                section={section}
+                onLanding={onLanding}
+                label={t(section === "how" ? "howItWorks" : section === "features" ? "features" : "pricing")}
+              />
+            ))}
+          </nav>
         )}
 
         <div className="ml-auto flex items-center gap-3">
