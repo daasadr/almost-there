@@ -403,8 +403,7 @@
       "working": "Working…",
       "failed": "That did not work. Please try again."
     },
-    "immediateStart": "I agree that the service starts working right after payment, that is before the fourteen-day withdrawal period ends. I understand that if I then withdraw from the contract, I pay a proportionate amount for the time the service was available to me.",
-    "immediateStartRequired": "We cannot start the payment without this consent — it is a legal condition for starting the service immediately."
+    "immediateStart": "By clicking the button below you agree that the service starts working immediately, that is before the fourteen-day withdrawal period ends. You can still withdraw afterwards — you only pay a proportionate amount for the time the service was available to you. We will send you a confirmation by email."
   },
   "plan": {
     "nav": {

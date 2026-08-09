@@ -403,8 +403,7 @@
       "working": "Pracuji…",
       "failed": "Nepovedlo se to. Zkus to prosím znovu."
     },
-    "immediateStart": "Souhlasím, aby služba začala fungovat hned po zaplacení, tedy před uplynutím čtrnáctidenní lhůty pro odstoupení. Beru na vědomí, že když pak od smlouvy odstoupím, zaplatím poměrnou část za dobu, po kterou jsem službu měl k dispozici.",
-    "immediateStartRequired": "Bez tohohle souhlasu platbu spustit nemůžeme — je to zákonná podmínka pro okamžité zahájení služby."
+    "immediateStart": "Kliknutím na tlačítko níž souhlasíš, aby služba začala fungovat hned, tedy před uplynutím čtrnáctidenní lhůty pro odstoupení. Odstoupit můžeš i pak — zaplatíš jen poměrnou část za dobu, kterou jsi službu měl k dispozici. Potvrzení ti přijde e-mailem."
   },
   "plan": {
     "nav": {

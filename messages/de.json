@@ -403,8 +403,7 @@
       "working": "Einen Moment…",
       "failed": "Das hat nicht geklappt. Bitte versuch es erneut."
     },
-    "immediateStart": "Ich stimme zu, dass der Dienst sofort nach der Zahlung startet, also vor Ablauf der vierzehntägigen Widerrufsfrist. Mir ist bewusst, dass ich bei einem späteren Widerruf einen anteiligen Betrag für die Zeit zahle, in der mir der Dienst zur Verfügung stand.",
-    "immediateStartRequired": "Ohne diese Zustimmung können wir die Zahlung nicht starten — sie ist gesetzliche Voraussetzung für den sofortigen Beginn."
+    "immediateStart": "Mit dem Klick auf den Button unten stimmst du zu, dass der Dienst sofort startet, also vor Ablauf der vierzehntägigen Widerrufsfrist. Widerrufen kannst du auch danach — du zahlst dann nur einen anteiligen Betrag für die Zeit, in der dir der Dienst zur Verfügung stand. Eine Bestätigung schicken wir dir per E-Mail."
   },
   "plan": {
     "nav": {
