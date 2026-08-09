@@ -380,7 +380,19 @@
     "successTitle": "Payment received",
     "successBody": "Thank you! Your subscription activates as soon as the payment provider confirms it — usually within seconds.",
     "cancelledTitle": "Payment not completed",
-    "cancelledBody": "Nothing was charged. You can try again whenever you like."
+    "cancelledBody": "Nothing was charged. You can try again whenever you like.",
+    "cancel": {
+      "cancel": "Cancel subscription",
+      "confirm": "Your subscription runs to the end of the period you paid for and then stops renewing. Nothing further is charged and you keep the plans you already have.",
+      "confirmUntil": "Your subscription runs until {date} and then stops renewing. Until then nothing changes, and you keep the plans you already have.",
+      "confirmYes": "Yes, cancel",
+      "keep": "Keep it",
+      "ending": "Your subscription is cancelled and runs to the end of the period.",
+      "endingOn": "Your subscription is cancelled and runs until {date}. Everything keeps working until then.",
+      "resume": "Keep my subscription after all",
+      "working": "Working…",
+      "failed": "That did not work. Please try again."
+    }
   },
   "plan": {
     "nav": {
@@ -594,6 +606,31 @@
       "saved": "Saved",
       "failed": "Saving failed. Please try again.",
       "appliesNote": "Changes apply from the next breakdown — each further week of your running goals gets laid out with the new values. Days already written stay as they are."
+    },
+    "status": {
+      "readyTitle": "Is it done?",
+      "readyBody": "This goal looks finished. Once you close it, I will add up what you went through and leave it here for you.",
+      "finish": "Yes, it is done",
+      "finishQuiet": "Close as finished",
+      "finishing": "Closing…",
+      "pause": "Pause this goal",
+      "resume": "Start it again",
+      "reopen": "Open it again",
+      "seeCelebration": "See the summary",
+      "failed": "That did not work. Please try again.",
+      "paused": "This goal is paused. It gets no daily tasks and does not count towards your five running goals — the plan waits until you come back."
+    },
+    "done": {
+      "eyebrow": "Finished",
+      "period": "From {from} to {to}",
+      "days": "days",
+      "tasks": "tasks",
+      "rest": "days off",
+      "stages": "stages",
+      "footnote": "Most goals never get finished. This one did — and not through one decision, but through all those days when you did not feel like it and did it anyway.",
+      "back": "Back to the app",
+      "collection": "Goals you finished",
+      "collectionEmpty": "Once you finish a goal, it stays here."
     }
   }
 }

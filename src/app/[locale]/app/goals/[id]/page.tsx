@@ -6,12 +6,14 @@ import { auth } from "@/auth";
 import { DeleteGoalButton } from "@/components/plan/DeleteGoalButton";
 import { GoalImages } from "@/components/plan/GoalImages";
 import { MAX_IMAGES_PER_GOAL } from "@/lib/uploads/images";
+import { GoalStatusControls } from "@/components/plan/GoalStatusControls";
 import { PaceCheck } from "@/components/plan/PaceCheck";
 import { PlanTree } from "@/components/plan/PlanTree";
 import { PlanTrigger } from "@/components/plan/PlanTrigger";
 import { getAccess } from "@/lib/billing/access";
 import { getGoalDetail } from "@/lib/goals/queries";
 import { getPaceStatus } from "@/lib/goals/pace";
+import { isReadyToFinish } from "@/lib/goals/complete";
 import { toIsoDate } from "@/lib/plan/calendar";
 import { db } from "@/lib/db";
 
@@ -56,9 +58,12 @@ export default async function GoalPage({
     select: { timezone: true },
   });
   const pace = await getPaceStatus(goal.id, profile?.timezone ?? "Europe/Prague");
+  const readyToFinish =
+    goal.status === "ACTIVE" && (await isReadyToFinish(goal.id, goal.targetDate));
 
   const t = await getTranslations({ locale, namespace: "plan.detail" });
   const tGoals = await getTranslations({ locale, namespace: "plan.goals" });
+  const tStatus = await getTranslations({ locale, namespace: "plan.status" });
 
   const formatDate = new Intl.DateTimeFormat(locale, { dateStyle: "long" });
 
@@ -79,6 +84,12 @@ export default async function GoalPage({
       <p className="mt-2 text-sm text-[var(--color-paper-dim)]">
         {tGoals("targetDate", { date: formatDate.format(goal.targetDate) })}
       </p>
+
+      {goal.status === "PAUSED" && (
+        <p className="mt-6 rounded-2xl border border-white/10 bg-white/[0.02] p-5 text-sm leading-relaxed text-[var(--color-paper-dim)]">
+          {tStatus("paused")}
+        </p>
+      )}
 
       {goal.feasibility && (
         <div className="mt-6">
@@ -125,6 +136,14 @@ export default async function GoalPage({
           )}
         </div>
       )}
+
+      <div className="mt-8">
+        <GoalStatusControls
+          goalId={goal.id}
+          status={goal.status}
+          readyToFinish={readyToFinish}
+        />
+      </div>
 
       {/* Nabídka přeplánování patří nad plán: když se cíl rozešel se
           skutečností, je čtení starého rozpisu ztráta času. */}

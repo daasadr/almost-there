@@ -380,7 +380,19 @@
     "successTitle": "Platba proběhla",
     "successBody": "Díky! Jakmile potvrzení dorazí od platební brány, předplatné se aktivuje — obvykle to trvá pár vteřin.",
     "cancelledTitle": "Platba nedokončena",
-    "cancelledBody": "Nic se nestrhlo. Můžeš to zkusit znovu, až budeš chtít."
+    "cancelledBody": "Nic se nestrhlo. Můžeš to zkusit znovu, až budeš chtít.",
+    "cancel": {
+      "cancel": "Zrušit předplatné",
+      "confirm": "Předplatné doběhne do konce zaplaceného období a pak se neobnoví. Nic se ti nestrhne navíc a o hotové plány nepřijdeš.",
+      "confirmUntil": "Předplatné doběhne {date} a pak se neobnoví. Do té doby zůstává všechno beze změny a o hotové plány nepřijdeš.",
+      "confirmYes": "Ano, zrušit",
+      "keep": "Ponechat",
+      "ending": "Předplatné je vypovězené a doběhne koncem období.",
+      "endingOn": "Předplatné je vypovězené a doběhne {date}. Do té doby funguje všechno dál.",
+      "resume": "Nechat si předplatné dál",
+      "working": "Pracuji…",
+      "failed": "Nepovedlo se to. Zkus to prosím znovu."
+    }
   },
   "plan": {
     "nav": {
@@ -594,6 +606,31 @@
       "saved": "Uloženo",
       "failed": "Uložení se nepovedlo. Zkus to prosím znovu.",
       "appliesNote": "Změna se projeví od příštího rozpisu — každý další týden běžících cílů se rozvrhne už podle nových hodnot. Hotové dny zůstanou, jak jsou."
+    },
+    "status": {
+      "readyTitle": "Máš to?",
+      "readyBody": "Vypadá to, že je cíl u konce. Až ho uzavřeš, spočítám, čím jsi za tu dobu prošla, a nechám ti to tu.",
+      "finish": "Ano, mám to",
+      "finishQuiet": "Uzavřít jako dotažený",
+      "finishing": "Uzavírám…",
+      "pause": "Pozastavit cíl",
+      "resume": "Znovu spustit",
+      "reopen": "Otevřít znovu",
+      "seeCelebration": "Zobrazit shrnutí",
+      "failed": "Nepovedlo se to. Zkus to prosím znovu.",
+      "paused": "Cíl je pozastavený. Denní úkoly nedostává a nepočítá se do pětice běžících — plán čeká, až se k němu vrátíš."
+    },
+    "done": {
+      "eyebrow": "Dotaženo",
+      "period": "Od {from} do {to}",
+      "days": "dní",
+      "tasks": "úkolů",
+      "rest": "dnů volna",
+      "stages": "etap",
+      "footnote": "Většina cílů se nedotáhne. Tenhle ano — a nestalo se to jedním rozhodnutím, ale všemi těmi dny, kdy se ti do toho nechtělo a udělala jsi to stejně.",
+      "back": "Zpět do aplikace",
+      "collection": "Dotažené cíle",
+      "collectionEmpty": "Až nějaký cíl dotáhneš, zůstane ti tady."
     }
   }
 }

@@ -380,7 +380,19 @@
     "successTitle": "Zahlung eingegangen",
     "successBody": "Danke! Dein Abonnement wird aktiv, sobald der Zahlungsdienstleister bestätigt — meist innerhalb von Sekunden.",
     "cancelledTitle": "Zahlung nicht abgeschlossen",
-    "cancelledBody": "Es wurde nichts abgebucht. Du kannst es jederzeit erneut versuchen."
+    "cancelledBody": "Es wurde nichts abgebucht. Du kannst es jederzeit erneut versuchen.",
+    "cancel": {
+      "cancel": "Abo kündigen",
+      "confirm": "Dein Abo läuft bis zum Ende des bezahlten Zeitraums und verlängert sich dann nicht mehr. Es wird nichts weiter abgebucht und deine fertigen Pläne bleiben dir.",
+      "confirmUntil": "Dein Abo läuft bis {date} und verlängert sich dann nicht mehr. Bis dahin ändert sich nichts, deine fertigen Pläne bleiben dir.",
+      "confirmYes": "Ja, kündigen",
+      "keep": "Behalten",
+      "ending": "Dein Abo ist gekündigt und läuft bis zum Ende des Zeitraums.",
+      "endingOn": "Dein Abo ist gekündigt und läuft bis {date}. Bis dahin funktioniert alles weiter.",
+      "resume": "Abo doch behalten",
+      "working": "Einen Moment…",
+      "failed": "Das hat nicht geklappt. Bitte versuch es erneut."
+    }
   },
   "plan": {
     "nav": {
@@ -594,6 +606,31 @@
       "saved": "Gespeichert",
       "failed": "Das Speichern hat nicht geklappt. Bitte versuch es erneut.",
       "appliesNote": "Änderungen greifen ab der nächsten Zerlegung — jede weitere Woche deiner laufenden Ziele wird mit den neuen Werten verteilt. Bereits geschriebene Tage bleiben, wie sie sind."
+    },
+    "status": {
+      "readyTitle": "Hast du es geschafft?",
+      "readyBody": "Das Ziel sieht abgeschlossen aus. Wenn du es schließt, rechne ich zusammen, was du durchgezogen hast, und lasse es dir hier.",
+      "finish": "Ja, geschafft",
+      "finishQuiet": "Als erreicht abschließen",
+      "finishing": "Wird abgeschlossen…",
+      "pause": "Ziel pausieren",
+      "resume": "Wieder starten",
+      "reopen": "Wieder öffnen",
+      "seeCelebration": "Zusammenfassung ansehen",
+      "failed": "Das hat nicht geklappt. Bitte versuch es erneut.",
+      "paused": "Dieses Ziel ist pausiert. Es bekommt keine Tagesaufgaben und zählt nicht zu deinen fünf laufenden Zielen — der Plan wartet, bis du zurückkommst."
+    },
+    "done": {
+      "eyebrow": "Erreicht",
+      "period": "Von {from} bis {to}",
+      "days": "Tage",
+      "tasks": "Aufgaben",
+      "rest": "freie Tage",
+      "stages": "Etappen",
+      "footnote": "Die meisten Ziele werden nie erreicht. Dieses schon — und nicht durch eine Entscheidung, sondern durch all die Tage, an denen du keine Lust hattest und es trotzdem getan hast.",
+      "back": "Zurück zur App",
+      "collection": "Erreichte Ziele",
+      "collectionEmpty": "Sobald du ein Ziel erreichst, bleibt es hier."
     }
   }
 }

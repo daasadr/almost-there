@@ -11,6 +11,8 @@ export type GoalSummary = {
   targetDate: Date;
   status: string;
   color: string;
+  completedAt: Date | null;
+  completionNote: string | null;
   feasibility: string | null;
   tasksTotal: number;
   tasksDone: number;
@@ -19,13 +21,15 @@ export type GoalSummary = {
 export async function listGoals(userId: string): Promise<GoalSummary[]> {
   const goals = await db.goal.findMany({
     where: { userId },
-    orderBy: [{ status: "asc" }, { targetDate: "asc" }],
+    orderBy: [{ status: "asc" }, { completedAt: "desc" }, { targetDate: "asc" }],
     select: {
       id: true,
       title: true,
       targetDate: true,
       status: true,
       color: true,
+      completedAt: true,
+      completionNote: true,
       feasibility: true,
       _count: { select: { tasks: true } },
     },
@@ -45,6 +49,8 @@ export async function listGoals(userId: string): Promise<GoalSummary[]> {
     targetDate: goal.targetDate,
     status: goal.status,
     color: goal.color,
+    completedAt: goal.completedAt,
+    completionNote: goal.completionNote,
     feasibility: goal.feasibility,
     tasksTotal: goal._count.tasks,
     tasksDone: doneByGoal.get(goal.id) ?? 0,

@@ -5,6 +5,7 @@ import { auth } from "@/auth";
 import { SignOutButton } from "@/components/auth/SignOutButton";
 import { Paywall } from "@/components/billing/Paywall";
 import { CheckoutPending } from "@/components/billing/CheckoutPending";
+import { CancelSubscription } from "@/components/billing/CancelSubscription";
 import { BudgetNotice } from "@/components/plan/BudgetNotice";
 import { GoalList } from "@/components/plan/GoalList";
 import { PlanTrigger } from "@/components/plan/PlanTrigger";
@@ -58,6 +59,15 @@ export default async function AppPage({
   // Návrat od pokladny. Sama o sobě tahle adresa nic neodemyká, jen mění
   // to, co uživatel po návratu uvidí — otevřít si ji může kdokoliv.
   const { checkout } = await searchParams;
+
+  const billing = await db.user.findUnique({
+    where: { id: session.user.id },
+    select: {
+      stripeSubscriptionId: true,
+      subscriptionEndsAt: true,
+      subscriptionCancelAtPeriodEnd: true,
+    },
+  });
 
   return (
     <section className="mx-auto max-w-3xl px-5 py-16 sm:px-8 sm:py-24">
@@ -140,6 +150,17 @@ export default async function AppPage({
         {hasAccess && (
           <div className="mt-7 border-t border-white/5 pt-6 text-sm">
             <UsageMeter userId={session.user.id} locale={locale} />
+          </div>
+        )}
+
+        {/* Zrušit předplatné musí jít z aplikace, ne jen ve Stripu.
+            U přiděleného přístupu není co vypovídat. */}
+        {billing?.stripeSubscriptionId && (
+          <div className="mt-7 border-t border-white/5 pt-6">
+            <CancelSubscription
+              endsAt={billing.subscriptionEndsAt?.toISOString() ?? null}
+              cancelAtPeriodEnd={billing.subscriptionCancelAtPeriodEnd}
+            />
           </div>
         )}
       </div>

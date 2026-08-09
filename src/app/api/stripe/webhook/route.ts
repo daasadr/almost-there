@@ -82,6 +82,9 @@ async function applySubscription(subscription: Stripe.Subscription) {
       stripeCustomerId: customerId,
       stripeSubscriptionId: subscription.id,
       subscriptionEndsAt: periodEnd ? new Date(periodEnd * 1000) : null,
+      // Zákazník může vypovědět i přímo ve Stripu, ne jen v aplikaci —
+      // pravdu má vždycky Stripe a tohle je místo, kde si ji bereme.
+      subscriptionCancelAtPeriodEnd: subscription.cancel_at_period_end ?? false,
     },
   });
 }

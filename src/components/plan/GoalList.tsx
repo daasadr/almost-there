@@ -12,7 +12,11 @@ export async function GoalList({
   locale: string;
 }) {
   const t = await getTranslations({ locale, namespace: "plan.goals" });
+  const tDone = await getTranslations({ locale, namespace: "plan.done" });
   const formatDate = new Intl.DateTimeFormat(locale, { dateStyle: "long" });
+
+  const running = goals.filter((goal) => goal.status !== "COMPLETED");
+  const finished = goals.filter((goal) => goal.status === "COMPLETED");
 
   if (goals.length === 0) {
     return (
@@ -30,7 +34,7 @@ export async function GoalList({
 
   return (
     <ul className="space-y-3">
-      {goals.map((goal) => (
+      {running.map((goal) => (
         <li key={goal.id}>
           <Link
             href={`/${locale}/app/goals/${goal.id}`}
@@ -74,6 +78,38 @@ export async function GoalList({
           </Link>
         </li>
       ))}
+
+      {/* Dotažené cíle jsou sbírka, ne archiv. Nejsou odklizené pryč —
+          jsou vidět, protože přesně tohle si člověk otevře ve chvíli,
+          kdy se mu do dalšího cíle nechce. */}
+      {finished.length > 0 && (
+        <li className="pt-6">
+          <h3 className="text-xs font-semibold uppercase tracking-wider text-[var(--color-paper-faint)]">
+            {tDone("collection")}
+          </h3>
+
+          <ul className="mt-3 space-y-2">
+            {finished.map((goal) => (
+              <li key={goal.id}>
+                <Link
+                  href={`/${locale}/app/goals/${goal.id}/done`}
+                  style={{ borderColor: `${goalHex(goal.color)}55` }}
+                  className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 rounded-xl border px-4 py-3 transition hover:bg-white/[0.03]"
+                >
+                  <span className="text-[15px] text-[var(--color-paper)]">
+                    {goal.title}
+                  </span>
+                  {goal.completedAt && (
+                    <span className="text-xs text-[var(--color-paper-faint)]">
+                      {formatDate.format(goal.completedAt)}
+                    </span>
+                  )}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </li>
+      )}
     </ul>
   );
 }
