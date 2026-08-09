@@ -60,6 +60,10 @@ services:
       # heslo tak píšeš do .env jen jednou a nemůže se rozejít.
       DATABASE_URL: postgresql://${POSTGRES_USER:-almostthere}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-almostthere}?schema=public
 
+      # Klíč k šifrování obsahu cílů v databázi. Bez něj aplikace
+      # odmítne zapisovat — nezašifrovaná data by nikdo nepoznal.
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY}
+
       # --- Přihlašování ---
       AUTH_SECRET: ${AUTH_SECRET}
       # Kanonická adresa aplikace. Za reverzní proxy si ji NextAuth sám
@@ -99,6 +103,8 @@ services:
       target: builder
     command: npx prisma migrate deploy
     environment:
+      # Kvůli scripts/encrypt-existing.ts, který se pouští tímhle kontejnerem.
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY}
       DATABASE_URL: postgresql://${POSTGRES_USER:-almostthere}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-almostthere}?schema=public
     depends_on:
       db:

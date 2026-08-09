@@ -1,6 +1,7 @@
 import "server-only";
 import { PrismaClient } from "@/generated/prisma";
 import { PrismaPg } from "@prisma/adapter-pg";
+import { encryptionExtension } from "./crypto/prisma-extension";
 
 /**
  * Prisma klient.
@@ -16,13 +17,20 @@ import { PrismaPg } from "@prisma/adapter-pg";
  * Instance se drží na globálním objektu. Ve vývoji Next.js při každé změně
  * kódu modul znovu načte, a bez tohohle by vzniklo desítky spojení,
  * dokud by databáze nezačala odmítat další.
+ *
+ * Klient je rozšířený o šifrování textových polí. Je to schválně tady,
+ * na jediném místě, kudy všechny dotazy procházejí — kdyby se šifrovalo
+ * ručně u volajících, dřív nebo později by to někde chybělo a nikdo by
+ * si toho nevšiml.
  */
 
 const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaClient | undefined;
+  prisma: Client | undefined;
 };
 
-function createClient(): PrismaClient {
+type Client = ReturnType<typeof buildClient>;
+
+function buildClient() {
   const connectionString = process.env.DATABASE_URL;
   if (!connectionString) {
     throw new Error(
@@ -34,12 +42,12 @@ function createClient(): PrismaClient {
     adapter: new PrismaPg({ connectionString }),
     // V produkci nechceme každý dotaz v logu, chyby ano.
     log: process.env.NODE_ENV === "production" ? ["error"] : ["error", "warn"],
-  });
+  }).$extends(encryptionExtension);
 }
 
-function getClient(): PrismaClient {
+function getClient(): Client {
   if (!globalForPrisma.prisma) {
-    globalForPrisma.prisma = createClient();
+    globalForPrisma.prisma = buildClient();
   }
   return globalForPrisma.prisma;
 }
@@ -49,7 +57,7 @@ function getClient(): PrismaClient {
  * prvním použití. Metody navazujeme zpět na klienta — jinak by `this`
  * uvnitř ukazovalo na tenhle obal a věci jako `$transaction` by selhaly.
  */
-export const db = new Proxy({} as PrismaClient, {
+export const db = new Proxy({} as Client, {
   get(_target, property, _receiver) {
     const client = getClient();
     const value = Reflect.get(client, property, client);

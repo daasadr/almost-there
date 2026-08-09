@@ -16,7 +16,7 @@ import type { Locale } from "@/i18n/routing";
  * nejde doložit, s JAKÝM zněním uživatel souhlasil (zadání, bod 13).
  * Při každé věcné změně podmínek tuhle hodnotu zvyš.
  */
-export const LEGAL_VERSION = "2026-08-08";
+export const LEGAL_VERSION = "2026-08-10";
 
 export type LegalSection = { heading: string; paragraphs: string[] };
 export type LegalDocument = {
@@ -306,7 +306,9 @@ export const privacyByLocale: Record<Locale, LegalDocument> = {
         heading: "3. Citlivá povaha obsahu cílů",
         paragraphs: [
           "Cíle mohou být osobní — finanční, zdravotní, kariérní. Ber prosím v úvahu, jak podrobně je popisuješ.",
-          "Obsah cílů je v databázi šifrován při uložení, přístup k němu je omezený a přístupy k citlivým datům logujeme. Zvláštní kategorie údajů podle čl. 9 GDPR (například údaje o zdravotním stavu) po tobě nepožadujeme a nedoporučujeme je do cílů uvádět.",
+          "Text cílů, plánů a úkolů je v databázi uložený zašifrovaný. Kdo by získal databázi nebo zálohu bez přístupu na server, nepřečte z nich nic. Šifrovací klíč je ale na serveru, takže před provozovatelem tě šifrování neochrání — a tvrdit opak by bylo nepoctivé.",
+          "Co tě ochránit má: v aplikaci neexistuje žádná obrazovka ani rozhraní, kterým by se provozovatel k obsahu tvých cílů dostal. Správa uživatelů zobrazuje jen e-mail, stav předplatného a počty, nikdy text. Zdrojový kód služby je veřejný, takže si to může ověřit kdokoliv, nejen my.",
+          "Zvláštní kategorie údajů podle čl. 9 GDPR (například údaje o zdravotním stavu) po tobě nepožadujeme a nedoporučujeme je do cílů uvádět.",
         ],
       },
       {
@@ -379,7 +381,9 @@ export const privacyByLocale: Record<Locale, LegalDocument> = {
         heading: "3. The sensitive nature of goal content",
         paragraphs: [
           "Goals can be personal — financial, health-related, career-related. Please bear that in mind when deciding how much detail to write.",
-          "Goal content is encrypted at rest, access to it is restricted, and access to sensitive data is logged. We do not ask for special categories of data under Art. 9 GDPR (such as health data) and recommend you do not include them in your goals.",
+          "The text of your goals, plans and tasks is stored encrypted. Anyone who obtained the database or a backup without access to the server would read nothing from it. The key, however, lives on the server, so encryption does not protect you from the operator — and claiming otherwise would be dishonest.",
+          "What is meant to protect you: the application has no screen and no interface through which the operator could read the content of your goals. User administration shows only the email address, subscription status and counts, never the text. The source code is public, so anyone can verify this, not just us.",
+          "We do not ask for special categories of data under Art. 9 GDPR (such as health data) and recommend you do not include them in your goals.",
         ],
       },
       {
@@ -452,7 +456,9 @@ export const privacyByLocale: Record<Locale, LegalDocument> = {
         heading: "3. Sensibler Charakter der Zielinhalte",
         paragraphs: [
           "Ziele können persönlich sein — finanziell, gesundheitlich, beruflich. Bitte berücksichtige das bei der Detailtiefe deiner Beschreibungen.",
-          "Zielinhalte werden verschlüsselt gespeichert, der Zugriff ist beschränkt und Zugriffe auf sensible Daten werden protokolliert. Besondere Kategorien personenbezogener Daten nach Art. 9 DSGVO (etwa Gesundheitsdaten) fragen wir nicht ab und empfehlen, sie nicht in Ziele aufzunehmen.",
+          "Der Text deiner Ziele, Pläne und Aufgaben wird verschlüsselt gespeichert. Wer die Datenbank oder ein Backup ohne Zugriff auf den Server erlangte, könnte nichts daraus lesen. Der Schlüssel liegt allerdings auf dem Server — vor dem Betreiber schützt dich die Verschlüsselung also nicht, und etwas anderes zu behaupten wäre unredlich.",
+          "Was dich schützen soll: Die Anwendung hat keine Ansicht und keine Schnittstelle, über die der Betreiber den Inhalt deiner Ziele lesen könnte. Die Nutzerverwaltung zeigt nur E-Mail-Adresse, Abo-Status und Zahlen, niemals Text. Der Quellcode ist öffentlich, das kann also jeder überprüfen, nicht nur wir.",
+          "Besondere Kategorien personenbezogener Daten nach Art. 9 DSGVO (etwa Gesundheitsdaten) fragen wir nicht ab und empfehlen, sie nicht in Ziele aufzunehmen.",
         ],
       },
       {

@@ -6,6 +6,14 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 const nextConfig: NextConfig = {
   // standalone build = malý Docker image, běží přes `node server.js`
   output: "standalone",
+
+  /**
+   * Na Windows padají souběžné pracovní procesy při sběru dat stránek
+   * (worker skončí s 0xC0000409) a build se nedokončí. Na Linuxu, kde
+   * běží produkční build v Dockeru, se to nestává — proto se omezení
+   * uplatní jen tam, kde je potřeba, a nasazení se tím nezpomalí.
+   */
+  ...(process.platform === "win32" ? { experimental: { cpus: 1 } } : {}),
   poweredByHeader: false,
   reactStrictMode: true,
 
