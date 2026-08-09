@@ -664,6 +664,27 @@
     "progress": {
       "title": "Last thirty days",
       "summary": "{done} of {total} days complete"
+    },
+    "claim": {
+      "title": "Your goal from the demo is ready",
+      "body": "{count, plural, one {A breakdown into one period} other {A breakdown into # periods}} is already done. You can take it over as it is — nothing gets generated again and it does not count towards your monthly limit.",
+      "due": "Due {date}",
+      "assumptionNote": "The demo did not know how much time you have each day, so the plan was built on a general estimate. You now have {minutes} minutes a day set — once you start, the app will offer to recalculate if the pace does not fit.",
+      "colorLabel": "Goal colour",
+      "importanceLabel": "How much it matters to you",
+      "importance": {
+        "1": "Just trying it out",
+        "2": "If time allows",
+        "3": "It matters to me",
+        "4": "One of my main things",
+        "5": "This is the priority right now"
+      },
+      "detailLabel": "Anything to add? (optional)",
+      "detailPlaceholder": "What you already know, what limits you, what matters most…",
+      "detailHint": "Saved with the goal. It will not change the breakdown you already have — it comes into play for later weeks and any replanning.",
+      "claim": "Take this goal",
+      "claiming": "Taking it over…",
+      "discard": "No thanks, discard it"
     }
   }
 }

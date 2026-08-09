@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
 import { env } from "@/lib/env";
+import { db } from "@/lib/db";
+import { parseIsoDate } from "@/lib/plan/calendar";
+import type { Prisma } from "@/generated/prisma";
 import {
   checkRateLimit,
   getClientIp,
@@ -107,9 +110,41 @@ export async function POST(request: Request) {
       ),
     );
 
-    // TODO (další vrstva): uložit jako DemoGoal a evidovat AiUsageEvent,
-    // aby šel demo cíl po zaplacení převzít do plné verze (zadání 8).
-    return NextResponse.json<DemoSuccess>({ ok: true, plan: result.plan });
+    // Rozfázování se uloží, aby ho šlo po zaplacení převzít do plné verze
+    // (zadání, bod 8). Je to už zaplacená práce — nutit člověka zadat
+    // stejný cíl znovu a vygenerovat ho podruhé by bylo hloupé vůči němu
+    // i vůči nám.
+    const demoGoal = await db.demoGoal.create({
+      data: {
+        title: goal.trim(),
+        targetDate: parseIsoDate(targetDate),
+        locale,
+        level: result.plan.level,
+        periods: result.plan as unknown as Prisma.InputJsonValue,
+        ipHash: hashIp(getClientIp(request.headers)),
+        // Po měsíci je cíl neaktuální a plán by se stejně dělal znovu.
+        expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+      },
+      select: { id: true },
+    });
+
+    const response = NextResponse.json<DemoSuccess>({
+      ok: true,
+      plan: result.plan,
+    });
+
+    // Odkaz na rozfázování si nese prohlížeč. Účet v tu chvíli neexistuje,
+    // takže není ke komu ho přiřadit — a ptát se na e-mail dřív, než
+    // člověk uvidí výsledek, by odradilo přesně ty, kvůli kterým demo je.
+    response.cookies.set("demoGoal", demoGoal.id, {
+      httpOnly: true,
+      sameSite: "lax",
+      secure: env.isProduction,
+      path: "/",
+      maxAge: 30 * 24 * 60 * 60,
+    });
+
+    return response;
   } catch (error) {
     console.error("[demo] decomposition failed", error);
     return fail("aiFailed", 502);

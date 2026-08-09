@@ -664,6 +664,27 @@
     "progress": {
       "title": "Die letzten dreißig Tage",
       "summary": "{done} von {total} Tagen komplett"
+    },
+    "claim": {
+      "title": "Dein Ziel aus der Demo steht bereit",
+      "body": "{count, plural, one {Eine Zerlegung in einen Abschnitt} other {Eine Zerlegung in # Abschnitte}} ist schon fertig. Du kannst sie direkt übernehmen — es wird nichts neu erzeugt und auf dein Monatslimit zählt es nicht.",
+      "due": "Termin {date}",
+      "assumptionNote": "Die Demo kannte deine tägliche Zeit nicht, der Plan beruht also auf einer allgemeinen Schätzung. Bei dir sind jetzt {minutes} Minuten pro Tag eingestellt — sobald du anfängst, bietet dir die App eine Neuberechnung an, falls das Tempo nicht passt.",
+      "colorLabel": "Farbe des Ziels",
+      "importanceLabel": "Wie wichtig es dir ist",
+      "importance": {
+        "1": "Ich probier’s mal",
+        "2": "Wenn Zeit bleibt",
+        "3": "Es liegt mir am Herzen",
+        "4": "Eine meiner Hauptsachen",
+        "5": "Das hat gerade Vorrang"
+      },
+      "detailLabel": "Möchtest du etwas ergänzen? (optional)",
+      "detailPlaceholder": "Was du schon kannst, was dich einschränkt, worauf es dir ankommt…",
+      "detailHint": "Wird beim Ziel gespeichert. An der fertigen Zerlegung ändert das nichts — es wirkt sich auf spätere Wochen und eine mögliche Neuplanung aus.",
+      "claim": "Dieses Ziel übernehmen",
+      "claiming": "Wird übernommen…",
+      "discard": "Nein danke, verwerfen"
     }
   }
 }

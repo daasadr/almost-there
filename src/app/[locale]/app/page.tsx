@@ -12,6 +12,7 @@ import { PlanTrigger } from "@/components/plan/PlanTrigger";
 import { TodayChecklist } from "@/components/plan/TodayChecklist";
 import { PaceCheck } from "@/components/plan/PaceCheck";
 import { ProgressStrip } from "@/components/plan/ProgressStrip";
+import { ClaimDemoGoal } from "@/components/plan/ClaimDemoGoal";
 import { ReachedMilestones } from "@/components/plan/ReachedMilestones";
 import { UnfinishedTasks } from "@/components/plan/UnfinishedTasks";
 import { UsageMeter } from "@/components/plan/UsageMeter";
@@ -20,6 +21,8 @@ import { getAccess } from "@/lib/billing/access";
 import { getOverdue, getToday, listGoals } from "@/lib/goals/queries";
 import { getBehindGoals } from "@/lib/goals/pace";
 import { getRecentProgress } from "@/lib/goals/checkin";
+import { findClaimableDemo } from "@/lib/goals/claim";
+import { cookies } from "next/headers";
 import { getReachedMilestones } from "@/lib/goals/milestones";
 import { toIsoDate } from "@/lib/plan/calendar";
 import { db } from "@/lib/db";
@@ -129,6 +132,10 @@ export default async function AppPage({
           nemá cenu sahat do databáze pro data, která se nezobrazí. */}
       {hasAccess && (
         <div className="mt-10 space-y-10">
+          {/* Hotový plán z dema má přednost před vším ostatním: uživatel
+              právě zaplatil a tohle je nejrychlejší cesta k tomu, aby
+              aplikaci hned na něco použil. */}
+          <ClaimDemo userId={session.user.id} locale={locale} />
           <BudgetNotice userId={session.user.id} locale={locale} />
           <Today userId={session.user.id} locale={locale} />
           <Goals userId={session.user.id} locale={locale} />
@@ -197,6 +204,33 @@ export default async function AppPage({
         )}
       </div>
     </section>
+  );
+}
+
+/** Nabídka převzít cíl z dema, pokud v prohlížeči zůstal odkaz. */
+async function ClaimDemo({
+  userId,
+  locale,
+}: {
+  userId: string;
+  locale: string;
+}) {
+  const jar = await cookies();
+  const demo = await findClaimableDemo(jar.get("demoGoal")?.value);
+  if (!demo) return null;
+
+  const profile = await db.user.findUnique({
+    where: { id: userId },
+    select: { dailyCapacityMinutes: true },
+  });
+
+  return (
+    <ClaimDemoGoal
+      title={demo.title}
+      targetDate={toIsoDate(demo.targetDate)}
+      periodCount={demo.periodCount}
+      dailyCapacityMinutes={profile?.dailyCapacityMinutes ?? 60}
+    />
   );
 }
 

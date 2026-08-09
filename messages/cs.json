@@ -664,6 +664,27 @@
     "progress": {
       "title": "Posledních třicet dní",
       "summary": "{done} z {total} dní celých"
+    },
+    "claim": {
+      "title": "Cíl z dema máš připravený",
+      "body": "{count, plural, one {Rozfázování na jedno období} few {Rozfázování na # období} other {Rozfázování na # období}} je hotové. Můžeš ho převzít rovnou — negeneruje se znovu a do měsíčního limitu se nepočítá.",
+      "due": "Termín {date}",
+      "assumptionNote": "Demo neznalo, kolik máš denně času, takže plán vznikl s obecným odhadem. Ty máš teď nastaveno {minutes} minut denně — jakmile začneš, aplikace ti sama nabídne přepočet, kdyby tempo nesedělo.",
+      "colorLabel": "Barva cíle",
+      "importanceLabel": "Jak je pro tebe důležitý",
+      "importance": {
+        "1": "Zkouším to, uvidíme",
+        "2": "Když zbude čas",
+        "3": "Záleží mi na tom",
+        "4": "Jedna z hlavních věcí",
+        "5": "Tohle je teď priorita"
+      },
+      "detailLabel": "Chceš něco doplnit? (nepovinné)",
+      "detailPlaceholder": "Co už umíš, co tě omezuje, na čem ti nejvíc záleží…",
+      "detailHint": "Uloží se k cíli. Do už hotového rozfázování to nezasáhne — projeví se to až u dalších týdnů a při případném přeplánování.",
+      "claim": "Převzít tenhle cíl",
+      "claiming": "Přebírám…",
+      "discard": "Nechci ho, zahodit"
     }
   }
 }
