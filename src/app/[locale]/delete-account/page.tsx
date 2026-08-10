@@ -90,6 +90,24 @@ function Content() {
         ))}
       </ul>
 
+      {/* Mazání jednotlivostí. Google Play se na tuhle možnost ptá zvlášť
+          a odkazuje na tuhle stránku — musí o ní tedy mluvit. */}
+      <h2 className="display mt-12 text-xl">{t("partialTitle")}</h2>
+      <p className="mt-4 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+        {t("partialIntro")}
+      </p>
+      <ul className="mt-4 space-y-3 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+        {(t.raw("partialItems") as string[]).map((item) => (
+          <li key={item} className="flex gap-2.5">
+            <span aria-hidden="true">—</span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+      <p className="mt-4 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+        {t("partialHelp", { email: CONTACT_EMAIL })}
+      </p>
+
       <h2 className="display mt-12 text-xl">{t("subscriptionTitle")}</h2>
       <p className="mt-4 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
         {t("subscriptionBody")}

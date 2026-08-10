@@ -248,7 +248,15 @@
       "subscriptionBody": "Běžící předplatné se zrušením účtu okamžitě ukončí a dál se neúčtuje. Za nedočerpanou část zaplaceného období se peníze nevracejí — pokud chceš období dočerpat, zruš nejdřív jen předplatné a účet smaž až později.",
       "helpTitle": "Když se nemůžeš přihlásit",
       "helpBody": "Napiš z e-mailu, kterým je účet založený, na {email}. Účet smažeme ručně a potvrdíme ti to; vyřizujeme to nejpozději do třiceti dnů.",
-      "back": "Zpět na úvod"
+      "back": "Zpět na úvod",
+      "partialTitle": "Smazat jen něco, účet nechat",
+      "partialIntro": "Nemusíš rušit celý účet, abys něco smazal/a. Většinu si smažeš sám/sama přímo v aplikaci:",
+      "partialItems": [
+        "Cíl i se vším, co k němu patří — plány, úkoly, milníky a nahrané obrázky — smažeš na detailu cíle. Zmizí okamžitě a nevratně.",
+        "Jednotlivý obrázek smažeš křížkem přímo u něj.",
+        "Předvolby, čas na cíle nebo text o tom, co máš rád, přepíšeš nebo vymažeš v nastavení."
+      ],
+      "partialHelp": "Chceš smazat něco, na co v aplikaci tlačítko není? Napiš na {email} z adresy, kterou máš u účtu, a vyřídíme to nejpozději do třiceti dnů."
     }
   },
   "cookies": {

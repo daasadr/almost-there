@@ -248,7 +248,15 @@
       "subscriptionBody": "Mit der Kontolöschung endet ein laufendes Abo sofort und es wird nichts weiter berechnet. Für den ungenutzten Teil eines bezahlten Zeitraums gibt es keine Rückerstattung — wenn du den Zeitraum aufbrauchen möchtest, kündige zuerst nur das Abo und lösche das Konto später.",
       "helpTitle": "Wenn du dich nicht anmelden kannst",
       "helpBody": "Schreib von der E-Mail-Adresse, mit der das Konto angelegt wurde, an {email}. Wir löschen das Konto manuell und bestätigen dir das; wir erledigen das spätestens innerhalb von dreißig Tagen.",
-      "back": "Zurück zur Startseite"
+      "back": "Zurück zur Startseite",
+      "partialTitle": "Einzelnes löschen, Konto behalten",
+      "partialIntro": "Du musst nicht das ganze Konto löschen, um etwas zu entfernen. Das meiste erledigst du selbst in der App:",
+      "partialItems": [
+        "Ein Ziel samt allem, was dazugehört — Pläne, Aufgaben, Meilensteine und hochgeladene Bilder — löschst du auf der Seite des Ziels. Es verschwindet sofort und unwiderruflich.",
+        "Ein einzelnes Bild löschst du mit dem Kreuz daneben.",
+        "Einstellungen, deine tägliche Zeit und die Notizen darüber, was dir Freude macht, kannst du in den Einstellungen überschreiben oder leeren."
+      ],
+      "partialHelp": "Du möchtest etwas löschen, wofür es in der App keinen Knopf gibt? Schreib an {email} von der Adresse deines Kontos, und wir erledigen es spätestens innerhalb von dreißig Tagen."
     }
   },
   "cookies": {

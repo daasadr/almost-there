@@ -248,7 +248,15 @@
       "subscriptionBody": "Deleting the account ends a running subscription immediately and no further charges are made. There is no refund for the unused part of a paid period — if you want to use the period up, cancel just the subscription first and delete the account later.",
       "helpTitle": "If you cannot sign in",
       "helpBody": "Write from the email the account was created with to {email}. We will delete the account manually and confirm it; we handle this within thirty days at the latest.",
-      "back": "Back to home"
+      "back": "Back to home",
+      "partialTitle": "Delete some data, keep the account",
+      "partialIntro": "You do not have to close the account to delete something. Most of it you can remove yourself, inside the app:",
+      "partialItems": [
+        "A goal with everything belonging to it — plans, tasks, milestones and uploaded images — is deleted from the goal's own page. It goes immediately and cannot be undone.",
+        "A single image is deleted with the cross next to it.",
+        "Preferences, your daily time and the notes about what you enjoy can be overwritten or cleared in settings."
+      ],
+      "partialHelp": "Want to delete something the app has no button for? Write to {email} from the address on your account and we will handle it within thirty days at the latest."
     }
   },
   "cookies": {
