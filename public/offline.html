@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="cs">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bez připojení — AlmostThere</title>
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <style>
+      /*
+       * Styly jsou tady natvrdo schválně: tahle stránka se ukazuje ve
+       * chvíli, kdy síť nefunguje, takže si nemůže nic dotáhnout —
+       * ani vlastní CSS, ani písmo.
+       */
+      :root {
+        color-scheme: dark;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 2rem 1.25rem;
+        background: #04100c;
+        color: #e8f0ea;
+        font-family:
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          sans-serif;
+        text-align: center;
+      }
+      main {
+        max-width: 26rem;
+      }
+      h1 {
+        margin: 1.5rem 0 0;
+        font-size: 1.5rem;
+        line-height: 1.25;
+        font-weight: 600;
+      }
+      p {
+        margin: 0.75rem 0 0;
+        line-height: 1.6;
+        color: #9db3a5;
+      }
+      p + p {
+        margin-top: 1.5rem;
+        font-size: 0.9rem;
+        color: #6f8579;
+      }
+      button {
+        margin-top: 2rem;
+        padding: 0.7rem 1.5rem;
+        border: 0;
+        border-radius: 999px;
+        background: linear-gradient(90deg, #34d399, #bef264);
+        color: #04100c;
+        font: inherit;
+        font-weight: 600;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <img src="/icon.svg" alt="" width="56" height="56" />
+
+      <h1>Nejsi připojen k internetu</h1>
+      <p>
+        Tvoje plány jsou v bezpečí. Jakmile se síť vrátí, najdeš je přesně
+        tak, jak jsi je nechal.
+      </p>
+
+      <p lang="en">
+        You are offline. Your plans are safe — they will be here when the
+        connection is back.
+      </p>
+
+      <button type="button" onclick="location.reload()">Zkusit znovu</button>
+    </main>
+  </body>
+</html>

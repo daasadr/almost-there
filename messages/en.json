@@ -710,6 +710,12 @@
       "next": "Next week",
       "otherDay": "You are looking at {date}",
       "backToToday": "Back to today"
+    },
+    "install": {
+      "title": "Add AlmostThere to your home screen",
+      "body": "One tap opens it like any other app, with today’s tasks right there. Nothing to download from a store.",
+      "install": "Add to home screen",
+      "later": "Not now"
     }
   },
   "withdrawal": {

@@ -14,6 +14,7 @@ import { PaceCheck } from "@/components/plan/PaceCheck";
 import { ProgressStrip } from "@/components/plan/ProgressStrip";
 import { WeekStrip } from "@/components/plan/WeekStrip";
 import { ClaimDemoGoal } from "@/components/plan/ClaimDemoGoal";
+import { InstallPrompt } from "@/components/plan/InstallPrompt";
 import { ReachedMilestones } from "@/components/plan/ReachedMilestones";
 import { UnfinishedTasks } from "@/components/plan/UnfinishedTasks";
 import { UsageMeter } from "@/components/plan/UsageMeter";
@@ -142,6 +143,9 @@ export default async function AppPage({
               aplikaci hned na něco použil. */}
           <ClaimDemo userId={session.user.id} locale={locale} />
           <BudgetNotice userId={session.user.id} locale={locale} />
+          {/* Ukáže se jen tehdy, když prohlížeč instalaci skutečně nabízí —
+              jinak se nevykreslí vůbec. */}
+          <InstallPrompt />
           <Today userId={session.user.id} locale={locale} day={selectedDay} />
           <Goals userId={session.user.id} locale={locale} />
         </div>

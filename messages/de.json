@@ -710,6 +710,12 @@
       "next": "Nächste Woche",
       "otherDay": "Du siehst {date}",
       "backToToday": "Zurück zu heute"
+    },
+    "install": {
+      "title": "AlmostThere auf den Startbildschirm",
+      "body": "Ein Tippen öffnet sie wie jede andere App, mit den heutigen Aufgaben direkt vor dir. Kein Download aus einem Store.",
+      "install": "Zum Startbildschirm",
+      "later": "Jetzt nicht"
     }
   },
   "withdrawal": {

@@ -9,6 +9,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { CookieBanner } from "@/components/CookieBanner";
 import { RevealOnScroll } from "@/components/RevealOnScroll";
 import { AuthSessionProvider } from "@/components/SessionProvider";
+import { ServiceWorker } from "@/components/ServiceWorker";
 import "@/app/globals.css";
 
 export function generateStaticParams() {
@@ -34,7 +35,18 @@ export async function generateMetadata({
     },
     icons: {
       icon: "/icon.svg",
+      apple: "/apple-touch-icon.png",
     },
+    // Po instalaci na plochu iPhonu se appka spustí bez adresního řádku
+    // a s tmavým stavovým pruhem. Bez tohohle by vypadala jako web
+    // otevřený v Safari.
+    appleWebApp: {
+      capable: true,
+      title: "AlmostThere",
+      statusBarStyle: "black-translucent",
+    },
+    // Barva panelu prohlížeče i horní lišty nainstalované appky.
+    other: { "theme-color": "#04100c" },
   };
 }
 
@@ -87,6 +99,7 @@ export default async function LocaleLayout({
           <SiteFooter />
           <CookieBanner />
           <RevealOnScroll />
+          <ServiceWorker />
         </NextIntlClientProvider>
         </AuthSessionProvider>
       </body>

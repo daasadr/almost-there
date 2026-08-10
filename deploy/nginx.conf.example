@@ -87,6 +87,16 @@ server {
         add_header Cache-Control "public, max-age=31536000, immutable";
     }
 
+    # --- Service worker ---
+    # Nesmí se cachovat. Prohlížeč si ho drží a řídí se jím; kdyby dostal
+    # starou verzi, zůstaly by v telefonech kusy předchozího buildu i po
+    # nasazení nového. Soubor je malý, takže se nic neztrácí.
+    location = /sw.js {
+        proxy_pass http://almostthere_app;
+        proxy_set_header Host $host;
+        add_header Cache-Control "no-cache, no-store, must-revalidate" always;
+    }
+
     # --- Demo endpoint ---
     # Generování plánu trvá desítky sekund, výchozí 60s timeout by ho uřízl.
     location /api/demo {

@@ -710,6 +710,12 @@
       "next": "Další týden",
       "otherDay": "Prohlížíš si {date}",
       "backToToday": "Zpět na dnešek"
+    },
+    "install": {
+      "title": "Přidej si AlmostThere na plochu",
+      "body": "Otevřeš ji jedním klepnutím jako každou jinou aplikaci a dnešní úkoly máš rovnou před sebou. Nic se nestahuje z obchodu.",
+      "install": "Přidat na plochu",
+      "later": "Teď ne"
     }
   },
   "withdrawal": {
