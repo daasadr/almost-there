@@ -33,9 +33,19 @@ android {
             def props = file('../keystore.properties')
             if (props.exists()) {
                 def keystore = new Properties()
-                props.withInputStream { keystore.load(it) }
 
-                storeFile file(keystore['storeFile'])
+                // Windowsí editory ukládají UTF-8 se značkou na začátku
+                // souboru. Ta by se přilepila k prvnímu názvu, `storeFile`
+                // by vyšel prázdný a build spadl na hlášku „Cannot convert
+                // 'null' to File", ze které se to poznat nedá.
+                def text = props.getText('UTF-8').replaceFirst('^\uFEFF', '')
+                keystore.load(new StringReader(text))
+
+                // Cesta se počítá od adresáře android/, tedy odtud, kde
+                // leží keystore.properties — ne od app/, kam by ji
+                // obyčejné `file()` vztáhlo. Absolutní cesta projde taky,
+                // takže klíč může ležet mimo repozitář.
+                storeFile rootProject.file(keystore['storeFile'])
                 storePassword keystore['storePassword']
                 keyAlias keystore['keyAlias']
                 keyPassword keystore['keyPassword']
