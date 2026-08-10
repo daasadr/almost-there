@@ -39,7 +39,11 @@ export default async function NewGoalPage({
   // ale je to nejsilnější vstup do plánu a nemá být neviditelná.
   const profile = await db.user.findUniqueOrThrow({
     where: { id: session.user.id },
-    select: { dailyCapacityMinutes: true },
+    select: {
+      dailyCapacityMinutes: true,
+      restFrequency: true,
+      reflectionMinutesDay: true,
+    },
   });
 
   const t = await getTranslations({ locale, namespace: "plan.form" });
@@ -59,7 +63,7 @@ export default async function NewGoalPage({
       </p>
 
       <div className="card mt-8 p-6 sm:p-8">
-        <GoalForm dailyCapacityMinutes={profile.dailyCapacityMinutes} />
+        <GoalForm planning={profile} />
       </div>
     </section>
   );

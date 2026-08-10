@@ -2,7 +2,8 @@
 
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import Link from "next/link";
 
 /**
  * Předvolby, ze kterých se staví plán.
@@ -40,7 +41,10 @@ const selectClass =
 
 export function SettingsForm({
   initial,
+  backToGoal = false,
 }: {
+  /** Přišel sem uživatel od rozepsaného cíle? Pak ho tam vrátíme. */
+  backToGoal?: boolean;
   initial: {
     dailyCapacityMinutes: number;
     reflectionMinutesDay: number;
@@ -50,6 +54,7 @@ export function SettingsForm({
 }) {
   const t = useTranslations("plan.settings");
   const router = useRouter();
+  const locale = useLocale();
 
   const [capacity, setCapacity] = useState(initial.dailyCapacityMinutes);
   const [reflection, setReflection] = useState(initial.reflectionMinutesDay);
@@ -236,6 +241,18 @@ export function SettingsForm({
           <span className="text-sm text-[var(--color-lime-soft)]">
             {t("saved")}
           </span>
+        )}
+
+        {/* Nejviditelnější cesta zpátky vede tam, odkud uživatel přišel.
+            Bez ní zůstal stát na uložené stránce a klikl na „zpět do
+            aplikace“, čímž o rozepsaný cíl přišel. */}
+        {backToGoal && saved && !pending && (
+          <Link
+            href={`/${locale}/app/goals/new`}
+            className="btn-primary !px-5 !py-2 text-sm"
+          >
+            {t("backToGoal")}
+          </Link>
         )}
       </div>
 

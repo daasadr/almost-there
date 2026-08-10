@@ -509,8 +509,14 @@
       "detailLabel": "The goal in detail",
       "detailPlaceholder": "What exactly you want to reach, what you already know, what limits you, how much time you will really give it, what matters most…",
       "detailHint": "This is the most important field on the page. It is what turns a generic plan into one that fits you — the more concrete you are, the better the result.",
-      "capacityNote": "Planning assumes {minutes} minutes a day across all your goals.",
-      "capacityChange": "Change"
+      "planningTitle": "How this goal will be planned",
+      "planningHint": "These three values decide what the AI plans for each of your days. They apply across all your goals.",
+      "planningCapacity": "Time per day",
+      "planningRest": "Rest",
+      "planningReflection": "Reflection",
+      "planningChange": "Change settings",
+      "planningKeepsDraft": "What you have written is kept — you will come back here and lose nothing.",
+      "minutesPerDay": "{minutes} minutes a day"
     },
     "detail": {
       "back": "Back to overview",
@@ -619,7 +625,8 @@
       "saving": "Saving…",
       "saved": "Saved",
       "failed": "Saving failed. Please try again.",
-      "appliesNote": "Changes apply from the next breakdown — each further week of your running goals gets laid out with the new values. Days already written stay as they are."
+      "appliesNote": "Changes apply from the next breakdown — each further week of your running goals gets laid out with the new values. Days already written stay as they are.",
+      "backToGoal": "Back to creating your goal"
     },
     "status": {
       "readyTitle": "Is it done?",
@@ -702,7 +709,7 @@
     "howTo": "Any clear statement is enough — an email to daasa.d@seznam.cz. You may use the form below, but you do not have to. The deadline is met if you send the withdrawal on the last day of the period at the latest.",
     "formTitle": "Model form",
     "formLines": [
-      "To: Dagmar Drbálková, V Jezírku 544, Průhonice, Czech Republic",
+      "To: Dagmar Drbálková, V Jezírku 544, 252 43 Průhonice, Czech Republic",
       "Email: daasa.d@seznam.cz",
       "",
       "I hereby give notice that I withdraw from the contract for the supply of the AlmostThere digital service.",

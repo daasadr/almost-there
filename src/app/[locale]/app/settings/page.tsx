@@ -18,10 +18,17 @@ export async function generateMetadata({
 
 export default async function SettingsPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{ from?: string }>;
 }) {
   const { locale } = await params;
+
+  // Kdo sem odskočil od rozepsaného cíle, se tam musí umět vrátit.
+  // Bez toho zůstal stát na uložené stránce a hledal cestu zpátky.
+  const { from } = await searchParams;
+  const backToGoal = from === "new-goal";
   const session = await auth();
   if (!session?.user) redirect(`/${locale}/login`);
 
@@ -42,10 +49,10 @@ export default async function SettingsPage({
   return (
     <section className="mx-auto max-w-2xl px-5 py-16 sm:px-8 sm:py-24">
       <Link
-        href={`/${locale}/app`}
+        href={backToGoal ? `/${locale}/app/goals/new` : `/${locale}/app`}
         className="text-sm text-[var(--color-paper-faint)] hover:text-[var(--color-paper)]"
       >
-        ← {t("back")}
+        ← {backToGoal ? t("backToGoal") : t("back")}
       </Link>
 
       <h1 className="display mt-6 text-3xl sm:text-4xl">{t("title")}</h1>
@@ -54,7 +61,7 @@ export default async function SettingsPage({
       </p>
 
       <div className="card mt-8 p-6 sm:p-8">
-        <SettingsForm initial={user} />
+        <SettingsForm initial={user} backToGoal={backToGoal} />
       </div>
     </section>
   );

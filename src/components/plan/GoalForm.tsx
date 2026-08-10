@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { GenerationProgress } from "@/components/demo/GenerationProgress";
@@ -23,14 +23,36 @@ import {
  */
 const importanceLevels = [1, 2, 3, 4, 5] as const;
 
+/**
+ * Klíč pro rozepsaný cíl.
+ *
+ * Zadání cíle je dlouhé a člověk kvůli němu často odskočí — do nastavení
+ * pro denní kapacitu, do kalendáře pro termín. Když se pak vrátí a najde
+ * prázdný formulář, podruhé už ho vyplňovat nebude. Rozepsané se proto
+ * drží v prohlížeči a přežije odchod i tlačítko zpět.
+ *
+ * Session, ne local: po zavření karty už rozdělaný cíl nikoho nezajímá
+ * a nemá se povalovat v prohlížeči.
+ */
+const DRAFT_KEY = "almostthere:goalDraft";
+
 export function GoalForm({
-  dailyCapacityMinutes,
+  planning,
 }: {
-  /** Kolik minut denně má uživatel nastavených. Jen se ukazuje. */
-  dailyCapacityMinutes: number;
+  /**
+   * Předvolby, ze kterých se plán staví. Nastavují se jinde, ale musí
+   * být vidět tady — jsou to nejsilnější vstupy do výsledku a uživatel
+   * o nich jinak neví.
+   */
+  planning: {
+    dailyCapacityMinutes: number;
+    restFrequency: string;
+    reflectionMinutesDay: number;
+  };
 }) {
   const t = useTranslations("plan.form");
   const tError = useTranslations("plan.errors");
+  const tSettings = useTranslations("plan.settings");
   const router = useRouter();
   const locale = useLocale();
 
@@ -41,6 +63,39 @@ export function GoalForm({
   const [color, setColor] = useState<GoalColor>("lime");
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Dokud se rozdělaný cíl nenačte, nesmí se nic ukládat — jinak by
+  // prázdný formulář při prvním vykreslení přepsal to, co se má obnovit.
+  const restored = useRef(false);
+
+  useEffect(() => {
+    try {
+      const saved = sessionStorage.getItem(DRAFT_KEY);
+      if (saved) {
+        const draft = JSON.parse(saved);
+        if (typeof draft.title === "string") setTitle(draft.title);
+        if (typeof draft.description === "string") setDescription(draft.description);
+        if (typeof draft.targetDate === "string") setTargetDate(draft.targetDate);
+        if (typeof draft.importance === "number") setImportance(draft.importance);
+        if (typeof draft.color === "string") setColor(draft.color as GoalColor);
+      }
+    } catch {
+      // Poškozený obsah není důvod nepustit uživatele k formuláři.
+    }
+    restored.current = true;
+  }, []);
+
+  useEffect(() => {
+    if (!restored.current) return;
+    try {
+      sessionStorage.setItem(
+        DRAFT_KEY,
+        JSON.stringify({ title, description, targetDate, importance, color }),
+      );
+    } catch {
+      // Plné nebo zakázané úložiště formulář shodit nesmí.
+    }
+  }, [title, description, targetDate, importance, color]);
 
   const submit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -77,7 +132,10 @@ export function GoalForm({
         return;
       }
 
-      // Na detail cíle, kde se dopočítá zbytek rozpadu.
+      // Cíl je založený, rozdělané zadání už není k čemu.
+      sessionStorage.removeItem(DRAFT_KEY);
+
+      // Na detail cíle, kde se dopočítá zbytek rozfázování.
       router.push(`/${locale}/app/goals/${data.goalId}`);
     } catch {
       setError("generic");
@@ -218,17 +276,57 @@ export function GoalForm({
         </div>
       </fieldset>
 
-      {/* Kapacita je nejsilnější vstup do plánu a nastavuje se jinde —
-          tak ať je aspoň vidět, s jakou se právě počítá. */}
-      <p className="mt-6 text-sm text-[var(--color-paper-dim)]">
-        {t("capacityNote", { minutes: dailyCapacityMinutes })}{" "}
+      {/* Dřív to byla jedna věta o šedesáti minutách, kterou každý
+          přehlédl — a přitom se za ní schovávají tři nejsilnější vstupy
+          do plánu. Teď je z toho karta, kde je všechny tři vidět naráz. */}
+      <section className="mt-8 rounded-2xl border border-white/10 p-5">
+        <h3 className="text-sm font-medium">{t("planningTitle")}</h3>
+        <p className="mt-1.5 text-xs leading-relaxed text-[var(--color-paper-faint)]">
+          {t("planningHint")}
+        </p>
+
+        <dl className="mt-4 space-y-2 text-sm">
+          <div className="flex flex-wrap justify-between gap-x-4">
+            <dt className="text-[var(--color-paper-faint)]">
+              {t("planningCapacity")}
+            </dt>
+            <dd className="text-[var(--color-paper)]">
+              {t("minutesPerDay", { minutes: planning.dailyCapacityMinutes })}
+            </dd>
+          </div>
+          <div className="flex flex-wrap justify-between gap-x-4">
+            <dt className="text-[var(--color-paper-faint)]">
+              {t("planningRest")}
+            </dt>
+            <dd className="text-[var(--color-paper)]">
+              {tSettings(`rest.${planning.restFrequency}`)}
+            </dd>
+          </div>
+          <div className="flex flex-wrap justify-between gap-x-4">
+            <dt className="text-[var(--color-paper-faint)]">
+              {t("planningReflection")}
+            </dt>
+            <dd className="text-[var(--color-paper)]">
+              {planning.reflectionMinutesDay > 0
+                ? t("minutesPerDay", { minutes: planning.reflectionMinutesDay })
+                : tSettings("noReflection")}
+            </dd>
+          </div>
+        </dl>
+
+        {/* Rozepsaný cíl se drží v prohlížeči, takže odskok sem o nic
+            nepřipraví — a odkaz si nese, odkud se má vrátit. */}
         <Link
-          href={`/${locale}/app/settings`}
-          className="text-[var(--color-lime-soft)] underline-offset-4 hover:underline"
+          href={`/${locale}/app/settings?from=new-goal`}
+          className="mt-4 inline-block rounded-full border border-white/15 px-4 py-1.5 text-sm font-medium transition hover:border-[color-mix(in_oklab,var(--color-lime-glow)_50%,transparent)]"
         >
-          {t("capacityChange")}
+          {t("planningChange")}
         </Link>
-      </p>
+
+        <p className="mt-3 text-xs text-[var(--color-paper-faint)]">
+          {t("planningKeepsDraft")}
+        </p>
+      </section>
 
       {error && (
         <p

@@ -509,8 +509,14 @@
       "detailLabel": "Das Ziel im Detail",
       "detailPlaceholder": "Was du genau erreichen willst, was du schon kannst, was dich einschränkt, wie viel Zeit du wirklich investierst, worauf es dir ankommt…",
       "detailHint": "Das ist das wichtigste Feld der Seite. Daraus entsteht ein Plan, der zu dir passt und nicht zu einer Vorlage — je konkreter, desto besser.",
-      "capacityNote": "Geplant wird mit {minutes} Minuten pro Tag über alle Ziele hinweg.",
-      "capacityChange": "Ändern"
+      "planningTitle": "Wie dieses Ziel geplant wird",
+      "planningHint": "Diese drei Werte bestimmen, was die KI dir für jeden Tag plant. Sie gelten für alle Ziele zusammen.",
+      "planningCapacity": "Zeit pro Tag",
+      "planningRest": "Erholung",
+      "planningReflection": "Rückblick",
+      "planningChange": "Einstellungen ändern",
+      "planningKeepsDraft": "Dein Entwurf bleibt erhalten — du kommst hierher zurück und verlierst nichts.",
+      "minutesPerDay": "{minutes} Minuten pro Tag"
     },
     "detail": {
       "back": "Zurück zur Übersicht",
@@ -619,7 +625,8 @@
       "saving": "Wird gespeichert…",
       "saved": "Gespeichert",
       "failed": "Das Speichern hat nicht geklappt. Bitte versuch es erneut.",
-      "appliesNote": "Änderungen greifen ab der nächsten Phasenplanung — jede weitere Woche deiner laufenden Ziele wird mit den neuen Werten verteilt. Bereits geschriebene Tage bleiben, wie sie sind."
+      "appliesNote": "Änderungen greifen ab der nächsten Phasenplanung — jede weitere Woche deiner laufenden Ziele wird mit den neuen Werten verteilt. Bereits geschriebene Tage bleiben, wie sie sind.",
+      "backToGoal": "Zurück zum Anlegen des Ziels"
     },
     "status": {
       "readyTitle": "Hast du es geschafft?",
@@ -702,7 +709,7 @@
     "howTo": "Eine eindeutige Erklärung genügt — eine E-Mail an daasa.d@seznam.cz. Du kannst das Formular unten verwenden, musst es aber nicht. Die Frist ist gewahrt, wenn du den Widerruf spätestens am letzten Tag der Frist absendest.",
     "formTitle": "Musterformular",
     "formLines": [
-      "An: Dagmar Drbálková, V Jezírku 544, Průhonice, Tschechien",
+      "An: Dagmar Drbálková, V Jezírku 544, 252 43 Průhonice, Tschechien",
       "E-Mail: daasa.d@seznam.cz",
       "",
       "Hiermit widerrufe ich den Vertrag über die Bereitstellung des digitalen Dienstes AlmostThere.",

@@ -33,7 +33,7 @@ export type LegalDocument = {
  * všude jinde; sem patří to, s kým zákazník uzavírá smlouvu.
  */
 const OPERATOR =
-  "Dagmar Drbálková, IČO 22360999, se sídlem V Jezírku 544, Průhonice";
+  "Dagmar Drbálková, IČO 22360999, se sídlem V Jezírku 544, 252 43 Průhonice";
 
 /** Kontaktní adresa pro dotazy, reklamace i odstoupení od smlouvy. */
 export const CONTACT_EMAIL = "daasa.d@seznam.cz";
