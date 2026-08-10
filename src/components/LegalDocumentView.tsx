@@ -27,11 +27,6 @@ export function LegalDocumentView({
         {t("lastUpdated")}: {formattedDate}
       </p>
 
-      {/* Text zatím nemá razítko právníka — říkáme to nahlas, ne petitem */}
-      <p className="mt-6 rounded-xl border border-amber-400/25 bg-amber-400/5 px-4 py-3 text-sm text-amber-200/90">
-        {t("draftNotice")}
-      </p>
-
       <p className="mt-8 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
         {document.intro}
       </p>

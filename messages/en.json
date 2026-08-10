@@ -211,7 +211,6 @@
     }
   },
   "legal": {
-    "draftNotice": "Working draft — this text has not yet been reviewed by a lawyer and is not the final wording.",
     "lastUpdated": "Last updated",
     "terms": {
       "title": "Terms of service"
@@ -700,11 +699,11 @@
   "withdrawal": {
     "title": "Withdrawal from the contract",
     "intro": "As a consumer you have the right to withdraw from the contract within fourteen days of concluding it, without giving a reason. Because you agreed to the service starting immediately, you pay a proportionate amount for the time it was available to you; the rest of the subscription is refunded.",
-    "howTo": "Any clear statement is enough — an email to podpora@almost-there.eu. You may use the form below, but you do not have to. The deadline is met if you send the withdrawal on the last day of the period at the latest.",
+    "howTo": "Any clear statement is enough — an email to daasa.d@seznam.cz. You may use the form below, but you do not have to. The deadline is met if you send the withdrawal on the last day of the period at the latest.",
     "formTitle": "Model form",
     "formLines": [
-      "To: [operator's business name and address to be completed]",
-      "Email: podpora@almost-there.eu",
+      "To: Dagmar Drbálková, V Jezírku 544, Průhonice, Czech Republic",
+      "Email: daasa.d@seznam.cz",
       "",
       "I hereby give notice that I withdraw from the contract for the supply of the AlmostThere digital service.",
       "",

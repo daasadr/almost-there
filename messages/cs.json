@@ -211,7 +211,6 @@
     }
   },
   "legal": {
-    "draftNotice": "Pracovní návrh — text zatím neprošel kontrolou právníka a není finálním zněním.",
     "lastUpdated": "Poslední aktualizace",
     "terms": {
       "title": "Obchodní podmínky"
@@ -700,11 +699,11 @@
   "withdrawal": {
     "title": "Odstoupení od smlouvy",
     "intro": "Jako spotřebitel máš právo odstoupit od smlouvy do čtrnácti dnů od jejího uzavření, bez udání důvodu. Protože jsi souhlasil se zahájením služby ihned, zaplatíš poměrnou část za dobu, po kterou jsi ji měl k dispozici; zbytek předplatného se vrací.",
-    "howTo": "Stačí nám dát vědět jakýmkoliv jednoznačným prohlášením — e-mailem na podpora@almost-there.eu. Můžeš použít formulář níž, ale nemusíš. Lhůta je zachována, když odstoupení odešleš nejpozději poslední den lhůty.",
+    "howTo": "Stačí nám dát vědět jakýmkoliv jednoznačným prohlášením — e-mailem na daasa.d@seznam.cz. Můžeš použít formulář níž, ale nemusíš. Lhůta je zachována, když odstoupení odešleš nejpozději poslední den lhůty.",
     "formTitle": "Vzorový formulář",
     "formLines": [
-      "Adresát: [doplníme obchodní jméno a adresu provozovatele]",
-      "E-mail: podpora@almost-there.eu",
+      "Adresát: Dagmar Drbálková, V Jezírku 544, Průhonice",
+      "E-mail: daasa.d@seznam.cz",
       "",
       "Oznamuji, že tímto odstupuji od smlouvy o poskytování digitální služby AlmostThere.",
       "",

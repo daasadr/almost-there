@@ -6,9 +6,9 @@ import type { Locale } from "@/i18n/routing";
  * Texty jsou dlouhé, takže nesedí do `messages/*.json` vedle UI stringů —
  * mají vlastní modul, ale pořád jsou vedené per jazyk, ne natvrdo v komponentě.
  *
- * DŮLEŽITÉ: jde o pracovní návrh. Před spuštěním plateb musí projít
- * kontrolou právníka se specializací na e-commerce/SaaS (zadání, bod 13).
- * Doplň také skutečné údaje provozovatele — všude, kde je [DOPLNIT].
+ * Znění prošlo kontrolou právničky (srpen 2026). Při každé věcné změně
+ * zvyš LEGAL_VERSION níž — podle ní se u souhlasů pozná, s jakým zněním
+ * uživatel souhlasil.
  */
 
 /**
@@ -25,11 +25,22 @@ export type LegalDocument = {
   sections: LegalSection[];
 };
 
-const OPERATOR = "[DOPLNIT: obchodní firma, IČO, sídlo, kontaktní e-mail]";
+/**
+ * Identifikace provozovatele.
+ *
+ * Živnostník nemá vlastní obchodní firmu — jeho jménem je on sám, takže
+ * tu stojí jméno, ne značka. AlmostThere je značka produktu a používá se
+ * všude jinde; sem patří to, s kým zákazník uzavírá smlouvu.
+ */
+const OPERATOR =
+  "Dagmar Drbálková, IČO 22360999, se sídlem V Jezírku 544, Průhonice";
+
+/** Kontaktní adresa pro dotazy, reklamace i odstoupení od smlouvy. */
+export const CONTACT_EMAIL = "daasa.d@seznam.cz";
 
 export const termsByLocale: Record<Locale, LegalDocument> = {
   cs: {
-    lastUpdated: "2026-08-01",
+    lastUpdated: LEGAL_VERSION,
     intro: `Tyto obchodní podmínky upravují používání webové a mobilní aplikace AlmostThere, kterou provozuje ${OPERATOR} (dále jen „provozovatel“). Registrací účtu s nimi vyjadřuješ souhlas.`,
     sections: [
       {
@@ -52,7 +63,7 @@ export const termsByLocale: Record<Locale, LegalDocument> = {
         heading: "3. Předplatné, cena a platby",
         paragraphs: [
           "Služba je zpoplatněna jednotným měsíčním předplatným ve výši 179 Kč. K dispozici je i roční varianta za 1790 Kč. Cena uvedená na webu a v obchodě s aplikacemi je cena konečná — žádné skryté příplatky se neúčtují.",
-          "Provozovatel není plátcem DPH. [OVĚŘIT S ÚČETNÍ — pokud se registrace k DPH změní, je nutné tento odstavec i ceny upravit.]",
+          "Uvedená cena je konečná a zahrnuje daň z přidané hodnoty, kterou jako právní prodejce odvádí Stripe. Provozovatel není plátcem DPH.",
           "Předplatné se automaticky obnovuje na konci každého zúčtovacího období, dokud ho nezrušíš. Zrušit ho můžeš kdykoliv v nastavení účtu; služba pak zůstává dostupná do konce už zaplaceného období.",
           "Platby na webu probíhají v režimu Stripe Managed Payments. Stripe v něm vystupuje jako právní prodejce (merchant of record): uzavírá s tebou platební transakci, vydává doklad a odvádí daň z přidané hodnoty. Provozovatel je dodavatelem samotné služby.",
           "Z toho plyne rozdělení odpovědnosti. S dotazy k platbě, dokladu, vrácení peněz nebo k platebnímu sporu se obracej na Stripe. S dotazy k fungování a kvalitě aplikace na provozovatele — za vady poskytované služby odpovídá on.",
@@ -119,7 +130,7 @@ export const termsByLocale: Record<Locale, LegalDocument> = {
   },
 
   en: {
-    lastUpdated: "2026-08-01",
+    lastUpdated: LEGAL_VERSION,
     intro: `These terms govern the use of the AlmostThere web and mobile application, operated by ${OPERATOR} ("the operator"). By creating an account you agree to them.`,
     sections: [
       {
@@ -142,7 +153,7 @@ export const termsByLocale: Record<Locale, LegalDocument> = {
         heading: "3. Subscription, price and payment",
         paragraphs: [
           "The service costs a single monthly subscription of 179 CZK, or 1790 CZK a year. The price shown on the website and in the app store is the final price — there are no hidden charges.",
-          "The operator is not registered for VAT. [VERIFY WITH AN ACCOUNTANT — if VAT registration changes, this paragraph and the prices must be updated.]",
+          "The price shown is final and includes value added tax, which Stripe remits as the merchant of record. The operator is not registered for VAT.",
           "The subscription renews automatically at the end of each billing period until you cancel. You can cancel any time in your account settings; the service remains available until the end of the period already paid for.",
           "Payments on the web run through Stripe Managed Payments. In this arrangement Stripe acts as the merchant of record: it concludes the payment transaction with you, issues the receipt and remits value added tax. The operator is the supplier of the service itself.",
           "Responsibility is divided accordingly. For questions about payment, receipts, refunds or payment disputes, contact Stripe. For questions about how the app works or its quality, contact the operator — defects in the service provided are the operator’s responsibility.",
@@ -209,7 +220,7 @@ export const termsByLocale: Record<Locale, LegalDocument> = {
   },
 
   de: {
-    lastUpdated: "2026-08-01",
+    lastUpdated: LEGAL_VERSION,
     intro: `Diese Bedingungen regeln die Nutzung der Web- und Mobil-App AlmostThere, betrieben von ${OPERATOR} („der Betreiber“). Mit der Registrierung stimmst du ihnen zu.`,
     sections: [
       {
@@ -232,7 +243,7 @@ export const termsByLocale: Record<Locale, LegalDocument> = {
         heading: "3. Abonnement, Preis und Zahlung",
         paragraphs: [
           "Der Dienst kostet ein einheitliches Monatsabonnement von 179 CZK oder 1790 CZK pro Jahr. Der auf der Website und im App-Store angegebene Preis ist der Endpreis — versteckte Zuschläge gibt es nicht.",
-          "Der Betreiber ist nicht umsatzsteuerpflichtig. [MIT STEUERBERATUNG PRÜFEN — ändert sich die Registrierung, müssen dieser Absatz und die Preise angepasst werden.]",
+          "Der angegebene Preis ist ein Endpreis und enthält die Umsatzsteuer, die Stripe als Verkäufer abführt. Der Betreiber ist nicht umsatzsteuerpflichtig.",
           "Das Abonnement verlängert sich am Ende jedes Abrechnungszeitraums automatisch, bis du kündigst. Kündigen kannst du jederzeit in den Kontoeinstellungen; der Dienst bleibt bis zum Ende des bereits bezahlten Zeitraums verfügbar.",
           "Zahlungen im Web laufen über Stripe Managed Payments. Stripe tritt dabei als Verkäufer auf (merchant of record): Stripe schließt die Zahlungstransaktion mit dir ab, stellt den Beleg aus und führt die Umsatzsteuer ab. Der Betreiber ist Anbieter der Leistung selbst.",
           "Daraus ergibt sich die Aufteilung der Verantwortung. Bei Fragen zu Zahlung, Beleg, Erstattung oder Zahlungsstreit wende dich an Stripe. Bei Fragen zur Funktion und Qualität der App an den Betreiber — für Mängel der erbrachten Leistung haftet er.",
@@ -301,7 +312,7 @@ export const termsByLocale: Record<Locale, LegalDocument> = {
 
 export const privacyByLocale: Record<Locale, LegalDocument> = {
   cs: {
-    lastUpdated: "2026-08-01",
+    lastUpdated: LEGAL_VERSION,
     intro: `Správcem osobních údajů je ${OPERATOR}. Tento dokument popisuje, jaké údaje o tobě zpracováváme, proč, jak dlouho a jaká máš práva. Zpracování se řídí nařízením GDPR.`,
     sections: [
       {
@@ -377,7 +388,7 @@ export const privacyByLocale: Record<Locale, LegalDocument> = {
   },
 
   en: {
-    lastUpdated: "2026-08-01",
+    lastUpdated: LEGAL_VERSION,
     intro: `The data controller is ${OPERATOR}. This document describes what data we process about you, why, for how long, and what rights you have. Processing is governed by the GDPR.`,
     sections: [
       {
@@ -453,7 +464,7 @@ export const privacyByLocale: Record<Locale, LegalDocument> = {
   },
 
   de: {
-    lastUpdated: "2026-08-01",
+    lastUpdated: LEGAL_VERSION,
     intro: `Verantwortlicher im Sinne des Datenschutzrechts ist ${OPERATOR}. Dieses Dokument beschreibt, welche Daten wir über dich verarbeiten, warum, wie lange und welche Rechte du hast. Die Verarbeitung richtet sich nach der DSGVO.`,
     sections: [
       {
