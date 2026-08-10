@@ -22,6 +22,12 @@ type PriceDisplay = {
   amount: string;
   /** Měna pro čtečky obrazovky a strukturovaná data. */
   currency: string;
+  /**
+   * Táž částka jako číslo — pro strukturovaná data, ze kterých čtou
+   * vyhledávače a jazykové modely. Z „1 790 Kč" si stroj cenu spolehlivě
+   * nepřečte: je v tom mezera i měna a v jiném jazyce by to bylo jinak.
+   */
+  value: number;
 };
 
 /**
@@ -33,16 +39,16 @@ type PriceDisplay = {
  */
 const PRICES: Record<Locale, Record<BillingPeriod, PriceDisplay>> = {
   cs: {
-    monthly: { amount: "179 Kč", currency: "CZK" },
-    yearly: { amount: "1 790 Kč", currency: "CZK" },
+    monthly: { amount: "179 Kč", currency: "CZK", value: 179 },
+    yearly: { amount: "1 790 Kč", currency: "CZK", value: 1790 },
   },
   en: {
-    monthly: { amount: "179 CZK", currency: "CZK" },
-    yearly: { amount: "1790 CZK", currency: "CZK" },
+    monthly: { amount: "179 CZK", currency: "CZK", value: 179 },
+    yearly: { amount: "1790 CZK", currency: "CZK", value: 1790 },
   },
   de: {
-    monthly: { amount: "179 CZK", currency: "CZK" },
-    yearly: { amount: "1790 CZK", currency: "CZK" },
+    monthly: { amount: "179 CZK", currency: "CZK", value: 179 },
+    yearly: { amount: "1790 CZK", currency: "CZK", value: 1790 },
   },
 };
 

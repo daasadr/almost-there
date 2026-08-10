@@ -14,7 +14,8 @@
     "login": "Anmelden",
     "account": "Mein Konto",
     "openApp": "App öffnen",
-    "demoShort": "Demo"
+    "demoShort": "Demo",
+    "faq": "Fragen"
   },
   "hero": {
     "eyebrow": "Ziel → Monate → Wochen → heute",
@@ -754,5 +755,55 @@
     "note": "Wir erstatten auf demselben Weg, auf dem du gezahlt hast, spätestens vierzehn Tage nach Eingang des Widerrufs. Die Zahlung wickelt Stripe als Verkäufer ab, die Erstattung kann also direkt von dort kommen.",
     "terms": "Geschäftsbedingungen",
     "home": "Zurück zur Startseite"
+  },
+  "faq": {
+    "title": "Häufige Fragen",
+    "subtitle": "Kurze Antworten auf das, was am häufigsten gefragt wird.",
+    "items": [
+      {
+        "q": "Was ist AlmostThere?",
+        "a": "AlmostThere ist eine App, der du dein Ziel und deinen Termin nennst, und die dieses Ziel mit KI in Monatsmeilensteine, Wochenziele und eine konkrete Tagesliste zerlegt. Statt einer großen Absicht, bei der du nicht weißt, wo du anfangen sollst, hast du eine Liste für heute."
+      },
+      {
+        "q": "Worin unterscheidet es sich von einer normalen To-do-Liste?",
+        "a": "Eine To-do-Liste musst du selbst füllen. AlmostThere rechnet vom Termin rückwärts: Es weiß, wie viel Zeit bleibt und wie viel du täglich hast, und teilt die Arbeit danach auf. Wenn du in Rückstand gerätst, bietet es an, den Rückstand aufzuholen oder den Termin neu zu berechnen — eine To-do-Liste wächst nur stillschweigend."
+      },
+      {
+        "q": "Worin unterscheidet es sich davon, ChatGPT um einen Plan zu bitten?",
+        "a": "Ein einmaliger Plan aus dem Chat veraltet am ersten Tag, an dem du ihn nicht einhältst. AlmostThere führt den Plan weiter: Du hakst Tagesaufgaben ab, die App beobachtet dein Tempo und rechnet bei Rückstand neu. Sie hält außerdem mehrere Ziele zusammen, damit sie nicht dieselben Stunden beanspruchen, und begrenzt die monatlichen KI-Kosten."
+      },
+      {
+        "q": "Was kostet AlmostThere?",
+        "a": "179 CZK pro Monat oder 1790 CZK pro Jahr, das sind zwei Monate geschenkt. Es gibt einen einzigen Tarif — keine Stufen und keine Zusatzkäufe."
+      },
+      {
+        "q": "Kann ich es kostenlos ausprobieren?",
+        "a": "Ja. Die Demo läuft auf der Website ohne Konto und ohne Karte — du gibst Ziel und Termin ein und siehst die Aufteilung in weniger als einer Minute. Nach dem Abschluss kannst du den Demo-Plan in die App übernehmen."
+      },
+      {
+        "q": "Wie viele Ziele kann ich gleichzeitig verfolgen?",
+        "a": "Bis zu fünf gleichzeitige Ziele, die gemeinsam geplant werden, damit sie nicht auf dieselben Tage fallen. Dazu zehn neue Pläne pro Monat; die Aufteilung in Wochen und Tage, die Tagesaufgaben und das Umplanen eines laufenden Ziels zählen nicht dagegen."
+      },
+      {
+        "q": "Was passiert, wenn ich mehrere Tage auslasse?",
+        "a": "Nichts wird gestrichen. Nach drei ausgelassenen Tagen bietet die App zwei Wege an: den Rückstand aufholen oder den Termin so neu berechnen, dass er erreichbar bleibt. Du entscheidest — die App verschiebt deinen Termin nie von selbst."
+      },
+      {
+        "q": "In welchen Sprachen funktioniert AlmostThere?",
+        "a": "Auf Tschechisch, Englisch und Deutsch. Der Plan entsteht in der Sprache, die du für das Ziel wählst, sodass Ziel und Aufgaben in einer Sprache bleiben."
+      },
+      {
+        "q": "Wer sieht meine Ziele?",
+        "a": "Titel und Beschreibungen deiner Ziele und Aufgaben liegen verschlüsselt in der Datenbank. Der Text deines Ziels geht an ein Sprachmodell, das daraus den Plan baut — sonst nirgendwohin, und er wird weder für Werbung noch für Training verwendet."
+      },
+      {
+        "q": "Kann ich das Abo jederzeit kündigen?",
+        "a": "Ja, mit einem Knopf in der App. Das Abo läuft bis zum Ende des bezahlten Zeitraums und verlängert sich dann nicht."
+      },
+      {
+        "q": "Funktioniert AlmostThere auf dem Handy?",
+        "a": "Ja. Die Website ist für Handys gemacht, und aus dem Browser kannst du sie zum Startbildschirm hinzufügen, wo sie sich wie eine App im Vollbild öffnet."
+      }
+    ]
   }
 }

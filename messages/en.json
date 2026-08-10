@@ -14,7 +14,8 @@
     "login": "Sign in",
     "account": "My account",
     "openApp": "Open the app",
-    "demoShort": "Demo"
+    "demoShort": "Demo",
+    "faq": "FAQ"
   },
   "hero": {
     "eyebrow": "Goal → months → weeks → today",
@@ -754,5 +755,55 @@
     "note": "We refund by the same means you used to pay, no later than fourteen days after the withdrawal reaches us. Payment is processed by Stripe as the seller, so the refund may come directly from them.",
     "terms": "Terms of service",
     "home": "Back to home"
+  },
+  "faq": {
+    "title": "Frequently asked questions",
+    "subtitle": "Short answers to what people ask most often.",
+    "items": [
+      {
+        "q": "What is AlmostThere?",
+        "a": "AlmostThere is an app you tell your goal and deadline, and it uses AI to break that goal into monthly milestones, weekly targets and a concrete daily checklist. Instead of a big intention you don't know how to start, you get a list of tasks for today."
+      },
+      {
+        "q": "How is it different from an ordinary to-do list?",
+        "a": "A to-do list is something you have to fill in yourself. AlmostThere works backwards from the deadline: it knows how much time is left and how much you have each day, and divides the work accordingly. When you start falling behind, it offers to catch up or to recalculate the deadline — a to-do list just silently grows."
+      },
+      {
+        "q": "How is it different from asking ChatGPT for a plan?",
+        "a": "A one-off plan from a chat goes stale the first day you don't follow it. AlmostThere keeps the plan alive: you tick off daily tasks, it watches your pace and recalculates when you slip. It also holds several goals together so they don't claim the same hours, and it caps monthly AI spending so you know what you are paying for."
+      },
+      {
+        "q": "How much does AlmostThere cost?",
+        "a": "179 CZK per month, or 1790 CZK per year, which is two months free. There is a single plan — no tiers and no add-ons."
+      },
+      {
+        "q": "Can I try it for free?",
+        "a": "Yes. The demo runs on the website with no account and no card — you enter a goal and a deadline and see the breakdown in under a minute. Once you subscribe, you can carry the demo plan over into the app."
+      },
+      {
+        "q": "How many goals can I run at once?",
+        "a": "Up to five concurrent goals, planned together so they don't land on the same days. On top of that, ten new plans a month; breaking a goal down into weeks and days, the daily tasks and replanning a running goal don't count against it."
+      },
+      {
+        "q": "What happens if I miss several days?",
+        "a": "Nothing is cancelled. After three missed days the app offers two ways forward: catch up on what you missed, or recalculate the deadline so it stays achievable. You choose — the app never moves your deadline on its own."
+      },
+      {
+        "q": "What languages does AlmostThere work in?",
+        "a": "Czech, English and German. The plan is written in the language you pick for the goal, so the goal and its tasks stay in one language."
+      },
+      {
+        "q": "Who can see my goals?",
+        "a": "The titles and descriptions of your goals and tasks are stored encrypted in the database. The text of your goal is sent to a language model that builds the plan from it — it goes nowhere else and is not used for advertising or training."
+      },
+      {
+        "q": "Can I cancel the subscription at any time?",
+        "a": "Yes, with one button inside the app. The subscription runs to the end of the period you have paid for and then does not renew."
+      },
+      {
+        "q": "Does AlmostThere work on a phone?",
+        "a": "Yes. The site is built for phones, and from the browser you can add it to your home screen, where it opens like an app, full screen."
+      }
+    ]
   }
 }

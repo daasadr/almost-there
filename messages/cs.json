@@ -14,7 +14,8 @@
     "login": "Přihlásit se",
     "account": "Můj účet",
     "openApp": "Otevřít aplikaci",
-    "demoShort": "Demo"
+    "demoShort": "Demo",
+    "faq": "Otázky"
   },
   "hero": {
     "eyebrow": "Cíl → měsíce → týdny → dnešek",
@@ -754,5 +755,55 @@
     "note": "Peníze vracíme stejným způsobem, jakým jsi platil, nejpozději do čtrnácti dnů od doručení odstoupení. Platbu zpracovává Stripe jako prodejce, takže vrácení může proběhnout přímo od něj.",
     "terms": "Obchodní podmínky",
     "home": "Zpět na úvod"
+  },
+  "faq": {
+    "title": "Časté otázky",
+    "subtitle": "Krátké odpovědi na to, co se lidé ptají nejčastěji.",
+    "items": [
+      {
+        "q": "Co je AlmostThere?",
+        "a": "AlmostThere je aplikace, které řekneš svůj cíl a termín, a ona ho pomocí AI rozfázuje na měsíční milníky, týdenní cíle a konkrétní denní checklist. Místo velkého záměru, u kterého nevíš, čím začít, máš seznam úkolů na dnešek."
+      },
+      {
+        "q": "Čím se liší od běžného seznamu úkolů?",
+        "a": "Seznam úkolů si musíš naplnit sám. AlmostThere plán odvozuje pozpátku od termínu: ví, kolik času zbývá, kolik ho máš denně, a podle toho rozdělí práci. Když začneš zaostávat, nabídne ti dohnat skluz nebo přepočítat termín — seznam úkolů jen mlčky roste."
+      },
+      {
+        "q": "Čím se liší od toho, když si plán nechám napsat od ChatGPT?",
+        "a": "Jednorázový plán z chatu zastará první den, kdy ho nedodržíš. AlmostThere plán vede dál: odškrtáváš denní úkoly, aplikace sleduje tempo a při skluzu plán přepočítá. Taky drží víc cílů pohromadě, aby si navzájem nebraly stejné hodiny, a hlídá měsíční strop spotřeby AI, takže víš, co platíš."
+      },
+      {
+        "q": "Kolik AlmostThere stojí?",
+        "a": "179 Kč měsíčně, nebo 1 790 Kč ročně, což jsou dva měsíce zdarma. Je jen jeden tarif, žádné úrovně ani dokupování."
+      },
+      {
+        "q": "Můžu si to vyzkoušet zdarma?",
+        "a": "Ano. Demo je na webu bez registrace a bez platební karty — zadáš cíl a termín a za necelou minutu uvidíš, jak se rozfázuje. Plán z dema si po zaplacení můžeš přenést do aplikace."
+      },
+      {
+        "q": "Kolik cílů si můžu vést najednou?",
+        "a": "Až pět souběžných cílů, které se plánují dohromady, aby ti nespadly na stejné dny. K tomu deset nových plánů měsíčně; rozfázování na týdny a dny, denní úkoly i přeplánování běžícího cíle se do toho nepočítají."
+      },
+      {
+        "q": "Co se stane, když několik dní vynechám?",
+        "a": "Nic se neruší. Po třech vynechaných dnech ti aplikace sama nabídne dvě cesty: dohnat skluz, nebo přepočítat termín tak, aby zůstal splnitelný. Vybíráš si ty — aplikace za tebe termín neposouvá."
+      },
+      {
+        "q": "V jakých jazycích AlmostThere funguje?",
+        "a": "V češtině, angličtině a němčině. Plán vzniká v jazyce, který si u cíle zvolíš, takže zadání i úkoly zůstanou v jednom jazyce."
+      },
+      {
+        "q": "Kdo vidí moje cíle?",
+        "a": "Názvy a popisy cílů i úkolů jsou v databázi uložené zašifrované. Text cíle se posílá jazykovému modelu, který z něj plán sestaví — jinam neodchází a k reklamě ani k trénování se nepoužívá."
+      },
+      {
+        "q": "Můžu předplatné kdykoliv zrušit?",
+        "a": "Ano, přímo v aplikaci jedním tlačítkem. Předplatné doběhne do konce zaplaceného období a pak se samo neobnoví."
+      },
+      {
+        "q": "Funguje AlmostThere na mobilu?",
+        "a": "Ano. Web je uzpůsobený mobilu a z prohlížeče si ho můžeš přidat na plochu, odkud se otevírá jako aplikace, na celou obrazovku."
+      }
+    ]
   }
 }

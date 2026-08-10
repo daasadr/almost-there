@@ -12,6 +12,7 @@ import { AuthSessionProvider } from "@/components/SessionProvider";
 import { ServiceWorker } from "@/components/ServiceWorker";
 import { NativeShell } from "@/components/native/NativeShell";
 import { STORE_APP_MARKER } from "@/lib/store-app";
+import { siteUrl } from "@/lib/seo/site";
 import "@/app/globals.css";
 
 export function generateStaticParams() {
@@ -27,6 +28,9 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "meta" });
 
   return {
+    // Bez tohohle by relativní adresy v náhledech zůstaly relativní —
+    // a odkaz sdílený mimo web by pak ukazoval na nic.
+    metadataBase: new URL(siteUrl()),
     title: t("title"),
     description: t("description"),
     openGraph: {
@@ -34,6 +38,25 @@ export async function generateMetadata({
       description: t("description"),
       type: "website",
       locale,
+      siteName: "AlmostThere",
+      url: `/${locale}`,
+      // Obrázek, který se ukáže u sdíleného odkazu — ve zprávách, na
+      // sociálních sítích i u citace v odpovědi jazykového modelu.
+      // Vyrábí se příkazem `npm run og`.
+      images: [
+        {
+          url: `/og-${locale}.png`,
+          width: 1200,
+          height: 630,
+          alt: t("title"),
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t("title"),
+      description: t("description"),
+      images: [`/og-${locale}.png`],
     },
     icons: {
       icon: "/icon.svg",

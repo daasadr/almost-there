@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { localeAlternates } from "@/lib/seo/metadata";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { useTranslations } from "next-intl";
 import { DemoExperience } from "@/components/demo/DemoExperience";
@@ -10,7 +11,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "demo" });
-  return { title: `${t("title")} — AlmostThere` };
+  return {
+    title: `${t("title")} — AlmostThere`,
+    alternates: localeAlternates(locale, "/demo"),
+  };
 }
 
 export default async function DemoPage({

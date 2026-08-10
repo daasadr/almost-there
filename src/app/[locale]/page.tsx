@@ -1,11 +1,32 @@
+import type { Metadata } from "next";
 import { useTranslations } from "next-intl";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { LandingCta } from "@/components/LandingCta";
 import { TreeBackground } from "@/components/TreeBackground";
 import { ExampleBreakdown } from "@/components/ExampleBreakdown";
+import { Faq } from "@/components/Faq";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { localeAlternates } from "@/lib/seo/metadata";
+import {
+  faqLd,
+  graph,
+  organizationLd,
+  softwareApplicationLd,
+  webSiteLd,
+} from "@/lib/seo/jsonLd";
+import type { Locale } from "@/i18n/routing";
 
 type Step = { step: string; title: string; body: string };
 type Feature = { title: string; body: string };
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return { alternates: localeAlternates(locale) };
+}
 
 export default async function HomePage({
   params,
@@ -17,14 +38,42 @@ export default async function HomePage({
 
   return (
     <>
+      <StructuredData locale={locale as Locale} />
       <Hero />
       <HowItWorks />
       <ExampleBreakdown />
       <Features />
       <Pricing />
+      <Faq />
       <FinalCta />
     </>
   );
+}
+
+/**
+ * Fakta o produktu strojově.
+ *
+ * Skládá se ze stejných textů, které jsou na stránce vidět — jiné by to
+ * být nesmělo. Rozpor mezi strukturovanými daty a viditelným obsahem se
+ * bere jako klamání a Google za něj web vyhazuje z výsledků.
+ */
+async function StructuredData({ locale }: { locale: Locale }) {
+  const t = await getTranslations({ locale, namespace: "meta" });
+  const tPricing = await getTranslations({ locale, namespace: "pricing" });
+  const tFaq = await getTranslations({ locale, namespace: "faq" });
+
+  const data = graph(
+    organizationLd(),
+    webSiteLd(locale),
+    softwareApplicationLd(
+      locale,
+      t("description"),
+      tPricing.raw("includes") as string[],
+    ),
+    faqLd(tFaq.raw("items") as { q: string; a: string }[]),
+  );
+
+  return <JsonLd data={data} />;
 }
 
 function Hero() {

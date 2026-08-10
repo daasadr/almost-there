@@ -11,7 +11,8 @@
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate deploy",
     "db:push": "prisma db push",
-    "db:encrypt": "tsx scripts/encrypt-existing.ts"
+    "db:encrypt": "tsx scripts/encrypt-existing.ts",
+    "og": "node scripts/og-images.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.115.0",

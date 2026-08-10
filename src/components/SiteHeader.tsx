@@ -7,8 +7,16 @@ import { Link, usePathname } from "@/i18n/navigation";
 import { LogoMark, Wordmark } from "./Logo";
 import { LocaleSwitcher } from "./LocaleSwitcher";
 
-/** Kotvy na úvodní stránce, na které míří odkazy v hlavičce. */
-const SECTIONS = ["how", "features", "pricing"] as const;
+/**
+ * Kotvy na úvodní stránce, na které míří odkazy v hlavičce.
+ * Klíč sekce → klíč popisku ve zprávách.
+ */
+const SECTIONS = {
+  how: "howItWorks",
+  features: "features",
+  pricing: "pricing",
+  faq: "faq",
+} as const;
 
 /**
  * Odkaz na sekci úvodní stránky.
@@ -93,12 +101,12 @@ export function SiteHeader() {
 
         {!isAppSection && (
           <nav className="ml-auto hidden items-center gap-7 text-sm text-[var(--color-paper-dim)] md:flex">
-            {SECTIONS.map((section) => (
+            {Object.entries(SECTIONS).map(([section, label]) => (
               <SectionLink
                 key={section}
                 section={section}
                 onLanding={onLanding}
-                label={t(section === "how" ? "howItWorks" : section === "features" ? "features" : "pricing")}
+                label={t(label)}
               />
             ))}
           </nav>
