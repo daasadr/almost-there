@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  Pozadí adaptivní ikony. Soubor sem patří ze šablony Capacitoru, kde má
+  bílou; barvu značky měníme tady, ne v colors.xml — tam by vznikla
+  druhá definice téhož a build se o ni rozbije.
+-->
 <resources>
-    <color name="ic_launcher_background">#FFFFFF</color>
+    <color name="ic_launcher_background">#04100c</color>
 </resources>
