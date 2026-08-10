@@ -35,6 +35,16 @@ const nextConfig: NextConfig = {
       "prisma/migrations/**",
       "tsconfig.tsbuildinfo",
       "uploads/**",
+      /**
+       * Projekt pro Android se serverem nemá nic společného — a hlavně
+       * v něm leží podpisový klíč a soubor s heslem k němu. Bez tohohle
+       * je Next zabalil do serverového buildu a putovaly by do obrazu
+       * a odtud na server, kde nemají co dělat.
+       */
+      "android/**",
+      "capacitor.config.ts",
+      /** Pomocné skripty se pouštějí ručně, ne ze serveru. */
+      "scripts/**",
     ],
   },
   async headers() {

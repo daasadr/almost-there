@@ -15,3 +15,12 @@ Dockerfile
 docker-compose.yml
 .dockerignore
 /uploads
+
+# Projekt pro Android. Do serverového obrazu nepatří a leží v něm
+# podpisový klíč i soubor s heslem k němu.
+android
+capacitor.config.ts
+*.jks
+*.keystore
+keystore.properties
+
