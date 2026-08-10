@@ -36,6 +36,11 @@ export function SiteFooter() {
                 </Link>
               </li>
               <li>
+                <Link href="/install" className="transition hover:text-[var(--color-paper)]">
+                  {t("install")}
+                </Link>
+              </li>
+              <li>
                 <Link href="/" className="transition hover:text-[var(--color-paper)]">
                   {nav("howItWorks")}
                 </Link>

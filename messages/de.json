@@ -143,7 +143,8 @@
     "contact": "Kontakt",
     "rights": "Alle Rechte vorbehalten.",
     "madeWith": "Planen ist eine Fähigkeit. Wir liefern nur das Gerüst.",
-    "deletion": "Konto löschen"
+    "deletion": "Konto löschen",
+    "install": "Aufs Handy"
   },
   "demo": {
     "badge": "Demo",
@@ -852,5 +853,32 @@
         "a": "Ja. Die Website ist für Handys gemacht, und aus dem Browser kannst du sie zum Startbildschirm hinzufügen, wo sie sich wie eine App im Vollbild öffnet."
       }
     ]
+  },
+  "install": {
+    "title": "AlmostThere auf dem Handy",
+    "intro": "Du kannst die App wie jede andere auf dem Startbildschirm haben — sie öffnet sich im Vollbild, ohne Adressleiste. Wähle dein System und folge den Schritten; es dauert eine halbe Minute.",
+    "iphoneTitle": "iPhone und iPad",
+    "iphoneNote": "Es muss Safari sein. Chrome und andere Browser können auf dem iPhone nichts zum Startbildschirm hinzufügen — das ist eine Einschränkung von iOS, nicht von uns.",
+    "iphoneSteps": [
+      "Öffne almost-there.eu in Safari.",
+      "Tippe unten auf das Teilen-Symbol — das Quadrat mit dem Pfeil nach oben.",
+      "Scrolle im Menü nach unten und wähle „Zum Home-Bildschirm“.",
+      "Bestätige mit Hinzufügen. Das Symbol erscheint bei deinen anderen Apps."
+    ],
+    "androidTitle": "Android",
+    "androidSteps": [
+      "Öffne almost-there.eu in Chrome.",
+      "Tippe oben rechts auf die drei Punkte.",
+      "Wähle „Zum Startbildschirm zufügen“ oder „App installieren“.",
+      "Bestätige. Das Symbol erscheint bei deinen anderen Apps."
+    ],
+    "androidNote": "Chrome bietet das manchmal von selbst als Leiste unten an. Dann genügt ein Tippen darauf.",
+    "apkTitle": "Android: Installation aus einer Datei",
+    "apkBody": "Wer keinen Store nutzen möchte, kann die Installationsdatei direkt herunterladen. Das Telefon warnt bei der Installation, dass die Datei nicht von Google Play stammt, und fragt nach der Erlaubnis für diese Quelle — das ist normal, rechne damit.",
+    "apkButton": "Für Android herunterladen",
+    "accountTitle": "Wozu ein Konto nötig ist",
+    "accountBody": "Egal, von wo aus du die App öffnest — du meldest dich mit demselben Konto an und findest dieselben Ziele. Konto und Abo werden hier auf der Website eingerichtet.",
+    "demo": "Demo testen",
+    "back": "Zurück zur Startseite"
   }
 }

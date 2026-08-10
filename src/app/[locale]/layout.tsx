@@ -109,6 +109,14 @@ export default async function LocaleLayout({
           type="font/woff2"
           crossOrigin="anonymous"
         />
+        {/* Starší iPhony neumí spustit web na celou obrazovku podle
+            manifestu a řídí se jen touhle značkou. Next ji sám nevydává —
+            posílá novější `mobile-web-app-capable`, kterou iOS začal
+            rozumět až od verze 16.4. Bez tohohle by se na starším
+            telefonu appka po přidání na plochu otevřela v Safari
+            s adresním řádkem. */}
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+
         {/* Značka pro aplikaci z obchodu, podle které se schová všechno,
             co vede k placení mimo obchod. Musí běžet tady v hlavičce,
             ještě před vykreslením — kdyby se čekalo na hydrataci,

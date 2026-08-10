@@ -143,7 +143,8 @@
     "contact": "Kontakt",
     "rights": "Všechna práva vyhrazena.",
     "madeWith": "Plánování je dovednost. My jsme jen dodali lešení.",
-    "deletion": "Zrušení účtu"
+    "deletion": "Zrušení účtu",
+    "install": "Do telefonu"
   },
   "demo": {
     "badge": "Demo",
@@ -852,5 +853,32 @@
         "a": "Ano. Web je uzpůsobený mobilu a z prohlížeče si ho můžeš přidat na plochu, odkud se otevírá jako aplikace, na celou obrazovku."
       }
     ]
+  },
+  "install": {
+    "title": "AlmostThere v telefonu",
+    "intro": "Appka jde mít na ploše telefonu jako každá jiná — otevírá se na celou obrazovku, bez adresního řádku. Vyber si systém a postupuj podle návodu; trvá to půl minuty.",
+    "iphoneTitle": "iPhone a iPad",
+    "iphoneNote": "Musí to být Safari. Chrome ani jiný prohlížeč na iPhonu přidat na plochu neumí — je to omezení systému, ne naše.",
+    "iphoneSteps": [
+      "Otevři almost-there.eu v Safari.",
+      "Klepni dole na ikonu sdílení — čtvereček se šipkou nahoru.",
+      "Sjeď v nabídce níž a zvol „Přidat na plochu“.",
+      "Potvrď Přidat. Ikona se objeví mezi ostatními aplikacemi."
+    ],
+    "androidTitle": "Android",
+    "androidSteps": [
+      "Otevři almost-there.eu v Chromu.",
+      "Klepni na tři tečky vpravo nahoře.",
+      "Zvol „Přidat na plochu“ nebo „Nainstalovat aplikaci“.",
+      "Potvrď. Ikona se objeví mezi ostatními aplikacemi."
+    ],
+    "androidNote": "Chrome nabídku někdy zobrazí sám jako proužek dole. Pak stačí klepnout na něj.",
+    "apkTitle": "Android: instalace ze souboru",
+    "apkBody": "Kdo nechce nic z obchodu, může si stáhnout instalační soubor přímo. Telefon při instalaci upozorní, že soubor není z Google Play, a bude chtít povolit instalaci z tohoto zdroje — to je běžné a čekej to.",
+    "apkButton": "Stáhnout pro Android",
+    "accountTitle": "K čemu je potřeba účet",
+    "accountBody": "Ať appku otevřeš odkudkoliv, přihlašuješ se stejným účtem a máš v ní ty samé cíle. Účet i předplatné se zakládá tady na webu.",
+    "demo": "Vyzkoušet demo",
+    "back": "Zpět na úvod"
   }
 }

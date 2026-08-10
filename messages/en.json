@@ -143,7 +143,8 @@
     "contact": "Contact",
     "rights": "All rights reserved.",
     "madeWith": "Planning is a skill. We just gave you the scaffolding.",
-    "deletion": "Deleting your account"
+    "deletion": "Deleting your account",
+    "install": "Get the app"
   },
   "demo": {
     "badge": "Demo",
@@ -852,5 +853,32 @@
         "a": "Yes. The site is built for phones, and from the browser you can add it to your home screen, where it opens like an app, full screen."
       }
     ]
+  },
+  "install": {
+    "title": "AlmostThere on your phone",
+    "intro": "You can keep the app on your home screen like any other — it opens full screen, without a browser bar. Pick your system and follow the steps; it takes half a minute.",
+    "iphoneTitle": "iPhone and iPad",
+    "iphoneNote": "It has to be Safari. Chrome and other browsers on iPhone cannot add to the home screen — that is an iOS limitation, not ours.",
+    "iphoneSteps": [
+      "Open almost-there.eu in Safari.",
+      "Tap the share icon at the bottom — the square with an arrow pointing up.",
+      "Scroll down the menu and choose “Add to Home Screen”.",
+      "Confirm with Add. The icon appears among your other apps."
+    ],
+    "androidTitle": "Android",
+    "androidSteps": [
+      "Open almost-there.eu in Chrome.",
+      "Tap the three dots in the top right.",
+      "Choose “Add to Home screen” or “Install app”.",
+      "Confirm. The icon appears among your other apps."
+    ],
+    "androidNote": "Chrome sometimes offers this by itself as a bar at the bottom. If it does, just tap it.",
+    "apkTitle": "Android: install from a file",
+    "apkBody": "If you would rather not use a store, you can download the installer directly. Your phone will warn you that the file is not from Google Play and ask you to allow installation from this source — that is normal, expect it.",
+    "apkButton": "Download for Android",
+    "accountTitle": "Why you need an account",
+    "accountBody": "Wherever you open the app from, you sign in with the same account and find the same goals. Accounts and subscriptions are set up here on the website.",
+    "demo": "Try the demo",
+    "back": "Back to home"
   }
 }
