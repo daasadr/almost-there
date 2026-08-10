@@ -106,6 +106,15 @@ services:
       # Kvůli scripts/encrypt-existing.ts, který se pouští tímhle kontejnerem.
       ENCRYPTION_KEY: ${ENCRYPTION_KEY}
       DATABASE_URL: postgresql://${POSTGRES_USER:-almostthere}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-almostthere}?schema=public
+      # Kvůli scripts/stripe-check.ts. Tenhle kontejner je jediné místo,
+      # odkud jdou pomocné skripty pustit — běhový image nemá ani tsx.
+      # Bez těchhle čtyř by kontrola hlásila, že klíč chybí, i když je
+      # v .env správně vyplněný.
+      NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://localhost:3000}
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY}
+      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET}
+      STRIPE_PRICE_MONTHLY: ${STRIPE_PRICE_MONTHLY}
+      STRIPE_PRICE_YEARLY: ${STRIPE_PRICE_YEARLY}
     depends_on:
       db:
         condition: service_healthy
