@@ -243,11 +243,21 @@ export async function getOverdue(
   }));
 }
 
+/**
+ * Úkoly jednoho dne.
+ *
+ * Bere volitelné datum, aby šlo nahlédnout do minulých i do už
+ * rozfázovaných budoucích dnů. Dogenerování se ale nabízí jen u dneška —
+ * u jiného dne by to znamenalo utrácet za plán, na který se člověk jen
+ * podíval.
+ */
 export async function getToday(
   userId: string,
   timezone = "Europe/Prague",
+  requestedDate?: string,
 ): Promise<TodayView> {
-  const date = todayIso(timezone);
+  const today = todayIso(timezone);
+  const date = requestedDate ?? today;
   const day = parseIsoDate(date);
 
   const tasks = await db.task.findMany({
@@ -283,7 +293,9 @@ export async function getToday(
   });
 
   const plannedGoalIds = new Set(planned.map((block) => block.goalId));
-  const goalsNeedingPlan = activeGoals
+  const goalsNeedingPlan = date !== today
+    ? []
+    : activeGoals
     // Cíl po termínu už dogenerovávat nemá cenu — čeká na uzavření
     // nebo přeplánování, ne na další úkoly.
     .filter((goal) => goal.targetDate >= day && !plannedGoalIds.has(goal.id))

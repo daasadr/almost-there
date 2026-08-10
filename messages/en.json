@@ -704,6 +704,12 @@
       "claim": "Take this goal",
       "claiming": "Taking it over…",
       "discard": "No thanks, discard it"
+    },
+    "week": {
+      "previous": "Previous week",
+      "next": "Next week",
+      "otherDay": "You are looking at {date}",
+      "backToToday": "Back to today"
     }
   },
   "withdrawal": {

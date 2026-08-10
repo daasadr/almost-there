@@ -12,6 +12,7 @@ import { PlanTrigger } from "@/components/plan/PlanTrigger";
 import { TodayChecklist } from "@/components/plan/TodayChecklist";
 import { PaceCheck } from "@/components/plan/PaceCheck";
 import { ProgressStrip } from "@/components/plan/ProgressStrip";
+import { WeekStrip } from "@/components/plan/WeekStrip";
 import { ClaimDemoGoal } from "@/components/plan/ClaimDemoGoal";
 import { ReachedMilestones } from "@/components/plan/ReachedMilestones";
 import { UnfinishedTasks } from "@/components/plan/UnfinishedTasks";
@@ -20,11 +21,11 @@ import { isAdminEmail } from "@/lib/admin/guard";
 import { getAccess } from "@/lib/billing/access";
 import { getOverdue, getToday, listGoals } from "@/lib/goals/queries";
 import { getBehindGoals } from "@/lib/goals/pace";
-import { getRecentProgress } from "@/lib/goals/checkin";
+import { getRecentProgress, getWeekProgress } from "@/lib/goals/checkin";
 import { findClaimableDemo } from "@/lib/goals/claim";
 import { cookies } from "next/headers";
 import { getReachedMilestones } from "@/lib/goals/milestones";
-import { toIsoDate } from "@/lib/plan/calendar";
+import { toIsoDate, todayIso } from "@/lib/plan/calendar";
 import { db } from "@/lib/db";
 import Link from "next/link";
 
@@ -47,7 +48,7 @@ export default async function AppPage({
   searchParams,
 }: {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{ checkout?: string }>;
+  searchParams: Promise<{ checkout?: string; day?: string }>;
 }) {
   const { locale } = await params;
   const session = await auth();
@@ -71,7 +72,11 @@ export default async function AppPage({
 
   // Návrat od pokladny. Sama o sobě tahle adresa nic neodemyká, jen mění
   // to, co uživatel po návratu uvidí — otevřít si ji může kdokoliv.
-  const { checkout } = await searchParams;
+  const { checkout, day } = await searchParams;
+
+  // Datum z adresy. Ověřuje se tvarem, ne důvěrou — cizí hodnota by
+  // jinak propadla až do dotazu.
+  const selectedDay = /^\d{4}-\d{2}-\d{2}$/.test(day ?? "") ? day : undefined;
 
   const billing = await db.user.findUnique({
     where: { id: session.user.id },
@@ -137,7 +142,7 @@ export default async function AppPage({
               aplikaci hned na něco použil. */}
           <ClaimDemo userId={session.user.id} locale={locale} />
           <BudgetNotice userId={session.user.id} locale={locale} />
-          <Today userId={session.user.id} locale={locale} />
+          <Today userId={session.user.id} locale={locale} day={selectedDay} />
           <Goals userId={session.user.id} locale={locale} />
         </div>
       )}
@@ -241,8 +246,18 @@ async function ClaimDemo({
  * znamenat dvě věci — buď je podle plánu volno, nebo se ještě nerozepsal —
  * a uživatel ten rozdíl sám nepozná.
  */
-async function Today({ userId, locale }: { userId: string; locale: string }) {
+async function Today({
+  userId,
+  locale,
+  day,
+}: {
+  userId: string;
+  locale: string;
+  /** Zobrazovaný den. Bez něj dnešek. */
+  day?: string;
+}) {
   const t = await getTranslations({ locale, namespace: "plan.today" });
+  const tWeek = await getTranslations({ locale, namespace: "plan.week" });
 
   const profile = await db.user.findUnique({
     where: { id: userId },
@@ -250,12 +265,14 @@ async function Today({ userId, locale }: { userId: string; locale: string }) {
   });
   const timezone = profile?.timezone ?? "Europe/Prague";
   const [today, overdue, behind, reached, progress] = await Promise.all([
-    getToday(userId, timezone),
+    getToday(userId, timezone, day),
     getOverdue(userId, timezone),
     getBehindGoals(userId, timezone),
     getReachedMilestones(userId),
     getRecentProgress(userId, timezone),
   ]);
+
+  const week = await getWeekProgress(userId, timezone, today.date);
 
   const heading = new Intl.DateTimeFormat(locale, {
     weekday: "long",
@@ -272,9 +289,27 @@ async function Today({ userId, locale }: { userId: string; locale: string }) {
         </span>
       </div>
 
+      {day && day !== todayIso(timezone) && (
+        <p className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 rounded-xl border border-white/10 px-4 py-2.5 text-sm text-[var(--color-paper-dim)]">
+          <span>{tWeek("otherDay", { date: heading })}</span>
+          <Link
+            href={`/${locale}/app`}
+            className="font-medium text-[var(--color-lime-soft)] underline-offset-4 hover:underline"
+          >
+            {tWeek("backToToday")}
+          </Link>
+        </p>
+      )}
+
+      {/* Týden jako navigace i jako přehled. Kliknutím se dá vrátit do
+          minulých dnů a nahlédnout do už rozfázovaných budoucích. */}
+      <div className="mt-5">
+        <WeekStrip days={week} selected={today.date} locale={locale} />
+      </div>
+
       {/* Proužek posledních třiceti dní. Jediné místo, kde je vidět
           delší běh než jeden den. */}
-      <div className="mt-5">
+      <div className="mt-6">
         <ProgressStrip days={progress} locale={locale} />
       </div>
 

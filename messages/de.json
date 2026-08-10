@@ -704,6 +704,12 @@
       "claim": "Dieses Ziel übernehmen",
       "claiming": "Wird übernommen…",
       "discard": "Nein danke, verwerfen"
+    },
+    "week": {
+      "previous": "Vorige Woche",
+      "next": "Nächste Woche",
+      "otherDay": "Du siehst {date}",
+      "backToToday": "Zurück zu heute"
     }
   },
   "withdrawal": {

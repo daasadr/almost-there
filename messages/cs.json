@@ -704,6 +704,12 @@
       "claim": "Převzít tenhle cíl",
       "claiming": "Přebírám…",
       "discard": "Nechci ho, zahodit"
+    },
+    "week": {
+      "previous": "Předchozí týden",
+      "next": "Další týden",
+      "otherDay": "Prohlížíš si {date}",
+      "backToToday": "Zpět na dnešek"
     }
   },
   "withdrawal": {
