@@ -28,12 +28,18 @@ export const authConfig = {
      * by mu zůstal až do dalšího přihlášení. Čte se z databáze —
      * viz lib/billing/access.ts.
      */
-    jwt({ token, user, trigger, session }) {
+    jwt({ token, user, account, trigger, session }) {
       if (user) {
         token.id = user.id as string;
-        token.isEmailVerified = Boolean(
-          (user as { emailVerified?: Date | null }).emailVerified,
-        );
+        token.isEmailVerified =
+          Boolean((user as { emailVerified?: Date | null }).emailVerified) ||
+          // Přihlášení přes Google pustí callback `signIn` dál jen
+          // s adresou, kterou Google sám ověřil. Adaptér ale při zakládání
+          // účtu tenhle údaj zahazuje a nastavuje ho natvrdo na prázdno,
+          // takže by tu i po přihlášení Googlem vyšlo „neověřeno“ —
+          // a uživatel by dostal výzvu, ať klikne na odkaz v e-mailu,
+          // který mu nikdy nepřišel.
+          account?.provider === "google";
       }
 
       // Po ověření e-mailu se token obnoví bez odhlášení.

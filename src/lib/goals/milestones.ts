@@ -142,6 +142,7 @@ Rules for every suggestion:
 - Prefer things that cost little or nothing: an afternoon with a book, a long bath, a walk somewhere new, a film they have been putting off, dinner cooked properly instead of quickly.
 - Never suggest anything that undermines the goal itself. No drink for someone stopping drinking, no day of screens for someone getting off their phone.
 - Make it concrete enough to picture. "Something nice" is not a reward.
+- When you are told what this person enjoys, draw the rewards from that, not from what people generally like. When you are told what they do not enjoy, avoid it entirely — a reward someone does not want is worse than none.
 - One sentence each, at most fifteen words. No exclamation marks.
 - Do not repeat the same reward twice in the list.
 
@@ -151,7 +152,15 @@ Write in the language you are told to use.`;
 export async function suggestRewards(goalId: string): Promise<number> {
   const goal = await db.goal.findUniqueOrThrow({
     where: { id: goalId },
-    select: { id: true, userId: true, title: true, locale: true },
+    select: {
+      id: true,
+      userId: true,
+      title: true,
+      locale: true,
+      // Co má uživatel rád. Bez toho model hádá z ničeho a vychází
+      // z toho průměr, který nikoho neosloví.
+      user: { select: { rewardLikes: true, rewardDislikes: true } },
+    },
   });
 
   const pending = await db.milestone.findMany({
@@ -164,6 +173,14 @@ export async function suggestRewards(goalId: string): Promise<number> {
   const lines = [
     `Goal: ${goal.title}`,
     `Write in: ${localeAiNames[asLocale(goal.locale)]}`,
+    // Vlastní řádky jen když má uživatel co říct. Prázdné „Likes:“ by
+    // model četl jako „nemá rád nic“ a odměny by z toho vyšly opatrné.
+    ...(goal.user.rewardLikes
+      ? [`This person enjoys: ${goal.user.rewardLikes}`]
+      : []),
+    ...(goal.user.rewardDislikes
+      ? [`This person does not enjoy: ${goal.user.rewardDislikes}`]
+      : []),
     "",
     `Suggest one reward for each of these ${pending.length} stages, in order:`,
     ...pending.map(

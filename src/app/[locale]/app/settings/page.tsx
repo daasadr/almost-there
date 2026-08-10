@@ -44,6 +44,8 @@ export default async function SettingsPage({
       reflectionMinutesDay: true,
       restFrequency: true,
       timezone: true,
+      rewardLikes: true,
+      rewardDislikes: true,
     },
   });
 

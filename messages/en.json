@@ -663,7 +663,13 @@
       "saved": "Saved",
       "failed": "Saving failed. Please try again.",
       "appliesNote": "Changes apply from the next breakdown — each further week of your running goals gets laid out with the new values. Days already written stay as they are.",
-      "backToGoal": "Back to creating your goal"
+      "backToGoal": "Back to creating your goal",
+      "rewardsTitle": "Milestone rewards",
+      "rewardsHint": "We use this to come up with the reward you give yourself for a finished stage. Without it you get the average — a long bath and an evening with a book, for everyone. Leaving it empty is fine, just expect us to miss.",
+      "likesLabel": "What you enjoy",
+      "likesPlaceholder": "For example: running in the woods, board games with friends, vinyl records, good coffee beans, a whole day with no plan, riding",
+      "dislikesLabel": "What does nothing for you",
+      "dislikesPlaceholder": "For example: sweets, sitting in a pub, anything with crowds, shopping for clothes"
     },
     "status": {
       "readyTitle": "Is it done?",

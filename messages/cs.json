@@ -663,7 +663,13 @@
       "saved": "Uloženo",
       "failed": "Uložení se nepovedlo. Zkus to prosím znovu.",
       "appliesNote": "Změna se projeví od příštího rozfázování — každý další týden běžících cílů se rozvrhne už podle nových hodnot. Hotové dny zůstanou, jak jsou.",
-      "backToGoal": "Zpět k zakládání cíle"
+      "backToGoal": "Zpět k zakládání cíle",
+      "rewardsTitle": "Odměny za milníky",
+      "rewardsHint": "Podle tohohle vymýšlíme odměnu, kterou si dáš za zvládnutou fázi. Bez toho vychází průměr — dlouhá koupel a večer s knihou pro každého. Nech klidně prázdné, jen pak počítej s tím, že se netrefíme.",
+      "likesLabel": "Co ti udělá radost",
+      "likesPlaceholder": "Například: běh v lese, deskovky s kamarády, vinyly, dobrá kávová zrna, celý den bez plánu, jízda na koni",
+      "dislikesLabel": "Co ti radost neudělá",
+      "dislikesPlaceholder": "Například: sladké, sezení v hospodě, cokoliv s davem lidí, nakupování oblečení"
     },
     "status": {
       "readyTitle": "Máš to?",

@@ -38,6 +38,9 @@ const ENCRYPTED_FIELDS = new Set([
   "feasibilityNote",
   "completionNote",
   "rewardText",
+  // Co má uživatel rád a co ne — osobní údaj jako obsah cílů.
+  "rewardLikes",
+  "rewardDislikes",
   "note",
   "alt",
 ]);

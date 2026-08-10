@@ -663,7 +663,13 @@
       "saved": "Gespeichert",
       "failed": "Das Speichern hat nicht geklappt. Bitte versuch es erneut.",
       "appliesNote": "Änderungen greifen ab der nächsten Phasenplanung — jede weitere Woche deiner laufenden Ziele wird mit den neuen Werten verteilt. Bereits geschriebene Tage bleiben, wie sie sind.",
-      "backToGoal": "Zurück zum Anlegen des Ziels"
+      "backToGoal": "Zurück zum Anlegen des Ziels",
+      "rewardsTitle": "Belohnungen für Meilensteine",
+      "rewardsHint": "Danach denken wir uns die Belohnung aus, die du dir für eine geschaffte Etappe gibst. Ohne das kommt der Durchschnitt heraus — ein langes Bad und ein Abend mit einem Buch, für alle. Leer lassen ist in Ordnung, dann rechne aber damit, dass wir danebenliegen.",
+      "likesLabel": "Was dir Freude macht",
+      "likesPlaceholder": "Zum Beispiel: Laufen im Wald, Brettspiele mit Freunden, Schallplatten, gute Kaffeebohnen, ein ganzer Tag ohne Plan, Reiten",
+      "dislikesLabel": "Was dir nichts sagt",
+      "dislikesPlaceholder": "Zum Beispiel: Süßes, im Wirtshaus sitzen, alles mit Menschenmengen, Kleidung einkaufen"
     },
     "status": {
       "readyTitle": "Hast du es geschafft?",

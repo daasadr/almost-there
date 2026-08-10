@@ -24,6 +24,16 @@ const bodySchema = z.object({
     "EVERY_OTHER_DAY",
   ]),
   timezone: z.string().min(1).max(64),
+  /**
+   * Co má uživatel rád a co ne. Vstupuje do návrhů odměn za milníky.
+   *
+   * Strop je štědrý, ale ne bezedný: text jde do promptu a platí se za
+   * něj v tokenech. Prázdný řetězec se ukládá jako prázdno, aby se
+   * v databázi nehromadily prázdné řetězce vedle NULL a nebylo pak
+   * potřeba testovat obojí.
+   */
+  rewardLikes: z.string().max(600).optional(),
+  rewardDislikes: z.string().max(600).optional(),
 });
 
 /** Ověření pásma proti systému, ne proti vlastnímu seznamu — ten by
@@ -62,9 +72,16 @@ export async function PATCH(request: Request) {
     );
   }
 
+  const { rewardLikes, rewardDislikes, ...rest } = parsed.data;
+
   await db.user.update({
     where: { id: session.user.id },
-    data: parsed.data,
+    data: {
+      ...rest,
+      // Vymazané políčko znamená prázdno, ne prázdný řetězec.
+      rewardLikes: rewardLikes?.trim() || null,
+      rewardDislikes: rewardDislikes?.trim() || null,
+    },
   });
 
   return NextResponse.json({ ok: true });

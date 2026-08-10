@@ -36,6 +36,9 @@ const FALLBACK_ZONES = [
   "UTC",
 ];
 
+const textareaClass =
+  "mt-2 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-[15px] leading-relaxed text-[var(--color-paper)] transition placeholder:text-[var(--color-paper-faint)] focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] focus:outline-none disabled:opacity-60";
+
 const selectClass =
   "mt-2 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-[15px] text-[var(--color-paper)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] focus:outline-none disabled:opacity-60 sm:w-auto";
 
@@ -50,6 +53,8 @@ export function SettingsForm({
     reflectionMinutesDay: number;
     restFrequency: string;
     timezone: string;
+    rewardLikes: string | null;
+    rewardDislikes: string | null;
   };
 }) {
   const t = useTranslations("plan.settings");
@@ -60,6 +65,8 @@ export function SettingsForm({
   const [reflection, setReflection] = useState(initial.reflectionMinutesDay);
   const [rest, setRest] = useState(initial.restFrequency);
   const [timezone, setTimezone] = useState(initial.timezone);
+  const [likes, setLikes] = useState(initial.rewardLikes ?? "");
+  const [dislikes, setDislikes] = useState(initial.rewardDislikes ?? "");
 
   const [pending, setPending] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -99,6 +106,8 @@ export function SettingsForm({
           reflectionMinutesDay: reflection,
           restFrequency: rest,
           timezone,
+          rewardLikes: likes,
+          rewardDislikes: dislikes,
         }),
       });
       if (!response.ok) throw new Error("save failed");
@@ -222,6 +231,46 @@ export function SettingsForm({
             {t("useDetected", { zone: detected })}
           </button>
         )}
+      </div>
+
+      {/* Podklad pro návrhy odměn za milníky. Volný text schválně —
+          výběr z nabídky by lidi natlačil do škatulek, které jsme
+          vymysleli my, a odměna z cizí škatulky nemotivuje. */}
+      <div className="mt-9 border-t border-white/5 pt-9">
+        <h2 className="text-sm font-semibold text-[var(--color-paper)]">
+          {t("rewardsTitle")}
+        </h2>
+        <p className="mt-1.5 text-xs leading-relaxed text-[var(--color-paper-faint)]">
+          {t("rewardsHint")}
+        </p>
+
+        <label htmlFor="likes" className="mt-6 block text-sm font-medium">
+          {t("likesLabel")}
+        </label>
+        <textarea
+          id="likes"
+          value={likes}
+          disabled={pending}
+          rows={3}
+          maxLength={600}
+          placeholder={t("likesPlaceholder")}
+          onChange={(event) => setLikes(event.target.value)}
+          className={textareaClass}
+        />
+
+        <label htmlFor="dislikes" className="mt-5 block text-sm font-medium">
+          {t("dislikesLabel")}
+        </label>
+        <textarea
+          id="dislikes"
+          value={dislikes}
+          disabled={pending}
+          rows={3}
+          maxLength={600}
+          placeholder={t("dislikesPlaceholder")}
+          onChange={(event) => setDislikes(event.target.value)}
+          className={textareaClass}
+        />
       </div>
 
       {error && (

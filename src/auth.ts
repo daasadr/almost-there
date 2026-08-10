@@ -95,23 +95,49 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
      * neověřenou adresu (stává se to u některých firemních účtů), přihlášení
      * odmítneme — jinak by šlo cizí adresu obsadit účtem, který ji nevlastní.
      */
-    signIn({ account, profile }) {
+    async signIn({ account, profile }) {
       if (account?.provider !== "google") return true;
-      return profile?.email_verified === true;
+      if (profile?.email_verified !== true) return false;
+
+      /**
+       * Náprava účtů založených dřív, než se tohle spravilo.
+       *
+       * Adaptér při zakládání účtu z Googlu zahodí údaj o ověření adresy
+       * a uloží prázdno, ať `profile()` vrátí cokoliv. Takové účty pak
+       * napořád vidí výzvu, ať kliknou na odkaz v e-mailu, který jim
+       * nikdy nepřišel — ověřovací e-mail posílá jen registrace
+       * formulářem.
+       *
+       * `updateMany` schválně: u nově zakládaného účtu tady ještě žádný
+       * řádek není a `update` by spadl. Podmínka na prázdné heslo míří
+       * jen na účty vzniklé přes Google — účtu se skutečným heslem by
+       * přihlášení Googlem nemělo přepisovat způsob přihlášení.
+       */
+      if (profile.email) {
+        await db.user.updateMany({
+          where: {
+            email: profile.email,
+            emailVerified: null,
+            passwordHash: null,
+          },
+          data: { emailVerified: new Date(), authProvider: "GOOGLE" },
+        });
+      }
+
+      return true;
     },
   },
   events: {
     /**
-     * Adaptér vytvoří uživatele s výchozími hodnotami. Dorovnáme způsob
-     * přihlášení, který adaptér nezná — ověření adresy už nastavuje
-     * mapování v `profile()` výš.
+     * Adaptér vytvoří uživatele s výchozími hodnotami. Dorovnáme, co
+     * o něm neví: způsob přihlášení a ověření adresy, které zahazuje.
      */
     async linkAccount({ user, account }) {
       if (account.provider !== "google" || !user.id) return;
 
       await db.user.update({
         where: { id: user.id },
-        data: { authProvider: "GOOGLE" },
+        data: { authProvider: "GOOGLE", emailVerified: new Date() },
       });
     },
   },

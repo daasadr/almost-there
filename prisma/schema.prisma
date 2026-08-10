@@ -77,6 +77,17 @@ model User {
   timezone              String        @default("Europe/Prague")
   locale                String        @default("en")
 
+  /// Co má uživatel rád a co mu nic neříká.
+  ///
+  /// Vstupuje do návrhů odměn za milníky. Bez toho model hádá z ničeho
+  /// a vychází z toho průměr — dlouhá koupel a večer s knihou pro
+  /// každého. Odměna, kterou si člověk nepřeje, nemotivuje.
+  ///
+  /// Volný text schválně: výběr z nabídky by lidi natlačil do škatulek,
+  /// které jsme vymysleli my. Obojí je šifrované jako obsah cílů.
+  rewardLikes    String?
+  rewardDislikes String?
+
   /// Od kdy jsou přihlášení platná.
   ///
   /// Přihlášení nosí uživatel v podepsaném tokenu, který server nedokáže
