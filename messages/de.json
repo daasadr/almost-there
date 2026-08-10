@@ -329,8 +329,8 @@
       "googleConsent": "Wenn du mit Google fortfährst, stimmst du den <terms>AGB</terms> und der <privacy>Datenschutzerklärung</privacy> zu.",
       "hasAccount": "Schon ein Konto?",
       "loginLink": "Anmelden",
-      "successTitle": "Sieh in dein Postfach",
-      "successBody": "Wir haben einen Bestätigungslink an {email} geschickt. Danach kannst du dich anmelden.",
+      "successTitle": "Dein Konto ist angelegt",
+      "successBody": "Du kannst dich sofort anmelden. An {email} haben wir außerdem einen Bestätigungslink geschickt — klick ihn an, wenn du einen Moment hast. Eine bestätigte Adresse ist der einzige Weg, ein vergessenes Passwort zurückzusetzen.",
       "toLogin": "Zur Anmeldung"
     },
     "forgot": {
@@ -619,7 +619,8 @@
         "imageTooLarge": "Diese Datei ist zu groß. Acht Megabyte sind das Limit.",
         "imageUnreadable": "Diese Datei ließ sich nicht als Bild lesen.",
         "uploadFailed": "Der Upload ist fehlgeschlagen. Bitte versuch es erneut."
-      }
+      },
+      "choose": "Bilder auswählen"
     },
     "overdue": {
       "title": "{count, plural, one {Aus den letzten Tagen ist eine Sache offen} other {Aus den letzten Tagen sind # Sachen offen}}",

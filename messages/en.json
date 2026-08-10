@@ -329,8 +329,8 @@
       "googleConsent": "By continuing with Google you agree to the <terms>terms of service</terms> and the <privacy>privacy policy</privacy>.",
       "hasAccount": "Already have an account?",
       "loginLink": "Sign in",
-      "successTitle": "Check your inbox",
-      "successBody": "We sent a confirmation link to {email}. Click it and you can sign in.",
+      "successTitle": "Your account is ready",
+      "successBody": "You can sign in right away. We have also sent a confirmation link to {email} — click it when you have a moment. A verified address is the only way to recover a forgotten password.",
       "toLogin": "Go to sign in"
     },
     "forgot": {
@@ -619,7 +619,8 @@
         "imageTooLarge": "That file is too large. Eight megabytes is the limit.",
         "imageUnreadable": "That file could not be read as an image.",
         "uploadFailed": "The upload failed. Please try again."
-      }
+      },
+      "choose": "Choose images"
     },
     "overdue": {
       "title": "{count, plural, one {One thing is left from earlier days} other {# things are left from earlier days}}",

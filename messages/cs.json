@@ -329,8 +329,8 @@
       "googleConsent": "Pokračováním přes Google souhlasíš s <terms>obchodními podmínkami</terms> a se <privacy>zpracováním osobních údajů</privacy>.",
       "hasAccount": "Už máš účet?",
       "loginLink": "Přihlas se",
-      "successTitle": "Podívej se do e-mailu",
-      "successBody": "Poslali jsme potvrzovací odkaz na {email}. Po kliknutí se budeš moct přihlásit.",
+      "successTitle": "Účet je založený",
+      "successBody": "Přihlásit se můžeš hned. Na {email} jsme zároveň poslali potvrzovací odkaz — klikni na něj, až budeš mít chvíli. Ověřená adresa je jediná cesta, jak si obnovit zapomenuté heslo.",
       "toLogin": "Přejít na přihlášení"
     },
     "forgot": {
@@ -619,7 +619,8 @@
         "imageTooLarge": "Tenhle soubor je moc velký. Vejde se do osmi megabajtů.",
         "imageUnreadable": "Tenhle soubor se nepodařilo přečíst jako obrázek.",
         "uploadFailed": "Nahrání se nepovedlo. Zkus to prosím znovu."
-      }
+      },
+      "choose": "Vybrat obrázky"
     },
     "overdue": {
       "title": "{count, plural, one {Z minulých dnů zbyla jedna věc} few {Z minulých dnů zbyly # věci} other {Z minulých dnů zbylo # věcí}}",

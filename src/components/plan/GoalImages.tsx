@@ -133,9 +133,21 @@ export function GoalImages({
         </p>
       )}
 
+      {/*
+        Vlastní tlačítko místo systémového pole pro soubor.
+
+        Prohlížeč vedle něj sám dopisuje „Soubor nevybrán“ a nechává to
+        tam i ve chvíli, kdy je nahraných pět obrázků — protože se to
+        netýká nahraných souborů, ale toho, co je zrovna v poli. Uživatel
+        to čte jako chybu a hledá, co udělal špatně.
+
+        Pole tu zůstává skryté a klikání za něj obstará popisek; jinak by
+        se přišlo o výběr souborů, který systém umí sám.
+      */}
       <div className="mt-5">
         <input
           ref={inputRef}
+          id={`images-${goalId}`}
           type="file"
           accept="image/*"
           multiple
@@ -143,8 +155,19 @@ export function GoalImages({
           onChange={(event) => {
             if (event.target.files?.length) void upload(event.target.files);
           }}
-          className="block w-full text-sm text-[var(--color-paper-dim)] file:mr-4 file:cursor-pointer file:rounded-full file:border file:border-white/15 file:bg-transparent file:px-4 file:py-2 file:text-sm file:font-medium file:text-[var(--color-paper)] hover:file:border-white/30 disabled:opacity-50"
+          className="sr-only"
         />
+        <label
+          htmlFor={`images-${goalId}`}
+          aria-disabled={full || uploading > 0}
+          className={`inline-block rounded-full border border-white/15 px-4 py-2 text-sm font-medium text-[var(--color-paper)] transition ${
+            full || uploading > 0
+              ? "cursor-not-allowed opacity-50"
+              : "cursor-pointer hover:border-white/30"
+          }`}
+        >
+          {t("choose")}
+        </label>
         <p className="mt-2 text-xs text-[var(--color-paper-faint)]">
           {uploading > 0
             ? t("uploading", { count: uploading })
