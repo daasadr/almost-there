@@ -242,3 +242,17 @@
     transform: none;
   }
 }
+
+/*
+ * Skrytí všeho, co vede k placení, uvnitř aplikace z obchodu.
+ *
+ * Google Play zakazuje, aby aplikace stažená z obchodu nabízela placení
+ * mimo obchod. Značku na `<html>` nastaví krátký skript v hlavičce ještě
+ * před vykreslením — kdyby se to řešilo až po hydrataci, tlačítko „koupit"
+ * by na okamžik probliklo, což je přesně to, co se stát nesmí.
+ *
+ * Ve webovém prohlížeči značka nevznikne a nic se neschovává.
+ */
+[data-store-app] .store-hidden {
+  display: none !important;
+}

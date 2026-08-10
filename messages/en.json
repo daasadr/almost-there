@@ -401,7 +401,9 @@
       "resume": "Keep my subscription after all",
       "working": "Working…",
       "failed": "That did not work. Please try again."
-    }
+    },
+    "storeTitle": "Subscriptions are not handled here",
+    "storeBody": "The store version of the app does not manage subscriptions. If you already have one, sign in with the same account and everything opens up."
   },
   "plan": {
     "nav": {

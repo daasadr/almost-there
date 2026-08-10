@@ -27,7 +27,10 @@ function SectionLink({
   onLanding: boolean;
   label: string;
 }) {
-  const className = "transition hover:text-[var(--color-paper)]";
+  // Ceník se v aplikaci z obchodu neukazuje — viz lib/store-app.ts.
+  const className = `transition hover:text-[var(--color-paper)] ${
+    section === "pricing" ? "store-hidden" : ""
+  }`;
 
   if (onLanding) {
     return (

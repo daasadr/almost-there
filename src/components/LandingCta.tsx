@@ -42,13 +42,19 @@ export function LandingCta({
     );
   }
 
+  // Obě cesty ke koupi se v aplikaci z obchodu schovávají — hlavní
+  // tlačítko jen tehdy, když vede rovnou na registraci kvůli placení.
+  // Odkaz na demo zůstává: to je zdarma a s placením nemá nic společného.
   return (
     <>
-      <Link href={primaryHref} className={`btn-primary ${wide}`}>
+      <Link
+        href={primaryHref}
+        className={`btn-primary ${wide} ${primaryHref === "/register" ? "store-hidden" : ""}`}
+      >
         {primaryLabel}
       </Link>
       {secondaryLabel && (
-        <a href="#pricing" className="btn-secondary">
+        <a href="#pricing" className="btn-secondary store-hidden">
           {secondaryLabel}
         </a>
       )}

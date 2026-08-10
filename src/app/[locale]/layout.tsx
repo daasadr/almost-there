@@ -10,6 +10,7 @@ import { CookieBanner } from "@/components/CookieBanner";
 import { RevealOnScroll } from "@/components/RevealOnScroll";
 import { AuthSessionProvider } from "@/components/SessionProvider";
 import { ServiceWorker } from "@/components/ServiceWorker";
+import { STORE_APP_MARKER } from "@/lib/store-app";
 import "@/app/globals.css";
 
 export function generateStaticParams() {
@@ -83,6 +84,15 @@ export default async function LocaleLayout({
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"
+        />
+        {/* Značka pro aplikaci z obchodu, podle které se schová všechno,
+            co vede k placení mimo obchod. Musí běžet tady v hlavičce,
+            ještě před vykreslením — kdyby se čekalo na hydrataci,
+            tlačítko „koupit" by na okamžik probliklo. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `if(navigator.userAgent.indexOf(${JSON.stringify(STORE_APP_MARKER)})>-1)document.documentElement.dataset.storeApp="1"`,
+          }}
         />
       </head>
       <body className="min-h-dvh antialiased">

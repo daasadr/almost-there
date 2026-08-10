@@ -401,7 +401,9 @@
       "resume": "Nechat si předplatné dál",
       "working": "Pracuji…",
       "failed": "Nepovedlo se to. Zkus to prosím znovu."
-    }
+    },
+    "storeTitle": "Předplatné tady zařídit nejde",
+    "storeBody": "V aplikaci z obchodu předplatné nespravujeme. Pokud už ho máš, přihlas se stejným účtem a všechno se ti tu otevře."
   },
   "plan": {
     "nav": {

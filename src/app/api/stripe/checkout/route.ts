@@ -9,6 +9,7 @@ import { isBillingPeriod, stripePriceId } from "@/lib/stripe/plans";
 import { routing, type Locale } from "@/i18n/routing";
 import { LEGAL_VERSION } from "@/content/legal";
 import { getClientIp, hashIp } from "@/lib/rate-limit";
+import { isStoreApp } from "@/lib/store-app";
 
 export const runtime = "nodejs";
 
@@ -34,6 +35,16 @@ export async function POST(request: Request) {
   const session = await auth();
   if (!session?.user?.id || !session.user.email) {
     return NextResponse.json({ ok: false, error: "unauthorized" }, { status: 401 });
+  }
+
+  // Z aplikace z obchodu se pokladna neotevře. V rozhraní tam žádné
+  // tlačítko k placení není, tohle je druhá vrstva — ať je to pravidlo
+  // vynucené, ne jen schované. Viz lib/store-app.ts.
+  if (isStoreApp(request.headers)) {
+    return NextResponse.json(
+      { ok: false, error: "storeApp" },
+      { status: 403 },
+    );
   }
 
   let body: unknown;

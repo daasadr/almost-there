@@ -401,7 +401,9 @@
       "resume": "Abo doch behalten",
       "working": "Einen Moment…",
       "failed": "Das hat nicht geklappt. Bitte versuch es erneut."
-    }
+    },
+    "storeTitle": "Abos werden hier nicht verwaltet",
+    "storeBody": "In der App aus dem Store verwalten wir keine Abos. Wenn du bereits eines hast, melde dich mit demselben Konto an und alles steht dir offen."
   },
   "plan": {
     "nav": {

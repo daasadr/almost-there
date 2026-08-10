@@ -24,7 +24,8 @@ import { getOverdue, getToday, listGoals } from "@/lib/goals/queries";
 import { getBehindGoals } from "@/lib/goals/pace";
 import { getRecentProgress, getWeekProgress } from "@/lib/goals/checkin";
 import { findClaimableDemo } from "@/lib/goals/claim";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
+import { isStoreApp } from "@/lib/store-app";
 import { getReachedMilestones } from "@/lib/goals/milestones";
 import { toIsoDate, todayIso } from "@/lib/plan/calendar";
 import { db } from "@/lib/db";
@@ -79,6 +80,10 @@ export default async function AppPage({
   // jinak propadla až do dotazu.
   const selectedDay = /^\d{4}-\d{2}-\d{2}$/.test(day ?? "") ? day : undefined;
 
+  // Aplikace stažená z obchodu se pozná podle podpisu v hlavičce. Tahle
+  // stránka je stejně dynamická kvůli přihlášení, takže se nic neztrácí.
+  const storeApp = isStoreApp(await headers());
+
   const billing = await db.user.findUnique({
     where: { id: session.user.id },
     select: {
@@ -117,8 +122,19 @@ export default async function AppPage({
         </div>
       )}
 
+      {/* V aplikaci z obchodu se místo paywallu ukáže jen vysvětlení.
+          Placení mimo obchod tam nabízet nesmíme — viz lib/store-app.ts. */}
+      {!hasAccess && checkout !== "success" && storeApp && (
+        <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.02] p-5 sm:p-6">
+          <h2 className="display text-lg">{tb("storeTitle")}</h2>
+          <p className="mt-1.5 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+            {tb("storeBody")}
+          </p>
+        </div>
+      )}
+
       {/* Dokud není zaplaceno, je paywall to hlavní na stránce. */}
-      {!hasAccess && checkout !== "success" && (
+      {!hasAccess && checkout !== "success" && !storeApp && (
         <div className="mt-8">
           {checkout === "cancelled" && (
             <div className="mb-4 rounded-2xl border border-white/10 p-5">

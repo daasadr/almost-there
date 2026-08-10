@@ -138,7 +138,9 @@ export function DemoResult({
             {t("ctaBody")}
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <Link href="/#pricing" className="btn-primary">
+            {/* Odkaz ke koupi se v aplikaci z obchodu neukazuje —
+                viz lib/store-app.ts. */}
+            <Link href="/#pricing" className="btn-primary store-hidden">
               {t("cta")}
             </Link>
             <button type="button" onClick={onReset} className="btn-secondary">
