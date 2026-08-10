@@ -66,6 +66,15 @@ const config: CapacitorConfig = {
       style: "DARK",
       backgroundColor: "#04100c",
     },
+    LocalNotifications: {
+      /**
+       * Ve stavovém řádku bere Android z ikony jen tvar a obarví si ho
+       * sám. Barevná ikona aplikace by se ukázala jako bílý čtvereček,
+       * proto je pro oznámení zvlášť bílá silueta.
+       */
+      smallIcon: "ic_stat_almostthere",
+      iconColor: "#bef264",
+    },
   },
 };
 

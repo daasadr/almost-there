@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { auth } from "@/auth";
 import { SettingsForm } from "@/components/plan/SettingsForm";
+import { DailyReminder } from "@/components/native/DailyReminder";
 import { db } from "@/lib/db";
 
 export async function generateMetadata({
@@ -63,6 +64,10 @@ export default async function SettingsPage({
       <div className="card mt-8 p-6 sm:p-8">
         <SettingsForm initial={user} backToGoal={backToGoal} />
       </div>
+
+      {/* V prohlížeči se nevykreslí — systémová oznámení umí jen aplikace
+          stažená z obchodu. */}
+      <DailyReminder />
     </section>
   );
 }

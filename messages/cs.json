@@ -719,6 +719,15 @@
       "body": "Otevřeš ji jedním klepnutím jako každou jinou aplikaci a dnešní úkoly máš rovnou před sebou. Nic se nestahuje z obchodu.",
       "install": "Přidat na plochu",
       "later": "Teď ne"
+    },
+    "reminder": {
+      "title": "Denní připomínka",
+      "body": "Telefon ti ve zvolený čas napíše, i když aplikaci nemáš otevřenou. Připomínka se plánuje přímo tady v telefonu — na server o ní neodchází nic a funguje i bez signálu.",
+      "enable": "Chci denní připomínku",
+      "time": "V kolik hodin",
+      "denied": "Telefon oznámení pro AlmostThere nepovolil. Zapnout se dá v nastavení telefonu u této aplikace.",
+      "notifyTitle": "Dnešek čeká",
+      "notifyBody": "Podívej se, co máš dnes v plánu."
     }
   },
   "withdrawal": {

@@ -719,6 +719,15 @@
       "body": "Ein Tippen öffnet sie wie jede andere App, mit den heutigen Aufgaben direkt vor dir. Kein Download aus einem Store.",
       "install": "Zum Startbildschirm",
       "later": "Jetzt nicht"
+    },
+    "reminder": {
+      "title": "Tägliche Erinnerung",
+      "body": "Dein Telefon meldet sich zur gewählten Zeit, auch wenn die App geschlossen ist. Die Erinnerung wird direkt auf dem Telefon geplant — nichts davon geht an unseren Server, und sie funktioniert auch ohne Empfang.",
+      "enable": "Jeden Tag erinnern",
+      "time": "Um wie viel Uhr",
+      "denied": "Dein Telefon hat Benachrichtigungen für AlmostThere nicht erlaubt. Du kannst sie in den Telefoneinstellungen für diese App aktivieren.",
+      "notifyTitle": "Heute wartet auf dich",
+      "notifyBody": "Schau, was du heute geplant hast."
     }
   },
   "withdrawal": {

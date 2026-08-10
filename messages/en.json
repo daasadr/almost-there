@@ -719,6 +719,15 @@
       "body": "One tap opens it like any other app, with today’s tasks right there. Nothing to download from a store.",
       "install": "Add to home screen",
       "later": "Not now"
+    },
+    "reminder": {
+      "title": "Daily reminder",
+      "body": "Your phone will nudge you at the time you pick, even when the app is closed. The reminder is scheduled on the phone itself — nothing about it leaves for our server, and it works without a signal.",
+      "enable": "Remind me every day",
+      "time": "At what time",
+      "denied": "Your phone has not allowed notifications for AlmostThere. You can turn them on in the phone's settings for this app.",
+      "notifyTitle": "Today is waiting",
+      "notifyBody": "Take a look at what you have planned."
     }
   },
   "withdrawal": {

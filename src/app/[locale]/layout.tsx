@@ -10,6 +10,7 @@ import { CookieBanner } from "@/components/CookieBanner";
 import { RevealOnScroll } from "@/components/RevealOnScroll";
 import { AuthSessionProvider } from "@/components/SessionProvider";
 import { ServiceWorker } from "@/components/ServiceWorker";
+import { NativeShell } from "@/components/native/NativeShell";
 import { STORE_APP_MARKER } from "@/lib/store-app";
 import "@/app/globals.css";
 
@@ -110,6 +111,7 @@ export default async function LocaleLayout({
           <CookieBanner />
           <RevealOnScroll />
           <ServiceWorker />
+          <NativeShell />
         </NextIntlClientProvider>
         </AuthSessionProvider>
       </body>
