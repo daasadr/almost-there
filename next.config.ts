@@ -45,6 +45,8 @@ const nextConfig: NextConfig = {
       "capacitor.config.ts",
       /** Pomocné skripty se pouštějí ručně, ne ze serveru. */
       "scripts/**",
+      /** Obrázky pro záznam v obchodě. Se serverem nemají nic společného. */
+      "store/**",
     ],
   },
   async headers() {

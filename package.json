@@ -14,7 +14,8 @@
     "db:encrypt": "tsx scripts/encrypt-existing.ts",
     "og": "node scripts/og-images.mjs",
     "indexnow": "node scripts/indexnow.mjs",
-    "stripe:check": "tsx scripts/stripe-check.ts"
+    "stripe:check": "tsx scripts/stripe-check.ts",
+    "play:assets": "node scripts/play-assets.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.115.0",
