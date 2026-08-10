@@ -142,7 +142,8 @@
     "privacy": "Datenschutzerklärung",
     "contact": "Kontakt",
     "rights": "Alle Rechte vorbehalten.",
-    "madeWith": "Planen ist eine Fähigkeit. Wir liefern nur das Gerüst."
+    "madeWith": "Planen ist eine Fähigkeit. Wir liefern nur das Gerüst.",
+    "deletion": "Konto löschen"
   },
   "demo": {
     "badge": "Demo",
@@ -219,6 +220,34 @@
     },
     "privacy": {
       "title": "Datenschutzerklärung"
+    },
+    "deletion": {
+      "title": "Konto und Daten löschen",
+      "intro": "Du kannst dein AlmostThere-Konto jederzeit selbst löschen, ohne uns zu fragen. Die Löschung ist echt — die Daten werden nicht archiviert oder versteckt, sie hören auf zu existieren.",
+      "stepsTitle": "So geht's",
+      "steps": [
+        "Melde dich an — auf almost-there.eu oder in der App.",
+        "Öffne die Einstellungen (der Link steht in der App unter deinen Zielen).",
+        "Wähle ganz unten „Ich möchte mein Konto löschen“.",
+        "Tippe zur Bestätigung deine E-Mail-Adresse ein und klicke auf Löschen."
+      ],
+      "deletedTitle": "Was gelöscht wird",
+      "deleted": [
+        "Alle Ziele, Pläne, Aufgaben und Aufzeichnungen abgehakter Tage",
+        "Bilder, die du zu deinen Zielen hochgeladen hast, samt Dateien auf der Festplatte",
+        "Einstellungen, Kontodaten und Anmeldedaten",
+        "Zustimmungen zu den Bedingungen und zur Datenverarbeitung"
+      ],
+      "keptTitle": "Was bleibt und warum",
+      "kept": [
+        "Aufzeichnungen über die KI-Nutzung, aus denen wir die Kosten berechnen. Sie werden von deinem Konto getrennt und enthalten nur noch Modell, Tokenzahl und Preis — nichts, woran sich erkennen ließe, wem sie gehörten.",
+        "Belege über geleistete Zahlungen. Diese hält Stripe als Verkäufer, und das Gesetz verlangt ihre Aufbewahrung für den steuerrechtlich vorgesehenen Zeitraum; ohne sie ließe sich die abgeführte Steuer nicht nachweisen."
+      ],
+      "subscriptionTitle": "Abo",
+      "subscriptionBody": "Mit der Kontolöschung endet ein laufendes Abo sofort und es wird nichts weiter berechnet. Für den ungenutzten Teil eines bezahlten Zeitraums gibt es keine Rückerstattung — wenn du den Zeitraum aufbrauchen möchtest, kündige zuerst nur das Abo und lösche das Konto später.",
+      "helpTitle": "Wenn du dich nicht anmelden kannst",
+      "helpBody": "Schreib von der E-Mail-Adresse, mit der das Konto angelegt wurde, an {email}. Wir löschen das Konto manuell und bestätigen dir das; wir erledigen das spätestens innerhalb von dreißig Tagen.",
+      "back": "Zurück zur Startseite"
     }
   },
   "cookies": {
@@ -729,6 +758,24 @@
       "denied": "Dein Telefon hat Benachrichtigungen für AlmostThere nicht erlaubt. Du kannst sie in den Telefoneinstellungen für diese App aktivieren.",
       "notifyTitle": "Heute wartet auf dich",
       "notifyBody": "Schau, was du heute geplant hast."
+    },
+    "deleteAccount": {
+      "title": "Konto löschen",
+      "teaser": "Du möchtest gehen? Wir löschen das Konto und alles darin wirklich, nicht nur versteckt.",
+      "open": "Ich möchte mein Konto löschen",
+      "body": "Das lässt sich nicht rückgängig machen. Nach der Bestätigung ist nichts davon wiederherstellbar — auch nicht auf Nachfrage, weil es nirgendwo mehr existiert.",
+      "items": [
+        "Alle Ziele, Pläne, Aufgaben und abgehakten Tage",
+        "Hochgeladene Bilder",
+        "Einstellungen und Kontodaten",
+        "Ein laufendes Abo wird sofort gekündigt; für den ungenutzten Zeitraum gibt es keine Rückerstattung"
+      ],
+      "confirmLabel": "Tippe zur Bestätigung {email}",
+      "confirm": "Konto endgültig löschen",
+      "deleting": "Wird gelöscht…",
+      "cancel": "Konto behalten",
+      "failed": "Das Konto konnte nicht gelöscht werden. Bitte versuche es erneut.",
+      "rateLimited": "Zu viele Versuche. Bitte versuche es in einer Stunde erneut."
     }
   },
   "withdrawal": {

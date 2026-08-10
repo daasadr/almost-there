@@ -58,6 +58,13 @@ export function SiteFooter() {
                   {t("privacy")}
                 </Link>
               </li>
+              {/* Google Play chce adresu s návodem na zrušení účtu
+                  dostupnou bez přihlášení; odsud na ni vede odkaz. */}
+              <li>
+                <Link href="/delete-account" className="transition hover:text-[var(--color-paper)]">
+                  {t("deletion")}
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

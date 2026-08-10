@@ -142,7 +142,8 @@
     "privacy": "Zásady ochrany osobních údajů",
     "contact": "Kontakt",
     "rights": "Všechna práva vyhrazena.",
-    "madeWith": "Plánování je dovednost. My jsme jen dodali lešení."
+    "madeWith": "Plánování je dovednost. My jsme jen dodali lešení.",
+    "deletion": "Zrušení účtu"
   },
   "demo": {
     "badge": "Demo",
@@ -219,6 +220,34 @@
     },
     "privacy": {
       "title": "Zásady ochrany osobních údajů"
+    },
+    "deletion": {
+      "title": "Zrušení účtu a smazání dat",
+      "intro": "Účet v AlmostThere si můžeš kdykoliv zrušit sám a nemusíš nás o to žádat. Smazání je skutečné — data se nepřesouvají do archivu ani neschovávají, přestanou existovat.",
+      "stepsTitle": "Jak na to",
+      "steps": [
+        "Přihlas se — na webu almost-there.eu nebo v aplikaci.",
+        "Otevři Nastavení (odkaz najdeš v aplikaci pod svými cíli).",
+        "Úplně dole zvol „Chci zrušit účet“.",
+        "Pro potvrzení opíšeš svůj e-mail a klikneš na smazání."
+      ],
+      "deletedTitle": "Co se smaže",
+      "deleted": [
+        "Všechny cíle, plány, úkoly a záznamy o odškrtaných dnech",
+        "Obrázky, které jsi nahrál/a ke svým cílům, včetně souborů na disku",
+        "Předvolby, údaje účtu a přihlašovací údaje",
+        "Souhlasy s podmínkami a se zpracováním údajů"
+      ],
+      "keptTitle": "Co zůstane a proč",
+      "kept": [
+        "Záznamy o spotřebě AI, ze kterých počítáme náklady. Odpojí se od tvého účtu a zůstane v nich jen model, počet tokenů a cena — nic, podle čeho by šlo poznat, čí byly.",
+        "Doklady o zaplacených platbách. Ty drží Stripe jako prodejce a zákon je nechává uchovávat po dobu danou daňovými předpisy; bez toho by nešlo doložit odvedenou daň."
+      ],
+      "subscriptionTitle": "Předplatné",
+      "subscriptionBody": "Běžící předplatné se zrušením účtu okamžitě ukončí a dál se neúčtuje. Za nedočerpanou část zaplaceného období se peníze nevracejí — pokud chceš období dočerpat, zruš nejdřív jen předplatné a účet smaž až později.",
+      "helpTitle": "Když se nemůžeš přihlásit",
+      "helpBody": "Napiš z e-mailu, kterým je účet založený, na {email}. Účet smažeme ručně a potvrdíme ti to; vyřizujeme to nejpozději do třiceti dnů.",
+      "back": "Zpět na úvod"
     }
   },
   "cookies": {
@@ -729,6 +758,24 @@
       "denied": "Telefon oznámení pro AlmostThere nepovolil. Zapnout se dá v nastavení telefonu u této aplikace.",
       "notifyTitle": "Dnešek čeká",
       "notifyBody": "Podívej se, co máš dnes v plánu."
+    },
+    "deleteAccount": {
+      "title": "Zrušení účtu",
+      "teaser": "Chceš odejít? Účet i všechno v něm smažeme doopravdy, ne jen schováme.",
+      "open": "Chci zrušit účet",
+      "body": "Tohle je nevratné. Jakmile to potvrdíš, nedá se nic z toho vrátit — ani na naši žádost, protože už to nikde nebude.",
+      "items": [
+        "Všechny cíle, plány, úkoly a odškrtané dny",
+        "Nahrané obrázky",
+        "Předvolby a údaje účtu",
+        "Běžící předplatné se okamžitě zruší; za nedočerpané období se peníze nevracejí"
+      ],
+      "confirmLabel": "Pro potvrzení opiš {email}",
+      "confirm": "Nevratně smazat účet",
+      "deleting": "Mažu…",
+      "cancel": "Nechat účet",
+      "failed": "Účet se nepodařilo smazat. Zkus to prosím znovu.",
+      "rateLimited": "Příliš mnoho pokusů. Zkus to prosím za hodinu."
     }
   },
   "withdrawal": {

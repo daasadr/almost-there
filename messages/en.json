@@ -142,7 +142,8 @@
     "privacy": "Privacy policy",
     "contact": "Contact",
     "rights": "All rights reserved.",
-    "madeWith": "Planning is a skill. We just gave you the scaffolding."
+    "madeWith": "Planning is a skill. We just gave you the scaffolding.",
+    "deletion": "Deleting your account"
   },
   "demo": {
     "badge": "Demo",
@@ -219,6 +220,34 @@
     },
     "privacy": {
       "title": "Privacy policy"
+    },
+    "deletion": {
+      "title": "Deleting your account and data",
+      "intro": "You can delete your AlmostThere account yourself at any time, without asking us. Deletion is real — the data is not moved to an archive or hidden, it stops existing.",
+      "stepsTitle": "How to do it",
+      "steps": [
+        "Sign in — on almost-there.eu or in the app.",
+        "Open Settings (the link is in the app, below your goals).",
+        "At the very bottom choose “I want to delete my account”.",
+        "Type your email to confirm and click delete."
+      ],
+      "deletedTitle": "What is deleted",
+      "deleted": [
+        "All goals, plans, tasks and records of ticked-off days",
+        "Images you uploaded to your goals, including the files on disk",
+        "Preferences, account details and sign-in credentials",
+        "Consents to the terms and to data processing"
+      ],
+      "keptTitle": "What remains, and why",
+      "kept": [
+        "Records of AI usage, which we use to calculate costs. They are detached from your account and keep only the model, token counts and price — nothing that could identify whose they were.",
+        "Records of payments made. Stripe holds these as the seller and the law requires them to be kept for the period set by tax rules; without them, tax paid could not be evidenced."
+      ],
+      "subscriptionTitle": "Subscription",
+      "subscriptionBody": "Deleting the account ends a running subscription immediately and no further charges are made. There is no refund for the unused part of a paid period — if you want to use the period up, cancel just the subscription first and delete the account later.",
+      "helpTitle": "If you cannot sign in",
+      "helpBody": "Write from the email the account was created with to {email}. We will delete the account manually and confirm it; we handle this within thirty days at the latest.",
+      "back": "Back to home"
     }
   },
   "cookies": {
@@ -729,6 +758,24 @@
       "denied": "Your phone has not allowed notifications for AlmostThere. You can turn them on in the phone's settings for this app.",
       "notifyTitle": "Today is waiting",
       "notifyBody": "Take a look at what you have planned."
+    },
+    "deleteAccount": {
+      "title": "Delete account",
+      "teaser": "Leaving? We delete the account and everything in it for real, not just hide it.",
+      "open": "I want to delete my account",
+      "body": "This cannot be undone. Once you confirm, none of it can be brought back — not even if you ask us, because it will no longer exist anywhere.",
+      "items": [
+        "All goals, plans, tasks and ticked-off days",
+        "Uploaded images",
+        "Preferences and account details",
+        "A running subscription is cancelled immediately; no refund is given for the unused period"
+      ],
+      "confirmLabel": "To confirm, type {email}",
+      "confirm": "Permanently delete account",
+      "deleting": "Deleting…",
+      "cancel": "Keep my account",
+      "failed": "The account could not be deleted. Please try again.",
+      "rateLimited": "Too many attempts. Please try again in an hour."
     }
   },
   "withdrawal": {

@@ -5,6 +5,7 @@ import { getTranslations } from "next-intl/server";
 import { auth } from "@/auth";
 import { SettingsForm } from "@/components/plan/SettingsForm";
 import { DailyReminder } from "@/components/native/DailyReminder";
+import { DeleteAccount } from "@/components/account/DeleteAccount";
 import { db } from "@/lib/db";
 
 export async function generateMetadata({
@@ -38,6 +39,7 @@ export default async function SettingsPage({
   const user = await db.user.findUniqueOrThrow({
     where: { id: session.user.id },
     select: {
+      email: true,
       dailyCapacityMinutes: true,
       reflectionMinutesDay: true,
       restFrequency: true,
@@ -68,6 +70,10 @@ export default async function SettingsPage({
       {/* V prohlížeči se nevykreslí — systémová oznámení umí jen aplikace
           stažená z obchodu. */}
       <DailyReminder />
+
+      {/* Úplně dole a nenápadně. Je to nevratné, takže sem nikdo nemá
+          dojít omylem — ale najít se to musí dát bez psaní na podporu. */}
+      <DeleteAccount email={user.email} />
     </section>
   );
 }
