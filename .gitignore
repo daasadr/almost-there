@@ -49,3 +49,15 @@ src/generated/
 # Lomítko na začátku je podstatné: bez něj by se vzor uplatnil v každé
 # hloubce a schoval by i zdrojáky v src/lib/uploads/.
 /uploads/
+
+# Capacitor: build a lokální nastavení Android Studia.
+# Samotný projekt v android/ commitujeme — jsou v něm ikony, manifest
+# a nastavení, které by se jinak muselo pokaždé vytvářet znovu.
+android/.gradle/
+android/.idea/
+android/local.properties
+android/app/build/
+android/build/
+android/capacitor-cordova-android-plugins/
+*.keystore
+*.jks

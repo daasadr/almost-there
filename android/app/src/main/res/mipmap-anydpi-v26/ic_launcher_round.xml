@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Adaptivní ikona: systém si z popředí a pozadí složí tvar, jaký používá
+  daný telefon — kolečko, čtvereček nebo kapku. Proto jsou oddělené.
+-->
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@color/ic_launcher_background" />
+    <foreground android:drawable="@mipmap/ic_launcher_foreground" />
+</adaptive-icon>

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">AlmostThere</string>
+    <string name="title_activity_main">AlmostThere</string>
+    <string name="package_name">eu.almostthere.app</string>
+    <string name="custom_url_scheme">eu.almostthere.app</string>
+</resources>

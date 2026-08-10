@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Barvy systémových ploch aplikace.
+
+  Musí sedět s pozadím webu (#04100c), jinak při startu problikne bílá
+  a horní lišta se od obsahu odlepí.
+-->
+<resources>
+    <color name="colorPrimary">#04100c</color>
+    <color name="colorPrimaryDark">#04100c</color>
+    <color name="colorAccent">#bef264</color>
+    <color name="ic_launcher_background">#04100c</color>
+</resources>
