@@ -16,10 +16,41 @@ android {
             ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
+    /**
+     * Podpis vydávané verze.
+     *
+     * Heslo ani klíč v repozitáři nejsou a nikdy být nesmí — čte se
+     * android/keystore.properties, který je v .gitignore. Když soubor
+     * chybí, ladicí build normálně projde a rozbije se až podepisování;
+     * díky tomu si projekt může naklonovat kdokoliv.
+     *
+     * Klíč zálohuj mimo počítač. Google Play přijímá aktualizace jen
+     * podepsané tím samým klíčem — po jeho ztrátě se aplikace nedá
+     * aktualizovat vůbec.
+     */
+    signingConfigs {
+        release {
+            def props = file('../keystore.properties')
+            if (props.exists()) {
+                def keystore = new Properties()
+                props.withInputStream { keystore.load(it) }
+
+                storeFile file(keystore['storeFile'])
+                storePassword keystore['storePassword']
+                keyAlias keystore['keyAlias']
+                keyPassword keystore['keyPassword']
+            }
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            if (file('../keystore.properties').exists()) {
+                signingConfig signingConfigs.release
+            }
         }
     }
 }
