@@ -215,6 +215,13 @@ model Goal {
   targetDate  DateTime
   status      GoalStatus @default(ACTIVE)
 
+  /// Odkud uživatel začíná — co už umí, má nebo zvládl.
+  ///
+  /// Vlastní pole, ne součást popisu: bez něj plán vypadá stejně pro
+  /// začátečníka i pro toho, kdo má půlku cesty za sebou, a lidi to
+  /// sami od sebe napsat nenapadne.
+  startingPoint String?
+
   /// Váha pro harmonizaci více cílů — kolik z denní kapacity smí cíl brát.
   priorityWeight Int @default(50)
 

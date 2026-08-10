@@ -516,7 +516,10 @@
       "planningReflection": "Reflection",
       "planningChange": "Change settings",
       "planningKeepsDraft": "What you have written is kept — you will come back here and lose nothing.",
-      "minutesPerDay": "{minutes} minutes a day"
+      "minutesPerDay": "{minutes} minutes a day",
+      "startLabel": "Where you are starting from",
+      "startPlaceholder": "What you already know, have or have done in this area. „Completely from scratch“ is a fine answer too.",
+      "startHint": "Without this the plan assumes you are starting from zero — and someone already part of the way there gets pointless first steps."
     },
     "detail": {
       "back": "Back to overview",

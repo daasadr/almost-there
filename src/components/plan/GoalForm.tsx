@@ -58,6 +58,7 @@ export function GoalForm({
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [startingPoint, setStartingPoint] = useState("");
   const [targetDate, setTargetDate] = useState(defaultTargetDate());
   const [importance, setImportance] = useState(3);
   const [color, setColor] = useState<GoalColor>("lime");
@@ -75,6 +76,7 @@ export function GoalForm({
         const draft = JSON.parse(saved);
         if (typeof draft.title === "string") setTitle(draft.title);
         if (typeof draft.description === "string") setDescription(draft.description);
+        if (typeof draft.startingPoint === "string") setStartingPoint(draft.startingPoint);
         if (typeof draft.targetDate === "string") setTargetDate(draft.targetDate);
         if (typeof draft.importance === "number") setImportance(draft.importance);
         if (typeof draft.color === "string") setColor(draft.color as GoalColor);
@@ -90,12 +92,19 @@ export function GoalForm({
     try {
       sessionStorage.setItem(
         DRAFT_KEY,
-        JSON.stringify({ title, description, targetDate, importance, color }),
+        JSON.stringify({
+          title,
+          description,
+          startingPoint,
+          targetDate,
+          importance,
+          color,
+        }),
       );
     } catch {
       // Plné nebo zakázané úložiště formulář shodit nesmí.
     }
-  }, [title, description, targetDate, importance, color]);
+  }, [title, description, startingPoint, targetDate, importance, color]);
 
   const submit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -117,6 +126,7 @@ export function GoalForm({
         body: JSON.stringify({
           title: title.trim(),
           description: description.trim() || undefined,
+          startingPoint: startingPoint.trim() || undefined,
           targetDate,
           importance,
           color,
@@ -183,6 +193,28 @@ export function GoalForm({
         />
         <p className="mt-1.5 text-xs leading-relaxed text-[var(--color-paper-faint)]">
           {t("detailHint")}
+        </p>
+      </div>
+
+      {/* Výchozí bod je zvlášť schválně. Když byl jen zmínkou v dlouhém
+          zástupném textu u podrobností, nikdo ho nevyplnil — a plán pak
+          vypadal stejně pro začátečníka i pro pokročilého. */}
+      <div className="mt-6">
+        <label htmlFor="goal-start" className="block text-sm font-medium">
+          {t("startLabel")}
+        </label>
+        <textarea
+          id="goal-start"
+          value={startingPoint}
+          onChange={(event) => setStartingPoint(event.target.value)}
+          rows={3}
+          maxLength={1000}
+          disabled={pending}
+          placeholder={t("startPlaceholder")}
+          className="mt-2.5 w-full resize-y rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-[15px] leading-relaxed text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] focus:outline-none disabled:opacity-60"
+        />
+        <p className="mt-1.5 text-xs leading-relaxed text-[var(--color-paper-faint)]">
+          {t("startHint")}
         </p>
       </div>
 

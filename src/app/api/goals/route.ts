@@ -21,6 +21,7 @@ export const maxDuration = 300;
 const bodySchema = z.object({
   title: z.string(),
   description: z.string().max(MAX_GOAL_DETAIL).optional(),
+  startingPoint: z.string().max(1000).optional(),
   targetDate: z.string(),
   locale: z.string().optional(),
   importance: z.number().int().min(1).max(5).optional(),
@@ -80,6 +81,7 @@ export async function POST(request: Request) {
       userId: guard.user.id,
       title,
       description: parsed.data.description?.trim() || undefined,
+      startingPoint: parsed.data.startingPoint?.trim() || undefined,
       targetDate: parsed.data.targetDate,
       locale,
       importance: parsed.data.importance,

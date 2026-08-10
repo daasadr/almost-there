@@ -516,7 +516,10 @@
       "planningReflection": "Ohlédnutí",
       "planningChange": "Upravit nastavení",
       "planningKeepsDraft": "Rozepsaný cíl se ti zachová — po úpravě se sem vrátíš a nic nepřijdeš.",
-      "minutesPerDay": "{minutes} minut denně"
+      "minutesPerDay": "{minutes} minut denně",
+      "startLabel": "Odkud začínáš",
+      "startPlaceholder": "Co už v téhle věci umíš, máš nebo jsi zvládl. Klidně i „úplně od nuly“.",
+      "startHint": "Bez tohohle plán počítá s tím, že začínáš od začátku — a kdo má půlku cesty za sebou, dostane zbytečně první kroky."
     },
     "detail": {
       "back": "Zpět na přehled",

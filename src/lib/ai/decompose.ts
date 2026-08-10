@@ -43,6 +43,12 @@ export type DecomposeInput = {
    * říká co, tohle říká za jakých okolností.
    */
   context?: string;
+  /**
+   * Odkud člověk začíná. Mění plán víc než cokoliv jiného: kdo má
+   * půlku cesty za sebou, nemá dostat stejné první období jako ten,
+   * kdo o věci jen slyšel.
+   */
+  startingPoint?: string;
   /** ISO datum (YYYY-MM-DD). */
   targetDate: string;
   /** Jazyk, ve kterém má být plán napsaný. */
@@ -132,6 +138,17 @@ function buildUserPrompt(
       "What the person added about their situation. Take it seriously — it is",
       "the difference between a generic plan and one that fits them:",
       input.context,
+      "",
+    );
+  }
+
+  if (input.startingPoint) {
+    lines.push(
+      "",
+      "Where they are starting from. Do not plan the beginner path for someone",
+      "who is already part of the way there, and do not skip foundations for",
+      "someone who is not:",
+      input.startingPoint,
       "",
     );
   }

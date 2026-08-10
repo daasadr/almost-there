@@ -516,7 +516,10 @@
       "planningReflection": "Rückblick",
       "planningChange": "Einstellungen ändern",
       "planningKeepsDraft": "Dein Entwurf bleibt erhalten — du kommst hierher zurück und verlierst nichts.",
-      "minutesPerDay": "{minutes} Minuten pro Tag"
+      "minutesPerDay": "{minutes} Minuten pro Tag",
+      "startLabel": "Wo du startest",
+      "startPlaceholder": "Was du in diesem Bereich schon kannst, hast oder geschafft hast. „Komplett bei null“ ist auch eine Antwort.",
+      "startHint": "Ohne diese Angabe geht der Plan davon aus, dass du bei null anfängst — wer schon ein Stück weit ist, bekommt dann überflüssige erste Schritte."
     },
     "detail": {
       "back": "Zurück zur Übersicht",

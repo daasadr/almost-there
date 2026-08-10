@@ -109,7 +109,7 @@ export function GoalImages({
                 width={image.width}
                 height={image.height}
                 loading="lazy"
-                className="aspect-square w-full rounded-xl object-cover"
+                className="aspect-square w-full rounded-xl bg-white/[0.03] object-contain"
               />
               <button
                 type="button"

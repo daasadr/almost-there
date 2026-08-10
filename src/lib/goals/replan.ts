@@ -59,6 +59,8 @@ export async function replanGoal({
       id: true,
       userId: true,
       title: true,
+      description: true,
+      startingPoint: true,
       targetDate: true,
       locale: true,
       restatement: true,
@@ -111,6 +113,9 @@ export async function replanGoal({
 
   const { plan, usage, ranges } = await decomposeGoal({
     goal: goal.title,
+    // Bez těchhle dvou by přeplánovaný cíl vyšel obecnější než původní.
+    context: goal.description ?? undefined,
+    startingPoint: goal.startingPoint ?? undefined,
     targetDate: toIsoDate(newTargetDate),
     locale: asLocale(goal.locale),
     today: todayStr,

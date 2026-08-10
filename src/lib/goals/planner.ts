@@ -122,6 +122,7 @@ export async function createGoalWithPlan({
   description,
   targetDate,
   locale,
+  startingPoint,
   importance = 3,
   color = "lime",
 }: {
@@ -131,6 +132,8 @@ export async function createGoalWithPlan({
   targetDate: string;
   /** Jazyk stránky, ze které se cíl zakládá. V něm bude celý plán. */
   locale: Locale;
+  /** Odkud uživatel začíná. */
+  startingPoint?: string;
   /** Jak je cíl pro uživatele důležitý, 1–5. Řídí podíl na denní kapacitě. */
   importance?: number;
   /** Barva z palety, kterou je cíl označený napříč aplikací. */
@@ -172,6 +175,7 @@ export async function createGoalWithPlan({
     // Popis od uživatele patří modelu, ne jen do databáze. Bez něj plánuje
     // podle názvu cíle a všechno ostatní si domýšlí.
     context: description,
+    startingPoint,
     targetDate,
     locale,
     today,
@@ -205,6 +209,7 @@ export async function createGoalWithPlan({
       userId,
       title,
       description: description || null,
+      startingPoint: startingPoint || null,
       targetDate: parseIsoDate(targetDate),
       locale,
       color,

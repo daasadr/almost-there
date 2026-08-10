@@ -108,7 +108,7 @@ export function TodayChecklist({
               <img
                 src={`/api/images/${dailyImages[goalId].id}`}
                 alt={dailyImages[goalId].alt ?? ""}
-                className="mt-3 max-h-56 w-full rounded-2xl object-cover"
+                className="mt-3 max-h-[60vh] w-full rounded-2xl object-contain"
               />
             )}
 
