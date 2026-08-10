@@ -256,3 +256,17 @@
 [data-store-app] .store-hidden {
   display: none !important;
 }
+
+/*
+ * Pojistka proti vodorovnému posuvníku.
+ *
+ * Nic se tím neopravuje — když něco přetéká, patří to spravit tam, kde to
+ * vzniká. Ale jediné tlačítko o pár pixelů širší než displej rozhýbe celou
+ * stránku do stran a vypadá to jako rozbitý web. `clip` na rozdíl od
+ * `hidden` nedělá z těla stránky posuvnou oblast, takže přilepená hlavička
+ * dál funguje.
+ */
+html,
+body {
+  overflow-x: clip;
+}

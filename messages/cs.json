@@ -13,7 +13,8 @@
     "language": "Jazyk",
     "login": "Přihlásit se",
     "account": "Můj účet",
-    "openApp": "Otevřít aplikaci"
+    "openApp": "Otevřít aplikaci",
+    "demoShort": "Demo"
   },
   "hero": {
     "eyebrow": "Cíl → měsíce → týdny → dnešek",

@@ -13,7 +13,8 @@
     "language": "Language",
     "login": "Sign in",
     "account": "My account",
-    "openApp": "Open the app"
+    "openApp": "Open the app",
+    "demoShort": "Demo"
   },
   "hero": {
     "eyebrow": "Goal → months → weeks → today",

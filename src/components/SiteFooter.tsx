@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { LogoMark, Wordmark } from "./Logo";
+import { LocaleSwitcher } from "./LocaleSwitcher";
 
 export function SiteFooter() {
   const t = useTranslations("footer");
@@ -65,6 +66,12 @@ export function SiteFooter() {
           <p>
             © {year} AlmostThere. {t("rights")}
           </p>
+
+          {/* Na mobilu je tohle jediné místo, kde se dá přepnout jazyk —
+              v hlavičce by přepínač vytlačil přihlášení. */}
+          <span className="sm:hidden">
+            <LocaleSwitcher />
+          </span>
         </div>
       </div>
     </footer>

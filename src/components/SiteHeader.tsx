@@ -78,13 +78,17 @@ export function SiteHeader() {
           : "border-b border-transparent"
       }`}
     >
-      <div className="mx-auto flex max-w-6xl items-center gap-6 px-5 py-4 sm:px-8">
+      {/* Na mobilu menší mezery i okraje. S původními se řádek nevešel do
+          šířky displeje a stránka dostala vodorovný posuvník. */}
+      <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-4 sm:gap-6 sm:px-8">
         <Link
           href="/"
-          className="flex items-center gap-2.5 transition-opacity hover:opacity-80"
+          className="flex shrink-0 items-center gap-2.5 transition-opacity hover:opacity-80"
         >
           <LogoMark className="h-7 w-7" />
-          <Wordmark />
+          {/* Na nejužších displejích zůstane jen značka. Napsaný název je
+              to první, co se dá obětovat — logo mluví samo za sebe. */}
+          <Wordmark className="hidden min-[360px]:inline-block" />
         </Link>
 
         {!isAppSection && (
@@ -100,8 +104,13 @@ export function SiteHeader() {
           </nav>
         )}
 
-        <div className="ml-auto flex items-center gap-3">
-          <LocaleSwitcher />
+        <div className="ml-auto flex shrink-0 items-center gap-3">
+          {/* Přepínač jazyka je na mobilu v patičce. V hlavičce je z něj
+              nejširší prvek a vytlačil by odsud přihlášení. */}
+          <span className="hidden sm:inline-flex">
+            <LocaleSwitcher />
+          </span>
+
           {/* Stav přihlášení se dotahuje na klientovi, aby stránky
               zůstaly staticky předgenerované. */}
           {status === "authenticated" ? (
@@ -110,14 +119,21 @@ export function SiteHeader() {
             </Link>
           ) : (
             <>
+              {/* Na mobilu bez rámečku, ale vždy vidět. Dřív se schovávalo
+                  úplně a z telefonu se nedalo přihlásit. */}
               <Link
                 href="/login"
-                className="hidden rounded-full border border-white/10 px-4 py-1.5 text-sm font-medium text-[var(--color-paper-dim)] transition hover:border-white/25 hover:text-[var(--color-paper)] sm:inline-flex"
+                className="whitespace-nowrap text-sm font-medium text-[var(--color-paper-dim)] transition hover:text-[var(--color-paper)] sm:rounded-full sm:border sm:border-white/10 sm:px-4 sm:py-1.5 sm:hover:border-white/25"
               >
                 {t("login")}
               </Link>
-              <Link href="/demo" className="btn-primary !px-4 !py-1.5 text-sm">
-                {t("demo")}
+              <Link
+                href="/demo"
+                className="btn-primary whitespace-nowrap !px-4 !py-1.5 text-sm"
+              >
+                {/* Delší popisek se na úzký displej nevejde. */}
+                <span className="sm:hidden">{t("demoShort")}</span>
+                <span className="hidden sm:inline">{t("demo")}</span>
               </Link>
             </>
           )}
