@@ -10,6 +10,7 @@ import { routing, type Locale } from "@/i18n/routing";
 import { LEGAL_VERSION } from "@/content/legal";
 import { getClientIp, hashIp } from "@/lib/rate-limit";
 import { isStoreApp } from "@/lib/store-app";
+import { isFakeCheckout } from "@/lib/stripe/mode";
 
 export const runtime = "nodejs";
 
@@ -35,6 +36,16 @@ export async function POST(request: Request) {
   const session = await auth();
   if (!session?.user?.id || !session.user.email) {
     return NextResponse.json({ ok: false, error: "unauthorized" }, { status: 401 });
+  }
+
+  // Ostrá adresa s testovacími klíči by zákazníka provedla pokladnou,
+  // ale nevzala mu ani korunu — a obě strany by si myslely, že zaplatil.
+  // Viz lib/stripe/mode.ts.
+  if (isFakeCheckout()) {
+    console.error(
+      "[stripe] Pokladna odmítnuta: ostrá adresa běží na testovacích klíčích. Vyměň STRIPE_SECRET_KEY a ID cen za ostré a ověř `npm run stripe:check`.",
+    );
+    return NextResponse.json({ ok: false, error: "generic" }, { status: 503 });
   }
 
   // Z aplikace z obchodu se pokladna neotevře. V rozhraní tam žádné

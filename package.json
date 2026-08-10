@@ -13,7 +13,8 @@
     "db:push": "prisma db push",
     "db:encrypt": "tsx scripts/encrypt-existing.ts",
     "og": "node scripts/og-images.mjs",
-    "indexnow": "node scripts/indexnow.mjs"
+    "indexnow": "node scripts/indexnow.mjs",
+    "stripe:check": "tsx scripts/stripe-check.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.115.0",
