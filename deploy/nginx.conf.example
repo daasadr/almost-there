@@ -29,9 +29,28 @@ server {
         root /var/www/html;
     }
 
+    # Rovnou na tvar bez www, ne přes $host. Jinak by z http://www vedly
+    # dva skoky a vyhledávač počítá každý skok jako ztrátu.
     location / {
-        return 301 https://$host$request_uri;
+        return 301 https://almost-there.eu$request_uri;
     }
+}
+
+# --- www → bez www ---
+#
+# Obojí dřív vracelo obsah a pro vyhledávač to byly dva weby s naprosto
+# stejným obsahem. Ani jeden pak nedostane plnou váhu a odkazy zvenčí se
+# rozdělí mezi dvě adresy. Tvar bez www je ten hlavní — je v kanonických
+# adresách i v mapě webu, takže musí vyhrát i tady.
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl;
+    server_name www.almost-there.eu;
+
+    ssl_certificate     /etc/letsencrypt/live/almost-there.eu/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/almost-there.eu/privkey.pem;
+
+    return 301 https://almost-there.eu$request_uri;
 }
 
 server {
@@ -43,7 +62,8 @@ server {
     # Na IPv6 schválně bez http2 — jiný projekt na serveru už pro [::]:443
     # nastavil vlastní volby a nginx by hlásil "protocol options redefined".
     listen [::]:443 ssl;
-    server_name almost-there.eu www.almost-there.eu;
+    # Jen tvar bez www — ten s www má vlastní blok výš, který přesměrovává.
+    server_name almost-there.eu;
 
     # --- TLS ---
     # Cesty odpovídají certifikátu vydanému příkazem z README. Tuhle

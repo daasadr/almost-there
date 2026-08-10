@@ -1,5 +1,7 @@
 # AlmostThere
 
+**[almost-there.eu](https://almost-there.eu)** — [demo bez registrace](https://almost-there.eu/cs/demo)
+
 Webová aplikace, která vezme cíl a termín a pomocí AI ho rozloží do hierarchie
 **cíl → měsíce → týdny → denní checklist**. Odpočinek a reflexe jsou součástí
 plánu, ne bonusem; tempo se přizpůsobuje skutečnému plnění.
@@ -101,6 +103,27 @@ a přestav to, až doménu nasměruješ.
 zaplatíš to delším čekáním a vyšší spotřebou tokenů.
 
 ---
+
+## Viditelnost ve vyhledávačích
+
+Kód sám o sobě návštěvnost nepřinese. Vyhledávač o novém webu neví, dokud
+mu to někdo neřekne nebo dokud na web nevede odkaz odjinud. Tohle je
+jednorázová část, kterou nejde udělat z repozitáře:
+
+1. **Google Search Console** — přidej doménu, ověř TXT záznamem v DNS
+   (nejjednodušší, nevyžaduje zásah do kódu), vlož `sitemap.xml` a u úvodní
+   stránky použij „Požádat o indexování".
+2. **Bing Webmaster Tools** — umí naimportovat ověření ze Search Console.
+   Bing je důležitější, než se zdá: z jeho výsledků čerpá ChatGPT.
+3. **Seznam Webmaster** — pro český trh; Google tu není jediný.
+4. **Odkazy zvenčí.** Vyhledávač se k neznámé doméně dostane po odkazu.
+   Nový web bez jediného odkazu může ležet měsíce nepovšimnutý.
+
+Po každém nasazení, které mění obsah, se dá ohlásit změna:
+
+```bash
+npm run indexnow     # Bing, Seznam.cz, Yandex, Naver — Google ne
+```
 
 ## Nasazení na Hetzner VPS
 

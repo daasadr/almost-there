@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { locales, defaultLocale } from "@/i18n/routing";
-import { absoluteUrl } from "./site";
+import { locales } from "@/i18n/routing";
+import { absoluteUrl, siteUrl } from "./site";
 
 /**
  * Odkazy mezi jazykovými verzemi stránky.
@@ -11,8 +11,11 @@ import { absoluteUrl } from "./site";
  * vůbec. `canonical` říká „tohle je originál téhle stránky",
  * `languages` říká „a tady jsou její sourozenci v jiných jazycích".
  *
- * `x-default` je varianta pro návštěvníka, jehož jazyk nemáme; míří na
- * výchozí jazyk aplikace.
+ * `x-default` je varianta pro návštěvníka, jehož jazyk nemáme. Míří na
+ * adresu bez jazyka, která podle nastavení prohlížeče sama přesměruje —
+ * a hlavně na tu samou adresu, jakou uvádí hlavička `Link`, kterou
+ * přidává next-intl. Dvě různé odpovědi na tutéž otázku by si
+ * odporovaly a vyhledávač by nevěřil ani jedné.
  *
  * @param path cesta bez jazyka, tedy "" pro úvodní stránku nebo "/demo"
  */
@@ -26,7 +29,7 @@ export function localeAlternates(
       ...Object.fromEntries(
         locales.map((code) => [code, absoluteUrl(code, path)]),
       ),
-      "x-default": absoluteUrl(defaultLocale, path),
+      "x-default": `${siteUrl()}${path || "/"}`,
     },
   };
 }
