@@ -792,6 +792,26 @@
       "cancel": "Nechat účet",
       "failed": "Účet se nepodařilo smazat. Zkus to prosím znovu.",
       "rateLimited": "Příliš mnoho pokusů. Zkus to prosím za hodinu."
+    },
+    "defer": {
+      "short": "Dnes nemůžu",
+      "open": "Odložit úkol na jindy",
+      "title": "Dnes to nejde?",
+      "body": "Nic se neztratí. Úkol zůstane stejný, jen se přesune na den, kdy na něj budeš mít. Odškrtávat nesplněné se nevyplácí — podle odškrtaných dní se počítá tempo.",
+      "reasonLabel": "Proč to dnes nejde (nepovinné)",
+      "reasonPlaceholder": "Třeba: nemám teď peníze na termín zkoušky",
+      "tomorrow": "Zítra",
+      "onDate": "Na tenhle den",
+      "someday": "Nevím kdy",
+      "cancel": "Zpět",
+      "failed": "Nepodařilo se odložit. Zkus to prosím znovu."
+    },
+    "deferred": {
+      "title": "Odložené stranou ({count})",
+      "body": "Úkoly, které čekají na svůj čas. Nic nepřipomínají a do denního plánu se nepletou — dokud jim nedáš datum.",
+      "schedule": "Naplánovat na den",
+      "confirm": "Naplánovat",
+      "cancel": "Zpět"
     }
   },
   "withdrawal": {

@@ -219,7 +219,16 @@ export async function getOverdue(
     where: {
       goal: { userId, status: "ACTIVE" },
       status: "PENDING",
-      timeBlock: { level: "DAY", startDate: { gte: from, lt: today } },
+      OR: [
+        // Přesunutý na den, který už minul. Bez tohohle by úkol odložený
+        // do minulosti tiše zmizel — nikde by nebyl a nikdo by se o něm
+        // nedozvěděl.
+        { deferredTo: { gte: from, lt: today } },
+        {
+          deferredTo: null,
+          timeBlock: { level: "DAY", startDate: { gte: from, lt: today } },
+        },
+      ],
     },
     orderBy: [{ timeBlock: { startDate: "desc" } }, { position: "asc" }],
     select: {
@@ -230,16 +239,19 @@ export async function getOverdue(
       type: true,
       status: true,
       estimatedMinutes: true,
+      deferredTo: true,
       goal: { select: { title: true, color: true } },
       timeBlock: { select: { startDate: true } },
     },
   });
 
-  return tasks.map(({ goal, timeBlock, ...task }) => ({
+  return tasks.map(({ goal, timeBlock, deferredTo, ...task }) => ({
     ...task,
     goalTitle: goal.title,
     goalColor: goal.color,
-    date: timeBlock.startDate,
+    // U přesunutého úkolu je jeho dnem ten, na který byl přesunutý.
+    // Původní den už nic neznamená a ukazovat ho by mátlo.
+    date: deferredTo ?? timeBlock.startDate,
   }));
 }
 
@@ -263,7 +275,15 @@ export async function getToday(
   const tasks = await db.task.findMany({
     where: {
       goal: { userId, status: "ACTIVE" },
-      timeBlock: { level: "DAY", startDate: day },
+      // Odložený stranou bez data se neukazuje nikde v denním výhledu —
+      // má vlastní seznam, kde čeká, až mu uživatel řekne kdy.
+      status: { not: "DEFERRED" },
+      OR: [
+        // Přesunutý na tenhle den. Přebíjí den, do kterého byl naplánovaný.
+        { deferredTo: day },
+        // Nepřesunutý, patřící do tohohle dne.
+        { deferredTo: null, timeBlock: { level: "DAY", startDate: day } },
+      ],
     },
     orderBy: [{ goalId: "asc" }, { position: "asc" }],
     select: {
@@ -332,4 +352,37 @@ export async function getToday(
     goalsNeedingPlan,
     dailyImages,
   };
+}
+
+/**
+ * Úkoly odložené stranou bez data.
+ *
+ * Existují proto, aby uživatel nemusel lhát ani nechat úkol propadnout,
+ * když neví, kdy na něj bude mít. Musí ale být někde vidět — odložený
+ * a zapomenutý úkol je to samé jako smazaný, jen bez rozhodnutí.
+ */
+export async function getDeferred(userId: string): Promise<TodayTask[]> {
+  const tasks = await db.task.findMany({
+    where: {
+      goal: { userId, status: "ACTIVE" },
+      status: "DEFERRED",
+    },
+    orderBy: { updatedAt: "desc" },
+    select: {
+      id: true,
+      goalId: true,
+      title: true,
+      description: true,
+      type: true,
+      status: true,
+      estimatedMinutes: true,
+      goal: { select: { title: true, color: true } },
+    },
+  });
+
+  return tasks.map(({ goal, ...task }) => ({
+    ...task,
+    goalTitle: goal.title,
+    goalColor: goal.color,
+  }));
 }

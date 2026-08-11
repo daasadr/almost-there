@@ -111,6 +111,26 @@ export async function replanGoal({
     select: { summary: true },
   });
 
+  /**
+   * Proč něco nešlo — vlastními slovy uživatele, z odložených úkolů.
+   *
+   * Tohle je jediné místo, kde se plán dozví o překážkách stojících mimo
+   * něj: že nejsou peníze na zkoušku, že se čeká na někoho jiného. Bez
+   * nich by nový plán narazil na tutéž zeď podruhé.
+   *
+   * Bere se posledních pár a jen ty vyplněné — políčko je nepovinné
+   * a delší seznam by v promptu jen ředil to podstatné.
+   */
+  const deferred = await db.task.findMany({
+    where: { goalId, deferReason: { not: null } },
+    orderBy: { updatedAt: "desc" },
+    take: 5,
+    select: { deferReason: true },
+  });
+  const blockers = deferred
+    .map((task) => task.deferReason?.trim())
+    .filter((reason): reason is string => Boolean(reason));
+
   const { plan, usage, ranges } = await decomposeGoal({
     goal: goal.title,
     // Bez těchhle dvou by přeplánovaný cíl vyšel obecnější než původní.
@@ -127,6 +147,7 @@ export async function replanGoal({
       completionRate,
       missedDays,
       deadlineMoved: mode === "moveDeadline",
+      blockers,
     },
   }).catch(async (error) => {
     if (error instanceof AiFormatError && error.usage) {

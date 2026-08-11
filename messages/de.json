@@ -792,6 +792,26 @@
       "cancel": "Konto behalten",
       "failed": "Das Konto konnte nicht gelöscht werden. Bitte versuche es erneut.",
       "rateLimited": "Zu viele Versuche. Bitte versuche es in einer Stunde erneut."
+    },
+    "defer": {
+      "short": "Heute nicht",
+      "open": "Aufgabe verschieben",
+      "title": "Heute geht es nicht?",
+      "body": "Nichts geht verloren. Die Aufgabe bleibt dieselbe und wandert nur auf einen Tag, an dem du sie schaffst. Nicht Erledigtes abzuhaken schadet dir — dein Tempo wird aus den abgehakten Tagen berechnet.",
+      "reasonLabel": "Warum heute nicht (optional)",
+      "reasonPlaceholder": "Zum Beispiel: Ich habe gerade kein Geld für die Prüfungsgebühr",
+      "tomorrow": "Morgen",
+      "onDate": "An diesem Tag",
+      "someday": "Ich weiß nicht wann",
+      "cancel": "Zurück",
+      "failed": "Verschieben hat nicht geklappt. Bitte versuche es erneut."
+    },
+    "deferred": {
+      "title": "Zurückgestellt ({count})",
+      "body": "Aufgaben, die auf ihre Zeit warten. Sie mahnen nicht und stehen nicht im Tagesplan — bis du ihnen ein Datum gibst.",
+      "schedule": "Auf einen Tag legen",
+      "confirm": "Einplanen",
+      "cancel": "Zurück"
     }
   },
   "withdrawal": {

@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { DeferTask } from "./DeferTask";
 import { goalHex } from "@/lib/plan/colors";
 import type { TodayTask } from "@/lib/goals/queries";
 
@@ -117,17 +118,19 @@ export function TodayChecklist({
                 const checked = statuses[task.id] === "DONE";
 
                 return (
-                  <li key={task.id}>
-                    <label
-                      // Barva cíle drží úkol vizuálně u svého celku i tehdy,
-                      // když se v seznamu míchají tři cíle za sebou.
-                      style={{ borderLeftColor: goalHex(task.goalColor) }}
-                      className={`flex cursor-pointer gap-3.5 rounded-xl border border-l-[3px] p-4 transition ${
-                        checked
-                          ? "border-white/10 bg-white/[0.03]"
-                          : "border-white/10 hover:border-white/25"
-                      }`}
-                    >
+                  <li
+                    key={task.id}
+                    // Barva cíle drží úkol vizuálně u svého celku i tehdy,
+                    // když se v seznamu míchají tři cíle za sebou.
+                    style={{ borderLeftColor: goalHex(task.goalColor) }}
+                    className={`rounded-xl border border-l-[3px] transition ${
+                      checked
+                        ? "border-white/10 bg-white/[0.03]"
+                        : "border-white/10 hover:border-white/25"
+                    }`}
+                  >
+                    <div className="flex items-start justify-between">
+                    <label className="flex min-w-0 flex-1 cursor-pointer gap-3.5 p-4">
                       <input
                         type="checkbox"
                         checked={checked}
@@ -165,6 +168,12 @@ export function TodayChecklist({
                         </span>
                       </span>
                     </label>
+
+                    {/* Mimo popisek: uvnitř by kliknutí zároveň odškrtlo
+                        úkol, který uživatel právě odkládá. Hotový úkol
+                        odkládat nedává smysl. */}
+                    {!checked && <DeferTask taskId={task.id} />}
+                    </div>
                   </li>
                 );
               })}

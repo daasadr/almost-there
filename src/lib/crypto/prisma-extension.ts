@@ -41,6 +41,8 @@ const ENCRYPTED_FIELDS = new Set([
   // Co má uživatel rád a co ne — osobní údaj jako obsah cílů.
   "rewardLikes",
   "rewardDislikes",
+  // Proč úkol nešlo splnit — uživatel to píše vlastními slovy.
+  "deferReason",
   "note",
   "alt",
 ]);

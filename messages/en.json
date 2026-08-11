@@ -792,6 +792,26 @@
       "cancel": "Keep my account",
       "failed": "The account could not be deleted. Please try again.",
       "rateLimited": "Too many attempts. Please try again in an hour."
+    },
+    "defer": {
+      "short": "Not today",
+      "open": "Postpone this task",
+      "title": "Cannot do it today?",
+      "body": "Nothing is lost. The task stays the same and simply moves to a day when you can. Ticking off what you did not do costs you — your pace is calculated from the days you tick.",
+      "reasonLabel": "Why not today (optional)",
+      "reasonPlaceholder": "For example: I do not have the money for the exam fee yet",
+      "tomorrow": "Tomorrow",
+      "onDate": "On this day",
+      "someday": "I do not know when",
+      "cancel": "Back",
+      "failed": "Could not postpone it. Please try again."
+    },
+    "deferred": {
+      "title": "Set aside ({count})",
+      "body": "Tasks waiting for their time. They do not nag and they stay out of your daily plan — until you give them a date.",
+      "schedule": "Schedule for a day",
+      "confirm": "Schedule",
+      "cancel": "Back"
     }
   },
   "withdrawal": {

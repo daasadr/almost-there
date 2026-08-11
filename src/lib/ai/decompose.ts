@@ -75,6 +75,14 @@ export type ReplanContext = {
   missedDays: number;
   /** Posunul se termín, nebo se skluz dohání ve stejném čase? */
   deadlineMoved: boolean;
+  /**
+   * Co uživatel sám napsal, když úkol odkládal.
+   *
+   * Je to jediné místo, kde se plán dozví o překážkách stojících mimo něj
+   * — že nejsou peníze, že se čeká na někoho jiného. Bez toho by nový
+   * plán narazil na tutéž zeď podruhé.
+   */
+  blockers: string[];
 };
 
 export type DecomposeResult = {
@@ -228,6 +236,14 @@ function buildReplanBlock(replan: ReplanContext): string {
       "",
       "What the earlier plan asked for in the periods that have already passed. Treat it as partly done — around the completion rate above — and pick up from there:",
       ...replan.pastMilestones.map((milestone) => `  - ${milestone}`),
+    );
+  }
+
+  if (replan.blockers.length) {
+    lines.push(
+      "",
+      "In their own words, why some tasks could not be done when they came up. Plan around these, do not plan into them:",
+      ...replan.blockers.map((blocker) => `  - ${blocker}`),
     );
   }
 

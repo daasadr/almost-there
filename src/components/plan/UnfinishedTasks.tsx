@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { DeferTask } from "./DeferTask";
 import { useRouter } from "next/navigation";
 import { useFormatter, useTranslations } from "next-intl";
 import { goalHex } from "@/lib/plan/colors";
@@ -105,6 +106,8 @@ export function UnfinishedTasks({ tasks }: { tasks: OverdueTask[] }) {
               >
                 {t("letGo")}
               </button>
+
+              <DeferTask taskId={task.id} variant="link" />
             </div>
           </li>
         ))}

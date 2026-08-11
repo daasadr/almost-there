@@ -17,10 +17,16 @@ import { ClaimDemoGoal } from "@/components/plan/ClaimDemoGoal";
 import { InstallPrompt } from "@/components/plan/InstallPrompt";
 import { ReachedMilestones } from "@/components/plan/ReachedMilestones";
 import { UnfinishedTasks } from "@/components/plan/UnfinishedTasks";
+import { DeferredTasks } from "@/components/plan/DeferredTasks";
 import { UsageMeter } from "@/components/plan/UsageMeter";
 import { isAdminEmail } from "@/lib/admin/guard";
 import { getAccess } from "@/lib/billing/access";
-import { getOverdue, getToday, listGoals } from "@/lib/goals/queries";
+import {
+  getDeferred,
+  getOverdue,
+  getToday,
+  listGoals,
+} from "@/lib/goals/queries";
 import { getBehindGoals } from "@/lib/goals/pace";
 import { getRecentProgress, getWeekProgress } from "@/lib/goals/checkin";
 import { findClaimableDemo } from "@/lib/goals/claim";
@@ -284,13 +290,15 @@ async function Today({
     select: { timezone: true },
   });
   const timezone = profile?.timezone ?? "Europe/Prague";
-  const [today, overdue, behind, reached, progress] = await Promise.all([
-    getToday(userId, timezone, day),
-    getOverdue(userId, timezone),
-    getBehindGoals(userId, timezone),
-    getReachedMilestones(userId),
-    getRecentProgress(userId, timezone),
-  ]);
+  const [today, overdue, deferred, behind, reached, progress] =
+    await Promise.all([
+      getToday(userId, timezone, day),
+      getOverdue(userId, timezone),
+      getDeferred(userId),
+      getBehindGoals(userId, timezone),
+      getReachedMilestones(userId),
+      getRecentProgress(userId, timezone),
+    ]);
 
   const week = await getWeekProgress(userId, timezone, today.date);
 
@@ -366,6 +374,8 @@ async function Today({
         {/* Nedodělky z minulých dnů: kdo je má, má je vidět dřív,
             než začne odškrtávat další. */}
         {overdue.length > 0 && <UnfinishedTasks tasks={overdue} />}
+
+        <DeferredTasks tasks={deferred} />
 
         {today.goalsNeedingPlan.length > 0 && (
           <PlanTrigger goalIds={today.goalsNeedingPlan.map((goal) => goal.id)} />

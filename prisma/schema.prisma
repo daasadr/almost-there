@@ -352,6 +352,8 @@ enum TaskStatus {
   PENDING
   DONE
   SKIPPED
+  /// Odložený stranou, zatím bez data. Čeká, až mu uživatel řekne kdy.
+  DEFERRED
 }
 
 model Task {
@@ -367,6 +369,21 @@ model Task {
   estimatedMinutes Int?
   completedAt DateTime?
   position    Int        @default(0)
+
+  /// Na kdy je úkol přesunutý.
+  ///
+  /// Plán vzniká jednou a nemůže vědět o věcech mimo něj — že zrovna
+  /// nejsou peníze, že se instruktor rozstonal, že prší. Bez možnosti
+  /// úkol odložit zbývají dvě špatné cesty: odškrtnout nesplněné,
+  /// nebo ho nechat propadnout. To první je horší, protože podle
+  /// odškrtaných dní se počítá tempo — jedno falešné zaškrtnutí
+  /// a aplikace s klidem tvrdí, že stíháš.
+  ///
+  /// Když je vyplněné, úkol se ukáže v tenhle den místo v tom svém.
+  deferredTo  DateTime?
+  /// Proč to tehdy nešlo. Nepovinné, vlastními slovy. Nikam se neposílá
+  /// hned — použije se až při nejbližším přeplánování, kde má váhu.
+  deferReason String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
