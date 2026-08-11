@@ -148,9 +148,14 @@ export function TreeBackground() {
 
       // Strom roste ze spodní hrany, mírně vpravo od středu — symetrie
       // uprostřed by soupeřila s textem hero sekce.
-      const originX = width * (width < 768 ? 0.5 : 0.72);
-      const originY = height + height * 0.04;
-      const scale = Math.min(width, height) * (width < 768 ? 0.19 : 0.16);
+      const isNarrow = width < 768;
+      const originX = width * (isNarrow ? 0.5 : 0.72);
+
+      // Na mobilu roste strom z nižšího bodu a je o kousek menší. Na širokém
+      // displeji stojí vedle textu, na úzkém pod ním — a koruna sahala až do
+      // poznámky o demu, takže přes ni prosvítaly větve a text se hůř četl.
+      const originY = height + height * (isNarrow ? 0.13 : 0.04);
+      const scale = Math.min(width, height) * (isNarrow ? 0.175 : 0.16);
 
       wind += (windTarget - wind) * 0.045;
 
