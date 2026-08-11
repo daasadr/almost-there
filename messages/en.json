@@ -804,7 +804,11 @@
       "onDate": "On this day",
       "someday": "I do not know when",
       "cancel": "Back",
-      "failed": "Could not postpone it. Please try again."
+      "failed": "Could not postpone it. Please try again.",
+      "altTitle": "Nothing else is left for today",
+      "altBody": "Here is what is coming up in the next few days. If one of them suits you today, take it — the plan does not grow, it just moves forward.",
+      "altTake": "I will do this today",
+      "altSkip": "Nothing more today, thanks"
     },
     "deferred": {
       "title": "Set aside ({count})",

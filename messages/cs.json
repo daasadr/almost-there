@@ -804,7 +804,11 @@
       "onDate": "Na tenhle den",
       "someday": "Nevím kdy",
       "cancel": "Zpět",
-      "failed": "Nepodařilo se odložit. Zkus to prosím znovu."
+      "failed": "Nepodařilo se odložit. Zkus to prosím znovu.",
+      "altTitle": "Dnes ti nic jiného nezbývá",
+      "altBody": "Tohle tě čeká v nejbližších dnech. Když ti něco z toho dnes sedne, vezmi si to — plán se tím nenafoukne, jen se posune dopředu.",
+      "altTake": "Vezmu si to dnes",
+      "altSkip": "Dnes už nic, díky"
     },
     "deferred": {
       "title": "Odložené stranou ({count})",

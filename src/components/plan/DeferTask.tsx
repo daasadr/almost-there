@@ -20,6 +20,21 @@ import { useTranslations } from "next-intl";
  * lépe pracuje a nemusí řešit, kam skočí pozornost po zavření.
  */
 
+type Alternative = {
+  id: string;
+  title: string;
+  estimatedMinutes: number | null;
+  date: string;
+};
+
+/** Dnešek v místním čase, ve tvaru pro API. */
+function todayIsoLocal(): string {
+  const date = new Date();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${date.getFullYear()}-${month}-${day}`;
+}
+
 /** Datum o den dál v místním čase, ve tvaru pro `input[type=date]`. */
 function tomorrowIso(): string {
   const date = new Date();
@@ -50,6 +65,15 @@ export function DeferTask({
   const [pending, setPending] = useState(false);
   const [error, setError] = useState(false);
 
+  /**
+   * Co jiného se dá udělat místo odloženého úkolu.
+   *
+   * Prázdný den vypadá jako selhání, i když člověk udělal to jediné
+   * poctivé, co udělat mohl. Server nabídne úkoly z nejbližších dnů
+   * téhož cíle — a jen tehdy, když na dnešek opravdu nic jiného nezbývá.
+   */
+  const [alternatives, setAlternatives] = useState<Alternative[] | null>(null);
+
   const defer = async (value: string | null) => {
     setPending(true);
     setError(false);
@@ -62,11 +86,38 @@ export function DeferTask({
       });
       if (!response.ok) throw new Error("defer failed");
 
-      setOpen(false);
+      const data = (await response.json()) as { alternatives?: Alternative[] };
       setReason("");
+
+      // Když je co nabídnout, panel zůstane otevřený s nabídkou. Jinak se
+      // zavře — bez zbytečného kroku navíc.
+      if (data.alternatives?.length) {
+        setAlternatives(data.alternatives);
+      } else {
+        setOpen(false);
+      }
+
       router.refresh();
     } catch {
       setError(true);
+    } finally {
+      setPending(false);
+    }
+  };
+
+  const pullForward = async (id: string) => {
+    setPending(true);
+    try {
+      const response = await fetch(`/api/tasks/${id}/defer`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ date: todayIsoLocal() }),
+      });
+      if (response.ok) {
+        setOpen(false);
+        setAlternatives(null);
+        router.refresh();
+      }
     } finally {
       setPending(false);
     }
@@ -96,6 +147,50 @@ export function DeferTask({
         variant === "link" ? "mt-3 w-full" : "mx-4 mb-4"
       }`}
     >
+      {alternatives ? (
+        <>
+          <p className="text-sm font-medium text-[var(--color-paper)]">
+            {t("altTitle")}
+          </p>
+          <p className="mt-1.5 text-xs leading-relaxed text-[var(--color-paper-faint)]">
+            {t("altBody")}
+          </p>
+
+          <ul className="mt-4 space-y-2">
+            {alternatives.map((alternative) => (
+              <li
+                key={alternative.id}
+                className="rounded-lg border border-white/10 p-3"
+              >
+                <p className="text-sm leading-snug text-[var(--color-paper)]">
+                  {alternative.title}
+                </p>
+                <button
+                  type="button"
+                  disabled={pending}
+                  onClick={() => void pullForward(alternative.id)}
+                  className="mt-2 text-xs font-medium text-[var(--color-lime-soft)] underline-offset-4 hover:underline disabled:opacity-50"
+                >
+                  {t("altTake")}
+                </button>
+              </li>
+            ))}
+          </ul>
+
+          <button
+            type="button"
+            onClick={() => {
+              setOpen(false);
+              setAlternatives(null);
+            }}
+            disabled={pending}
+            className="mt-4 text-xs text-[var(--color-paper-faint)] underline-offset-4 hover:underline"
+          >
+            {t("altSkip")}
+          </button>
+        </>
+      ) : (
+        <>
       <p className="text-sm font-medium text-[var(--color-paper)]">
         {t("title")}
       </p>
@@ -167,6 +262,8 @@ export function DeferTask({
       >
         {t("cancel")}
       </button>
+        </>
+      )}
     </div>
   );
 }

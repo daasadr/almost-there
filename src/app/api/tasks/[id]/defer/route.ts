@@ -59,7 +59,7 @@ export async function POST(
 
   const task = await db.task.findFirst({
     where: { id, goal: { userId: guard.user.id } },
-    select: { id: true, status: true },
+    select: { id: true, status: true, goalId: true },
   });
 
   if (!task) {
@@ -98,5 +98,73 @@ export async function POST(
     },
   });
 
-  return NextResponse.json({ ok: true });
+  return NextResponse.json({
+    ok: true,
+    alternatives: await findAlternatives(guard.user.id, task.goalId, guard.user.timezone),
+  });
+}
+
+/**
+ * Co jiného se dá udělat místo odloženého úkolu.
+ *
+ * Prázdný den po odložení vypadá jako selhání, i když člověk udělal to
+ * jediné poctivé, co udělat mohl. Nový úkol se ale negeneruje — v plánu
+ * už úkoly jsou, jen leží o pár dní dál. Přitáhnout jeden dopředu nic
+ * nestojí a nemění celkový objem práce.
+ *
+ * Nabízí se jen tehdy, když na dnešek nic jiného nezbývá. Kdo má ještě
+ * tři úkoly, nepotřebuje čtvrtý — potřeboval jen odložit ten jeden.
+ *
+ * Dívá se nanejvýš týden dopředu a jen do téhož cíle. Dál by hrozilo, že
+ * nabídne krok, který stojí na něčem, co ještě nikdo neudělal;
+ * a rozhodnutí necháváme uživateli, protože ten pozná, jestli to jde.
+ */
+async function findAlternatives(
+  userId: string,
+  goalId: string,
+  timezone: string,
+) {
+  const today = parseIsoDate(todayIso(timezone));
+
+  const remainingToday = await db.task.count({
+    where: {
+      goal: { userId, status: "ACTIVE" },
+      status: "PENDING",
+      type: { not: "REST" },
+      OR: [
+        { deferredTo: today },
+        { deferredTo: null, timeBlock: { level: "DAY", startDate: today } },
+      ],
+    },
+  });
+  if (remainingToday > 0) return [];
+
+  const weekAhead = new Date(today.getTime() + 7 * 86_400_000);
+
+  const upcoming = await db.task.findMany({
+    where: {
+      goalId,
+      status: "PENDING",
+      deferredTo: null,
+      // Odpočinek si dopředu brát nemá smysl — den volna udělaný o týden
+      // dřív není odpočinek, jen díra v plánu.
+      type: { not: "REST" },
+      timeBlock: { level: "DAY", startDate: { gt: today, lte: weekAhead } },
+    },
+    orderBy: [{ timeBlock: { startDate: "asc" } }, { position: "asc" }],
+    take: 3,
+    select: {
+      id: true,
+      title: true,
+      estimatedMinutes: true,
+      timeBlock: { select: { startDate: true } },
+    },
+  });
+
+  return upcoming.map((task) => ({
+    id: task.id,
+    title: task.title,
+    estimatedMinutes: task.estimatedMinutes,
+    date: task.timeBlock.startDate.toISOString(),
+  }));
 }

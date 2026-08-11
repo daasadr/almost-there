@@ -804,7 +804,11 @@
       "onDate": "An diesem Tag",
       "someday": "Ich weiß nicht wann",
       "cancel": "Zurück",
-      "failed": "Verschieben hat nicht geklappt. Bitte versuche es erneut."
+      "failed": "Verschieben hat nicht geklappt. Bitte versuche es erneut.",
+      "altTitle": "Für heute bleibt nichts anderes",
+      "altBody": "Das steht in den nächsten Tagen an. Wenn dir davon heute etwas passt, nimm es dir — der Plan wächst nicht, er rückt nur vor.",
+      "altTake": "Das mache ich heute",
+      "altSkip": "Heute nichts mehr, danke"
     },
     "deferred": {
       "title": "Zurückgestellt ({count})",
