@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import {
+  getMessages,
+  getTranslations,
+  setRequestLocale,
+} from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -14,6 +18,33 @@ import { NativeShell } from "@/components/native/NativeShell";
 import { STORE_APP_MARKER } from "@/lib/store-app";
 import { siteUrl } from "@/lib/seo/site";
 import "@/app/globals.css";
+
+/**
+ * Oddíly překladů, které potřebují komponenty běžící v prohlížeči.
+ *
+ * Zjištěno projitím všech souborů s „use client": formuláře, checklist,
+ * paywall, demo, přepínač jazyka a lišta o cookies. Zbytek — úvodní
+ * stránka, otázky, právní texty, e-maily — se vykresluje na serveru
+ * a klient je nikdy nepotřebuje.
+ */
+const CLIENT_NAMESPACES = [
+  "nav",
+  "cookies",
+  "error",
+  "auth",
+  "billing",
+  "demo",
+  "plan",
+] as const;
+
+function clientMessages(messages: Record<string, unknown>) {
+  return Object.fromEntries(
+    CLIENT_NAMESPACES.filter((key) => key in messages).map((key) => [
+      key,
+      messages[key],
+    ]),
+  );
+}
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -90,6 +121,8 @@ export default async function LocaleLayout({
   // Bez tohohle by statické generování stránek spadlo zpět na dynamické.
   setRequestLocale(locale);
 
+  const messages = await getMessages();
+
   return (
     <html lang={locale}>
       <head>
@@ -129,7 +162,21 @@ export default async function LocaleLayout({
       </head>
       <body className="min-h-dvh antialiased">
         <AuthSessionProvider>
-        <NextIntlClientProvider>
+        {/*
+          Do prohlížeče jdou jen oddíly, které opravdu potřebuje komponenta
+          běžící na klientovi.
+
+          Bez výběru posílá next-intl všechny překlady — a ty už mají přes
+          čtyřicet kilobajtů. Byly by v každé odpovědi, i na úvodní stránce,
+          kde z nich klient využije dva krátké oddíly. Texty vykreslené na
+          serveru se tím nemění: ty se do HTML dostanou hotové.
+
+          Když přibude komponenta s „use client", která sahá do dalšího
+          oddílu, musí se sem dopsat — jinak jí zůstane holý klíč. Ověřit
+          to jde příkazem:
+            grep -rl '"use client"' src | xargs grep -o 'useTranslations("[^"]*"'
+        */}
+        <NextIntlClientProvider messages={clientMessages(messages)}>
           <a
             href="#main"
             className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-[var(--color-lime-soft)] focus:px-5 focus:py-2 focus:font-semibold focus:text-[var(--color-ink-950)]"
