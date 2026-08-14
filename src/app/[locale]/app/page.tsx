@@ -90,14 +90,26 @@ export default async function AppPage({
   // stránka je stejně dynamická kvůli přihlášení, takže se nic neztrácí.
   const storeApp = isStoreApp(await headers());
 
-  const billing = await db.user.findUnique({
+  const account = await db.user.findUnique({
     where: { id: session.user.id },
     select: {
       stripeSubscriptionId: true,
       subscriptionEndsAt: true,
       subscriptionCancelAtPeriodEnd: true,
+      /**
+       * Ověření adresy z databáze, ne z přihlašovacího tokenu.
+       *
+       * Ze stejného důvodu jako stav předplatného: mění se mimo přihlášení.
+       * Uživatel klikne na odkaz v e-mailu — často v telefonu, zatímco
+       * aplikaci má otevřenou na počítači — a token o tom nemá jak vědět.
+       * Výzva „ověř si adresu" by mu pak svítila až třicet dní, do vypršení
+       * tokenu, i když je adresa dávno ověřená.
+       */
+      emailVerified: true,
     },
   });
+
+  const billing = account;
 
   return (
     <section className="mx-auto max-w-3xl px-5 py-16 sm:px-8 sm:py-24">
@@ -105,7 +117,7 @@ export default async function AppPage({
         {t("welcome", { name: session.user.name ?? session.user.email ?? "" })}
       </h1>
 
-      {!session.user.isEmailVerified && (
+      {!account?.emailVerified && (
         <div className="mt-8 rounded-2xl border border-amber-400/25 bg-amber-400/5 p-5">
           <h2 className="text-sm font-semibold text-amber-200">
             {t("verifyTitle")}

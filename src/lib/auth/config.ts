@@ -27,26 +27,16 @@ export const authConfig = {
      * tedy zvenčí, a token by o tom nevěděl. Uživatel by zaplatil a paywall
      * by mu zůstal až do dalšího přihlášení. Čte se z databáze —
      * viz lib/billing/access.ts.
+     *
+     * Ze stejného důvodu tu není ani ověření e-mailové adresy. Uživatel
+     * klikne na odkaz v e-mailu — často v telefonu, zatímco aplikaci má
+     * otevřenou na počítači — a token o tom nemá jak vědět. Výzva „ověř
+     * si adresu" mu pak svítí až do vypršení tokenu, tedy třicet dní.
+     * Čte se přímo v místě, kde se zobrazuje.
      */
-    jwt({ token, user, account, trigger, session }) {
+    jwt({ token, user }) {
       if (user) {
         token.id = user.id as string;
-        token.isEmailVerified =
-          Boolean((user as { emailVerified?: Date | null }).emailVerified) ||
-          // Přihlášení přes Google pustí callback `signIn` dál jen
-          // s adresou, kterou Google sám ověřil. Adaptér ale při zakládání
-          // účtu tenhle údaj zahazuje a nastavuje ho natvrdo na prázdno,
-          // takže by tu i po přihlášení Googlem vyšlo „neověřeno“ —
-          // a uživatel by dostal výzvu, ať klikne na odkaz v e-mailu,
-          // který mu nikdy nepřišel.
-          account?.provider === "google";
-      }
-
-      // Po ověření e-mailu se token obnoví bez odhlášení.
-      if (trigger === "update" && session) {
-        if (typeof session.isEmailVerified === "boolean") {
-          token.isEmailVerified = session.isEmailVerified;
-        }
       }
 
       return token;
@@ -54,7 +44,6 @@ export const authConfig = {
     session({ session, token }) {
       if (session.user) {
         session.user.id = token.id as string;
-        session.user.isEmailVerified = Boolean(token.isEmailVerified);
         // Kdy byl token vydán. Podle toho se pozná, jestli nebyl vydán
         // dřív, než si uživatel změnil heslo — viz lib/auth/session.ts.
         session.user.issuedAt = typeof token.iat === "number" ? token.iat : 0;
