@@ -75,7 +75,35 @@ export async function getPaceStatus(
   if (!goal || goal.status !== "ACTIVE") return null;
 
   const today = parseIsoDate(todayIso(timezone));
-  const windowStart = new Date(today.getTime() - WINDOW_DAYS * 86_400_000);
+
+  /**
+   * Od kdy počítat vynechané dny.
+   *
+   * Normálně čtrnáct dní zpátky. Po přeplánování ale od chvíle, kdy
+   * k němu došlo — a to je podstatné.
+   *
+   * Přeplánování totiž minulost nemaže: dny, které už proběhly, zůstávají
+   * i s nesplněnými úkoly, protože historie plnění je to jediné, z čeho
+   * jde tempo vyčíst. Kdyby se vynechané dny počítaly dál od nich, nabídka
+   * „dohnat, nebo posunout termín“ by se objevila hned po přeplánování
+   * znovu — a klepnutí na ni by skončilo hláškou, že se přeplánovávalo
+   * před chvílí. Uživatel by se v tom točil dokola.
+   *
+   * Po přeplánování je minulost vyřízená. Rozhoduje, jak se daří proti
+   * novému plánu, a na to jsou potřeba nové dny.
+   */
+  const lastReplan = await db.replanEvent.findFirst({
+    where: { goalId, reason: { not: "USER_DECLINED_REPLAN" } },
+    orderBy: { triggeredAt: "desc" },
+    select: { triggeredAt: true },
+  });
+
+  const windowStart = new Date(
+    Math.max(
+      today.getTime() - WINDOW_DAYS * 86_400_000,
+      lastReplan?.triggeredAt.getTime() ?? 0,
+    ),
+  );
 
   // Dny, které už proběhly a měly naplánované úkoly.
   const pastDays = await db.timeBlock.findMany({
