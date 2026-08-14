@@ -223,6 +223,15 @@ export default async function AppPage({
           {tPlan("settings")}
         </Link>
 
+        {/* Návod patří i sem, ne jen do patičky webu. Kdo si něčím není
+            jistý, hledá pomoc v aplikaci, ne na úvodní stránce. */}
+        <Link
+          href={`/${locale}/guide`}
+          className="text-sm text-[var(--color-paper-faint)] hover:text-[var(--color-paper)]"
+        >
+          {tPlan("guide")}
+        </Link>
+
         {/* Odkaz vidí jen správce. Stránka si oprávnění stejně ověřuje
             sama — tohle je pohodlí, ne ochrana. */}
         {isAdminEmail(session.user.email) && (

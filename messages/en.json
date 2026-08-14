@@ -15,7 +15,8 @@
     "account": "My account",
     "openApp": "Open the app",
     "demoShort": "Demo",
-    "faq": "FAQ"
+    "faq": "FAQ",
+    "guide": "Guide"
   },
   "hero": {
     "eyebrow": "Goal → months → weeks → today",
@@ -144,7 +145,8 @@
     "rights": "All rights reserved.",
     "madeWith": "Planning is a skill. We just gave you the scaffolding.",
     "deletion": "Deleting your account",
-    "install": "Get the app"
+    "install": "Get the app",
+    "guide": "User guide"
   },
   "demo": {
     "badge": "Demo",
@@ -450,7 +452,8 @@
       "today": "Today",
       "goals": "Goals",
       "newGoal": "New goal",
-      "settings": "How to plan"
+      "settings": "How to plan",
+      "guide": "Guide"
     },
     "today": {
       "title": "Today",
@@ -918,6 +921,14 @@
     "accountTitle": "Why you need an account",
     "accountBody": "Wherever you open the app from, you sign in with the same account and find the same goals. Accounts and subscriptions are set up here on the website.",
     "demo": "Try the demo",
+    "back": "Back to home"
+  },
+  "guide": {
+    "title": "How to use AlmostThere",
+    "contents": "Contents",
+    "stuckTitle": "Did not find your answer?",
+    "stuckBody": "Write to daasa.d@seznam.cz. I answer myself and I am glad to — questions tell me what is unclear in the app, and then I fix it.",
+    "tryDemo": "Try the demo",
     "back": "Back to home"
   }
 }

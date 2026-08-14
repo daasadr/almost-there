@@ -15,7 +15,8 @@
     "account": "Můj účet",
     "openApp": "Otevřít aplikaci",
     "demoShort": "Demo",
-    "faq": "Otázky"
+    "faq": "Otázky",
+    "guide": "Návod"
   },
   "hero": {
     "eyebrow": "Cíl → měsíce → týdny → dnešek",
@@ -144,7 +145,8 @@
     "rights": "Všechna práva vyhrazena.",
     "madeWith": "Plánování je dovednost. My jsme jen dodali lešení.",
     "deletion": "Zrušení účtu",
-    "install": "Do telefonu"
+    "install": "Do telefonu",
+    "guide": "Návod k používání"
   },
   "demo": {
     "badge": "Demo",
@@ -450,7 +452,8 @@
       "today": "Dnešek",
       "goals": "Cíle",
       "newGoal": "Nový cíl",
-      "settings": "Jak plánovat"
+      "settings": "Jak plánovat",
+      "guide": "Návod"
     },
     "today": {
       "title": "Dnešek",
@@ -918,6 +921,14 @@
     "accountTitle": "K čemu je potřeba účet",
     "accountBody": "Ať appku otevřeš odkudkoliv, přihlašuješ se stejným účtem a máš v ní ty samé cíle. Účet i předplatné se zakládá tady na webu.",
     "demo": "Vyzkoušet demo",
+    "back": "Zpět na úvod"
+  },
+  "guide": {
+    "title": "Jak AlmostThere používat",
+    "contents": "Obsah",
+    "stuckTitle": "Nenašel jsi tu odpověď?",
+    "stuckBody": "Napiš na daasa.d@seznam.cz. Odpovídám sama a ráda — z otázek se dozvím, co je v aplikaci nesrozumitelné, a spravím to.",
+    "tryDemo": "Vyzkoušet demo",
     "back": "Zpět na úvod"
   }
 }

@@ -15,7 +15,8 @@
     "account": "Mein Konto",
     "openApp": "App öffnen",
     "demoShort": "Demo",
-    "faq": "Fragen"
+    "faq": "Fragen",
+    "guide": "Anleitung"
   },
   "hero": {
     "eyebrow": "Ziel → Monate → Wochen → heute",
@@ -144,7 +145,8 @@
     "rights": "Alle Rechte vorbehalten.",
     "madeWith": "Planen ist eine Fähigkeit. Wir liefern nur das Gerüst.",
     "deletion": "Konto löschen",
-    "install": "Aufs Handy"
+    "install": "Aufs Handy",
+    "guide": "Anleitung"
   },
   "demo": {
     "badge": "Demo",
@@ -450,7 +452,8 @@
       "today": "Heute",
       "goals": "Ziele",
       "newGoal": "Neues Ziel",
-      "settings": "Wie geplant wird"
+      "settings": "Wie geplant wird",
+      "guide": "Anleitung"
     },
     "today": {
       "title": "Heute",
@@ -918,6 +921,14 @@
     "accountTitle": "Wozu ein Konto nötig ist",
     "accountBody": "Egal, von wo aus du die App öffnest — du meldest dich mit demselben Konto an und findest dieselben Ziele. Konto und Abo werden hier auf der Website eingerichtet.",
     "demo": "Demo testen",
+    "back": "Zurück zur Startseite"
+  },
+  "guide": {
+    "title": "So benutzt du AlmostThere",
+    "contents": "Inhalt",
+    "stuckTitle": "Antwort nicht gefunden?",
+    "stuckBody": "Schreib an daasa.d@seznam.cz. Ich antworte selbst und gern — Fragen zeigen mir, was in der App unklar ist, und dann bessere ich es aus.",
+    "tryDemo": "Demo testen",
     "back": "Zurück zur Startseite"
   }
 }

@@ -17,6 +17,7 @@ import { absoluteUrl } from "@/lib/seo/site";
 const PAGES = [
   { path: "", priority: 1 },
   { path: "/demo", priority: 0.8 },
+  { path: "/guide", priority: 0.7 },
   { path: "/terms", priority: 0.3, lastModified: LEGAL_VERSION },
   { path: "/privacy", priority: 0.3, lastModified: LEGAL_VERSION },
 ] as const;

@@ -75,6 +75,7 @@ ${faq.map((item) => `### ${item.q}\n\n${item.a}`).join("\n\n")}
 ## Pages
 
 ${locales.map((locale) => `- ${absoluteUrl(locale)} — landing page (${locale})`).join("\n")}
+- ${absoluteUrl(defaultLocale, "/guide")} — full user guide: how every part of the app works
 - ${absoluteUrl(defaultLocale, "/demo")} — free demo, no account needed
 - ${absoluteUrl(defaultLocale, "/terms")} — terms of service
 - ${absoluteUrl(defaultLocale, "/privacy")} — privacy policy
