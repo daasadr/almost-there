@@ -102,6 +102,7 @@ export const guideByLocale: Record<Locale, GuideDocument> = {
           "Dohnat skluz znamená nechat termín být a přeplánovat zbytek tak, aby se to stihlo. Přepočítat termín znamená posunout datum na takové, které odpovídá tempu, jaké máš doopravdy.",
           "Vybíráš vždycky ty. Aplikace ti termín sama neposune a nabídku po odmítnutí týden nezopakuje.",
           "Nedodělky z posledních sedmi dnů se ukazují nad dnešním seznamem. Můžeš je dodatečně odškrtnout, odložit na jindy, nebo je nechat být — někdy je to správná odpověď.",
+          "Jedna praktická rada: přeplánovávej spíš ráno než večer. Nový plán musí začít dneškem, takže dnešní úkoly nahradí novými — a co sis dnes už odškrtal, zmizí s nimi. Odškrtané dny z minulosti ani celkovou úspěšnost přeplánování nemaže, ta zůstává celá.",
         ],
       },
       {
@@ -223,6 +224,7 @@ export const guideByLocale: Record<Locale, GuideDocument> = {
           "Catching up means leaving the deadline alone and replanning the rest so it still fits. Recalculating the deadline means moving the date to one that matches the pace you actually keep.",
           "You always choose. The app never moves your deadline on its own, and if you decline, it does not ask again for a week.",
           "Unfinished tasks from the last seven days appear above today's list. You can tick them off late, postpone them, or let them go — sometimes that is the right answer.",
+          "One practical tip: replan in the morning rather than in the evening. The new plan has to start today, so today's tasks are replaced by new ones — and anything you have already ticked off today goes with them. Ticked days from the past and your overall completion rate are never touched.",
         ],
       },
       {
@@ -344,6 +346,7 @@ export const guideByLocale: Record<Locale, GuideDocument> = {
           "Aufholen heißt: Termin lassen und den Rest so umplanen, dass es noch passt. Termin neu berechnen heißt: das Datum auf eines schieben, das zu deinem tatsächlichen Tempo passt.",
           "Du entscheidest immer. Die App verschiebt deinen Termin nie von selbst, und wenn du ablehnst, fragt sie eine Woche lang nicht wieder.",
           "Unerledigtes aus den letzten sieben Tagen erscheint über der heutigen Liste. Du kannst es nachträglich abhaken, verschieben oder ziehen lassen — manchmal ist das die richtige Antwort.",
+          "Ein praktischer Hinweis: Plane lieber morgens um als abends. Der neue Plan muss heute beginnen, also werden die heutigen Aufgaben durch neue ersetzt — und was du heute schon abgehakt hast, verschwindet mit ihnen. Abgehakte Tage aus der Vergangenheit und deine Gesamtquote bleiben unangetastet.",
         ],
       },
       {

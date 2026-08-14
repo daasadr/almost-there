@@ -94,10 +94,31 @@ export function validateTargetDate(
 }
 
 /** Rozumné výchozí datum ve formuláři: šest měsíců dopředu. */
+/**
+ * Termín, který se v poli nabídne jako první.
+ *
+ * Půl roku je na cíl rozumný horizont, jenže nabídnutým datem se řídí
+ * i kalendář: otevře se v roce, který v poli stojí. Půlrok od srpna míří
+ * do února, takže se kalendář otevřel v příštím roce a letošek zůstal
+ * schovaný nahoře — vypadalo to, že v nabídce vůbec není.
+ *
+ * Proto se termín drží do konce letošního roku, dokud je do něj aspoň
+ * měsíc a půl. Pak už letošek nemá co nabídnout a půlroční horizont
+ * dává větší smysl než pár zbývajících týdnů.
+ *
+ * Je to jen předvyplněná hodnota, ne omezení — vybrat jde cokoliv od
+ * dvou týdnů po deset let.
+ */
 export function defaultTargetDate(now = new Date()): string {
-  const date = new Date(
+  const halfYear = new Date(
     Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 6, now.getUTCDate()),
   );
+
+  const endOfYear = new Date(Date.UTC(now.getUTCFullYear(), 11, 31));
+  const daysToEndOfYear =
+    (endOfYear.getTime() - startOfDayUtc(now)) / 86_400_000;
+
+  const date = daysToEndOfYear >= 45 && halfYear > endOfYear ? endOfYear : halfYear;
   return date.toISOString().slice(0, 10);
 }
 
