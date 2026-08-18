@@ -32,7 +32,10 @@
   /* Text */
   --color-paper: #f2f7f4;
   --color-paper-dim: #a9bdb4;
-  --color-paper-faint: #6d8479;
+  /* Nejtlumenější odstín textu. Musí projít i na světlejším pozadí
+     patičky (#071a14), ne jen na hlavním — tam původní #6d8479 vycházel
+     4,48 : 1, tedy těsně pod hranicí čitelnosti. */
+  --color-paper-faint: #7a9187;
 
   --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;

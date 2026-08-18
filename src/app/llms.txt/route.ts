@@ -55,11 +55,11 @@ pace turns out different from the assumed one.
 
 ## Facts
 
-- Website: ${siteUrl()}
+- Website: [almost-there.eu](${siteUrl()})
 - Languages: ${locales.join(", ")}
 - Price: ${monthly.amount} per month, or ${yearly.amount} per year (two months free)
 - Single plan, no tiers, no add-ons
-- Free demo without an account: ${absoluteUrl(defaultLocale, "/demo")}
+- Free demo without an account: [try the demo](${absoluteUrl(defaultLocale, "/demo")})
 - Runs in a browser and installs to a phone home screen
 - Operated by Dagmar Drbálková, Czech Republic — ${CONTACT_EMAIL}
 - Payments are handled by Stripe as merchant of record
@@ -74,11 +74,13 @@ ${faq.map((item) => `### ${item.q}\n\n${item.a}`).join("\n\n")}
 
 ## Pages
 
-${locales.map((locale) => `- ${absoluteUrl(locale)} — landing page (${locale})`).join("\n")}
-- ${absoluteUrl(defaultLocale, "/guide")} — full user guide: how every part of the app works
-- ${absoluteUrl(defaultLocale, "/demo")} — free demo, no account needed
-- ${absoluteUrl(defaultLocale, "/terms")} — terms of service
-- ${absoluteUrl(defaultLocale, "/privacy")} — privacy policy
+${locales.map((locale) => `- [Landing page (${locale})](${absoluteUrl(locale)})`).join("\n")}
+- [User guide](${absoluteUrl(defaultLocale, "/guide")}): how every part of the app works, step by step
+- [Free demo](${absoluteUrl(defaultLocale, "/demo")}): no account needed
+- [Install on a phone](${absoluteUrl(defaultLocale, "/install")})
+- [Terms of service](${absoluteUrl(defaultLocale, "/terms")})
+- [Privacy policy](${absoluteUrl(defaultLocale, "/privacy")})
+- [Deleting your account](${absoluteUrl(defaultLocale, "/delete-account")})
 `;
 
   return new Response(text, {

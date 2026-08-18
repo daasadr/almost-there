@@ -26,7 +26,23 @@ type Node = {
   angle: number;
 };
 
-const MAX_DEPTH = 9;
+/**
+ * Hloubka větvení. Každá úroveň zhruba zdvojnásobí počet uzlů, a všechny
+ * se překreslují v každém snímku — devět úrovní je přes tisíc čar na
+ * snímek. Na počítači se to ztratí, na telefonu ne, a měření na
+ * emulovaném Motu ukázalo, že právě tohle blokuje hlavní vlákno.
+ * Na úzkém displeji je strom menší, takže dvě úrovně navíc stejně
+ * nikdo nerozezná.
+ */
+const MAX_DEPTH_WIDE = 9;
+const MAX_DEPTH_NARROW = 7;
+
+/**
+ * Kolikrát za vteřinu překreslit. Šedesát je zbytečné — jde o pomalé
+ * kolébání ve větru, ne o hru. Třicet vypadá stejně a stojí polovinu.
+ */
+const TARGET_FPS = 30;
+const FRAME_MS = 1000 / TARGET_FPS;
 const TRUNK_ANGLE = 0;
 
 /** Deterministický generátor — strom vypadá stejně při každém načtení. */
@@ -38,7 +54,7 @@ function makeRandom(seed: number) {
   };
 }
 
-function buildTree(): Node[] {
+function buildTree(maxDepth: number): Node[] {
   const random = makeRandom(20260801);
   const nodes: Node[] = [
     {
@@ -54,7 +70,7 @@ function buildTree(): Node[] {
   ];
 
   const grow = (parentIndex: number, depth: number) => {
-    if (depth >= MAX_DEPTH) return;
+    if (depth >= maxDepth) return;
 
     // Blíž ke kmeni dvě větve, výš občas tři — dává korunu hustší okraj.
     const branches = depth < 2 ? 2 : random() > 0.72 ? 3 : 2;
@@ -100,7 +116,9 @@ export function TreeBackground() {
       "(prefers-reduced-motion: reduce)",
     ).matches;
 
-    const nodes = buildTree();
+    const narrow = window.innerWidth < 768;
+    const maxDepth = narrow ? MAX_DEPTH_NARROW : MAX_DEPTH_WIDE;
+    const nodes = buildTree(maxDepth);
 
     // Cíl a aktuální hodnota náklonu se drží zvlášť, aby pohyb kurzoru
     // strom netrhal — dojíždí se k cíli plynule.
@@ -110,9 +128,21 @@ export function TreeBackground() {
     let height = 0;
     let frame = 0;
 
+    // Rozměry a poloha plátna se drží stranou. Dotaz na ně nutí prohlížeč
+    // přepočítat rozvržení, a při pohybu prstem by to bylo desetkrát za
+    // vteřinu.
+    let rect = canvas.getBoundingClientRect();
+
+    const measure = () => {
+      rect = canvas.getBoundingClientRect();
+    };
+
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const rect = canvas.getBoundingClientRect();
+      // Na telefonech bývá poměr 3 a víc; strom je rozostřený tvar
+      // v pozadí, na kterém rozdíl mezi 1,5 a 3 nikdo nepozná — ale
+      // plocha k vyplnění roste s druhou mocninou.
+      const dpr = Math.min(window.devicePixelRatio || 1, narrow ? 1.5 : 2);
+      measure();
       width = rect.width;
       height = rect.height;
       canvas.width = Math.floor(width * dpr);
@@ -121,7 +151,6 @@ export function TreeBackground() {
     };
 
     const onPointer = (clientX: number, clientY: number) => {
-      const rect = canvas.getBoundingClientRect();
       windTarget = ((clientX - rect.left) / rect.width - 0.5) * 2;
 
       const glow = glowRef.current;
@@ -143,7 +172,16 @@ export function TreeBackground() {
       if (glowRef.current) glowRef.current.style.opacity = "0";
     };
 
+    let lastFrame = Number.NEGATIVE_INFINITY;
+
     const draw = (time: number) => {
+      if (!reduceMotion) frame = requestAnimationFrame(draw);
+
+      // Třicet snímků za vteřinu místo šedesáti. Kolébání ve větru je
+      // pomalé, rozdíl není vidět, a práce je poloviční.
+      if (time - lastFrame < FRAME_MS) return;
+      lastFrame = time;
+
       ctx.clearRect(0, 0, width, height);
 
       // Strom roste ze spodní hrany, mírně vpravo od středu — symetrie
@@ -187,7 +225,7 @@ export function TreeBackground() {
         const parent = nodes[node.parent];
 
         // Vyšší větve se kývou víc — jako skutečný strom ve větru.
-        const depthFactor = Math.pow(node.depth / MAX_DEPTH, 1.6);
+        const depthFactor = Math.pow(node.depth / maxDepth, 1.6);
         const idleSway = reduceMotion
           ? 0
           : Math.sin(time * 0.00042 + node.phase) * 0.035 * depthFactor;
@@ -198,7 +236,7 @@ export function TreeBackground() {
         node.x = parent.x + Math.sin(node.angle) * length;
         node.y = parent.y - Math.cos(node.angle) * length;
 
-        const t = node.depth / MAX_DEPTH;
+        const t = node.depth / maxDepth;
         // Od kmene k listům: smaragdová → limetková, s purpurovým nádechem
         // na koncích, aby koruna nesplývala do jedné zelené plochy.
         const r = Math.round(16 + t * 147);
@@ -214,7 +252,7 @@ export function TreeBackground() {
         ctx.stroke();
 
         // Listy jen na koncích, s pomalým pulzem — drží pohled v koruně.
-        if (node.depth === MAX_DEPTH) {
+        if (node.depth === maxDepth) {
           const pulse = reduceMotion
             ? 0.5
             : 0.5 + Math.sin(time * 0.0011 + node.phase * 2.2) * 0.5;
@@ -228,11 +266,35 @@ export function TreeBackground() {
         }
       }
 
-      if (!reduceMotion) frame = requestAnimationFrame(draw);
     };
+
+    /**
+     * Kreslí se, jen když je strom vidět.
+     *
+     * Je jen v úvodní části stránky, ale smyčka běžela pořád — i když
+     * uživatel odscrolloval o tři obrazovky níž nebo si četl otázky
+     * a odpovědi. Na telefonu to znamenalo desítky vteřin práce navíc
+     * pro obrázek, na který se nikdo nedívá.
+     */
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          if (!frame && !reduceMotion) {
+            lastFrame = Number.NEGATIVE_INFINITY;
+            frame = requestAnimationFrame(draw);
+          }
+        } else if (frame) {
+          cancelAnimationFrame(frame);
+          frame = 0;
+        }
+      },
+      { rootMargin: "100px" },
+    );
+    observer.observe(canvas);
 
     resize();
     window.addEventListener("resize", resize);
+    window.addEventListener("scroll", measure, { passive: true });
     window.addEventListener("mousemove", onMouseMove, { passive: true });
     window.addEventListener("touchmove", onTouchMove, { passive: true });
     window.addEventListener("mouseleave", onPointerLeave);
@@ -245,6 +307,8 @@ export function TreeBackground() {
 
     return () => {
       cancelAnimationFrame(frame);
+      observer.disconnect();
+      window.removeEventListener("scroll", measure);
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("touchmove", onTouchMove);
