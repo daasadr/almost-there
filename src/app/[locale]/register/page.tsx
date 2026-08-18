@@ -13,7 +13,14 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "auth.register" });
-  return { title: `${t("title")} — AlmostThere` };
+  return {
+    // Do vyhledávání tahle stránka nepatří: je krátká, ve všech jazycích
+    // skoro stejná a nikomu, kdo něco hledá, nic nenabídne. Google takové
+    // stránky vyhodnotí jako duplicity a vybere si k nim vlastní
+    // kanonickou adresu — a přesně to hlásí zprávou o duplicitní stránce.
+    robots: { index: false, follow: true },
+    title: `${t("title")} — AlmostThere`,
+  };
 }
 
 export default async function RegisterPage({
