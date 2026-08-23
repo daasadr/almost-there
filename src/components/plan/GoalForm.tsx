@@ -162,15 +162,19 @@ export function GoalForm({
         </label>
         <input
           id="goal-title"
+          aria-describedby="goal-title-hint"
           type="text"
           value={title}
           onChange={(event) => setTitle(event.target.value)}
           maxLength={MAX_GOAL_TITLE}
           disabled={pending}
           placeholder={t("namePlaceholder")}
-          className="mt-2.5 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-[15px] text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] focus:outline-none disabled:opacity-60"
+          className="mt-2.5 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-[15px] text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] disabled:opacity-60"
         />
-        <p className="mt-1.5 text-xs text-[var(--color-paper-faint)]">
+        <p
+          id="goal-title-hint"
+          className="mt-1.5 text-xs text-[var(--color-paper-faint)]"
+        >
           {t("nameHint")}
         </p>
       </div>
@@ -183,15 +187,19 @@ export function GoalForm({
         </label>
         <textarea
           id="goal-detail"
+          aria-describedby="goal-detail-hint"
           value={description}
           onChange={(event) => setDescription(event.target.value)}
           rows={5}
           maxLength={MAX_GOAL_DETAIL}
           disabled={pending}
           placeholder={t("detailPlaceholder")}
-          className="mt-2.5 w-full resize-y rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-[15px] leading-relaxed text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] focus:outline-none disabled:opacity-60"
+          className="mt-2.5 w-full resize-y rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-[15px] leading-relaxed text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] disabled:opacity-60"
         />
-        <p className="mt-1.5 text-xs leading-relaxed text-[var(--color-paper-faint)]">
+        <p
+          id="goal-detail-hint"
+          className="mt-1.5 text-xs leading-relaxed text-[var(--color-paper-faint)]"
+        >
           {t("detailHint")}
         </p>
       </div>
@@ -205,15 +213,19 @@ export function GoalForm({
         </label>
         <textarea
           id="goal-start"
+          aria-describedby="goal-start-hint"
           value={startingPoint}
           onChange={(event) => setStartingPoint(event.target.value)}
           rows={3}
           maxLength={1000}
           disabled={pending}
           placeholder={t("startPlaceholder")}
-          className="mt-2.5 w-full resize-y rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-[15px] leading-relaxed text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] focus:outline-none disabled:opacity-60"
+          className="mt-2.5 w-full resize-y rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-[15px] leading-relaxed text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] disabled:opacity-60"
         />
-        <p className="mt-1.5 text-xs leading-relaxed text-[var(--color-paper-faint)]">
+        <p
+          id="goal-start-hint"
+          className="mt-1.5 text-xs leading-relaxed text-[var(--color-paper-faint)]"
+        >
           {t("startHint")}
         </p>
       </div>
@@ -230,7 +242,7 @@ export function GoalForm({
           max={maxTargetDate()}
           disabled={pending}
           onChange={(event) => setTargetDate(event.target.value)}
-          className="mt-2.5 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-[15px] text-[var(--color-paper)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] focus:outline-none disabled:opacity-60 sm:w-auto"
+          className="mt-2.5 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-[15px] text-[var(--color-paper)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] disabled:opacity-60 sm:w-auto"
         />
       </div>
 

@@ -86,7 +86,7 @@ export function DeferredTasks({ tasks }: { tasks: DeferredTask[] }) {
                   min={todayIsoLocal()}
                   disabled={pending}
                   onChange={(event) => setDate(event.target.value)}
-                  className="rounded-full border border-white/10 bg-black/25 px-3 py-1.5 text-xs text-[var(--color-paper)] focus:outline-none"
+                  className="rounded-full border border-white/10 bg-black/25 px-3 py-1.5 text-xs text-[var(--color-paper)]"
                 />
                 <button
                   type="button"

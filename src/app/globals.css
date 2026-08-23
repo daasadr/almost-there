@@ -273,3 +273,31 @@ html,
 body {
   overflow-x: clip;
 }
+
+/*
+ * Viditelné zaměření.
+ *
+ * Kdo nepoužívá myš — protože nevidí, protože se mu třesou ruce, nebo
+ * protože je zvyklý na klávesnici — potřebuje na první pohled vědět,
+ * kde právě je. Bez toho se po stránce pohybuje poslepu.
+ *
+ * `:focus-visible` schválně, ne `:focus`: prsten se ukáže při ovládání
+ * klávesnicí, ale ne po kliknutí myší, kde by jen rušil.
+ *
+ * Je to celoplošná pojistka. Jednotlivé prvky si vzhled zaměření mohou
+ * přebít, ale nikdy ho nemůžou zrušit úplně — a to je to podstatné,
+ * protože `focus:outline-none` se do kódu vloudí snadno.
+ */
+:focus-visible {
+  outline: 2px solid var(--color-lime-soft);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Vlastní zaškrtávátka a přepínače mají vlastní tvar; prsten se jim
+   přizpůsobí, ať netrčí do stran. */
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline-offset: 1px;
+}

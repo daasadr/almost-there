@@ -37,10 +37,10 @@ const FALLBACK_ZONES = [
 ];
 
 const textareaClass =
-  "mt-2 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-[15px] leading-relaxed text-[var(--color-paper)] transition placeholder:text-[var(--color-paper-faint)] focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] focus:outline-none disabled:opacity-60";
+  "mt-2 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-[15px] leading-relaxed text-[var(--color-paper)] transition placeholder:text-[var(--color-paper-faint)] focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] disabled:opacity-60";
 
 const selectClass =
-  "mt-2 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-[15px] text-[var(--color-paper)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] focus:outline-none disabled:opacity-60 sm:w-auto";
+  "mt-2 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-[15px] text-[var(--color-paper)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] disabled:opacity-60 sm:w-auto";
 
 export function SettingsForm({
   initial,

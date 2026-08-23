@@ -102,7 +102,7 @@ export function DeleteAccount({ email }: { email: string }) {
           disabled={busy}
           autoComplete="off"
           onChange={(event) => setConfirm(event.target.value)}
-          className="mt-2 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-[15px] text-[var(--color-paper)] focus:border-red-400/50 focus:outline-none"
+          className="mt-2 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-[15px] text-[var(--color-paper)] focus:border-red-400/50"
         />
       </label>
 

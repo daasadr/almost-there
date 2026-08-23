@@ -105,7 +105,7 @@ export function DemoExperience() {
           maxLength={MAX_GOAL_LENGTH}
           disabled={loading}
           placeholder={t("form.goalPlaceholder")}
-          className="mt-2.5 w-full resize-none rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-[15px] leading-relaxed text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] focus:outline-none disabled:opacity-60"
+          className="mt-2.5 w-full resize-none rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-[15px] leading-relaxed text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] disabled:opacity-60"
         />
         <p className="mt-2 text-xs text-[var(--color-paper-faint)]">
           {t("form.goalHint")}
@@ -130,7 +130,7 @@ export function DemoExperience() {
             setTargetDate(event.target.value);
             if (error) setError(null);
           }}
-          className="mt-2.5 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-[15px] text-[var(--color-paper)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] focus:outline-none disabled:opacity-60 sm:w-auto"
+          className="mt-2.5 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-[15px] text-[var(--color-paper)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] disabled:opacity-60 sm:w-auto"
         />
         <p className="mt-2 text-xs text-[var(--color-paper-faint)]">
           {t("form.dateHint")}

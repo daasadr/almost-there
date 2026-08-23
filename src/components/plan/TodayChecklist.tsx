@@ -72,7 +72,11 @@ export function TodayChecklist({
 
   return (
     <div>
-      <p className="text-sm text-[var(--color-paper-dim)]">
+      {/* Odškrtnutí ohlásí prohlížeč sám („zaškrtnuto"), ale kolik jich
+          zbývá, se odečítač nedozví — proto se tenhle řádek hlásí při
+          každé změně. Bez toho musí nevidomý po každém úkolu projít
+          seznam znovu, aby zjistil, jak na tom je. */}
+      <p className="text-sm text-[var(--color-paper-dim)]" aria-live="polite">
         {t("progress", { done, total: tasks.length })}
       </p>
 

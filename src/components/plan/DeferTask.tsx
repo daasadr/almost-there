@@ -209,7 +209,7 @@ export function DeferTask({
           maxLength={500}
           placeholder={t("reasonPlaceholder")}
           onChange={(event) => setReason(event.target.value)}
-          className="mt-1.5 w-full rounded-lg border border-white/10 bg-black/25 px-3 py-2 text-sm leading-relaxed text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)] focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] focus:outline-none"
+          className="mt-1.5 w-full rounded-lg border border-white/10 bg-black/25 px-3 py-2 text-sm leading-relaxed text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)] focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)]"
         />
       </label>
 
@@ -229,7 +229,7 @@ export function DeferTask({
           disabled={pending}
           min={tomorrowIso()}
           onChange={(event) => setDate(event.target.value)}
-          className="rounded-full border border-white/10 bg-black/25 px-3 py-1.5 text-xs text-[var(--color-paper)] focus:outline-none"
+          className="rounded-full border border-white/10 bg-black/25 px-3 py-1.5 text-xs text-[var(--color-paper)]"
         />
         <button
           type="button"
