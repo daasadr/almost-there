@@ -18,6 +18,7 @@ import { InstallPrompt } from "@/components/plan/InstallPrompt";
 import { ReachedMilestones } from "@/components/plan/ReachedMilestones";
 import { UnfinishedTasks } from "@/components/plan/UnfinishedTasks";
 import { DeferredTasks } from "@/components/plan/DeferredTasks";
+import { DayRollover } from "@/components/plan/DayRollover";
 import { UsageMeter } from "@/components/plan/UsageMeter";
 import { isAdminEmail } from "@/lib/admin/guard";
 import { getAccess } from "@/lib/billing/access";
@@ -323,6 +324,9 @@ async function Today({
 
   const week = await getWeekProgress(userId, timezone, today.date);
 
+  // Prohlíží si uživatel jiný den? Pak ho na dnešek nepřepínáme.
+  const showingToday = !day || day === todayIso(timezone);
+
   const heading = new Intl.DateTimeFormat(locale, {
     weekday: "long",
     day: "numeric",
@@ -331,6 +335,12 @@ async function Today({
 
   return (
     <section>
+      {/* Appka na ploše nemá tlačítko pro obnovení. Kdo ji nechá otevřenou
+          přes noc, uviděl by ráno včerejšek i s odškrtanými úkoly. */}
+      {showingToday && (
+        <DayRollover renderedDay={today.date} timeZone={timezone} />
+      )}
+
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
         <h2 className="display text-2xl">{t("title")}</h2>
         <span className="text-sm text-[var(--color-paper-faint)]">
