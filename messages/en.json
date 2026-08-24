@@ -402,7 +402,9 @@
       "tokenInvalid": "The link is invalid or has already been used.",
       "tokenExpired": "The link has expired.",
       "rateLimited": "Too many attempts. Please try again in a moment.",
-      "generic": "Something went wrong. Please try again."
+      "generic": "Something went wrong. Please try again.",
+      "passwordTooCommon": "This password appears in lists of leaked passwords, so an attacker would try it among the first. Choose another one — ideally a longer phrase you can remember.",
+      "passwordTooPersonal": "The password must not contain your email address or the name of the app. That is the first thing anyone tries."
     }
   },
   "billing": {

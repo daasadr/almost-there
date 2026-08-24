@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { hash } from "bcryptjs";
 import { db } from "@/lib/db";
 import { resetPasswordSchema, type AuthErrorKey } from "@/lib/auth/validation";
+import { findPasswordProblem } from "@/lib/auth/password-strength";
 import { verifyPasswordResetToken } from "@/lib/auth/tokens";
 
 export const runtime = "nodejs";
@@ -34,6 +35,26 @@ export async function POST(request: Request) {
   if (!result.ok) {
     return fail(result.reason === "expired" ? "tokenExpired" : "tokenInvalid", 400);
   }
+
+  /**
+   * Stejná kontrola jako při registraci. Bez ní by stačilo projít
+   * obnovou hesla a nastavit si to, které registrace odmítla —
+   * a rovnou by se tím ověřila i adresa.
+   *
+   * Adresa se bere z databáze, ne z požadavku: uživatel při obnově
+   * posílá jen token a nové heslo.
+   */
+  const owner = await db.user.findUnique({
+    where: { id: result.userId },
+    select: { email: true },
+  });
+
+  const problem = await findPasswordProblem(
+    parsed.data.password,
+    owner?.email ?? "",
+  );
+  if (problem === "tooCommon") return fail("passwordTooCommon", 400);
+  if (problem === "tooPersonal") return fail("passwordTooPersonal", 400);
 
   const passwordHash = await hash(parsed.data.password, BCRYPT_ROUNDS);
 

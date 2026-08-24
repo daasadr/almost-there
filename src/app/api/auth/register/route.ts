@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { hash } from "bcryptjs";
 import { db } from "@/lib/db";
 import { registerSchema, type AuthErrorKey } from "@/lib/auth/validation";
+import { findPasswordProblem } from "@/lib/auth/password-strength";
 import { createVerificationToken } from "@/lib/auth/tokens";
 import { sendEmail } from "@/lib/email/send";
 import { buildVerificationEmail } from "@/lib/email/templates";
@@ -56,6 +57,15 @@ export async function POST(request: Request) {
   }
 
   const { name, email, password } = parsed.data;
+
+  /**
+   * Heslo, které už někde uniklo, projde na délku, ale útočníkovi ho
+   * stačí opsat ze seznamu. Kontroluje se až tady, na serveru: potřebuje
+   * to síť a nemá cenu s tím zdržovat psaní ve formuláři.
+   */
+  const problem = await findPasswordProblem(password, email);
+  if (problem === "tooCommon") return fail("passwordTooCommon", 400);
+  if (problem === "tooPersonal") return fail("passwordTooPersonal", 400);
 
   // Registrace vytváří účet a posílá e-mail — obojí stojí zdroje,
   // takže strop na IP proti automatizovanému zakládání účtů.

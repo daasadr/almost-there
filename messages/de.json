@@ -402,7 +402,9 @@
       "tokenInvalid": "Der Link ist ungültig oder wurde bereits verwendet.",
       "tokenExpired": "Der Link ist abgelaufen.",
       "rateLimited": "Zu viele Versuche. Bitte versuch es gleich noch einmal.",
-      "generic": "Etwas ist schiefgelaufen. Bitte versuch es erneut."
+      "generic": "Etwas ist schiefgelaufen. Bitte versuch es erneut.",
+      "passwordTooCommon": "Dieses Passwort steht in Listen geleakter Passwörter, ein Angreifer würde es als eines der ersten versuchen. Wähle ein anderes — am besten eine längere Phrase, die du dir merken kannst.",
+      "passwordTooPersonal": "Das Passwort darf weder deine E-Mail-Adresse noch den Namen der App enthalten. Das ist das Erste, was jemand ausprobiert."
     }
   },
   "billing": {

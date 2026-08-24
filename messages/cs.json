@@ -402,7 +402,9 @@
       "tokenInvalid": "Odkaz je neplatný nebo už byl použitý.",
       "tokenExpired": "Odkazu vypršela platnost.",
       "rateLimited": "Příliš mnoho pokusů. Zkus to prosím za chvíli.",
-      "generic": "Něco se pokazilo. Zkus to prosím znovu."
+      "generic": "Něco se pokazilo. Zkus to prosím znovu.",
+      "passwordTooCommon": "Tohle heslo se objevuje v seznamech uniklých hesel, takže ho útočník zkusí mezi prvními. Zvol jiné — nejlépe delší frázi, kterou si zapamatuješ.",
+      "passwordTooPersonal": "Heslo nesmí obsahovat tvoji e-mailovou adresu ani název aplikace. To je první, co se zkouší."
     }
   },
   "billing": {

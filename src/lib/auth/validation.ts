@@ -64,6 +64,8 @@ export type AuthErrorKey =
   | "emailInvalid"
   | "emailTaken"
   | "passwordTooShort"
+  | "passwordTooCommon"
+  | "passwordTooPersonal"
   | "consentRequired"
   | "invalidCredentials"
   | "emailNotVerified"
