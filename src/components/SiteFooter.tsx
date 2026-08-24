@@ -84,6 +84,21 @@ export function SiteFooter() {
             © {year} AlmostThere. {t("rights")}
           </p>
 
+          {/* Kdo za aplikací stojí. Obyčejný odkaz, ne interní Link —
+              vede na jinou doménu, kterou next-intl nezná. */}
+          <p>
+            {t.rich("madeBy", {
+              link: (chunks) => (
+                <a
+                  href="https://annlibertas.eu"
+                  className="underline underline-offset-4 transition hover:text-[var(--color-paper-dim)]"
+                >
+                  {chunks}
+                </a>
+              ),
+            })}
+          </p>
+
           {/* Na mobilu je tohle jediné místo, kde se dá přepnout jazyk —
               v hlavičce by přepínač vytlačil přihlášení. */}
           <span className="sm:hidden">

@@ -146,7 +146,8 @@
     "madeWith": "Planen ist eine Fähigkeit. Wir liefern nur das Gerüst.",
     "deletion": "Konto löschen",
     "install": "Aufs Handy",
-    "guide": "Anleitung"
+    "guide": "Anleitung",
+    "madeBy": "Gebaut von <link>Dagmar Drbálková — AnnLibertas</link>"
   },
   "demo": {
     "badge": "Demo",

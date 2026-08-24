@@ -146,7 +146,8 @@
     "madeWith": "Planning is a skill. We just gave you the scaffolding.",
     "deletion": "Deleting your account",
     "install": "Get the app",
-    "guide": "User guide"
+    "guide": "User guide",
+    "madeBy": "Built by <link>Dagmar Drbálková — AnnLibertas</link>"
   },
   "demo": {
     "badge": "Demo",
