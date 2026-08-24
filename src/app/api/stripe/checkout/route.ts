@@ -157,6 +157,18 @@ export async function POST(request: Request) {
       managed_payments: { enabled: true },
       line_items: [{ price: stripePriceId(period), quantity: 1 }],
 
+      /**
+       * Políčko na slevový kód u pokladny.
+       *
+       * Bez tohohle se u pokladny nezobrazí vůbec — a kód vydaný
+       * v katalogu nebo v článku by neměl kam zadat. Samotné kódy se
+       * zakládají ve Stripu, kód se sem nepíše; tohle jen otevírá dveře.
+       *
+       * Zapnuté trvale: nabídka bez kódů nic nestojí, ale kód bez
+       * políčka je slib, který se nedá splnit.
+       */
+      allow_promotion_codes: true,
+
       // Zákazníka párujeme přes uložené ID, jinak přes e-mail. Bez toho by
       // každá platba založila ve Stripu nového zákazníka.
       ...(user.stripeCustomerId
