@@ -301,3 +301,33 @@ select:focus-visible,
 textarea:focus-visible {
   outline-offset: 1px;
 }
+
+/*
+ * Hrany displeje.
+ *
+ * Od Androidu 15 se aplikace kreslí přes celou obrazovku, tedy i pod
+ * stavovou lištu a pod ovládací pruh dole. iPhone má výřez odjakživa.
+ * V obou případech by obsah zalezl pod systémové prvky a horní řádek
+ * hlavičky by byl napůl schovaný.
+ *
+ * Řeší se to odsazením, ne zmenšením plochy: pozadí sahá až k hraně —
+ * tak to má vypadat — ale text a tlačítka zůstanou pod lištou.
+ *
+ * `env(safe-area-inset-*)` vrací nulu všude, kde žádný výřez není,
+ * takže na počítači ani na starším telefonu se nic nemění.
+ */
+body {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* Přilepená hlavička si odsazení řeší sama — pozadí musí zůstat i pod
+   stavovou lištou, jinak by při posouvání prosvítal obsah. */
+body > header {
+  padding-top: env(safe-area-inset-top);
+}
+
+/* Poslední řádek patičky nesmí skončit pod ovládacím pruhem telefonu. */
+body > footer {
+  padding-bottom: env(safe-area-inset-bottom);
+}

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
@@ -101,10 +101,24 @@ export async function generateMetadata({
       title: "AlmostThere",
       statusBarStyle: "black-translucent",
     },
-    // Barva panelu prohlížeče i horní lišty nainstalované appky.
-    other: { "theme-color": "#04100c" },
   };
 }
+
+/**
+ * Chování stránky vůči hranám displeje.
+ *
+ * `viewportFit: "cover"` říká, že obsah smí pod systémové lišty — bez
+ * toho zůstane `env(safe-area-inset-*)` na nule a odsazení v CSS by
+ * nemělo z čeho počítat.
+ *
+ * Od Androidu 15 se aplikace kreslí přes celý displej samy od sebe
+ * a iPhone má výřez odjakživa. Obojí řeší tytéž odsazení v globals.css:
+ * pozadí sahá až k hraně, ale text a tlačítka zůstanou pod lištou.
+ */
+export const viewport: Viewport = {
+  themeColor: "#04100c",
+  viewportFit: "cover",
+};
 
 export default async function LocaleLayout({
   children,
