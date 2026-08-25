@@ -822,6 +822,11 @@
       "schedule": "Auf einen Tag legen",
       "confirm": "Einplanen",
       "cancel": "Zurück"
+    },
+    "earnedRewards": {
+      "title": "{count, plural, one {Heutige Belohnung} other {Heutige Belohnungen}}",
+      "body": "Du hast einen Meilenstein erreicht, also nimm sie dir. Sie bleibt bis zum Ende des Tages hier — nicht um dich zu drängen, sondern damit sie im Alltag nicht untergeht.",
+      "claim": "Erledigt"
     }
   },
   "withdrawal": {

@@ -43,11 +43,23 @@ export function daysInclusive(from: Date, to: Date): number {
  * úkoly na zítřek. `en-CA` je tu jen proto, že formátuje jako YYYY-MM-DD.
  */
 export function todayIso(timeZone = "Europe/Prague"): string {
+  return dateIn(new Date(), timeZone);
+}
+
+/**
+ * Datum, které daný okamžik má v daném pásmu.
+ *
+ * Používá se všude, kde se porovnává časové razítko se dnem uživatele.
+ * Odečítat hodiny ručně by nefungovalo: v Praze je místní půlnoc ve dvě
+ * ráno UTC v zimě a ve dvaadvacet hodin předchozího dne v létě, a to
+ * pásmo si aplikace nevybírá — nastavuje si ho uživatel.
+ */
+export function dateIn(instant: Date, timeZone = "Europe/Prague"): string {
   try {
-    return new Intl.DateTimeFormat("en-CA", { timeZone }).format(new Date());
+    return new Intl.DateTimeFormat("en-CA", { timeZone }).format(instant);
   } catch {
     // Neznámé pásmo z databáze nesmí shodit celou stránku.
-    return new Date().toISOString().slice(0, 10);
+    return instant.toISOString().slice(0, 10);
   }
 }
 

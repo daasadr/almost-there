@@ -16,6 +16,7 @@ import { WeekStrip } from "@/components/plan/WeekStrip";
 import { ClaimDemoGoal } from "@/components/plan/ClaimDemoGoal";
 import { InstallPrompt } from "@/components/plan/InstallPrompt";
 import { ReachedMilestones } from "@/components/plan/ReachedMilestones";
+import { EarnedRewards } from "@/components/plan/EarnedRewards";
 import { UnfinishedTasks } from "@/components/plan/UnfinishedTasks";
 import { DeferredTasks } from "@/components/plan/DeferredTasks";
 import { DayRollover } from "@/components/plan/DayRollover";
@@ -33,7 +34,10 @@ import { getRecentProgress, getWeekProgress } from "@/lib/goals/checkin";
 import { findClaimableDemo } from "@/lib/goals/claim";
 import { cookies, headers } from "next/headers";
 import { isStoreApp } from "@/lib/store-app";
-import { getReachedMilestones } from "@/lib/goals/milestones";
+import {
+  getReachedMilestones,
+  getTodaysRewards,
+} from "@/lib/goals/milestones";
 import { toIsoDate, todayIso } from "@/lib/plan/calendar";
 import { db } from "@/lib/db";
 import Link from "next/link";
@@ -312,13 +316,14 @@ async function Today({
     select: { timezone: true },
   });
   const timezone = profile?.timezone ?? "Europe/Prague";
-  const [today, overdue, deferred, behind, reached, progress] =
+  const [today, overdue, deferred, behind, reached, earned, progress] =
     await Promise.all([
       getToday(userId, timezone, day),
       getOverdue(userId, timezone),
       getDeferred(userId),
       getBehindGoals(userId, timezone),
       getReachedMilestones(userId),
+      getTodaysRewards(userId, timezone),
       getRecentProgress(userId, timezone),
     ]);
 
@@ -373,6 +378,8 @@ async function Today({
       </div>
 
       <div className="mt-5 space-y-4">
+        <EarnedRewards rewards={earned} />
+
         {/* Dosažený milník má přednost před vším ostatním — je to jediná
             dobrá zpráva na stránce a schovat ji pod seznam úkolů by z ní
             udělalo poznámku pod čarou. */}

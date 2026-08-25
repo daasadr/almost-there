@@ -822,6 +822,11 @@
       "schedule": "Naplánovat na den",
       "confirm": "Naplánovat",
       "cancel": "Zpět"
+    },
+    "earnedRewards": {
+      "title": "{count, plural, one {Dnešní odměna} few {Dnešní odměny} other {Dnešní odměny}}",
+      "body": "Došel jsi k milníku, tak si ji vyber. Zůstane tu do konce dne — ne proto, abychom tě honili, ale aby ses na ni v tom shonu nezapomněl.",
+      "claim": "Mám ji"
     }
   },
   "withdrawal": {

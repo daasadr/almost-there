@@ -822,6 +822,11 @@
       "schedule": "Schedule for a day",
       "confirm": "Schedule",
       "cancel": "Back"
+    },
+    "earnedRewards": {
+      "title": "{count, plural, one {Today's reward} other {Today's rewards}}",
+      "body": "You reached a milestone, so take it. It stays here until the end of the day — not to nag you, but so it does not get lost in everything else.",
+      "claim": "Got it"
     }
   },
   "withdrawal": {

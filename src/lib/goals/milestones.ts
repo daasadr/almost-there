@@ -5,6 +5,7 @@ import { callStructured } from "@/lib/ai/call";
 import { recordUsage } from "@/lib/ai/usage";
 import { env } from "@/lib/env";
 import { localeAiNames, type Locale } from "@/i18n/routing";
+import { dateIn, todayIso } from "@/lib/plan/calendar";
 
 /**
  * Milníky a odměny (zadání, bod 6).
@@ -248,4 +249,52 @@ export async function suggestRewards(goalId: string): Promise<number> {
   );
 
   return assignments.length;
+}
+
+/**
+ * Odměny získané dnes, které si uživatel ještě nedopřál.
+ *
+ * Když se milník potvrdí, zmizí ze seznamu i s textem odměny — a s ním
+ * i to jediné, co člověku připomíná, že si má něco dopřát. Odměnu si
+ * málokdo vezme hned ráno; přečte si ji, řekne si „až večer" a do večera
+ * na ni zapomene.
+ *
+ * Proto zůstane na dnešku viset, dokud si ji uživatel neodškrtne — nebo
+ * dokud den neskončí. Na detailu cíle je pak pořád k dohledání, tohle je
+ * připomínka, ne jediné místo.
+ *
+ * Den se počítá v pásmu uživatele, ne serveru. Vybere se poslední dva dny
+ * a rozhodne se až porovnáním data — místní půlnoc padá v UTC pokaždé
+ * jinam podle ročního období.
+ */
+export async function getTodaysRewards(userId: string, timezone: string) {
+  const since = new Date(Date.now() - 2 * 86_400_000);
+
+  const recent = await db.milestone.findMany({
+    where: {
+      goal: { userId, status: "ACTIVE" },
+      achievedAt: { gte: since },
+      rewardClaimed: false,
+      rewardText: { not: null },
+    },
+    orderBy: { achievedAt: "desc" },
+    select: {
+      id: true,
+      title: true,
+      rewardText: true,
+      achievedAt: true,
+      goal: { select: { title: true, color: true } },
+    },
+  });
+
+  const today = todayIso(timezone);
+
+  return recent
+    .filter((m) => m.achievedAt && dateIn(m.achievedAt, timezone) === today)
+    .map(({ goal, achievedAt: _achievedAt, ...milestone }) => ({
+      ...milestone,
+      rewardText: milestone.rewardText ?? "",
+      goalTitle: goal.title,
+      goalColor: goal.color,
+    }));
 }
