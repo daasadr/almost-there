@@ -456,7 +456,9 @@
       "goals": "Goals",
       "newGoal": "New goal",
       "settings": "How to plan",
-      "guide": "Guide"
+      "guide": "Guide",
+      "account": "My account",
+      "sections": "App sections"
     },
     "today": {
       "title": "Today",

@@ -456,7 +456,9 @@
       "goals": "Ziele",
       "newGoal": "Neues Ziel",
       "settings": "Wie geplant wird",
-      "guide": "Anleitung"
+      "guide": "Anleitung",
+      "account": "Mein Konto",
+      "sections": "App-Bereiche"
     },
     "today": {
       "title": "Heute",

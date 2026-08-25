@@ -456,7 +456,9 @@
       "goals": "Cíle",
       "newGoal": "Nový cíl",
       "settings": "Jak plánovat",
-      "guide": "Návod"
+      "guide": "Návod",
+      "account": "Můj účet",
+      "sections": "Části aplikace"
     },
     "today": {
       "title": "Dnešek",

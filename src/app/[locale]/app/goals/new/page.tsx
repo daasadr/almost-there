@@ -51,7 +51,7 @@ export default async function NewGoalPage({
   return (
     <section className="mx-auto max-w-2xl px-5 py-16 sm:px-8 sm:py-24">
       <Link
-        href={`/${locale}/app`}
+        href={`/${locale}/app/goals`}
         className="text-sm text-[var(--color-paper-faint)] hover:text-[var(--color-paper)]"
       >
         ← {t("cancel")}

@@ -2,12 +2,9 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
-import { SignOutButton } from "@/components/auth/SignOutButton";
 import { Paywall } from "@/components/billing/Paywall";
 import { CheckoutPending } from "@/components/billing/CheckoutPending";
-import { CancelSubscription } from "@/components/billing/CancelSubscription";
 import { BudgetNotice } from "@/components/plan/BudgetNotice";
-import { GoalList } from "@/components/plan/GoalList";
 import { PlanTrigger } from "@/components/plan/PlanTrigger";
 import { TodayChecklist } from "@/components/plan/TodayChecklist";
 import { PaceCheck } from "@/components/plan/PaceCheck";
@@ -15,20 +12,14 @@ import { ProgressStrip } from "@/components/plan/ProgressStrip";
 import { WeekStrip } from "@/components/plan/WeekStrip";
 import { ClaimDemoGoal } from "@/components/plan/ClaimDemoGoal";
 import { InstallPrompt } from "@/components/plan/InstallPrompt";
+import { AppNav } from "@/components/plan/AppNav";
 import { ReachedMilestones } from "@/components/plan/ReachedMilestones";
 import { EarnedRewards } from "@/components/plan/EarnedRewards";
 import { UnfinishedTasks } from "@/components/plan/UnfinishedTasks";
 import { DeferredTasks } from "@/components/plan/DeferredTasks";
 import { DayRollover } from "@/components/plan/DayRollover";
-import { UsageMeter } from "@/components/plan/UsageMeter";
-import { isAdminEmail } from "@/lib/admin/guard";
 import { getAccess } from "@/lib/billing/access";
-import {
-  getDeferred,
-  getOverdue,
-  getToday,
-  listGoals,
-} from "@/lib/goals/queries";
+import { getDeferred, getOverdue, getToday } from "@/lib/goals/queries";
 import { getBehindGoals } from "@/lib/goals/pace";
 import { getRecentProgress, getWeekProgress } from "@/lib/goals/checkin";
 import { findClaimableDemo } from "@/lib/goals/claim";
@@ -117,8 +108,10 @@ export default async function AppPage({
   const billing = account;
 
   return (
-    <section className="mx-auto max-w-3xl px-5 py-16 sm:px-8 sm:py-24">
-      <h1 className="display text-3xl sm:text-4xl">
+    <section className="mx-auto max-w-3xl px-5 py-10 sm:px-8 sm:py-14">
+      <AppNav />
+
+      <h1 className="display mt-8 text-3xl sm:text-4xl">
         {t("welcome", { name: session.user.name ?? session.user.email ?? "" })}
       </h1>
 
@@ -186,80 +179,9 @@ export default async function AppPage({
               jinak se nevykreslí vůbec. */}
           <InstallPrompt />
           <Today userId={session.user.id} locale={locale} day={selectedDay} />
-          <Goals userId={session.user.id} locale={locale} />
         </div>
       )}
 
-      <div className="card mt-10 p-6 sm:p-8">
-        <h2 className="display text-lg">{t("accountTitle")}</h2>
-
-        <dl className="mt-5 grid gap-4 text-sm sm:grid-cols-2">
-          <div>
-            <dt className="text-[var(--color-paper-faint)]">
-              {t("accountEmail")}
-            </dt>
-            <dd className="mt-1 text-[var(--color-paper)]">
-              {session.user.email}
-            </dd>
-          </div>
-          <div>
-            <dt className="text-[var(--color-paper-faint)]">
-              {t("accountPlan")}
-            </dt>
-            <dd className="mt-1 text-[var(--color-paper)]">
-              {t(`plan.${status}`)}
-            </dd>
-          </div>
-        </dl>
-
-        {hasAccess && (
-          <div className="mt-7 border-t border-white/5 pt-6 text-sm">
-            <UsageMeter userId={session.user.id} locale={locale} />
-          </div>
-        )}
-
-        {/* Zrušit předplatné musí jít z aplikace, ne jen ve Stripu.
-            U přiděleného přístupu není co vypovídat. */}
-        {billing?.stripeSubscriptionId && (
-          <div className="mt-7 border-t border-white/5 pt-6">
-            <CancelSubscription
-              endsAt={billing.subscriptionEndsAt?.toISOString() ?? null}
-              cancelAtPeriodEnd={billing.subscriptionCancelAtPeriodEnd}
-            />
-          </div>
-        )}
-      </div>
-
-      <div className="mt-8 flex flex-wrap items-center gap-6">
-        <SignOutButton label={t("signOut")} />
-
-        <Link
-          href={`/${locale}/app/settings`}
-          className="text-sm text-[var(--color-paper-faint)] hover:text-[var(--color-paper)]"
-        >
-          {tPlan("settings")}
-        </Link>
-
-        {/* Návod patří i sem, ne jen do patičky webu. Kdo si něčím není
-            jistý, hledá pomoc v aplikaci, ne na úvodní stránce. */}
-        <Link
-          href={`/${locale}/guide`}
-          className="text-sm text-[var(--color-paper-faint)] hover:text-[var(--color-paper)]"
-        >
-          {tPlan("guide")}
-        </Link>
-
-        {/* Odkaz vidí jen správce. Stránka si oprávnění stejně ověřuje
-            sama — tohle je pohodlí, ne ochrana. */}
-        {isAdminEmail(session.user.email) && (
-          <Link
-            href={`/${locale}/admin`}
-            className="text-sm text-[var(--color-paper-faint)] hover:text-[var(--color-paper)]"
-          >
-            Správa uživatelů
-          </Link>
-        )}
-      </div>
     </section>
   );
 }
@@ -453,27 +375,3 @@ function daySeed(isoDate: string): number {
   return Math.floor(Date.parse(`${isoDate}T00:00:00Z`) / 86_400_000);
 }
 
-async function Goals({ userId, locale }: { userId: string; locale: string }) {
-  const t = await getTranslations({ locale, namespace: "plan.goals" });
-  const goals = await listGoals(userId);
-
-  return (
-    <section>
-      <div className="flex flex-wrap items-baseline justify-between gap-4">
-        <h2 className="display text-2xl">{t("title")}</h2>
-        {goals.length > 0 && (
-          <Link
-            href={`/${locale}/app/goals/new`}
-            className="text-sm font-medium text-[var(--color-lime-soft)] hover:underline"
-          >
-            {t("create")}
-          </Link>
-        )}
-      </div>
-
-      <div className="mt-5">
-        <GoalList goals={goals} locale={locale} />
-      </div>
-    </section>
-  );
-}

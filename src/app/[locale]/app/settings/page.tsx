@@ -3,6 +3,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { auth } from "@/auth";
+import { AppNav } from "@/components/plan/AppNav";
 import { SettingsForm } from "@/components/plan/SettingsForm";
 import { DailyReminder } from "@/components/native/DailyReminder";
 import { DeleteAccount } from "@/components/account/DeleteAccount";
@@ -52,13 +53,17 @@ export default async function SettingsPage({
   const t = await getTranslations({ locale, namespace: "plan.settings" });
 
   return (
-    <section className="mx-auto max-w-2xl px-5 py-16 sm:px-8 sm:py-24">
-      <Link
-        href={backToGoal ? `/${locale}/app/goals/new` : `/${locale}/app`}
-        className="text-sm text-[var(--color-paper-faint)] hover:text-[var(--color-paper)]"
-      >
-        ← {backToGoal ? t("backToGoal") : t("back")}
-      </Link>
+    <section className="mx-auto max-w-2xl px-5 py-10 sm:px-8 sm:py-14">
+      <AppNav />
+
+      {backToGoal && (
+        <Link
+          href={`/${locale}/app/goals/new`}
+          className="mt-6 inline-block text-sm text-[var(--color-paper-faint)] hover:text-[var(--color-paper)]"
+        >
+          ← {t("backToGoal")}
+        </Link>
+      )}
 
       <h1 className="display mt-6 text-3xl sm:text-4xl">{t("title")}</h1>
       <p className="mt-3 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
