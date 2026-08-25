@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useFormatter, useTranslations } from "next-intl";
 import { goalHex } from "@/lib/plan/colors";
 
 export type ReachedMilestone = {
@@ -12,6 +12,8 @@ export type ReachedMilestone = {
   summary: string | null;
   goalTitle: string;
   goalColor: string;
+  /** Den, ke kterému milník patřil. */
+  targetDate: string;
 };
 
 /**
@@ -27,6 +29,7 @@ export function ReachedMilestones({
   milestones: ReachedMilestone[];
 }) {
   const t = useTranslations("plan.milestones");
+  const format = useFormatter();
   const router = useRouter();
 
   const [handled, setHandled] = useState<Set<string>>(new Set());
@@ -65,12 +68,21 @@ export function ReachedMilestones({
             style={{ borderLeftColor: color }}
             className="rounded-2xl border border-l-[3px] border-white/10 bg-white/[0.02] p-5 sm:p-6"
           >
-            <p
-              style={{ color }}
-              className="text-xs font-semibold uppercase tracking-wider"
-            >
-              {milestone.goalTitle}
-            </p>
+            <div className="flex items-baseline justify-between gap-4">
+              <p
+                style={{ color }}
+                className="text-xs font-semibold uppercase tracking-wider"
+              >
+                {milestone.goalTitle}
+              </p>
+              <p className="shrink-0 text-xs text-[var(--color-paper-faint)]">
+                {format.dateTime(new Date(milestone.targetDate), {
+                  day: "numeric",
+                  month: "numeric",
+                  year: "numeric",
+                })}
+              </p>
+            </div>
 
             <h2 className="display mt-2 text-lg">{t("reachedTitle")}</h2>
             <p className="mt-1.5 text-[15px] leading-relaxed text-[var(--color-paper)]">

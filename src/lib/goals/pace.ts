@@ -70,7 +70,7 @@ export async function getPaceStatus(
 ): Promise<PaceStatus | null> {
   const goal = await db.goal.findUnique({
     where: { id: goalId },
-    select: { id: true, targetDate: true, status: true },
+    select: { id: true, targetDate: true, status: true, createdAt: true },
   });
   if (!goal || goal.status !== "ACTIVE") return null;
 
@@ -118,11 +118,41 @@ export async function getPaceStatus(
   // Vynechaný den = den, ve kterém nebylo hotové všechno. Vědomě
   // odložený úkol se počítá taky: práce se neudělala, ať už kvůli
   // čemukoliv, a termín to posouvá stejně.
-  const missedDays = pastDays.filter(
+  const missedWithTasks = pastDays.filter(
     (day) =>
       day.tasks.length > 0 &&
       day.tasks.some((task) => task.status !== "DONE"),
   ).length;
+
+  /**
+   * Dny, na které se plán vůbec nedostal.
+   *
+   * Denní úkoly se rozepisují po obdobích a jen tehdy, když uživatel
+   * aplikaci otevře. Kdo se dva týdny neozval, nemá na ty dny žádné
+   * úkoly — a den bez úkolů se do počítadla výš nezapočítá. Aplikace
+   * pak zrovna u toho, kdo úplně zmizel, tvrdila, že se nic neděje,
+   * a nabídku „dohnat, nebo posunout termín" neukázala vůbec.
+   *
+   * Takový den je ale vynechaný nejvíc ze všech: neudělalo se nic
+   * a plán o tom ani neví. Počítají se proto dny v okně, ke kterým
+   * žádný denní blok neexistuje.
+   *
+   * Okno začíná nejpozději založením cíle — dny před ním nikomu
+   * chybět nemohly.
+   */
+  const planned = new Set(pastDays.map((day) => toIsoDate(day.startDate)));
+  const from = goal.createdAt > windowStart ? goal.createdAt : windowStart;
+
+  let missedWithoutPlan = 0;
+  for (
+    let day = new Date(Math.max(from.getTime(), windowStart.getTime()));
+    day < today;
+    day = new Date(day.getTime() + 86_400_000)
+  ) {
+    if (!planned.has(toIsoDate(day))) missedWithoutPlan += 1;
+  }
+
+  const missedDays = missedWithTasks + missedWithoutPlan;
 
   // Úspěšnost se počítá z celé historie cíle, ne jen z okna — pár
   // špatných dnů po dobrém měsíci nemá znamenat, že se termín zdvojnásobí.

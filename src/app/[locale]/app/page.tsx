@@ -387,6 +387,7 @@ async function Today({
           milestones={reached.map((milestone) => ({
             id: milestone.id,
             title: milestone.title,
+            targetDate: milestone.targetDate.toISOString(),
             rewardText: milestone.rewardText,
             summary: milestone.timeBlock?.summary ?? null,
             goalTitle: milestone.goal.title,

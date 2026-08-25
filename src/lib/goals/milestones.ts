@@ -113,6 +113,7 @@ export async function getReachedMilestones(userId: string) {
     select: {
       id: true,
       title: true,
+      targetDate: true,
       rewardText: true,
       goal: { select: { id: true, title: true, color: true } },
       timeBlock: { select: { summary: true } },

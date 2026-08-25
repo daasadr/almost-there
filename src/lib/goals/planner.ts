@@ -407,7 +407,81 @@ export async function ensureCurrentPlan(
     block = currentBlock(children, today);
   }
 
+  /**
+   * Dny na příští období dopředu.
+   *
+   * Dny vznikaly jen pro období, ve kterém je dnešek, a jen ve chvíli, kdy
+   * uživatel aplikaci otevřel. Kdo se týden neozval, měl v plánu díru:
+   * dny existovaly do konce rozepsaného týdne a pak nic, dokud se
+   * nepřihlásil. A dny bez úkolů se nepočítají jako vynechané, takže
+   * aplikace zrovna u toho, kdo zmizel, tvrdila, že se nic neděje.
+   *
+   * Rozepsat období dopředu stojí jedno volání a pár desetin koruny —
+   * a je to práce, kterou bychom stejně udělali o týden později.
+   */
+  await ensureNextPeriod(goalId, goal.userId, context, today, progress, maxCalls);
+
   return progress;
+}
+
+/** Rozepíše nejbližší celé období, které leží za tím dnešním. */
+async function ensureNextPeriod(
+  goalId: string,
+  userId: string,
+  context: GoalContext,
+  today: Date,
+  progress: PlanProgress,
+  maxCalls: number,
+): Promise<void> {
+  if (progress.calls >= maxCalls) {
+    progress.done = false;
+    return;
+  }
+
+  // Nejnižší úroveň nad dny — období, které se na dny rozpadá.
+  const parents = await db.timeBlock.findMany({
+    where: { goalId, endDate: { gt: today } },
+    orderBy: { startDate: "asc" },
+    select: {
+      ...blockSelect,
+      parentBlockId: true,
+      _count: { select: { children: true } },
+    },
+  });
+
+  const next = parents.find(
+    (candidate) =>
+      candidate.startDate > today &&
+      candidate._count.children === 0 &&
+      childUnit(candidate.level as Unit) !== null,
+  );
+  if (!next) return;
+
+  const unit = childUnit(next.level as Unit)!;
+  const ranges = splitRange(next.startDate, next.endDate, unit);
+  if (ranges.length === 0) return;
+
+  await assertWithinBudget(userId);
+
+  const parentSiblings = await db.timeBlock.findMany({
+    where: { goalId, parentBlockId: next.parentBlockId },
+    orderBy: { position: "asc" },
+    select: blockSelect,
+  });
+
+  const budget = await minutesForGoal(userId, goalId, 0);
+
+  await generateChildren({
+    goalId,
+    userId,
+    context,
+    parent: next,
+    parentSiblings,
+    childUnit: unit,
+    ranges,
+    otherGoalMinutes: budget.others,
+  });
+  progress.calls += 1;
 }
 
 const blockSelect = {
