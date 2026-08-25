@@ -103,6 +103,7 @@ export const guideByLocale: Record<Locale, GuideDocument> = {
           "Vybíráš vždycky ty. Aplikace ti termín sama neposune a nabídku po odmítnutí týden nezopakuje.",
           "Nedodělky z posledních sedmi dnů se ukazují nad dnešním seznamem. Můžeš je dodatečně odškrtnout, odložit na jindy, nebo je nechat být — někdy je to správná odpověď.",
           "Jedna praktická rada: přeplánovávej spíš ráno než večer. Nový plán musí začít dneškem, takže dnešní úkoly nahradí novými — a co sis dnes už odškrtal, zmizí s nimi. Odškrtané dny z minulosti ani celkovou úspěšnost přeplánování nemaže, ta zůstává celá.",
+          "Ještě jedna věc, se kterou je dobré počítat: denní úkoly se rozepisují na aktuální období a na to nejbližší další, takže nepřítomnost do zhruba dvou týdnů plán pokryje — na nemoc nebo dovolenou to stačí. Když se ale neozveš déle, dny mezitím zůstanou bez úkolů a plán naváže až tvým příchodem. Do vyhodnocení tempa se ty prázdné dny počítají jako vynechané, takže se po návratu dozvíš, že jsi ve skluzu, a můžeš si termín přepočítat.",
         ],
       },
       {
@@ -225,6 +226,7 @@ export const guideByLocale: Record<Locale, GuideDocument> = {
           "You always choose. The app never moves your deadline on its own, and if you decline, it does not ask again for a week.",
           "Unfinished tasks from the last seven days appear above today's list. You can tick them off late, postpone them, or let them go — sometimes that is the right answer.",
           "One practical tip: replan in the morning rather than in the evening. The new plan has to start today, so today's tasks are replaced by new ones — and anything you have already ticked off today goes with them. Ticked days from the past and your overall completion rate are never touched.",
+          "One more thing worth knowing: daily tasks are written out for the current period and the next one, so an absence of up to about two weeks is covered — enough for illness or a holiday. If you stay away longer, the days in between are left without tasks and the plan picks up when you return. Those empty days count as missed when your pace is judged, so on your return the app will tell you that you have slipped and offer to recalculate the deadline.",
         ],
       },
       {
@@ -347,6 +349,7 @@ export const guideByLocale: Record<Locale, GuideDocument> = {
           "Du entscheidest immer. Die App verschiebt deinen Termin nie von selbst, und wenn du ablehnst, fragt sie eine Woche lang nicht wieder.",
           "Unerledigtes aus den letzten sieben Tagen erscheint über der heutigen Liste. Du kannst es nachträglich abhaken, verschieben oder ziehen lassen — manchmal ist das die richtige Antwort.",
           "Ein praktischer Hinweis: Plane lieber morgens um als abends. Der neue Plan muss heute beginnen, also werden die heutigen Aufgaben durch neue ersetzt — und was du heute schon abgehakt hast, verschwindet mit ihnen. Abgehakte Tage aus der Vergangenheit und deine Gesamtquote bleiben unangetastet.",
+          "Noch eine Sache, mit der du rechnen solltest: Tagesaufgaben werden für den laufenden und den nächsten Zeitraum geschrieben, eine Abwesenheit von etwa zwei Wochen ist also abgedeckt — für Krankheit oder Urlaub reicht das. Bleibst du länger weg, bleiben die Tage dazwischen ohne Aufgaben und der Plan setzt bei deiner Rückkehr wieder an. Diese leeren Tage zählen bei der Tempobewertung als ausgelassen, du erfährst also nach der Rückkehr, dass du in Rückstand bist, und kannst den Termin neu berechnen lassen.",
         ],
       },
       {
