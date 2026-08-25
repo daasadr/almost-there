@@ -37,6 +37,15 @@ const importanceLevels = [1, 2, 3, 4, 5] as const;
 const DRAFT_KEY = "almostthere:goalDraft";
 
 export function GoalForm({
+  /**
+   * Barvy, které už mají běžící cíle, a názvy těch cílů.
+   *
+   * Nezakazují se — když někdo chce dva zelené cíle, je to jeho věc.
+   * Ale u pěti souběžných cílů si nikdo nepamatuje, která barva je
+   * volná, a náhodná shoda pak maří to jediné, k čemu barvy jsou:
+   * poznat v denním seznamu na první pohled, co ke komu patří.
+   */
+  usedColors = {},
   planning,
 }: {
   /**
@@ -49,6 +58,8 @@ export function GoalForm({
     restFrequency: string;
     reflectionMinutesDay: number;
   };
+  /** Barva → název cíle, který ji už používá. */
+  usedColors?: Record<string, string>;
 }) {
   const t = useTranslations("plan.form");
   const tError = useTranslations("plan.errors");
@@ -62,6 +73,16 @@ export function GoalForm({
   const [targetDate, setTargetDate] = useState(defaultTargetDate());
   const [importance, setImportance] = useState(3);
   const [color, setColor] = useState<GoalColor>("lime");
+  /**
+   * Obrázky vybrané ještě před založením cíle.
+   *
+   * Nahrát je dřív nejde — patří k cíli a ten zatím neexistuje. Drží se
+   * proto v paměti prohlížeče a odešlou se hned, jak cíl vznikne.
+   * Uživatel je hledá tady, protože sem patří celé zadání; že je server
+   * potřebuje až o krok později, není jeho starost.
+   */
+  const [images, setImages] = useState<File[]>([]);
+
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -140,6 +161,29 @@ export function GoalForm({
         setError(planErrorKey(data.error));
         setPending(false);
         return;
+      }
+
+      /**
+       * Obrázky až teď, když je cíl na světě a má id.
+       *
+       * Postupně, ne najednou: každý se na serveru překóduje a paralelní
+       * nahrání pěti fotek z telefonu by zbytečně zatížilo malý server.
+       *
+       * Selhání se schválně neřeší chybou. Cíl je založený, plán se
+       * rozjíždí — shodit celé zakládání kvůli obrázku by bylo horší než
+       * ten obrázek postrádat. Přidat se dá kdykoliv na detailu cíle.
+       */
+      for (const file of images) {
+        const upload = new FormData();
+        upload.append("file", file);
+        try {
+          await fetch(`/api/goals/${data.goalId}/images`, {
+            method: "POST",
+            body: upload,
+          });
+        } catch {
+          // Viz komentář výš.
+        }
       }
 
       // Cíl je založený, rozdělané zadání už není k čemu.
@@ -282,7 +326,8 @@ export function GoalForm({
         </div>
       </fieldset>
 
-      {/* Barva odliší úkoly tohohle cíle od ostatních v denním seznamu. */}
+      {/* Barva odliší úkoly tohohle cíle od ostatních v denním seznamu.
+          U už rozebraných je vidět, který cíl je má — viz usedColors. */}
       <fieldset className="mt-6">
         <legend className="block text-sm font-medium">{t("colorLabel")}</legend>
         <p className="mt-1.5 text-xs text-[var(--color-paper-faint)]">
@@ -293,7 +338,11 @@ export function GoalForm({
           {goalColors.map((option) => (
             <label
               key={option}
-              title={t(`color.${option}`)}
+              title={
+                usedColors[option]
+                  ? `${t(`color.${option}`)} — ${t("colorTaken", { goal: usedColors[option] })}`
+                  : t(`color.${option}`)
+              }
               className={`flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border-2 transition ${
                 color === option
                   ? "border-[var(--color-paper)]"
@@ -309,12 +358,20 @@ export function GoalForm({
                 onChange={() => setColor(option)}
                 className="sr-only"
               />
-              <span className="sr-only">{t(`color.${option}`)}</span>
+              <span className="sr-only">
+                {usedColors[option]
+                  ? `${t(`color.${option}`)} — ${t("colorTaken", { goal: usedColors[option] })}`
+                  : t(`color.${option}`)}
+              </span>
               <span
                 aria-hidden="true"
-                className="h-6 w-6 rounded-full"
+                className="relative h-6 w-6 rounded-full"
                 style={{ backgroundColor: goalHex(option) }}
-              />
+              >
+                {usedColors[option] && (
+                  <span className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full border border-[var(--color-ink-950)] bg-[var(--color-paper)]" />
+                )}
+              </span>
             </label>
           ))}
         </div>
@@ -371,6 +428,46 @@ export function GoalForm({
           {t("planningKeepsDraft")}
         </p>
       </section>
+
+      {/* Obrázky, které připomínají, proč to člověk dělá. Jeden z nich
+          se pak ukazuje u denního seznamu. Spravovat jdou i potom na
+          detailu cíle — tam se dají i odebírat. */}
+      <fieldset className="mt-6">
+        <legend className="block text-sm font-medium">
+          {t("imagesLabel")}
+        </legend>
+        <p className="mt-1.5 text-xs leading-relaxed text-[var(--color-paper-faint)]">
+          {t("imagesHint")}
+        </p>
+
+        <input
+          id="goal-images"
+          type="file"
+          accept="image/*"
+          multiple
+          disabled={pending}
+          onChange={(event) =>
+            setImages(Array.from(event.target.files ?? []))
+          }
+          className="sr-only"
+        />
+        <label
+          htmlFor="goal-images"
+          className={`mt-3 inline-block rounded-full border border-white/15 px-4 py-2 text-sm font-medium text-[var(--color-paper)] transition ${
+            pending
+              ? "cursor-not-allowed opacity-50"
+              : "cursor-pointer hover:border-white/30"
+          }`}
+        >
+          {t("imagesChoose")}
+        </label>
+
+        {images.length > 0 && (
+          <p className="mt-2 text-xs text-[var(--color-paper-faint)]">
+            {t("imagesChosen", { count: images.length })}
+          </p>
+        )}
+      </fieldset>
 
       {error && (
         <p

@@ -569,7 +569,12 @@
       "minutesPerDay": "{minutes} minutes a day",
       "startLabel": "Where you are starting from",
       "startPlaceholder": "What you already know, have or have done in this area. „Completely from scratch“ is a fine answer too.",
-      "startHint": "Without this the plan assumes you are starting from zero — and someone already part of the way there gets pointless first steps."
+      "startHint": "Without this the plan assumes you are starting from zero — and someone already part of the way there gets pointless first steps.",
+      "imagesLabel": "Images that pull you towards the goal",
+      "imagesHint": "Anything that reminds you why you are doing this. One of them shows up with your daily checklist — the more you add, the more variety. You can add or remove them later on the goal's own page.",
+      "imagesChoose": "Choose images",
+      "imagesChosen": "{count, plural, one {# image selected} other {# images selected}} — they upload once the goal is created.",
+      "colorTaken": "already used by “{goal}”"
     },
     "detail": {
       "back": "Back to overview",

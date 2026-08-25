@@ -35,6 +35,22 @@ export default async function NewGoalPage({
   if (revoked) redirect(`/${locale}/login`);
   if (!hasAccess) redirect(`/${locale}/app`);
 
+  /**
+   * Barvy rozebrané běžícími cíli. Nezakazují se, jen se u nich ukáže,
+   * kdo je má — u pěti cílů si nikdo nepamatuje, co je volné.
+   */
+  const running = await db.goal.findMany({
+    where: { userId: session.user.id, status: "ACTIVE" },
+    orderBy: { createdAt: "asc" },
+    select: { title: true, color: true },
+  });
+
+  const usedColors: Record<string, string> = {};
+  for (const goal of running) {
+    // První cíl s tou barvou vyhrává — u dalších by se název jen přepsal.
+    usedColors[goal.color] ??= goal.title;
+  }
+
   // Kapacita se ve formuláři jen ukazuje — nastavuje se v předvolbách,
   // ale je to nejsilnější vstup do plánu a nemá být neviditelná.
   const profile = await db.user.findUniqueOrThrow({
@@ -63,7 +79,7 @@ export default async function NewGoalPage({
       </p>
 
       <div className="card mt-8 p-6 sm:p-8">
-        <GoalForm planning={profile} />
+        <GoalForm planning={profile} usedColors={usedColors} />
       </div>
     </section>
   );

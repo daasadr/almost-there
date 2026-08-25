@@ -569,7 +569,12 @@
       "minutesPerDay": "{minutes} minut denně",
       "startLabel": "Odkud začínáš",
       "startPlaceholder": "Co už v téhle věci umíš, máš nebo jsi zvládl. Klidně i „úplně od nuly“.",
-      "startHint": "Bez tohohle plán počítá s tím, že začínáš od začátku — a kdo má půlku cesty za sebou, dostane zbytečně první kroky."
+      "startHint": "Bez tohohle plán počítá s tím, že začínáš od začátku — a kdo má půlku cesty za sebou, dostane zbytečně první kroky.",
+      "imagesLabel": "Obrázky, které tě k cíli táhnou",
+      "imagesHint": "Cokoliv, co ti připomene, proč to děláš. Jeden z nich se pak ukáže u denního seznamu — čím víc jich přidáš, tím větší pestrost. Přidávat i odebírat je můžeš kdykoliv později na detailu cíle.",
+      "imagesChoose": "Vybrat obrázky",
+      "imagesChosen": "{count, plural, one {Vybrán # obrázek} few {Vybrány # obrázky} other {Vybráno # obrázků}} — nahrají se po založení cíle.",
+      "colorTaken": "už používá „{goal}“"
     },
     "detail": {
       "back": "Zpět na přehled",
