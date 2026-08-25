@@ -56,16 +56,14 @@ export default async function GoalsPage({
     <section className="mx-auto max-w-3xl px-5 py-10 sm:px-8 sm:py-14">
       <AppNav />
 
-      <div className="mt-8 flex flex-wrap items-baseline justify-between gap-4">
+      <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
         <h1 className="display text-3xl">{t("title")}</h1>
-        {goals.length > 0 && (
-          <Link
-            href={`/${locale}/app/goals/new`}
-            className="text-sm font-medium text-[var(--color-lime-soft)] hover:underline"
-          >
-            {t("create")}
-          </Link>
-        )}
+        <Link
+          href={`/${locale}/app/goals/new`}
+          className="btn-primary !px-5 !py-2 text-sm"
+        >
+          {t("create")}
+        </Link>
       </div>
 
       <div className="mt-6">
