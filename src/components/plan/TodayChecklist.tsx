@@ -29,10 +29,32 @@ export function TodayChecklist({
   const router = useRouter();
   const [, startTransition] = useTransition();
 
+  /**
+   * Odškrtnutí se ukazuje hned, bez čekání na server.
+   *
+   * Stav se ale plní z vlastností jen při prvním vykreslení, a přepnutí
+   * na jiný den je pro React tatáž komponenta s jinými vlastnostmi —
+   * stav v ní zůstal po předchozím dni. Úkoly otevřeného dne se pak
+   * v seznamu nenašly a vykreslily se jako nesplněné, i když v databázi
+   * splněné byly.
+   *
+   * Samo o sobě by to bylo jen zobrazení, jenže odškrtnutí se řídí právě
+   * tímhle stavem: druhé kliknutí na takový úkol by ho v databázi
+   * skutečně odškrtlo zpátky. Proto se stav při změně seznamu úkolů
+   * srovná podle vlastností — postup doporučený Reactem pro odvození
+   * stavu z vlastností, bez efektu a bez překreslení navíc.
+   */
+  const taskKey = tasks.map((task) => task.id).join(",");
+  const [seenKey, setSeenKey] = useState(taskKey);
   const [statuses, setStatuses] = useState<Record<string, string>>(() =>
     Object.fromEntries(tasks.map((task) => [task.id, task.status])),
   );
   const [failed, setFailed] = useState(false);
+
+  if (seenKey !== taskKey) {
+    setSeenKey(taskKey);
+    setStatuses(Object.fromEntries(tasks.map((task) => [task.id, task.status])));
+  }
 
   const toggle = async (task: TodayTask) => {
     const wasDone = statuses[task.id] === "DONE";
