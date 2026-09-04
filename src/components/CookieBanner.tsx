@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { readStored, writeStored } from "@/lib/safe-storage";
 
 /**
  * Cookie lišta podle GDPR/ePrivacy: analytické cookies jde odmítnout
@@ -17,8 +18,7 @@ const STORAGE_KEY = "almostthere.cookie-consent";
 export type CookieConsent = "all" | "necessary";
 
 export function getCookieConsent(): CookieConsent | null {
-  if (typeof window === "undefined") return null;
-  const value = window.localStorage.getItem(STORAGE_KEY);
+  const value = readStored(STORAGE_KEY);
   return value === "all" || value === "necessary" ? value : null;
 }
 
@@ -33,7 +33,10 @@ export function CookieBanner() {
   }, []);
 
   const decide = (consent: CookieConsent) => {
-    window.localStorage.setItem(STORAGE_KEY, consent);
+    // Když se volba neuloží, lišta se stejně zavře. Zeptáme se sice
+    // příště znovu, ale to je pořád lepší než lišta, kterou nejde odklidit
+    // a která překrývá spodek stránky.
+    writeStored(STORAGE_KEY, consent);
     setVisible(false);
   };
 

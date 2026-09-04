@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { GenerationProgress } from "@/components/demo/GenerationProgress";
 import { planErrorKey } from "@/lib/plan/errors";
+import { removeStored } from "@/lib/safe-storage";
 import { goalColors, goalHex, type GoalColor } from "@/lib/plan/colors";
 import Link from "next/link";
 import {
@@ -186,8 +187,10 @@ export function GoalForm({
         }
       }
 
-      // Cíl je založený, rozdělané zadání už není k čemu.
-      sessionStorage.removeItem(DRAFT_KEY);
+      // Cíl je založený, rozdělané zadání už není k čemu. Přes pojistku:
+      // kdyby tu úložiště vyhodilo výjimku, spadlo by to do `catch` níž
+      // a uživatel by viděl chybu u cíle, který se právě povedlo založit.
+      removeStored(DRAFT_KEY, "session");
 
       // Na detail cíle, kde se dopočítá zbytek rozfázování.
       router.push(`/${locale}/app/goals/${data.goalId}`);

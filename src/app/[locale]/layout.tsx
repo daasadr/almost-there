@@ -197,9 +197,14 @@ export default async function LocaleLayout({
           >
             Skip to content
           </a>
-          <SiteHeader />
-          <main id="main">{children}</main>
-          <SiteFooter />
+          {/* Obal drží pojistku proti vodorovnému posuvníku. Na `html`
+              ani `body` patřit nesmí — viz komentář u `.page-shell`
+              v globals.css. */}
+          <div className="page-shell">
+            <SiteHeader />
+            <main id="main">{children}</main>
+            <SiteFooter />
+          </div>
           <CookieBanner />
           <RevealOnScroll />
           <ServiceWorker />

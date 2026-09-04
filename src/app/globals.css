@@ -48,6 +48,22 @@
     scroll-behavior: smooth;
     /* Pevný offset pro kotvy, ať je nepřekryje sticky hlavička */
     scroll-padding-top: 6rem;
+
+    /*
+     * Řekne prohlížeči, že web je tmavý.
+     *
+     * Netýká se toho, co si kreslíme sami — jde o prvky, které vykresluje
+     * prohlížeč a do kterých CSS nedosáhne: panel kalendáře u data,
+     * rozbalovací nabídka, posuvník, žluté pozadí automaticky vyplněného
+     * pole. Bez tohohle je prohlížeč kreslí ve světlém režimu, takže na
+     * našem podkladu svítí bílé obdélníky a doplněný text je nečitelný.
+     *
+     * V Chrome to bylo vidět míň, protože ikonu kalendáře jsme mu
+     * přebarvovali ručně přes `-webkit-` pseudoprvek. Firefox takový
+     * pseudoprvek nemá a tmavá ikona na tmavém poli v něm zmizela úplně.
+     * Tohle je řešení pro oba a to ruční přebarvování už jen doplňuje.
+     */
+    color-scheme: dark;
   }
 
   body {
@@ -265,12 +281,25 @@
  *
  * Nic se tím neopravuje — když něco přetéká, patří to spravit tam, kde to
  * vzniká. Ale jediné tlačítko o pár pixelů širší než displej rozhýbe celou
- * stránku do stran a vypadá to jako rozbitý web. `clip` na rozdíl od
- * `hidden` nedělá z těla stránky posuvnou oblast, takže přilepená hlavička
- * dál funguje.
+ * stránku do stran a vypadá to jako rozbitý web.
+ *
+ * POZOR na to, kam se to napíše. Původně to bylo na `html, body` a to je
+ * chyba, kterou Chrome odpouští a Firefox ne:
+ *
+ *   1. Když je jedna osa `clip` a druhá `visible`, dopočítá se podle
+ *      specifikace i ta druhá na `clip`. Ze samotného `overflow-x` je
+ *      tak rázem `overflow: clip` na obou osách.
+ *   2. Přetečení z kořenového prvku se přenáší na okno prohlížeče.
+ *
+ * Dohromady to znamená, že se stránka ve Firefoxu nedá vůbec rolovat.
+ * Vypadá správně, ale nejde se na ní hnout — a kdo to hlásí, popíše to
+ * jako „nefungují tlačítka“, protože to tak z druhé strany vypadá.
+ *
+ * Na obyčejném obalu uvnitř `body` k žádnému přenosu nedochází a chová se
+ * to všude stejně. `clip` schválně místo `hidden`: nedělá z obalu posuvnou
+ * oblast, takže přilepená hlavička uvnitř dál funguje.
  */
-html,
-body {
+.page-shell {
   overflow-x: clip;
 }
 

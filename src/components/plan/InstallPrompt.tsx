@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
+import { readStored, writeStored } from "@/lib/safe-storage";
 
 /**
  * Nabídka nainstalovat appku na plochu.
@@ -29,7 +30,7 @@ export function InstallPrompt() {
   const [event, setEvent] = useState<InstallEvent | null>(null);
 
   useEffect(() => {
-    const dismissedAt = Number(localStorage.getItem(DISMISS_KEY) ?? 0);
+    const dismissedAt = Number(readStored(DISMISS_KEY) ?? 0);
     if (Date.now() - dismissedAt < SILENCE_DAYS * 86_400_000) return;
 
     const onPrompt = (browserEvent: Event) => {
@@ -53,7 +54,7 @@ export function InstallPrompt() {
   };
 
   const dismiss = () => {
-    localStorage.setItem(DISMISS_KEY, String(Date.now()));
+    writeStored(DISMISS_KEY, String(Date.now()));
     setEvent(null);
   };
 
