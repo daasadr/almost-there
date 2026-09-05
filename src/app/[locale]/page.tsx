@@ -6,6 +6,7 @@ import { TreeBackground } from "@/components/TreeBackground";
 import { ExampleBreakdown } from "@/components/ExampleBreakdown";
 import { Faq } from "@/components/Faq";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { StoreAppHome } from "@/components/native/StoreAppHome";
 import { localeAlternates } from "@/lib/seo/metadata";
 import {
   faqLd,
@@ -39,6 +40,10 @@ export default async function HomePage({
   return (
     <>
       <StructuredData locale={locale as Locale} />
+      {/* Přihlášeného v aplikaci z obchodu pošle rovnou na dnešek. Web se
+          tím nemění — v prohlížeči má úvodní stránka smysl i pro
+          přihlášeného. */}
+      <StoreAppHome />
       <Hero />
       <HowItWorks />
       <ExampleBreakdown />
