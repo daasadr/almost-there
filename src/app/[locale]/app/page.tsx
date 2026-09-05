@@ -13,6 +13,7 @@ import { WeekStrip } from "@/components/plan/WeekStrip";
 import { ClaimDemoGoal } from "@/components/plan/ClaimDemoGoal";
 import { InstallPrompt } from "@/components/plan/InstallPrompt";
 import { AppNav } from "@/components/plan/AppNav";
+import { GoalDraftNotice } from "@/components/plan/GoalDraftNotice";
 import { ReachedMilestones } from "@/components/plan/ReachedMilestones";
 import { EarnedRewards } from "@/components/plan/EarnedRewards";
 import { UnfinishedTasks } from "@/components/plan/UnfinishedTasks";
@@ -190,6 +191,11 @@ export default async function AppPage({
 
       {/* Vlastní obsah aplikace. Bez předplatného se nenačítá vůbec —
           nemá cenu sahat do databáze pro data, která se nezobrazí. */}
+      {/* Rozepsaný cíl patří nad všechno ostatní — kdo ho má, přišel se
+          k němu nejspíš vrátit. Vykresluje se až v prohlížeči, koncept
+          je uložený u uživatele a server o něm neví. */}
+      {hasAccess && <GoalDraftNotice />}
+
       {hasAccess && (
         <div className="mt-10 space-y-10">
           {/* Hotový plán z dema má přednost před vším ostatním: uživatel

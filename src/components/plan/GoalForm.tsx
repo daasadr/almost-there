@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { GenerationProgress } from "@/components/demo/GenerationProgress";
 import { planErrorKey } from "@/lib/plan/errors";
-import { removeStored } from "@/lib/safe-storage";
+import { readStored, removeStored, writeStored } from "@/lib/safe-storage";
 import { goalColors, goalHex, type GoalColor } from "@/lib/plan/colors";
 import Link from "next/link";
 import {
@@ -86,6 +86,8 @@ export function GoalForm({
 
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  /** Otevřená otázka „hotovo?“ před samotným založením. */
+  const [confirming, setConfirming] = useState(false);
 
   // Dokud se rozdělaný cíl nenačte, nesmí se nic ukládat — jinak by
   // prázdný formulář při prvním vykreslení přepsal to, co se má obnovit.
@@ -93,7 +95,7 @@ export function GoalForm({
 
   useEffect(() => {
     try {
-      const saved = sessionStorage.getItem(DRAFT_KEY);
+      const saved = readStored(DRAFT_KEY);
       if (saved) {
         const draft = JSON.parse(saved);
         if (typeof draft.title === "string") setTitle(draft.title);
@@ -109,26 +111,67 @@ export function GoalForm({
     restored.current = true;
   }, []);
 
+  /**
+   * Rozepsané zadání se drží v `localStorage`, ne v `sessionStorage`.
+   *
+   * Na mobilu je to zásadní rozdíl. Android aplikaci odloženou na pozadí
+   * běžně zruší, aby uvolnil paměť, a po návratu ji spustí znovu —
+   * `sessionStorage` je v tu chvíli prázdné a s ním i všechno, co měl
+   * člověk napsané. Kdo odskočil na zprávu a vrátil se, našel prázdný
+   * formulář.
+   *
+   * `localStorage` restart přežije. Zadání se drží, dokud se cíl nezaloží
+   * nebo dokud ho uživatel sám nezahodí.
+   */
   useEffect(() => {
     if (!restored.current) return;
-    try {
-      sessionStorage.setItem(
-        DRAFT_KEY,
-        JSON.stringify({
-          title,
-          description,
-          startingPoint,
-          targetDate,
-          importance,
-          color,
-        }),
-      );
-    } catch {
-      // Plné nebo zakázané úložiště formulář shodit nesmí.
-    }
+    writeStored(
+      DRAFT_KEY,
+      JSON.stringify({
+        title,
+        description,
+        startingPoint,
+        targetDate,
+        importance,
+        color,
+      }),
+    );
   }, [title, description, startingPoint, targetDate, importance, color]);
 
-  const submit = async (event: React.FormEvent) => {
+  /**
+   * Enter v jednořádkovém poli nesmí odeslat formulář.
+   *
+   * Prohlížeč to dělá sám, když má formulář jediné odesílací tlačítko.
+   * U tohohle formuláře to bylo špatně: člověk psal název cíle, chtěl
+   * odřádkovat — nebo trefil klávesu omylem — a cíl se rovnou založil
+   * i s rozepsaným zbytkem. Založení stojí čas i peníze za rozfázování
+   * a vrátit se nedá.
+   *
+   * V textových polích Enter zůstává, tam odřádkovat opravdu chce.
+   * Tlačítka si Enter obsluhují sama.
+   */
+  const guardEnter = (event: React.KeyboardEvent<HTMLFormElement>) => {
+    if (event.key !== "Enter") return;
+    const tag = (event.target as HTMLElement).tagName;
+    if (tag === "TEXTAREA" || tag === "BUTTON" || tag === "A") return;
+    event.preventDefault();
+  };
+
+  /** Zahodí rozepsané zadání i to, co je uložené. */
+  const discard = () => {
+    if (!window.confirm(t("discardConfirm"))) return;
+    removeStored(DRAFT_KEY);
+    router.push(`/${locale}/app/goals`);
+  };
+
+  /**
+   * Odeslání formuláře cíl ještě nezakládá — jen se zeptá.
+   *
+   * Rozfázování je nevratné a chvíli trvá, takže poslední krok má být
+   * vědomý. Zkontroluje se, co jde zkontrolovat hned, a teprve pak se
+   * ukáže otázka; chybu ve formuláři nemá smysl schovávat za dialog.
+   */
+  const submit = (event: React.FormEvent) => {
     event.preventDefault();
     if (pending) return;
 
@@ -139,6 +182,13 @@ export function GoalForm({
     if (dateError) return setError(dateError);
 
     setError(null);
+    setConfirming(true);
+  };
+
+  const create = async () => {
+    if (pending) return;
+
+    setConfirming(false);
     setPending(true);
 
     try {
@@ -190,7 +240,7 @@ export function GoalForm({
       // Cíl je založený, rozdělané zadání už není k čemu. Přes pojistku:
       // kdyby tu úložiště vyhodilo výjimku, spadlo by to do `catch` níž
       // a uživatel by viděl chybu u cíle, který se právě povedlo založit.
-      removeStored(DRAFT_KEY, "session");
+      removeStored(DRAFT_KEY);
 
       // Na detail cíle, kde se dopočítá zbytek rozfázování.
       router.push(`/${locale}/app/goals/${data.goalId}`);
@@ -201,7 +251,7 @@ export function GoalForm({
   };
 
   return (
-    <form onSubmit={submit} noValidate>
+    <form onSubmit={submit} onKeyDown={guardEnter} noValidate>
       {/* Krátký štítek do seznamů a do denního checklistu. */}
       <div>
         <label htmlFor="goal-title" className="block text-sm font-medium">
@@ -486,6 +536,63 @@ export function GoalForm({
       </button>
 
       {pending && <GenerationProgress namespace="plan.form.progress" />}
+
+      {/* Zahození schválně až úplně dole a nenápadně. Je nevratné, takže
+          sem nikdo nemá dojít omylem — ale kdo chce začít znovu, nemá
+          mazat text po znacích. */}
+      {!pending && (
+        <p className="mt-10 border-t border-white/5 pt-6">
+          <button
+            type="button"
+            onClick={discard}
+            className="text-sm text-[var(--color-paper-faint)] underline underline-offset-4 hover:text-[var(--color-paper-dim)]"
+          >
+            {t("discard")}
+          </button>
+        </p>
+      )}
+
+      {/*
+        Poslední otázka před založením.
+
+        Rozfázování je nevratné, trvá a stojí peníze — a dřív se spouštělo
+        jediným klepnutím, které šlo trefit i omylem. Tady se člověk
+        naposledy podívá, co má napsané, a rozhodne se vědomě.
+      */}
+      {confirming && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="goal-confirm-title"
+          className="fixed inset-0 z-50 grid place-items-center bg-black/70 p-5"
+        >
+          <div className="card w-full max-w-md p-6">
+            <h2 id="goal-confirm-title" className="display text-xl">
+              {t("confirmTitle")}
+            </h2>
+            <p className="mt-2.5 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+              {t("confirmBody")}
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <button
+                type="button"
+                onClick={create}
+                autoFocus
+                className="btn-primary"
+              >
+                {t("confirmYes")}
+              </button>
+              <button
+                type="button"
+                onClick={() => setConfirming(false)}
+                className="rounded-full border border-white/15 px-5 py-2 text-sm font-medium text-[var(--color-paper-dim)] transition hover:border-white/30 hover:text-[var(--color-paper)]"
+              >
+                {t("confirmBack")}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </form>
   );
 }

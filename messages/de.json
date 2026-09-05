@@ -522,7 +522,11 @@
         "PAUSED": "Pausiert",
         "COMPLETED": "Erreicht",
         "ABANDONED": "Aufgegeben"
-      }
+      },
+      "draftTitle": "Du hast ein Ziel in Arbeit",
+      "draftBody": "Dein unfertiger Entwurf wurde gespeichert. Du kannst weitermachen oder ihn verwerfen.",
+      "draftContinue": "Weitermachen",
+      "draftDiscard": "Verwerfen"
     },
     "form": {
       "title": "Neues Ziel",
@@ -582,7 +586,13 @@
       "imagesHint": "Alles, was dich daran erinnert, warum du das tust. Eines davon erscheint bei deiner Tagesliste — je mehr du hinzufügst, desto mehr Abwechslung. Hinzufügen und entfernen kannst du sie später jederzeit auf der Seite des Ziels.",
       "imagesChoose": "Bilder auswählen",
       "imagesChosen": "{count, plural, one {# Bild ausgewählt} other {# Bilder ausgewählt}} — sie werden nach dem Anlegen des Ziels hochgeladen.",
-      "colorTaken": "bereits verwendet von „{goal}“"
+      "colorTaken": "bereits verwendet von „{goal}“",
+      "confirmTitle": "Fertig? Sollen wir den Plan erstellen?",
+      "confirmBody": "Aus dem, was du geschrieben hast, entsteht jetzt die Aufteilung bis hin zu Tagesaufgaben. Ergänzen und ändern kannst du alles auch danach.",
+      "confirmYes": "Ja, Plan erstellen",
+      "confirmBack": "Noch nicht",
+      "discard": "Entwurf verwerfen",
+      "discardConfirm": "Wirklich verwerfen, was geschrieben ist?"
     },
     "detail": {
       "back": "Zurück zur Übersicht",

@@ -522,7 +522,11 @@
         "PAUSED": "Pozastaveno",
         "COMPLETED": "Splněno",
         "ABANDONED": "Opuštěno"
-      }
+      },
+      "draftTitle": "Máš rozepsaný cíl",
+      "draftBody": "Nedokončené zadání ti zůstalo uložené. Můžeš v něm pokračovat, nebo ho zahodit.",
+      "draftContinue": "Pokračovat v zadávání",
+      "draftDiscard": "Zahodit"
     },
     "form": {
       "title": "Nový cíl",
@@ -582,7 +586,13 @@
       "imagesHint": "Cokoliv, co ti připomene, proč to děláš. Jeden z nich se pak ukáže u denního seznamu — čím víc jich přidáš, tím větší pestrost. Přidávat i odebírat je můžeš kdykoliv později na detailu cíle.",
       "imagesChoose": "Vybrat obrázky",
       "imagesChosen": "{count, plural, one {Vybrán # obrázek} few {Vybrány # obrázky} other {Vybráno # obrázků}} — nahrají se po založení cíle.",
-      "colorTaken": "už používá „{goal}“"
+      "colorTaken": "už používá „{goal}“",
+      "confirmTitle": "Hotovo? Jdeme na tvorbu plánu?",
+      "confirmBody": "Z toho, co jsi napsal(a), teď vznikne rozfázování až na denní úkoly. Doplnit a upravit jde všechno i potom.",
+      "confirmYes": "Ano, vytvořit plán",
+      "confirmBack": "Ještě ne",
+      "discard": "Zahodit rozepsaný cíl",
+      "discardConfirm": "Opravdu zahodit, co je napsané?"
     },
     "detail": {
       "back": "Zpět na přehled",

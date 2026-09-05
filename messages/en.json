@@ -522,7 +522,11 @@
         "PAUSED": "Paused",
         "COMPLETED": "Completed",
         "ABANDONED": "Abandoned"
-      }
+      },
+      "draftTitle": "You have a goal in progress",
+      "draftBody": "Your unfinished draft has been kept. You can carry on with it or discard it.",
+      "draftContinue": "Carry on",
+      "draftDiscard": "Discard"
     },
     "form": {
       "title": "New goal",
@@ -582,7 +586,13 @@
       "imagesHint": "Anything that reminds you why you are doing this. One of them shows up with your daily checklist — the more you add, the more variety. You can add or remove them later on the goal's own page.",
       "imagesChoose": "Choose images",
       "imagesChosen": "{count, plural, one {# image selected} other {# images selected}} — they upload once the goal is created.",
-      "colorTaken": "already used by “{goal}”"
+      "colorTaken": "already used by “{goal}”",
+      "confirmTitle": "All set? Shall we build the plan?",
+      "confirmBody": "What you have written will now be broken down all the way to daily tasks. You can still add to it and change it afterwards.",
+      "confirmYes": "Yes, build the plan",
+      "confirmBack": "Not yet",
+      "discard": "Discard this draft",
+      "discardConfirm": "Really discard what you have written?"
     },
     "detail": {
       "back": "Back to overview",
