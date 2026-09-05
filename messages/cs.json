@@ -324,7 +324,8 @@
       "noAccount": "Ještě nemáš účet?",
       "registerLink": "Zaregistruj se",
       "forgotLink": "Zapomenuté heslo?",
-      "storeNote": "V aplikaci se přihlas e-mailem a heslem — Google přihlášení uvnitř aplikací nepovoluje. Máš účet přes Google? <link>Nastav si k němu heslo</link> a přihlas se jím."
+      "storeNote": "V aplikaci se přihlas e-mailem a heslem — Google přihlášení uvnitř aplikací nepovoluje. Máš účet přes Google? <link>Nastav si k němu heslo</link> a přihlas se jím.",
+      "notRegistered": "Ještě tu nemáš účet? <link>Zaregistruj se</link> — založení je na dvě minuty."
     },
     "register": {
       "title": "Založ si účet",
@@ -449,8 +450,13 @@
       "working": "Pracuji…",
       "failed": "Nepovedlo se to. Zkus to prosím znovu."
     },
-    "storeTitle": "Předplatné tady zařídit nejde",
-    "storeBody": "V aplikaci z obchodu předplatné nespravujeme. Pokud už ho máš, přihlas se stejným účtem a všechno se ti tu otevře."
+    "freeTitle": "Bezplatný účet: jen demo",
+    "freeBody": "S bezplatným účtem si můžeš vyzkoušet demo — zadáš cíl s termínem a uvidíš, jak by rozfázování vypadalo. Celý plán s denními úkoly, odpočinkem a přizpůsobováním tempa patří k předplatnému.",
+    "freeStoreNote": "Předplatné se v aplikaci z obchodu nespravuje. Pokud ho už máš, přihlas se stejným účtem a všechno se odemkne.",
+    "demoCta": "Vyzkoušet demo",
+    "demoHint": "Chceš si to nejdřív osahat? Demo ukáže rozfázování zdarma.",
+    "freeGoalsReason": "Cíle se zakládají až s předplatným, proto je tu prázdno.",
+    "freeNewGoalReason": "Nový cíl jde založit až s předplatným."
   },
   "plan": {
     "nav": {

@@ -138,13 +138,23 @@ export default async function AppPage({
         </div>
       )}
 
-      {/* V aplikaci z obchodu se místo paywallu ukáže jen vysvětlení.
-          Placení mimo obchod tam nabízet nesmíme — viz lib/store-app.ts. */}
+      {/* V aplikaci z obchodu se místo paywallu ukáže vysvětlení a odkaz
+          na demo. Placení mimo obchod tam nabízet nesmíme — viz
+          lib/store-app.ts — ale nechat uživatele u holé věty, že se tu
+          předplatné nespravuje, znamenalo poslat ho do slepé uličky.
+          Demo je jediné, co s bezplatným účtem opravdu má, a musí být
+          vidět. */}
       {!hasAccess && checkout !== "success" && storeApp && (
         <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.02] p-5 sm:p-6">
-          <h2 className="display text-lg">{tb("storeTitle")}</h2>
+          <h2 className="display text-lg">{tb("freeTitle")}</h2>
           <p className="mt-1.5 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
-            {tb("storeBody")}
+            {tb("freeBody")}
+          </p>
+          <Link href={`/${locale}/demo`} className="btn-primary mt-5 inline-block">
+            {tb("demoCta")}
+          </Link>
+          <p className="mt-4 text-sm leading-relaxed text-[var(--color-paper-faint)]">
+            {tb("freeStoreNote")}
           </p>
         </div>
       )}
@@ -163,6 +173,18 @@ export default async function AppPage({
             </div>
           )}
           <Paywall />
+
+          {/* Kdo si není jistý, nemá odejít pryč — demo je levnější
+              způsob, jak se rozhodnout, než zavřená záložka. */}
+          <p className="mt-5 text-center text-sm leading-relaxed text-[var(--color-paper-faint)]">
+            {tb("demoHint")}{" "}
+            <Link
+              href={`/${locale}/demo`}
+              className="text-[var(--color-lime-soft)] underline underline-offset-4"
+            >
+              {tb("demoCta")}
+            </Link>
+          </p>
         </div>
       )}
 

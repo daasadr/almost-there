@@ -367,12 +367,38 @@ body {
 }
 
 /* Přilepená hlavička si odsazení řeší sama — pozadí musí zůstat i pod
-   stavovou lištou, jinak by při posouvání prosvítal obsah. */
-body > header {
+   stavovou lištou, jinak by při posouvání prosvítal obsah.
+
+   Selektor jde přes `.page-shell`, ne přes `body`: hlavička i patička
+   jsou od zavedení toho obalu o úroveň hlouběji. */
+.page-shell > header {
   padding-top: env(safe-area-inset-top);
 }
 
 /* Poslední řádek patičky nesmí skončit pod ovládacím pruhem telefonu. */
-body > footer {
+.page-shell > footer {
   padding-bottom: env(safe-area-inset-bottom);
+}
+
+/*
+ * Spodní hranice odsazení v aplikaci z obchodu.
+ *
+ * Samotné `env(safe-area-inset-top)` na Androidu nestačí. WebView do něj
+ * hlásí jen výřez displeje, ne výšku stavové lišty — na telefonu bez
+ * výřezu tam vrátí nulu, přestože hodiny a baterie obsah překrývají.
+ * V hlavičce se tak menu kreslilo rovnou pod systémové ikony.
+ *
+ * Od cílové úrovně 36 navíc Android kreslení přes celou obrazovku
+ * vynucuje a plugin StatusBar to už nepřepne zpátky, takže to nejde
+ * vyřešit nativně.
+ *
+ * `max()` bere to větší z obojího: kde WebView skutečnou hodnotu hlásí
+ * (telefony s výřezem, iPhone), použije se ta, jinak se sáhne po pevné
+ * spodní hranici. 28 px odpovídá běžné výšce stavové lišty.
+ *
+ * Jen v aplikaci z obchodu. V prohlížeči hlavičku kreslí prohlížeč sám
+ * a odsazení navíc by tam bylo vidět jako prázdný pruh.
+ */
+[data-store-app] .page-shell > header {
+  padding-top: max(env(safe-area-inset-top), 28px);
 }

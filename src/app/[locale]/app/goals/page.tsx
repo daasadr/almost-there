@@ -2,11 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
+import { headers } from "next/headers";
 import { auth } from "@/auth";
 import { AppNav } from "@/components/plan/AppNav";
 import { GoalList } from "@/components/plan/GoalList";
+import { FreeAccountNotice } from "@/components/billing/FreeAccountNotice";
 import { getAccess } from "@/lib/billing/access";
 import { listGoals } from "@/lib/goals/queries";
+import { isStoreApp } from "@/lib/store-app";
 
 /**
  * Přehled běžících cílů.
@@ -46,10 +49,29 @@ export default async function GoalsPage({
   );
   if (revoked) redirect(`/${locale}/login`);
 
-  // Bez předplatného tu není co ukázat a paywall stojí na dnešku.
-  if (!hasAccess) redirect(`/${locale}/app`);
-
   const t = await getTranslations({ locale, namespace: "plan.goals" });
+
+  /**
+   * Bez předplatného se dřív mlčky přesměrovávalo na dnešek. Kdo v menu
+   * klikl na „Cíle“, skončil zpátky na dnešku bez jediného slova a
+   * záložka vypadala rozbitě. Teď se stránka ukáže i jemu, jen místo
+   * seznamu vysvětlí, proč je prázdná.
+   */
+  if (!hasAccess) {
+    const tb = await getTranslations({ locale, namespace: "billing" });
+    return (
+      <section className="mx-auto max-w-3xl px-5 py-10 sm:px-8 sm:py-14">
+        <AppNav />
+        <h1 className="display mt-8 text-3xl">{t("title")}</h1>
+        <FreeAccountNotice
+          locale={locale}
+          storeApp={isStoreApp(await headers())}
+          reason={tb("freeGoalsReason")}
+        />
+      </section>
+    );
+  }
+
   const goals = await listGoals(session.user.id);
 
   return (

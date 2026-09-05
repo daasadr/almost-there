@@ -324,7 +324,8 @@
       "noAccount": "No account yet?",
       "registerLink": "Create one",
       "forgotLink": "Forgot your password?",
-      "storeNote": "In the app, sign in with your e-mail and password — Google does not allow its sign-in inside apps. Created your account with Google? <link>Set a password for it</link> and use that."
+      "storeNote": "In the app, sign in with your e-mail and password — Google does not allow its sign-in inside apps. Created your account with Google? <link>Set a password for it</link> and use that.",
+      "notRegistered": "No account here yet? <link>Sign up</link> — it takes two minutes."
     },
     "register": {
       "title": "Create your account",
@@ -449,8 +450,13 @@
       "working": "Working…",
       "failed": "That did not work. Please try again."
     },
-    "storeTitle": "Subscriptions are not handled here",
-    "storeBody": "The store version of the app does not manage subscriptions. If you already have one, sign in with the same account and everything opens up."
+    "freeTitle": "Free account: demo only",
+    "freeBody": "With a free account you can try the demo — enter a goal and a deadline and see how the breakdown would look. The full plan with daily tasks, rest and pace adjustment is part of the subscription.",
+    "freeStoreNote": "Subscriptions are not handled in the store app. If you already have one, sign in with the same account and everything opens up.",
+    "demoCta": "Try the demo",
+    "demoHint": "Want to try it first? The demo shows the breakdown for free.",
+    "freeGoalsReason": "Goals come with a subscription, which is why this is empty.",
+    "freeNewGoalReason": "Creating a goal requires a subscription."
   },
   "plan": {
     "nav": {

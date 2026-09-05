@@ -2,10 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
+import { headers } from "next/headers";
 import { auth } from "@/auth";
 import { GoalForm } from "@/components/plan/GoalForm";
+import { FreeAccountNotice } from "@/components/billing/FreeAccountNotice";
 import { getAccess } from "@/lib/billing/access";
 import { db } from "@/lib/db";
+import { isStoreApp } from "@/lib/store-app";
 
 export async function generateMetadata({
   params,
@@ -26,14 +29,31 @@ export default async function NewGoalPage({
   const session = await auth();
   if (!session?.user) redirect(`/${locale}/login`);
 
-  // Bez předplatného zpátky na rozcestí, kde je paywall. Kontrola je i v API,
-  // tohle je jen proto, aby uživatel nevyplňoval formulář zbytečně.
   const { hasAccess, revoked } = await getAccess(
     session.user.id,
     session.user.issuedAt,
   );
   if (revoked) redirect(`/${locale}/login`);
-  if (!hasAccess) redirect(`/${locale}/app`);
+
+  /**
+   * Bez předplatného se formulář nenabízí — vyplnit ho a až pak narazit
+   * na placení by bylo horší než říct to rovnou. Dřív se tu ale mlčky
+   * přesměrovávalo na dnešek, takže tlačítko „nový cíl“ vypadalo, že
+   * nedělá nic. Kontrola je stejně i v API, tohle je jen o tom, aby
+   * stránka dávala smysl.
+   */
+  if (!hasAccess) {
+    const tb = await getTranslations({ locale, namespace: "billing" });
+    return (
+      <section className="mx-auto max-w-2xl px-5 py-10 sm:px-8 sm:py-14">
+        <FreeAccountNotice
+          locale={locale}
+          storeApp={isStoreApp(await headers())}
+          reason={tb("freeNewGoalReason")}
+        />
+      </section>
+    );
+  }
 
   /**
    * Barvy rozebrané běžícími cíli. Nezakazují se, jen se u nich ukáže,

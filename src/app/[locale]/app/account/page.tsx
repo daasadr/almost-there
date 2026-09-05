@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 import { getTranslations } from "next-intl/server";
 import { auth } from "@/auth";
 import { SignOutButton } from "@/components/auth/SignOutButton";
@@ -10,6 +11,8 @@ import { UsageMeter } from "@/components/plan/UsageMeter";
 import { isAdminEmail } from "@/lib/admin/guard";
 import { getAccess } from "@/lib/billing/access";
 import { db } from "@/lib/db";
+import { isStoreApp } from "@/lib/store-app";
+import { FreeAccountNotice } from "@/components/billing/FreeAccountNotice";
 
 /**
  * Účet: co uživatel platí, kolik spotřeboval a jak odejít.
@@ -47,6 +50,9 @@ export default async function AccountPage({
   const t = await getTranslations({ locale, namespace: "auth.app" });
   const tPlan = await getTranslations({ locale, namespace: "plan.nav" });
 
+  // Nabídka zaplacení se v aplikaci z obchodu nahrazuje odkazem na demo.
+  const storeApp = isStoreApp(await headers());
+
   const { status, hasAccess, revoked } = await getAccess(
     session.user.id,
     session.user.issuedAt,
@@ -67,6 +73,22 @@ export default async function AccountPage({
       <AppNav />
 
       <h1 className="display mt-8 text-3xl">{t("accountTitle")}</h1>
+
+      {/*
+        Bez předplatného je tohle druhé místo, kam se cesta k zaplacení
+        musí dostat.
+
+        Nabídka stojí jen na denním přehledu, a kdo z něj odejde sem, ji
+        ztratí z očí — pak už se k ní proklikává a hledá. Bez předplatného
+        přitom aplikace neumí nic než demo, takže dokud není zaplaceno,
+        má tahle nabídka být vidět všude.
+
+        V aplikaci z obchodu se místo toho ukazuje odkaz na demo. Placení
+        mimo obchod tam nabízet nesmíme — viz lib/store-app.ts.
+      */}
+      {!hasAccess && (
+        <FreeAccountNotice locale={locale} storeApp={storeApp} />
+      )}
 
       <div className="card mt-6 p-6 sm:p-8">
         <dl className="grid gap-4 text-sm sm:grid-cols-2">
