@@ -3,7 +3,13 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
-import { readStored, removeStored } from "@/lib/safe-storage";
+import { useSession } from "next-auth/react";
+import {
+  clearGoalDraft,
+  hasGoalDraft,
+  loadGoalDraft,
+  type GoalDraft,
+} from "@/lib/goal-draft";
 
 /**
  * Připomínka rozepsaného cíle na denním přehledu.
@@ -22,40 +28,23 @@ import { readStored, removeStored } from "@/lib/safe-storage";
  * neví, takže při vykreslení na serveru se vykreslit nedá.
  */
 
-/** Musí sedět s klíčem v GoalForm. */
-const DRAFT_KEY = "almostthere:goalDraft";
-
-type Draft = {
-  title?: string;
-  description?: string;
-};
-
 export function GoalDraftNotice() {
   const t = useTranslations("plan.goals");
   const locale = useLocale();
-  const [draft, setDraft] = useState<Draft | null>(null);
+  const { data: session } = useSession();
+  const userId = session?.user?.id;
+  const [draft, setDraft] = useState<GoalDraft | null>(null);
 
   useEffect(() => {
-    const raw = readStored(DRAFT_KEY);
-    if (!raw) return;
-
-    try {
-      const parsed = JSON.parse(raw) as Draft;
-      // Prázdný koncept vzniká i pouhým otevřením formuláře. Připomínat
-      // člověku, že „má rozepsaný cíl“, když jen nakoukl a odešel, by
-      // bylo otravné.
-      if (parsed.title?.trim() || parsed.description?.trim()) {
-        setDraft(parsed);
-      }
-    } catch {
-      // Poškozený koncept se tváří, jako by žádný nebyl.
-    }
-  }, []);
+    if (!userId) return;
+    const found = loadGoalDraft(userId);
+    if (hasGoalDraft(found)) setDraft(found);
+  }, [userId]);
 
   if (!draft) return null;
 
   const discard = () => {
-    removeStored(DRAFT_KEY);
+    clearGoalDraft();
     setDraft(null);
   };
 
@@ -63,7 +52,7 @@ export function GoalDraftNotice() {
     <div className="mt-6 rounded-2xl border border-[color-mix(in_oklab,var(--color-violet-soft)_40%,transparent)] bg-[color-mix(in_oklab,var(--color-violet-glow)_10%,transparent)] p-5">
       <h2 className="display text-lg">{t("draftTitle")}</h2>
 
-      {draft.title?.trim() && (
+      {draft.title.trim() && (
         <p className="mt-1.5 text-[15px] text-[var(--color-paper)]">
           „{draft.title.trim()}“
         </p>

@@ -5,7 +5,8 @@ import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { GenerationProgress } from "@/components/demo/GenerationProgress";
 import { planErrorKey } from "@/lib/plan/errors";
-import { readStored, removeStored, writeStored } from "@/lib/safe-storage";
+import { useSession } from "next-auth/react";
+import { clearGoalDraft, loadGoalDraft, saveGoalDraft } from "@/lib/goal-draft";
 import { goalColors, goalHex, type GoalColor } from "@/lib/plan/colors";
 import Link from "next/link";
 import {
@@ -24,18 +25,14 @@ import {
  */
 const importanceLevels = [1, 2, 3, 4, 5] as const;
 
-/**
- * Klíč pro rozepsaný cíl.
- *
+/*
  * Zadání cíle je dlouhé a člověk kvůli němu často odskočí — do nastavení
- * pro denní kapacitu, do kalendáře pro termín. Když se pak vrátí a najde
- * prázdný formulář, podruhé už ho vyplňovat nebude. Rozepsané se proto
- * drží v prohlížeči a přežije odchod i tlačítko zpět.
+ * pro denní kapacitu, do kalendáře pro termín, nebo na mobilu úplně jinam.
+ * Když se pak vrátí a najde prázdný formulář, podruhé už ho vyplňovat
+ * nebude. Rozepsané se proto průběžně ukládá.
  *
- * Session, ne local: po zavření karty už rozdělaný cíl nikoho nezajímá
- * a nemá se povalovat v prohlížeči.
+ * Kam a s jakými pojistkami řeší lib/goal-draft.ts.
  */
-const DRAFT_KEY = "almostthere:goalDraft";
 
 export function GoalForm({
   /**
@@ -68,6 +65,11 @@ export function GoalForm({
   const router = useRouter();
   const locale = useLocale();
 
+  // Ke konceptu se připisuje, komu patří — na sdíleném zařízení se cizí
+  // rozepsaný cíl ukázat nesmí. Viz lib/goal-draft.ts.
+  const { data: session } = useSession();
+  const userId = session?.user?.id;
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [startingPoint, setStartingPoint] = useState("");
@@ -94,22 +96,21 @@ export function GoalForm({
   const restored = useRef(false);
 
   useEffect(() => {
-    try {
-      const saved = readStored(DRAFT_KEY);
-      if (saved) {
-        const draft = JSON.parse(saved);
-        if (typeof draft.title === "string") setTitle(draft.title);
-        if (typeof draft.description === "string") setDescription(draft.description);
-        if (typeof draft.startingPoint === "string") setStartingPoint(draft.startingPoint);
-        if (typeof draft.targetDate === "string") setTargetDate(draft.targetDate);
-        if (typeof draft.importance === "number") setImportance(draft.importance);
-        if (typeof draft.color === "string") setColor(draft.color as GoalColor);
-      }
-    } catch {
-      // Poškozený obsah není důvod nepustit uživatele k formuláři.
+    // Bez známého uživatele se koncept nenačítá ani neukládá — nešlo by
+    // ověřit, komu patří.
+    if (!userId) return;
+
+    const draft = loadGoalDraft(userId);
+    if (draft) {
+      if (typeof draft.title === "string") setTitle(draft.title);
+      if (typeof draft.description === "string") setDescription(draft.description);
+      if (typeof draft.startingPoint === "string") setStartingPoint(draft.startingPoint);
+      if (typeof draft.targetDate === "string") setTargetDate(draft.targetDate);
+      if (typeof draft.importance === "number") setImportance(draft.importance);
+      if (typeof draft.color === "string") setColor(draft.color as GoalColor);
     }
     restored.current = true;
-  }, []);
+  }, [userId]);
 
   /**
    * Rozepsané zadání se drží v `localStorage`, ne v `sessionStorage`.
@@ -124,19 +125,16 @@ export function GoalForm({
    * nebo dokud ho uživatel sám nezahodí.
    */
   useEffect(() => {
-    if (!restored.current) return;
-    writeStored(
-      DRAFT_KEY,
-      JSON.stringify({
-        title,
-        description,
-        startingPoint,
-        targetDate,
-        importance,
-        color,
-      }),
-    );
-  }, [title, description, startingPoint, targetDate, importance, color]);
+    if (!restored.current || !userId) return;
+    saveGoalDraft(userId, {
+      title,
+      description,
+      startingPoint,
+      targetDate,
+      importance,
+      color,
+    });
+  }, [userId, title, description, startingPoint, targetDate, importance, color]);
 
   /**
    * Enter v jednořádkovém poli nesmí odeslat formulář.
@@ -160,7 +158,7 @@ export function GoalForm({
   /** Zahodí rozepsané zadání i to, co je uložené. */
   const discard = () => {
     if (!window.confirm(t("discardConfirm"))) return;
-    removeStored(DRAFT_KEY);
+    clearGoalDraft();
     router.push(`/${locale}/app/goals`);
   };
 
@@ -240,7 +238,7 @@ export function GoalForm({
       // Cíl je založený, rozdělané zadání už není k čemu. Přes pojistku:
       // kdyby tu úložiště vyhodilo výjimku, spadlo by to do `catch` níž
       // a uživatel by viděl chybu u cíle, který se právě povedlo založit.
-      removeStored(DRAFT_KEY);
+      clearGoalDraft();
 
       // Na detail cíle, kde se dopočítá zbytek rozfázování.
       router.push(`/${locale}/app/goals/${data.goalId}`);
