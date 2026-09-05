@@ -323,7 +323,8 @@
       "google": "Pokračovat přes Google",
       "noAccount": "Ještě nemáš účet?",
       "registerLink": "Zaregistruj se",
-      "forgotLink": "Zapomenuté heslo?"
+      "forgotLink": "Zapomenuté heslo?",
+      "storeNote": "V aplikaci se přihlas e-mailem a heslem — Google přihlášení uvnitř aplikací nepovoluje. Máš účet přes Google? <link>Nastav si k němu heslo</link> a přihlas se jím."
     },
     "register": {
       "title": "Založ si účet",
@@ -342,7 +343,8 @@
       "loginLink": "Přihlas se",
       "successTitle": "Účet je založený",
       "successBody": "Přihlásit se můžeš hned. Na {email} jsme zároveň poslali potvrzovací odkaz — klikni na něj, až budeš mít chvíli. Ověřená adresa je jediná cesta, jak si obnovit zapomenuté heslo.",
-      "toLogin": "Přejít na přihlášení"
+      "toLogin": "Přejít na přihlášení",
+      "storeNote": "V aplikaci se přihlas e-mailem a heslem — Google přihlášení uvnitř aplikací nepovoluje. Máš účet přes Google? <link>Nastav si k němu heslo</link> a přihlas se jím."
     },
     "forgot": {
       "title": "Zapomenuté heslo",

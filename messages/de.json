@@ -323,7 +323,8 @@
       "google": "Mit Google fortfahren",
       "noAccount": "Noch kein Konto?",
       "registerLink": "Jetzt registrieren",
-      "forgotLink": "Passwort vergessen?"
+      "forgotLink": "Passwort vergessen?",
+      "storeNote": "Melde dich in der App mit E-Mail und Passwort an — Google erlaubt seine Anmeldung innerhalb von Apps nicht. Konto über Google erstellt? <link>Lege ein Passwort dafür fest</link> und nutze es."
     },
     "register": {
       "title": "Konto erstellen",
@@ -342,7 +343,8 @@
       "loginLink": "Anmelden",
       "successTitle": "Dein Konto ist angelegt",
       "successBody": "Du kannst dich sofort anmelden. An {email} haben wir außerdem einen Bestätigungslink geschickt — klick ihn an, wenn du einen Moment hast. Eine bestätigte Adresse ist der einzige Weg, ein vergessenes Passwort zurückzusetzen.",
-      "toLogin": "Zur Anmeldung"
+      "toLogin": "Zur Anmeldung",
+      "storeNote": "Melde dich in der App mit E-Mail und Passwort an — Google erlaubt seine Anmeldung innerhalb von Apps nicht. Konto über Google erstellt? <link>Lege ein Passwort dafür fest</link> und nutze es."
     },
     "forgot": {
       "title": "Passwort vergessen",

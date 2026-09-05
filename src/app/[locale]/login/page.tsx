@@ -68,9 +68,34 @@ function LoginContent({ locale }: { locale: string }) {
         </Link>
       </div>
 
-      <Divider label={t("or")} />
+      {/*
+        V aplikaci z obchodu se přihlášení Googlem schovává.
 
-      <GoogleButton label={t("google")} callbackUrl={`/${locale}/app`} />
+        Aplikace je webview a Google v něm přihlašování ke svým účtům
+        zakazuje — tlačítko by skončilo chybovou stránkou. Místo něj se
+        ukáže, co má člověk udělat: nastavit si k účtu heslo. Účet přes
+        Google tím nepřestává platit, heslo se k němu jen přidá.
+
+        Přes CSS a značku na `<html>`, ne přes hlavičku požadavku —
+        stránka tak zůstane předgenerovaná a nic neproblikne.
+      */}
+      <div className="store-hidden">
+        <Divider label={t("or")} />
+        <GoogleButton label={t("google")} callbackUrl={`/${locale}/app`} />
+      </div>
+
+      <p className="store-only mt-6 rounded-2xl border border-white/10 bg-white/[0.02] p-4 text-sm leading-relaxed text-[var(--color-paper-dim)]">
+        {t.rich("storeNote", {
+          link: (chunks) => (
+            <Link
+              href="/forgot-password"
+              className="text-[var(--color-lime-soft)] underline underline-offset-4"
+            >
+              {chunks}
+            </Link>
+          ),
+        })}
+      </p>
     </AuthShell>
   );
 }

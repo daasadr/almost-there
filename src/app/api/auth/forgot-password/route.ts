@@ -50,8 +50,20 @@ export async function POST(request: Request) {
 
   const user = await db.user.findUnique({ where: { email: parsed.data.email } });
 
-  // Účet přes Google nemá heslo, které by šlo resetovat. Ani to nepřiznáváme.
-  if (user?.passwordHash && !user.deletedAt) {
+  /**
+   * Posílá se i účtům založeným přes Google, které heslo zatím nemají.
+   *
+   * Původně se jim odpověď mlčky zahodila — heslo není co resetovat.
+   * Jenže v aplikaci z obchodu se Googlem přihlásit nedá: běží ve
+   * webview a Google v něm přihlášení zakazuje. Takový účet pak neměl
+   * do aplikace jak dovnitř a neexistovala ani cesta, jak si to spravit.
+   *
+   * Bezpečnostně se nic nemění. Kdo má přístup k té schránce, může si
+   * u Googlu stejně nechat obnovit heslo a přihlásit se tudy — e-mail
+   * je u obou cest ten samý důkaz vlastnictví. Původní účet přes Google
+   * zůstává funkční, heslo se k němu jen přidá jako druhá cesta.
+   */
+  if (user && !user.deletedAt) {
     const token = await createPasswordResetToken(user.id);
     const base = (process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000")
       .replace(/\/+$/, "");

@@ -54,20 +54,37 @@ function RegisterContent({ locale }: { locale: string }) {
     >
       <RegisterForm />
 
-      <Divider label={t("or")} />
+      {/* V aplikaci z obchodu se registrace přes Google schovává — viz
+          komentář u přihlašovací stránky. */}
+      <div className="store-hidden">
+        <Divider label={t("or")} />
 
-      {/* Přihlášením přes Google uživatel prochází touhle stránkou, kde je
-          souhlas s podmínkami uvedený u tlačítka — nesmí chybět ani tady. */}
-      <GoogleButton label={t("google")} callbackUrl={`/${locale}/app`} />
-      <p className="mt-3 text-center text-xs leading-relaxed text-[var(--color-paper-faint)]">
-        {t.rich("googleConsent", {
-          terms: (chunks) => (
-            <Link href="/terms" target="_blank" className="underline">
-              {chunks}
-            </Link>
-          ),
-          privacy: (chunks) => (
-            <Link href="/privacy" target="_blank" className="underline">
+        {/* Přihlášením přes Google uživatel prochází touhle stránkou, kde je
+            souhlas s podmínkami uvedený u tlačítka — nesmí chybět ani tady. */}
+        <GoogleButton label={t("google")} callbackUrl={`/${locale}/app`} />
+        <p className="mt-3 text-center text-xs leading-relaxed text-[var(--color-paper-faint)]">
+          {t.rich("googleConsent", {
+            terms: (chunks) => (
+              <Link href="/terms" target="_blank" className="underline">
+                {chunks}
+              </Link>
+            ),
+            privacy: (chunks) => (
+              <Link href="/privacy" target="_blank" className="underline">
+                {chunks}
+              </Link>
+            ),
+          })}
+        </p>
+      </div>
+
+      <p className="store-only mt-6 rounded-2xl border border-white/10 bg-white/[0.02] p-4 text-sm leading-relaxed text-[var(--color-paper-dim)]">
+        {t.rich("storeNote", {
+          link: (chunks) => (
+            <Link
+              href="/forgot-password"
+              className="text-[var(--color-lime-soft)] underline underline-offset-4"
+            >
               {chunks}
             </Link>
           ),

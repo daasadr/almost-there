@@ -277,6 +277,22 @@
 }
 
 /*
+ * Opak: obsah, který se ukáže jen v aplikaci z obchodu.
+ *
+ * Zatím jediné použití je vysvětlení u přihlášení. Google zakazuje
+ * přihlašování ke svým účtům z vloženého webview, a naše aplikace
+ * z obchodu je přesně to — tlačítko „přihlásit Googlem" se v ní proto
+ * schovává a místo něj musí stát, co má člověk udělat.
+ */
+.store-only {
+  display: none;
+}
+
+[data-store-app] .store-only {
+  display: block;
+}
+
+/*
  * Pojistka proti vodorovnému posuvníku.
  *
  * Nic se tím neopravuje — když něco přetéká, patří to spravit tam, kde to

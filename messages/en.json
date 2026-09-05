@@ -323,7 +323,8 @@
       "google": "Continue with Google",
       "noAccount": "No account yet?",
       "registerLink": "Create one",
-      "forgotLink": "Forgot your password?"
+      "forgotLink": "Forgot your password?",
+      "storeNote": "In the app, sign in with your e-mail and password — Google does not allow its sign-in inside apps. Created your account with Google? <link>Set a password for it</link> and use that."
     },
     "register": {
       "title": "Create your account",
@@ -342,7 +343,8 @@
       "loginLink": "Sign in",
       "successTitle": "Your account is ready",
       "successBody": "You can sign in right away. We have also sent a confirmation link to {email} — click it when you have a moment. A verified address is the only way to recover a forgotten password.",
-      "toLogin": "Go to sign in"
+      "toLogin": "Go to sign in",
+      "storeNote": "In the app, sign in with your e-mail and password — Google does not allow its sign-in inside apps. Created your account with Google? <link>Set a password for it</link> and use that."
     },
     "forgot": {
       "title": "Forgot password",
