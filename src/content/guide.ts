@@ -140,6 +140,21 @@ export const guideByLocale: Record<Locale, GuideDocument> = {
         ],
       },
       {
+        heading: "Přihlášení v aplikaci z obchodu",
+        paragraphs: [
+          "V aplikaci stažené z obchodu se přihlašuje e-mailem a heslem. Tlačítko „pokračovat přes Google“ tam schválně není.",
+          "Není to omezení z naší strany. Google přihlašování ke svým účtům uvnitř cizích aplikací zakazuje, a má k tomu dobrý důvod: v takovém okně nevidíš adresní řádek, takže nemáš jak ověřit, že heslo píšeš opravdu Googlu. Kdybychom to tlačítko v aplikaci nechali, klepnutí na něj by skončilo chybovou stránkou od Googlu.",
+          "Na webu se přes Google přihlásíš dál, tam se nemění nic. Je to pořád ten samý účet a ty samé cíle.",
+          "Přehlásit se na jiný účet jde v aplikaci přes Můj účet a Odhlásit se.",
+        ],
+        steps: [
+          "Máš účet přes Google a chceš do aplikace? Na přihlašovací stránce klepni na „Zapomenuté heslo?“.",
+          "Zadej adresu, pod kterou účet přes Google máš.",
+          "Otevři odkaz, který ti přijde e-mailem, a zvol si heslo.",
+          "Tím heslem se přihlásíš v aplikaci. Přihlášení přes Google na webu zůstává — heslo je jen druhá cesta k témuž účtu, ne náhrada.",
+        ],
+      },
+      {
         heading: "Účet, platba a odchod",
         paragraphs: [
           "Účet a předplatné se zakládá na webu. Platí se měsíčně nebo ročně, ročně vychází dva měsíce zdarma.",
@@ -263,6 +278,21 @@ export const guideByLocale: Record<Locale, GuideDocument> = {
         ],
       },
       {
+        heading: "Signing in inside the store app",
+        paragraphs: [
+          "In the app from the store you sign in with your e-mail and password. The “continue with Google” button is deliberately not there.",
+          "This is not a limitation on our side. Google does not allow signing in to its accounts inside other people's apps, and it has a good reason: in a window like that you cannot see the address bar, so you have no way to check that you are typing your password to Google and not to someone else. If we left the button in the app, tapping it would end on an error page from Google.",
+          "On the website you can still sign in with Google; nothing changes there. It is the same account and the same goals.",
+          "To switch to a different account inside the app, go to My account and sign out.",
+        ],
+        steps: [
+          "Created your account with Google and want to use the app? On the sign-in page, tap “Forgot your password?”.",
+          "Enter the address your Google account uses.",
+          "Open the link that arrives by e-mail and choose a password.",
+          "That password signs you in inside the app. Signing in with Google on the website still works — the password is a second way into the same account, not a replacement.",
+        ],
+      },
+      {
         heading: "Account, payment and leaving",
         paragraphs: [
           "Accounts and subscriptions are set up on the website. You pay monthly or yearly; yearly works out as two months free.",
@@ -383,6 +413,21 @@ export const guideByLocale: Record<Locale, GuideDocument> = {
           "Die Website funktioniert im mobilen Browser und lässt sich zum Startbildschirm hinzufügen, von wo sie im Vollbild ohne Adressleiste startet. Eine Schritt-für-Schritt-Anleitung für iPhone und Android steht auf der Installationsseite.",
           "In der App aus dem Store kannst du eine tägliche Erinnerung einschalten: Das Telefon meldet sich zur gewählten Zeit, auch wenn die App geschlossen ist. Sie wird direkt auf dem Telefon geplant, also geht nichts davon an unseren Server, und sie funktioniert auch ohne Empfang.",
           "Egal von wo aus du die App öffnest — du meldest dich mit demselben Konto an und findest dieselben Ziele.",
+        ],
+      },
+      {
+        heading: "Anmeldung in der App aus dem Store",
+        paragraphs: [
+          "In der App aus dem Store meldest du dich mit E-Mail und Passwort an. Die Schaltfläche „Weiter mit Google“ fehlt dort mit Absicht.",
+          "Das ist keine Einschränkung von unserer Seite. Google verbietet die Anmeldung bei seinen Konten innerhalb fremder Apps, und das aus gutem Grund: In einem solchen Fenster siehst du die Adressleiste nicht und kannst nicht prüfen, ob du dein Passwort wirklich bei Google eingibst. Ließen wir die Schaltfläche in der App, würde ein Tippen darauf auf einer Fehlerseite von Google enden.",
+          "Auf der Website kannst du dich weiterhin mit Google anmelden, dort ändert sich nichts. Es ist dasselbe Konto und es sind dieselben Ziele.",
+          "Zu einem anderen Konto wechselst du in der App über Mein Konto und Abmelden.",
+        ],
+        steps: [
+          "Konto über Google erstellt und möchtest die App nutzen? Tippe auf der Anmeldeseite auf „Passwort vergessen?“.",
+          "Gib die Adresse ein, die dein Google-Konto verwendet.",
+          "Öffne den Link, der per E-Mail kommt, und wähle ein Passwort.",
+          "Mit diesem Passwort meldest du dich in der App an. Die Anmeldung mit Google auf der Website bleibt bestehen — das Passwort ist ein zweiter Weg zum selben Konto, kein Ersatz.",
         ],
       },
       {
