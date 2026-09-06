@@ -12,7 +12,6 @@ import { ProgressStrip } from "@/components/plan/ProgressStrip";
 import { WeekStrip } from "@/components/plan/WeekStrip";
 import { ClaimDemoGoal } from "@/components/plan/ClaimDemoGoal";
 import { InstallPrompt } from "@/components/plan/InstallPrompt";
-import { AppNav } from "@/components/plan/AppNav";
 import { GoalDraftNotice } from "@/components/plan/GoalDraftNotice";
 import { ReachedMilestones } from "@/components/plan/ReachedMilestones";
 import { EarnedRewards } from "@/components/plan/EarnedRewards";
@@ -64,7 +63,6 @@ export default async function AppPage({
 
   const t = await getTranslations({ locale, namespace: "auth.app" });
   const tb = await getTranslations({ locale, namespace: "billing" });
-  const tPlan = await getTranslations({ locale, namespace: "plan.nav" });
 
   // Z databáze, ne ze session — viz komentář v lib/billing/access.ts.
   const { status, hasAccess, revoked } = await getAccess(
@@ -110,8 +108,6 @@ export default async function AppPage({
 
   return (
     <section className="mx-auto max-w-3xl px-5 py-10 sm:px-8 sm:py-14">
-      <AppNav />
-
       <h1 className="display mt-8 text-3xl sm:text-4xl">
         {t("welcome", { name: session.user.name ?? session.user.email ?? "" })}
       </h1>

@@ -4,7 +4,6 @@ import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { headers } from "next/headers";
 import { auth } from "@/auth";
-import { AppNav } from "@/components/plan/AppNav";
 import { GoalList } from "@/components/plan/GoalList";
 import { FreeAccountNotice } from "@/components/billing/FreeAccountNotice";
 import { getAccess } from "@/lib/billing/access";
@@ -61,7 +60,6 @@ export default async function GoalsPage({
     const tb = await getTranslations({ locale, namespace: "billing" });
     return (
       <section className="mx-auto max-w-3xl px-5 py-10 sm:px-8 sm:py-14">
-        <AppNav />
         <h1 className="display mt-8 text-3xl">{t("title")}</h1>
         <FreeAccountNotice
           locale={locale}
@@ -76,8 +74,6 @@ export default async function GoalsPage({
 
   return (
     <section className="mx-auto max-w-3xl px-5 py-10 sm:px-8 sm:py-14">
-      <AppNav />
-
       <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
         <h1 className="display text-3xl">{t("title")}</h1>
         <Link

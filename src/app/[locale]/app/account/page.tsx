@@ -6,7 +6,6 @@ import { getTranslations } from "next-intl/server";
 import { auth } from "@/auth";
 import { SignOutButton } from "@/components/auth/SignOutButton";
 import { CancelSubscription } from "@/components/billing/CancelSubscription";
-import { AppNav } from "@/components/plan/AppNav";
 import { UsageMeter } from "@/components/plan/UsageMeter";
 import { isAdminEmail } from "@/lib/admin/guard";
 import { getAccess } from "@/lib/billing/access";
@@ -70,8 +69,6 @@ export default async function AccountPage({
 
   return (
     <section className="mx-auto max-w-3xl px-5 py-10 sm:px-8 sm:py-14">
-      <AppNav />
-
       <h1 className="display mt-8 text-3xl">{t("accountTitle")}</h1>
 
       {/*

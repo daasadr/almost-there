@@ -3,7 +3,6 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { auth } from "@/auth";
-import { AppNav } from "@/components/plan/AppNav";
 import { SettingsForm } from "@/components/plan/SettingsForm";
 import { DailyReminder } from "@/components/native/DailyReminder";
 import { DeleteAccount } from "@/components/account/DeleteAccount";
@@ -54,8 +53,6 @@ export default async function SettingsPage({
 
   return (
     <section className="mx-auto max-w-2xl px-5 py-10 sm:px-8 sm:py-14">
-      <AppNav />
-
       {backToGoal && (
         <Link
           href={`/${locale}/app/goals/new`}

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useSession } from "next-auth/react";
 import { Link, usePathname } from "@/i18n/navigation";
+import { AppNav } from "./plan/AppNav";
 import { LogoMark, Wordmark } from "./Logo";
 import { LocaleSwitcher } from "./LocaleSwitcher";
 
@@ -122,9 +123,16 @@ export function SiteHeader() {
           {/* Stav přihlášení se dotahuje na klientovi, aby stránky
               zůstaly staticky předgenerované. */}
           {status === "authenticated" ? (
-            <Link href="/app" className="btn-primary !px-4 !py-1.5 text-sm">
-              {t("account")}
-            </Link>
+            /*
+              Uvnitř aplikace se části přepínají v řádku pod hlavičkou, ne
+              tímhle tlačítkem — jinak by tu bylo „Můj účet“ dvakrát,
+              pokaždé jinam. Sem patří jen cesta dovnitř, a to zvenčí.
+            */
+            !isAppSection && (
+              <Link href="/app" className="btn-primary !px-4 !py-1.5 text-sm">
+                {t("openApp")}
+              </Link>
+            )
           ) : (
             <>
               {/* Na mobilu bez rámečku, ale vždy vidět. Dřív se schovávalo
@@ -147,6 +155,27 @@ export function SiteHeader() {
           )}
         </div>
       </div>
+
+      {/*
+        Přepínač částí aplikace ve druhém řádku hlavičky.
+
+        Dřív seděl v obsahu každé stránky zvlášť a v liště nad ním bylo
+        tlačítko „Můj účet“, které vedlo na dnešek. Dvě různá místa se
+        stejným popiskem a jiným cílem — kdo chtěl na účet, skončil tam,
+        odkud vyšel.
+
+        Druhý řádek schválně, ne doprava vedle loga: tři popisky, značka
+        a přepínač jazyka se na úzký displej vedle sebe nevejdou a řádek
+        by přetekl do stran.
+
+        Jen pro přihlášené a jen v aplikaci. Na úvodní stránce a v návodu
+        by to překáželo tomu, kvůli čemu tam lidé přišli.
+      */}
+      {status === "authenticated" && isAppSection && (
+        <div className="mx-auto max-w-6xl px-4 pb-3 sm:px-8">
+          <AppNav />
+        </div>
+      )}
     </header>
   );
 }
