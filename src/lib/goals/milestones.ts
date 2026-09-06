@@ -150,6 +150,25 @@ Rules for every suggestion:
 
 Write in the language you are told to use.`;
 
+/**
+ * Jazyk se opakuje i v systémovém pokynu.
+ *
+ * Jedna řádka `Write in: …` uprostřed zadání nestačila. Návrhy odměn
+ * běží na nízkém stupni uvažování a všechno kolem — systémový pokyn,
+ * popisy ve schématu — je anglicky, takže model občas sklouzl zpátky
+ * do angličtiny. Plán přitom vyšel česky, protože ten se počítá na
+ * vyšším stupni. Uživatel pak měl český cíl s anglickou odměnou.
+ *
+ * V systémovém pokynu se pokyny drží nejspolehlivěji, proto je jazyk
+ * i tady a naposledy, aby na něm pohled skončil.
+ */
+function systemFor(locale: Locale): string {
+  const language = localeAiNames[locale];
+  return `${SYSTEM}
+
+Write every reward in ${language}, and in no other language. The person reads the app in ${language}; a reward they cannot read is worse than no reward at all. This applies even though these instructions are in English.`;
+}
+
 /** Návrhy odměn pro milníky, které zatím žádnou nemají. */
 export async function suggestRewards(goalId: string): Promise<number> {
   const goal = await db.goal.findUniqueOrThrow({
@@ -172,9 +191,11 @@ export async function suggestRewards(goalId: string): Promise<number> {
   });
   if (pending.length === 0) return 0;
 
+  const language = asLocale(goal.locale);
+
   const lines = [
     `Goal: ${goal.title}`,
-    `Write in: ${localeAiNames[asLocale(goal.locale)]}`,
+    `Write in: ${localeAiNames[language]}`,
     // Vlastní řádky jen když má uživatel co říct. Prázdné „Likes:“ by
     // model četl jako „nemá rád nic“ a odměny by z toho vyšly opatrné.
     ...(goal.user.rewardLikes
@@ -194,7 +215,7 @@ export async function suggestRewards(goalId: string): Promise<number> {
   ];
 
   const { data, usage } = await callStructured({
-    system: SYSTEM,
+    system: systemFor(language),
     user: lines.join("\n"),
     jsonSchema: {
       type: "object",
@@ -211,8 +232,7 @@ export async function suggestRewards(goalId: string): Promise<number> {
               },
               reward: {
                 type: "string",
-                description:
-                  "One concrete, proportionate reward. At most fifteen words.",
+                description: `One concrete, proportionate reward, written in ${localeAiNames[language]}. At most fifteen words.`,
               },
             },
             required: ["index", "reward"],

@@ -42,6 +42,19 @@ Rules:
 - Do not give advice, do not suggest a next goal, do not sell anything.
 - Address them directly, in the language you are told to use.`;
 
+/**
+ * Jazyk i v systémovém pokynu, ze stejného důvodu jako u odměn —
+ * viz komentář v goals/milestones.ts. Závěrečné shrnutí běží taky na
+ * nízkém stupni a jedna řádka uprostřed anglického zadání na něj
+ * nestačí.
+ */
+function systemFor(locale: Locale): string {
+  const language = localeAiNames[locale];
+  return `${SYSTEM}
+
+Write the note in ${language}, and in no other language. This applies even though these instructions are in English.`;
+}
+
 export async function completeGoal(goalId: string): Promise<void> {
   const goal = await db.goal.findUniqueOrThrow({
     where: { id: goalId },
@@ -133,7 +146,7 @@ async function writeNote(
 
   try {
     const { data, usage } = await callStructured({
-      system: SYSTEM,
+      system: systemFor(asLocale(goal.locale)),
       user: lines.join("\n"),
       jsonSchema: {
         type: "object",
