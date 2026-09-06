@@ -62,7 +62,15 @@ export function RegisterForm() {
     }
   };
 
-  // Po registraci nepřihlašujeme — uživatel musí nejdřív potvrdit adresu.
+  /*
+   * Po registraci nepřihlašujeme rovnou, ale potvrzení adresy povinné
+   * není a nikde se nevynucuje — účet funguje hned. Ověřená adresa je
+   * potřeba až na obnovu zapomenutého hesla, což hláška níž taky říká.
+   *
+   * Je to podstatné pro toho, kdo se registruje adresou, do které se
+   * neumí nebo nechce dostat: heslo si volí sám při registraci, žádné
+   * mu neposíláme, a do schránky tedy sáhnout nemusí.
+   */
   if (done) {
     return (
       <div className="space-y-4">
