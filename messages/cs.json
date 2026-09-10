@@ -526,7 +526,8 @@
       "draftTitle": "Máš rozepsaný cíl",
       "draftBody": "Nedokončené zadání ti zůstalo uložené. Můžeš v něm pokračovat, nebo ho zahodit.",
       "draftContinue": "Pokračovat v zadávání",
-      "draftDiscard": "Zahodit"
+      "draftDiscard": "Zahodit",
+      "openPlan": "Zobrazit celý plán"
     },
     "form": {
       "title": "Nový cíl",

@@ -526,7 +526,8 @@
       "draftTitle": "Du hast ein Ziel in Arbeit",
       "draftBody": "Dein unfertiger Entwurf wurde gespeichert. Du kannst weitermachen oder ihn verwerfen.",
       "draftContinue": "Weitermachen",
-      "draftDiscard": "Verwerfen"
+      "draftDiscard": "Verwerfen",
+      "openPlan": "Den ganzen Plan ansehen"
     },
     "form": {
       "title": "Neues Ziel",

@@ -5,6 +5,7 @@ import { getFormatter, getTranslations } from "next-intl/server";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { goalHex } from "@/lib/plan/colors";
+import { DeleteGoalButton } from "@/components/plan/DeleteGoalButton";
 
 export const metadata: Metadata = { robots: { index: false, follow: false } };
 
@@ -49,6 +50,7 @@ export default async function GoalDonePage({
   ]);
 
   const t = await getTranslations({ locale, namespace: "plan.done" });
+  const tGoals = await getTranslations({ locale, namespace: "plan.goals" });
   const format = await getFormatter({ locale });
 
   const finishedAt = goal.completedAt ?? new Date();
@@ -105,13 +107,35 @@ export default async function GoalDonePage({
         {t("footnote")}
       </p>
 
-      <div className="mt-10">
+      <div className="mt-10 flex flex-wrap items-center gap-6">
         <Link
           href={`/${locale}/app`}
           className="text-sm text-[var(--color-paper-dim)] underline-offset-4 hover:text-[var(--color-paper)] hover:underline"
         >
           {t("back")}
         </Link>
+
+        {/* Celý plán i s historií plnění. Odsud se na něj dřív nedalo
+            dostat — v seznamu cílů vede dokončený cíl sem, ne na detail,
+            takže s ním nešlo nic dělat. */}
+        <Link
+          href={`/${locale}/app/goals/${goal.id}`}
+          className="text-sm text-[var(--color-paper-faint)] underline-offset-4 hover:text-[var(--color-paper-dim)] hover:underline"
+        >
+          {tGoals("openPlan")}
+        </Link>
+      </div>
+
+      {/*
+        Smazání až úplně dole a nenápadně.
+
+        Dokončený cíl je záznam o něčem, co se povedlo, takže sem nikdo
+        nemá dojít omylem. Ale kdo si stopu po sobě nechat nechce, nebo
+        má cílů tolik, že mu v seznamu překážejí, musí mít jak je uklidit
+        — a psát si kvůli tomu na podporu není řešení.
+      */}
+      <div className="mt-14 border-t border-white/10 pt-8">
+        <DeleteGoalButton goalId={goal.id} />
       </div>
     </section>
   );

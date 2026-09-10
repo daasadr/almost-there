@@ -526,7 +526,8 @@
       "draftTitle": "You have a goal in progress",
       "draftBody": "Your unfinished draft has been kept. You can carry on with it or discard it.",
       "draftContinue": "Carry on",
-      "draftDiscard": "Discard"
+      "draftDiscard": "Discard",
+      "openPlan": "View the full plan"
     },
     "form": {
       "title": "New goal",
