@@ -77,6 +77,14 @@ model User {
   timezone              String        @default("Europe/Prague")
   locale                String        @default("en")
 
+  /// Mají motivační obrázky viset pod seznamem úkolů místo nad ním?
+  ///
+  /// Obě polohy mají něco do sebe a nejde rozhodnout za uživatele.
+  /// Nahoře je obrázek první, co člověk ráno uvidí — proto tam je.
+  /// Jenže je vysoký a odsune tím úkoly pod okraj obrazovky, takže kdo
+  /// chce hlavně odškrtávat, musí ke své práci nejdřív odrolovat.
+  imagesBelowTasks Boolean @default(false)
+
   /// Co má uživatel rád a co mu nic neříká.
   ///
   /// Vstupuje do návrhů odměn za milníky. Bez toho model hádá z ničeho
@@ -225,6 +233,14 @@ model Goal {
   description String?
   targetDate  DateTime
   status      GoalStatus @default(ACTIVE)
+
+  /// Kdy byl cíl pozastavený. Prázdné u cíle, který běží.
+  ///
+  /// Kvůli návratu, ne kvůli evidenci. Pozastavení může trvat měsíce
+  /// a plán by se mezitím celý propadl do minulosti — po obnovení se
+  /// proto zbytek posune o tu samou dobu dopředu. Bez tohohle údaje
+  /// není podle čeho posouvat.
+  pausedAt DateTime?
 
   /// Odkud uživatel začíná — co už umí, má nebo zvládl.
   ///

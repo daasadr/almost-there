@@ -18,12 +18,15 @@ export function TodayChecklist({
   tasks,
   daySeed,
   dailyImages,
+  imagesBelow = false,
 }: {
   tasks: TodayTask[];
   /** Číslo dne — vybírá dnešní pochvalu. Viz `celebration()`. */
   daySeed: number;
   /** Dnešní obrázek pro každý cíl, který nějaký má. */
   dailyImages: Record<string, { id: string; alt: string | null }>;
+  /** Předvolba uživatele: obrázek pod seznamem úkolů místo nad ním. */
+  imagesBelow?: boolean;
 }) {
   const t = useTranslations("plan.today");
   const router = useRouter();
@@ -129,8 +132,16 @@ export function TodayChecklist({
               </h3>
             )}
 
-            {/* Připomínka, proč to člověk dělá — dřív než seznam práce. */}
-            {dailyImages[goalId] && (
+            {/*
+              Připomínka, proč to člověk dělá.
+
+              Nahoře je první, co ráno uvidí — a to je celý smysl. Jenže
+              je vysoká až přes půl obrazovky a odsune tím úkoly pod její
+              okraj, takže kdo si přišel odškrtat práci, musí k ní nejdřív
+              odrolovat. Obě polohy dávají smysl a rozhoduje uživatel;
+              nastavuje se to u obrázků a platí to pro všechny cíle.
+            */}
+            {dailyImages[goalId] && !imagesBelow && (
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={`/api/images/${dailyImages[goalId].id}`}
@@ -204,6 +215,16 @@ export function TodayChecklist({
                 );
               })}
             </ul>
+
+            {/* Tatáž připomínka, jen pod prací — viz komentář výš. */}
+            {dailyImages[goalId] && imagesBelow && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={`/api/images/${dailyImages[goalId].id}`}
+                alt={dailyImages[goalId].alt ?? ""}
+                className="mt-4 max-h-[60vh] w-full rounded-2xl object-contain"
+              />
+            )}
           </section>
         ))}
       </div>

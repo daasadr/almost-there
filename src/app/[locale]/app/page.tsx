@@ -259,7 +259,7 @@ async function Today({
 
   const profile = await db.user.findUnique({
     where: { id: userId },
-    select: { timezone: true },
+    select: { timezone: true, imagesBelowTasks: true },
   });
   const timezone = profile?.timezone ?? "Europe/Prague";
   const [today, overdue, deferred, behind, reached, earned, progress] =
@@ -371,6 +371,7 @@ async function Today({
             tasks={today.tasks}
             daySeed={daySeed(today.date)}
             dailyImages={today.dailyImages}
+            imagesBelow={profile?.imagesBelowTasks ?? false}
           />
         ) : (
           today.goalsNeedingPlan.length === 0 && (

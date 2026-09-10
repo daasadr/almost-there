@@ -660,7 +660,12 @@
         "imageUnreadable": "That file could not be read as an image.",
         "uploadFailed": "The upload failed. Please try again."
       },
-      "choose": "Choose images"
+      "choose": "Choose images",
+      "positionTitle": "Where to show the pictures",
+      "positionAbove": "Above the tasks",
+      "positionBelow": "Below the tasks",
+      "positionHint": "At the top, the picture is the first thing you see in the morning. At the bottom, you get straight to ticking things off. Applies to every goal.",
+      "positionFailed": "The setting could not be saved. Please try again."
     },
     "overdue": {
       "title": "{count, plural, one {One thing is left from earlier days} other {# things are left from earlier days}}",
@@ -723,7 +728,7 @@
       "reopen": "Open it again",
       "seeCelebration": "See the summary",
       "failed": "That did not work. Please try again.",
-      "paused": "This goal is paused. It gets no daily tasks and does not count towards your five running goals — the plan waits until you come back.",
+      "paused": "This goal is paused. It gets no daily tasks and does not count towards your five running goals — the plan waits until you come back to it. When you start it again, the rest of the plan and the deadline move forward by however long it stood still, so you pick up where you left off, with today's dates.",
       "leftover": "{count, plural, one {One task is still unfinished} other {# tasks are still unfinished}}. The plan is a proposal, not a condition — if the goal is reached as far as you are concerned, close it.",
       "seeToday": "Show today’s tasks"
     },

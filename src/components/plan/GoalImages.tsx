@@ -21,10 +21,13 @@ export function GoalImages({
   goalId,
   images,
   maxImages,
+  imagesBelowTasks,
 }: {
   goalId: string;
   images: GoalImageInfo[];
   maxImages: number;
+  /** Uživatelova předvolba, kam obrázky na dnešku patří. */
+  imagesBelowTasks: boolean;
 }) {
   const t = useTranslations("plan.images");
   const router = useRouter();
@@ -32,6 +35,37 @@ export function GoalImages({
 
   const [uploading, setUploading] = useState(0);
   const [error, setError] = useState<string | null>(null);
+
+  // Přepnutí se ukazuje hned; kdyby se čekalo na server, tlačítko by po
+  // klepnutí chvíli tvrdilo, že se nic nestalo.
+  const [position, setPositionState] = useState(imagesBelowTasks);
+  const [savingPosition, setSavingPosition] = useState(false);
+  const [positionFailed, setPositionFailed] = useState(false);
+
+  const setPosition = async (below: boolean) => {
+    if (below === position) return;
+
+    setPositionState(below);
+    setPositionFailed(false);
+    setSavingPosition(true);
+
+    try {
+      const response = await fetch("/api/account/display", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ imagesBelowTasks: below }),
+      });
+      if (!response.ok) throw new Error("write failed");
+      router.refresh();
+    } catch {
+      // Zpátky na to, co platí doopravdy — přepínač nesmí tvrdit něco
+      // jiného než databáze.
+      setPositionState(!below);
+      setPositionFailed(true);
+    } finally {
+      setSavingPosition(false);
+    }
+  };
 
   const full = images.length >= maxImages;
 
@@ -172,6 +206,52 @@ export function GoalImages({
           {uploading > 0
             ? t("uploading", { count: uploading })
             : t("counter", { used: images.length, max: maxImages })}
+        </p>
+      </div>
+
+      {/*
+        Kam obrázek na dnešku patří.
+
+        Předvolba je uživatelova, ne cíle — nastavuje se tady, protože
+        tady na obrázky člověk myslí, ale platí všude. Kdyby ji měl každý
+        cíl vlastní, vypadal by denní seznam u tří cílů pokaždé jinak.
+
+        Ukazuje se, i když zatím žádný obrázek nahraný není: kdo si první
+        fotku právě vybral, řeší tuhle otázku hned vzápětí.
+      */}
+      <div className="mt-7 border-t border-white/5 pt-5">
+        <h3 className="text-xs font-semibold uppercase tracking-wider text-[var(--color-paper-faint)]">
+          {t("positionTitle")}
+        </h3>
+
+        <div
+          role="group"
+          aria-label={t("positionTitle")}
+          className="mt-3 flex flex-wrap gap-2"
+        >
+          {[false, true].map((below) => {
+            const selected = position === below;
+            return (
+              <button
+                key={String(below)}
+                type="button"
+                onClick={() => void setPosition(below)}
+                disabled={savingPosition}
+                aria-pressed={selected}
+                className={`rounded-full border px-4 py-2 text-sm transition disabled:opacity-50 ${
+                  selected
+                    ? "border-[color-mix(in_oklab,var(--color-lime-glow)_55%,transparent)] bg-[color-mix(in_oklab,var(--color-lime-glow)_10%,transparent)] font-medium text-[var(--color-lime-soft)]"
+                    : "border-white/15 text-[var(--color-paper-dim)] hover:border-white/30 hover:text-[var(--color-paper)]"
+                }`}
+              >
+                {below ? t("positionBelow") : t("positionAbove")}
+              </button>
+            );
+          })}
+        </div>
+
+        <p className="mt-2.5 text-xs leading-relaxed text-[var(--color-paper-faint)]">
+          {positionFailed ? t("positionFailed") : t("positionHint")}
         </p>
       </div>
     </section>

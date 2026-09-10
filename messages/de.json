@@ -660,7 +660,12 @@
         "imageUnreadable": "Diese Datei ließ sich nicht als Bild lesen.",
         "uploadFailed": "Der Upload ist fehlgeschlagen. Bitte versuch es erneut."
       },
-      "choose": "Bilder auswählen"
+      "choose": "Bilder auswählen",
+      "positionTitle": "Wo die Bilder erscheinen",
+      "positionAbove": "Über den Aufgaben",
+      "positionBelow": "Unter den Aufgaben",
+      "positionHint": "Oben ist das Bild das Erste, was du morgens siehst. Unten kommst du direkt zum Abhaken. Gilt für alle Ziele.",
+      "positionFailed": "Die Einstellung konnte nicht gespeichert werden. Bitte versuche es erneut."
     },
     "overdue": {
       "title": "{count, plural, one {Aus den letzten Tagen ist eine Sache offen} other {Aus den letzten Tagen sind # Sachen offen}}",
@@ -723,7 +728,7 @@
       "reopen": "Wieder öffnen",
       "seeCelebration": "Zusammenfassung ansehen",
       "failed": "Das hat nicht geklappt. Bitte versuch es erneut.",
-      "paused": "Dieses Ziel ist pausiert. Es bekommt keine Tagesaufgaben und zählt nicht zu deinen fünf laufenden Zielen — der Plan wartet, bis du zurückkommst.",
+      "paused": "Das Ziel ist pausiert. Es bekommt keine Tagesaufgaben und zählt nicht zu den fünf laufenden — der Plan wartet, bis du zurückkommst. Wenn du es wieder startest, verschieben sich der restliche Plan und der Termin um genau die Zeit, die es stillstand, damit du dort weitermachst, wo du aufgehört hast, mit heutigen Daten.",
       "leftover": "{count, plural, one {Eine Aufgabe ist noch offen} other {# Aufgaben sind noch offen}}. Der Plan ist ein Vorschlag, keine Bedingung — wenn das Ziel für dich erreicht ist, schließ es ab.",
       "seeToday": "Heutige Aufgaben anzeigen"
     },

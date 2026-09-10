@@ -61,7 +61,7 @@ export default async function GoalPage({
 
   const profile = await db.user.findUnique({
     where: { id: session.user.id },
-    select: { timezone: true },
+    select: { timezone: true, imagesBelowTasks: true },
   });
   const pace = await getPaceStatus(goal.id, profile?.timezone ?? "Europe/Prague");
   const finish = await getFinishState(goal.id, goal.targetDate);
@@ -227,6 +227,7 @@ export default async function GoalPage({
           goalId={goal.id}
           images={goal.images}
           maxImages={MAX_IMAGES_PER_GOAL}
+          imagesBelowTasks={profile?.imagesBelowTasks ?? false}
         />
       </div>
 

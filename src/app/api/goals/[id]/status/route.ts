@@ -3,6 +3,7 @@ import { z } from "zod";
 import { db } from "@/lib/db";
 import { requireSubscriber } from "@/lib/api/guard";
 import { completeGoal } from "@/lib/goals/complete";
+import { pauseGoal, resumeGoal } from "@/lib/goals/pause";
 
 export const runtime = "nodejs";
 // Uzavření cíle si vyžádá krátké volání modelu na závěrečné shrnutí.
@@ -58,6 +59,21 @@ export async function POST(
     }
 
     await completeGoal(goal.id);
+    return NextResponse.json({ ok: true });
+  }
+
+  if (next === "PAUSED") {
+    await pauseGoal(goal.id);
+    return NextResponse.json({ ok: true });
+  }
+
+  /*
+   * Návrat z pozastavení posune zbytek plánu o dobu, kterou cíl stál —
+   * jinak by se člověk vrátil k plánu ležícímu celý v minulosti. Viz
+   * lib/goals/pause.ts.
+   */
+  if (goal.status === "PAUSED") {
+    await resumeGoal(goal.id);
     return NextResponse.json({ ok: true });
   }
 

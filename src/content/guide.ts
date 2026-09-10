@@ -119,7 +119,7 @@ export const guideByLocale: Record<Locale, GuideDocument> = {
         paragraphs: [
           "Souběžně můžeš mít až pět cílů. Plánují se dohromady, takže se ti nesejdou na stejné dny a nepřekročí čas, který jsi na ně vyhradil.",
           "U každého cíle nastavuješ důležitost. Podle ní se rozděluje denní kapacita — důležitější cíl dostane víc času.",
-          "Cíl jde kdykoliv pozastavit; přestane se objevovat v denním plánu a nebere si kapacitu. Až budeš chtít, rozběhneš ho zpátky.",
+          "Cíl jde kdykoliv pozastavit; přestane se objevovat v denním plánu a nebere si kapacitu. Pauza může trvat klidně měsíce. Až ho rozběhneš zpátky, posune se zbytek plánu i termín přesně o tu dobu, kterou cíl stál — navážeš tam, kde jsi přestal, jen s dnešními daty. Nic se negeneruje znovu a nic to nestojí; pořadí i rozestupy zůstávají, jak byly. Co proběhlo před pauzou, se nepřepisuje.",
           "Ke každému cíli si můžeš nahrát obrázky, které ti připomínají, proč to děláš. Jeden z nich se ukáže u denního seznamu; čím víc jich nahraješ, tím větší je pestrost.",
         ],
       },
@@ -257,7 +257,7 @@ export const guideByLocale: Record<Locale, GuideDocument> = {
         paragraphs: [
           "You can run up to five goals side by side. They are planned together, so they do not land on the same days and do not exceed the time you set aside.",
           "For each goal you set its importance. Daily capacity is divided accordingly — a more important goal gets more time.",
-          "A goal can be paused at any time; it stops appearing in the daily plan and stops claiming capacity. You start it again whenever you want.",
+          "A goal can be paused at any time; it stops appearing in the daily plan and stops claiming capacity. A pause can last for months. When you start it again, the rest of the plan and the deadline move forward by exactly as long as the goal stood still — you pick up where you left off, only with today's dates. Nothing is generated again and it costs nothing; the order and the spacing stay as they were. What happened before the pause is not rewritten.",
           "To each goal you can upload images that remind you why you are doing it. One of them appears with your daily list; the more you add, the more variety you get.",
         ],
       },
@@ -395,7 +395,7 @@ export const guideByLocale: Record<Locale, GuideDocument> = {
         paragraphs: [
           "Du kannst bis zu fünf Ziele nebeneinander verfolgen. Sie werden gemeinsam geplant, damit sie nicht auf dieselben Tage fallen und die Zeit nicht überschreiten, die du dafür vorgesehen hast.",
           "Für jedes Ziel legst du seine Wichtigkeit fest. Danach wird die Tageskapazität verteilt — ein wichtigeres Ziel bekommt mehr Zeit.",
-          "Ein Ziel lässt sich jederzeit pausieren; es erscheint dann nicht mehr im Tagesplan und beansprucht keine Kapazität. Du startest es wieder, wann du willst.",
+          "Ein Ziel lässt sich jederzeit pausieren; es erscheint dann nicht mehr im Tagesplan und beansprucht keine Kapazität. Eine Pause darf ruhig Monate dauern. Wenn du es wieder startest, verschieben sich der restliche Plan und der Termin um genau die Zeit, die das Ziel stillstand — du machst dort weiter, wo du aufgehört hast, nur mit heutigen Daten. Es wird nichts neu erzeugt und es kostet nichts; Reihenfolge und Abstände bleiben, wie sie waren. Was vor der Pause geschah, wird nicht umgeschrieben.",
           "Zu jedem Ziel kannst du Bilder hochladen, die dich daran erinnern, warum du es tust. Eines davon erscheint bei deiner Tagesliste; je mehr du hinzufügst, desto mehr Abwechslung.",
         ],
       },

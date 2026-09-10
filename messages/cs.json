@@ -660,7 +660,12 @@
         "imageUnreadable": "Tenhle soubor se nepodařilo přečíst jako obrázek.",
         "uploadFailed": "Nahrání se nepovedlo. Zkus to prosím znovu."
       },
-      "choose": "Vybrat obrázky"
+      "choose": "Vybrat obrázky",
+      "positionTitle": "Kde obrázky zobrazovat",
+      "positionAbove": "Nad úkoly",
+      "positionBelow": "Pod úkoly",
+      "positionHint": "Nahoře je obrázek první, co ráno uvidíš. Dole se rovnou dostaneš k odškrtávání. Platí pro všechny cíle.",
+      "positionFailed": "Nastavení se nepovedlo uložit. Zkus to prosím znovu."
     },
     "overdue": {
       "title": "{count, plural, one {Z minulých dnů zbyla jedna věc} few {Z minulých dnů zbyly # věci} other {Z minulých dnů zbylo # věcí}}",
@@ -723,7 +728,7 @@
       "reopen": "Otevřít znovu",
       "seeCelebration": "Zobrazit shrnutí",
       "failed": "Nepovedlo se to. Zkus to prosím znovu.",
-      "paused": "Cíl je pozastavený. Denní úkoly nedostává a nepočítá se do pětice běžících — plán čeká, až se k němu vrátíš.",
+      "paused": "Cíl je pozastavený. Denní úkoly nedostává a nepočítá se do pětice běžících — plán čeká, až se k němu vrátíš. Až ho znovu spustíš, posune se zbytek plánu i termín o dobu, kterou stál, takže navážeš tam, kde jsi skončila, s dnešními daty.",
       "leftover": "{count, plural, one {Zbývá jeden nedodělaný úkol} few {Zbývají # nedodělané úkoly} other {Zbývá # nedodělaných úkolů}}. Plán je návrh, ne podmínka — jestli je cíl podle tebe splněný, uzavři ho.",
       "seeToday": "Zobrazit dnešní úkoly"
     },
