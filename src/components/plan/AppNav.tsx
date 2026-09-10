@@ -34,9 +34,11 @@ export function AppNav() {
       {TABS.map((tab) => {
         // Detail cíle i zakládání nového patří pod „Cíle“ — jinak by se
         // při práci s cílem nezvýraznilo nic a člověk by nevěděl, kde je.
+        // Kalendář je pohled na denní plnění, takže patří pod „Dnešek“ —
+        // jinak by na něm nesvítilo nic a člověk by nevěděl, kde je.
         const active =
           tab.href === "/app"
-            ? pathname === "/app"
+            ? pathname === "/app" || pathname === "/app/calendar"
             : pathname === tab.href || pathname.startsWith(`${tab.href}/`);
 
         return (

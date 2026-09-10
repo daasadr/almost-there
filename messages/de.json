@@ -853,6 +853,20 @@
       "title": "{count, plural, one {Heutige Belohnung} other {Heutige Belohnungen}}",
       "body": "Du hast einen Meilenstein erreicht, also nimm sie dir. Sie bleibt bis zum Ende des Tages hier — nicht um dich zu drängen, sondern damit sie im Alltag nicht untergeht.",
       "claim": "Erledigt"
+    },
+    "calendar": {
+      "title": "Kalender",
+      "subtitle": "Ein ganzer Monat auf einmal. Tippe auf einen Tag, um seine Aufgaben zu sehen.",
+      "previous": "Voriger Monat",
+      "next": "Nächster Monat",
+      "thisMonth": "Dieser Monat",
+      "summary": "{done} von {total} Tagen ganz",
+      "legendComplete": "Alles erledigt",
+      "legendPartial": "Teilweise",
+      "legendMissed": "Nichts",
+      "legendEmpty": "Kein Plan",
+      "open": "Kalender öffnen",
+      "backToToday": "Zurück zu heute"
     }
   },
   "withdrawal": {

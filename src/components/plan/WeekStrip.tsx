@@ -25,6 +25,7 @@ export async function WeekStrip({
   locale: string;
 }) {
   const t = await getTranslations({ locale, namespace: "plan.week" });
+  const tCalendar = await getTranslations({ locale, namespace: "plan.calendar" });
 
   const weekday = new Intl.DateTimeFormat(locale, { weekday: "short" });
   const dayNumber = new Intl.DateTimeFormat(locale, { day: "numeric" });
@@ -103,6 +104,17 @@ export async function WeekStrip({
           className="rounded-full border border-white/10 px-3 py-1 text-sm text-[var(--color-paper-faint)] transition hover:border-white/25 hover:text-[var(--color-paper)]"
         >
           →
+        </Link>
+      </div>
+
+      {/* Cesta na celý měsíc. Sedm dní je na denní práci akorát, ale delší
+          běh se z nich vyčíst nedá a listovat po týdnech nikoho nebaví. */}
+      <div className="mt-2 text-right">
+        <Link
+          href={`/${locale}/app/calendar`}
+          className="text-xs text-[var(--color-paper-faint)] underline-offset-4 transition hover:text-[var(--color-paper-dim)] hover:underline"
+        >
+          {tCalendar("open")}
         </Link>
       </div>
     </section>

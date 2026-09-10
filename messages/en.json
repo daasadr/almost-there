@@ -853,6 +853,20 @@
       "title": "{count, plural, one {Today's reward} other {Today's rewards}}",
       "body": "You reached a milestone, so take it. It stays here until the end of the day — not to nag you, but so it does not get lost in everything else.",
       "claim": "Got it"
+    },
+    "calendar": {
+      "title": "Calendar",
+      "subtitle": "A whole month at once. Tap a day to see its tasks.",
+      "previous": "Previous month",
+      "next": "Next month",
+      "thisMonth": "This month",
+      "summary": "{done} of {total} days complete",
+      "legendComplete": "All done",
+      "legendPartial": "Partly",
+      "legendMissed": "Nothing",
+      "legendEmpty": "No plan",
+      "open": "Open the calendar",
+      "backToToday": "Back to today"
     }
   },
   "withdrawal": {

@@ -48,19 +48,17 @@ export type DayProgress = {
 };
 
 /**
- * Posledních N dní pro proužek postupu.
+ * Plnění po dnech mezi dvěma daty, včetně obou konců.
  *
- * Vrací se i dny bez záznamu, aby proužek nepřeskakoval — den, kdy se
- * nic nedělo, je taky informace.
+ * Společný základ pro proužek posledních třiceti dnů i pro kalendář.
+ * Vrací jen dny, o kterých se něco ví — chybějící klíč znamená den bez
+ * plánu, ne den bez práce.
  */
-export async function getRecentProgress(
+async function progressBetween(
   userId: string,
-  timezone = "Europe/Prague",
-  days = 30,
-): Promise<DayProgress[]> {
-  const today = parseIsoDate(todayIso(timezone));
-  const from = new Date(today.getTime() - (days - 1) * 86_400_000);
-
+  from: Date,
+  to: Date,
+): Promise<Map<string, { total: number; done: number }>> {
   /**
    * Dva zdroje, a ten druhý je tu kvůli chybě, která proužku brala smysl.
    *
@@ -77,14 +75,14 @@ export async function getRecentProgress(
    */
   const [checkIns, plannedDays] = await Promise.all([
     db.checkIn.findMany({
-      where: { userId, date: { gte: from, lte: today } },
+      where: { userId, date: { gte: from, lte: to } },
       select: { date: true, tasksTotal: true, tasksCompleted: true },
     }),
     db.timeBlock.findMany({
       where: {
         goal: { userId, status: "ACTIVE" },
         level: "DAY",
-        startDate: { gte: from, lte: today },
+        startDate: { gte: from, lte: to },
       },
       select: { startDate: true, tasks: { select: { status: true } } },
     }),
@@ -109,6 +107,19 @@ export async function getRecentProgress(
       done: entry.tasksCompleted,
     });
   }
+
+  return byDate;
+}
+
+/** Posledních N dní pro proužek postupu. */
+export async function getRecentProgress(
+  userId: string,
+  timezone = "Europe/Prague",
+  days = 30,
+): Promise<DayProgress[]> {
+  const today = parseIsoDate(todayIso(timezone));
+  const from = new Date(today.getTime() - (days - 1) * 86_400_000);
+  const byDate = await progressBetween(userId, from, today);
 
   return Array.from({ length: days }, (_, index) => {
     const date = toIsoDate(new Date(from.getTime() + index * 86_400_000));
@@ -148,31 +159,16 @@ export async function getWeekProgress(
   );
   const sunday = new Date(monday.getTime() + 6 * 86_400_000);
 
-  const checkIns = await db.checkIn.findMany({
-    where: { userId, date: { gte: monday, lte: sunday } },
-    select: { date: true, tasksTotal: true, tasksCompleted: true },
-  });
-
-  const byDate = new Map(
-    checkIns.map((entry) => [
-      toIsoDate(entry.date),
-      { total: entry.tasksTotal, done: entry.tasksCompleted },
-    ]),
-  );
-
-  // Dnešek se do souhrnů zapisuje až při prvním odškrtnutí, takže by
-  // v proužku chyběl, dokud člověk nic neudělá. Doplníme ho z úkolů.
-  if (!byDate.has(today) && today >= toIsoDate(monday) && today <= toIsoDate(sunday)) {
-    const where = {
-      goal: { userId, status: "ACTIVE" as const },
-      timeBlock: { level: "DAY" as const, startDate: parseIsoDate(today) },
-    };
-    const [total, done] = await Promise.all([
-      db.task.count({ where }),
-      db.task.count({ where: { ...where, status: "DONE" } }),
-    ]);
-    if (total > 0) byDate.set(today, { total, done });
-  }
+  /**
+   * Přes společný dopočet, ne jen ze souhrnů.
+   *
+   * Dřív se tu četly jen souhrny a zvlášť se dopočítával dnešek, protože
+   * ten svůj souhrn dostane až při prvním odškrtnutí. Jenže to platí
+   * o každém dni: kdo v úterý neudělal nic, neměl za úterý souhrn a
+   * v proužku vyšlo prázdné okénko — k nerozeznání od dne, na který se
+   * plán nedostal. Vynechaný den tak nešlo ukázat vůbec.
+   */
+  const byDate = await progressBetween(userId, monday, sunday);
 
   return Array.from({ length: 7 }, (_, index) => {
     const date = toIsoDate(new Date(monday.getTime() + index * 86_400_000));
@@ -184,6 +180,61 @@ export async function getWeekProgress(
       done: entry?.done ?? 0,
       isToday: date === today,
       isFuture: date > today,
+    };
+  });
+}
+
+export type CalendarDay = WeekDay & {
+  /** Patří den do zobrazovaného měsíce, nebo jen dorovnává mřížku? */
+  inMonth: boolean;
+};
+
+/**
+ * Celý měsíc do mřížky kalendáře.
+ *
+ * Vrací i dny okolních měsíců, které dorovnávají první a poslední řádek —
+ * kalendář s uřízlým týdnem se špatně čte. Jsou označené `inMonth: false`,
+ * ať se dají potlačit.
+ *
+ * Týden začíná pondělkem, stejně jako se dělí plán i jako v týdenním
+ * proužku. Kdyby se to lišilo, neseděly by na sebe.
+ *
+ * @param month ve tvaru YYYY-MM
+ */
+export async function getMonthProgress(
+  userId: string,
+  timezone: string,
+  month: string,
+): Promise<CalendarDay[]> {
+  const today = todayIso(timezone);
+  const first = parseIsoDate(`${month}-01`);
+
+  const last = new Date(
+    Date.UTC(first.getUTCFullYear(), first.getUTCMonth() + 1, 0),
+  );
+
+  // Doleva k pondělí, doprava k neděli.
+  const leading = first.getUTCDay() === 0 ? 6 : first.getUTCDay() - 1;
+  const gridStart = new Date(first.getTime() - leading * 86_400_000);
+
+  const trailing = last.getUTCDay() === 0 ? 0 : 7 - last.getUTCDay();
+  const gridEnd = new Date(last.getTime() + trailing * 86_400_000);
+
+  const byDate = await progressBetween(userId, gridStart, gridEnd);
+
+  const length = Math.round((gridEnd.getTime() - gridStart.getTime()) / 86_400_000) + 1;
+
+  return Array.from({ length }, (_, index) => {
+    const date = toIsoDate(new Date(gridStart.getTime() + index * 86_400_000));
+    const entry = byDate.get(date);
+
+    return {
+      date,
+      total: entry?.total ?? 0,
+      done: entry?.done ?? 0,
+      isToday: date === today,
+      isFuture: date > today,
+      inMonth: date.slice(0, 7) === month,
     };
   });
 }
