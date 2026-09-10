@@ -61,17 +61,54 @@ export async function getRecentProgress(
   const today = parseIsoDate(todayIso(timezone));
   const from = new Date(today.getTime() - (days - 1) * 86_400_000);
 
-  const checkIns = await db.checkIn.findMany({
-    where: { userId, date: { gte: from, lte: today } },
-    select: { date: true, tasksTotal: true, tasksCompleted: true },
-  });
+  /**
+   * Dva zdroje, a ten druhý je tu kvůli chybě, která proužku brala smysl.
+   *
+   * Souhrn dne vzniká až při odškrtnutí úkolu. Den, kdy člověk neudělal
+   * vůbec nic, tedy žádný souhrn nemá — a protože se dny bez souhrnu
+   * braly jako dny bez plánu, vypadly z počítadla úplně, z čitatele
+   * i ze jmenovatele. Proužek pak u člověka, který tři dny nic nedělal,
+   * hlásil „23 z 23 dní celých“: jediná cesta k číslu pod sto procent
+   * bylo odškrtnout část úkolů a zbytek ne.
+   *
+   * Dny bez souhrnu se proto dopočítají z úkolů. Souhrn má přednost tam,
+   * kde je — přežije totiž i dokončení nebo smazání cíle, což je přesně
+   * to, proč se vede.
+   */
+  const [checkIns, plannedDays] = await Promise.all([
+    db.checkIn.findMany({
+      where: { userId, date: { gte: from, lte: today } },
+      select: { date: true, tasksTotal: true, tasksCompleted: true },
+    }),
+    db.timeBlock.findMany({
+      where: {
+        goal: { userId, status: "ACTIVE" },
+        level: "DAY",
+        startDate: { gte: from, lte: today },
+      },
+      select: { startDate: true, tasks: { select: { status: true } } },
+    }),
+  ]);
 
-  const byDate = new Map(
-    checkIns.map((entry) => [
-      toIsoDate(entry.date),
-      { total: entry.tasksTotal, done: entry.tasksCompleted },
-    ]),
-  );
+  const byDate = new Map<string, { total: number; done: number }>();
+
+  // Nejdřív z úkolů. Jeden den může mít bloky od víc cílů, takže se
+  // sčítají — souhrn je za celý den napříč cíli, ne za jeden cíl.
+  for (const block of plannedDays) {
+    const date = toIsoDate(block.startDate);
+    const entry = byDate.get(date) ?? { total: 0, done: 0 };
+    entry.total += block.tasks.length;
+    entry.done += block.tasks.filter((task) => task.status === "DONE").length;
+    byDate.set(date, entry);
+  }
+
+  // Souhrn přepisuje dopočet.
+  for (const entry of checkIns) {
+    byDate.set(toIsoDate(entry.date), {
+      total: entry.tasksTotal,
+      done: entry.tasksCompleted,
+    });
+  }
 
   return Array.from({ length: days }, (_, index) => {
     const date = toIsoDate(new Date(from.getTime() + index * 86_400_000));

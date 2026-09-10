@@ -34,6 +34,7 @@ export function PlanTrigger({
   const [running, setRunning] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const started = useRef(false);
+  const box = useRef<HTMLDivElement>(null);
 
   const run = useCallback(async () => {
     if (started.current) return;
@@ -41,6 +42,13 @@ export function PlanTrigger({
 
     setRunning(true);
     setError(null);
+
+    /**
+     * Rozpad trvá desítky sekund a všechno, co o něm vypovídá — ukazatel,
+     * pak výsledek nebo chyba — se odehrává v tomhle rámečku. Kdo ho má
+     * mimo obraz, dívá se na stránku, která podle něj nedělá nic.
+     */
+    box.current?.scrollIntoView({ block: "center", behavior: "smooth" });
 
     try {
       for (const goalId of goalIds) {
@@ -78,7 +86,10 @@ export function PlanTrigger({
   if (goalIds.length === 0) return null;
 
   return (
-    <div className="rounded-2xl border border-white/10 p-5 sm:p-6">
+    <div
+      ref={box}
+      className="rounded-2xl border border-white/10 p-5 sm:p-6 scroll-mt-32"
+    >
       {/* Text se liší podle toho, jestli rozpad běží sám, nebo na něj
           uživatel teprve čeká s prstem nad tlačítkem. */}
       <h2 className="display text-lg">
@@ -95,8 +106,10 @@ export function PlanTrigger({
           aria-label={t("preparingTitle")}
         >
           {/* Neurčitý ukazatel: kolik zbývá, se odhadnout nedá — server
-              vrátí odpověď najednou. Pulzování aspoň říká, že se pracuje. */}
-          <div className="h-full w-full animate-pulse rounded-full bg-gradient-to-r from-[var(--color-emerald-soft)] to-[var(--color-lime-soft)]" />
+              vrátí odpověď najednou. Úsek proto putuje po dráze; dřív to
+              byl plný pruh s pulzováním, což na tmavém podkladu vypadalo
+              jako zamrzlá stránka. Viz `.progress-indeterminate`. */}
+          <div className="progress-indeterminate h-full rounded-full bg-gradient-to-r from-[var(--color-emerald-soft)] to-[var(--color-lime-soft)]" />
         </div>
       )}
 

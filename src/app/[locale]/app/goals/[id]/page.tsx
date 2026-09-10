@@ -111,6 +111,25 @@ export default async function GoalPage({
         </Link>
       )}
 
+      {/*
+        Rozpad na dny na stejném místě, kde se pak objeví cesta na dnešek.
+
+        Bez `auto`: na detailu se spouští až na kliknutí. Uživatel si tu
+        čte horní rozpad a teprve se rozhoduje, jestli si cíl nechá —
+        utrácet za dny dřív než on sám řekne, je zbytečné.
+
+        Dřív to viselo dole pod obrázky. Kdo na tlačítko klepl, měl před
+        sebou půl minuty ticha, a když rozpad doběhl, rámeček zmizel
+        a tlačítko „zobrazit dnešní úkoly“ se objevilo sem nahoru, tedy
+        mimo obraz. Vypadalo to, že se nestalo nic. Teď obojí sedí na
+        témže místě a jedno vystřídá druhé.
+      */}
+      {!hasDays && goal.status === "ACTIVE" && (
+        <div className="mt-6">
+          <PlanTrigger goalIds={[goal.id]} auto={false} />
+        </div>
+      )}
+
       {goal.status === "PAUSED" && (
         <p className="mt-6 rounded-2xl border border-white/10 bg-white/[0.02] p-5 text-sm leading-relaxed text-[var(--color-paper-dim)]">
           {tStatus("paused")}
@@ -210,15 +229,6 @@ export default async function GoalPage({
           maxImages={MAX_IMAGES_PER_GOAL}
         />
       </div>
-
-      {/* Bez `auto`: na detailu se rozpad na dny spustí až na kliknutí.
-          Uživatel si tu čte horní rozpad a teprve se rozhoduje, jestli si
-          cíl nechá — utrácet za dny dřív než on sám řekne, je zbytečné. */}
-      {!hasDays && (
-        <div className="mt-8">
-          <PlanTrigger goalIds={[goal.id]} auto={false} />
-        </div>
-      )}
 
       <h2 className="display mt-12 text-2xl">{t("planTitle")}</h2>
       <p className="mt-2 text-sm leading-relaxed text-[var(--color-paper-faint)]">

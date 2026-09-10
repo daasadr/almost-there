@@ -293,6 +293,41 @@
 }
 
 /*
+ * Neurčitý ukazatel průběhu.
+ *
+ * Kolik zbývá, se odhadnout nedá — server vrátí odpověď najednou. Dřív
+ * to byl plný pruh s `animate-pulse`, tedy jen měnící se průhlednost, a
+ * na tmavém podkladu to nebylo poznat. Uživatel klepl na tlačítko a měl
+ * před sebou stránku, která vypadala zamrzle.
+ *
+ * Proto místo toho úsek, který putuje po dráze. Pohyb po ploše je vidět
+ * i koutkem oka a znamená jednoznačně „pracuje se“, i když o zbývajícím
+ * čase neříká nic.
+ */
+@keyframes indeterminate-slide {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(400%);
+  }
+}
+
+.progress-indeterminate {
+  width: 25%;
+  animation: indeterminate-slide 1.4s ease-in-out infinite;
+}
+
+/* Kdo si vypnul animace, dostane statický pruh. Blikající proužek přes
+   celou šířku je přesně to, co u téhle předvolby lidem vadí. */
+@media (prefers-reduced-motion: reduce) {
+  .progress-indeterminate {
+    width: 100%;
+    animation: none;
+  }
+}
+
+/*
  * Pojistka proti vodorovnému posuvníku.
  *
  * Nic se tím neopravuje — když něco přetéká, patří to spravit tam, kde to
