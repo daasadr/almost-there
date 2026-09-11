@@ -105,6 +105,38 @@ export function SiteFooter() {
             <LocaleSwitcher />
           </span>
         </div>
+
+        {/*
+          Odznak katalogu, kde je aplikace uvedená. Jejich podmínka za
+          zařazení, proto je tu — ale úplně dole pod vším ostatním.
+
+          Obrázek si držíme u sebe, i když ho nabízeli ze své adresy.
+          Hlavička `img-src 'self' data: blob:` cizí obrázky nepustí
+          a prohlížeč u toho mlčí, takže by tu byl jen rozbitý rámeček.
+          Vlastní kopie navíc načte rychleji a jejich server se nedozví
+          o každém našem návštěvníkovi.
+
+          `lazy` schválně: je to poslední věc na stránce a skoro nikdo
+          k ní nedoroluje. Rozměry jsou napsané, aby se při načtení
+          nepohnul obsah nad ním.
+        */}
+        <div className="mt-12 border-t border-white/5 pt-8">
+          <a
+            href="https://tools.launchllama.co?utm_source=badge&utm_medium=referral"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block opacity-70 transition hover:opacity-100"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/launch-llama.png"
+              alt="As seen on Launch Llama Newsletter"
+              width={200}
+              height={52}
+              loading="lazy"
+            />
+          </a>
+        </div>
       </div>
     </footer>
   );
