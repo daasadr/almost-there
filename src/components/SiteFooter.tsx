@@ -129,10 +129,13 @@ export function SiteFooter() {
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/launch-llama.png"
+              src="/featured-badge.png"
               alt="As seen on Launch Llama Newsletter"
+              /* Soubor je 600×159, tedy trojnásobek — na displeji s vysokým
+                 rozlišením zůstane ostrý. Výška 53, ne 52 jako v jejich
+                 úryvku: to by obrázek o chlup zploštilo. */
               width={200}
-              height={52}
+              height={53}
               loading="lazy"
             />
           </a>
