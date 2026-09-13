@@ -214,7 +214,8 @@
           "item": "Week {n}",
           "count": "{count, plural, one {# week} other {# weeks}}"
         }
-      }
+      },
+      "speed": "Done in {seconds, plural, one {# second} other {# seconds}}. Working this breakdown out on paper takes about two hours — and turning it into daily tasks another two. In the app they appear just as fast as this plan did."
     }
   },
   "legal": {

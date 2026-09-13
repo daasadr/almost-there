@@ -214,7 +214,8 @@
           "item": "Týden {n}",
           "count": "{count, plural, one {# týden} few {# týdny} other {# týdnů}}"
         }
-      }
+      },
+      "speed": "Hotovo za {seconds, plural, one {# sekundu} few {# sekundy} other {# sekund}}. Rozepsat tohle rozfázování na papíře je práce asi na dvě hodiny — a udělat z něj denní úkoly další dvě. V aplikaci vzniknou stejně rychle jako tenhle plán."
     }
   },
   "legal": {

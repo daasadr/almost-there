@@ -15,11 +15,14 @@ export function DemoResult({
   plan,
   goal,
   targetDate,
+  seconds,
   onReset,
 }: {
   plan: Plan;
   goal: string;
   targetDate: string;
+  /** Jak dlouho rozfázování trvalo. */
+  seconds: number;
   onReset: () => void;
 }) {
   const t = useTranslations("demo.result");
@@ -37,6 +40,17 @@ export function DemoResult({
     <div className="space-y-5">
       <header className="card p-6 sm:p-8">
         <h2 className="display text-2xl sm:text-3xl">{t("title")}</h2>
+
+        {/*
+          Kolik to trvalo, hned pod nadpisem.
+
+          Je to jediná chvíle, kdy člověk drží v ruce vlastní plán a ještě
+          má v paměti, jak dlouho na něj čekal. Tady mu dojde, co dostal —
+          o dvě obrazovky níž už ne. Čas je naměřený, ne odhadnutý.
+        */}
+        <p className="mt-3 text-[15px] leading-relaxed text-[var(--color-lime-soft)]">
+          {t("speed", { seconds })}
+        </p>
 
         <dl className="mt-6 grid gap-4 sm:grid-cols-3">
           <div className="sm:col-span-2">

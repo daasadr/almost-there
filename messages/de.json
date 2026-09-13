@@ -214,7 +214,8 @@
           "item": "Woche {n}",
           "count": "{count, plural, one {# Woche} other {# Wochen}}"
         }
-      }
+      },
+      "speed": "In {seconds, plural, one {# Sekunde} other {# Sekunden}} fertig. Diese Aufteilung von Hand auf Papier zu erarbeiten dauert etwa zwei Stunden — und daraus Tagesaufgaben zu machen noch einmal zwei. In der App entstehen sie genauso schnell wie dieser Plan."
     }
   },
   "legal": {

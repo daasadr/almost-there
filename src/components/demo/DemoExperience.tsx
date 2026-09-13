@@ -19,7 +19,14 @@ import { GenerationProgress } from "./GenerationProgress";
 type State =
   | { status: "form" }
   | { status: "loading" }
-  | { status: "done"; plan: Plan; goal: string; targetDate: string };
+  | {
+      status: "done";
+      plan: Plan;
+      goal: string;
+      targetDate: string;
+      /** Jak dlouho rozfázování trvalo, v sekundách. */
+      seconds: number;
+    };
 
 export function DemoExperience() {
   const t = useTranslations("demo");
@@ -43,6 +50,17 @@ export function DemoExperience() {
     setError(null);
     setState({ status: "loading" });
 
+    /**
+     * Měří se skutečný čas, ne odhad.
+     *
+     * Je to jediné číslo, ze kterého člověk pozná, co právě dostal.
+     * Rozfázovat cíl na papíře je práce na hodiny a kdo to nikdy
+     * nezkoušel, netuší to — a kdo to zkoušel, tomu stačí připomenout.
+     * Napsané číslo je přesvědčivější než jakékoliv tvrzení o rychlosti,
+     * protože si ho uživatel právě odseděl.
+     */
+    const startedAt = performance.now();
+
     try {
       const response = await fetch("/api/demo", {
         method: "POST",
@@ -62,6 +80,8 @@ export function DemoExperience() {
         plan: data.plan as Plan,
         goal: goal.trim(),
         targetDate,
+        // Nejmíň jedna sekunda: „hotovo za 0 sekund“ zní jako chyba.
+        seconds: Math.max(1, Math.round((performance.now() - startedAt) / 1000)),
       });
     } catch {
       setError("generic");
@@ -75,6 +95,7 @@ export function DemoExperience() {
         plan={state.plan}
         goal={state.goal}
         targetDate={state.targetDate}
+        seconds={state.seconds}
         onReset={() => {
           setState({ status: "form" });
           setGoal("");
