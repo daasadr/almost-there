@@ -102,8 +102,23 @@ function Hero() {
             <span className="text-gradient">{t("titleAccent")}</span>
           </h1>
 
-          <p className="mt-7 max-w-xl text-lg leading-relaxed text-[var(--color-paper-dim)]">
+          {/*
+            Dva odstavce, ne jeden, a schválně různě velké.
+
+            Ten první je celé kouzlo v jedné větě: mám složitý dlouhodobý
+            cíl a za minutu vím, co mám dělat dnes. Kdo si přečte jen
+            tohle, pochopil, o co jde.
+
+            Ten druhý je pro toho, kdo chce vědět jak. Dřív byly obě věci
+            slité dohromady a ta jednoduchost se v nich ztrácela — člověk
+            se musel prokousat popisem fází, aby došel k tomu podstatnému.
+          */}
+          <p className="mt-7 max-w-xl text-xl leading-relaxed text-[var(--color-paper)]">
             {t("subtitle")}
+          </p>
+
+          <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+            {t("subtitleDetail")}
           </p>
 
           {/* Dvě rovnocenná CTA vedle sebe — ne každý chce demo (zadání, bod 8).
