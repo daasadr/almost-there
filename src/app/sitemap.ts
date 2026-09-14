@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { locales } from "@/i18n/routing";
 import { LEGAL_VERSION } from "@/content/legal";
+import { articlesFor } from "@/content/articles";
 import { absoluteUrl } from "@/lib/seo/site";
 
 /**
@@ -25,6 +26,10 @@ const PAGES = [
 export default function sitemap(): MetadataRoute.Sitemap {
   const buildTime = new Date();
 
+  return [...pageEntries(buildTime), ...blogEntries(buildTime)];
+}
+
+function pageEntries(buildTime: Date): MetadataRoute.Sitemap {
   return locales.flatMap((locale) =>
     PAGES.map((page) => ({
       url: absoluteUrl(locale, page.path),
@@ -39,4 +44,37 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     })),
   );
+}
+
+/**
+ * Články do mapy zvlášť.
+ *
+ * Nedají se přidat k `PAGES` výš, protože ty mají všechny jazykové
+ * varianty. Článek existuje jen v jazyce, ve kterém byl napsaný —
+ * uvést u něj sourozence, kteří nikde nejsou, by vyhledávače poslalo
+ * na chybějící stránky.
+ *
+ * Výpis se uvádí jen tehdy, když v daném jazyce nějaký článek je.
+ * Prázdná stránka v mapě je slib, který nikdo nesplní.
+ */
+function blogEntries(buildTime: Date): MetadataRoute.Sitemap {
+  return locales.flatMap((locale) => {
+    const items = articlesFor(locale);
+    if (items.length === 0) return [];
+
+    return [
+      {
+        url: absoluteUrl(locale, "/blog"),
+        lastModified: new Date(items[0].publishedAt),
+        changeFrequency: "weekly" as const,
+        priority: 0.6,
+      },
+      ...items.map((article) => ({
+        url: absoluteUrl(locale, `/blog/${article.slug}`),
+        lastModified: new Date(article.publishedAt),
+        changeFrequency: "yearly" as const,
+        priority: 0.5,
+      })),
+    ];
+  });
 }

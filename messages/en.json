@@ -22,7 +22,7 @@
     "eyebrow": "Goal → months → weeks → today",
     "title": "You're almost there.",
     "titleAccent": "Every single day.",
-    "subtitle": "Tell us your goal and your deadline. A minute later you know what to do today — and every day after that, so it actually happens.",
+    "subtitle": "No great goal is ever finished at once. It is finished one day at a time. Tell us the goal and the deadline — we'll show you what to do for it today, tomorrow, and every day until you are there.",
     "ctaDemo": "Try the demo",
     "ctaBuy": "Get started",
     "ctaNote": "The demo needs no account. See how your goal breaks down in under a minute.",
@@ -985,5 +985,15 @@
     "stuckBody": "Write to daasa.d@seznam.cz. I answer myself and I am glad to — questions tell me what is unclear in the app, and then I fix it.",
     "tryDemo": "Try the demo",
     "back": "Back to home"
+  },
+  "blog": {
+    "title": "Notes",
+    "subtitle": "On goals, on planning, and on what building AlmostThere has shown us.",
+    "empty": "Nothing here yet. We're working on it.",
+    "readingTime": "{minutes} min read",
+    "backToList": "All notes",
+    "ctaTitle": "Try it on your own goal",
+    "ctaBody": "The demo needs no account. In a minute you'll see how your goal breaks down, all the way to today.",
+    "ctaButton": "Try the demo"
   }
 }

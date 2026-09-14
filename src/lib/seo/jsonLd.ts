@@ -122,3 +122,36 @@ export function faqLd(items: { q: string; a: string }[]): Json {
 export function graph(...nodes: Json[]): Json {
   return { "@context": "https://schema.org", "@graph": nodes };
 }
+
+/**
+ * Článek.
+ *
+ * Datum vydání a autora si vyhledávač z běžného textu domýšlet nemá —
+ * u článků se podle nich rozhoduje, jak jsou čerstvé a kdo za nimi
+ * stojí. Jazykové modely z toho navíc poznají, že jde o text k citování,
+ * ne o stránku produktu.
+ */
+export function articleLd(
+  locale: Locale,
+  article: {
+    slug: string;
+    title: string;
+    excerpt: string;
+    publishedAt: string;
+  },
+): Json {
+  const url = absoluteUrl(locale, `/blog/${article.slug}`);
+
+  return {
+    "@type": "Article",
+    "@id": `${url}#article`,
+    headline: article.title,
+    description: article.excerpt,
+    datePublished: article.publishedAt,
+    inLanguage: locale,
+    url,
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
+    author: { "@type": "Person", name: "Dagmar Drbálková" },
+    publisher: { "@id": `${siteUrl()}/#organization` },
+  };
+}

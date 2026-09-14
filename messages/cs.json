@@ -22,7 +22,7 @@
     "eyebrow": "Cíl → měsíce → týdny → dnešek",
     "title": "Už tam skoro jsi.",
     "titleAccent": "Každý jednotlivý den.",
-    "subtitle": "Řekni nám svůj cíl a termín. Za minutu víš, co máš udělat dnes — a každý další den, aby se stal.",
+    "subtitle": "Žádný velký cíl se nesplní najednou. Splní se po dnech. Řekni nám cíl a termín — ukážeme ti, co pro něj máš udělat dnes, zítra a každý další den až k němu.",
     "ctaDemo": "Vyzkoušet demo",
     "ctaBuy": "Koupit rovnou",
     "ctaNote": "Demo je bez registrace. Za necelou minutu uvidíš, jak se tvůj cíl rozfázuje.",
@@ -985,5 +985,15 @@
     "stuckBody": "Napiš na daasa.d@seznam.cz. Odpovídám sama a ráda — z otázek se dozvím, co je v aplikaci nesrozumitelné, a spravím to.",
     "tryDemo": "Vyzkoušet demo",
     "back": "Zpět na úvod"
+  },
+  "blog": {
+    "title": "Zápisky",
+    "subtitle": "O cílech, o plánování a o tom, co se při stavění AlmostThere ukázalo.",
+    "empty": "Zatím tu nic není. Pracuje se na tom.",
+    "readingTime": "{minutes} min čtení",
+    "backToList": "Všechny zápisky",
+    "ctaTitle": "Zkus si to na svém cíli",
+    "ctaBody": "Demo je bez registrace. Za minutu uvidíš, jak by se tvůj cíl rozfázoval až na dnešek.",
+    "ctaButton": "Vyzkoušet demo"
   }
 }

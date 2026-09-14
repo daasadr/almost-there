@@ -22,7 +22,7 @@
     "eyebrow": "Ziel → Monate → Wochen → heute",
     "title": "Du bist fast da.",
     "titleAccent": "An jedem einzelnen Tag.",
-    "subtitle": "Sag uns dein Ziel und deinen Termin. Eine Minute später weißt du, was du heute zu tun hast — und an jedem weiteren Tag, damit es wirklich passiert.",
+    "subtitle": "Kein großes Ziel wird auf einmal erreicht. Es wird Tag für Tag erreicht. Sag uns Ziel und Termin — wir zeigen dir, was du heute dafür tust, morgen und an jedem Tag bis dorthin.",
     "ctaDemo": "Demo testen",
     "ctaBuy": "Jetzt starten",
     "ctaNote": "Die Demo braucht kein Konto. In unter einer Minute siehst du, wie sich dein Ziel aufteilt.",
@@ -985,5 +985,15 @@
     "stuckBody": "Schreib an daasa.d@seznam.cz. Ich antworte selbst und gern — Fragen zeigen mir, was in der App unklar ist, und dann bessere ich es aus.",
     "tryDemo": "Demo testen",
     "back": "Zurück zur Startseite"
+  },
+  "blog": {
+    "title": "Notizen",
+    "subtitle": "Über Ziele, über Planung und darüber, was sich beim Bauen von AlmostThere gezeigt hat.",
+    "empty": "Hier ist noch nichts. Wir arbeiten daran.",
+    "readingTime": "{minutes} Min. Lesezeit",
+    "backToList": "Alle Notizen",
+    "ctaTitle": "Probier es an deinem eigenen Ziel",
+    "ctaBody": "Die Demo braucht kein Konto. In einer Minute siehst du, wie sich dein Ziel aufteilt — bis hin zu heute.",
+    "ctaButton": "Demo ausprobieren"
   }
 }
