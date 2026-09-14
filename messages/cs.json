@@ -874,6 +874,16 @@
       "legendEmpty": "Bez plánu",
       "open": "Zobrazit kalendář",
       "backToToday": "Zpět na dnešek"
+    },
+    "share": {
+      "button": "Sdílet postup",
+      "working": "Připravuji…",
+      "cardTitle": "Posledních 30 dní",
+      "cardStat": "{done} z {total} dní celých",
+      "shareTitle": "Můj postup",
+      "shareText": "Posledních třicet dní s AlmostThere.",
+      "saved": "Obrázek je stažený — teď ho můžeš vložit, kam chceš.",
+      "failed": "Obrázek se nepovedlo vytvořit. Zkus to prosím znovu."
     }
   },
   "withdrawal": {

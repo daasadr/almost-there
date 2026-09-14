@@ -9,6 +9,7 @@ import { PlanTrigger } from "@/components/plan/PlanTrigger";
 import { TodayChecklist } from "@/components/plan/TodayChecklist";
 import { PaceCheck } from "@/components/plan/PaceCheck";
 import { ProgressStrip } from "@/components/plan/ProgressStrip";
+import { ShareProgress } from "@/components/plan/ShareProgress";
 import { WeekStrip } from "@/components/plan/WeekStrip";
 import { ClaimDemoGoal } from "@/components/plan/ClaimDemoGoal";
 import { InstallPrompt } from "@/components/plan/InstallPrompt";
@@ -321,6 +322,19 @@ async function Today({
           delší běh než jeden den. */}
       <div className="mt-6">
         <ProgressStrip days={progress} locale={locale} />
+
+        {/*
+          Sdílení postupu ven, na sítě, kde uživatel už je.
+
+          V aplikaci z obchodu se schovává, a ne kvůli pravidlům Google
+          Play — ta s tím nemají problém. Android WebView prostě nemá
+          systémové sdílení a stažení souboru v něm taky neprojde, takže
+          by tlačítko jen mlčky nefungovalo. Až přibude nativní plugin
+          na sdílení, může se odkrýt; do té doby se sdílí z webu.
+        */}
+        <div className="store-hidden">
+          <ShareProgress days={progress} />
+        </div>
       </div>
 
       <div className="mt-5 space-y-4">

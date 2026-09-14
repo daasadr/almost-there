@@ -874,6 +874,16 @@
       "legendEmpty": "No plan",
       "open": "Open the calendar",
       "backToToday": "Back to today"
+    },
+    "share": {
+      "button": "Share your progress",
+      "working": "Preparing…",
+      "cardTitle": "The last 30 days",
+      "cardStat": "{done} of {total} days complete",
+      "shareTitle": "My progress",
+      "shareText": "The last thirty days with AlmostThere.",
+      "saved": "The image has been saved — post it wherever you like.",
+      "failed": "The image could not be created. Please try again."
     }
   },
   "withdrawal": {
