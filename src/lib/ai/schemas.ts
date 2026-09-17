@@ -83,7 +83,14 @@ export type TaskTypeName = (typeof taskTypes)[number];
 
 export const dayTaskSchema = z.object({
   title: z.string().min(1),
-  /** Nepovinné upřesnění — co přesně dělat, když z názvu není jasné. */
+  /**
+   * Návod, jak dnešní úkol udělat — dva až čtyři kroky, každý na řádku.
+   *
+   * Ve schématu pro model je povinný, protože právě v něm je rozdíl mezi
+   * plánem a seznamem předsevzetí. Tady zůstává nepovinný schválně:
+   * kdyby ho model u jednoho úkolu ze sta vynechal, je lepší přijít
+   * o návod než zahodit celý týdenní rozpad, který stál peníze.
+   */
   description: z.string().optional(),
   type: z.enum(taskTypes),
   /**
@@ -180,7 +187,7 @@ export function buildDaysJsonSchema(count: number) {
                   description: {
                     type: "string",
                     description:
-                      "Optional one-sentence detail. Leave out when the title says everything.",
+                      "How to actually do this today: two to four steps, one per line, no bullet characters. Specific to this goal — name the count, the section, the distance, the kind of exercise. Where possible the last step should prove the work landed rather than merely happened. On a REST task, say plainly what resting means here instead.",
                   },
                   type: {
                     type: "string",
@@ -194,7 +201,10 @@ export function buildDaysJsonSchema(count: number) {
                       "Realistic time in minutes. Must fit within the person's stated daily capacity together with the other tasks of that day. Use 0 when a duration makes no sense, typically for a REST task.",
                   },
                 },
-                required: ["title", "type", "estimatedMinutes"],
+                // `description` je nově povinný. Právě v něm je rozdíl mezi
+                // plánem a seznamem předsevzetí — dokud byl nepovinný,
+                // model ho s klidem vynechával a zůstal holý nadpis.
+                required: ["title", "description", "type", "estimatedMinutes"],
                 additionalProperties: false,
               },
             },

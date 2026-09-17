@@ -187,8 +187,11 @@ export function TodayChecklist({
                           {task.title}
                         </span>
 
+                        {/* Návod má kroky na samostatných řádcích, takže
+                            `whitespace-pre-line` — bez něj by se slily
+                            do jednoho odstavce a přestaly být návodem. */}
                         {task.description && (
-                          <span className="mt-1 block text-sm leading-relaxed text-[var(--color-paper-dim)]">
+                          <span className="mt-1.5 block whitespace-pre-line text-sm leading-relaxed text-[var(--color-paper-dim)]">
                             {task.description}
                           </span>
                         )}
