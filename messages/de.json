@@ -394,7 +394,12 @@
         "PAST_DUE": "Offen",
         "CANCELED": "Gekündigt"
       },
-      "accountTitle": "Konto"
+      "accountTitle": "Konto",
+      "complimentaryLabel": "Kostenloser Zugang",
+      "complimentaryUntil": "bis {date}",
+      "complimentaryOpen": "ohne Enddatum",
+      "endingTitle": "Dein kostenloser Zugang endet bald",
+      "endingBody": "Bis {date} hast du kostenlosen Zugang. Danach werden Ziele und Tagesaufgaben gesperrt, bis ein Abo besteht — gelöscht wird nichts, und nach dem Abschluss findest du alles genau so vor, wie du es verlassen hast."
     },
     "errors": {
       "nameRequired": "Sag uns bitte, wie wir dich nennen sollen.",

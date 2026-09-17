@@ -92,6 +92,7 @@ export default async function AppPage({
       stripeSubscriptionId: true,
       subscriptionEndsAt: true,
       subscriptionCancelAtPeriodEnd: true,
+      subscriptionSource: true,
       /**
        * Ověření adresy z databáze, ne z přihlašovacího tokenu.
        *
@@ -123,6 +124,36 @@ export default async function AppPage({
           </p>
         </div>
       )}
+
+      {/*
+        Přidělený přístup se blíží ke konci.
+
+        Dřív přístup prostě jednoho rána zmizel a člověk nechápal, co se
+        stalo — na účtu mu do té doby svítilo „Aktivní“. Kdo dostal něco
+        darem, má mít čas se rozhodnout, jestli bude pokračovat, a hlavně
+        vědět, že o rozdělané cíle nepřijde.
+
+        Týden dopředu je dost na rozmyšlenou a málo na to, aby si toho
+        člověk přestal všímat.
+      */}
+      {hasAccess &&
+        account?.subscriptionSource === "COMPLIMENTARY" &&
+        account.subscriptionEndsAt &&
+        account.subscriptionEndsAt.getTime() - Date.now() <
+          7 * 24 * 60 * 60 * 1000 && (
+          <div className="mt-8 rounded-2xl border border-amber-400/25 bg-amber-400/5 p-5">
+            <h2 className="text-sm font-semibold text-amber-200">
+              {t("endingTitle")}
+            </h2>
+            <p className="mt-1.5 text-sm leading-relaxed text-amber-100/80">
+              {t("endingBody", {
+                date: new Intl.DateTimeFormat(locale, {
+                  dateStyle: "long",
+                }).format(account.subscriptionEndsAt),
+              })}
+            </p>
+          </div>
+        )}
 
       {/* Zaplaceno, ale potvrzení od Stripu ještě nedorazilo. Místo paywallu
           ukážeme, že se čeká — jinak by to vypadalo, že platba propadla. */}

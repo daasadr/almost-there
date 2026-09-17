@@ -394,7 +394,12 @@
         "PAST_DUE": "Neuhrazeno",
         "CANCELED": "Zrušeno"
       },
-      "accountTitle": "Účet"
+      "accountTitle": "Účet",
+      "complimentaryLabel": "Přístup zdarma",
+      "complimentaryUntil": "do {date}",
+      "complimentaryOpen": "bez omezení",
+      "endingTitle": "Bezplatný přístup brzy skončí",
+      "endingBody": "Do {date} máš přístup zdarma. Potom se cíle i denní úkoly zamknou, dokud nebude předplatné — nic se ale nemaže a po zaplacení najdeš všechno tak, jak jsi to nechala."
     },
     "errors": {
       "nameRequired": "Napiš prosím, jak ti máme říkat.",

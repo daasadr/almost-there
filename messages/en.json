@@ -394,7 +394,12 @@
         "PAST_DUE": "Past due",
         "CANCELED": "Canceled"
       },
-      "accountTitle": "Account"
+      "accountTitle": "Account",
+      "complimentaryLabel": "Free access",
+      "complimentaryUntil": "until {date}",
+      "complimentaryOpen": "no end date",
+      "endingTitle": "Your free access is ending soon",
+      "endingBody": "You have free access until {date}. After that your goals and daily tasks are locked until there is a subscription — nothing is deleted, and once you subscribe you'll find everything exactly as you left it."
     },
     "errors": {
       "nameRequired": "Please tell us what to call you.",

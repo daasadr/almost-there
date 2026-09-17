@@ -64,8 +64,11 @@ export default async function AccountPage({
       stripeSubscriptionId: true,
       subscriptionEndsAt: true,
       subscriptionCancelAtPeriodEnd: true,
+      subscriptionSource: true,
     },
   });
+
+  const formatDate = new Intl.DateTimeFormat(locale, { dateStyle: "long" });
 
   return (
     <section className="mx-auto max-w-3xl px-5 py-10 sm:px-8 sm:py-14">
@@ -102,7 +105,28 @@ export default async function AccountPage({
               {t("accountPlan")}
             </dt>
             <dd className="mt-1 text-[var(--color-paper)]">
-              {t(`plan.${status}`)}
+              {/*
+                U přiděleného přístupu nestačí napsat „Aktivní“.
+
+                Přidělený přístup má často datum konce, ale uživatel ho
+                dosud neviděl nikde — jen v administraci. Na účtu mu
+                svítilo „Aktivní“ a jednoho rána mu aplikace bez varování
+                zamkla cíle. Kdo něco dostal darem, má aspoň vědět, do kdy.
+              */}
+              {billing?.subscriptionSource === "COMPLIMENTARY" ? (
+                <>
+                  {t("complimentaryLabel")}{" "}
+                  <span className="text-[var(--color-paper-dim)]">
+                    {billing.subscriptionEndsAt
+                      ? t("complimentaryUntil", {
+                          date: formatDate.format(billing.subscriptionEndsAt),
+                        })
+                      : t("complimentaryOpen")}
+                  </span>
+                </>
+              ) : (
+                t(`plan.${status}`)
+              )}
             </dd>
           </div>
         </dl>
