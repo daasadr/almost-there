@@ -124,6 +124,24 @@ export async function replanGoal({
   });
 
   /**
+   * A období, která teprve přijdou.
+   *
+   * Právě tahle část plánu se za chvíli smaže a nahradí novou — a dokud
+   * ji model neviděl, stavěl zbytek cesty od nuly jen z názvu cíle.
+   * Rozmyšlené kroky tím mizely a po každém přeplánování vycházel trochu
+   * jiný plán. U úpravy směru je to nejcitelnější: mění se jediná věc,
+   * takže zbytek nemá důvod se hýbat.
+   *
+   * Je to jen souhrn období nejvyšší úrovně, ne celý strom — na
+   * navázání to stačí a týdny s dny se stejně počítají znovu.
+   */
+  const upcomingBlocks = await db.timeBlock.findMany({
+    where: { goalId, parentBlockId: null, endDate: { gte: today } },
+    orderBy: { startDate: "asc" },
+    select: { summary: true },
+  });
+
+  /**
    * Proč něco nešlo — vlastními slovy uživatele, z odložených úkolů.
    *
    * Tohle je jediné místo, kde se plán dozví o překážkách stojících mimo
@@ -156,6 +174,7 @@ export async function replanGoal({
     reflectionMinutesPerDay: goal.user.reflectionMinutesDay,
     replan: {
       pastMilestones: pastBlocks.map((block) => block.summary),
+      upcomingMilestones: upcomingBlocks.map((block) => block.summary),
       completionRate,
       missedDays,
       deadlineMoved: mode === "moveDeadline",

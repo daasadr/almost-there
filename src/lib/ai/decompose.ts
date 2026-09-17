@@ -84,6 +84,15 @@ export type ReplanContext = {
    */
   blockers: string[];
   /**
+   * Co dosavadní plán chystá do budoucna — období, která ještě nenastala.
+   *
+   * Bez tohohle model přestavuje zbytek cesty od nuly jen z názvu cíle.
+   * Rozmyšlené kroky, které uživateli vyhovovaly, tím tiše mizely a po
+   * každém přeplánování vznikal trochu jiný plán — hlavně u úpravy směru,
+   * kde se přitom mění jediná věc a zbytek má zůstat.
+   */
+  upcomingMilestones: string[];
+  /**
    * Co si uživatel přeje dělat jinak, vlastními slovy.
    *
    * Přeplánování dosud vycházelo jen ze skluzu — z čísel o tom, co se
@@ -248,6 +257,16 @@ function buildReplanBlock(replan: ReplanContext): string {
       "",
       "What the earlier plan asked for in the periods that have already passed. Treat it as partly done — around the completion rate above — and pick up from there:",
       ...replan.pastMilestones.map((milestone) => `  - ${milestone}`),
+    );
+  }
+
+  if (replan.upcomingMilestones.length) {
+    lines.push(
+      "",
+      "What the current plan already asks for in the periods still ahead. This is thinking that has already been done and that the person has been living with:",
+      ...replan.upcomingMilestones.map((milestone) => `  - ${milestone}`),
+      "",
+      "Start from this, do not rebuild the route from the goal alone. Keep what still fits and still serves the goal; change what has to change and say nothing about the rest. A plan that comes back unrecognisable after a small adjustment teaches the person not to touch it again.",
     );
   }
 
