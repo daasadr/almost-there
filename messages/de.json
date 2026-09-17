@@ -577,8 +577,8 @@
       "namePlaceholder": "z. B. Security+ Zertifikat",
       "nameHint": "Ein paar Wörter genügen. Du siehst ihn in der Zielliste und bei den Tagesaufgaben.",
       "detailLabel": "Das Ziel im Detail",
-      "detailPlaceholder": "Was du genau erreichen willst, was du schon kannst, was dich einschränkt, wie viel Zeit du wirklich investierst, worauf es dir ankommt…",
-      "detailHint": "Das ist das wichtigste Feld der Seite. Daraus entsteht ein Plan, der zu dir passt und nicht zu einer Vorlage — je konkreter, desto besser.",
+      "detailPlaceholder": "Was genau du erreichen willst, was dich einschränkt, wie viel Zeit du realistisch investierst, worauf es dir ankommt. Und vor allem: womit du arbeiten wirst — das konkrete Lehrbuch mit Titel, der Kurs, die Ausrüstung, wo und wann…",
+      "detailHint": "Das ist das wichtigste Feld auf dieser Seite. Besonders lohnt es sich zu schreiben, womit du arbeitest: Wer das Lehrbuch samt Titel nennt, bekommt in den Tagesaufgaben konkrete Kapitel und Aufgabenzahlen statt eines allgemeinen „Stoff durchgehen“. Ohne das hat der Plan nichts, woran er sich halten kann.",
       "planningTitle": "Wie dieses Ziel geplant wird",
       "planningHint": "Diese drei Werte bestimmen, was die KI dir für jeden Tag plant. Sie gelten für alle Ziele zusammen.",
       "planningCapacity": "Zeit pro Tag",
@@ -889,6 +889,18 @@
       "shareText": "Die letzten dreißig Tage mit AlmostThere.",
       "saved": "Das Bild wurde gespeichert — poste es, wo du magst.",
       "failed": "Das Bild konnte nicht erstellt werden. Bitte versuche es erneut."
+    },
+    "steer": {
+      "button": "Richtung anpassen",
+      "title": "Wie soll es weitergehen?",
+      "body": "Schreib, was du anders machen möchtest. Der Rest des Plans wird daraufhin überarbeitet — der Termin bleibt und das Ziel auch. Was zum Erreichen wirklich nötig ist, bleibt im Plan, selbst wenn es mit deinem Wunsch etwas kollidiert; falls beides gar nicht zusammengeht, erfährst du warum.",
+      "placeholder": "Zum Beispiel: Ich laufe lieber im Wald als auf der Bahn, und eher morgens. Und die Krafteinheiten würde ich gegen Schwimmen tauschen.",
+      "hint": "Je konkreter, desto besser. Mindestens ein Satz.",
+      "submit": "Plan überarbeiten",
+      "working": "Plan wird überarbeitet…",
+      "cancel": "Zurück",
+      "done": "Der Plan wurde überarbeitet.",
+      "tooShort": "Bitte schreibe mindestens einen Satz darüber, was du anders möchtest."
     }
   },
   "withdrawal": {

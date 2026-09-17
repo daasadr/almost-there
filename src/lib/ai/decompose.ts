@@ -83,6 +83,18 @@ export type ReplanContext = {
    * plán narazil na tutéž zeď podruhé.
    */
   blockers: string[];
+  /**
+   * Co si uživatel přeje dělat jinak, vlastními slovy.
+   *
+   * Přeplánování dosud vycházelo jen ze skluzu — z čísel o tom, co se
+   * nestihlo. Jenže plán se občas nehodí z docela jiného důvodu: úkoly
+   * sice sedí k cíli, ale nesedí k člověku. Tohle je jediné místo, kde
+   * to může říct, a je to přání, ne stížnost.
+   *
+   * Přání mění cestu, ne cíl. Model ho má zohlednit, dokud se tím cíl
+   * nestane nedosažitelným — pak má říct proč, ne mlčky poslechnout.
+   */
+  steer?: string;
 };
 
 export type DecomposeResult = {
@@ -244,6 +256,17 @@ function buildReplanBlock(replan: ReplanContext): string {
       "",
       "In their own words, why some tasks could not be done when they came up. Plan around these, do not plan into them:",
       ...replan.blockers.map((blocker) => `  - ${blocker}`),
+    );
+  }
+
+  if (replan.steer?.trim()) {
+    lines.push(
+      "",
+      "The person has asked for the plan to go differently from here. In their own words:",
+      `  ${replan.steer.trim()}`,
+      "",
+      "Take this seriously — it is the shape of the path they will actually walk, and a plan they do not want is a plan they will not follow. Rework the route so it fits what they describe.",
+      "What must not change is the goal itself and what genuinely has to happen to reach it. If what they ask for makes the goal unreachable by the deadline, plan the closest thing that still works and say so plainly in the feasibility note. Do not quietly drop the parts that are necessary just because they were not asked for.",
     );
   }
 

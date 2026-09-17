@@ -577,8 +577,8 @@
       "namePlaceholder": "Např. Security+ certifikát",
       "nameHint": "Krátce, pár slov. Uvidíš ho v seznamu cílů a u denních úkolů.",
       "detailLabel": "Cíl podrobně",
-      "detailPlaceholder": "Čeho přesně chceš dosáhnout, co už umíš, co tě omezuje, kolik času tomu reálně dáš, na čem ti nejvíc záleží…",
-      "detailHint": "Tohle je nejdůležitější pole na stránce. Z něj vzniká plán, který sedí tobě, a ne obecné šabloně — čím konkrétnější budeš, tím lepší výsledek dostaneš.",
+      "detailPlaceholder": "Čeho přesně chceš dosáhnout, co tě omezuje, kolik času tomu reálně dáš, na čem ti nejvíc záleží. A hlavně: z čeho budeš vycházet — konkrétní učebnice i s názvem, kurz, vybavení, kde a kdy to budeš dělat…",
+      "detailHint": "Tohle je nejdůležitější pole na stránce. Zvlášť se vyplatí napsat, s čím budeš pracovat: kdo uvede učebnici i s názvem, dostane v denních úkolech konkrétní kapitoly a počty příkladů místo obecného „projít učivo“. Bez toho plán neví, o co se opřít, a zůstane u obecných pokynů.",
       "planningTitle": "Jak se tenhle cíl naplánuje",
       "planningHint": "Tyhle tři hodnoty určují, co ti AI naplánuje na každý den. Platí pro všechny cíle dohromady.",
       "planningCapacity": "Času denně",
@@ -889,6 +889,18 @@
       "shareText": "Posledních třicet dní s AlmostThere.",
       "saved": "Obrázek je stažený — teď ho můžeš vložit, kam chceš.",
       "failed": "Obrázek se nepovedlo vytvořit. Zkus to prosím znovu."
+    },
+    "steer": {
+      "button": "Upravit směr",
+      "title": "Jak by to mělo jít dál?",
+      "body": "Napiš, co bys chtěl dělat jinak. Zbytek plánu se přepracuje podle toho — termín zůstává a cíl taky. Co je pro jeho dosažení opravdu potřeba, v plánu zůstane, i kdyby se to s přáním trochu tlouklo; pokud by to nešlo dohromady vůbec, dozvíš se proč.",
+      "placeholder": "Třeba: běhat chci radši v lese než na dráze a spíš ráno. A ty silové tréninky bych vyměnila za plavání.",
+      "hint": "Čím konkrétněji, tím lépe. Aspoň jedna věta.",
+      "submit": "Přepracovat plán",
+      "working": "Přepracovávám plán…",
+      "cancel": "Zpět",
+      "done": "Plán je přepracovaný.",
+      "tooShort": "Napiš prosím aspoň jednu větu o tom, co chceš jinak."
     }
   },
   "withdrawal": {

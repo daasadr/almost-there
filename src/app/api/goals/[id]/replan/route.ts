@@ -9,7 +9,16 @@ export const runtime = "nodejs";
 export const maxDuration = 300;
 
 const bodySchema = z.object({
-  mode: z.enum(["catchUp", "moveDeadline", "decline"]),
+  mode: z.enum(["catchUp", "moveDeadline", "decline", "adjust"]),
+  /**
+   * Co si uživatel přeje dělat jinak. Jen u režimu „adjust“.
+   *
+   * Strop je štědrý, ale ne bezedný — text jde do promptu a platí se za
+   * něj v tokenech. Dole je krátká mez schválně: z holého „nelíbí se mi
+   * to“ nový plán nevznikne a je lepší říct to hned než za minutu
+   * a za peníze.
+   */
+  steer: z.string().trim().min(10).max(1000).optional(),
 });
 
 /** Přeplánování cíle po skluzu, nebo odmítnutí nabídky. */
@@ -47,10 +56,19 @@ export async function POST(
     return NextResponse.json({ ok: true });
   }
 
+  // Úprava směru bez popisu je jen drahé zamíchání plánem.
+  if (parsed.data.mode === "adjust" && !parsed.data.steer) {
+    return NextResponse.json(
+      { ok: false, error: "steerRequired" },
+      { status: 400 },
+    );
+  }
+
   try {
     const { newTargetDate } = await replanGoal({
       goalId: id,
       mode: parsed.data.mode,
+      steer: parsed.data.steer,
     });
     return NextResponse.json({ ok: true, newTargetDate });
   } catch (error) {

@@ -11,6 +11,7 @@ import { Milestones } from "@/components/plan/Milestones";
 import { PaceCheck } from "@/components/plan/PaceCheck";
 import { PlanTree } from "@/components/plan/PlanTree";
 import { PlanTrigger } from "@/components/plan/PlanTrigger";
+import { SteerGoal } from "@/components/plan/SteerGoal";
 import { getAccess } from "@/lib/billing/access";
 import { getGoalDetail } from "@/lib/goals/queries";
 import { getPaceStatus } from "@/lib/goals/pace";
@@ -190,6 +191,15 @@ export default async function GoalPage({
           pendingTasks={finish.pending}
         />
       </div>
+
+      {/* Úprava směru jen u běžícího cíle, který už má co upravovat.
+          U pozastaveného ani dotaženého by přepracování plánu nedávalo
+          smysl a u čerstvě založeného ještě není podle čeho soudit. */}
+      {goal.status === "ACTIVE" && hasDays && (
+        <div className="mt-6">
+          <SteerGoal goalId={goal.id} />
+        </div>
+      )}
 
       {/* Nabídka přeplánování patří nad plán: když se cíl rozešel se
           skutečností, je čtení starého rozpisu ztráta času. */}

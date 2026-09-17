@@ -577,8 +577,8 @@
       "namePlaceholder": "e.g. Security+ certification",
       "nameHint": "Keep it to a few words. You will see it in your goal list and on daily tasks.",
       "detailLabel": "The goal in detail",
-      "detailPlaceholder": "What exactly you want to reach, what you already know, what limits you, how much time you will really give it, what matters most…",
-      "detailHint": "This is the most important field on the page. It is what turns a generic plan into one that fits you — the more concrete you are, the better the result.",
+      "detailPlaceholder": "What exactly you want to reach, what limits you, how much time you'll realistically give it, what matters most. And above all: what you'll be working from — the actual textbook with its name, the course, the equipment, where and when you'll do it…",
+      "detailHint": "This is the most important field on the page. It especially pays to say what you'll be working with: name the textbook and your daily tasks will name chapters and exercise counts instead of saying “go through the material”. Without it the plan has nothing to lean on and stays general.",
       "planningTitle": "How this goal will be planned",
       "planningHint": "These three values decide what the AI plans for each of your days. They apply across all your goals.",
       "planningCapacity": "Time per day",
@@ -889,6 +889,18 @@
       "shareText": "The last thirty days with AlmostThere.",
       "saved": "The image has been saved — post it wherever you like.",
       "failed": "The image could not be created. Please try again."
+    },
+    "steer": {
+      "button": "Adjust the direction",
+      "title": "How should it go from here?",
+      "body": "Say what you would like to do differently. The rest of the plan is reworked around it — the deadline stays and so does the goal. Whatever genuinely has to happen to reach it stays in the plan even if it sits awkwardly with your wish; if the two cannot go together at all, you'll be told why.",
+      "placeholder": "For example: I'd rather run in the woods than on a track, and in the mornings. And I'd swap the strength sessions for swimming.",
+      "hint": "The more specific, the better. At least one sentence.",
+      "submit": "Rework the plan",
+      "working": "Reworking the plan…",
+      "cancel": "Back",
+      "done": "The plan has been reworked.",
+      "tooShort": "Please write at least one sentence about what you want done differently."
     }
   },
   "withdrawal": {

@@ -26,7 +26,16 @@ import type { Locale } from "@/i18n/routing";
  * ona. Tichý strop v korunách platí dál.
  */
 
-export type ReplanMode = "catchUp" | "moveDeadline";
+/**
+ * Režimy přeplánování.
+ *
+ *  - catchUp      — termín zůstává, zbytek se zhustí, ať se to stihne.
+ *  - moveDeadline — termín se posune podle tempa, jakým to reálně jde.
+ *  - adjust       — uživatel si přeje jinou cestu; termín zůstává.
+ *
+ * První dva se nabízejí při skluzu, ten třetí spouští uživatel sám.
+ */
+export type ReplanMode = "catchUp" | "moveDeadline" | "adjust";
 
 export class ReplanTooSoonError extends Error {
   readonly name = "ReplanTooSoonError";
@@ -49,9 +58,12 @@ function asLocale(value: string): Locale {
 export async function replanGoal({
   goalId,
   mode,
+  steer,
 }: {
   goalId: string;
   mode: ReplanMode;
+  /** Jen u režimu „adjust“: co si uživatel přeje dělat jinak. */
+  steer?: string;
 }): Promise<{ newTargetDate: Date }> {
   const goal = await db.goal.findUniqueOrThrow({
     where: { id: goalId },
@@ -148,6 +160,7 @@ export async function replanGoal({
       missedDays,
       deadlineMoved: mode === "moveDeadline",
       blockers,
+      steer,
     },
   }).catch(async (error) => {
     if (error instanceof AiFormatError && error.usage) {
@@ -213,10 +226,13 @@ export async function replanGoal({
     await tx.replanEvent.create({
       data: {
         goalId,
-        reason: "BEHIND_SCHEDULE",
+        // Úprava směru není skluz. Je to vlastní rozhodnutí uživatele
+        // a v historii cíle se má číst jinak než „nestíhal“.
+        reason: mode === "adjust" ? "MANUAL" : "BEHIND_SCHEDULE",
         // SCHEDULE_ONLY = termín zůstává, mění se rozvržení.
         // FULL_REDECOMPOSITION = posunul se i termín.
-        scope: mode === "catchUp" ? "SCHEDULE_ONLY" : "FULL_REDECOMPOSITION",
+        scope:
+          mode === "moveDeadline" ? "FULL_REDECOMPOSITION" : "SCHEDULE_ONLY",
         oldTargetDate: goal.targetDate,
         newTargetDate,
         completionRate,
