@@ -513,6 +513,85 @@
 }
 
 /*
+ * Ozdoby motivů.
+ *
+ * Všechny leží v pozadí `body`, jsou pevně ukotvené a nic nepřekrývají.
+ * Je to atmosféra, ne obsah — proto tlumené odstíny a velké tvary: kdo
+ * čte úkoly, nemá si jich všímat, a kdo se rozhlédne, má poznat, v čem
+ * je.
+ *
+ * Kreslí se jako přechody, ne obrázky. Žádné stahování navíc, funguje
+ * to v každé velikosti okna a barvy se berou z motivu, takže se s ním
+ * nemůžou rozejít.
+ */
+
+/* Ozubená kolečka a stará kůže: soustředné kruhy a nepravidelná zrnitost. */
+[data-theme="steampunk"] body {
+  background-image:
+    repeating-radial-gradient(
+      circle at 88% 12%,
+      color-mix(in oklab, var(--color-ink-600) 22%, transparent) 0 2px,
+      transparent 2px 26px
+    ),
+    repeating-radial-gradient(
+      circle at 8% 82%,
+      color-mix(in oklab, var(--color-ink-600) 16%, transparent) 0 2px,
+      transparent 2px 34px
+    ),
+    radial-gradient(
+      60% 50% at 50% 0%,
+      color-mix(in oklab, var(--color-lime-glow) 10%, transparent),
+      transparent 70%
+    );
+  background-attachment: fixed;
+}
+
+/* Obláčky: měkké skvrny bez ostré hrany. */
+[data-theme="sweet-pink"] body,
+[data-theme="sweet-blue"] body {
+  background-image:
+    radial-gradient(
+      38% 26% at 12% 8%,
+      color-mix(in oklab, var(--color-ink-700) 55%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      44% 30% at 88% 22%,
+      color-mix(in oklab, var(--color-ink-800) 70%, transparent),
+      transparent 72%
+    ),
+    radial-gradient(
+      50% 34% at 30% 92%,
+      color-mix(in oklab, var(--color-ink-700) 45%, transparent),
+      transparent 70%
+    );
+  background-attachment: fixed;
+}
+
+/* Prorostlá zeleň zdola a teplý průsvit shora, jako přes koruny stromů. */
+[data-theme="jungle"] body {
+  background-image:
+    radial-gradient(
+      70% 40% at 50% 108%,
+      color-mix(in oklab, var(--color-lime-glow) 22%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      36% 26% at 4% 60%,
+      color-mix(in oklab, var(--color-emerald-glow) 16%, transparent),
+      transparent 72%
+    ),
+    radial-gradient(
+      30% 22% at 96% 18%,
+      color-mix(in oklab, var(--color-violet-glow) 12%, transparent),
+      transparent 70%
+    );
+  background-attachment: fixed;
+}
+
+/* Minimalist schválně nic. To je celý jeho smysl. */
+
+/*
  * Kreslený strom na pozadí je malovaný tmavými barvami natvrdo v plátně.
  * Na světlém motivu by z něj byla černá skvrna, tak se schová — hrdinná
  * část stránky si vystačí s barevným přechodem z tokenů.
