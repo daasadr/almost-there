@@ -286,6 +286,56 @@
     color: var(--color-lime-soft);
   }
 
+  /*
+   * Štítek s názvem cíle.
+   *
+   * Samotný barevný text vypadal na pozadí neurčitě — barva sice řekla,
+   * ke kterému cíli úkoly patří, ale nápis se nikde neopíral a působil
+   * nedodělaně.
+   *
+   * Plasticity se nedosáhne stínem pod prvkem; tak vzniká papír
+   * odlepený od stránky, ne hmota. Skutečný dojem dělá čtveřice vrstev,
+   * z nichž každá odpovídá něčemu ve fyzice:
+   *
+   *   1. Přechod v ploše — světlo dopadá shora, takže horní okraj je
+   *      světlejší než spodní. Bez toho je z toho placka.
+   *   2. Světlá linka těsně pod horní hranou — odlesk na zaobleném
+   *      náběhu. Tohle nese většinu toho dojmu.
+   *   3. Tmavý přítisk u spodní hrany zevnitř — spodek se od světla
+   *      odvrací a je ve vlastním stínu. Dává to tloušťku.
+   *   4. Dva stíny venku: krátký a tmavý těsně u prvku (dotyk s
+   *      podložkou) a široký barevný (rozptýlené světlo okolo).
+   *
+   * Barva přichází v proměnné `--goal`, takže každý cíl má vlastní
+   * odstín a nemusí se nic počítat v kódu.
+   *
+   * Text se míchá s barvou písma motivu: na tmavém vzhledu se tím
+   * rozjasní, na světlém ztmavne. Odstíny cílů jsou volené pro tmavý
+   * podklad a bez toho by na slonovinové byly sotva čitelné.
+   */
+  .goal-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.3rem 0.85rem;
+    border-radius: 999px;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: color-mix(in oklab, var(--goal) 78%, var(--color-paper));
+    background-image: linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--goal) 30%, transparent) 0%,
+      color-mix(in oklab, var(--goal) 12%, transparent) 52%,
+      color-mix(in oklab, var(--goal) 20%, transparent) 100%
+    );
+    border: 1px solid color-mix(in oklab, var(--goal) 42%, transparent);
+    box-shadow:
+      inset 0 1px 0 color-mix(in oklab, white 45%, transparent),
+      inset 0 -2px 3px -1px color-mix(in oklab, black 42%, transparent),
+      0 1px 1px color-mix(in oklab, black 35%, transparent),
+      0 7px 16px -7px color-mix(in oklab, var(--goal) 60%, transparent);
+  }
+
   /* Jemná vodorovná linka na okrajích sekcí */
   .hairline {
     height: 1px;

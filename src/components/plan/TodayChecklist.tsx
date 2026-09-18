@@ -4,7 +4,7 @@ import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { DeferTask } from "./DeferTask";
-import { goalHex } from "@/lib/plan/colors";
+import { goalHex, goalStyle } from "@/lib/plan/colors";
 import type { TodayTask } from "@/lib/goals/queries";
 
 /**
@@ -124,11 +124,15 @@ export function TodayChecklist({
         {byGoal.map(([goalId, goalTasks]) => (
           <section key={goalId}>
             {byGoal.length > 1 && (
-              <h3
-                style={{ color: goalHex(goalTasks[0].goalColor) }}
-                className="text-xs font-semibold uppercase tracking-wider"
-              >
-                {goalTasks[0].goalTitle}
+              <h3>
+                {/* Vzhled štítku řeší `.goal-badge` v globals.css. Sem
+                    jde jen barva cíle jako proměnná. */}
+                <span
+                  style={goalStyle(goalTasks[0].goalColor)}
+                  className="goal-badge text-xs"
+                >
+                  {goalTasks[0].goalTitle}
+                </span>
               </h3>
             )}
 
