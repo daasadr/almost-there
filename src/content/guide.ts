@@ -81,6 +81,8 @@ export const guideByLocale: Record<Locale, GuideDocument> = {
         heading: "Každodenní používání",
         paragraphs: [
           "Hlavní obrazovka ukazuje dnešek: úkoly ze všech běžících cílů, každý ve své barvě, s odhadem, kolik zabere. Odškrtáváš je, jak je plníš.",
+          "U každého úkolu je návod, jak ho dnes udělat — pár kroků, ne jedna věta. Poslední krok bývá takový, aby ověřil, že práce dopadla, ne že jen proběhla: vysvětlit látku nahlas, jeden těžší příklad, zkusit totéž ještě jednou bez pomoci. Odškrtnout „věnoval jsem se tomu“ umí každý; o to tady nejde.",
+          "U cílů, kde se něco učíš, tě úkoly občas pošlou probrat téma s AI chatem — a to i tehdy, když žádné materiály nemáš. Je to zdroj, který má opravdu každý, nic nestojí a odpovídá na tvojí úrovni tak dlouho, dokud to nepochopíš. Úkol ti řekne přesně, na co se zeptat, a často i to, ať si od chatu necháš ověřit, že tomu rozumíš. Doporučujeme Claude.ai, ale funguje jakýkoliv oblíbený chat.",
           "Nad seznamem je týdenní pruh se zkratkami dnů. Odškrtnuté dny mají háček, dnešek je zvýrazněný. Klikáním se dá projít celý týden dozadu i dopředu — hodí se, když si chceš doplnit včerejšek nebo se podívat, co tě čeká zítra.",
           "Pod tím je pruh posledních třiceti dnů. Není to hodnocení, jen obrázek toho, jak ti to jde ve skutečnosti.",
         ],
@@ -219,6 +221,8 @@ export const guideByLocale: Record<Locale, GuideDocument> = {
         heading: "Everyday use",
         paragraphs: [
           "The main screen shows today: tasks from all running goals, each in its colour, with an estimate of how long it takes. You tick them off as you go.",
+          "Every task carries instructions for how to do it today — a few steps, not one sentence. The last step is usually one that proves the work landed rather than merely happened: explaining it out loud, one harder example, doing the same thing again without help. Anyone can tick off “I spent time on it”; that is not the point.",
+          "On goals where you are learning something, tasks will sometimes send you to talk a topic through with an AI chat — including when you have no materials at all. It is a source every single person already has, it costs nothing, and it answers at your level for as long as it takes. The task tells you exactly what to ask, and often to have the chat test you afterwards. We recommend Claude.ai, but any chat you like works.",
           "Above the list is a week strip with day abbreviations. Ticked days carry a check mark, today is highlighted. You can click through the whole week backwards and forwards — useful when you want to fill in yesterday or see what tomorrow holds.",
           "Below that is a strip of the last thirty days. It is not a grade, just a picture of how it is actually going.",
         ],
@@ -357,6 +361,8 @@ export const guideByLocale: Record<Locale, GuideDocument> = {
         heading: "Der tägliche Gebrauch",
         paragraphs: [
           "Der Hauptbildschirm zeigt heute: Aufgaben aus allen laufenden Zielen, jede in ihrer Farbe, mit einer Schätzung, wie lange sie dauert. Du hakst sie ab, während du sie erledigst.",
+          "Zu jeder Aufgabe gehört eine Anleitung, wie du sie heute machst — ein paar Schritte, nicht ein Satz. Der letzte Schritt prüft meist, ob die Arbeit angekommen ist und nicht bloß stattgefunden hat: laut erklären, ein schwereres Beispiel, dasselbe noch einmal ohne Hilfe. „Ich habe mich damit beschäftigt“ abzuhaken kann jeder; darum geht es nicht.",
+          "Bei Zielen, bei denen du etwas lernst, schicken dich Aufgaben manchmal dazu, ein Thema mit einem KI-Chat durchzusprechen — auch dann, wenn du gar keine Materialien hast. Das ist eine Quelle, die wirklich jeder hat, sie kostet nichts und antwortet auf deinem Niveau, so lange es dauert. Die Aufgabe sagt dir genau, wonach du fragen sollst, und oft auch, dich danach vom Chat abfragen zu lassen. Wir empfehlen Claude.ai, aber jeder Chat funktioniert.",
           "Über der Liste steht eine Wochenleiste mit Tageskürzeln. Abgehakte Tage tragen ein Häkchen, heute ist hervorgehoben. Du kannst die ganze Woche vor- und zurückklicken — praktisch, wenn du gestern nachtragen oder sehen willst, was morgen ansteht.",
           "Darunter liegt eine Leiste der letzten dreißig Tage. Das ist keine Note, nur ein Bild davon, wie es tatsächlich läuft.",
         ],

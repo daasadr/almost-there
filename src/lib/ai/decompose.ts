@@ -124,6 +124,8 @@ How to build the plan:
 - Respect how progress actually compounds. Early periods carry foundations and are lighter in visible output; later ones build on them. Do not distribute work evenly just to look tidy.
 - Leave the final period lighter. It is for consolidation, review and slack — not for new material. Real life eats deadlines.
 - Size the plan to the time the person actually has. If they have an hour a day, do not plan a full-time curriculum.
+- When the goal is a skill, phrase every milestone as something the person can do unaided by the end of that period, not as material they will have covered. "Can build and deploy a working page from scratch without help" is a milestone; "has gone through routing and styling" is a reading list. This also decides what the daily tasks can be, so it matters more here than anywhere.
+- Start a skill plan where the person actually stands, not at the beginning of the subject. Someone who has been building real things for a year does not need a period on the basics; they need the parts they have been getting away with skipping. Their own description of where they start is what tells you this — take it literally.
 - If several goals are active at once, spread their heavy periods apart. Two goals must not both demand a peak effort at the same time.
 
 Be honest about the deadline. If the goal genuinely does not fit the time available at the stated capacity, say so in the feasibility rating and note — a plan that quietly pretends is worse than no plan. Still produce the best possible breakdown either way.
