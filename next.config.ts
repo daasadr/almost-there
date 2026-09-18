@@ -18,6 +18,23 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
 
   /**
+   * Typová kontrola se v produkčním buildu přeskakuje.
+   *
+   * Není to ústupek kvalitě — typy se kontrolují dřív, před každým
+   * commitem (`npm run typecheck`). Tohle je totéž ověření podruhé,
+   * jen na stroji, kde trvá 23 minut místo dvaceti vteřin. Build na
+   * VPS kvůli tomu běžel skoro dvě hodiny a každé nasazení bylo
+   * odpoledne čekání.
+   *
+   * Řídí se proměnnou, ne natvrdo: místní `npm run build` typy
+   * kontroluje dál a jen Dockerfile si o přeskočení řekne. Kdyby to
+   * bylo natvrdo, chyba v typech by se poprvé ukázala až v provozu.
+   */
+  typescript: {
+    ignoreBuildErrors: process.env.SKIP_TYPE_CHECK === "1",
+  },
+
+  /**
    * Co se nemá dostat do produkčního balíčku.
    *
    * Ukládání obrázků skládá cesty za běhu (`path.resolve`, `fs.readFile`)

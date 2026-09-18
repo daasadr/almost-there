@@ -23,6 +23,11 @@ ARG NEXT_PUBLIC_APP_URL
 ENV NEXT_PUBLIC_APP_URL=$NEXT_PUBLIC_APP_URL
 ENV NEXT_TELEMETRY_DISABLED=1
 
+# Typy se kontrolují před commitem, ne tady. Na tomhle stroji to trvá
+# přes dvacet minut a je to totéž ověření podruhé — viz komentář
+# u `typescript` v next.config.ts.
+ENV SKIP_TYPE_CHECK=1
+
 RUN npm run build
 
 # --- Běh ----------------------------------------------------------------
