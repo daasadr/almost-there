@@ -62,6 +62,15 @@
   --color-scrim: rgb(0 0 0 / 0.25);
   --color-scrim-strong: rgb(0 0 0 / 0.7);
 
+  /*
+   * Text na akcentní ploše — na hlavním tlačítku a na označeném textu.
+   *
+   * Dřív to byla natvrdo barva podkladu, protože podklad byl vždycky
+   * tmavý a akcent vždycky světlý. Na světlém motivu je to obráceně
+   * a nápis na tlačítku by zmizel. Proto vlastní token.
+   */
+  --color-on-accent: #04100c;
+
   --radius-card: 1.25rem;
 }
 
@@ -98,7 +107,7 @@
 
   ::selection {
     background-color: var(--color-lime-glow);
-    color: var(--color-ink-950);
+    color: var(--color-on-accent);
   }
 
   :focus-visible {
@@ -171,7 +180,7 @@
     border-radius: 999px;
     font-weight: 600;
     letter-spacing: -0.01em;
-    color: var(--color-ink-950);
+    color: var(--color-on-accent);
     background-image: linear-gradient(
       100deg,
       var(--color-lime-soft),
@@ -312,6 +321,169 @@
 
 [data-store-app] .store-only {
   display: block;
+}
+
+/*
+ * Motivy.
+ *
+ * Celá aplikace kreslí z tokenů výš, takže motiv je jen jejich přepsání —
+ * žádná komponenta o motivech neví. Značku na `<html>` nastaví krátký
+ * skript v hlavičce ještě před vykreslením, jinak by při každém načtení
+ * probliklo tmavé rozhraní.
+ *
+ * Classic je výchozí a je definovaný nahoře v `@theme`; tady jsou jen
+ * ty ostatní. Zatím se liší barvami, ne ozdobami — ozubená kolečka
+ * u Steampunku a obláčky u Sweet přijdou jako druhý krok, až se ověří,
+ * že samotné přebarvení nikde nic nerozbilo.
+ *
+ * Světlé motivy musí přepsat i hrany a plochy: ty jsou v Classicu bílé
+ * s malou průhledností, což je na světlém podkladu neviditelné.
+ */
+
+/* Společné pro všechny světlé motivy. */
+[data-theme="steampunk"],
+[data-theme="sweet-pink"],
+[data-theme="sweet-blue"],
+[data-theme="jungle"],
+[data-theme="minimalist"] {
+  color-scheme: light;
+
+  --color-edge-faint: rgb(0 0 0 / 0.06);
+  --color-edge: rgb(0 0 0 / 0.12);
+  --color-edge-strong: rgb(0 0 0 / 0.18);
+  --color-edge-hover: rgb(0 0 0 / 0.35);
+  --color-surface: rgb(0 0 0 / 0.03);
+  --color-surface-strong: rgb(0 0 0 / 0.08);
+  --color-scrim: rgb(0 0 0 / 0.15);
+  --color-scrim-strong: rgb(0 0 0 / 0.5);
+}
+
+/* Mosaz a stará kůže na zažloutlém papíru. */
+[data-theme="steampunk"] {
+  --color-ink-950: #f3ead8;
+  --color-ink-900: #e9dcc4;
+  --color-ink-800: #ddcdaf;
+  --color-ink-700: #c9b48f;
+  --color-ink-600: #a8906a;
+
+  --color-paper: #2c2016;
+  --color-paper-dim: #58462f;
+  --color-paper-faint: #75603f;
+
+  --color-lime-glow: #9a6b1e;
+  --color-lime-soft: #c08a2c;
+  --color-emerald-glow: #7a5a2f;
+  --color-emerald-soft: #9c7743;
+  --color-violet-glow: #7c4a2c;
+  --color-violet-soft: #a3663e;
+
+  --color-on-accent: #f3ead8;
+}
+
+/* Slonovina a cukrově růžová. */
+[data-theme="sweet-pink"] {
+  --color-ink-950: #fffaf8;
+  --color-ink-900: #fff0f3;
+  --color-ink-800: #ffe3ea;
+  --color-ink-700: #f9ccd8;
+  --color-ink-600: #efa6bb;
+
+  --color-paper: #3a2530;
+  --color-paper-dim: #6a4655;
+  --color-paper-faint: #8a6170;
+
+  --color-lime-glow: #c8305f;
+  --color-lime-soft: #e05b83;
+  --color-emerald-glow: #b8437a;
+  --color-emerald-soft: #d270a0;
+  --color-violet-glow: #9b5fc0;
+  --color-violet-soft: #b98ad4;
+
+  --color-on-accent: #fffaf8;
+}
+
+/* Slonovina a bledě modrá. */
+[data-theme="sweet-blue"] {
+  --color-ink-950: #f9fcff;
+  --color-ink-900: #edf5fd;
+  --color-ink-800: #dfecfa;
+  --color-ink-700: #c1dbf5;
+  --color-ink-600: #94c0ea;
+
+  --color-paper: #23303c;
+  --color-paper-dim: #4a5e6e;
+  --color-paper-faint: #677d8d;
+
+  --color-lime-glow: #1c6fae;
+  --color-lime-soft: #3a92d1;
+  --color-emerald-glow: #2a7f9c;
+  --color-emerald-soft: #4aa2bd;
+  --color-violet-glow: #5a6bc4;
+  --color-violet-soft: #8492dd;
+
+  --color-on-accent: #f9fcff;
+}
+
+/* Šťavnatá zeleň na písku, s ostrým teplým kontrastem. */
+[data-theme="jungle"] {
+  --color-ink-950: #f8f4e9;
+  --color-ink-900: #f0e9d7;
+  --color-ink-800: #e5dcc4;
+  --color-ink-700: #cfc4a4;
+  --color-ink-600: #a89c79;
+
+  --color-paper: #1d2b1a;
+  --color-paper-dim: #41533a;
+  --color-paper-faint: #5c6e54;
+
+  --color-lime-glow: #2f7a2a;
+  --color-lime-soft: #4a9c3f;
+  --color-emerald-glow: #1f6b49;
+  --color-emerald-soft: #368b62;
+  --color-violet-glow: #c04520;
+  --color-violet-soft: #dc6a3a;
+
+  --color-on-accent: #f8f4e9;
+}
+
+/* Bílá, černá, tenká linka a nic navíc. */
+[data-theme="minimalist"] {
+  --color-ink-950: #ffffff;
+  --color-ink-900: #fbfbfb;
+  --color-ink-800: #f5f5f5;
+  --color-ink-700: #e7e7e7;
+  --color-ink-600: #cfcfcf;
+
+  --color-paper: #101010;
+  --color-paper-dim: #414141;
+  --color-paper-faint: #6d6d6d;
+
+  --color-lime-glow: #101010;
+  --color-lime-soft: #2e2e2e;
+  --color-emerald-glow: #1c1c1c;
+  --color-emerald-soft: #3a3a3a;
+  --color-violet-glow: #4a4a4a;
+  --color-violet-soft: #6d6d6d;
+
+  --color-on-accent: #ffffff;
+
+  --color-edge-faint: rgb(0 0 0 / 0.08);
+  --color-edge: rgb(0 0 0 / 0.16);
+  --color-edge-strong: rgb(0 0 0 / 0.28);
+  --color-edge-hover: rgb(0 0 0 / 0.55);
+}
+
+/*
+ * Kreslený strom na pozadí je malovaný tmavými barvami natvrdo v plátně.
+ * Na světlém motivu by z něj byla černá skvrna, tak se schová — hrdinná
+ * část stránky si vystačí s barevným přechodem z tokenů.
+ */
+[data-theme="steampunk"] .tree-bg,
+[data-theme="sweet-pink"] .tree-bg,
+[data-theme="sweet-blue"] .tree-bg,
+[data-theme="jungle"] .tree-bg,
+[data-theme="minimalist"] .tree-bg {
+  display: none;
 }
 
 /*

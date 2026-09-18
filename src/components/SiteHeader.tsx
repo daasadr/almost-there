@@ -7,6 +7,7 @@ import { Link, usePathname } from "@/i18n/navigation";
 import { AppNav } from "./plan/AppNav";
 import { LogoMark, Wordmark } from "./Logo";
 import { LocaleSwitcher } from "./LocaleSwitcher";
+import { ThemeSwitcher } from "./ThemeSwitcher";
 
 /**
  * Kotvy na úvodní stránce, na které míří odkazy v hlavičce.
@@ -114,6 +115,11 @@ export function SiteHeader() {
         )}
 
         <div className="ml-auto flex shrink-0 items-center gap-3">
+          {/* Přepínač vzhledu je i na mobilu — na rozdíl od jazyka je úzký
+              (tři barevné tečky) a je to první věc, kterou si člověk může
+              nastavit po svém. Proto vpravo nahoře, naproti značce. */}
+          <ThemeSwitcher />
+
           {/* Přepínač jazyka je na mobilu v patičce. V hlavičce je z něj
               nejširší prvek a vytlačil by odsud přihlášení. */}
           <span className="hidden sm:inline-flex">

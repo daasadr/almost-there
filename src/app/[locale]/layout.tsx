@@ -16,6 +16,7 @@ import { AuthSessionProvider } from "@/components/SessionProvider";
 import { ServiceWorker } from "@/components/ServiceWorker";
 import { NativeShell } from "@/components/native/NativeShell";
 import { STORE_APP_MARKER } from "@/lib/store-app";
+import { THEME_INIT_SCRIPT } from "@/lib/theme";
 import { siteUrl } from "@/lib/seo/site";
 import "@/app/globals.css";
 
@@ -35,6 +36,7 @@ const CLIENT_NAMESPACES = [
   "billing",
   "demo",
   "plan",
+  "theme",
 ] as const;
 
 function clientMessages(messages: Record<string, unknown>) {
@@ -170,7 +172,7 @@ export default async function LocaleLayout({
             tlačítko „koupit" by na okamžik probliklo. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `if(navigator.userAgent.indexOf(${JSON.stringify(STORE_APP_MARKER)})>-1)document.documentElement.dataset.storeApp="1"`,
+            __html: `if(navigator.userAgent.indexOf(${JSON.stringify(STORE_APP_MARKER)})>-1)document.documentElement.dataset.storeApp="1";${THEME_INIT_SCRIPT}`,
           }}
         />
       </head>

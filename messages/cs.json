@@ -1022,5 +1022,20 @@
     "ctaTitle": "Zkus si to na svém cíli",
     "ctaBody": "Demo je bez registrace. Za minutu uvidíš, jak by se tvůj cíl rozfázoval až na dnešek.",
     "ctaButton": "Vyzkoušet demo"
+  },
+  "theme": {
+    "label": "Styl",
+    "classic": "Classic",
+    "classicNote": "Tmavý, zářivý, původní",
+    "steampunk": "Steampunk",
+    "steampunkNote": "Mosaz a stará kůže",
+    "sweet-pink": "Sweet růžová",
+    "sweet-pinkNote": "Slonovina a cukrová růžová",
+    "sweet-blue": "Sweet modrá",
+    "sweet-blueNote": "Slonovina a bledě modrá",
+    "jungle": "Jungle",
+    "jungleNote": "Zeleň na písku",
+    "minimalist": "Minimalist",
+    "minimalistNote": "Bílá, černá, nic navíc"
   }
 }

@@ -1022,5 +1022,20 @@
     "ctaTitle": "Try it on your own goal",
     "ctaBody": "The demo needs no account. In a minute you'll see how your goal breaks down, all the way to today.",
     "ctaButton": "Try the demo"
+  },
+  "theme": {
+    "label": "Style",
+    "classic": "Classic",
+    "classicNote": "Dark, glowing, the original",
+    "steampunk": "Steampunk",
+    "steampunkNote": "Brass and old leather",
+    "sweet-pink": "Sweet pink",
+    "sweet-pinkNote": "Ivory and candy pink",
+    "sweet-blue": "Sweet blue",
+    "sweet-blueNote": "Ivory and pale blue",
+    "jungle": "Jungle",
+    "jungleNote": "Green on sand",
+    "minimalist": "Minimalist",
+    "minimalistNote": "White, black, nothing else"
   }
 }

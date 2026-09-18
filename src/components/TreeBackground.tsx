@@ -319,7 +319,10 @@ export function TreeBackground() {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute inset-0 overflow-hidden"
+      // `tree-bg` schválně: strom se maluje tmavými barvami zapsanými
+      // natvrdo v plátně, takže se na světlých motivech schovává.
+      // Viz globals.css.
+      className="tree-bg pointer-events-none absolute inset-0 overflow-hidden"
     >
       {/* Statické podkladové záře — drží kompozici i než se spustí canvas */}
       <div

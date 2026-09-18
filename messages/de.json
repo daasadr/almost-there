@@ -1022,5 +1022,20 @@
     "ctaTitle": "Probier es an deinem eigenen Ziel",
     "ctaBody": "Die Demo braucht kein Konto. In einer Minute siehst du, wie sich dein Ziel aufteilt — bis hin zu heute.",
     "ctaButton": "Demo ausprobieren"
+  },
+  "theme": {
+    "label": "Stil",
+    "classic": "Classic",
+    "classicNote": "Dunkel, leuchtend, das Original",
+    "steampunk": "Steampunk",
+    "steampunkNote": "Messing und altes Leder",
+    "sweet-pink": "Sweet Rosa",
+    "sweet-pinkNote": "Elfenbein und Zuckerrosa",
+    "sweet-blue": "Sweet Blau",
+    "sweet-blueNote": "Elfenbein und Blassblau",
+    "jungle": "Jungle",
+    "jungleNote": "Grün auf Sand",
+    "minimalist": "Minimalist",
+    "minimalistNote": "Weiß, Schwarz, sonst nichts"
   }
 }
