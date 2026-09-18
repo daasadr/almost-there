@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /**
  * Ústřední vizuální motiv: strom, který se větví shora dolů — přesně jako
@@ -102,9 +102,52 @@ function buildTree(maxDepth: number): Node[] {
   return nodes;
 }
 
+/** Barva z proměnné motivu jako složky RGB. */
+function readColor(
+  name: string,
+  fallback: [number, number, number],
+): [number, number, number] {
+  const raw = getComputedStyle(document.documentElement)
+    .getPropertyValue(name)
+    .trim();
+
+  const hex = /^#([0-9a-f]{6})$/i.exec(raw);
+  if (!hex) return fallback;
+
+  const value = parseInt(hex[1], 16);
+  return [(value >> 16) & 255, (value >> 8) & 255, value & 255];
+}
+
+/**
+ * Zapnutý motiv, sledovaný za běhu.
+ *
+ * Strom se musí překreslit, když si člověk vybere jiný vzhled — jednak
+ * kvůli barvám, jednak proto, že skrytý má plátno nulové rozměry a po
+ * návratu by zůstalo prázdné. Přepnutí motivu není navigace, takže se
+ * o něm jinak nedozvíme; hlídá se proto změna značky na `<html>`.
+ */
+function useThemeName(): string {
+  const [theme, setTheme] = useState("");
+
+  useEffect(() => {
+    const read = () => setTheme(document.documentElement.dataset.theme ?? "");
+    read();
+
+    const observer = new MutationObserver(read);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+    return () => observer.disconnect();
+  }, []);
+
+  return theme;
+}
+
 export function TreeBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const glowRef = useRef<HTMLDivElement>(null);
+  const theme = useThemeName();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -119,6 +162,20 @@ export function TreeBackground() {
     const narrow = window.innerWidth < 768;
     const maxDepth = narrow ? MAX_DEPTH_NARROW : MAX_DEPTH_WIDE;
     const nodes = buildTree(maxDepth);
+
+    /*
+     * Barvy z motivu, ne zapsané v kódu.
+     *
+     * Dřív tu byly tři natvrdo zadané odstíny, takže strom šel použít
+     * jedině u tmavého vzhledu. Takhle se přebarví sám a u každého
+     * motivu vypadá, jako by byl kreslený pro něj.
+     *
+     * Náhradní hodnoty odpovídají původnímu tmavému motivu — kdyby se
+     * proměnná nedala přečíst, vykreslí se strom jako dřív, ne černě.
+     */
+    const trunk = readColor("--color-emerald-glow", [16, 185, 129]);
+    const tip = readColor("--color-lime-soft", [190, 242, 100]);
+    const accent = readColor("--color-violet-soft", [167, 139, 250]);
 
     // Cíl a aktuální hodnota náklonu se drží zvlášť, aby pohyb kurzoru
     // strom netrhal — dojíždí se k cíli plynule.
@@ -237,11 +294,11 @@ export function TreeBackground() {
         node.y = parent.y - Math.cos(node.angle) * length;
 
         const t = node.depth / maxDepth;
-        // Od kmene k listům: smaragdová → limetková, s purpurovým nádechem
-        // na koncích, aby koruna nesplývala do jedné zelené plochy.
-        const r = Math.round(16 + t * 147);
-        const g = Math.round(185 + t * 45);
-        const b = Math.round(129 - t * 76);
+        // Od kmene k listům se barva přelévá mezi dvěma odstíny motivu,
+        // aby koruna nesplývala do jedné plochy.
+        const r = Math.round(trunk[0] + (tip[0] - trunk[0]) * t);
+        const g = Math.round(trunk[1] + (tip[1] - trunk[1]) * t);
+        const b = Math.round(trunk[2] + (tip[2] - trunk[2]) * t);
         const alpha = 0.09 + (1 - t) * 0.16;
 
         ctx.beginPath();
@@ -260,8 +317,8 @@ export function TreeBackground() {
           ctx.arc(node.x, node.y, 1.1 + pulse * 1.5, 0, Math.PI * 2);
           ctx.fillStyle =
             node.phase > 4.4
-              ? `rgba(167, 139, 250, ${0.14 + pulse * 0.3})`
-              : `rgba(190, 242, 100, ${0.12 + pulse * 0.28})`;
+              ? `rgba(${accent[0]}, ${accent[1]}, ${accent[2]}, ${0.14 + pulse * 0.3})`
+              : `rgba(${tip[0]}, ${tip[1]}, ${tip[2]}, ${0.12 + pulse * 0.28})`;
           ctx.fill();
         }
       }
@@ -314,7 +371,7 @@ export function TreeBackground() {
       window.removeEventListener("touchmove", onTouchMove);
       window.removeEventListener("mouseleave", onPointerLeave);
     };
-  }, []);
+  }, [theme]);
 
   return (
     <div
@@ -328,10 +385,12 @@ export function TreeBackground() {
       <div
         className="absolute inset-0"
         style={{
+          // Barvy z motivu, ne zapsané v kódu — jinak by záře pod
+          // stromem u světlých vzhledů zůstala zelená.
           background:
-            "radial-gradient(70% 55% at 78% 88%, rgba(16,185,129,0.16), transparent 70%)," +
-            "radial-gradient(50% 45% at 12% 8%, rgba(139,92,246,0.16), transparent 72%)," +
-            "radial-gradient(40% 35% at 55% 40%, rgba(163,230,53,0.07), transparent 70%)",
+            "radial-gradient(70% 55% at 78% 88%, color-mix(in oklab, var(--color-emerald-glow) 16%, transparent), transparent 70%)," +
+            "radial-gradient(50% 45% at 12% 8%, color-mix(in oklab, var(--color-violet-glow) 16%, transparent), transparent 72%)," +
+            "radial-gradient(40% 35% at 55% 40%, color-mix(in oklab, var(--color-lime-glow) 7%, transparent), transparent 70%)",
         }}
       />
       <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
@@ -341,7 +400,7 @@ export function TreeBackground() {
         className="absolute inset-0 opacity-0 transition-opacity duration-700"
         style={{
           background:
-            "radial-gradient(220px circle at var(--glow-x, 50%) var(--glow-y, 50%), rgba(190,242,100,0.10), transparent 65%)",
+            "radial-gradient(220px circle at var(--glow-x, 50%) var(--glow-y, 50%), color-mix(in oklab, var(--color-lime-soft) 10%, transparent), transparent 65%)",
         }}
       />
       {/* Zjemnění spodní hrany, aby canvas nekončil řezem */}

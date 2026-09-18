@@ -733,13 +733,16 @@
 /* Minimalist schválně nic. To je celý jeho smysl. */
 
 /*
- * Kreslený strom na pozadí je malovaný tmavými barvami natvrdo v plátně.
- * Na světlém motivu by z něj byla černá skvrna, tak se schová — hrdinná
- * část stránky si vystačí s barevným přechodem z tokenů.
+ * Kde strom na pozadí nechceme.
+ *
+ * Barvy si bere z motivu, takže by se dokázal přebarvit kamkoliv —
+ * jenže Steampunk i Jungle mají vlastní ozdoby a strom přes ně by byl
+ * tlačenice. A Minimalist nemá mít nic, to je jeho celý smysl.
+ *
+ * U Sweet naopak zůstává: obláčky a strom v jejich barvách jdou
+ * dohromady a je to nejhezčí, co ta dvojice motivů má.
  */
 [data-theme="steampunk"] .tree-bg,
-[data-theme="sweet-pink"] .tree-bg,
-[data-theme="sweet-blue"] .tree-bg,
 [data-theme="jungle"] .tree-bg,
 [data-theme="minimalist"] .tree-bg {
   display: none;
