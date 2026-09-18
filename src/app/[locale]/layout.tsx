@@ -11,6 +11,7 @@ import { routing } from "@/i18n/routing";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { CookieBanner } from "@/components/CookieBanner";
+import { BackToTop } from "@/components/BackToTop";
 import { RevealOnScroll } from "@/components/RevealOnScroll";
 import { AuthSessionProvider } from "@/components/SessionProvider";
 import { ServiceWorker } from "@/components/ServiceWorker";
@@ -208,6 +209,10 @@ export default async function LocaleLayout({
             <SiteFooter />
           </div>
           <CookieBanner />
+          {/* Vlastní vrstva pod lištou o cookies — ta se objeví jednou
+              a na mobilu zabírá celý spodek, takže jí šipka nesmí
+              konkurovat. */}
+          <BackToTop />
           <RevealOnScroll />
           <ServiceWorker />
           <NativeShell />
