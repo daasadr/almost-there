@@ -12,6 +12,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { CookieBanner } from "@/components/CookieBanner";
 import { BackToTop } from "@/components/BackToTop";
+import { ThemeDecor } from "@/components/ThemeDecor";
 import { RevealOnScroll } from "@/components/RevealOnScroll";
 import { AuthSessionProvider } from "@/components/SessionProvider";
 import { ServiceWorker } from "@/components/ServiceWorker";
@@ -203,6 +204,7 @@ export default async function LocaleLayout({
           {/* Obal drží pojistku proti vodorovnému posuvníku. Na `html`
               ani `body` patřit nesmí — viz komentář u `.page-shell`
               v globals.css. */}
+          <ThemeDecor />
           <div className="page-shell">
             <SiteHeader />
             <main id="main">{children}</main>

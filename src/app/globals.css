@@ -525,68 +525,209 @@
  * nemůžou rozejít.
  */
 
-/* Ozubená kolečka a stará kůže: soustředné kruhy a nepravidelná zrnitost. */
-[data-theme="steampunk"] body {
-  background-image:
-    repeating-radial-gradient(
-      circle at 88% 12%,
-      color-mix(in oklab, var(--color-ink-600) 22%, transparent) 0 2px,
-      transparent 2px 26px
-    ),
-    repeating-radial-gradient(
-      circle at 8% 82%,
-      color-mix(in oklab, var(--color-ink-600) 16%, transparent) 0 2px,
-      transparent 2px 34px
-    ),
-    radial-gradient(
-      60% 50% at 50% 0%,
-      color-mix(in oklab, var(--color-lime-glow) 10%, transparent),
-      transparent 70%
-    );
-  background-attachment: fixed;
+/*
+ * Vrstva s ozdobami.
+ *
+ * Pod obsahem, přes celé okno, neodchytává klepnutí. Záporné `z-index`
+ * ji položí nad podklad stránky, ale pod text — kdyby byla nula,
+ * kreslila by se přes odstavce.
+ *
+ * Ve výchozím motivu se nezobrazuje nic; jednotlivé motivy si svoji
+ * skupinu zapnou samy níž.
+ */
+.theme-decor,
+.theme-decor > div {
+  display: none;
 }
 
-/* Obláčky: měkké skvrny bez ostré hrany. */
-[data-theme="sweet-pink"] body,
-[data-theme="sweet-blue"] body {
-  background-image:
-    radial-gradient(
-      38% 26% at 12% 8%,
-      color-mix(in oklab, var(--color-ink-700) 55%, transparent),
-      transparent 70%
-    ),
-    radial-gradient(
-      44% 30% at 88% 22%,
-      color-mix(in oklab, var(--color-ink-800) 70%, transparent),
-      transparent 72%
-    ),
-    radial-gradient(
-      50% 34% at 30% 92%,
-      color-mix(in oklab, var(--color-ink-700) 45%, transparent),
-      transparent 70%
-    );
-  background-attachment: fixed;
+.theme-decor {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
 }
 
-/* Prorostlá zeleň zdola a teplý průsvit shora, jako přes koruny stromů. */
-[data-theme="jungle"] body {
-  background-image:
-    radial-gradient(
-      70% 40% at 50% 108%,
-      color-mix(in oklab, var(--color-lime-glow) 22%, transparent),
-      transparent 70%
-    ),
-    radial-gradient(
-      36% 26% at 4% 60%,
-      color-mix(in oklab, var(--color-emerald-glow) 16%, transparent),
-      transparent 72%
-    ),
-    radial-gradient(
-      30% 22% at 96% 18%,
-      color-mix(in oklab, var(--color-violet-glow) 12%, transparent),
-      transparent 70%
-    );
-  background-attachment: fixed;
+[data-theme="steampunk"] .theme-decor,
+[data-theme="sweet-pink"] .theme-decor,
+[data-theme="sweet-blue"] .theme-decor,
+[data-theme="jungle"] .theme-decor {
+  display: block;
+}
+
+[data-theme="steampunk"] .decor-steampunk,
+[data-theme="sweet-pink"] .decor-sweet,
+[data-theme="sweet-blue"] .decor-sweet,
+[data-theme="jungle"] .decor-jungle {
+  display: block;
+}
+
+/* --- Steampunk ---------------------------------------------------------
+ *
+ * První pokus byl z opakujících se kruhů a vznikla z nich mřížka, přes
+ * kterou se špatně četlo. Tohle jsou tři velká kola u okrajů, mimo
+ * dráhu textu, a otáčejí se tak pomalu, že to spíš tušíš, než vidíš.
+ */
+.decor-gear {
+  position: absolute;
+  fill: color-mix(in oklab, var(--color-ink-600) 40%, transparent);
+  animation: decor-spin 90s linear infinite;
+}
+
+.decor-gear-hole {
+  fill: var(--color-ink-950);
+}
+
+.decor-gear-a {
+  width: 22rem;
+  height: 22rem;
+  top: -6rem;
+  right: -7rem;
+}
+
+.decor-gear-b {
+  width: 13rem;
+  height: 13rem;
+  top: 7rem;
+  right: 6rem;
+  /* Opačným směrem, jako by do sebe zapadala. */
+  animation-direction: reverse;
+  animation-duration: 60s;
+}
+
+.decor-gear-c {
+  width: 30rem;
+  height: 30rem;
+  bottom: -12rem;
+  left: -12rem;
+  animation-duration: 140s;
+}
+
+@keyframes decor-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* --- Sweet -------------------------------------------------------------
+ *
+ * Měkké obláčky, které se samy pomalu sunou. Animuje se výhradně posun,
+ * nikdy rozostření — to je nejdražší operace v prohlížeči a animovat ho
+ * znamená přepočítávat rozmazání každý snímek. Takhle je rozostření
+ * spočítané jednou a karta obrázek jen posouvá.
+ */
+.decor-cloud {
+  position: absolute;
+  display: block;
+  border-radius: 999px;
+  filter: blur(40px);
+  background: color-mix(in oklab, var(--color-ink-600) 62%, transparent);
+  will-change: transform;
+}
+
+.decor-cloud-a {
+  width: 26rem;
+  height: 13rem;
+  top: 3rem;
+  left: -6rem;
+  animation: decor-drift 34s ease-in-out infinite alternate;
+}
+
+.decor-cloud-b {
+  width: 34rem;
+  height: 15rem;
+  top: 12rem;
+  right: -10rem;
+  background: color-mix(in oklab, var(--color-ink-700) 70%, transparent);
+  animation: decor-drift 46s ease-in-out infinite alternate-reverse;
+}
+
+.decor-cloud-c {
+  width: 22rem;
+  height: 11rem;
+  bottom: 6rem;
+  left: 12%;
+  animation: decor-drift 40s ease-in-out infinite alternate;
+}
+
+.decor-cloud-d {
+  width: 18rem;
+  height: 9rem;
+  bottom: 22%;
+  right: 8%;
+  background: color-mix(in oklab, var(--color-ink-700) 55%, transparent);
+  animation: decor-drift 52s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes decor-drift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(3.5rem, -1.5rem, 0);
+  }
+}
+
+/* --- Jungle ------------------------------------------------------------
+ *
+ * Zeleň prorůstá zdola a v rozích visí listy. Předchozí pokus byl jen
+ * z přechodů a nebylo vidět nic — tenhle má konkrétní tvary a sytější
+ * podrost.
+ */
+.decor-undergrowth {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: block;
+  height: 45vh;
+  background: radial-gradient(
+    75% 100% at 50% 100%,
+    color-mix(in oklab, var(--color-lime-glow) 34%, transparent),
+    transparent 72%
+  );
+}
+
+.decor-leaf {
+  position: absolute;
+  fill: color-mix(in oklab, var(--color-emerald-glow) 30%, transparent);
+}
+
+.decor-leaf-vein {
+  stroke: color-mix(in oklab, var(--color-ink-950) 45%, transparent);
+  stroke-width: 2.5;
+}
+
+.decor-leaf-a {
+  width: 20rem;
+  height: 20rem;
+  top: -4rem;
+  left: -4rem;
+  transform: rotate(18deg);
+}
+
+.decor-leaf-b {
+  width: 15rem;
+  height: 15rem;
+  top: 30%;
+  right: -5rem;
+  transform: rotate(-142deg);
+  fill: color-mix(in oklab, var(--color-lime-glow) 26%, transparent);
+}
+
+.decor-leaf-c {
+  width: 24rem;
+  height: 24rem;
+  bottom: -8rem;
+  right: 8%;
+  transform: rotate(196deg);
+  fill: color-mix(in oklab, var(--color-emerald-glow) 22%, transparent);
+}
+
+/* Kdo si vypnul animace, dostane ozdoby bez pohybu. */
+@media (prefers-reduced-motion: reduce) {
+  .decor-gear,
+  .decor-cloud {
+    animation: none;
+  }
 }
 
 /* Minimalist schválně nic. To je celý jeho smysl. */
