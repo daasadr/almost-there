@@ -317,7 +317,21 @@
     display: inline-flex;
     align-items: center;
     padding: 0.3rem 0.85rem;
-    border-radius: 999px;
+    /*
+     * Poloměr odpovídá polovině výšky jednoho řádku, ne nekonečnu.
+     *
+     * Při `999px` je z jednořádkového štítku pilulka, jenže jakmile se
+     * text zalomí, zaoblení se roztáhne přes celou výšku a zakousne se
+     * do rohů — text se u nich tiskne k hraně a odsazení vypadá
+     * nerovnoměrně.
+     *
+     * Takhle vyjde jednořádkový štítek na pilulku úplně stejně (zaoblení
+     * právě dosáhne obou hran), ale víceřádkový zůstane zaobleným
+     * obdélníkem, kde odsazení sedí všude.
+     */
+    border-radius: 0.95rem;
+    /* Volnější řádkování, aby se zalomený název nelepil sám na sebe. */
+    line-height: 1.45;
     font-weight: 600;
     letter-spacing: 0.09em;
     text-transform: uppercase;
