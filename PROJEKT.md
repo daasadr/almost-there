@@ -4,7 +4,7 @@ Průvodce projektem: co stavíme, proč to je řešené takhle, co už běží a
 Technické zadání je v [zadani-goal-app.md](zadani-goal-app.md), postup nasazení
 v [README.md](README.md). Tenhle dokument je nad nimi — dává jim kontext.
 
-Poslední aktualizace: **4. 8. 2026**
+Poslední aktualizace: **18. 9. 2026**
 
 ---
 
@@ -47,8 +47,8 @@ podnikatelé, studenti dlouhých zkoušek. Sekundárně kdokoliv s osobním cíl
 
 Next.js (App Router) a TypeScript, PostgreSQL, Docker na Hetzner VPS, nginx
 jako reverzní proxy. AI přes Anthropic API, model `claude-opus-5`.
-Vícejazyčnost přes `next-intl`. Autentizace bude NextAuth, platby Stripe
-na webu a nativní nákupy v mobilních aplikacích.
+Vícejazyčnost přes `next-intl`. Autentizace NextAuth, platby Stripe na webu.
+Mobilní aplikace je obal přes Capacitor, který načítá web ze serveru.
 
 ### Rozhodnutí, která stojí za vysvětlení
 
@@ -75,6 +75,42 @@ který lže, je horší než žádný.
 placenou verzi. Hranice je v UI výslovně pojmenovaná.
 
 **Jazyk se předává do promptu.** Plán vzniká v jazyce aplikace, ne anglicky.
+U levnějších volání (odměny, závěrečné shrnutí) je jazyk i v systémovém
+pokynu — jedna řádka uprostřed anglického zadání jim nestačila a sklouzávaly
+zpátky do angličtiny.
+
+**Denní úkol nese návod, jak ho udělat.** Dva až čtyři kroky, ne jedna věta.
+Poslední krok má pokud možno ověřit, že práce dopadla, ne že proběhla —
+vysvětlit látku nahlas, jeden těžší příklad, krátký test. Odškrtnout „věnoval
+jsem se tomu" umí každý a vytváří to falešný pocit pokroku.
+
+**U učení se sahá po AI chatu jako po zdroji, který má každý.** Když uživatel
+neuvedl materiály — a to je většina — dostane úkol typu „nech si od chatu
+vysvětlit uzávěry a pak se nechej vyzkoušet". Je to jediný zdroj dostupný
+komukoliv zdarma a lidé ho k učení skoro nepoužívají.
+
+**Plán se dá upravit, ne jen přeplánovat po skluzu.** Tlačítko „upravit směr":
+uživatel napíše vlastními slovy, co chce dělat jinak, a zbytek se přepracuje
+kolem toho. Termín ani cíl se nemění a co je k dosažení nutné, v plánu zůstane
+— jinak by z toho byl nástroj na odplánování nepříjemných částí.
+
+**Přeplánování nemaže minulost a vychází z toho, co plán chystal.** Do modelu
+jdou proběhlá i nadcházející období s instrukcí nechat, co dál sedí. Plán,
+který se po malé úpravě vrátí k nepoznání, naučí člověka na něj nesahat.
+
+**Pozastavení cíle posune zbytek plánu.** Po pauze se všechno od data
+pozastavení posune o její délku, v jediném SQL příkazu — roční cíl má stovky
+denních bloků. Negeneruje se nic znovu: rozvržení zůstává i s rozestupy, jen
+dostane dnešní data.
+
+**Vzhled si volí uživatel.** Šest motivů, přepínatelných za běhu. Celá aplikace
+kreslí z barevných tokenů, takže motiv je jen jejich přepsání a žádná
+komponenta o motivech neví.
+
+**Aplikace z obchodu se hlásí podpisem v hlavičce prohlížeče.** Podle něj se
+v ní schová všechno, co vede k placení mimo obchod — pravidlo Google Play.
+Ze stejného důvodu v ní není přihlášení Googlem: to ve vloženém webview
+Google zakazuje.
 
 ### Kde je jádro
 
@@ -88,39 +124,89 @@ iterace a testování na reálných cílech z různých oborů.
 
 Nasazeno na **https://almost-there.eu**.
 
-- **Landing page** dle vizuálního briefu — animovaný strom reagující na kurzor
-  i dotyk, paleta smaragdová / limetková / purpurová, dvě rovnocenná CTA
-- **Demo režim** bez registrace: cíl a termín → rozpad na roky, měsíce nebo
-  týdny podle horizontu, s hodnocením reálnosti termínu a ukazatelem průběhu
-- **Tři jazyky**: angličtina (výchozí), čeština, němčina — včetně jazyka,
-  ve kterém píše AI
-- **Cookie lišta** s možností odmítnout analytiku jedním kliknutím
-- **Obchodní podmínky a zásady ochrany údajů** ve třech jazycích — pracovní
-  návrhy, čekají na kontrolu právníkem
-- **Ochrana API klíče**: 15 generování na IP za hodinu v aplikaci, druhá
-  vrstva rate limitu v nginx
-- **Datový model celé aplikace** v Prisma schématu; databáze běží prázdná
-- **Nasazení**: Docker image, compose sestava, nginx konfigurace, deploy skript
-- **Měření spotřeby AI** — každé volání se loguje včetně odhadu ceny
+### Web a rozhraní
+
+- **Landing page** — animovaný strom reagující na kurzor i dotyk, který se
+  přebarvuje podle zvoleného motivu
+- **Demo režim** bez registrace, s naměřeným časem rozpadu ve výsledku
+- **Šest vzhledů** přepínatelných za běhu: Classic (tmavý), Steampunk,
+  Sweet růžová a modrá, Jungle, Minimalist — včetně vlastních ozdob
+- **Tři jazyky**: angličtina (výchozí), čeština, němčina
+- **Návod** ve třech jazycích, psaný i pro jazykové modely
+- **Blog** na `/blog`, obsah v `src/content/articles.ts`
+- **Cookie lišta**, obchodní podmínky a zásady ochrany údajů
+
+### Účty a platby
+
+- **Registrace a přihlášení** e-mailem i přes Google, obnova hesla, ověření
+  adresy (nepovinné — účet funguje hned)
+- **Stripe naostro**: měsíční i roční předplatné, webhook, zrušení z aplikace,
+  slevové kódy
+- **Přidělený přístup** pro testery a blízké, s datem konce a varováním týden
+  předem
+- **Smazání účtu** z aplikace, včetně zrušení předplatného
+
+### Jádro produktu
+
+- **Plný rozpad** cíl → období → týdny → denní checklist s návody ke každému
+  úkolu
+- **Odložení úkolu** na jindy s důvodem, který se použije při přeplánování
+- **Vyhodnocení tempa** a nabídka dohnat skluz nebo posunout termín
+- **Úprava směru** — přepracování plánu podle přání uživatele
+- **Pozastavení cíle** s posunem plánu při návratu
+- **Milníky s odměnami**, navrhovanými podle toho, co má uživatel rád
+- **Kalendář** s měsíčním přehledem plnění a proužkem posledních třiceti dnů
+- **Motivační obrázky** u cíle, s volbou polohy vůči seznamu úkolů
+- **Sdílení postupu** jako obrázek, kreslený v prohlížeči
+
+### Mobilní aplikace
+
+- **Capacitor obal** načítající web ze serveru — opravy jsou v telefonu hned
+  po nasazení, bez čekání na schválení
+- **Vydaná v uzavřeném testu Google Play** jako `eu.almostthere.app`
+- **Denní připomínka** přes systémová oznámení
+- Skryté placení a přihlášení Googlem podle pravidel obchodu
+
+### Provoz a bezpečnost
+
+- **Šifrování obsahu cílů** v databázi
+- **Webová oznámení** s vlastním časem, týdenním režimem a večerní kontrolou;
+  rozesílá je úloha v systému, ne časovač v aplikaci
+- **Strop spotřeby AI** na uživatele a měsíc, s měřením každého volání
+- **Omezení počtu pokusů** u přihlášení, registrace, dema i generování
+- **Zálohy databáze** a nasazení jedním skriptem
 
 ---
 
-## 4. Co čeká
+## 4. Co blokuje vydání a co čeká
 
-V pořadí, jak na sebe navazuje:
+Produkt je hotový. To, co zbývá, **z větší části není kód** — a je dobré si to
+přiznat, protože je snazší programovat než shánět lidi.
+
+### Blokuje vydání
 
 | # | Krok | Poznámka |
 |---|---|---|
-| 1 | Registrace a přihlášení | NextAuth + Postgres. Prisma modely hotové včetně `Consent` s verzí podmínek |
-| 2 | Platby | Stripe Checkout, webhook na stav předplatného, paywall, převzetí demo cíle |
-| 3 | Plný rozpad a denní checklist | Fáze 2 a 3 z bodu 6 zadání, tlačítko na rozpracování dalšího období |
-| 4 | Strop spotřeby AI | **Musí být dřív než platby** — slibujeme ho v obchodních podmínkách |
-| 5 | Zálohy databáze | Cron, `pg_dump`, rotace. Teď je databáze prázdná, pak už bude pozdě |
-| 6 | Adaptivní přeplánování | Fáze 2 zadání |
-| 7 | Multi-goal harmonizace | Fáze 2 zadání |
-| 8 | Milníky s odměnami | Fáze 2 zadání |
-| 9 | Service worker pro offline checklist | Manifest pro instalaci už je |
-| 10 | Capacitor, App Store, Google Play | Fáze 3, nativní nákupy povinné. **Tehdy přehodnotit daňovou kategorii produktu ve Stripu** — teď je nastavená jako SaaS bez mobilní aplikace, což s vydáním v obchodech přestane platit |
+| 1 | **Dvanáct testerů po čtrnáct dní** | Podmínka Google Play pro produkci. Momentálně devět. Vývojářské komunity na Redditu (r/AndroidClosedTesting) tohle řeší výměnou „test za test" |
+| 2 | Ostré platby vyzkoušené skutečnou kartou | Klíče i webhook jsou nastavené, chybí průchod naostro |
+| 3 | Kontrola obchodních podmínek právníkem | Trvá týdny, mělo by běžet už teď |
+
+### Čeká, ale nic neblokuje
+
+| Krok | Poznámka |
+|---|---|
+| Nativní přihlášení Googlem v mobilní aplikaci | Teď se v ní přihlašuje jen heslem — Google svoje přihlášení ve webview zakazuje. Vyžaduje novou AAB a OAuth klienta s otiskem podpisového klíče |
+| Doporučení mezi uživateli | „Pozvi kamaráda, oba dostanete měsíc." Levnější než afiliace a nic neodtéká ven. Má smysl až u pár desítek platících |
+| Články na blog | Základ hotový, obsah chybí. Blog není nikde odkazovaný, dokud nebude co ukázat |
+| Build mimo server | Nasazení trvá skoro dvě hodiny, protože se staví na VPS. Přesun do GitHub Actions z toho udělá minutu |
+| ESLint | V projektu není a skript `lint` volá zrušený `next lint`. Žádná automatická kontrola kvality |
+| Offline checklist se synchronizací | Service worker existuje, ale data neukládá |
+| App Store | Vyžaduje placený vývojářský účet. Až po Google Play |
+
+### Přehodnotit s vydáním v obchodech
+
+**Daňová kategorie produktu ve Stripu** je nastavená jako SaaS bez mobilní
+aplikace, což s vydáním v obchodech přestane platit.
 
 ### Paralelně, nezávisle na kódu
 
@@ -159,6 +245,22 @@ zhruba 1 až 1,75 Kč.**
 Podstatné: většinu ceny tvoří **výstupní tokeny**, do kterých se počítá
 i přemýšlení modelu. Vstup je zanedbatelný, takže cachování promptu by
 skoro nepomohlo — hlavní páka je úroveň úsilí a volba modelu.
+
+### Naměřeno v provozu (září 2026)
+
+Odhady níž vznikly před spuštěním. Skutečnost z běžícího provozu je
+**pod 20 Kč měsíčně i u aktivnějšího uživatele** — tedy výrazně příznivější,
+než se čekalo.
+
+Dvě věci to mění:
+
+**Marže je zdravá i při velké slevě.** Padesátiprocentní sleva znamená 89,50 Kč
+příjmu proti nákladu do dvaceti, což unese i dlouhodobou akci.
+
+**Delší popisy úkolů se vejdou.** Rozpad na dny je nejčastější volání v celém
+provozu a návody ke každému úkolu ho prodražují. Při téhle marži je to
+v pořádku, ale je to první místo, kde se náklady projeví — stojí za to
+sledovat, jak se to číslo vyvíjí s přibývajícími uživateli.
 
 ### Odhad pro plnou verzi
 
@@ -219,12 +321,16 @@ nedává smysl: po odvodu DPH a provizi obchodu by 150 Kč **spotřebovalo
 celou marži a ještě by se prodělávalo** — na webu i na mobilu, kde po
 patnáctiprocentní provizi zbývá kolem 125 Kč.
 
-Realističtější nastavení, až budou data z provozu:
+Realističtější nastavení:
 
 - **měkké upozornění kolem 35 Kč** měsíční spotřeby — informační hláška,
   zpomalení nákladných ručních operací
 - **tvrdý strop kolem 60–70 Kč** — dvojnásobek běžné spotřeby, takže ho
   reálné používání nedosáhne, ale zneužití zastaví
+
+Data z provozu tenhle odhad potvrdila: skutečná spotřeba je pod 20 Kč měsíčně,
+takže strop kolem 60 Kč je trojnásobek běžného použití — dost daleko, aby
+nikoho neomezoval, a dost blízko, aby zastavil zneužití.
 
 Text obchodních podmínek to snese beze změny — slibuje ochranu proti
 zneužití, ne konkrétní číslo.
@@ -263,6 +369,38 @@ Server: Hetzner VPS, `46.224.46.43`, sdílený se třemi dalšími projekty.
 Aplikace poslouchá jen na `127.0.0.1`, ven ji pouští nginx s certifikátem
 od Let's Encrypt. Nasazení novou verzí: `./deploy/deploy.sh`.
 
+### Úlohy v systému
+
+Rozesílání oznámení běží z cronu, ne z aplikace — časovač uvnitř by nepřežil
+restart při nasazení a při dvou instancích by běžel dvakrát:
+
+```
+*/5 * * * * curl -fsS -H "Authorization: Bearer $CRON_SECRET" \
+  https://almost-there.eu/api/cron/notify > /dev/null
+```
+
+### Tajemství, která se nedají obnovit
+
+Tyhle tři patří do zálohy mimo server. Ztráta každého z nich znamená jinou,
+ale nevratnou škodu:
+
+| Klíč | Co se stane při ztrátě |
+|---|---|
+| `ENCRYPTION_KEY` | Obsah cílů v databázi je trvale nečitelný |
+| `VAPID_PRIVATE_KEY` | Přestanou chodit oznámení všem, kdo se přihlásili; musí se přihlásit znovu |
+| `almostthere-upload.jks` | Nejde vydat aktualizace aplikace pod stejným záznamem v Google Play |
+
+Nové proměnné oproti dřívějšku: `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`,
+`VAPID_SUBJECT`, `CRON_SECRET`. Musí být vyjmenované v `docker-compose.yml` —
+do kontejneru se ze souboru `.env` samy nedostanou.
+
+### Doba nasazení
+
+Build běží na serveru a trvá skoro dvě hodiny. Typová kontrola se v něm
+přeskakuje (`SKIP_TYPE_CHECK=1`), protože proběhla před commitem; ušetřilo to
+dvacet minut. Zbytek je výkon stroje. Řešením je stavět mimo server — viz
+sekce 4.
+
 ### Doména
 
 `almost-there.eu`. Přesný název byl obsazený na všech silných koncovkách
@@ -275,9 +413,15 @@ přesměrování pro domácí trh.
 
 ## 7. Otevřené otázky
 
-- Přihlášení přes Google v první vlně, nebo jen e-mail a heslo?
-- Roční předplatné — potvrdit slevu (zadání navrhuje rok za cenu deseti měsíců)
-- Sbírat v plné verzi dostupný čas denně? Bez toho si ho model odhaduje sám
-  a odhad ukazuje v sekci „Z čeho AI vycházela"
+- **Proč lidé po registraci nezačnou.** Největší otevřená otázka celého
+  projektu. Nejlevnější hypotéza k ověření: první dny plánu jsou moc velké
+  a je potřeba je udělat směšně malé, aby se člověk vrátil i druhý den.
+- **Šablony cílů** („VibeCoding to Coding", „Fast Sketching") — odstranily by
+  překážku lidem, kteří netuší, jaký cíl si dát. Má smysl je stavět až
+  z cílů, které si provozovatelka sama projde a opraví v nich, co plán netrefil.
+- **Napojení na Google Kalendář.** Zní dobře, používala by to menšina.
+  Vyžaduje OAuth, souhlas a rozhodnutí, co se stane při přeplánování.
 - Termín odvozený z míry úsilí („nevím kdy, vím kolik času denně") — hezký
-  nápad, ale je to druhý vstupní tok. Až po platbách.
+  nápad, ale je to druhý vstupní tok.
+- Zda barva lišty prohlížeče na mobilu má reagovat na zvolený motiv. Teď je
+  staticky tmavá u všech.
