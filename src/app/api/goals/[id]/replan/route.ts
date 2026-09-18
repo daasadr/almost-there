@@ -3,7 +3,12 @@ import { z } from "zod";
 import { db } from "@/lib/db";
 import { requireSubscriber } from "@/lib/api/guard";
 import { AiBudgetError } from "@/lib/ai/usage";
-import { declineReplan, replanGoal, ReplanTooSoonError } from "@/lib/goals/replan";
+import {
+  declineReplan,
+  DeadlinePassedError,
+  replanGoal,
+  ReplanTooSoonError,
+} from "@/lib/goals/replan";
 
 export const runtime = "nodejs";
 export const maxDuration = 300;
@@ -76,6 +81,15 @@ export async function POST(
       return NextResponse.json(
         { ok: false, error: "replanTooSoon" },
         { status: 429 },
+      );
+    }
+
+    // Termín uplynul, dohnat ho nejde. Není to chyba k opakování —
+    // uživateli se má říct, co s tím, ne „zkus to znovu“.
+    if (error instanceof DeadlinePassedError) {
+      return NextResponse.json(
+        { ok: false, error: "deadlinePassed" },
+        { status: 409 },
       );
     }
     if (error instanceof AiBudgetError) {

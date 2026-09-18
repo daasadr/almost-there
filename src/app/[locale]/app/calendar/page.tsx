@@ -6,8 +6,10 @@ import { getTranslations } from "next-intl/server";
 import { auth } from "@/auth";
 import { FreeAccountNotice } from "@/components/billing/FreeAccountNotice";
 import { MonthCalendar } from "@/components/plan/MonthCalendar";
+import { ProgressStrip } from "@/components/plan/ProgressStrip";
+import { ShareProgress } from "@/components/plan/ShareProgress";
 import { getAccess } from "@/lib/billing/access";
-import { getMonthProgress } from "@/lib/goals/checkin";
+import { getMonthProgress, getRecentProgress } from "@/lib/goals/checkin";
 import { db } from "@/lib/db";
 import { todayIso } from "@/lib/plan/calendar";
 import { isStoreApp } from "@/lib/store-app";
@@ -76,7 +78,10 @@ export default async function CalendarPage({
     ? month!
     : todayIso(user.timezone).slice(0, 7);
 
-  const days = await getMonthProgress(session.user.id, user.timezone, selected);
+  const [days, recent] = await Promise.all([
+    getMonthProgress(session.user.id, user.timezone, selected),
+    getRecentProgress(session.user.id, user.timezone),
+  ]);
 
   return (
     <section className="mx-auto max-w-2xl px-5 py-10 sm:px-8 sm:py-14">
@@ -85,7 +90,31 @@ export default async function CalendarPage({
         {t("subtitle")}
       </p>
 
+      {/*
+        Proužek třiceti dní nahoře, nad mřížkou.
+
+        Na denním přehledu býval hned pod týdenním a dvě řady okének nad
+        sebou z něj dělaly změť. Tady je doma: stránka je celá o delším
+        běhu a proužek je jeho nejrychlejší shrnutí — jedním pohledem
+        vidíš, jak to šlo, a v kalendáři pod tím dohledáš konkrétní dny.
+      */}
       <div className="mt-10">
+        <ProgressStrip days={recent} locale={locale} />
+
+        {/*
+          Sdílení postupu ven, na sítě, kde uživatel už je.
+
+          V aplikaci z obchodu se schovává, a ne kvůli pravidlům Google
+          Play — ta s tím nemají problém. Android WebView prostě nemá
+          systémové sdílení a stažení souboru v něm taky neprojde, takže
+          by tlačítko jen mlčky nefungovalo.
+        */}
+        <div className="store-hidden">
+          <ShareProgress days={recent} />
+        </div>
+      </div>
+
+      <div className="mt-12">
         <MonthCalendar days={days} month={selected} locale={locale} />
       </div>
 

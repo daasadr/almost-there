@@ -45,6 +45,10 @@ export function PaceCheck({
 
   if (dismissed) return null;
 
+  // Termín ve tvaru YYYY-MM-DD, takže porovnání řetězců stačí a nepletou
+  // se do toho časová pásma.
+  const deadlinePassed = targetDate <= new Date().toISOString().slice(0, 10);
+
   const send = async (mode: "catchUp" | "moveDeadline" | "decline") => {
     setPending(mode);
     setError(null);
@@ -105,20 +109,28 @@ export function PaceCheck({
       {pending && pending !== "decline" ? (
         <GenerationProgress namespace="plan.form.progress" />
       ) : (
-        <div className="mt-5 grid gap-3 sm:grid-cols-2">
-          <button
-            type="button"
-            onClick={() => send("catchUp")}
-            disabled={Boolean(pending)}
-            className="rounded-2xl border border-edge p-4 text-left transition hover:border-edge-hover disabled:opacity-50"
-          >
-            <span className="block text-[15px] font-medium text-[var(--color-paper)]">
-              {t("catchUp")}
-            </span>
-            <span className="mt-1 block text-sm leading-relaxed text-[var(--color-paper-dim)]">
-              {t("catchUpBody", { date: asDate(targetDate) })}
-            </span>
-          </button>
+        <div className={`mt-5 grid gap-3 ${deadlinePassed ? "" : "sm:grid-cols-2"}`}>
+          {/*
+            Dohnat skluz jde jedině k termínu, který ještě nenastal.
+            U uplynulého není do čeho tlačit a pokus by skončil chybou —
+            tak ho radši nenabízíme vůbec. Server to odmítne taky, tohle
+            je jen o tom, aby na to člověk nenarazil.
+          */}
+          {!deadlinePassed && (
+            <button
+              type="button"
+              onClick={() => send("catchUp")}
+              disabled={Boolean(pending)}
+              className="rounded-2xl border border-edge p-4 text-left transition hover:border-edge-hover disabled:opacity-50"
+            >
+              <span className="block text-[15px] font-medium text-[var(--color-paper)]">
+                {t("catchUp")}
+              </span>
+              <span className="mt-1 block text-sm leading-relaxed text-[var(--color-paper-dim)]">
+                {t("catchUpBody", { date: asDate(targetDate) })}
+              </span>
+            </button>
+          )}
 
           <button
             type="button"

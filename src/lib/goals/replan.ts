@@ -41,6 +41,22 @@ export class ReplanTooSoonError extends Error {
   readonly name = "ReplanTooSoonError";
 }
 
+/**
+ * „Doženu skluz“ u cíle, jehož termín už uplynul.
+ *
+ * Dohnat skluz znamená nechat termín být a zbytek do něj natlačit. Když
+ * je ale termín za námi, není do čeho tlačit: rozsah od dneška k němu
+ * vyjde prázdný, model dostane zadání na nula období a celé to spadne.
+ *
+ * Uživatel pak viděl „nepovedlo se, zkus to znovu“ a zkoušel to dokola,
+ * protože z té hlášky nešlo poznat, že to nemůže vyjít nikdy. Tohle je
+ * to samé zjištění, jen o minutu dřív a srozumitelně — a bez volání
+ * modelu, které bylo odsouzené předem.
+ */
+export class DeadlinePassedError extends Error {
+  readonly name = "DeadlinePassedError";
+}
+
 /** Jak dlouho po přeplánování další nepovolit. */
 const COOLDOWN_HOURS = 24;
 
@@ -87,16 +103,30 @@ export async function replanGoal({
     },
   });
 
-  const recent = await db.replanEvent.findFirst({
-    where: {
-      goalId,
-      reason: { not: "USER_DECLINED_REPLAN" },
-      triggeredAt: { gte: new Date(Date.now() - COOLDOWN_HOURS * 3_600_000) },
-    },
-    select: { id: true },
-  });
-  if (recent) {
-    throw new ReplanTooSoonError("Cíl byl přeplánován před chvílí.");
+  /**
+   * Odstup mezi přeplánováními — ale jen u těch, která nabízí aplikace.
+   *
+   * Strop tu je proto, aby se nabídka „dohnat, nebo posunout termín“
+   * nespouštěla pořád dokola. Na úpravu směru ale nesedí: posunout
+   * termín a změnit obsah jsou dvě různá rozhodnutí a jedno nemá blokovat
+   * druhé. Kdo si zrovna nechal spočítat nový termín a pak si uvědomí,
+   * že chce jinou cestu, by musel čekat den — a to je na vlastní vědomé
+   * rozhodnutí nesmysl.
+   *
+   * Náklady hlídá `assertWithinBudget` níž, ne tenhle strop.
+   */
+  if (mode !== "adjust") {
+    const recent = await db.replanEvent.findFirst({
+      where: {
+        goalId,
+        reason: { not: "USER_DECLINED_REPLAN" },
+        triggeredAt: { gte: new Date(Date.now() - COOLDOWN_HOURS * 3_600_000) },
+      },
+      select: { id: true },
+    });
+    if (recent) {
+      throw new ReplanTooSoonError("Cíl byl přeplánován před chvílí.");
+    }
   }
 
   await assertWithinBudget(goal.userId);
@@ -113,6 +143,11 @@ export async function replanGoal({
     mode === "moveDeadline"
       ? estimateNewTarget(today, goal.targetDate, completionRate)
       : goal.targetDate;
+
+  // Bez budoucnosti není co plánovat. Viz DeadlinePassedError.
+  if (newTargetDate.getTime() <= today.getTime()) {
+    throw new DeadlinePassedError("Termín cíle už uplynul.");
+  }
 
   // Milníky období, která už začala — vstup pro model, ať ví, odkud
   // navazuje. Patří sem i období právě běžící: jeho první část je taky

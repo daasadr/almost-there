@@ -644,7 +644,8 @@
       "planLimitReached": "Du hast das Monatslimit für neue Pläne erreicht. Laufende Ziele funktionieren weiter; das Limit setzt sich am Ersten des nächsten Monats zurück.",
       "replanTooSoon": "Du hast dieses Ziel gerade erst neu geplant. Versuch es morgen — der Plan braucht mindestens einen Tag, bevor es etwas zu bewerten gibt.",
       "nameTooShort": "Der Name ist zu kurz. Ein paar Wörter genügen.",
-      "nameTooLong": "Der Name ist zu lang. Kürz ihn auf ein paar Wörter — Details gehören ins Feld darunter."
+      "nameTooLong": "Der Name ist zu lang. Kürz ihn auf ein paar Wörter — Details gehören ins Feld darunter.",
+      "deadlinePassed": "Der Termin ist bereits verstrichen, aufholen lässt er sich also nicht mehr. Verschiebe den Termin — der Plan wird nach dem Tempo neu berechnet, das du tatsächlich hältst."
     },
     "budget": {
       "meter": "Monatslimit für Pläne",

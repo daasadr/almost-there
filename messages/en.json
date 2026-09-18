@@ -644,7 +644,8 @@
       "planLimitReached": "You have used this month's limit on new plans. Running goals keep working; the limit resets on the first of next month.",
       "replanTooSoon": "You replanned this goal recently. Try again tomorrow — the plan needs at least a day before there is anything to judge.",
       "nameTooShort": "That name is too short. A few words is enough.",
-      "nameTooLong": "That name is too long. Cut it to a few words — details belong in the field below."
+      "nameTooLong": "That name is too long. Cut it to a few words — details belong in the field below.",
+      "deadlinePassed": "The deadline has already passed, so there is no catching up to it. Move the deadline instead — the plan will be recalculated from the pace you are actually keeping."
     },
     "budget": {
       "meter": "Monthly plan limit",

@@ -18,6 +18,7 @@ const KNOWN = new Set([
   "budgetExhausted",
   "planLimitReached",
   "replanTooSoon",
+  "deadlinePassed",
   "tooManyGoals",
   "notSubscribed",
   "generic",

@@ -8,8 +8,6 @@ import { BudgetNotice } from "@/components/plan/BudgetNotice";
 import { PlanTrigger } from "@/components/plan/PlanTrigger";
 import { TodayChecklist } from "@/components/plan/TodayChecklist";
 import { PaceCheck } from "@/components/plan/PaceCheck";
-import { ProgressStrip } from "@/components/plan/ProgressStrip";
-import { ShareProgress } from "@/components/plan/ShareProgress";
 import { WeekStrip } from "@/components/plan/WeekStrip";
 import { ClaimDemoGoal } from "@/components/plan/ClaimDemoGoal";
 import { InstallPrompt } from "@/components/plan/InstallPrompt";
@@ -22,7 +20,7 @@ import { DayRollover } from "@/components/plan/DayRollover";
 import { getAccess } from "@/lib/billing/access";
 import { getDeferred, getOverdue, getToday } from "@/lib/goals/queries";
 import { getBehindGoals } from "@/lib/goals/pace";
-import { getRecentProgress, getWeekProgress } from "@/lib/goals/checkin";
+import { getWeekProgress } from "@/lib/goals/checkin";
 import { findClaimableDemo } from "@/lib/goals/claim";
 import { cookies, headers } from "next/headers";
 import { isStoreApp } from "@/lib/store-app";
@@ -294,7 +292,7 @@ async function Today({
     select: { timezone: true, imagesBelowTasks: true },
   });
   const timezone = profile?.timezone ?? "Europe/Prague";
-  const [today, overdue, deferred, behind, reached, earned, progress] =
+  const [today, overdue, deferred, behind, reached, earned] =
     await Promise.all([
       getToday(userId, timezone, day),
       getOverdue(userId, timezone),
@@ -302,7 +300,6 @@ async function Today({
       getBehindGoals(userId, timezone),
       getReachedMilestones(userId),
       getTodaysRewards(userId, timezone),
-      getRecentProgress(userId, timezone),
     ]);
 
   const week = await getWeekProgress(userId, timezone, today.date);
@@ -349,24 +346,10 @@ async function Today({
         <WeekStrip days={week} selected={today.date} locale={locale} />
       </div>
 
-      {/* Proužek posledních třiceti dní. Jediné místo, kde je vidět
-          delší běh než jeden den. */}
-      <div className="mt-6">
-        <ProgressStrip days={progress} locale={locale} />
-
-        {/*
-          Sdílení postupu ven, na sítě, kde uživatel už je.
-
-          V aplikaci z obchodu se schovává, a ne kvůli pravidlům Google
-          Play — ta s tím nemají problém. Android WebView prostě nemá
-          systémové sdílení a stažení souboru v něm taky neprojde, takže
-          by tlačítko jen mlčky nefungovalo. Až přibude nativní plugin
-          na sdílení, může se odkrýt; do té doby se sdílí z webu.
-        */}
-        <div className="store-hidden">
-          <ShareProgress days={progress} />
-        </div>
-      </div>
+      {/* Proužek třiceti dní tu býval taky, hned pod týdenním. Dvě řady
+          okének nad sebou ale dělaly ze začátku stránky změť a týdenní
+          proužek sám o sobě stačí — delší běh si člověk otevře
+          v kalendáři, kde na něj je místo. */}
 
       <div className="mt-5 space-y-4">
         <EarnedRewards rewards={earned} />
