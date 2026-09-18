@@ -902,6 +902,30 @@
       "cancel": "Back",
       "done": "The plan has been reworked.",
       "tooShort": "Please write at least one sentence about what you want done differently."
+    },
+    "notify": {
+      "title": "Reminders",
+      "body": "The app can speak up when there are tasks waiting for you today. Without it you have to remember on your own — and on the days it matters most, nobody does.",
+      "modeLabel": "How often",
+      "OFF": "Never",
+      "DAILY": "Every day",
+      "WEEKLY": "Once a week, on Monday",
+      "timeLabel": "At",
+      "eveningLabel": "Also ask in the evening whether it is done",
+      "enable": "Turn reminders on",
+      "blocked": "Your browser is blocking notifications. Allow them for this site in its settings and try again.",
+      "unsupported": "This browser cannot show notifications. On iPhone they work once the app is added to the home screen.",
+      "saved": "Saved.",
+      "failed": "That could not be saved. Please try again.",
+      "morningGreetingMorning": "Good morning",
+      "morningGreetingDay": "Hello",
+      "morningGreetingEvening": "Good evening",
+      "morningTitle": "{greeting} — AlmostThere here",
+      "morningBody": "{count, plural, one {One task is waiting for you today to move you closer to your goal.} other {# tasks are waiting for you today to move you closer to your goal.}}",
+      "eveningTitle": "Is it done?",
+      "eveningBody": "{count, plural, one {One of today's tasks is still open.} other {# of today's tasks are still open.}}",
+      "actionOk": "Got it",
+      "actionSnooze": "Remind me later"
     }
   },
   "withdrawal": {

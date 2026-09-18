@@ -5,6 +5,7 @@ import { getTranslations } from "next-intl/server";
 import { auth } from "@/auth";
 import { SettingsForm } from "@/components/plan/SettingsForm";
 import { DailyReminder } from "@/components/native/DailyReminder";
+import { NotifySettings } from "@/components/plan/NotifySettings";
 import { DeleteAccount } from "@/components/account/DeleteAccount";
 import { db } from "@/lib/db";
 
@@ -46,8 +47,20 @@ export default async function SettingsPage({
       timezone: true,
       rewardLikes: true,
       rewardDislikes: true,
+      notifyMode: true,
+      notifyTime: true,
+      notifyEvening: true,
     },
   });
+
+  /*
+   * Veřejná půlka podpisového klíče pro oznámení.
+   *
+   * Bez nastavených klíčů se nabídka vůbec neukáže — nabízet funkci,
+   * která by mlčky nefungovala, je horší než ji nemít. Soukromá půlka
+   * zůstává na serveru, tahle je veřejná a patří do prohlížeče.
+   */
+  const vapidPublicKey = process.env.VAPID_PUBLIC_KEY ?? "";
 
   const t = await getTranslations({ locale, namespace: "plan.settings" });
 
@@ -74,6 +87,24 @@ export default async function SettingsPage({
       {/* V prohlížeči se nevykreslí — systémová oznámení umí jen aplikace
           stažená z obchodu. */}
       <DailyReminder />
+
+      {/*
+        Připomínky pro web. V aplikaci z obchodu se schovávají: tam je
+        obsluhuje `DailyReminder` přes systém a dvě různá nastavení téže
+        věci vedle sebe by si odporovala.
+      */}
+      {vapidPublicKey && (
+        <div className="store-hidden">
+          <NotifySettings
+            vapidPublicKey={vapidPublicKey}
+            initial={{
+              mode: user.notifyMode,
+              time: user.notifyTime,
+              evening: user.notifyEvening,
+            }}
+          />
+        </div>
+      )}
 
       {/* Úplně dole a nenápadně. Je to nevratné, takže sem nikdo nemá
           dojít omylem — ale najít se to musí dát bez psaní na podporu. */}

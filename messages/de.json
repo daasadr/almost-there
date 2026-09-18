@@ -902,6 +902,30 @@
       "cancel": "Zurück",
       "done": "Der Plan wurde überarbeitet.",
       "tooShort": "Bitte schreibe mindestens einen Satz darüber, was du anders möchtest."
+    },
+    "notify": {
+      "title": "Erinnerungen",
+      "body": "Die App kann sich melden, wenn heute Aufgaben auf dich warten. Sonst musst du selbst daran denken — und genau an den Tagen, an denen es zählt, denkt niemand daran.",
+      "modeLabel": "Wie oft",
+      "OFF": "Gar nicht",
+      "DAILY": "Jeden Tag",
+      "WEEKLY": "Einmal pro Woche, montags",
+      "timeLabel": "Um",
+      "eveningLabel": "Abends zusätzlich fragen, ob es erledigt ist",
+      "enable": "Erinnerungen einschalten",
+      "blocked": "Dein Browser blockiert Benachrichtigungen. Erlaube sie in seinen Einstellungen für diese Seite und versuche es erneut.",
+      "unsupported": "Dieser Browser kann keine Benachrichtigungen anzeigen. Auf dem iPhone funktionieren sie, sobald die App zum Startbildschirm hinzugefügt wurde.",
+      "saved": "Gespeichert.",
+      "failed": "Das konnte nicht gespeichert werden. Bitte versuche es erneut.",
+      "morningGreetingMorning": "Guten Morgen",
+      "morningGreetingDay": "Hallo",
+      "morningGreetingEvening": "Guten Abend",
+      "morningTitle": "{greeting} — hier ist AlmostThere",
+      "morningBody": "{count, plural, one {Heute wartet eine Aufgabe auf dich, die dich deinem Ziel näher bringt.} other {Heute warten # Aufgaben auf dich, die dich deinem Ziel näher bringen.}}",
+      "eveningTitle": "Ist es erledigt?",
+      "eveningBody": "{count, plural, one {Eine der heutigen Aufgaben ist noch offen.} other {# der heutigen Aufgaben sind noch offen.}}",
+      "actionOk": "Alles klar",
+      "actionSnooze": "Später erinnern"
     }
   },
   "withdrawal": {

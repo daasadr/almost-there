@@ -54,28 +54,49 @@ model User {
   image         String?
 
   // Předplatné
-  subscriptionStatus SubscriptionStatus  @default(NONE)
-  subscriptionSource SubscriptionSource?
+  subscriptionStatus            SubscriptionStatus  @default(NONE)
+  subscriptionSource            SubscriptionSource?
   // Externí identifikátory pro párování webhooků
-  stripeCustomerId     String? @unique
-  stripeSubscriptionId String? @unique
-  appleOriginalTxId    String? @unique
-  googlePurchaseToken  String? @unique
-  subscriptionEndsAt   DateTime?
+  stripeCustomerId              String?             @unique
+  stripeSubscriptionId          String?             @unique
+  appleOriginalTxId             String?             @unique
+  googlePurchaseToken           String?             @unique
+  subscriptionEndsAt            DateTime?
   /// Předplatné je vypovězené a doběhne koncem období. Do té doby
   /// přístup platí — zaplacené období se neukrajuje.
-  subscriptionCancelAtPeriodEnd Boolean @default(false)
+  subscriptionCancelAtPeriodEnd Boolean             @default(false)
   /// Proč byl přístup přidělen ručně — „tester“, „výherce soutěže“.
   /// Za rok si to nikdo nepamatuje a bez poznámky nejde poznat,
   /// který účet se má nechat a který zrušit.
-  subscriptionNote     String?
+  subscriptionNote              String?
 
   // Preference (zadání 5) — vstupují do AI promptu při plánování
-  restFrequency         RestFrequency @default(ONE_DAY_PER_WEEK)
-  reflectionMinutesDay  Int           @default(10)
-  dailyCapacityMinutes  Int           @default(60)
-  timezone              String        @default("Europe/Prague")
-  locale                String        @default("en")
+  restFrequency        RestFrequency @default(ONE_DAY_PER_WEEK)
+  reflectionMinutesDay Int           @default(10)
+  dailyCapacityMinutes Int           @default(60)
+  timezone             String        @default("Europe/Prague")
+  locale               String        @default("en")
+
+  /// Jak často připomínat. Viz lib/notify/send.ts.
+  notifyMode    NotifyMode @default(OFF)
+  /// V kolik, v místním čase uživatele. Tvar HH:MM.
+  notifyTime    String     @default("07:00")
+  /// Připomenout navíc večer otázkou, jestli je hotovo.
+  notifyEvening Boolean    @default(false)
+
+  /// Do kdy mlčet, když si uživatel řekl „připomeň později“.
+  notifySnoozedUntil DateTime?
+
+  /// Datum poslední odeslané ranní připomínky, YYYY-MM-DD v pásmu uživatele.
+  ///
+  /// Rozesílač běží každých pár minut a bez téhle značky by při každém
+  /// průchodu poslal další oznámení. Datum, ne časové razítko: rozhoduje
+  /// se „už dnes šlo ven?“, a to se čte i přes změnu pásma.
+  notifiedOn        String?
+  /// Totéž pro večerní kontrolu.
+  notifiedEveningOn String?
+
+  pushSubscriptions PushSubscription[]
 
   /// Mají motivační obrázky viset pod seznamem úkolů místo nad ním?
   ///
@@ -271,15 +292,15 @@ model Goal {
   // jak vypadá. Bez toho je z plánu neprůhledný příkaz.
 
   /// Jak AI cíl pochopila — kontrola, že se rozumíme.
-  restatement String?
+  restatement     String?
   /// Předpoklady, ze kterých plán vychází (dostupný čas, výchozí úroveň…).
-  assumptions String[] @default([])
+  assumptions     String[] @default([])
   /// comfortable | realistic | ambitious | unrealistic
   feasibility     String?
   feasibilityNote String?
 
   /// Kdy byl cíl dotažen. Podle toho se počítá, jak dlouho to trvalo.
-  completedAt DateTime?
+  completedAt    DateTime?
   /// Závěrečné shrnutí od AI. Ukládá se, aby bylo pokaždé stejné —
   /// vzpomínka, která se při každém otevření mění, není vzpomínka.
   completionNote String?
@@ -304,15 +325,15 @@ model Goal {
 /// být osobní, takže se neservírují přímo webserverem, ale přes aplikaci,
 /// která ověří, že patří přihlášenému uživateli.
 model GoalImage {
-  id     String @id @default(cuid())
-  goalId String
+  id         String  @id @default(cuid())
+  goalId     String
   /// Cesta v úložišti, relativní ke kořeni pro nahrané soubory.
-  storageKey String @unique
+  storageKey String  @unique
   width      Int
   height     Int
   byteSize   Int
   /// Popisek pro čtečky obrazovky. Uživatel ho zadat může, nemusí.
-  alt String?
+  alt        String?
 
   createdAt DateTime @default(now())
 
@@ -373,18 +394,18 @@ enum TaskStatus {
 }
 
 model Task {
-  id          String     @id @default(cuid())
+  id               String     @id @default(cuid())
   /// Denní blok, do kterého úkol patří.
-  timeBlockId String
-  goalId      String
-  title       String
-  description String?
-  type        TaskType   @default(ACTION)
-  status      TaskStatus @default(PENDING)
+  timeBlockId      String
+  goalId           String
+  title            String
+  description      String?
+  type             TaskType   @default(ACTION)
+  status           TaskStatus @default(PENDING)
   /// Odhad délky v minutách — vstup do rozpočtu dne napříč cíli.
   estimatedMinutes Int?
-  completedAt DateTime?
-  position    Int        @default(0)
+  completedAt      DateTime?
+  position         Int        @default(0)
 
   /// Na kdy je úkol přesunutý.
   ///
@@ -469,14 +490,14 @@ enum ReplanScope {
 }
 
 model ReplanEvent {
-  id            String       @id @default(cuid())
-  goalId        String
-  reason        ReplanReason
-  scope         ReplanScope  @default(NONE)
-  oldTargetDate DateTime?
-  newTargetDate DateTime?
+  id             String       @id @default(cuid())
+  goalId         String
+  reason         ReplanReason
+  scope          ReplanScope  @default(NONE)
+  oldTargetDate  DateTime?
+  newTargetDate  DateTime?
   /// Co a proč se změnilo — uživatel to musí vidět.
-  aiSummary     String?
+  aiSummary      String?
   completionRate Float?
 
   triggeredAt DateTime @default(now())
@@ -530,18 +551,18 @@ model AiUsageEvent {
 /// Cíl zadaný v demu — drží se odděleně od plnohodnotných Goal záznamů
 /// (zadání 8) a slouží k převzetí do plné verze po zaplacení.
 model DemoGoal {
-  id         String   @id @default(cuid())
-  title      String
-  targetDate DateTime @db.Date
-  locale     String
+  id              String   @id @default(cuid())
+  title           String
+  targetDate      DateTime @db.Date
+  locale          String
   /// Na jakou jednotku byl cíl rozložen: year / month / week.
   /// Volí se podle délky horizontu — desetiletý cíl se rozpadá na roky,
   /// třítýdenní na týdny.
-  level      String   @default("month")
+  level           String   @default("month")
   /// Rozpad nejvyšší úrovně tak, jak ho vrátila AI.
-  periods    Json
+  periods         Json
   /// Hash IP pro rate limiting a antifraud — neukládáme IP v čitelné podobě.
-  ipHash     String?
+  ipHash          String?
   /// Po převzetí do plné verze odkaz na vzniklý cíl.
   claimedByGoalId String?
 
@@ -565,7 +586,7 @@ model DemoGoal {
 /// se v databázi automaticky šifrují a tenhle záznam šifrovaný být nemá,
 /// aby se dal číst i při řešení sporu.
 model AdminAuditEvent {
-  id           String   @id @default(cuid())
+  id           String  @id @default(cuid())
   /// Kdo zásah provedl. E-mail, ne odkaz na účet — správce se pozná
   /// podle seznamu v prostředí a účet mít vůbec nemusí.
   adminEmail   String
@@ -578,4 +599,38 @@ model AdminAuditEvent {
 
   @@index([createdAt])
   @@index([targetUserId])
+}
+
+enum NotifyMode {
+  /// Neposílat nic.
+  OFF
+  /// Každý den ráno.
+  DAILY
+  /// Jednou týdně, v pondělí.
+  WEEKLY
+}
+
+/**
+ * Odběr webových oznámení pro jedno zařízení.
+ * Jeden člověk jich má klidně několik — počítač v práci, notebook doma,
+ * telefon. Každý prohlížeč má vlastní `endpoint` a oznámení se posílá
+ * na všechny. Odběry se ruší samy: když poštovní služba prohlížeče
+ * odpoví 404 nebo 410, zařízení už neexistuje a záznam se smaže.
+ */
+model PushSubscription {
+  id       String @id @default(cuid())
+  userId   String
+  /// Adresa poštovní služby prohlížeče. Unikátní sama o sobě.
+  endpoint String @unique
+  /// Veřejný klíč zařízení a ověřovací tajemství — obojí z prohlížeče.
+  p256dh   String
+  auth     String
+
+  createdAt  DateTime @default(now())
+  /// Kdy odtud naposledy něco přišlo. Podle toho se uklízí mrtvá zařízení.
+  lastSeenAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }

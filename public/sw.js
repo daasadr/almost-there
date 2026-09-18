@@ -107,3 +107,79 @@ self.addEventListener("fetch", (event) => {
     );
   }
 });
+
+/* -------------------------------------------------------------------------
+ * Oznámení
+ *
+ * Aplikace na dlouhé cíle stojí na tom, že ji člověk otevře i ve dnech,
+ * kdy se mu nechce. Připomínka je jediná věc, která se o to postará,
+ * když si na ni sám nevzpomene.
+ *
+ * Co přijde ze serveru, je hotový text — service worker nic nedopočítává
+ * a nic si nedotahuje. Prohlížeč ho totiž probouzí na pár vteřin a síť
+ * v tu chvíli nemusí být.
+ * ---------------------------------------------------------------------- */
+
+self.addEventListener("push", (event) => {
+  let payload = {};
+  try {
+    payload = event.data ? event.data.json() : {};
+  } catch {
+    // Poškozená zpráva radši nic než prázdné okénko bez textu.
+    return;
+  }
+
+  if (!payload.title) return;
+
+  event.waitUntil(
+    self.registration.showNotification(payload.title, {
+      body: payload.body ?? "",
+      icon: "/icon-192.png",
+      // Ve stavovém řádku Androidu se z ikony bere jen tvar.
+      badge: "/icon-192.png",
+      lang: payload.lang ?? "cs",
+      // Stejná značka přepíše předchozí připomínku místo toho, aby se
+      // hromadily. Kdo aplikaci tři dny neotevřel, nemá najít tři okénka.
+      tag: payload.tag ?? "almostthere-daily",
+      data: { url: payload.url ?? "/" },
+      actions: payload.actions ?? [],
+      // Bez tohohle oznámení po pár vteřinách zmizí samo a kdo se zrovna
+      // nedíval, o něj přišel.
+      requireInteraction: true,
+    }),
+  );
+});
+
+self.addEventListener("notificationclick", (event) => {
+  const action = event.action;
+  const url = event.notification.data?.url ?? "/";
+
+  event.notification.close();
+
+  // „Připomeň později“ posune připomínku o dvě hodiny. Řekne se to
+  // serveru, protože rozesílání běží tam — service worker žádný časovač
+  // přes vypnutý prohlížeč neudrží.
+  if (action === "snooze") {
+    event.waitUntil(
+      fetch("/api/push/snooze", { method: "POST", credentials: "include" }).catch(
+        () => {},
+      ),
+    );
+    return;
+  }
+
+  // Jinak otevřít aplikaci. Když už někde běží, přepneme se do ní —
+  // druhé okno téhož webu nikdo nechce.
+  event.waitUntil(
+    self.clients
+      .matchAll({ type: "window", includeUncontrolled: true })
+      .then((clients) => {
+        for (const client of clients) {
+          if (client.url.includes(url) && "focus" in client) {
+            return client.focus();
+          }
+        }
+        return self.clients.openWindow(url);
+      }),
+  );
+});

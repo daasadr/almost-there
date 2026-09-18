@@ -902,6 +902,30 @@
       "cancel": "Zpět",
       "done": "Plán je přepracovaný.",
       "tooShort": "Napiš prosím aspoň jednu větu o tom, co chceš jinak."
+    },
+    "notify": {
+      "title": "Připomínky",
+      "body": "Aplikace se ti může ozvat, když máš na dnešek úkoly. Bez toho si na ni musíš vzpomenout sám — a přesně ve dnech, kdy se nechce, si nevzpomene nikdo.",
+      "modeLabel": "Jak často",
+      "OFF": "Vůbec",
+      "DAILY": "Každý den",
+      "WEEKLY": "Jednou týdně, v pondělí",
+      "timeLabel": "V kolik",
+      "eveningLabel": "Ozvat se i večer s otázkou, jestli je hotovo",
+      "enable": "Zapnout připomínky",
+      "blocked": "Oznámení má prohlížeč zakázaná. Povol je v jeho nastavení u téhle stránky a zkus to znovu.",
+      "unsupported": "Tenhle prohlížeč oznámení neumí. Na iPhonu fungují až po přidání aplikace na plochu.",
+      "saved": "Uloženo.",
+      "failed": "Nepovedlo se to uložit. Zkus to prosím znovu.",
+      "morningGreetingMorning": "Dobré ráno",
+      "morningGreetingDay": "Dobrý den",
+      "morningGreetingEvening": "Dobrý večer",
+      "morningTitle": "{greeting}, tady AlmostThere",
+      "morningBody": "{count, plural, one {Dnes na tebe čeká jeden úkol, který tě posune k cíli.} few {Dnes na tebe čekají # úkoly, které tě posunou k cíli.} other {Dnes na tebe čeká # úkolů, které tě posunou k cíli.}}",
+      "eveningTitle": "Je to hotovo?",
+      "eveningBody": "{count, plural, one {Zbývá jeden dnešní úkol.} few {Zbývají # dnešní úkoly.} other {Zbývá # dnešních úkolů.}}",
+      "actionOk": "Jasně",
+      "actionSnooze": "Připomenout později"
     }
   },
   "withdrawal": {
