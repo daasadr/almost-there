@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
 import { readStored, writeStored } from "@/lib/safe-storage";
 import {
   DEFAULT_THEME,
@@ -38,16 +39,35 @@ const SWATCHES: Record<Theme, [string, string, string]> = {
 
 export function ThemeSwitcher() {
   const t = useTranslations("theme");
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [theme, setTheme] = useState<Theme>(DEFAULT_THEME);
   const box = useRef<HTMLDivElement>(null);
 
-  // Značku na `<html>` nastavil skript v hlavičce ještě před vykreslením.
-  // Tady se stav jen srovná s tím, co už platí.
+  /**
+   * Srovnání značky na `<html>` s uloženou volbou, po každé navigaci.
+   *
+   * Při načtení stránky ji nastaví skript v hlavičce a pak by stačilo
+   * jen přečíst stav. Jenže přepnutí jazyka je navigace na jinou větev
+   * `[locale]`, při které se překreslí i `<html lang>` — a React u toho
+   * zahodí značku, protože ji tam nedal on, ale skript. Vzhled se vrátil
+   * na výchozí, zatímco ikonka dál četla z úložiště a ukazovala správně.
+   *
+   * Proto se to sjednotí tady a při každé změně cesty. Když značka platí,
+   * nastavení té samé hodnoty nic nestojí a nic neprobliká.
+   */
   useEffect(() => {
     const stored = readStored(THEME_STORAGE_KEY);
-    if (isTheme(stored)) setTheme(stored);
-  }, []);
+    const next = isTheme(stored) ? stored : DEFAULT_THEME;
+
+    setTheme(next);
+
+    if (next === DEFAULT_THEME) {
+      delete document.documentElement.dataset.theme;
+    } else {
+      document.documentElement.dataset.theme = next;
+    }
+  }, [pathname]);
 
   // Zavřít klepnutím vedle a klávesou Escape — obojí lidé u rozbalovacích
   // nabídek čekají a bez toho nabídka působí, že se zasekla.
