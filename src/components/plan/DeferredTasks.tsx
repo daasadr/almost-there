@@ -71,7 +71,7 @@ export function DeferredTasks({ tasks }: { tasks: DeferredTask[] }) {
             style={{ borderLeftColor: goalHex(task.goalColor) }}
             className="rounded-xl border border-l-[3px] border-edge p-3.5"
           >
-            <p className="text-[15px] leading-snug text-[var(--color-paper)]">
+            <p className="text-base leading-snug text-[var(--color-paper)]">
               {task.title}
             </p>
             <p className="mt-1 text-xs text-[var(--color-paper-faint)]">

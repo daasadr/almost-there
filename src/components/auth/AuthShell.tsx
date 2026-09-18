@@ -34,7 +34,7 @@ export function AuthShell({
           <LogoMark className="h-8 w-8" />
           <h1 className="display mt-6 text-2xl sm:text-3xl">{title}</h1>
           {subtitle && (
-            <p className="mt-2.5 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+            <p className="mt-2.5 text-base leading-relaxed text-[var(--color-paper-dim)]">
               {subtitle}
             </p>
           )}
@@ -73,7 +73,7 @@ export function Field({
       <input
         id={id}
         {...props}
-        className="mt-2 w-full rounded-xl border border-edge bg-scrim px-4 py-3 text-[15px] text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] disabled:opacity-60"
+        className="mt-2 w-full rounded-xl border border-edge bg-scrim px-4 py-3 text-base text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] disabled:opacity-60"
       />
       {hint && (
         <p className="mt-1.5 text-xs text-[var(--color-paper-faint)]">{hint}</p>

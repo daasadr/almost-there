@@ -78,7 +78,7 @@ export function DeleteAccount({ email }: { email: string }) {
     <section className="mt-8 rounded-2xl border border-red-400/25 bg-red-400/[0.03] p-6 sm:p-8">
       <h2 className="display text-lg text-red-200">{t("title")}</h2>
 
-      <p className="mt-2 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+      <p className="mt-2 text-base leading-relaxed text-[var(--color-paper-dim)]">
         {t("body")}
       </p>
 
@@ -102,7 +102,7 @@ export function DeleteAccount({ email }: { email: string }) {
           disabled={busy}
           autoComplete="off"
           onChange={(event) => setConfirm(event.target.value)}
-          className="mt-2 w-full rounded-xl border border-edge bg-scrim px-4 py-3 text-[15px] text-[var(--color-paper)] focus:border-red-400/50"
+          className="mt-2 w-full rounded-xl border border-edge bg-scrim px-4 py-3 text-base text-[var(--color-paper)] focus:border-red-400/50"
         />
       </label>
 

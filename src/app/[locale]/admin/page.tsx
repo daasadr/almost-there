@@ -76,7 +76,7 @@ export default async function AdminPage({
           name="q"
           defaultValue={q}
           placeholder="Hledat podle e-mailu nebo jména"
-          className="min-w-64 flex-1 rounded-xl border border-edge bg-scrim px-4 py-2.5 text-[15px] text-[var(--color-paper)]"
+          className="min-w-64 flex-1 rounded-xl border border-edge bg-scrim px-4 py-2.5 text-base text-[var(--color-paper)]"
         />
         <button type="submit" className="btn-primary !px-5 !py-2 text-sm">
           Hledat

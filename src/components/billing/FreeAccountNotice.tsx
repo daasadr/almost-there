@@ -35,12 +35,12 @@ export async function FreeAccountNotice({
       <h2 className="display text-lg">{t("freeTitle")}</h2>
 
       {reason && (
-        <p className="mt-1.5 text-[15px] leading-relaxed text-[var(--color-paper)]">
+        <p className="mt-1.5 text-base leading-relaxed text-[var(--color-paper)]">
           {reason}
         </p>
       )}
 
-      <p className="mt-1.5 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+      <p className="mt-1.5 text-base leading-relaxed text-[var(--color-paper-dim)]">
         {t("freeBody")}
       </p>
 

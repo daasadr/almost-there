@@ -32,10 +32,10 @@ export function Faq() {
         <dl className="mx-auto mt-14 max-w-3xl divide-y divide-edge-faint border-y border-edge-faint">
           {items.map((item) => (
             <div key={item.q} className="reveal py-7">
-              <dt className="text-[17px] font-semibold text-[var(--color-paper)]">
+              <dt className="text-base font-semibold text-[var(--color-paper)]">
                 {item.q}
               </dt>
-              <dd className="mt-2.5 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+              <dd className="mt-2.5 text-base leading-relaxed text-[var(--color-paper-dim)]">
                 {item.a}
               </dd>
             </div>

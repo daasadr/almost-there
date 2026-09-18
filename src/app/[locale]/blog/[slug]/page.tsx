@@ -108,7 +108,7 @@ export default async function ArticlePage({
       */}
       <aside className="mx-auto mt-20 max-w-[68ch] rounded-2xl border border-[color-mix(in_oklab,var(--color-lime-glow)_28%,transparent)] bg-[color-mix(in_oklab,var(--color-lime-glow)_6%,transparent)] p-7">
         <h2 className="display text-xl">{t("ctaTitle")}</h2>
-        <p className="mt-2.5 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+        <p className="mt-2.5 text-base leading-relaxed text-[var(--color-paper-dim)]">
           {t("ctaBody")}
         </p>
         <Link href={`/${locale}/demo`} className="btn-primary mt-6">

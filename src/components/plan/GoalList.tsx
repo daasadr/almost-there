@@ -22,7 +22,7 @@ export async function GoalList({
     return (
       <div className="card p-6 sm:p-8">
         <h2 className="display text-lg">{t("empty")}</h2>
-        <p className="mt-2 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+        <p className="mt-2 text-base leading-relaxed text-[var(--color-paper-dim)]">
           {t("emptyBody")}
         </p>
         <Link href={`/${locale}/app/goals/new`} className="btn-primary mt-6">
@@ -96,7 +96,7 @@ export async function GoalList({
                   style={{ borderColor: `${goalHex(goal.color)}55` }}
                   className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 rounded-xl border px-4 py-3 transition hover:bg-surface"
                 >
-                  <span className="text-[15px] text-[var(--color-paper)]">
+                  <span className="text-base text-[var(--color-paper)]">
                     {goal.title}
                   </span>
                   {goal.completedAt && (

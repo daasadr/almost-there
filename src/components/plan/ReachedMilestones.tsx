@@ -85,7 +85,7 @@ export function ReachedMilestones({
             </div>
 
             <h2 className="display mt-2 text-lg">{t("reachedTitle")}</h2>
-            <p className="mt-1.5 text-[15px] leading-relaxed text-[var(--color-paper)]">
+            <p className="mt-1.5 text-base leading-relaxed text-[var(--color-paper)]">
               {milestone.summary ?? milestone.title}
             </p>
             <p className="mt-2 text-sm text-[var(--color-paper-dim)]">

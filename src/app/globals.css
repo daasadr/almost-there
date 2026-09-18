@@ -37,6 +37,28 @@
      4,48 : 1, tedy těsně pod hranicí čitelnosti. */
   --color-paper-faint: #7a9187;
 
+  /*
+   * Velikosti běžného textu.
+   *
+   * Výchozí řada Tailwindu je na čtení delších textů drobná — základ
+   * 16 px, vedlejší text 14 px, poznámky 12 px. V aplikaci, kterou má
+   * člověk otevřenou každé ráno a čte v ní seznam úkolů i návody k nim,
+   * to znamená mhouřit oči. Každý stupeň je proto o pixel výš a hlavně
+   * dostal volnější proklad — na čitelnost má mezera mezi řádky stejný
+   * vliv jako velikost písma.
+   *
+   * Nadpisy se nemění. Zvětšit s textem i je by z aplikace udělalo
+   * slabikář.
+   */
+  --text-xs: 0.8125rem; /* 13 px */
+  --text-xs--line-height: 1.125rem;
+  --text-sm: 0.9375rem; /* 15 px */
+  --text-sm--line-height: 1.375rem;
+  --text-base: 1.0625rem; /* 17 px */
+  --text-base--line-height: 1.625rem;
+  --text-lg: 1.1875rem; /* 19 px */
+  --text-lg--line-height: 1.75rem;
+
   --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
 
@@ -120,6 +142,23 @@
   input[type="date"]::-webkit-calendar-picker-indicator {
     filter: invert(1) opacity(0.6);
     cursor: pointer;
+  }
+
+  /*
+   * Rozbalený seznam u `<select>`.
+   *
+   * Položky kreslí operační systém a barvu pozadí si bere ze samotného
+   * prvku. Naše pole má podklad skoro průhledný, aby prosvítala karta
+   * pod ním — jenže z toho systému vyjde bílá, zatímco text zdědí naši
+   * světlou barvu. Rozbalená nabídka pak byla bílá na bílé a vidět byl
+   * jen řádek pod kurzorem.
+   *
+   * Proto tu mají položky vlastní neprůhledné pozadí. Platí to pro
+   * všechny motivy, protože obojí jsou tokeny.
+   */
+  select option {
+    background-color: var(--color-ink-900);
+    color: var(--color-paper);
   }
 }
 

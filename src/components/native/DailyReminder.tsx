@@ -156,7 +156,7 @@ export function DailyReminder() {
   return (
     <section className="card mt-8 p-6 sm:p-8">
       <h2 className="display text-xl">{t("title")}</h2>
-      <p className="mt-2 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+      <p className="mt-2 text-base leading-relaxed text-[var(--color-paper-dim)]">
         {t("body")}
       </p>
 
@@ -170,7 +170,7 @@ export function DailyReminder() {
           }
           className="mt-0.5 h-4 w-4 shrink-0 accent-[var(--color-lime-soft)]"
         />
-        <span className="text-[15px] text-[var(--color-paper)]">
+        <span className="text-base text-[var(--color-paper)]">
           {t("enable")}
         </span>
       </label>
@@ -187,7 +187,7 @@ export function DailyReminder() {
             onChange={(event) =>
               void apply({ ...state, time: event.target.value })
             }
-            className="mt-2 block rounded-xl border border-edge bg-surface px-4 py-2 text-[15px] text-[var(--color-paper)]"
+            className="mt-2 block rounded-xl border border-edge bg-surface px-4 py-2 text-base text-[var(--color-paper)]"
           />
         </label>
       )}

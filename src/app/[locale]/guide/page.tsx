@@ -67,7 +67,7 @@ export default async function GuidePage({
       />
 
       <h1 className="display text-4xl sm:text-5xl">{t("title")}</h1>
-      <p className="mt-6 text-[17px] leading-relaxed text-[var(--color-paper-dim)]">
+      <p className="mt-6 text-base leading-relaxed text-[var(--color-paper-dim)]">
         {guide.intro}
       </p>
 
@@ -77,7 +77,7 @@ export default async function GuidePage({
         <h2 className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--color-paper-faint)]">
           {t("contents")}
         </h2>
-        <ol className="mt-4 space-y-2 text-[15px]">
+        <ol className="mt-4 space-y-2 text-base">
           {guide.sections.map((section, index) => (
             <li key={section.heading}>
               <a
@@ -98,14 +98,14 @@ export default async function GuidePage({
           {section.paragraphs.map((paragraph) => (
             <p
               key={paragraph}
-              className="mt-4 text-[15px] leading-relaxed text-[var(--color-paper-dim)]"
+              className="mt-4 text-base leading-relaxed text-[var(--color-paper-dim)]"
             >
               {paragraph}
             </p>
           ))}
 
           {section.steps && (
-            <ol className="mt-5 space-y-3 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+            <ol className="mt-5 space-y-3 text-base leading-relaxed text-[var(--color-paper-dim)]">
               {section.steps.map((step, stepIndex) => (
                 <li key={step} className="flex gap-3.5">
                   <span
@@ -124,7 +124,7 @@ export default async function GuidePage({
 
       <div className="mt-16 rounded-2xl border border-edge bg-surface p-6 sm:p-8">
         <h2 className="display text-lg">{t("stuckTitle")}</h2>
-        <p className="mt-2 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+        <p className="mt-2 text-base leading-relaxed text-[var(--color-paper-dim)]">
           {t("stuckBody")}
         </p>
         <div className="mt-6 flex flex-wrap items-center gap-6">

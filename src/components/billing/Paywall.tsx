@@ -65,7 +65,7 @@ export function Paywall() {
   return (
     <div className="card p-6 sm:p-8">
       <h2 className="display text-2xl">{t("title")}</h2>
-      <p className="mt-2.5 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+      <p className="mt-2.5 text-base leading-relaxed text-[var(--color-paper-dim)]">
         {t("subtitle")}
       </p>
 
@@ -96,7 +96,7 @@ export function Paywall() {
                 {t(`per.${option}`)}
               </span>
               {option === "yearly" && (
-                <span className="mt-3 inline-block rounded-full border border-[color-mix(in_oklab,var(--color-lime-glow)_35%,transparent)] px-2.5 py-1 text-[11px] font-semibold text-[var(--color-lime-soft)]">
+                <span className="mt-3 inline-block rounded-full border border-[color-mix(in_oklab,var(--color-lime-glow)_35%,transparent)] px-2.5 py-1 text-xs font-semibold text-[var(--color-lime-soft)]">
                   {t("yearlySaving", { months: YEARLY_MONTHS_FREE })}
                 </span>
               )}
@@ -107,7 +107,7 @@ export function Paywall() {
 
       <ul className="mt-7 space-y-2.5">
         {(t.raw("includes") as string[]).map((item) => (
-          <li key={item} className="flex gap-3 text-[15px]">
+          <li key={item} className="flex gap-3 text-base">
             <svg
               viewBox="0 0 20 20"
               aria-hidden="true"

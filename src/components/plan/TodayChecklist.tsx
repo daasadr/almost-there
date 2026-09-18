@@ -106,7 +106,7 @@ export function TodayChecklist({
       </p>
 
       {allDone && (
-        <p className="mt-4 rounded-2xl border border-[color-mix(in_oklab,var(--color-lime-glow)_35%,transparent)] bg-[color-mix(in_oklab,var(--color-lime-glow)_8%,transparent)] px-5 py-4 text-[15px] text-[var(--color-lime-soft)]">
+        <p className="mt-4 rounded-2xl border border-[color-mix(in_oklab,var(--color-lime-glow)_35%,transparent)] bg-[color-mix(in_oklab,var(--color-lime-glow)_8%,transparent)] px-5 py-4 text-base text-[var(--color-lime-soft)]">
           {celebration}
         </p>
       )}
@@ -178,7 +178,7 @@ export function TodayChecklist({
 
                       <span className="min-w-0">
                         <span
-                          className={`block text-[15px] leading-snug ${
+                          className={`block text-base leading-snug ${
                             checked
                               ? "text-[var(--color-paper-faint)] line-through"
                               : "text-[var(--color-paper)]"

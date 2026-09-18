@@ -82,7 +82,7 @@ export function GoalStatusControls({
       {readyToFinish && status === "ACTIVE" && (
         <div className="mb-5 rounded-2xl border border-[color-mix(in_oklab,var(--color-lime-glow)_35%,transparent)] bg-[color-mix(in_oklab,var(--color-lime-glow)_7%,transparent)] p-5">
           <h3 className="display text-lg">{t("readyTitle")}</h3>
-          <p className="mt-1.5 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+          <p className="mt-1.5 text-base leading-relaxed text-[var(--color-paper-dim)]">
             {t("readyBody")}
           </p>
           {pendingTasks > 0 && (

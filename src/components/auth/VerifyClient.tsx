@@ -59,7 +59,7 @@ export function VerifyClient() {
 
   if (state.status === "checking") {
     return (
-      <p className="text-[15px] text-[var(--color-paper-dim)]">
+      <p className="text-base text-[var(--color-paper-dim)]">
         {t("checking")}
       </p>
     );
@@ -70,7 +70,7 @@ export function VerifyClient() {
       <div className="space-y-5">
         <div className="rounded-xl border border-[color-mix(in_oklab,var(--color-lime-glow)_30%,transparent)] bg-[color-mix(in_oklab,var(--color-lime-glow)_8%,transparent)] p-5">
           <h2 className="display text-lg">{t("successTitle")}</h2>
-          <p className="mt-2 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+          <p className="mt-2 text-base leading-relaxed text-[var(--color-paper-dim)]">
             {t("successBody")}
           </p>
         </div>
@@ -84,7 +84,7 @@ export function VerifyClient() {
   return (
     <div className="space-y-5">
       <FormError>{tError(state.error)}</FormError>
-      <p className="text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+      <p className="text-base leading-relaxed text-[var(--color-paper-dim)]">
         {t("errorBody")}
       </p>
       <Link href="/login" className="btn-secondary w-full">

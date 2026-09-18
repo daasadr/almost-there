@@ -93,7 +93,7 @@ export function PaceCheck({
       )}
 
       <h2 className="display mt-2 text-lg">{t("title", { days: missedDays })}</h2>
-      <p className="mt-1.5 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+      <p className="mt-1.5 text-base leading-relaxed text-[var(--color-paper-dim)]">
         {t("body", { percent: Math.round(completionRate * 100) })}
       </p>
 
@@ -123,7 +123,7 @@ export function PaceCheck({
               disabled={Boolean(pending)}
               className="rounded-2xl border border-edge p-4 text-left transition hover:border-edge-hover disabled:opacity-50"
             >
-              <span className="block text-[15px] font-medium text-[var(--color-paper)]">
+              <span className="block text-base font-medium text-[var(--color-paper)]">
                 {t("catchUp")}
               </span>
               <span className="mt-1 block text-sm leading-relaxed text-[var(--color-paper-dim)]">
@@ -138,7 +138,7 @@ export function PaceCheck({
             disabled={Boolean(pending)}
             className="rounded-2xl border border-edge p-4 text-left transition hover:border-edge-hover disabled:opacity-50"
           >
-            <span className="block text-[15px] font-medium text-[var(--color-paper)]">
+            <span className="block text-base font-medium text-[var(--color-paper)]">
               {t("moveDeadline")}
             </span>
             <span className="mt-1 block text-sm leading-relaxed text-[var(--color-paper-dim)]">

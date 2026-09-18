@@ -48,7 +48,7 @@ export function DemoResult({
           má v paměti, jak dlouho na něj čekal. Tady mu dojde, co dostal —
           o dvě obrazovky níž už ne. Čas je naměřený, ne odhadnutý.
         */}
-        <p className="mt-3 text-[15px] leading-relaxed text-[var(--color-lime-soft)]">
+        <p className="mt-3 text-base leading-relaxed text-[var(--color-lime-soft)]">
           {t("speed", { seconds })}
         </p>
 
@@ -57,7 +57,7 @@ export function DemoResult({
             <dt className="text-xs font-semibold uppercase tracking-wider text-[var(--color-paper-faint)]">
               {t("goalLabel")}
             </dt>
-            <dd className="mt-1.5 text-[15px] text-[var(--color-paper)]">
+            <dd className="mt-1.5 text-base text-[var(--color-paper)]">
               {goal}
             </dd>
           </div>
@@ -65,7 +65,7 @@ export function DemoResult({
             <dt className="text-xs font-semibold uppercase tracking-wider text-[var(--color-paper-faint)]">
               {t("deadlineLabel")}
             </dt>
-            <dd className="mt-1.5 text-[15px] text-[var(--color-paper)]">
+            <dd className="mt-1.5 text-base text-[var(--color-paper)]">
               {formattedDate}
             </dd>
             <dd className="mt-1 text-sm text-[var(--color-paper-faint)]">
@@ -74,7 +74,7 @@ export function DemoResult({
           </div>
         </dl>
 
-        <p className="mt-6 border-l-2 border-[color-mix(in_oklab,var(--color-lime-glow)_40%,transparent)] pl-4 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+        <p className="mt-6 border-l-2 border-[color-mix(in_oklab,var(--color-lime-glow)_40%,transparent)] pl-4 text-base leading-relaxed text-[var(--color-paper-dim)]">
           {plan.goalRestated}
         </p>
 
@@ -107,7 +107,7 @@ export function DemoResult({
                 {t(`levels.${plan.level}.item`, { n: period.index })}
               </p>
               <h3 className="display mt-1 text-lg">{period.title}</h3>
-              <p className="mt-1.5 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+              <p className="mt-1.5 text-base leading-relaxed text-[var(--color-paper-dim)]">
                 {period.milestone}
               </p>
             </div>
@@ -142,13 +142,13 @@ export function DemoResult({
         <h3 className="display text-lg text-[var(--color-violet-soft)]">
           {t("noticeTitle")}
         </h3>
-        <p className="mt-2.5 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+        <p className="mt-2.5 text-base leading-relaxed text-[var(--color-paper-dim)]">
           {t("noticeBody")}
         </p>
 
         <div className="mt-7 border-t border-edge-faint pt-6">
           <h4 className="display text-xl">{t("ctaTitle")}</h4>
-          <p className="mt-2 text-[15px] text-[var(--color-paper-dim)]">
+          <p className="mt-2 text-base text-[var(--color-paper-dim)]">
             {t("ctaBody")}
           </p>
           <div className="mt-6 flex flex-wrap gap-3">

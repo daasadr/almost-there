@@ -46,10 +46,10 @@ export default async function WithdrawalPage({
     <section className="mx-auto max-w-2xl px-5 py-16 sm:px-8 sm:py-24">
       <h1 className="display text-3xl sm:text-4xl">{t("title")}</h1>
 
-      <p className="mt-5 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+      <p className="mt-5 text-base leading-relaxed text-[var(--color-paper-dim)]">
         {t("intro")}
       </p>
-      <p className="mt-4 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+      <p className="mt-4 text-base leading-relaxed text-[var(--color-paper-dim)]">
         {t("howTo")}
       </p>
 
@@ -60,7 +60,7 @@ export default async function WithdrawalPage({
           {t("formTitle")}
         </h2>
 
-        <pre className="mt-4 whitespace-pre-wrap font-sans text-[15px] leading-relaxed text-[var(--color-paper)]">
+        <pre className="mt-4 whitespace-pre-wrap font-sans text-base leading-relaxed text-[var(--color-paper)]">
           {lines.join("\n")}
         </pre>
       </div>

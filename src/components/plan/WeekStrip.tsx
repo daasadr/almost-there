@@ -68,7 +68,7 @@ export async function WeekStrip({
                       : "border-transparent hover:border-edge-strong"
                   }`}
                 >
-                  <span className="text-[11px] uppercase tracking-wider text-[var(--color-paper-faint)]">
+                  <span className="text-xs uppercase tracking-wider text-[var(--color-paper-faint)]">
                     {weekday.format(date)}
                   </span>
 

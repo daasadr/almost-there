@@ -91,7 +91,7 @@ export function Milestones({
         )}
       </div>
 
-      <p className="mt-1.5 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+      <p className="mt-1.5 text-base leading-relaxed text-[var(--color-paper-dim)]">
         {t("body")}
       </p>
 
@@ -117,7 +117,7 @@ export function Milestones({
               }`}
             >
               <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                <h3 className="text-[15px] font-medium text-[var(--color-paper)]">
+                <h3 className="text-base font-medium text-[var(--color-paper)]">
                   {milestone.title}
                 </h3>
                 <span className="text-xs tabular-nums text-[var(--color-paper-faint)]">

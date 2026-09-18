@@ -126,7 +126,7 @@ export function GoalImages({
   return (
     <section className="card p-5 sm:p-6">
       <h2 className="display text-lg">{t("title")}</h2>
-      <p className="mt-1.5 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+      <p className="mt-1.5 text-base leading-relaxed text-[var(--color-paper-dim)]">
         {t("body")}
       </p>
 

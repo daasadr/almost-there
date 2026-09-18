@@ -47,7 +47,7 @@ export default async function InstallPage({
 
 function Steps({ steps }: { steps: string[] }) {
   return (
-    <ol className="mt-5 space-y-3 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+    <ol className="mt-5 space-y-3 text-base leading-relaxed text-[var(--color-paper-dim)]">
       {steps.map((step, index) => (
         <li key={step} className="flex gap-3.5">
           <span
@@ -70,7 +70,7 @@ function Content() {
   return (
     <section className="mx-auto max-w-2xl px-5 py-16 sm:px-8 sm:py-24">
       <h1 className="display text-3xl sm:text-4xl">{t("title")}</h1>
-      <p className="mt-4 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+      <p className="mt-4 text-base leading-relaxed text-[var(--color-paper-dim)]">
         {t("intro")}
       </p>
 
@@ -93,7 +93,7 @@ function Content() {
       {apkUrl && (
         <div className="card mt-6 p-6 sm:p-8">
           <h2 className="display text-xl">{t("apkTitle")}</h2>
-          <p className="mt-3 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+          <p className="mt-3 text-base leading-relaxed text-[var(--color-paper-dim)]">
             {t("apkBody")}
           </p>
           <a

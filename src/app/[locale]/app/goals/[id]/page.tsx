@@ -99,7 +99,7 @@ export default async function GoalPage({
       </p>
 
       {goal.description && (
-        <p className="mt-4 whitespace-pre-line text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+        <p className="mt-4 whitespace-pre-line text-base leading-relaxed text-[var(--color-paper-dim)]">
           {goal.description}
         </p>
       )}
@@ -147,7 +147,7 @@ export default async function GoalPage({
             {t("feasibilityTitle")}: {t(`feasibility.${goal.feasibility}`)}
           </span>
           {goal.feasibilityNote && (
-            <p className="mt-2.5 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+            <p className="mt-2.5 text-base leading-relaxed text-[var(--color-paper-dim)]">
               {goal.feasibilityNote}
             </p>
           )}
@@ -159,7 +159,7 @@ export default async function GoalPage({
           <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--color-paper-faint)]">
             {t("restatement")}
           </h2>
-          <p className="mt-2 text-[15px] leading-relaxed text-[var(--color-paper)]">
+          <p className="mt-2 text-base leading-relaxed text-[var(--color-paper)]">
             {goal.restatement}
           </p>
 

@@ -158,7 +158,7 @@ export default async function AppPage({
       {!hasAccess && checkout === "success" && (
         <div className="mt-8 rounded-2xl border border-[color-mix(in_oklab,var(--color-lime-glow)_35%,transparent)] bg-[color-mix(in_oklab,var(--color-lime-glow)_8%,transparent)] p-5 sm:p-6">
           <h2 className="display text-lg">{tb("successTitle")}</h2>
-          <p className="mt-1.5 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+          <p className="mt-1.5 text-base leading-relaxed text-[var(--color-paper-dim)]">
             {tb("successBody")}
           </p>
           <CheckoutPending />
@@ -174,7 +174,7 @@ export default async function AppPage({
       {!hasAccess && checkout !== "success" && storeApp && (
         <div className="mt-8 rounded-2xl border border-edge bg-surface p-5 sm:p-6">
           <h2 className="display text-lg">{tb("freeTitle")}</h2>
-          <p className="mt-1.5 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+          <p className="mt-1.5 text-base leading-relaxed text-[var(--color-paper-dim)]">
             {tb("freeBody")}
           </p>
           <Link href={`/${locale}/demo`} className="btn-primary mt-5 inline-block">
@@ -404,7 +404,7 @@ async function Today({
         ) : (
           today.goalsNeedingPlan.length === 0 && (
             <div className="card p-6">
-              <p className="text-[15px] text-[var(--color-paper)]">
+              <p className="text-base text-[var(--color-paper)]">
                 {t("empty")}
               </p>
               <p className="mt-1.5 text-sm leading-relaxed text-[var(--color-paper-dim)]">

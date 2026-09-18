@@ -49,12 +49,12 @@ function Content() {
   return (
     <section className="mx-auto max-w-2xl px-5 py-16 sm:px-8 sm:py-24">
       <h1 className="display text-3xl sm:text-4xl">{t("title")}</h1>
-      <p className="mt-4 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+      <p className="mt-4 text-base leading-relaxed text-[var(--color-paper-dim)]">
         {t("intro")}
       </p>
 
       <h2 className="display mt-12 text-xl">{t("stepsTitle")}</h2>
-      <ol className="mt-4 space-y-3 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+      <ol className="mt-4 space-y-3 text-base leading-relaxed text-[var(--color-paper-dim)]">
         {steps.map((step, index) => (
           <li key={step} className="flex gap-3.5">
             <span
@@ -69,7 +69,7 @@ function Content() {
       </ol>
 
       <h2 className="display mt-12 text-xl">{t("deletedTitle")}</h2>
-      <ul className="mt-4 space-y-2 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+      <ul className="mt-4 space-y-2 text-base leading-relaxed text-[var(--color-paper-dim)]">
         {deleted.map((item) => (
           <li key={item} className="flex gap-2.5">
             <span aria-hidden="true">—</span>
@@ -81,7 +81,7 @@ function Content() {
       {/* Co zůstává, se říct musí. Slib „smažeme všechno“, který neplatí
           doslova, je horší než přiznaná výjimka i s důvodem. */}
       <h2 className="display mt-12 text-xl">{t("keptTitle")}</h2>
-      <ul className="mt-4 space-y-3 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+      <ul className="mt-4 space-y-3 text-base leading-relaxed text-[var(--color-paper-dim)]">
         {kept.map((item) => (
           <li key={item} className="flex gap-2.5">
             <span aria-hidden="true">—</span>
@@ -93,10 +93,10 @@ function Content() {
       {/* Mazání jednotlivostí. Google Play se na tuhle možnost ptá zvlášť
           a odkazuje na tuhle stránku — musí o ní tedy mluvit. */}
       <h2 className="display mt-12 text-xl">{t("partialTitle")}</h2>
-      <p className="mt-4 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+      <p className="mt-4 text-base leading-relaxed text-[var(--color-paper-dim)]">
         {t("partialIntro")}
       </p>
-      <ul className="mt-4 space-y-3 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+      <ul className="mt-4 space-y-3 text-base leading-relaxed text-[var(--color-paper-dim)]">
         {(t.raw("partialItems") as string[]).map((item) => (
           <li key={item} className="flex gap-2.5">
             <span aria-hidden="true">—</span>
@@ -104,17 +104,17 @@ function Content() {
           </li>
         ))}
       </ul>
-      <p className="mt-4 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+      <p className="mt-4 text-base leading-relaxed text-[var(--color-paper-dim)]">
         {t("partialHelp", { email: CONTACT_EMAIL })}
       </p>
 
       <h2 className="display mt-12 text-xl">{t("subscriptionTitle")}</h2>
-      <p className="mt-4 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+      <p className="mt-4 text-base leading-relaxed text-[var(--color-paper-dim)]">
         {t("subscriptionBody")}
       </p>
 
       <h2 className="display mt-12 text-xl">{t("helpTitle")}</h2>
-      <p className="mt-4 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+      <p className="mt-4 text-base leading-relaxed text-[var(--color-paper-dim)]">
         {t("helpBody", { email: CONTACT_EMAIL })}
       </p>
 

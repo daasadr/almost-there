@@ -86,7 +86,7 @@ export default async function CalendarPage({
   return (
     <section className="mx-auto max-w-2xl px-5 py-10 sm:px-8 sm:py-14">
       <h1 className="display mt-8 text-3xl">{t("title")}</h1>
-      <p className="mt-2 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+      <p className="mt-2 text-base leading-relaxed text-[var(--color-paper-dim)]">
         {t("subtitle")}
       </p>
 

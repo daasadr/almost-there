@@ -27,7 +27,7 @@ export function LegalDocumentView({
         {t("lastUpdated")}: {formattedDate}
       </p>
 
-      <p className="mt-8 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+      <p className="mt-8 text-base leading-relaxed text-[var(--color-paper-dim)]">
         {document.intro}
       </p>
 
@@ -39,7 +39,7 @@ export function LegalDocumentView({
               {section.paragraphs.map((paragraph) => (
                 <p
                   key={paragraph}
-                  className="text-[15px] leading-relaxed text-[var(--color-paper-dim)]"
+                  className="text-base leading-relaxed text-[var(--color-paper-dim)]"
                 >
                   {paragraph}
                 </p>

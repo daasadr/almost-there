@@ -92,7 +92,7 @@ export default async function BlogIndexPage({
                   {article.title}
                 </h2>
 
-                <p className="mt-3 max-w-[62ch] text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+                <p className="mt-3 max-w-[62ch] text-base leading-relaxed text-[var(--color-paper-dim)]">
                   {article.excerpt}
                 </p>
               </Link>

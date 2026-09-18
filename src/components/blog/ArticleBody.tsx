@@ -57,7 +57,7 @@ export function ArticleBody({ blocks }: { blocks: ArticleBlock[] }) {
               {block.items.map((item) => (
                 <li
                   key={item}
-                  className="flex gap-4 text-[17px] leading-relaxed text-[var(--color-paper-dim)]"
+                  className="flex gap-4 text-base leading-relaxed text-[var(--color-paper-dim)]"
                 >
                   {/* Vlastní odrážka místo výchozí tečky — ta je na tmavém
                       podkladu buď neviditelná, nebo příliš tvrdá. */}
@@ -80,7 +80,7 @@ export function ArticleBody({ blocks }: { blocks: ArticleBlock[] }) {
             className={
               isLede
                 ? "text-xl leading-relaxed text-[var(--color-paper)]"
-                : "mt-6 text-[17px] leading-relaxed text-[var(--color-paper-dim)]"
+                : "mt-6 text-base leading-relaxed text-[var(--color-paper-dim)]"
             }
           >
             {block.text}

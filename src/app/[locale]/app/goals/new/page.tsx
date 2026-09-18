@@ -94,7 +94,7 @@ export default async function NewGoalPage({
       </Link>
 
       <h1 className="display mt-6 text-3xl sm:text-4xl">{t("title")}</h1>
-      <p className="mt-3 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+      <p className="mt-3 text-base leading-relaxed text-[var(--color-paper-dim)]">
         {t("subtitle")}
       </p>
 

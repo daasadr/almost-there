@@ -34,7 +34,7 @@ export function ExampleBreakdown() {
                 <span className="display shrink-0 text-sm text-[var(--color-lime-soft)]">
                   {t("monthLabel", { n: index + 1 })}
                 </span>
-                <p className="text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+                <p className="text-base leading-relaxed text-[var(--color-paper-dim)]">
                   {milestone}
                 </p>
               </li>
@@ -53,7 +53,7 @@ export function ExampleBreakdown() {
               </div>
               <ol className="mt-4 space-y-2.5">
                 {weeks.map((week, index) => (
-                  <li key={week} className="flex gap-3 text-[15px]">
+                  <li key={week} className="flex gap-3 text-base">
                     <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-emerald-soft)]" />
                     <span className="text-[var(--color-paper-dim)]">
                       <span className="text-[var(--color-paper-faint)]">
@@ -86,7 +86,7 @@ export function ExampleBreakdown() {
                           : "border-edge-strong"
                       }`}
                     />
-                    <span className="text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+                    <span className="text-base leading-relaxed text-[var(--color-paper-dim)]">
                       {day.text}
                     </span>
                   </li>
@@ -102,7 +102,7 @@ export function ExampleBreakdown() {
 
 function FullOnlyBadge({ label }: { label: string }) {
   return (
-    <span className="rounded-full border border-[color-mix(in_oklab,var(--color-violet-soft)_35%,transparent)] bg-[color-mix(in_oklab,var(--color-violet-glow)_12%,transparent)] px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-[var(--color-violet-soft)]">
+    <span className="rounded-full border border-[color-mix(in_oklab,var(--color-violet-soft)_35%,transparent)] bg-[color-mix(in_oklab,var(--color-violet-glow)_12%,transparent)] px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[var(--color-violet-soft)]">
       {label}
     </span>
   );

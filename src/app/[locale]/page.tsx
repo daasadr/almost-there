@@ -117,7 +117,7 @@ function Hero() {
             {t("subtitle")}
           </p>
 
-          <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+          <p className="mt-4 max-w-xl text-base leading-relaxed text-[var(--color-paper-dim)]">
             {t("subtitleDetail")}
           </p>
 
@@ -169,7 +169,7 @@ function HowItWorks() {
                 {step.step}
               </span>
               <h3 className="display mt-5 text-xl">{step.title}</h3>
-              <p className="mt-3 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+              <p className="mt-3 text-base leading-relaxed text-[var(--color-paper-dim)]">
                 {step.body}
               </p>
             </li>
@@ -219,7 +219,7 @@ function Features() {
                 {index + 1}
               </div>
               <h3 className="display mt-5 text-xl">{item.title}</h3>
-              <p className="mt-3 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+              <p className="mt-3 text-base leading-relaxed text-[var(--color-paper-dim)]">
                 {item.body}
               </p>
             </article>
@@ -269,7 +269,7 @@ function Pricing() {
 
             <ul className="relative mt-8 space-y-3.5">
               {includes.map((item) => (
-                <li key={item} className="flex gap-3 text-[15px]">
+                <li key={item} className="flex gap-3 text-base">
                   <svg
                     viewBox="0 0 20 20"
                     aria-hidden="true"

@@ -86,7 +86,7 @@ export function SteerGoal({ goalId }: { goalId: string }) {
   return (
     <form onSubmit={submit} className="rounded-2xl border border-edge p-5 sm:p-6">
       <h3 className="display text-lg">{t("title")}</h3>
-      <p className="mt-2 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+      <p className="mt-2 text-base leading-relaxed text-[var(--color-paper-dim)]">
         {t("body")}
       </p>
 
@@ -100,7 +100,7 @@ export function SteerGoal({ goalId }: { goalId: string }) {
         maxLength={1000}
         disabled={pending}
         placeholder={t("placeholder")}
-        className="mt-5 w-full rounded-xl border border-edge bg-surface px-4 py-3 text-[15px] leading-relaxed text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)] focus:border-edge-hover disabled:opacity-60"
+        className="mt-5 w-full rounded-xl border border-edge bg-surface px-4 py-3 text-base leading-relaxed text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)] focus:border-edge-hover disabled:opacity-60"
       />
 
       <p className="mt-2 text-xs text-[var(--color-paper-faint)]">{t("hint")}</p>

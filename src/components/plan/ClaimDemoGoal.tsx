@@ -73,12 +73,12 @@ export function ClaimDemoGoal({
   return (
     <section className="rounded-2xl border border-[color-mix(in_oklab,var(--color-lime-glow)_35%,transparent)] bg-[color-mix(in_oklab,var(--color-lime-glow)_7%,transparent)] p-5 sm:p-6">
       <h2 className="display text-lg">{t("title")}</h2>
-      <p className="mt-1.5 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+      <p className="mt-1.5 text-base leading-relaxed text-[var(--color-paper-dim)]">
         {t("body", { count: periodCount })}
       </p>
 
       <div className="mt-4 rounded-xl border border-edge p-4">
-        <p className="text-[15px] text-[var(--color-paper)]">{title}</p>
+        <p className="text-base text-[var(--color-paper)]">{title}</p>
         <p className="mt-1 text-sm text-[var(--color-paper-dim)]">
           {t("due", {
             date: format.dateTime(new Date(`${targetDate}T12:00:00Z`), {
@@ -134,7 +134,7 @@ export function ClaimDemoGoal({
           id="claim-importance"
           value={importance}
           onChange={(event) => setImportance(Number(event.target.value))}
-          className="mt-2 w-full rounded-xl border border-edge bg-scrim px-4 py-2.5 text-[15px] text-[var(--color-paper)] sm:w-auto"
+          className="mt-2 w-full rounded-xl border border-edge bg-scrim px-4 py-2.5 text-base text-[var(--color-paper)] sm:w-auto"
         >
           {[1, 2, 3, 4, 5].map((level) => (
             <option
@@ -159,7 +159,7 @@ export function ClaimDemoGoal({
           rows={3}
           maxLength={2000}
           placeholder={t("detailPlaceholder")}
-          className="mt-2 w-full resize-y rounded-xl border border-edge bg-scrim px-4 py-3 text-[15px] leading-relaxed text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)]"
+          className="mt-2 w-full resize-y rounded-xl border border-edge bg-scrim px-4 py-3 text-base leading-relaxed text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)]"
         />
         <p className="mt-1.5 text-xs leading-relaxed text-[var(--color-paper-faint)]">
           {t("detailHint")}

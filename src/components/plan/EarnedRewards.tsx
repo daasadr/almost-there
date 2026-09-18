@@ -71,7 +71,7 @@ export function EarnedRewards({ rewards }: { rewards: EarnedReward[] }) {
             style={{ borderLeftColor: goalHex(reward.goalColor) }}
             className="rounded-xl border border-l-[3px] border-edge bg-scrim p-4"
           >
-            <p className="text-[15px] leading-relaxed text-[var(--color-paper)]">
+            <p className="text-base leading-relaxed text-[var(--color-paper)]">
               {reward.rewardText}
             </p>
             <p className="mt-1.5 text-xs text-[var(--color-paper-faint)]">

@@ -75,7 +75,7 @@ export function NotifySettings({
   return (
     <section className="mt-10 rounded-2xl border border-edge p-5 sm:p-6">
       <h2 className="display text-lg">{t("title")}</h2>
-      <p className="mt-2 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+      <p className="mt-2 text-base leading-relaxed text-[var(--color-paper-dim)]">
         {t("body")}
       </p>
 
@@ -94,7 +94,7 @@ export function NotifySettings({
             onChange={(event) =>
               void save({ mode: event.target.value as Mode, time, evening })
             }
-            className="mt-2 w-full rounded-xl border border-edge bg-surface px-4 py-2.5 text-[15px] text-[var(--color-paper)] disabled:opacity-60"
+            className="mt-2 w-full rounded-xl border border-edge bg-surface px-4 py-2.5 text-base text-[var(--color-paper)] disabled:opacity-60"
           >
             <option value="OFF">{t("OFF")}</option>
             <option value="DAILY">{t("DAILY")}</option>
@@ -119,7 +119,7 @@ export function NotifySettings({
                 onChange={(event) =>
                   void save({ mode, time: event.target.value, evening })
                 }
-                className="mt-2 rounded-xl border border-edge bg-surface px-4 py-2.5 text-[15px] text-[var(--color-paper)] disabled:opacity-60"
+                className="mt-2 rounded-xl border border-edge bg-surface px-4 py-2.5 text-base text-[var(--color-paper)] disabled:opacity-60"
               />
             </div>
 
@@ -133,7 +133,7 @@ export function NotifySettings({
                 }
                 className="mt-0.5 h-5 w-5 shrink-0"
               />
-              <span className="text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+              <span className="text-base leading-relaxed text-[var(--color-paper-dim)]">
                 {t("eveningLabel")}
               </span>
             </label>

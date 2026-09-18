@@ -95,7 +95,7 @@ export function PlanTrigger({
       <h2 className="display text-lg">
         {auto ? t("preparingTitle") : t("readyTitle")}
       </h2>
-      <p className="mt-1.5 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+      <p className="mt-1.5 text-base leading-relaxed text-[var(--color-paper-dim)]">
         {auto ? t("preparingBody") : t("readyBody")}
       </p>
 

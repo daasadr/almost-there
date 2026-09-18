@@ -91,7 +91,7 @@ export async function MonthCalendar({
           okénko nese ve svém popisku — proto je schované. */}
       <ol
         aria-hidden="true"
-        className="mt-6 grid grid-cols-7 gap-1.5 text-center text-[11px] uppercase tracking-wider text-[var(--color-paper-faint)]"
+        className="mt-6 grid grid-cols-7 gap-1.5 text-center text-xs uppercase tracking-wider text-[var(--color-paper-faint)]"
       >
         {days.slice(0, 7).map((day) => (
           <li key={`head-${day.date}`}>

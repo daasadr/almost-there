@@ -264,7 +264,7 @@ export function GoalForm({
           maxLength={MAX_GOAL_TITLE}
           disabled={pending}
           placeholder={t("namePlaceholder")}
-          className="mt-2.5 w-full rounded-xl border border-edge bg-scrim px-4 py-3 text-[15px] text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] disabled:opacity-60"
+          className="mt-2.5 w-full rounded-xl border border-edge bg-scrim px-4 py-3 text-base text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] disabled:opacity-60"
         />
         <p
           id="goal-title-hint"
@@ -289,7 +289,7 @@ export function GoalForm({
           maxLength={MAX_GOAL_DETAIL}
           disabled={pending}
           placeholder={t("detailPlaceholder")}
-          className="mt-2.5 w-full resize-y rounded-xl border border-edge bg-scrim px-4 py-3 text-[15px] leading-relaxed text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] disabled:opacity-60"
+          className="mt-2.5 w-full resize-y rounded-xl border border-edge bg-scrim px-4 py-3 text-base leading-relaxed text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] disabled:opacity-60"
         />
         <p
           id="goal-detail-hint"
@@ -315,7 +315,7 @@ export function GoalForm({
           maxLength={1000}
           disabled={pending}
           placeholder={t("startPlaceholder")}
-          className="mt-2.5 w-full resize-y rounded-xl border border-edge bg-scrim px-4 py-3 text-[15px] leading-relaxed text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] disabled:opacity-60"
+          className="mt-2.5 w-full resize-y rounded-xl border border-edge bg-scrim px-4 py-3 text-base leading-relaxed text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] disabled:opacity-60"
         />
         <p
           id="goal-start-hint"
@@ -337,7 +337,7 @@ export function GoalForm({
           max={maxTargetDate()}
           disabled={pending}
           onChange={(event) => setTargetDate(event.target.value)}
-          className="mt-2.5 w-full rounded-xl border border-edge bg-scrim px-4 py-3 text-[15px] text-[var(--color-paper)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] disabled:opacity-60 sm:w-auto"
+          className="mt-2.5 w-full rounded-xl border border-edge bg-scrim px-4 py-3 text-base text-[var(--color-paper)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] disabled:opacity-60 sm:w-auto"
         />
       </div>
 
@@ -356,7 +356,7 @@ export function GoalForm({
           {importanceLevels.map((level) => (
             <label
               key={level}
-              className={`flex cursor-pointer items-center gap-3 rounded-xl border px-4 py-2.5 text-[15px] transition ${
+              className={`flex cursor-pointer items-center gap-3 rounded-xl border px-4 py-2.5 text-base transition ${
                 importance === level
                   ? "border-[color-mix(in_oklab,var(--color-lime-glow)_50%,transparent)] bg-[color-mix(in_oklab,var(--color-lime-glow)_7%,transparent)]"
                   : "border-edge hover:border-edge-hover"
@@ -568,7 +568,7 @@ export function GoalForm({
             <h2 id="goal-confirm-title" className="display text-xl">
               {t("confirmTitle")}
             </h2>
-            <p className="mt-2.5 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+            <p className="mt-2.5 text-base leading-relaxed text-[var(--color-paper-dim)]">
               {t("confirmBody")}
             </p>
             <div className="mt-6 flex flex-wrap gap-3">

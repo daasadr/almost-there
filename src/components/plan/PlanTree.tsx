@@ -48,7 +48,7 @@ export async function PlanTree({
                 className={
                   depth === 0
                     ? "display text-lg"
-                    : "text-[15px] font-semibold text-[var(--color-paper)]"
+                    : "text-base font-semibold text-[var(--color-paper)]"
                 }
               >
                 {isDay
@@ -63,7 +63,7 @@ export async function PlanTree({
               )}
             </div>
 
-            <p className="mt-2 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+            <p className="mt-2 text-base leading-relaxed text-[var(--color-paper-dim)]">
               {node.summary}
             </p>
 

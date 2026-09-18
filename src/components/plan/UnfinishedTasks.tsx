@@ -74,7 +74,7 @@ export function UnfinishedTasks({ tasks }: { tasks: OverdueTask[] }) {
             className="border-l-2 pl-3.5"
           >
             <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-              <span className="text-[15px] leading-snug text-[var(--color-paper)]">
+              <span className="text-base leading-snug text-[var(--color-paper)]">
                 {task.title}
               </span>
               <span className="shrink-0 text-xs text-[var(--color-paper-faint)]">

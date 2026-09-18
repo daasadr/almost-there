@@ -53,7 +53,7 @@ export function GoalDraftNotice() {
       <h2 className="display text-lg">{t("draftTitle")}</h2>
 
       {draft.title.trim() && (
-        <p className="mt-1.5 text-[15px] text-[var(--color-paper)]">
+        <p className="mt-1.5 text-base text-[var(--color-paper)]">
           „{draft.title.trim()}“
         </p>
       )}

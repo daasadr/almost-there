@@ -76,7 +76,7 @@ export function RegisterForm() {
       <div className="space-y-4">
         <div className="rounded-xl border border-[color-mix(in_oklab,var(--color-lime-glow)_30%,transparent)] bg-[color-mix(in_oklab,var(--color-lime-glow)_8%,transparent)] p-5">
           <h2 className="display text-lg">{t("successTitle")}</h2>
-          <p className="mt-2 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
+          <p className="mt-2 text-base leading-relaxed text-[var(--color-paper-dim)]">
             {t("successBody", { email: email.trim() })}
           </p>
         </div>
