@@ -187,7 +187,7 @@ export function DailyReminder() {
             onChange={(event) =>
               void apply({ ...state, time: event.target.value })
             }
-            className="mt-2 block rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-[15px] text-[var(--color-paper)]"
+            className="mt-2 block rounded-xl border border-edge bg-surface px-4 py-2 text-[15px] text-[var(--color-paper)]"
           />
         </label>
       )}

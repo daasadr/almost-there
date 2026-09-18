@@ -47,7 +47,7 @@ export function LocaleSwitcher() {
             );
           });
         }}
-        className="cursor-pointer appearance-none rounded-full border border-white/10 bg-white/5 py-1.5 pl-3 pr-8 text-sm text-[var(--color-paper-dim)] transition hover:border-white/25 hover:text-[var(--color-paper)]"
+        className="cursor-pointer appearance-none rounded-full border border-edge bg-surface py-1.5 pl-3 pr-8 text-sm text-[var(--color-paper-dim)] transition hover:border-edge-hover hover:text-[var(--color-paper)]"
       >
         {locales.map((code) => (
           <option key={code} value={code} className="bg-[var(--color-ink-900)]">

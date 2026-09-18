@@ -30,7 +30,7 @@ export async function UsageMeter({
         </span>
       </div>
 
-      <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white/10">
+      <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-surface-strong">
         <div
           className={`h-full rounded-full ${
             allowance.exhausted

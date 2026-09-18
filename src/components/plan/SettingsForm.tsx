@@ -37,10 +37,10 @@ const FALLBACK_ZONES = [
 ];
 
 const textareaClass =
-  "mt-2 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-[15px] leading-relaxed text-[var(--color-paper)] transition placeholder:text-[var(--color-paper-faint)] focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] disabled:opacity-60";
+  "mt-2 w-full rounded-xl border border-edge bg-scrim px-4 py-3 text-[15px] leading-relaxed text-[var(--color-paper)] transition placeholder:text-[var(--color-paper-faint)] focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] disabled:opacity-60";
 
 const selectClass =
-  "mt-2 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-[15px] text-[var(--color-paper)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] disabled:opacity-60 sm:w-auto";
+  "mt-2 w-full rounded-xl border border-edge bg-scrim px-4 py-3 text-[15px] text-[var(--color-paper)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] disabled:opacity-60 sm:w-auto";
 
 export function SettingsForm({
   initial,
@@ -236,7 +236,7 @@ export function SettingsForm({
       {/* Podklad pro návrhy odměn za milníky. Volný text schválně —
           výběr z nabídky by lidi natlačil do škatulek, které jsme
           vymysleli my, a odměna z cizí škatulky nemotivuje. */}
-      <div className="mt-9 border-t border-white/5 pt-9">
+      <div className="mt-9 border-t border-edge-faint pt-9">
         <h2 className="text-sm font-semibold text-[var(--color-paper)]">
           {t("rewardsTitle")}
         </h2>

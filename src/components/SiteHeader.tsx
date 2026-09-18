@@ -83,7 +83,7 @@ export function SiteHeader() {
     <header
       className={`sticky top-0 z-40 transition-colors duration-300 ${
         scrolled
-          ? "border-b border-white/5 bg-[color-mix(in_oklab,var(--color-ink-950)_82%,transparent)] backdrop-blur-xl"
+          ? "border-b border-edge-faint bg-[color-mix(in_oklab,var(--color-ink-950)_82%,transparent)] backdrop-blur-xl"
           : "border-b border-transparent"
       }`}
     >
@@ -139,7 +139,7 @@ export function SiteHeader() {
                   úplně a z telefonu se nedalo přihlásit. */}
               <Link
                 href="/login"
-                className="whitespace-nowrap text-sm font-medium text-[var(--color-paper-dim)] transition hover:text-[var(--color-paper)] sm:rounded-full sm:border sm:border-white/10 sm:px-4 sm:py-1.5 sm:hover:border-white/25"
+                className="whitespace-nowrap text-sm font-medium text-[var(--color-paper-dim)] transition hover:text-[var(--color-paper)] sm:rounded-full sm:border sm:border-edge sm:px-4 sm:py-1.5 sm:hover:border-edge-hover"
               >
                 {t("login")}
               </Link>

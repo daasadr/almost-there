@@ -54,7 +54,7 @@ export async function GoalList({
 
             {goal.tasksTotal > 0 ? (
               <div className="mt-4">
-                <div className="h-1.5 overflow-hidden rounded-full bg-white/10">
+                <div className="h-1.5 overflow-hidden rounded-full bg-surface-strong">
                   <div
                     className="h-full rounded-full"
                     style={{
@@ -94,7 +94,7 @@ export async function GoalList({
                 <Link
                   href={`/${locale}/app/goals/${goal.id}/done`}
                   style={{ borderColor: `${goalHex(goal.color)}55` }}
-                  className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 rounded-xl border px-4 py-3 transition hover:bg-white/[0.03]"
+                  className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 rounded-xl border px-4 py-3 transition hover:bg-surface"
                 >
                   <span className="text-[15px] text-[var(--color-paper)]">
                     {goal.title}

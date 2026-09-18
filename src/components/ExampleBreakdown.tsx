@@ -28,7 +28,7 @@ export function ExampleBreakdown() {
 
         <div className="mt-14 grid gap-5 lg:grid-cols-[1.15fr_1fr]">
           {/* Úroveň 1 — měsíce. Tohle vidí i uživatel v demu. */}
-          <ol className="card reveal divide-y divide-white/5 p-2">
+          <ol className="card reveal divide-y divide-edge-faint p-2">
             {months.map((milestone, index) => (
               <li key={milestone} className="flex gap-4 p-5">
                 <span className="display shrink-0 text-sm text-[var(--color-lime-soft)]">
@@ -83,7 +83,7 @@ export function ExampleBreakdown() {
                       className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md border ${
                         day.type === "reflection"
                           ? "border-[color-mix(in_oklab,var(--color-violet-soft)_50%,transparent)]"
-                          : "border-white/20"
+                          : "border-edge-strong"
                       }`}
                     />
                     <span className="text-[15px] leading-relaxed text-[var(--color-paper-dim)]">

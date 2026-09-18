@@ -64,7 +64,7 @@ export function CookieBanner() {
           <button
             type="button"
             onClick={() => decide("necessary")}
-            className="rounded-full border border-white/15 px-5 py-2 text-sm font-medium text-[var(--color-paper-dim)] transition hover:border-white/30 hover:text-[var(--color-paper)]"
+            className="rounded-full border border-edge-strong px-5 py-2 text-sm font-medium text-[var(--color-paper-dim)] transition hover:border-edge-hover hover:text-[var(--color-paper)]"
           >
             {t("necessaryOnly")}
           </button>

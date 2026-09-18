@@ -40,7 +40,7 @@ export async function PlanTree({
             className={
               depth === 0
                 ? "card p-5 sm:p-6"
-                : "rounded-xl border border-white/10 p-4"
+                : "rounded-xl border border-edge p-4"
             }
           >
             <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">

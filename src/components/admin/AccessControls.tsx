@@ -87,7 +87,7 @@ export function AccessControls({
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="rounded-full border border-white/15 px-3 py-1 text-xs font-medium transition hover:border-[color-mix(in_oklab,var(--color-lime-glow)_50%,transparent)]"
+        className="rounded-full border border-edge-strong px-3 py-1 text-xs font-medium transition hover:border-[color-mix(in_oklab,var(--color-lime-glow)_50%,transparent)]"
       >
         Přidělit zdarma
       </button>
@@ -95,7 +95,7 @@ export function AccessControls({
   }
 
   return (
-    <div className="min-w-56 rounded-xl border border-white/10 p-3">
+    <div className="min-w-56 rounded-xl border border-edge p-3">
       <label className="block text-xs text-[var(--color-paper-faint)]">
         Důvod
         <input
@@ -104,7 +104,7 @@ export function AccessControls({
           onChange={(event) => setNote(event.target.value)}
           placeholder="tester / výherce / rodina"
           maxLength={200}
-          className="mt-1 w-full rounded-lg border border-white/10 bg-black/25 px-2.5 py-1.5 text-sm text-[var(--color-paper)]"
+          className="mt-1 w-full rounded-lg border border-edge bg-scrim px-2.5 py-1.5 text-sm text-[var(--color-paper)]"
         />
       </label>
 
@@ -114,7 +114,7 @@ export function AccessControls({
           type="date"
           value={until}
           onChange={(event) => setUntil(event.target.value)}
-          className="mt-1 w-full rounded-lg border border-white/10 bg-black/25 px-2.5 py-1.5 text-sm text-[var(--color-paper)]"
+          className="mt-1 w-full rounded-lg border border-edge bg-scrim px-2.5 py-1.5 text-sm text-[var(--color-paper)]"
         />
       </label>
 
@@ -133,7 +133,7 @@ export function AccessControls({
           type="button"
           onClick={() => setOpen(false)}
           disabled={pending}
-          className="rounded-full border border-white/15 px-3 py-1 text-xs text-[var(--color-paper-dim)]"
+          className="rounded-full border border-edge-strong px-3 py-1 text-xs text-[var(--color-paper-dim)]"
         >
           Zpět
         </button>

@@ -62,7 +62,7 @@ export function DeleteGoalButton({ goalId }: { goalId: string }) {
           type="button"
           onClick={() => setConfirming(false)}
           disabled={pending}
-          className="rounded-full border border-white/15 px-4 py-1.5 text-sm text-[var(--color-paper-dim)] transition hover:border-white/30"
+          className="rounded-full border border-edge-strong px-4 py-1.5 text-sm text-[var(--color-paper-dim)] transition hover:border-edge-hover"
         >
           {t("deleteNo")}
         </button>

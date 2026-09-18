@@ -77,7 +77,7 @@ export function PaceCheck({
   return (
     <section
       style={{ borderLeftColor: goalHex(goalColor) }}
-      className="rounded-2xl border border-l-[3px] border-white/10 bg-white/[0.02] p-5 sm:p-6"
+      className="rounded-2xl border border-l-[3px] border-edge bg-surface p-5 sm:p-6"
     >
       {showTitle && (
         <p
@@ -110,7 +110,7 @@ export function PaceCheck({
             type="button"
             onClick={() => send("catchUp")}
             disabled={Boolean(pending)}
-            className="rounded-2xl border border-white/10 p-4 text-left transition hover:border-white/25 disabled:opacity-50"
+            className="rounded-2xl border border-edge p-4 text-left transition hover:border-edge-hover disabled:opacity-50"
           >
             <span className="block text-[15px] font-medium text-[var(--color-paper)]">
               {t("catchUp")}
@@ -124,7 +124,7 @@ export function PaceCheck({
             type="button"
             onClick={() => send("moveDeadline")}
             disabled={Boolean(pending)}
-            className="rounded-2xl border border-white/10 p-4 text-left transition hover:border-white/25 disabled:opacity-50"
+            className="rounded-2xl border border-edge p-4 text-left transition hover:border-edge-hover disabled:opacity-50"
           >
             <span className="block text-[15px] font-medium text-[var(--color-paper)]">
               {t("moveDeadline")}

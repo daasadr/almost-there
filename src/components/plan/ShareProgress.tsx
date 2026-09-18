@@ -83,7 +83,7 @@ export function ShareProgress({ days }: { days: DayProgress[] }) {
         type="button"
         onClick={() => void share()}
         disabled={busy}
-        className="rounded-full border border-white/15 px-4 py-2 text-sm text-[var(--color-paper-dim)] transition hover:border-white/30 hover:text-[var(--color-paper)] disabled:opacity-50"
+        className="rounded-full border border-edge-strong px-4 py-2 text-sm text-[var(--color-paper-dim)] transition hover:border-edge-hover hover:text-[var(--color-paper)] disabled:opacity-50"
       >
         {busy ? t("working") : t("button")}
       </button>

@@ -69,7 +69,7 @@ export function EarnedRewards({ rewards }: { rewards: EarnedReward[] }) {
           <li
             key={reward.id}
             style={{ borderLeftColor: goalHex(reward.goalColor) }}
-            className="rounded-xl border border-l-[3px] border-white/10 bg-black/20 p-4"
+            className="rounded-xl border border-l-[3px] border-edge bg-scrim p-4"
           >
             <p className="text-[15px] leading-relaxed text-[var(--color-paper)]">
               {reward.rewardText}

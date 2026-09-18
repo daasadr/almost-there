@@ -132,7 +132,7 @@ export default async function GoalPage({
       )}
 
       {goal.status === "PAUSED" && (
-        <p className="mt-6 rounded-2xl border border-white/10 bg-white/[0.02] p-5 text-sm leading-relaxed text-[var(--color-paper-dim)]">
+        <p className="mt-6 rounded-2xl border border-edge bg-surface p-5 text-sm leading-relaxed text-[var(--color-paper-dim)]">
           {tStatus("paused")}
         </p>
       )}
@@ -141,7 +141,7 @@ export default async function GoalPage({
         <div className="mt-6">
           <span
             className={`inline-block rounded-full border px-3 py-1 text-xs font-semibold ${
-              FEASIBILITY_STYLE[goal.feasibility] ?? "border-white/15"
+              FEASIBILITY_STYLE[goal.feasibility] ?? "border-edge-strong"
             }`}
           >
             {t("feasibilityTitle")}: {t(`feasibility.${goal.feasibility}`)}
@@ -250,7 +250,7 @@ export default async function GoalPage({
         <PlanTree nodes={goal.tree} locale={locale} />
       </div>
 
-      <div className="mt-12 border-t border-white/10 pt-8">
+      <div className="mt-12 border-t border-edge pt-8">
         <DeleteGoalButton goalId={goal.id} />
       </div>
     </section>

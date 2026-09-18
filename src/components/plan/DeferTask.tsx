@@ -133,7 +133,7 @@ export function DeferTask({
         className={
           variant === "link"
             ? "text-xs text-[var(--color-paper-faint)] underline-offset-4 hover:text-[var(--color-paper-dim)] hover:underline"
-            : "mr-3 mt-3 shrink-0 rounded-full border border-white/10 px-2.5 py-1 text-xs text-[var(--color-paper-faint)] transition hover:border-white/25 hover:text-[var(--color-paper-dim)]"
+            : "mr-3 mt-3 shrink-0 rounded-full border border-edge px-2.5 py-1 text-xs text-[var(--color-paper-faint)] transition hover:border-edge-hover hover:text-[var(--color-paper-dim)]"
         }
       >
         {t("short")}
@@ -143,7 +143,7 @@ export function DeferTask({
 
   return (
     <div
-      className={`rounded-xl border border-white/10 bg-black/20 p-4 ${
+      className={`rounded-xl border border-edge bg-scrim p-4 ${
         variant === "link" ? "mt-3 w-full" : "mx-4 mb-4"
       }`}
     >
@@ -160,7 +160,7 @@ export function DeferTask({
             {alternatives.map((alternative) => (
               <li
                 key={alternative.id}
-                className="rounded-lg border border-white/10 p-3"
+                className="rounded-lg border border-edge p-3"
               >
                 <p className="text-sm leading-snug text-[var(--color-paper)]">
                   {alternative.title}
@@ -209,7 +209,7 @@ export function DeferTask({
           maxLength={500}
           placeholder={t("reasonPlaceholder")}
           onChange={(event) => setReason(event.target.value)}
-          className="mt-1.5 w-full rounded-lg border border-white/10 bg-black/25 px-3 py-2 text-sm leading-relaxed text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)] focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)]"
+          className="mt-1.5 w-full rounded-lg border border-edge bg-scrim px-3 py-2 text-sm leading-relaxed text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)] focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)]"
         />
       </label>
 
@@ -229,13 +229,13 @@ export function DeferTask({
           disabled={pending}
           min={tomorrowIso()}
           onChange={(event) => setDate(event.target.value)}
-          className="rounded-full border border-white/10 bg-black/25 px-3 py-1.5 text-xs text-[var(--color-paper)]"
+          className="rounded-full border border-edge bg-scrim px-3 py-1.5 text-xs text-[var(--color-paper)]"
         />
         <button
           type="button"
           disabled={pending || !date}
           onClick={() => void defer(date)}
-          className="rounded-full border border-white/15 px-3.5 py-1.5 text-xs text-[var(--color-paper-dim)] transition hover:border-white/30 hover:text-[var(--color-paper)] disabled:opacity-50"
+          className="rounded-full border border-edge-strong px-3.5 py-1.5 text-xs text-[var(--color-paper-dim)] transition hover:border-edge-hover hover:text-[var(--color-paper)] disabled:opacity-50"
         >
           {t("onDate")}
         </button>
@@ -246,7 +246,7 @@ export function DeferTask({
           type="button"
           disabled={pending}
           onClick={() => void defer(null)}
-          className="rounded-full border border-white/15 px-3.5 py-1.5 text-xs text-[var(--color-paper-dim)] transition hover:border-white/30 hover:text-[var(--color-paper)] disabled:opacity-50"
+          className="rounded-full border border-edge-strong px-3.5 py-1.5 text-xs text-[var(--color-paper-dim)] transition hover:border-edge-hover hover:text-[var(--color-paper)] disabled:opacity-50"
         >
           {t("someday")}
         </button>

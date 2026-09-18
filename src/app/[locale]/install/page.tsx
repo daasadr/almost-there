@@ -52,7 +52,7 @@ function Steps({ steps }: { steps: string[] }) {
         <li key={step} className="flex gap-3.5">
           <span
             aria-hidden="true"
-            className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-white/10 text-xs text-[var(--color-paper-faint)]"
+            className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-edge text-xs text-[var(--color-paper-faint)]"
           >
             {index + 1}
           </span>
@@ -106,7 +106,7 @@ function Content() {
         </div>
       )}
 
-      <div className="mt-10 rounded-2xl border border-white/5 bg-white/[0.02] p-6">
+      <div className="mt-10 rounded-2xl border border-edge-faint bg-surface p-6">
         <h2 className="text-sm font-semibold text-[var(--color-paper)]">
           {t("accountTitle")}
         </h2>

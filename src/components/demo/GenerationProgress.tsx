@@ -63,7 +63,7 @@ export function GenerationProgress({
         aria-valuemin={0}
         aria-valuemax={100}
         aria-valuenow={Math.round(percent)}
-        className="mt-3 h-1.5 overflow-hidden rounded-full bg-white/10"
+        className="mt-3 h-1.5 overflow-hidden rounded-full bg-surface-strong"
       >
         <div
           className="h-full rounded-full bg-gradient-to-r from-[var(--color-emerald-soft)] to-[var(--color-lime-soft)] transition-[width] duration-300 ease-out"

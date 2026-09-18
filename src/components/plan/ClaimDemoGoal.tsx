@@ -77,7 +77,7 @@ export function ClaimDemoGoal({
         {t("body", { count: periodCount })}
       </p>
 
-      <div className="mt-4 rounded-xl border border-white/10 p-4">
+      <div className="mt-4 rounded-xl border border-edge p-4">
         <p className="text-[15px] text-[var(--color-paper)]">{title}</p>
         <p className="mt-1 text-sm text-[var(--color-paper-dim)]">
           {t("due", {
@@ -103,7 +103,7 @@ export function ClaimDemoGoal({
               className={`flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-2 transition ${
                 color === option
                   ? "border-[var(--color-paper)]"
-                  : "border-transparent hover:border-white/25"
+                  : "border-transparent hover:border-edge-hover"
               }`}
             >
               <input
@@ -134,7 +134,7 @@ export function ClaimDemoGoal({
           id="claim-importance"
           value={importance}
           onChange={(event) => setImportance(Number(event.target.value))}
-          className="mt-2 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-2.5 text-[15px] text-[var(--color-paper)] sm:w-auto"
+          className="mt-2 w-full rounded-xl border border-edge bg-scrim px-4 py-2.5 text-[15px] text-[var(--color-paper)] sm:w-auto"
         >
           {[1, 2, 3, 4, 5].map((level) => (
             <option
@@ -159,7 +159,7 @@ export function ClaimDemoGoal({
           rows={3}
           maxLength={2000}
           placeholder={t("detailPlaceholder")}
-          className="mt-2 w-full resize-y rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-[15px] leading-relaxed text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)]"
+          className="mt-2 w-full resize-y rounded-xl border border-edge bg-scrim px-4 py-3 text-[15px] leading-relaxed text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)]"
         />
         <p className="mt-1.5 text-xs leading-relaxed text-[var(--color-paper-faint)]">
           {t("detailHint")}

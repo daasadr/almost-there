@@ -84,7 +84,7 @@ function LoginContent({ locale }: { locale: string }) {
         <GoogleButton label={t("google")} callbackUrl={`/${locale}/app`} />
       </div>
 
-      <p className="store-only mt-6 rounded-2xl border border-white/10 bg-white/[0.02] p-4 text-sm leading-relaxed text-[var(--color-paper-dim)]">
+      <p className="store-only mt-6 rounded-2xl border border-edge bg-surface p-4 text-sm leading-relaxed text-[var(--color-paper-dim)]">
         {t.rich("storeNote", {
           link: (chunks) => (
             <Link

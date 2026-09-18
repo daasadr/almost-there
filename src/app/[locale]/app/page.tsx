@@ -174,7 +174,7 @@ export default async function AppPage({
           Demo je jediné, co s bezplatným účtem opravdu má, a musí být
           vidět. */}
       {!hasAccess && checkout !== "success" && storeApp && (
-        <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.02] p-5 sm:p-6">
+        <div className="mt-8 rounded-2xl border border-edge bg-surface p-5 sm:p-6">
           <h2 className="display text-lg">{tb("freeTitle")}</h2>
           <p className="mt-1.5 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
             {tb("freeBody")}
@@ -192,7 +192,7 @@ export default async function AppPage({
       {!hasAccess && checkout !== "success" && !storeApp && (
         <div className="mt-8">
           {checkout === "cancelled" && (
-            <div className="mb-4 rounded-2xl border border-white/10 p-5">
+            <div className="mb-4 rounded-2xl border border-edge p-5">
               <h2 className="text-sm font-semibold text-[var(--color-paper)]">
                 {tb("cancelledTitle")}
               </h2>
@@ -332,7 +332,7 @@ async function Today({
       </div>
 
       {day && day !== todayIso(timezone) && (
-        <p className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 rounded-xl border border-white/10 px-4 py-2.5 text-sm text-[var(--color-paper-dim)]">
+        <p className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 rounded-xl border border-edge px-4 py-2.5 text-sm text-[var(--color-paper-dim)]">
           <span>{tWeek("otherDay", { date: heading })}</span>
           <Link
             href={`/${locale}/app`}

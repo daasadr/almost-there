@@ -59,7 +59,7 @@ function Content() {
           <li key={step} className="flex gap-3.5">
             <span
               aria-hidden="true"
-              className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-white/10 text-xs text-[var(--color-paper-faint)]"
+              className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-edge text-xs text-[var(--color-paper-faint)]"
             >
               {index + 1}
             </span>

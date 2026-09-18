@@ -136,7 +136,7 @@ function Hero() {
           </p>
         </div>
 
-        <p className="mt-20 max-w-md border-l border-white/10 pl-4 text-sm text-[var(--color-paper-faint)] sm:mt-28">
+        <p className="mt-20 max-w-md border-l border-edge pl-4 text-sm text-[var(--color-paper-faint)] sm:mt-28">
           {t("trustLine")}
         </p>
       </div>
@@ -297,7 +297,7 @@ function Pricing() {
           </div>
 
           {/* Limit AI musí být vysvětlený transparentně, ne schovaný v ToC */}
-          <div className="reveal mt-6 rounded-2xl border border-white/5 bg-white/[0.02] p-6">
+          <div className="reveal mt-6 rounded-2xl border border-edge-faint bg-surface p-6">
             <h3 className="text-sm font-semibold text-[var(--color-paper)]">
               {t("limitsTitle")}
             </h3>

@@ -83,7 +83,7 @@ export function Paywall() {
               className={`rounded-2xl border p-5 text-left transition ${
                 selected
                   ? "border-[color-mix(in_oklab,var(--color-lime-glow)_55%,transparent)] bg-[color-mix(in_oklab,var(--color-lime-glow)_8%,transparent)]"
-                  : "border-white/10 hover:border-white/25"
+                  : "border-edge hover:border-edge-hover"
               }`}
             >
               <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-paper-faint)]">

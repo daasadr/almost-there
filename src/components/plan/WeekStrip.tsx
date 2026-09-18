@@ -44,7 +44,7 @@ export async function WeekStrip({
         <Link
           href={`/${locale}/app?day=${previous}`}
           aria-label={t("previous")}
-          className="rounded-full border border-white/10 px-3 py-1 text-sm text-[var(--color-paper-faint)] transition hover:border-white/25 hover:text-[var(--color-paper)]"
+          className="rounded-full border border-edge px-3 py-1 text-sm text-[var(--color-paper-faint)] transition hover:border-edge-hover hover:text-[var(--color-paper)]"
         >
           ←
         </Link>
@@ -64,8 +64,8 @@ export async function WeekStrip({
                   aria-current={day.date === selected ? "date" : undefined}
                   className={`flex flex-col items-center gap-1 rounded-xl border py-2 transition ${
                     day.date === selected
-                      ? "border-[color-mix(in_oklab,var(--color-lime-glow)_50%,transparent)] bg-white/[0.04]"
-                      : "border-transparent hover:border-white/15"
+                      ? "border-[color-mix(in_oklab,var(--color-lime-glow)_50%,transparent)] bg-surface"
+                      : "border-transparent hover:border-edge-strong"
                   }`}
                 >
                   <span className="text-[11px] uppercase tracking-wider text-[var(--color-paper-faint)]">
@@ -82,8 +82,8 @@ export async function WeekStrip({
                         : partial
                           ? "border-[var(--color-lime-soft)] text-[var(--color-lime-soft)]"
                           : missed
-                            ? "border-white/25 text-[var(--color-paper-faint)]"
-                            : "border-white/10 text-[var(--color-paper-faint)]"
+                            ? "border-edge-hover text-[var(--color-paper-faint)]"
+                            : "border-edge text-[var(--color-paper-faint)]"
                     }`}
                   >
                     {complete ? "✓" : dayNumber.format(date)}
@@ -101,7 +101,7 @@ export async function WeekStrip({
         <Link
           href={`/${locale}/app?day=${next}`}
           aria-label={t("next")}
-          className="rounded-full border border-white/10 px-3 py-1 text-sm text-[var(--color-paper-faint)] transition hover:border-white/25 hover:text-[var(--color-paper)]"
+          className="rounded-full border border-edge px-3 py-1 text-sm text-[var(--color-paper-faint)] transition hover:border-edge-hover hover:text-[var(--color-paper)]"
         >
           →
         </Link>

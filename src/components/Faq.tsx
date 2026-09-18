@@ -29,7 +29,7 @@ export function Faq() {
 
         {/* Seznam popisů: otázka je termín, odpověď jeho vysvětlení.
             Odečítátko obrazovky pak dvojici přečte jako dvojici. */}
-        <dl className="mx-auto mt-14 max-w-3xl divide-y divide-white/5 border-y border-white/5">
+        <dl className="mx-auto mt-14 max-w-3xl divide-y divide-edge-faint border-y border-edge-faint">
           {items.map((item) => (
             <div key={item.q} className="reveal py-7">
               <dt className="text-[17px] font-semibold text-[var(--color-paper)]">

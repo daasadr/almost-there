@@ -264,7 +264,7 @@ export function GoalForm({
           maxLength={MAX_GOAL_TITLE}
           disabled={pending}
           placeholder={t("namePlaceholder")}
-          className="mt-2.5 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-[15px] text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] disabled:opacity-60"
+          className="mt-2.5 w-full rounded-xl border border-edge bg-scrim px-4 py-3 text-[15px] text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] disabled:opacity-60"
         />
         <p
           id="goal-title-hint"
@@ -289,7 +289,7 @@ export function GoalForm({
           maxLength={MAX_GOAL_DETAIL}
           disabled={pending}
           placeholder={t("detailPlaceholder")}
-          className="mt-2.5 w-full resize-y rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-[15px] leading-relaxed text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] disabled:opacity-60"
+          className="mt-2.5 w-full resize-y rounded-xl border border-edge bg-scrim px-4 py-3 text-[15px] leading-relaxed text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] disabled:opacity-60"
         />
         <p
           id="goal-detail-hint"
@@ -315,7 +315,7 @@ export function GoalForm({
           maxLength={1000}
           disabled={pending}
           placeholder={t("startPlaceholder")}
-          className="mt-2.5 w-full resize-y rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-[15px] leading-relaxed text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] disabled:opacity-60"
+          className="mt-2.5 w-full resize-y rounded-xl border border-edge bg-scrim px-4 py-3 text-[15px] leading-relaxed text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] disabled:opacity-60"
         />
         <p
           id="goal-start-hint"
@@ -337,7 +337,7 @@ export function GoalForm({
           max={maxTargetDate()}
           disabled={pending}
           onChange={(event) => setTargetDate(event.target.value)}
-          className="mt-2.5 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-[15px] text-[var(--color-paper)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] disabled:opacity-60 sm:w-auto"
+          className="mt-2.5 w-full rounded-xl border border-edge bg-scrim px-4 py-3 text-[15px] text-[var(--color-paper)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] disabled:opacity-60 sm:w-auto"
         />
       </div>
 
@@ -359,7 +359,7 @@ export function GoalForm({
               className={`flex cursor-pointer items-center gap-3 rounded-xl border px-4 py-2.5 text-[15px] transition ${
                 importance === level
                   ? "border-[color-mix(in_oklab,var(--color-lime-glow)_50%,transparent)] bg-[color-mix(in_oklab,var(--color-lime-glow)_7%,transparent)]"
-                  : "border-white/10 hover:border-white/25"
+                  : "border-edge hover:border-edge-hover"
               }`}
             >
               <input
@@ -397,7 +397,7 @@ export function GoalForm({
               className={`flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border-2 transition ${
                 color === option
                   ? "border-[var(--color-paper)]"
-                  : "border-transparent hover:border-white/25"
+                  : "border-transparent hover:border-edge-hover"
               }`}
             >
               <input
@@ -431,7 +431,7 @@ export function GoalForm({
       {/* Dřív to byla jedna věta o šedesáti minutách, kterou každý
           přehlédl — a přitom se za ní schovávají tři nejsilnější vstupy
           do plánu. Teď je z toho karta, kde je všechny tři vidět naráz. */}
-      <section className="mt-8 rounded-2xl border border-white/10 p-5">
+      <section className="mt-8 rounded-2xl border border-edge p-5">
         <h3 className="text-sm font-medium">{t("planningTitle")}</h3>
         <p className="mt-1.5 text-xs leading-relaxed text-[var(--color-paper-faint)]">
           {t("planningHint")}
@@ -470,7 +470,7 @@ export function GoalForm({
             nepřipraví — a odkaz si nese, odkud se má vrátit. */}
         <Link
           href={`/${locale}/app/settings?from=new-goal`}
-          className="mt-4 inline-block rounded-full border border-white/15 px-4 py-1.5 text-sm font-medium transition hover:border-[color-mix(in_oklab,var(--color-lime-glow)_50%,transparent)]"
+          className="mt-4 inline-block rounded-full border border-edge-strong px-4 py-1.5 text-sm font-medium transition hover:border-[color-mix(in_oklab,var(--color-lime-glow)_50%,transparent)]"
         >
           {t("planningChange")}
         </Link>
@@ -504,10 +504,10 @@ export function GoalForm({
         />
         <label
           htmlFor="goal-images"
-          className={`mt-3 inline-block rounded-full border border-white/15 px-4 py-2 text-sm font-medium text-[var(--color-paper)] transition ${
+          className={`mt-3 inline-block rounded-full border border-edge-strong px-4 py-2 text-sm font-medium text-[var(--color-paper)] transition ${
             pending
               ? "cursor-not-allowed opacity-50"
-              : "cursor-pointer hover:border-white/30"
+              : "cursor-pointer hover:border-edge-hover"
           }`}
         >
           {t("imagesChoose")}
@@ -539,7 +539,7 @@ export function GoalForm({
           sem nikdo nemá dojít omylem — ale kdo chce začít znovu, nemá
           mazat text po znacích. */}
       {!pending && (
-        <p className="mt-10 border-t border-white/5 pt-6">
+        <p className="mt-10 border-t border-edge-faint pt-6">
           <button
             type="button"
             onClick={discard}
@@ -562,7 +562,7 @@ export function GoalForm({
           role="dialog"
           aria-modal="true"
           aria-labelledby="goal-confirm-title"
-          className="fixed inset-0 z-50 grid place-items-center bg-black/70 p-5"
+          className="fixed inset-0 z-50 grid place-items-center bg-scrim-strong p-5"
         >
           <div className="card w-full max-w-md p-6">
             <h2 id="goal-confirm-title" className="display text-xl">
@@ -583,7 +583,7 @@ export function GoalForm({
               <button
                 type="button"
                 onClick={() => setConfirming(false)}
-                className="rounded-full border border-white/15 px-5 py-2 text-sm font-medium text-[var(--color-paper-dim)] transition hover:border-white/30 hover:text-[var(--color-paper)]"
+                className="rounded-full border border-edge-strong px-5 py-2 text-sm font-medium text-[var(--color-paper-dim)] transition hover:border-edge-hover hover:text-[var(--color-paper)]"
               >
                 {t("confirmBack")}
               </button>

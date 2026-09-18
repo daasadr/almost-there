@@ -162,8 +162,8 @@ export function TodayChecklist({
                     style={{ borderLeftColor: goalHex(task.goalColor) }}
                     className={`rounded-xl border border-l-[3px] transition ${
                       checked
-                        ? "border-white/10 bg-white/[0.03]"
-                        : "border-white/10 hover:border-white/25"
+                        ? "border-edge bg-surface"
+                        : "border-edge hover:border-edge-hover"
                     }`}
                   >
                     <div className="flex items-start justify-between">
@@ -244,7 +244,7 @@ function badgeClass(type: string): string {
     case "REFLECTION":
       return `${base} border-amber-300/25 text-amber-200/80`;
     default:
-      return `${base} border-white/15 text-[var(--color-paper-dim)]`;
+      return `${base} border-edge-strong text-[var(--color-paper-dim)]`;
   }
 }
 

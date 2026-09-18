@@ -134,7 +134,7 @@ export default async function GoalDonePage({
         má cílů tolik, že mu v seznamu překážejí, musí mít jak je uklidit
         — a psát si kvůli tomu na podporu není řešení.
       */}
-      <div className="mt-14 border-t border-white/10 pt-8">
+      <div className="mt-14 border-t border-edge pt-8">
         <DeleteGoalButton goalId={goal.id} />
       </div>
     </section>
@@ -151,7 +151,7 @@ function Stat({
   color: string;
 }) {
   return (
-    <div className="rounded-2xl border border-white/10 p-5">
+    <div className="rounded-2xl border border-edge p-5">
       <dt className="sr-only">{label}</dt>
       <dd>
         <span

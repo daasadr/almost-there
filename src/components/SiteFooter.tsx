@@ -9,7 +9,7 @@ export function SiteFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-white/5 bg-[var(--color-ink-900)]">
+    <footer className="border-t border-edge-faint bg-[var(--color-ink-900)]">
       <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
@@ -79,7 +79,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-2 border-t border-white/5 pt-6 text-xs text-[var(--color-paper-faint)] sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-12 flex flex-col gap-2 border-t border-edge-faint pt-6 text-xs text-[var(--color-paper-faint)] sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {year} AlmostThere. {t("rights")}
           </p>
@@ -120,7 +120,7 @@ export function SiteFooter() {
           k ní nedoroluje. Rozměry jsou napsané, aby se při načtení
           nepohnul obsah nad ním.
         */}
-        <div className="mt-12 border-t border-white/5 pt-8">
+        <div className="mt-12 border-t border-edge-faint pt-8">
           <a
             href="https://tools.launchllama.co?utm_source=badge&utm_medium=referral"
             target="_blank"

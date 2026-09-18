@@ -71,7 +71,7 @@ export default async function BlogIndexPage({
       ) : (
         <ul>
           {items.map((article) => (
-            <li key={article.slug} className="border-b border-white/5">
+            <li key={article.slug} className="border-b border-edge-faint">
               <Link
                 href={`/${locale}/blog/${article.slug}`}
                 className="group block py-10 transition-opacity"

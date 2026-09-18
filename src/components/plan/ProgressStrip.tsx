@@ -52,7 +52,7 @@ export async function ProgressStrip({
                   ? `${format.format(new Date(`${day.date}T12:00:00Z`))} — ${day.done}/${day.total}`
                   : format.format(new Date(`${day.date}T12:00:00Z`))
               }
-              className="h-8 flex-1 overflow-hidden rounded-[3px] bg-white/[0.06]"
+              className="h-8 flex-1 overflow-hidden rounded-[3px] bg-surface"
             >
               {day.total > 0 && (
                 <span

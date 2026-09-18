@@ -56,7 +56,7 @@ export function DeferredTasks({ tasks }: { tasks: DeferredTask[] }) {
   };
 
   return (
-    <section className="rounded-2xl border border-white/10 bg-white/[0.02] p-5 sm:p-6">
+    <section className="rounded-2xl border border-edge bg-surface p-5 sm:p-6">
       <h2 className="text-sm font-semibold text-[var(--color-paper)]">
         {t("title", { count: tasks.length })}
       </h2>
@@ -69,7 +69,7 @@ export function DeferredTasks({ tasks }: { tasks: DeferredTask[] }) {
           <li
             key={task.id}
             style={{ borderLeftColor: goalHex(task.goalColor) }}
-            className="rounded-xl border border-l-[3px] border-white/10 p-3.5"
+            className="rounded-xl border border-l-[3px] border-edge p-3.5"
           >
             <p className="text-[15px] leading-snug text-[var(--color-paper)]">
               {task.title}
@@ -86,7 +86,7 @@ export function DeferredTasks({ tasks }: { tasks: DeferredTask[] }) {
                   min={todayIsoLocal()}
                   disabled={pending}
                   onChange={(event) => setDate(event.target.value)}
-                  className="rounded-full border border-white/10 bg-black/25 px-3 py-1.5 text-xs text-[var(--color-paper)]"
+                  className="rounded-full border border-edge bg-scrim px-3 py-1.5 text-xs text-[var(--color-paper)]"
                 />
                 <button
                   type="button"

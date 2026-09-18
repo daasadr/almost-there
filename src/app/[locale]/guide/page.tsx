@@ -73,7 +73,7 @@ export default async function GuidePage({
 
       {/* Obsah. U textu téhle délky je to rozdíl mezi „přečtu si to“
           a „najdu si v tom to svoje“. */}
-      <nav className="mt-10 rounded-2xl border border-white/5 bg-white/[0.02] p-6">
+      <nav className="mt-10 rounded-2xl border border-edge-faint bg-surface p-6">
         <h2 className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--color-paper-faint)]">
           {t("contents")}
         </h2>
@@ -110,7 +110,7 @@ export default async function GuidePage({
                 <li key={step} className="flex gap-3.5">
                   <span
                     aria-hidden="true"
-                    className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-white/10 text-xs text-[var(--color-paper-faint)]"
+                    className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-edge text-xs text-[var(--color-paper-faint)]"
                   >
                     {stepIndex + 1}
                   </span>
@@ -122,7 +122,7 @@ export default async function GuidePage({
         </section>
       ))}
 
-      <div className="mt-16 rounded-2xl border border-white/10 bg-white/[0.02] p-6 sm:p-8">
+      <div className="mt-16 rounded-2xl border border-edge bg-surface p-6 sm:p-8">
         <h2 className="display text-lg">{t("stuckTitle")}</h2>
         <p className="mt-2 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
           {t("stuckBody")}

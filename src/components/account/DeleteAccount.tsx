@@ -56,7 +56,7 @@ export function DeleteAccount({ email }: { email: string }) {
 
   if (!open) {
     return (
-      <section className="mt-8 rounded-2xl border border-white/5 p-6 sm:p-8">
+      <section className="mt-8 rounded-2xl border border-edge-faint p-6 sm:p-8">
         <h2 className="text-sm font-semibold text-[var(--color-paper)]">
           {t("title")}
         </h2>
@@ -102,7 +102,7 @@ export function DeleteAccount({ email }: { email: string }) {
           disabled={busy}
           autoComplete="off"
           onChange={(event) => setConfirm(event.target.value)}
-          className="mt-2 w-full rounded-xl border border-white/10 bg-black/25 px-4 py-3 text-[15px] text-[var(--color-paper)] focus:border-red-400/50"
+          className="mt-2 w-full rounded-xl border border-edge bg-scrim px-4 py-3 text-[15px] text-[var(--color-paper)] focus:border-red-400/50"
         />
       </label>
 

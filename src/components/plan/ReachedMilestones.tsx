@@ -66,7 +66,7 @@ export function ReachedMilestones({
           <section
             key={milestone.id}
             style={{ borderLeftColor: color }}
-            className="rounded-2xl border border-l-[3px] border-white/10 bg-white/[0.02] p-5 sm:p-6"
+            className="rounded-2xl border border-l-[3px] border-edge bg-surface p-5 sm:p-6"
           >
             <div className="flex items-baseline justify-between gap-4">
               <p

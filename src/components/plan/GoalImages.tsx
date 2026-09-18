@@ -143,13 +143,13 @@ export function GoalImages({
                 width={image.width}
                 height={image.height}
                 loading="lazy"
-                className="aspect-square w-full rounded-xl bg-white/[0.03] object-contain"
+                className="aspect-square w-full rounded-xl bg-surface object-contain"
               />
               <button
                 type="button"
                 onClick={() => remove(image.id)}
                 aria-label={t("remove")}
-                className="absolute right-2 top-2 rounded-full bg-black/70 px-2.5 py-1 text-xs text-white opacity-0 transition group-hover:opacity-100 focus:opacity-100"
+                className="absolute right-2 top-2 rounded-full bg-scrim-strong px-2.5 py-1 text-xs text-white opacity-0 transition group-hover:opacity-100 focus:opacity-100"
               >
                 {t("remove")}
               </button>
@@ -194,10 +194,10 @@ export function GoalImages({
         <label
           htmlFor={`images-${goalId}`}
           aria-disabled={full || uploading > 0}
-          className={`inline-block rounded-full border border-white/15 px-4 py-2 text-sm font-medium text-[var(--color-paper)] transition ${
+          className={`inline-block rounded-full border border-edge-strong px-4 py-2 text-sm font-medium text-[var(--color-paper)] transition ${
             full || uploading > 0
               ? "cursor-not-allowed opacity-50"
-              : "cursor-pointer hover:border-white/30"
+              : "cursor-pointer hover:border-edge-hover"
           }`}
         >
           {t("choose")}
@@ -219,7 +219,7 @@ export function GoalImages({
         Ukazuje se, i když zatím žádný obrázek nahraný není: kdo si první
         fotku právě vybral, řeší tuhle otázku hned vzápětí.
       */}
-      <div className="mt-7 border-t border-white/5 pt-5">
+      <div className="mt-7 border-t border-edge-faint pt-5">
         <h3 className="text-xs font-semibold uppercase tracking-wider text-[var(--color-paper-faint)]">
           {t("positionTitle")}
         </h3>
@@ -241,7 +241,7 @@ export function GoalImages({
                 className={`rounded-full border px-4 py-2 text-sm transition disabled:opacity-50 ${
                   selected
                     ? "border-[color-mix(in_oklab,var(--color-lime-glow)_55%,transparent)] bg-[color-mix(in_oklab,var(--color-lime-glow)_10%,transparent)] font-medium text-[var(--color-lime-soft)]"
-                    : "border-white/15 text-[var(--color-paper-dim)] hover:border-white/30 hover:text-[var(--color-paper)]"
+                    : "border-edge-strong text-[var(--color-paper-dim)] hover:border-edge-hover hover:text-[var(--color-paper)]"
                 }`}
               >
                 {below ? t("positionBelow") : t("positionAbove")}

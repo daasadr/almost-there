@@ -76,7 +76,7 @@ export function SteerGoal({ goalId }: { goalId: string }) {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="rounded-full border border-white/15 px-5 py-2 text-sm font-medium text-[var(--color-paper-dim)] transition hover:border-white/30 hover:text-[var(--color-paper)]"
+        className="rounded-full border border-edge-strong px-5 py-2 text-sm font-medium text-[var(--color-paper-dim)] transition hover:border-edge-hover hover:text-[var(--color-paper)]"
       >
         {t("button")}
       </button>
@@ -84,7 +84,7 @@ export function SteerGoal({ goalId }: { goalId: string }) {
   }
 
   return (
-    <form onSubmit={submit} className="rounded-2xl border border-white/10 p-5 sm:p-6">
+    <form onSubmit={submit} className="rounded-2xl border border-edge p-5 sm:p-6">
       <h3 className="display text-lg">{t("title")}</h3>
       <p className="mt-2 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
         {t("body")}
@@ -100,7 +100,7 @@ export function SteerGoal({ goalId }: { goalId: string }) {
         maxLength={1000}
         disabled={pending}
         placeholder={t("placeholder")}
-        className="mt-5 w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-[15px] leading-relaxed text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)] focus:border-white/25 disabled:opacity-60"
+        className="mt-5 w-full rounded-xl border border-edge bg-surface px-4 py-3 text-[15px] leading-relaxed text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)] focus:border-edge-hover disabled:opacity-60"
       />
 
       <p className="mt-2 text-xs text-[var(--color-paper-faint)]">{t("hint")}</p>

@@ -40,6 +40,28 @@
   --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
 
+  /*
+   * Plochy a hrany.
+   *
+   * Dřív se psaly přímo v komponentách jako `border-white/10` nebo
+   * `bg-white/[0.02]` — tedy bílá s malou průhledností, což funguje
+   * jedině na tmavém podkladu. Na světlém motivu takové orámování
+   * zmizí úplně. Bylo jich přes dvě stě v padesáti čtyřech souborech,
+   * ale jen sedmnáct různých hodnot, takže se daly shrnout sem.
+   *
+   * Motiv teď mění jen těchhle pár řádků. Komponenty o žádném motivu
+   * nevědí a vědět nemají.
+   */
+  --color-edge-faint: rgb(255 255 255 / 0.05);
+  --color-edge: rgb(255 255 255 / 0.1);
+  --color-edge-strong: rgb(255 255 255 / 0.15);
+  --color-edge-hover: rgb(255 255 255 / 0.3);
+  --color-surface: rgb(255 255 255 / 0.02);
+  --color-surface-strong: rgb(255 255 255 / 0.1);
+  /** Ztmavení pod dialogem a pod obrázky. */
+  --color-scrim: rgb(0 0 0 / 0.25);
+  --color-scrim-strong: rgb(0 0 0 / 0.7);
+
   --radius-card: 1.25rem;
 }
 

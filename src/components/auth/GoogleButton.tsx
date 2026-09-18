@@ -21,7 +21,7 @@ export function GoogleButton({
         setLoading(true);
         void signIn("google", { callbackUrl });
       }}
-      className="flex w-full items-center justify-center gap-3 rounded-full border border-white/15 bg-white/5 px-5 py-3 text-[15px] font-medium text-[var(--color-paper)] transition hover:border-white/30 hover:bg-white/10 disabled:opacity-60"
+      className="flex w-full items-center justify-center gap-3 rounded-full border border-edge-strong bg-surface px-5 py-3 text-[15px] font-medium text-[var(--color-paper)] transition hover:border-edge-hover hover:bg-surface-strong disabled:opacity-60"
     >
       <svg viewBox="0 0 18 18" aria-hidden="true" className="h-[18px] w-[18px]">
         <path

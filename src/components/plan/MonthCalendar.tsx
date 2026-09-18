@@ -63,7 +63,7 @@ export async function MonthCalendar({
         <Link
           href={`/${locale}/app/calendar?month=${shiftMonth(month, -1)}`}
           aria-label={t("previous")}
-          className="rounded-full border border-white/10 px-3 py-1.5 text-sm text-[var(--color-paper-faint)] transition hover:border-white/25 hover:text-[var(--color-paper)]"
+          className="rounded-full border border-edge px-3 py-1.5 text-sm text-[var(--color-paper-faint)] transition hover:border-edge-hover hover:text-[var(--color-paper)]"
         >
           ←
         </Link>
@@ -75,7 +75,7 @@ export async function MonthCalendar({
         <Link
           href={`/${locale}/app/calendar?month=${shiftMonth(month, 1)}`}
           aria-label={t("next")}
-          className="rounded-full border border-white/10 px-3 py-1.5 text-sm text-[var(--color-paper-faint)] transition hover:border-white/25 hover:text-[var(--color-paper)]"
+          className="rounded-full border border-edge px-3 py-1.5 text-sm text-[var(--color-paper-faint)] transition hover:border-edge-hover hover:text-[var(--color-paper)]"
         >
           →
         </Link>
@@ -112,7 +112,7 @@ export async function MonthCalendar({
             : partial
               ? "border-[color-mix(in_oklab,var(--color-emerald-glow)_45%,transparent)] bg-[color-mix(in_oklab,var(--color-emerald-glow)_10%,transparent)] text-[var(--color-paper)]"
               : missed
-                ? "border-white/10 bg-white/[0.02] text-[var(--color-paper-faint)]"
+                ? "border-edge bg-surface text-[var(--color-paper-faint)]"
                 : "border-transparent text-[var(--color-paper-faint)]";
 
           const label = day.total
@@ -126,7 +126,7 @@ export async function MonthCalendar({
                 aria-label={label}
                 title={label}
                 aria-current={day.isToday ? "date" : undefined}
-                className={`relative flex aspect-square flex-col items-center justify-center rounded-xl border text-sm transition hover:border-white/30 ${tone} ${
+                className={`relative flex aspect-square flex-col items-center justify-center rounded-xl border text-sm transition hover:border-edge-hover ${tone} ${
                   // Dny sousedních měsíců jen dorovnávají mřížku.
                   day.inMonth ? "" : "opacity-30"
                 } ${
@@ -162,7 +162,7 @@ export async function MonthCalendar({
           label={t("legendPartial")}
         />
         <Legend
-          className="border-white/10 bg-white/[0.02]"
+          className="border-edge bg-surface"
           label={t("legendMissed")}
         />
         <Legend className="border-transparent" label={t("legendEmpty")} />

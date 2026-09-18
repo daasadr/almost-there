@@ -52,7 +52,7 @@ export function UnfinishedTasks({ tasks }: { tasks: OverdueTask[] }) {
   };
 
   return (
-    <section className="rounded-2xl border border-white/10 bg-white/[0.02] p-5 sm:p-6">
+    <section className="rounded-2xl border border-edge bg-surface p-5 sm:p-6">
       <h2 className="text-sm font-semibold text-[var(--color-paper)]">
         {t("title", { count: remaining.length })}
       </h2>

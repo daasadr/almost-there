@@ -59,7 +59,7 @@ export function InstallPrompt() {
   };
 
   return (
-    <section className="rounded-2xl border border-white/10 bg-white/[0.02] p-5">
+    <section className="rounded-2xl border border-edge bg-surface p-5">
       <h2 className="text-sm font-semibold text-[var(--color-paper)]">
         {t("title")}
       </h2>

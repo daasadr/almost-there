@@ -29,7 +29,7 @@ export function AppNav() {
   return (
     <nav
       aria-label={t("sections")}
-      className="flex gap-1 rounded-full border border-white/10 bg-white/[0.02] p-1"
+      className="flex gap-1 rounded-full border border-edge bg-surface p-1"
     >
       {TABS.map((tab) => {
         // Detail cíle i zakládání nového patří pod „Cíle“ — jinak by se

@@ -112,8 +112,8 @@ export function Milestones({
               style={{ borderLeftColor: achieved ? color : "transparent" }}
               className={`rounded-xl border border-l-[3px] p-4 ${
                 achieved
-                  ? "border-white/10 bg-white/[0.03]"
-                  : "border-white/10"
+                  ? "border-edge bg-surface"
+                  : "border-edge"
               }`}
             >
               <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
@@ -145,7 +145,7 @@ export function Milestones({
                     maxLength={300}
                     placeholder={t("rewardPlaceholder")}
                     onChange={(event) => setDraft(event.target.value)}
-                    className="w-full rounded-lg border border-white/10 bg-black/25 px-3 py-2 text-sm text-[var(--color-paper)]"
+                    className="w-full rounded-lg border border-edge bg-scrim px-3 py-2 text-sm text-[var(--color-paper)]"
                   />
                   <div className="mt-2 flex gap-3">
                     <button

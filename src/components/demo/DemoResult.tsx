@@ -88,7 +88,7 @@ export function DemoResult({
 
       {/* Osa nejvyšší úrovně — jediná, kterou demo generuje. Jednotka se
           řídí délkou horizontu: u dlouhých cílů roky, u krátkých týdny. */}
-      <ol className="card divide-y divide-white/5 p-2">
+      <ol className="card divide-y divide-edge-faint p-2">
         {plan.periods.map((period) => (
           <li key={period.index} className="flex gap-5 p-5 sm:p-6">
             <div className="flex shrink-0 flex-col items-center">
@@ -116,7 +116,7 @@ export function DemoResult({
       </ol>
 
       {plan.assumptions.length > 0 && (
-        <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-6">
+        <div className="rounded-2xl border border-edge-faint bg-surface p-6">
           <h3 className="text-sm font-semibold text-[var(--color-paper)]">
             {t("assumptionsTitle")}
           </h3>
@@ -146,7 +146,7 @@ export function DemoResult({
           {t("noticeBody")}
         </p>
 
-        <div className="mt-7 border-t border-white/5 pt-6">
+        <div className="mt-7 border-t border-edge-faint pt-6">
           <h4 className="display text-xl">{t("ctaTitle")}</h4>
           <p className="mt-2 text-[15px] text-[var(--color-paper-dim)]">
             {t("ctaBody")}

@@ -88,7 +88,7 @@ export function PlanTrigger({
   return (
     <div
       ref={box}
-      className="rounded-2xl border border-white/10 p-5 sm:p-6 scroll-mt-32"
+      className="rounded-2xl border border-edge p-5 sm:p-6 scroll-mt-32"
     >
       {/* Text se liší podle toho, jestli rozpad běží sám, nebo na něj
           uživatel teprve čeká s prstem nad tlačítkem. */}
@@ -101,7 +101,7 @@ export function PlanTrigger({
 
       {running && (
         <div
-          className="mt-4 h-1.5 overflow-hidden rounded-full bg-white/10"
+          className="mt-4 h-1.5 overflow-hidden rounded-full bg-surface-strong"
           role="progressbar"
           aria-label={t("preparingTitle")}
         >

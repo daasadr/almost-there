@@ -132,7 +132,7 @@ export default async function AccountPage({
         </dl>
 
         {hasAccess && (
-          <div className="mt-7 border-t border-white/5 pt-6 text-sm">
+          <div className="mt-7 border-t border-edge-faint pt-6 text-sm">
             <UsageMeter userId={session.user.id} locale={locale} />
           </div>
         )}
@@ -140,7 +140,7 @@ export default async function AccountPage({
         {/* Zrušit předplatné musí jít z aplikace, ne jen ve Stripu.
             U přiděleného přístupu není co vypovídat. */}
         {billing?.stripeSubscriptionId && (
-          <div className="mt-7 border-t border-white/5 pt-6">
+          <div className="mt-7 border-t border-edge-faint pt-6">
             <CancelSubscription
               endsAt={billing.subscriptionEndsAt?.toISOString() ?? null}
               cancelAtPeriodEnd={billing.subscriptionCancelAtPeriodEnd}

@@ -52,7 +52,7 @@ export function ForgotPasswordForm() {
   if (done) {
     return (
       <div className="space-y-4">
-        <div className="rounded-xl border border-white/10 bg-white/[0.03] p-5">
+        <div className="rounded-xl border border-edge bg-surface p-5">
           <h2 className="display text-lg">{t("successTitle")}</h2>
           <p className="mt-2 text-[15px] leading-relaxed text-[var(--color-paper-dim)]">
             {t("successBody")}

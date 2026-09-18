@@ -88,7 +88,7 @@ export function CancelSubscription({
   }
 
   return (
-    <div className="rounded-xl border border-white/10 p-4">
+    <div className="rounded-xl border border-edge p-4">
       <p className="text-sm leading-relaxed text-[var(--color-paper-dim)]">
         {until ? t("confirmUntil", { date: until }) : t("confirm")}
       </p>
@@ -104,7 +104,7 @@ export function CancelSubscription({
           type="button"
           onClick={() => send(true)}
           disabled={pending}
-          className="rounded-full border border-white/20 px-4 py-1.5 text-sm text-[var(--color-paper)] transition hover:border-white/40 disabled:opacity-50"
+          className="rounded-full border border-edge-strong px-4 py-1.5 text-sm text-[var(--color-paper)] transition hover:border-edge-hover disabled:opacity-50"
         >
           {pending ? t("working") : t("confirmYes")}
         </button>
@@ -112,7 +112,7 @@ export function CancelSubscription({
           type="button"
           onClick={() => setConfirming(false)}
           disabled={pending}
-          className="rounded-full border border-white/10 px-4 py-1.5 text-sm text-[var(--color-paper-dim)]"
+          className="rounded-full border border-edge px-4 py-1.5 text-sm text-[var(--color-paper-dim)]"
         >
           {t("keep")}
         </button>
