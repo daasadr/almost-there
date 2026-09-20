@@ -393,7 +393,27 @@ export function TreeBackground() {
             "radial-gradient(40% 35% at 55% 40%, color-mix(in oklab, var(--color-lime-glow) 7%, transparent), transparent 70%)",
         }}
       />
-      <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
+      {/*
+        Spodní hrana stromu blednutím plátna, ne přetřením.
+
+        Dřív přes ni ležel pruh v barvě pozadí, který navrch přecházel
+        do neprůhledna. Na prázdném podkladu to nebylo poznat — jenže
+        u motivů s ozdobami ten pruh přetřel i obláčky za sebou a v místě,
+        kde strom končí, vznikl ostrý řez přes celou šířku.
+
+        Maska nic nekreslí, jen odebírá krytí samotnému plátnu. Strom se
+        tak vytratí a všechno za ním zůstane vidět.
+      */}
+      <canvas
+        ref={canvasRef}
+        style={{
+          maskImage:
+            "linear-gradient(to bottom, black 62%, transparent 96%)",
+          WebkitMaskImage:
+            "linear-gradient(to bottom, black 62%, transparent 96%)",
+        }}
+        className="absolute inset-0 h-full w-full"
+      />
       {/* Světlo pod kurzorem — samostatná vrstva, ať se nepřekresluje canvas */}
       <div
         ref={glowRef}
@@ -403,8 +423,6 @@ export function TreeBackground() {
             "radial-gradient(220px circle at var(--glow-x, 50%) var(--glow-y, 50%), color-mix(in oklab, var(--color-lime-soft) 10%, transparent), transparent 65%)",
         }}
       />
-      {/* Zjemnění spodní hrany, aby canvas nekončil řezem */}
-      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-[var(--color-ink-950)]" />
     </div>
   );
 }
