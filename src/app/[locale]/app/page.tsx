@@ -64,7 +64,7 @@ export default async function AppPage({
   const tb = await getTranslations({ locale, namespace: "billing" });
 
   // Z databáze, ne ze session — viz komentář v lib/billing/access.ts.
-  const { status, hasAccess, revoked } = await getAccess(
+  const { hasAccess, revoked } = await getAccess(
     session.user.id,
     session.user.issuedAt,
   );
@@ -104,7 +104,20 @@ export default async function AppPage({
     },
   });
 
-  const billing = account;
+
+  /*
+   * Aktuální čas se čte tady, ne uprostřed vykreslování.
+   *
+   * `Date.now()` v těle komponenty je nečistá funkce — výsledek se liší
+   * při každém zavolání. U serverové komponenty na tom nezáleží, protože
+   * se vykreslí jednou za požadavek, ale je to zvyk, který se u klientské
+   * komponenty vymstí: React si může vykreslení zopakovat a dostat pokaždé
+   * jiný výsledek.
+   */
+  const complimentaryEndingSoon =
+    account?.subscriptionSource === "COMPLIMENTARY" &&
+    account.subscriptionEndsAt !== null &&
+    account.subscriptionEndsAt.getTime() - Date.now() < 7 * 24 * 60 * 60 * 1000;
 
   return (
     <section className="mx-auto max-w-3xl px-5 py-10 sm:px-8 sm:py-14">
@@ -134,11 +147,7 @@ export default async function AppPage({
         Týden dopředu je dost na rozmyšlenou a málo na to, aby si toho
         člověk přestal všímat.
       */}
-      {hasAccess &&
-        account?.subscriptionSource === "COMPLIMENTARY" &&
-        account.subscriptionEndsAt &&
-        account.subscriptionEndsAt.getTime() - Date.now() <
-          7 * 24 * 60 * 60 * 1000 && (
+      {hasAccess && complimentaryEndingSoon && account?.subscriptionEndsAt && (
           <div className="mt-8 rounded-2xl border border-amber-400/25 bg-amber-400/5 p-5">
             <h2 className="text-sm font-semibold text-amber-200">
               {t("endingTitle")}
@@ -227,7 +236,7 @@ export default async function AppPage({
           {/* Hotový plán z dema má přednost před vším ostatním: uživatel
               právě zaplatil a tohle je nejrychlejší cesta k tomu, aby
               aplikaci hned na něco použil. */}
-          <ClaimDemo userId={session.user.id} locale={locale} />
+          <ClaimDemo userId={session.user.id} />
           <BudgetNotice userId={session.user.id} locale={locale} />
           {/* Ukáže se jen tehdy, když prohlížeč instalaci skutečně nabízí —
               jinak se nevykreslí vůbec. */}
@@ -241,13 +250,7 @@ export default async function AppPage({
 }
 
 /** Nabídka převzít cíl z dema, pokud v prohlížeči zůstal odkaz. */
-async function ClaimDemo({
-  userId,
-  locale,
-}: {
-  userId: string;
-  locale: string;
-}) {
+async function ClaimDemo({ userId }: { userId: string }) {
   const jar = await cookies();
   const demo = await findClaimableDemo(jar.get("demoGoal")?.value);
   if (!demo) return null;

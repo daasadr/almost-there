@@ -25,7 +25,7 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string; id: string }>;
 }): Promise<Metadata> {
-  const { locale, id } = await params;
+  const { id } = await params;
   const session = await auth();
   if (!session?.user?.id) return {};
 

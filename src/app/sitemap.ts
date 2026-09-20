@@ -26,7 +26,7 @@ const PAGES = [
 export default function sitemap(): MetadataRoute.Sitemap {
   const buildTime = new Date();
 
-  return [...pageEntries(buildTime), ...blogEntries(buildTime)];
+  return [...pageEntries(buildTime), ...blogEntries()];
 }
 
 function pageEntries(buildTime: Date): MetadataRoute.Sitemap {
@@ -57,7 +57,7 @@ function pageEntries(buildTime: Date): MetadataRoute.Sitemap {
  * Výpis se uvádí jen tehdy, když v daném jazyce nějaký článek je.
  * Prázdná stránka v mapě je slib, který nikdo nesplní.
  */
-function blogEntries(buildTime: Date): MetadataRoute.Sitemap {
+function blogEntries(): MetadataRoute.Sitemap {
   return locales.flatMap((locale) => {
     const items = articlesFor(locale);
     if (items.length === 0) return [];

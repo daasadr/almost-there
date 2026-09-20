@@ -1,3 +1,4 @@
+import { existsSync, readFileSync } from "node:fs";
 import { defineConfig } from "prisma/config";
 
 /**
@@ -17,11 +18,9 @@ if (!process.env.DATABASE_URL) {
 
 function loadEnvFile(path: string): void {
   try {
-    // Dynamický require, ať se to nepokouší běžet v prohlížeči.
-    const fs = require("node:fs") as typeof import("node:fs");
-    if (!fs.existsSync(path)) return;
+    if (!existsSync(path)) return;
 
-    for (const line of fs.readFileSync(path, "utf8").split("\n")) {
+    for (const line of readFileSync(path, "utf8").split("\n")) {
       const match = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/);
       if (!match) continue;
       const [, key, rawValue] = match;

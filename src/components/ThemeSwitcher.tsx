@@ -58,16 +58,30 @@ export function ThemeSwitcher() {
    */
   useEffect(() => {
     const stored = readStored(THEME_STORAGE_KEY);
-    const next = isTheme(stored) ? stored : DEFAULT_THEME;
+    setTheme(isTheme(stored) ? stored : DEFAULT_THEME);
+  }, [pathname]);
 
-    setTheme(next);
-
-    if (next === DEFAULT_THEME) {
+  /**
+   * Zápis značky na `<html>` je jen tady, na jediném místě.
+   *
+   * Dřív se psala i přímo ve výběru motivu, aby se přepnul okamžitě —
+   * jenže tím byl ten samý zápis v komponentě dvakrát a musel se držet
+   * v souladu. Takhle výběr jen změní stav a o promítnutí se postará
+   * tenhle efekt; okamžité to zůstává, React efekt spustí hned po
+   * překreslení.
+   *
+   * Závislost na cestě je tu schválně, i když se z ní nic nečte:
+   * přepnutí jazyka překreslí `<html lang>` a React u toho značku
+   * zahodí, protože ji tam nedal on. Bez toho by se motiv po změně
+   * jazyka vrátil na výchozí.
+   */
+  useEffect(() => {
+    if (theme === DEFAULT_THEME) {
       delete document.documentElement.dataset.theme;
     } else {
-      document.documentElement.dataset.theme = next;
+      document.documentElement.dataset.theme = theme;
     }
-  }, [pathname]);
+  }, [theme, pathname]);
 
   // Zavřít klepnutím vedle a klávesou Escape — obojí lidé u rozbalovacích
   // nabídek čekají a bez toho nabídka působí, že se zasekla.
@@ -92,14 +106,6 @@ export function ThemeSwitcher() {
   const choose = (next: Theme) => {
     setTheme(next);
     setOpen(false);
-
-    // Classic je výchozí a značku nepotřebuje — bez ní platí `:root`.
-    if (next === DEFAULT_THEME) {
-      delete document.documentElement.dataset.theme;
-    } else {
-      document.documentElement.dataset.theme = next;
-    }
-
     writeStored(THEME_STORAGE_KEY, next);
   };
 

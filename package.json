@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "prisma generate && next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate deploy",
@@ -15,7 +15,8 @@
     "og": "node scripts/og-images.mjs",
     "indexnow": "node scripts/indexnow.mjs",
     "stripe:check": "tsx scripts/stripe-check.ts",
-    "play:assets": "node scripts/play-assets.mjs"
+    "play:assets": "node scripts/play-assets.mjs",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.115.0",
@@ -49,6 +50,8 @@
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@types/web-push": "^3.6.4",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.3.5",
     "prisma": "^7.9.1",
     "tailwindcss": "^4.3.3",
     "tsx": "^4.23.11",
