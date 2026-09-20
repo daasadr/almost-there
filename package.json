@@ -16,7 +16,10 @@
     "indexnow": "node scripts/indexnow.mjs",
     "stripe:check": "tsx scripts/stripe-check.ts",
     "play:assets": "node scripts/play-assets.mjs",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "check": "npm run typecheck && npm run lint && npm run test"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.115.0",
@@ -55,6 +58,7 @@
     "prisma": "^7.9.1",
     "tailwindcss": "^4.3.3",
     "tsx": "^4.23.11",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "vitest": "^5.0.1"
   }
 }

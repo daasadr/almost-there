@@ -88,6 +88,21 @@ async function progressBetween(
     }),
   ]);
 
+  return mergeDayProgress(checkIns, plannedDays);
+}
+
+/**
+ * Sloučení obou zdrojů do jedné mapy podle data.
+ *
+ * Vytažené ven z databázové funkce schválně: tady bydlela chyba, kvůli
+ * které přehled hlásil „23 z 23 dní celých" člověku, který tři dny
+ * neudělal nic. Je to čistý výpočet nad daty, takže se dá otestovat
+ * bez databáze — viz checkin.test.ts.
+ */
+export function mergeDayProgress(
+  checkIns: { date: Date; tasksTotal: number; tasksCompleted: number }[],
+  plannedDays: { startDate: Date; tasks: { status: string }[] }[],
+): Map<string, { total: number; done: number }> {
   const byDate = new Map<string, { total: number; done: number }>();
 
   // Nejdřív z úkolů. Jeden den může mít bloky od víc cílů, takže se
