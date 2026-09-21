@@ -97,6 +97,10 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    # Kolik času dostane aplikace na dokončení rozdělané práce, než ji
+    # Docker zabije. Výchozích 10 s je málo: rozpad cíle modelem běží
+    # klidně minutu a uživateli by se při nasazení utnul uprostřed.
+    stop_grace_period: 90s
     logging:
       driver: json-file
       options:

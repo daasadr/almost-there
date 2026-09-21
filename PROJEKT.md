@@ -207,6 +207,8 @@ Nasazeno na **https://almost-there.eu**.
 - **Strop spotřeby AI** na uživatele a měsíc, s měřením každého volání
 - **Omezení počtu pokusů** u přihlášení, registrace, dema i generování
 - **Zálohy databáze** a nasazení jedním skriptem
+- **Hlídač dostupnosti**: každých pět minut ťuká na `/api/health` a když se
+  aplikace neozve, pošle e-mail. Při nasazování mlčí
 
 ---
 
@@ -231,6 +233,7 @@ přiznat, protože je snazší programovat než shánět lidi.
 | Doporučení mezi uživateli | „Pozvi kamaráda, oba dostanete měsíc." Levnější než afiliace a nic neodtéká ven. Má smysl až u pár desítek platících |
 | Články na blog | Základ hotový, obsah chybí. Blog není nikde odkazovaný, dokud nebude co ukázat |
 | Build mimo server | Nasazení trvá skoro dvě hodiny, protože se staví na VPS. Přesun do GitHub Actions z toho udělá minutu |
+| Nasazení bez výpadku (blue/green) | Dnes je výpadek při přepnutí desítky vteřin. Předpokládá hotový build mimo server — se dvouhodinovým buildem na stejném stroji nejde mít dvě verze vedle sebe. Pozor na dvě věci: migrace musí být zpětně snesitelné (stará verze už dnes chvíli běží nad novým schématem, viz `deploy.sh`), a starý kontejner musí ještě pár minut dožít, jinak si otevřené stránky nedožádají své kousky JavaScriptu |
 | Atrapa modelu i pro zakládání cíle | Zatím pokrývá jen demo. Bez toho nejde průchodovým testem projít nejdůležitější cestu: založit cíl a odškrtnout dnešní úkol |
 | Offline checklist se synchronizací | Service worker existuje, ale data neukládá |
 | App Store | Vyžaduje placený vývojářský účet. Až po Google Play |
@@ -410,6 +413,24 @@ restart při nasazení a při dvou instancích by běžel dvakrát:
 */5 * * * * curl -fsS -H "Authorization: Bearer $CRON_SECRET" \
   https://almost-there.eu/api/cron/notify > /dev/null
 ```
+
+Hlídač dostupnosti běží stejně. Ptá se `/api/health`, ne obyčejné stránky —
+ta se vykreslí i ve chvíli, kdy je databáze pryč, a aplikace, která na
+databázi nedosáhne, uživateli k ničemu není:
+
+```
+*/5 * * * * cd /opt/almostthere && ./deploy/watch.sh >> /var/log/almostthere-watch.log 2>&1
+```
+
+Hlásí jen **změnu stavu**, ne každé ťuknutí: u hodinového výpadku přijde
+jeden e-mail na začátku a jeden na konci. Během nasazování mlčí, protože
+`deploy.sh` si po dobu běhu položí zámek — planý poplach při každém
+nasazení by vedl k tomu, že si na ně člověk zvykne a přehlédne i ten pravý.
+
+Běží na stejném stroji jako aplikace, takže **výpadek celého serveru ani
+sítě neodhalí**. Na to je potřeba služba zvenčí (UptimeRobot má zdarma
+tarif, který na tohle stačí). Odhalí ale ten případ, který nastal
+21. září 2026: server jel, nginx jel, a spadlý byl kontejner s aplikací.
 
 ### Tajemství, která se nedají obnovit
 

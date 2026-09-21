@@ -53,8 +53,10 @@ RUN mkdir -p /app/uploads && chown nextjs:nodejs /app/uploads
 USER nextjs
 EXPOSE 3000
 
-# Healthcheck ověřuje, že appka opravdu odpovídá, ne jen že proces běží
-HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
-  CMD node -e "fetch('http://127.0.0.1:3000/en').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+# Healthcheck se ptá /api/health, ne obyčejné stránky. Vykreslená stránka
+# projde i tehdy, když je databáze pryč — jenže aplikace, která na databázi
+# nedosáhne, je uživateli k ničemu.
+HEALTHCHECK --interval=30s --timeout=8s --start-period=20s --retries=3 \
+  CMD node -e "fetch('http://127.0.0.1:3000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
 
 CMD ["node", "server.js"]

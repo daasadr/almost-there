@@ -19,6 +19,13 @@ fi
 APP_PORT="$(grep -E '^APP_PORT=' .env | cut -d= -f2 | tr -d '[:space:]')"
 APP_PORT="${APP_PORT:-3000}"
 
+# Zámek, podle kterého hlídač dostupnosti pozná, že nedostupnost je
+# naše práce, a nemá kvůli ní budit. Uklízí se i při chybě a při
+# přerušení — zapomenutý zámek by hlídače umlčel.
+LOCK="/var/tmp/almostthere-deploy.lock"
+touch "$LOCK"
+trap 'rm -f "$LOCK"' EXIT
+
 echo "==> Stahuji změny z gitu"
 git pull --ff-only
 
@@ -58,8 +65,11 @@ docker image prune -f
 docker builder prune -f --filter until=168h
 
 echo "==> Čekám, až aplikace naběhne"
+# Ptá se /api/health, který sahá i do databáze. Kdyby se čekalo na
+# obyčejnou stránku, deploy by ohlásil „hotovo" i ve chvíli, kdy appka
+# na databázi nedosáhne — a poznal by to až první uživatel.
 for i in $(seq 1 30); do
-  if curl -fsS -o /dev/null "http://127.0.0.1:${APP_PORT}/en"; then
+  if curl -fsS -o /dev/null "http://127.0.0.1:${APP_PORT}/api/health"; then
     echo "Hotovo — aplikace odpovídá."
     exit 0
   fi
