@@ -522,8 +522,8 @@
       "emptyBody": "Založ první cíl a AI ho rozfázuje až na to, co máš dělat dnes.",
       "create": "Nový cíl",
       "targetDate": "Termín {date}",
-      "progress": "{done} z {total} úkolů",
-      "noTasks": "Zatím bez rozepsaných úkolů",
+      "progress": "{current}. etapa z {total}",
+      "noTasks": "Zatím bez rozfázování",
       "open": "Otevřít plán",
       "status": {
         "ACTIVE": "Běží",
@@ -535,7 +535,8 @@
       "draftBody": "Nedokončené zadání ti zůstalo uložené. Můžeš v něm pokračovat, nebo ho zahodit.",
       "draftContinue": "Pokračovat v zadávání",
       "draftDiscard": "Zahodit",
-      "openPlan": "Zobrazit celý plán"
+      "openPlan": "Zobrazit celý plán",
+      "ticked": "{count, plural, one {# odškrtnutý úkol} few {# odškrtnuté úkoly} other {# odškrtnutých úkolů}}"
     },
     "form": {
       "title": "Nový cíl",

@@ -14,7 +14,21 @@ export type GoalSummary = {
   completedAt: Date | null;
   completionNote: string | null;
   feasibility: string | null;
-  tasksTotal: number;
+  /**
+   * Kolikátou etapou plánu cíl prochází a kolik jich celkem má.
+   *
+   * Dřív tu byl podíl odškrtnutých úkolů ke všem, jenže „všechny" znamená
+   * ty, které v databázi existují — a ty vznikají jen pro období, které
+   * se už rozepsalo. U cíle rozepsaného měsíc dopředu tak ukazatel skočil
+   * na sto procent hned v prvním týdnu a zůstal tam.
+   *
+   * Etapy nejvyšší úrovně vzniknou všechny při založení cíle, takže
+   * z nich jde počítat od prvního dne a nikdy nelžou. Nula znamená, že
+   * cíl ještě nezačal nebo se ještě nerozfázoval.
+   */
+  stageCurrent: number;
+  stagesTotal: number;
+  /** Kolik úkolů má za sebou. Absolutní číslo, které nemá jak klamat. */
   tasksDone: number;
 };
 
@@ -31,7 +45,6 @@ export async function listGoals(userId: string): Promise<GoalSummary[]> {
       completedAt: true,
       completionNote: true,
       feasibility: true,
-      _count: { select: { tasks: true } },
     },
   });
 
@@ -43,18 +56,63 @@ export async function listGoals(userId: string): Promise<GoalSummary[]> {
   });
   const doneByGoal = new Map(done.map((row) => [row.goalId, row._count._all]));
 
-  return goals.map((goal) => ({
-    id: goal.id,
-    title: goal.title,
-    targetDate: goal.targetDate,
-    status: goal.status,
-    color: goal.color,
-    completedAt: goal.completedAt,
-    completionNote: goal.completionNote,
-    feasibility: goal.feasibility,
-    tasksTotal: goal._count.tasks,
-    tasksDone: doneByGoal.get(goal.id) ?? 0,
-  }));
+  // Etapy nejvyšší úrovně. Vzniknou všechny při založení cíle, takže
+  // se z nich dá počítat postup od prvního dne.
+  const stages = await db.timeBlock.findMany({
+    where: { goal: { userId }, parentBlockId: null },
+    orderBy: { startDate: "asc" },
+    select: { goalId: true, startDate: true, endDate: true },
+  });
+
+  const stagesByGoal = new Map<string, { startDate: Date; endDate: Date }[]>();
+  for (const stage of stages) {
+    const list = stagesByGoal.get(stage.goalId) ?? [];
+    list.push(stage);
+    stagesByGoal.set(stage.goalId, list);
+  }
+
+  const now = new Date();
+
+  return goals.map((goal) => {
+    const own = stagesByGoal.get(goal.id) ?? [];
+
+    return {
+      id: goal.id,
+      title: goal.title,
+      targetDate: goal.targetDate,
+      status: goal.status,
+      color: goal.color,
+      completedAt: goal.completedAt,
+      completionNote: goal.completionNote,
+      feasibility: goal.feasibility,
+      // Dotažený cíl je hotový celý, i když ho člověk uzavřel dřív.
+      stageCurrent:
+        goal.status === "COMPLETED" ? own.length : stageOf(own, now),
+      stagesTotal: own.length,
+      tasksDone: doneByGoal.get(goal.id) ?? 0,
+    };
+  });
+}
+
+/**
+ * Kolikátou etapou plán právě prochází. Počítá se od jedničky.
+ *
+ * Nula znamená, že se na cíl ještě nedošlo — buď nemá etapy, nebo jeho
+ * první teprve začne. Po konci poslední etapy vrací počet všech, aby
+ * ukazatel nespadl zpátky na nulu u cíle, kterému uplynul termín.
+ */
+export function stageOf(
+  stages: { startDate: Date; endDate: Date }[],
+  now: Date,
+): number {
+  if (stages.length === 0) return 0;
+
+  const index = stages.findIndex(
+    (stage) => stage.startDate <= now && now <= stage.endDate,
+  );
+  if (index >= 0) return index + 1;
+
+  return now < stages[0].startDate ? 0 : stages.length;
 }
 
 export type PlanNode = {

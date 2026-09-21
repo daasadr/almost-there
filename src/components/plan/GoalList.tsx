@@ -52,22 +52,32 @@ export async function GoalList({
               {t("targetDate", { date: formatDate.format(goal.targetDate) })}
             </p>
 
-            {goal.tasksTotal > 0 ? (
+            {goal.stagesTotal > 0 ? (
               <div className="mt-4">
+                {/* Pruh ukazuje, kde v plánu cíl je, ne kolik úkolů je
+                    odškrtnutých. Viz komentář u `stageCurrent`. */}
                 <div className="h-1.5 overflow-hidden rounded-full bg-surface-strong">
                   <div
                     className="h-full rounded-full"
                     style={{
                       backgroundColor: goalHex(goal.color),
-                      width: `${Math.round((goal.tasksDone / goal.tasksTotal) * 100)}%`,
+                      width: `${Math.round((goal.stageCurrent / goal.stagesTotal) * 100)}%`,
                     }}
                   />
                 </div>
-                <p className="mt-2 text-xs text-[var(--color-paper-faint)]">
-                  {t("progress", {
-                    done: goal.tasksDone,
-                    total: goal.tasksTotal,
-                  })}
+                <p className="mt-2 flex flex-wrap gap-x-2 text-xs text-[var(--color-paper-faint)]">
+                  <span>
+                    {t("progress", {
+                      current: Math.max(1, goal.stageCurrent),
+                      total: goal.stagesTotal,
+                    })}
+                  </span>
+                  {goal.tasksDone > 0 && (
+                    <>
+                      <span aria-hidden="true">·</span>
+                      <span>{t("ticked", { count: goal.tasksDone })}</span>
+                    </>
+                  )}
                 </p>
               </div>
             ) : (

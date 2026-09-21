@@ -522,8 +522,8 @@
       "emptyBody": "Set your first goal and the AI will break it down all the way to what you do today.",
       "create": "New goal",
       "targetDate": "Due {date}",
-      "progress": "{done} of {total} tasks",
-      "noTasks": "No tasks written out yet",
+      "progress": "stage {current} of {total}",
+      "noTasks": "Not broken down yet",
       "open": "Open plan",
       "status": {
         "ACTIVE": "Running",
@@ -535,7 +535,8 @@
       "draftBody": "Your unfinished draft has been kept. You can carry on with it or discard it.",
       "draftContinue": "Carry on",
       "draftDiscard": "Discard",
-      "openPlan": "View the full plan"
+      "openPlan": "View the full plan",
+      "ticked": "{count, plural, one {# task ticked off} other {# tasks ticked off}}"
     },
     "form": {
       "title": "New goal",

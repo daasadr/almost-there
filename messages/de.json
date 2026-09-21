@@ -522,8 +522,8 @@
       "emptyBody": "Leg dein erstes Ziel an — die KI in Phasen gliedert es bis hin zu dem, was du heute tust.",
       "create": "Neues Ziel",
       "targetDate": "Termin {date}",
-      "progress": "{done} von {total} Aufgaben",
-      "noTasks": "Noch keine Aufgaben ausgeschrieben",
+      "progress": "Etappe {current} von {total}",
+      "noTasks": "Noch nicht aufgeteilt",
       "open": "Plan öffnen",
       "status": {
         "ACTIVE": "Läuft",
@@ -535,7 +535,8 @@
       "draftBody": "Dein unfertiger Entwurf wurde gespeichert. Du kannst weitermachen oder ihn verwerfen.",
       "draftContinue": "Weitermachen",
       "draftDiscard": "Verwerfen",
-      "openPlan": "Den ganzen Plan ansehen"
+      "openPlan": "Den ganzen Plan ansehen",
+      "ticked": "{count, plural, one {# erledigte Aufgabe} other {# erledigte Aufgaben}}"
     },
     "form": {
       "title": "Neues Ziel",
