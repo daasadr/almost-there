@@ -29,8 +29,10 @@ test("zvolený motiv přežije přepnutí jazyka", async ({ page }) => {
   await page.getByRole("menuitemradio", { name: /Jungle/ }).click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "jungle");
 
-  // Přepínač jazyka je v hlavičce jen na širším displeji.
-  await page.getByLabel("Jazyk").selectOption("en");
+  // Přepínač jazyka je na stránce dvakrát — v hlavičce a v patičce,
+  // protože na úzkém displeji se ten v hlavičce schovává. Výběr proto
+  // musí říct, o který z nich jde.
+  await page.getByRole("banner").getByLabel("Jazyk").selectOption("en");
 
   await expect(page).toHaveURL(/\/en(\/|$)/);
   await expect(page.locator("html")).toHaveAttribute("data-theme", "jungle");

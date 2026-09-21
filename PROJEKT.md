@@ -127,8 +127,18 @@ spojuje tatáž příčina — počítat z dat, která vznikají až s aktivitou
 jako by popisovala celek.
 
 **Průchodové testy** hlídají hrstku cest, které musí fungovat vždycky:
-hranici přihlášení, demo a přežití zvoleného vzhledu. Běží proti atrapě
-modelu (`DEMO_MOCK=true`), takže jsou rychlé, zdarma a pokaždé stejné.
+hranici přihlášení, demo a přežití zvoleného vzhledu.
+
+Devět z deseti nepotřebuje nic než adresu — dají se pustit rovnou proti
+nasazenému webu a nic v něm nemění:
+
+```bash
+E2E_BASE_URL=https://almost-there.eu npx playwright test e2e/theme.spec.ts e2e/access.spec.ts
+```
+
+Demo se takhle pouštět nemá — volalo by model a spotřebovávalo denní
+strop. To jediné potřebuje běžící aplikaci s `DEMO_MOCK=true`, a tedy
+i databázi.
 
 Co testy **nedělají**: nepokrývají komponenty ani databázi a nenahrazují
 projití aplikace rukou. Většinu chyb v tomhle projektu odhalilo až
