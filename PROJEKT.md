@@ -112,6 +112,28 @@ v ní schová všechno, co vede k placení mimo obchod — pravidlo Google Play.
 Ze stejného důvodu v ní není přihlášení Googlem: to ve vloženém webview
 Google zakazuje.
 
+### Jak se kontroluje, že to drží
+
+```bash
+npm run check   # typy + linter + jednotkové testy
+npm run e2e     # průchodové testy (potřebují běžící aplikaci)
+```
+
+**Jednotkové testy** pokrývají logiku nad daty — kalendář, slučování
+plnění, výpočet nového termínu, rozepsaný cíl, pozici v etapách. Vybrané
+podle jediného pravidla: pokrýt to, kde skutečně vznikly chyby. Trojici
+„23 z 23", slepotu vyhodnocení tempa a plný ukazatel v prvním týdnu
+spojuje tatáž příčina — počítat z dat, která vznikají až s aktivitou,
+jako by popisovala celek.
+
+**Průchodové testy** hlídají hrstku cest, které musí fungovat vždycky:
+hranici přihlášení, demo a přežití zvoleného vzhledu. Běží proti atrapě
+modelu (`DEMO_MOCK=true`), takže jsou rychlé, zdarma a pokaždé stejné.
+
+Co testy **nedělají**: nepokrývají komponenty ani databázi a nenahrazují
+projití aplikace rukou. Většinu chyb v tomhle projektu odhalilo až
+používání — překladač i build procházely a aplikace přitom lhala.
+
 ### Kde je jádro
 
 `src/lib/ai/decompose.ts` — prompt a volání API. Tenhle soubor rozhoduje
@@ -199,7 +221,7 @@ přiznat, protože je snazší programovat než shánět lidi.
 | Doporučení mezi uživateli | „Pozvi kamaráda, oba dostanete měsíc." Levnější než afiliace a nic neodtéká ven. Má smysl až u pár desítek platících |
 | Články na blog | Základ hotový, obsah chybí. Blog není nikde odkazovaný, dokud nebude co ukázat |
 | Build mimo server | Nasazení trvá skoro dvě hodiny, protože se staví na VPS. Přesun do GitHub Actions z toho udělá minutu |
-| ESLint | V projektu není a skript `lint` volá zrušený `next lint`. Žádná automatická kontrola kvality |
+| Atrapa modelu i pro zakládání cíle | Zatím pokrývá jen demo. Bez toho nejde průchodovým testem projít nejdůležitější cestu: založit cíl a odškrtnout dnešní úkol |
 | Offline checklist se synchronizací | Service worker existuje, ale data neukládá |
 | App Store | Vyžaduje placený vývojářský účet. Až po Google Play |
 
