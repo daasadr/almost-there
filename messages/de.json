@@ -471,7 +471,7 @@
       "today": "Heute",
       "goals": "Ziele",
       "newGoal": "Neues Ziel",
-      "settings": "Wie geplant wird",
+      "settings": "Wichtige Einstellungen",
       "guide": "Anleitung",
       "account": "Mein Konto",
       "sections": "App-Bereiche"
@@ -491,6 +491,7 @@
       "preparingBody": "Der nächste Abschnitt wird in konkrete Tage in Phasen gliedert. Das dauert einen Moment, passiert aber nur einmal pro Abschnitt.",
       "preparingCta": "Heute planen",
       "preparingFailed": "Die Phasenplanung wurde nicht fertig. Bitte versuch es gleich noch einmal.",
+      "replanInProgress": "Der Plan wird gerade neu berechnet, Häkchen werden deshalb nicht gespeichert. Versuch es gleich noch einmal — es geht nichts verloren.",
       "readyTitle": "In konkrete Tage in Phasen gliedern",
       "readyBody": "Die obere Phasenplanung steht. Den nächsten Abschnitt in Tage mit Aufgaben zu übersetzen startest du per Klick — bewusst nicht automatisch, damit nichts für einen Plan entsteht, den du vielleicht gar nicht behältst.",
       "celebrations": [
@@ -645,6 +646,7 @@
       "generic": "Etwas ist schiefgelaufen. Bitte versuch es erneut.",
       "planLimitReached": "Du hast das Monatslimit für neue Pläne erreicht. Laufende Ziele funktionieren weiter; das Limit setzt sich am Ersten des nächsten Monats zurück.",
       "replanTooSoon": "Du hast dieses Ziel gerade erst neu geplant. Versuch es morgen — der Plan braucht mindestens einen Tag, bevor es etwas zu bewerten gibt.",
+      "replanInProgress": "Dieses Ziel wird bereits neu geplant. Warte, bis es fertig ist.",
       "nameTooShort": "Der Name ist zu kurz. Ein paar Wörter genügen.",
       "nameTooLong": "Der Name ist zu lang. Kürz ihn auf ein paar Wörter — Details gehören ins Feld darunter.",
       "deadlinePassed": "Der Termin ist bereits verstrichen, aufholen lässt er sich also nicht mehr. Verschiebe den Termin — der Plan wird nach dem Tempo neu berechnet, das du tatsächlich hältst."
@@ -694,7 +696,7 @@
       "later": "Jetzt nicht, frag mich in einer Woche"
     },
     "settings": {
-      "title": "Wie geplant wird",
+      "title": "Wichtige Einstellungen",
       "subtitle": "Aus diesen Angaben entsteht jeder Plan. Je näher sie an der Wirklichkeit sind, desto weniger musst du dich mit deinem Plan herumschlagen.",
       "back": "Zurück zur App",
       "capacityLabel": "Wie viel Zeit du täglich für deine Ziele hast",

@@ -6,6 +6,11 @@ import { assertWithinBudget, recordUsage } from "@/lib/ai/usage";
 import { parseIsoDate, toIsoDate, todayIso } from "@/lib/plan/calendar";
 import { estimateNewTarget, getPaceStatus } from "./pace";
 import { syncMilestones } from "./milestones";
+import {
+  acquireReplanLock,
+  ReplanInProgressError,
+  releaseReplanLock,
+} from "./replan-lock";
 import type { BlockLevel } from "@/generated/prisma";
 import type { Locale } from "@/i18n/routing";
 
@@ -131,175 +136,193 @@ export async function replanGoal({
 
   await assertWithinBudget(goal.userId);
 
-  const timezone = goal.user.timezone;
-  const todayStr = todayIso(timezone);
-  const today = parseIsoDate(todayStr);
-
-  const pace = await getPaceStatus(goalId, timezone);
-  const completionRate = pace?.completionRate ?? 1;
-  const missedDays = pace?.missedDays ?? 0;
-
-  const newTargetDate =
-    mode === "moveDeadline"
-      ? estimateNewTarget(today, goal.targetDate, completionRate)
-      : goal.targetDate;
-
-  // Bez budoucnosti není co plánovat. Viz DeadlinePassedError.
-  if (newTargetDate.getTime() <= today.getTime()) {
-    throw new DeadlinePassedError("Termín cíle už uplynul.");
+  /**
+   * Odtud dál se do cíle nesmí sahat zvenčí.
+   *
+   * Následuje čtení tempa, několikaminutový hovor s modelem a nakonec
+   * výměna celého plánu ode dneška dál. Odškrtnutí úkolu, které mezi tím
+   * projde, se buď ztratí, nebo se rozejde s číslem, podle kterého model
+   * psal zdůvodnění. Viz `replan-lock.ts`.
+   */
+  if (!(await acquireReplanLock(goalId))) {
+    throw new ReplanInProgressError("Cíl se právě přeplánovává.");
   }
 
-  // Milníky období, která už začala — vstup pro model, ať ví, odkud
-  // navazuje. Patří sem i období právě běžící: jeho první část je taky
-  // za námi a částečně splněná.
-  const pastBlocks = await db.timeBlock.findMany({
-    where: { goalId, parentBlockId: null, startDate: { lt: today } },
-    orderBy: { startDate: "asc" },
-    select: { summary: true },
-  });
+  try {
+    const timezone = goal.user.timezone;
+    const todayStr = todayIso(timezone);
+    const today = parseIsoDate(todayStr);
 
-  /**
-   * A období, která teprve přijdou.
-   *
-   * Právě tahle část plánu se za chvíli smaže a nahradí novou — a dokud
-   * ji model neviděl, stavěl zbytek cesty od nuly jen z názvu cíle.
-   * Rozmyšlené kroky tím mizely a po každém přeplánování vycházel trochu
-   * jiný plán. U úpravy směru je to nejcitelnější: mění se jediná věc,
-   * takže zbytek nemá důvod se hýbat.
-   *
-   * Je to jen souhrn období nejvyšší úrovně, ne celý strom — na
-   * navázání to stačí a týdny s dny se stejně počítají znovu.
-   */
-  const upcomingBlocks = await db.timeBlock.findMany({
-    where: { goalId, parentBlockId: null, endDate: { gte: today } },
-    orderBy: { startDate: "asc" },
-    select: { summary: true },
-  });
+    const pace = await getPaceStatus(goalId, timezone);
+    const completionRate = pace?.completionRate ?? 1;
+    const missedDays = pace?.missedDays ?? 0;
 
-  /**
-   * Proč něco nešlo — vlastními slovy uživatele, z odložených úkolů.
-   *
-   * Tohle je jediné místo, kde se plán dozví o překážkách stojících mimo
-   * něj: že nejsou peníze na zkoušku, že se čeká na někoho jiného. Bez
-   * nich by nový plán narazil na tutéž zeď podruhé.
-   *
-   * Bere se posledních pár a jen ty vyplněné — políčko je nepovinné
-   * a delší seznam by v promptu jen ředil to podstatné.
-   */
-  const deferred = await db.task.findMany({
-    where: { goalId, deferReason: { not: null } },
-    orderBy: { updatedAt: "desc" },
-    take: 5,
-    select: { deferReason: true },
-  });
-  const blockers = deferred
-    .map((task) => task.deferReason?.trim())
-    .filter((reason): reason is string => Boolean(reason));
+    const newTargetDate =
+      mode === "moveDeadline"
+        ? estimateNewTarget(today, goal.targetDate, completionRate)
+        : goal.targetDate;
 
-  const { plan, usage, ranges } = await decomposeGoal({
-    goal: goal.title,
-    // Bez těchhle dvou by přeplánovaný cíl vyšel obecnější než původní.
-    context: goal.description ?? undefined,
-    startingPoint: goal.startingPoint ?? undefined,
-    targetDate: toIsoDate(newTargetDate),
-    locale: asLocale(goal.locale),
-    today: todayStr,
-    dailyCapacityMinutes: goal.user.dailyCapacityMinutes,
-    restFrequency: REST_WORDS[goal.user.restFrequency],
-    reflectionMinutesPerDay: goal.user.reflectionMinutesDay,
-    replan: {
-      pastMilestones: pastBlocks.map((block) => block.summary),
-      upcomingMilestones: upcomingBlocks.map((block) => block.summary),
-      completionRate,
-      missedDays,
-      deadlineMoved: mode === "moveDeadline",
-      blockers,
-      steer,
-    },
-  }).catch(async (error) => {
-    if (error instanceof AiFormatError && error.usage) {
-      await recordUsage({
-        userId: goal.userId,
-        operation: "REPLAN",
-        usage: error.usage,
-        label: `přeplánování ${goal.id} — NEÚSPĚCH`,
-      });
+    // Bez budoucnosti není co plánovat. Viz DeadlinePassedError.
+    if (newTargetDate.getTime() <= today.getTime()) {
+      throw new DeadlinePassedError("Termín cíle už uplynul.");
     }
-    throw error;
-  });
 
-  await recordUsage({
-    userId: goal.userId,
-    operation: "REPLAN",
-    usage,
-    label: `přeplánování ${mode} období=${plan.periods.length}`,
-  });
-
-  const level = planUnit(plan.level) as BlockLevel;
-
-  const yesterday = new Date(today.getTime() - 86_400_000);
-
-  await db.$transaction(async (tx) => {
-    // Odejde všechno od dneška dál, na kterékoliv úrovni. Kaskáda ve
-    // schématu vezme s bloky i jejich úkoly.
-    await tx.timeBlock.deleteMany({
-      where: { goalId, startDate: { gte: today } },
+    // Milníky období, která už začala — vstup pro model, ať ví, odkud
+    // navazuje. Patří sem i období právě běžící: jeho první část je taky
+    // za námi a částečně splněná.
+    const pastBlocks = await db.timeBlock.findMany({
+      where: { goalId, parentBlockId: null, startDate: { lt: today } },
+      orderBy: { startDate: "asc" },
+      select: { summary: true },
     });
 
-    // Období, které dneškem teprve prochází, se nemaže, jen zkrátí ke
-    // včerejšku. Kdyby zmizelo celé, přišli bychom s ním o odškrtané dny
-    // z jeho první poloviny — a právě podle nich se počítá, jak rychle
-    // to člověku jde. Bez té historie by příští vyhodnocení tempa začínalo
-    // od nuly a vyšlo by nesmyslně optimisticky.
-    await tx.timeBlock.updateMany({
-      where: { goalId, endDate: { gte: today } },
-      data: { endDate: yesterday },
+    /**
+     * A období, která teprve přijdou.
+     *
+     * Právě tahle část plánu se za chvíli smaže a nahradí novou — a dokud
+     * ji model neviděl, stavěl zbytek cesty od nuly jen z názvu cíle.
+     * Rozmyšlené kroky tím mizely a po každém přeplánování vycházel trochu
+     * jiný plán. U úpravy směru je to nejcitelnější: mění se jediná věc,
+     * takže zbytek nemá důvod se hýbat.
+     *
+     * Je to jen souhrn období nejvyšší úrovně, ne celý strom — na
+     * navázání to stačí a týdny s dny se stejně počítají znovu.
+     */
+    const upcomingBlocks = await db.timeBlock.findMany({
+      where: { goalId, parentBlockId: null, endDate: { gte: today } },
+      orderBy: { startDate: "asc" },
+      select: { summary: true },
     });
 
-    await tx.goal.update({
-      where: { id: goalId },
-      data: {
-        targetDate: newTargetDate,
-        restatement: plan.goalRestated,
-        assumptions: plan.assumptions,
-        feasibility: plan.feasibility,
-        feasibilityNote: plan.feasibilityNote,
-        timeBlocks: {
-          create: plan.periods.map((period, i) => ({
-            level,
-            startDate: ranges[i].startDate,
-            endDate: ranges[i].endDate,
-            title: period.title,
-            summary: period.milestone,
-            position: i + 1,
-          })),
-        },
-      },
+    /**
+     * Proč něco nešlo — vlastními slovy uživatele, z odložených úkolů.
+     *
+     * Tohle je jediné místo, kde se plán dozví o překážkách stojících mimo
+     * něj: že nejsou peníze na zkoušku, že se čeká na někoho jiného. Bez
+     * nich by nový plán narazil na tutéž zeď podruhé.
+     *
+     * Bere se posledních pár a jen ty vyplněné — políčko je nepovinné
+     * a delší seznam by v promptu jen ředil to podstatné.
+     */
+    const deferred = await db.task.findMany({
+      where: { goalId, deferReason: { not: null } },
+      orderBy: { updatedAt: "desc" },
+      take: 5,
+      select: { deferReason: true },
     });
+    const blockers = deferred
+      .map((task) => task.deferReason?.trim())
+      .filter((reason): reason is string => Boolean(reason));
 
-    await tx.replanEvent.create({
-      data: {
-        goalId,
-        // Úprava směru není skluz. Je to vlastní rozhodnutí uživatele
-        // a v historii cíle se má číst jinak než „nestíhal“.
-        reason: mode === "adjust" ? "MANUAL" : "BEHIND_SCHEDULE",
-        // SCHEDULE_ONLY = termín zůstává, mění se rozvržení.
-        // FULL_REDECOMPOSITION = posunul se i termín.
-        scope:
-          mode === "moveDeadline" ? "FULL_REDECOMPOSITION" : "SCHEDULE_ONLY",
-        oldTargetDate: goal.targetDate,
-        newTargetDate,
+    const { plan, usage, ranges } = await decomposeGoal({
+      goal: goal.title,
+      // Bez těchhle dvou by přeplánovaný cíl vyšel obecnější než původní.
+      context: goal.description ?? undefined,
+      startingPoint: goal.startingPoint ?? undefined,
+      targetDate: toIsoDate(newTargetDate),
+      locale: asLocale(goal.locale),
+      today: todayStr,
+      dailyCapacityMinutes: goal.user.dailyCapacityMinutes,
+      restFrequency: REST_WORDS[goal.user.restFrequency],
+      reflectionMinutesPerDay: goal.user.reflectionMinutesDay,
+      replan: {
+        pastMilestones: pastBlocks.map((block) => block.summary),
+        upcomingMilestones: upcomingBlocks.map((block) => block.summary),
         completionRate,
-        aiSummary: plan.feasibilityNote,
+        missedDays,
+        deadlineMoved: mode === "moveDeadline",
+        blockers,
+        steer,
       },
+    }).catch(async (error) => {
+      if (error instanceof AiFormatError && error.usage) {
+        await recordUsage({
+          userId: goal.userId,
+          operation: "REPLAN",
+          usage: error.usage,
+          label: `přeplánování ${goal.id} — NEÚSPĚCH`,
+        });
+      }
+      throw error;
     });
-  });
 
-  // Nová období, nové milníky. Dosažené zůstávají — jsou to zážitky,
-  // ne položky rozvrhu.
-  await syncMilestones(goalId);
+    await recordUsage({
+      userId: goal.userId,
+      operation: "REPLAN",
+      usage,
+      label: `přeplánování ${mode} období=${plan.periods.length}`,
+    });
 
-  return { newTargetDate };
+    const level = planUnit(plan.level) as BlockLevel;
+
+    const yesterday = new Date(today.getTime() - 86_400_000);
+
+    await db.$transaction(async (tx) => {
+      // Odejde všechno od dneška dál, na kterékoliv úrovni. Kaskáda ve
+      // schématu vezme s bloky i jejich úkoly.
+      await tx.timeBlock.deleteMany({
+        where: { goalId, startDate: { gte: today } },
+      });
+
+      // Období, které dneškem teprve prochází, se nemaže, jen zkrátí ke
+      // včerejšku. Kdyby zmizelo celé, přišli bychom s ním o odškrtané dny
+      // z jeho první poloviny — a právě podle nich se počítá, jak rychle
+      // to člověku jde. Bez té historie by příští vyhodnocení tempa začínalo
+      // od nuly a vyšlo by nesmyslně optimisticky.
+      await tx.timeBlock.updateMany({
+        where: { goalId, endDate: { gte: today } },
+        data: { endDate: yesterday },
+      });
+
+      await tx.goal.update({
+        where: { id: goalId },
+        data: {
+          targetDate: newTargetDate,
+          restatement: plan.goalRestated,
+          assumptions: plan.assumptions,
+          feasibility: plan.feasibility,
+          feasibilityNote: plan.feasibilityNote,
+          timeBlocks: {
+            create: plan.periods.map((period, i) => ({
+              level,
+              startDate: ranges[i].startDate,
+              endDate: ranges[i].endDate,
+              title: period.title,
+              summary: period.milestone,
+              position: i + 1,
+            })),
+          },
+        },
+      });
+
+      await tx.replanEvent.create({
+        data: {
+          goalId,
+          // Úprava směru není skluz. Je to vlastní rozhodnutí uživatele
+          // a v historii cíle se má číst jinak než „nestíhal“.
+          reason: mode === "adjust" ? "MANUAL" : "BEHIND_SCHEDULE",
+          // SCHEDULE_ONLY = termín zůstává, mění se rozvržení.
+          // FULL_REDECOMPOSITION = posunul se i termín.
+          scope:
+            mode === "moveDeadline" ? "FULL_REDECOMPOSITION" : "SCHEDULE_ONLY",
+          oldTargetDate: goal.targetDate,
+          newTargetDate,
+          completionRate,
+          aiSummary: plan.feasibilityNote,
+        },
+      });
+    });
+
+    // Nová období, nové milníky. Dosažené zůstávají — jsou to zážitky,
+    // ne položky rozvrhu.
+    await syncMilestones(goalId);
+
+    return { newTargetDate };
+  } finally {
+    // I spadlé přeplánování musí cíl odemknout, jinak si uživatel
+    // už nikdy nic neodškrtne.
+    await releaseReplanLock(goalId);
+  }
 }
 
 /** Uživatel nabídku odmítl. Zapíšeme to, ať se neptáme hned zítra znovu. */

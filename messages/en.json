@@ -471,7 +471,7 @@
       "today": "Today",
       "goals": "Goals",
       "newGoal": "New goal",
-      "settings": "How to plan",
+      "settings": "Important settings",
       "guide": "Guide",
       "account": "My account",
       "sections": "App sections"
@@ -491,6 +491,7 @@
       "preparingBody": "Breaking the nearest period down into actual days. It takes a moment, but only happens once per period.",
       "preparingCta": "Plan today",
       "preparingFailed": "The breakdown did not finish. Please try again shortly.",
+      "replanInProgress": "The plan is being rebuilt right now, so ticks are not being saved. Try again in a moment — nothing is lost.",
       "readyTitle": "Write it out into actual days",
       "readyBody": "The top-level breakdown is done. Turning the nearest period into days with tasks starts on the button — deliberately not automatic, so nothing gets generated for a plan you may not keep.",
       "celebrations": [
@@ -645,6 +646,7 @@
       "generic": "Something went wrong. Please try again.",
       "planLimitReached": "You have used this month's limit on new plans. Running goals keep working; the limit resets on the first of next month.",
       "replanTooSoon": "You replanned this goal recently. Try again tomorrow — the plan needs at least a day before there is anything to judge.",
+      "replanInProgress": "This goal is already being replanned. Wait for it to finish.",
       "nameTooShort": "That name is too short. A few words is enough.",
       "nameTooLong": "That name is too long. Cut it to a few words — details belong in the field below.",
       "deadlinePassed": "The deadline has already passed, so there is no catching up to it. Move the deadline instead — the plan will be recalculated from the pace you are actually keeping."
@@ -694,7 +696,7 @@
       "later": "Not now, ask me in a week"
     },
     "settings": {
-      "title": "How to plan",
+      "title": "Important settings",
       "subtitle": "Every plan is built from these. The closer they are to reality, the less you will fight your own plan.",
       "back": "Back to the app",
       "capacityLabel": "How much time you have for your goals each day",

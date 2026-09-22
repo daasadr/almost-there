@@ -9,6 +9,7 @@ import {
   replanGoal,
   ReplanTooSoonError,
 } from "@/lib/goals/replan";
+import { ReplanInProgressError } from "@/lib/goals/replan-lock";
 
 export const runtime = "nodejs";
 export const maxDuration = 300;
@@ -77,6 +78,15 @@ export async function POST(
     });
     return NextResponse.json({ ok: true, newTargetDate });
   } catch (error) {
+    // Dvě přeplánování téhož cíle naráz. Typicky dvojklik nebo dvě
+    // otevřené záložky — uživatel se nemá dozvědět, že „se nepovedlo“.
+    if (error instanceof ReplanInProgressError) {
+      return NextResponse.json(
+        { ok: false, error: "replanInProgress" },
+        { status: 409 },
+      );
+    }
+
     if (error instanceof ReplanTooSoonError) {
       return NextResponse.json(
         { ok: false, error: "replanTooSoon" },

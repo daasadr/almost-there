@@ -3,6 +3,7 @@ import { z } from "zod";
 import { db } from "@/lib/db";
 import { requireSubscriber } from "@/lib/api/guard";
 import { parseIsoDate, todayIso } from "@/lib/plan/calendar";
+import { isReplanning } from "@/lib/goals/replan-lock";
 
 export const runtime = "nodejs";
 
@@ -59,11 +60,24 @@ export async function POST(
 
   const task = await db.task.findFirst({
     where: { id, goal: { userId: guard.user.id } },
-    select: { id: true, status: true, goalId: true },
+    select: {
+      id: true,
+      status: true,
+      goalId: true,
+      goal: { select: { replanningAt: true } },
+    },
   });
 
   if (!task) {
     return NextResponse.json({ ok: false, error: "notFound" }, { status: 404 });
+  }
+
+  // Odložení je taky zásah do plnění — viz `replan-lock.ts`.
+  if (isReplanning(task.goal.replanningAt)) {
+    return NextResponse.json(
+      { ok: false, error: "replanInProgress" },
+      { status: 409 },
+    );
   }
 
   // Hotový úkol odkládat nedává smysl a nejspíš je to překlep v rozhraní.

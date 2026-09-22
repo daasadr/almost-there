@@ -71,6 +71,7 @@ export default async function GoalsPage({
   }
 
   const goals = await listGoals(session.user.id);
+  const ts = await getTranslations({ locale, namespace: "plan.settings" });
 
   return (
     <section className="mx-auto max-w-3xl px-5 py-10 sm:px-8 sm:py-14">
@@ -83,6 +84,34 @@ export default async function GoalsPage({
           {t("create")}
         </Link>
       </div>
+
+      {/*
+        Nastavení patří sem, nad cíle.
+
+        Denní kapacita, odpočinek, časové pásmo a odměny nejsou předvolby
+        vzhledu — z nich se staví každý plán a špatně vyplněné se do něj
+        propíšou úplně všude. Viselo to pod položkou „Jak plánovat“ vedle
+        „Návodu“, kde to vypadalo jako další stránka s vysvětlováním,
+        a nikdo to nenašel. Tady se o to zavadí cestou k cílům, kterých
+        se to týká.
+      */}
+      <Link
+        href={`/${locale}/app/settings`}
+        className="card card-hover mt-6 flex items-start gap-4 p-5"
+      >
+        <span
+          aria-hidden="true"
+          className="mt-0.5 text-xl leading-none text-[var(--color-accent)]"
+        >
+          ⚙
+        </span>
+        <span className="min-w-0">
+          <span className="display block text-base">{ts("title")}</span>
+          <span className="mt-1 block text-sm leading-relaxed text-[var(--color-paper-dim)]">
+            {ts("subtitle")}
+          </span>
+        </span>
+      </Link>
 
       <div className="mt-6">
         <GoalList goals={goals} locale={locale} />

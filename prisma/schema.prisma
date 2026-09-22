@@ -263,6 +263,12 @@ model Goal {
   /// není podle čeho posouvat.
   pausedAt DateTime?
 
+  /// Kdy začalo přeplánování cíle. Prázdné, když žádné neběží.
+  ///
+  /// Přeplánování trvá minuty a na konci přepíše plán ode dneška dál.
+  /// Po tu dobu se nesmí měnit plnění úkolů — viz `replan-lock.ts`.
+  replanningAt DateTime?
+
   /// Odkud uživatel začíná — co už umí, má nebo zvládl.
   ///
   /// Vlastní pole, ne součást popisu: bez něj plán vypadá stejně pro

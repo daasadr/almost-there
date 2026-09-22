@@ -3,6 +3,7 @@ import { z } from "zod";
 import { db } from "@/lib/db";
 import { requireSubscriber } from "@/lib/api/guard";
 import { recordCheckIn } from "@/lib/goals/checkin";
+import { isReplanning } from "@/lib/goals/replan-lock";
 
 export const runtime = "nodejs";
 
@@ -36,11 +37,31 @@ export async function PATCH(
   // spolu s ověřením vlastnictví, ať to není dotaz navíc.
   const task = await db.task.findFirst({
     where: { id, goal: { userId: guard.user.id } },
-    select: { id: true, timeBlock: { select: { startDate: true } } },
+    select: {
+      id: true,
+      timeBlock: { select: { startDate: true } },
+      goal: { select: { replanningAt: true } },
+    },
   });
 
   if (!task) {
     return NextResponse.json({ ok: false, error: "notFound" }, { status: 404 });
+  }
+
+  /**
+   * Během přeplánování se plnění měnit nesmí.
+   *
+   * Přeplánování si tempo přečte na začátku a plán přepíše na konci,
+   * o několik minut později. Zaškrtnutí, které mezi tím projde, se buď
+   * ztratí s celým dnešním blokem, nebo se rozejde s číslem, podle
+   * kterého model psal zdůvodnění — a uživateli pak zůstane hláška
+   * o nesplněných dnech, které má odškrtané. Viz `replan-lock.ts`.
+   */
+  if (isReplanning(task.goal.replanningAt)) {
+    return NextResponse.json(
+      { ok: false, error: "replanInProgress" },
+      { status: 409 },
+    );
   }
 
   await db.task.update({

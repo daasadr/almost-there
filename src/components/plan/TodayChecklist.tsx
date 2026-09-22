@@ -52,7 +52,16 @@ export function TodayChecklist({
   const [statuses, setStatuses] = useState<Record<string, string>>(() =>
     Object.fromEntries(tasks.map((task) => [task.id, task.status])),
   );
-  const [failed, setFailed] = useState(false);
+  /**
+   * Proč se odškrtnutí nepovedlo.
+   *
+   * Není to jen „ano/ne“: během přeplánování server zaškrtnutí odmítá
+   * schválně a uživatel má vědět, že se nic nerozbilo a stačí počkat.
+   * Obecné „zkus to znovu“ by ho v té chvíli poslalo klikat dokola.
+   */
+  const [failed, setFailed] = useState<null | "generic" | "replanInProgress">(
+    null,
+  );
 
   if (seenKey !== taskKey) {
     setSeenKey(taskKey);
@@ -64,7 +73,15 @@ export function TodayChecklist({
     const next = wasDone ? "PENDING" : "DONE";
 
     setStatuses((current) => ({ ...current, [task.id]: next }));
-    setFailed(false);
+    setFailed(null);
+
+    const revert = (reason: "generic" | "replanInProgress") => {
+      setStatuses((current) => ({
+        ...current,
+        [task.id]: wasDone ? "DONE" : "PENDING",
+      }));
+      setFailed(reason);
+    };
 
     try {
       const response = await fetch(`/api/tasks/${task.id}`, {
@@ -72,16 +89,19 @@ export function TodayChecklist({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status: next }),
       });
-      if (!response.ok) throw new Error("write failed");
+
+      if (!response.ok) {
+        const body = await response.json().catch(() => null);
+        revert(
+          body?.error === "replanInProgress" ? "replanInProgress" : "generic",
+        );
+        return;
+      }
 
       // Ať sedí i souhrny na ostatních místech stránky.
       startTransition(() => router.refresh());
     } catch {
-      setStatuses((current) => ({
-        ...current,
-        [task.id]: wasDone ? "DONE" : "PENDING",
-      }));
-      setFailed(true);
+      revert("generic");
     }
   };
 
@@ -116,7 +136,9 @@ export function TodayChecklist({
           role="alert"
           className="mt-4 rounded-xl border border-red-400/25 bg-red-400/10 px-4 py-3 text-sm text-red-200"
         >
-          {t("preparingFailed")}
+          {failed === "replanInProgress"
+            ? t("replanInProgress")
+            : t("preparingFailed")}
         </p>
       )}
 

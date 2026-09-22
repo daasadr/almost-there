@@ -471,7 +471,7 @@
       "today": "Dnešek",
       "goals": "Cíle",
       "newGoal": "Nový cíl",
-      "settings": "Jak plánovat",
+      "settings": "Důležitá nastavení",
       "guide": "Návod",
       "account": "Můj účet",
       "sections": "Části aplikace"
@@ -491,6 +491,7 @@
       "preparingBody": "Rozfázovávám nejbližší období na konkrétní dny. Chvíli to trvá, ale dělá se to jen jednou za období.",
       "preparingCta": "Rozfázovat dnešek",
       "preparingFailed": "Rozfázování se nepodařilo dokončit. Zkus to prosím za chvíli znovu.",
+      "replanInProgress": "Plán se právě přepočítává, tak se zaškrtnutí zatím neukládají. Za chvíli to zkus znovu — nic se neztratilo.",
       "readyTitle": "Rozfázovat na konkrétní dny",
       "readyBody": "Horní fáze máš hotové. Rozfázování nejbližšího období na dny s úkoly spustíš tlačítkem — schválně se to neděje samo, ať se negeneruje plán, který si třeba nenecháš.",
       "celebrations": [
@@ -645,6 +646,7 @@
       "generic": "Něco se pokazilo. Zkus to prosím znovu.",
       "planLimitReached": "Vyčerpal jsi měsíční limit nových plánů. Běžící cíle fungují dál; limit se obnoví prvního dne dalšího měsíce.",
       "replanTooSoon": "Cíl jsi přeplánoval nedávno. Zkus to prosím zítra — plán potřebuje aspoň den, aby bylo co vyhodnocovat.",
+      "replanInProgress": "Přepočet tohohle cíle už běží. Počkej, než doběhne.",
       "nameTooShort": "Název je moc krátký. Stačí pár slov.",
       "nameTooLong": "Název je moc dlouhý. Zkrať ho na pár slov — podrobnosti patří do pole níž.",
       "deadlinePassed": "Termín už uplynul, takže dohnat skluz a stihnout ho nejde. Posuň termín — plán se přepočítá podle tempa, jakým ti to reálně jde."
@@ -694,7 +696,7 @@
       "later": "Teď ne, zeptej se za týden"
     },
     "settings": {
-      "title": "Jak plánovat",
+      "title": "Důležitá nastavení",
       "subtitle": "Z těchhle údajů se staví každý plán. Čím blíž budou skutečnosti, tím míň se budeš s plánem přetahovat.",
       "back": "Zpět do aplikace",
       "capacityLabel": "Kolik času denně máš na své cíle",
