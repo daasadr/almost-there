@@ -25,6 +25,50 @@ const SILENCE_AFTER_DECLINE_DAYS = 7;
  * hotových úkolů vyšel termín v nekonečnu.
  */
 const MIN_RATE_FOR_ESTIMATE = 0.25;
+/**
+ * Kolik posledních dnů rozhoduje o tom, že je skluz zažehnaný.
+ *
+ * Kratší než okno schválně: okno je na to, aby se skluz poznal, tohle
+ * na to, aby se poznalo, že skončil. Pět dnů je dost na to, aby to
+ * nebyla náhoda jednoho večera, a málo na to, aby se čekalo týden.
+ */
+const RECOVERY_DAYS = 5;
+
+/**
+ * Má uživatel skluz za sebou?
+ *
+ * Počítadlo vynechaných dnů samo o sobě neví, *kdy* se vynechalo — a bez
+ * toho se stane tohle: člověk týden nestíhá, pak se osm dní po sobě
+ * trefí do všeho, a aplikace mu pořád nabízí posunutí termínu s větou
+ * „poslední dny se nedotáhly“. Přitom poslední dny má hotové do jednoho
+ * a ta věta je nepravda — vynechané dny jsou staré přes týden.
+ *
+ * Kdo se vrátil do tempa, nepotřebuje přeplánovat. Potřebuje pokoj.
+ *
+ * Nestačí ale, aby posledních pár dnů bylo „bez vynechání“: den, na
+ * který plán nedošel, se taky nikde neobjeví. Musí tedy aspoň jeden
+ * z nich být skutečně naplánovaný, jinak by za návrat do tempa prošlo
+ * i úplné ticho.
+ */
+export function hasRecovered(
+  missedDates: Iterable<string>,
+  plannedDates: Iterable<string>,
+  today: Date,
+  days: number = RECOVERY_DAYS,
+): boolean {
+  const missed = new Set(missedDates);
+  const planned = new Set(plannedDates);
+
+  let plannedInStretch = 0;
+
+  for (let back = 1; back <= days; back++) {
+    const iso = toIsoDate(new Date(today.getTime() - back * 86_400_000));
+    if (missed.has(iso)) return false;
+    if (planned.has(iso)) plannedInStretch += 1;
+  }
+
+  return plannedInStretch > 0;
+}
 
 export type PaceStatus = {
   goalId: string;
@@ -115,14 +159,22 @@ export async function getPaceStatus(
     select: { startDate: true, tasks: { select: { status: true } } },
   });
 
+  const plannedDates = new Set(pastDays.map((day) => toIsoDate(day.startDate)));
+
+  /**
+   * Které dny se vynechaly. Ne kolik — které: podle toho se pozná,
+   * jestli je skluz čerstvý, nebo dávno za námi. Viz `hasRecovered`.
+   */
+  const missedDates = new Set<string>();
+
   // Vynechaný den = den, ve kterém nebylo hotové všechno. Vědomě
   // odložený úkol se počítá taky: práce se neudělala, ať už kvůli
   // čemukoliv, a termín to posouvá stejně.
-  const missedWithTasks = pastDays.filter(
-    (day) =>
-      day.tasks.length > 0 &&
-      day.tasks.some((task) => task.status !== "DONE"),
-  ).length;
+  for (const day of pastDays) {
+    if (day.tasks.length > 0 && day.tasks.some((t) => t.status !== "DONE")) {
+      missedDates.add(toIsoDate(day.startDate));
+    }
+  }
 
   /**
    * Dny, na které se plán vůbec nedostal.
@@ -140,19 +192,18 @@ export async function getPaceStatus(
    * Okno začíná nejpozději založením cíle — dny před ním nikomu
    * chybět nemohly.
    */
-  const planned = new Set(pastDays.map((day) => toIsoDate(day.startDate)));
   const from = goal.createdAt > windowStart ? goal.createdAt : windowStart;
 
-  let missedWithoutPlan = 0;
   for (
     let day = new Date(Math.max(from.getTime(), windowStart.getTime()));
     day < today;
     day = new Date(day.getTime() + 86_400_000)
   ) {
-    if (!planned.has(toIsoDate(day))) missedWithoutPlan += 1;
+    const iso = toIsoDate(day);
+    if (!plannedDates.has(iso)) missedDates.add(iso);
   }
 
-  const missedDays = missedWithTasks + missedWithoutPlan;
+  const missedDays = missedDates.size;
 
   // Úspěšnost se počítá z celé historie cíle, ne jen z okna — pár
   // špatných dnů po dobrém měsíci nemá znamenat, že se termín zdvojnásobí.
@@ -180,7 +231,15 @@ export async function getPaceStatus(
     goalId,
     missedDays,
     completionRate,
-    behind: missedDays >= MISSED_DAYS_THRESHOLD && !recentlyDeclined,
+    /**
+     * Nabídka se ukáže jen tomu, kdo skluz *teď* má. Ne tomu, kdo ho
+     * měl před deseti dny a od té doby se trefuje do všeho — ten by
+     * jinak koukal na větu o nedotažených dnech, které má odškrtané.
+     */
+    behind:
+      missedDays >= MISSED_DAYS_THRESHOLD &&
+      !hasRecovered(missedDates, plannedDates, today) &&
+      !recentlyDeclined,
     targetDate: goal.targetDate,
     suggestedDate: estimateNewTarget(today, goal.targetDate, completionRate),
   };
