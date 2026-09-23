@@ -46,7 +46,11 @@ export function AppNav() {
             key={tab.href}
             href={tab.href}
             aria-current={active ? "page" : undefined}
-            className={`flex-1 rounded-full px-4 py-2 text-center text-sm transition ${
+            // `items-center` je tu kvůli zalomení: „Můj účet“ se na úzkém
+            // displeji nevejde na řádek a vytáhne celou lištu na dvě výšky.
+            // Ostatní dvě tlačítka se natáhnou s ní, ale jejich jednořádkový
+            // text by bez tohohle zůstal nahoře a lišta by vypadala rozhozeně.
+            className={`flex flex-1 items-center justify-center rounded-full px-4 py-2 text-center text-sm transition ${
               active
                 ? "bg-[color-mix(in_oklab,var(--color-lime-glow)_14%,transparent)] font-medium text-[var(--color-lime-soft)]"
                 : "text-[var(--color-paper-dim)] hover:text-[var(--color-paper)]"
