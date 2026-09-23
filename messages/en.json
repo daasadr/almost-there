@@ -1066,5 +1066,26 @@
     "jungleNote": "Green on sand",
     "minimalist": "Minimalist",
     "minimalistNote": "White, black, nothing else"
+  },
+  "motivation": {
+    "eyebrow": "Thought for the day",
+    "labels": [
+      "Thought for the day",
+      "Today's nudge",
+      "Morning thought",
+      "Today's motivation",
+      "For today"
+    ],
+    "play": "Read aloud",
+    "pause": "Stop",
+    "resume": "Continue",
+    "progress": "{done} of {total} sentences",
+    "progressLabel": "Reading progress",
+    "unsupported": "This browser cannot read text aloud.",
+    "openOutside": "Open in browser",
+    "about": "The thought for the day comes from AlmostThere — an app that turns a goal and a deadline into a plan that reaches today.",
+    "aboutLink": "Take a look",
+    "cardMore": "Read all of it",
+    "cardListen": "Read aloud"
   }
 }

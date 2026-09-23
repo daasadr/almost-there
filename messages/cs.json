@@ -1066,5 +1066,26 @@
     "jungleNote": "Zeleň na písku",
     "minimalist": "Minimalist",
     "minimalistNote": "Bílá, černá, nic navíc"
+  },
+  "motivation": {
+    "eyebrow": "Myšlenka na den",
+    "labels": [
+      "Myšlenka na den",
+      "Dnešní nakopávač",
+      "Ranní myšlenka",
+      "Dnešní motivace",
+      "Na dnešek"
+    ],
+    "play": "Přečíst nahlas",
+    "pause": "Zastavit",
+    "resume": "Pokračovat",
+    "progress": "{done} z {total} vět",
+    "progressLabel": "Postup předčítání",
+    "unsupported": "Tenhle prohlížeč neumí číst text nahlas.",
+    "openOutside": "Otevřít v prohlížeči",
+    "about": "Myšlenku na den posílá AlmostThere — aplikace, která z cíle a termínu udělá plán až na dnešek.",
+    "aboutLink": "Podívat se",
+    "cardMore": "Zobrazit celé",
+    "cardListen": "Přečíst nahlas"
   }
 }

@@ -1066,5 +1066,26 @@
     "jungleNote": "Grün auf Sand",
     "minimalist": "Minimalist",
     "minimalistNote": "Weiß, Schwarz, sonst nichts"
+  },
+  "motivation": {
+    "eyebrow": "Gedanke des Tages",
+    "labels": [
+      "Gedanke des Tages",
+      "Der Schubs für heute",
+      "Morgengedanke",
+      "Motivation für heute",
+      "Für heute"
+    ],
+    "play": "Vorlesen",
+    "pause": "Anhalten",
+    "resume": "Weiter",
+    "progress": "{done} von {total} Sätzen",
+    "progressLabel": "Lesefortschritt",
+    "unsupported": "Dieser Browser kann Text nicht vorlesen.",
+    "openOutside": "Im Browser öffnen",
+    "about": "Der Gedanke des Tages kommt von AlmostThere — einer App, die aus Ziel und Termin einen Plan bis zum heutigen Tag macht.",
+    "aboutLink": "Ansehen",
+    "cardMore": "Ganz lesen",
+    "cardListen": "Vorlesen"
   }
 }

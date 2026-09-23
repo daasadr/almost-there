@@ -101,7 +101,7 @@ export default async function GoalsPage({
       >
         <span
           aria-hidden="true"
-          className="mt-0.5 text-xl leading-none text-[var(--color-accent)]"
+          className="mt-0.5 text-xl leading-none text-[var(--color-lime-soft)]"
         >
           ⚙
         </span>

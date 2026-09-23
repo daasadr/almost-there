@@ -5,6 +5,7 @@ import { auth } from "@/auth";
 import { Paywall } from "@/components/billing/Paywall";
 import { CheckoutPending } from "@/components/billing/CheckoutPending";
 import { BudgetNotice } from "@/components/plan/BudgetNotice";
+import { DailyMotivation } from "@/components/motivation/DailyMotivation";
 import { PlanTrigger } from "@/components/plan/PlanTrigger";
 import { TodayChecklist } from "@/components/plan/TodayChecklist";
 import { PaceCheck } from "@/components/plan/PaceCheck";
@@ -28,7 +29,7 @@ import {
   getReachedMilestones,
   getTodaysRewards,
 } from "@/lib/goals/milestones";
-import { toIsoDate, todayIso } from "@/lib/plan/calendar";
+import { parseIsoDate, toIsoDate, todayIso } from "@/lib/plan/calendar";
 import { db } from "@/lib/db";
 import Link from "next/link";
 
@@ -292,7 +293,9 @@ async function Today({
 
   const profile = await db.user.findUnique({
     where: { id: userId },
-    select: { timezone: true, imagesBelowTasks: true },
+    // `createdAt` kvůli myšlence na den: řadí se podle toho, kolikátý
+    // den uživatel aplikaci má, ne podle kalendáře.
+    select: { timezone: true, imagesBelowTasks: true, createdAt: true },
   });
   const timezone = profile?.timezone ?? "Europe/Prague";
   const [today, overdue, deferred, behind, reached, earned] =
@@ -371,6 +374,17 @@ async function Today({
             goalColor: milestone.goal.color,
           }))}
         />
+
+        {/* Myšlenka na den. Až za odměnou a milníkem — ty jsou vzácné
+            a je to jediná vyloženě dobrá zpráva na stránce. Zato před
+            vším pracovním: je to ranní doprovod, ne úkol. */}
+        {showingToday && profile && (
+          <DailyMotivation
+            locale={locale}
+            startedAt={profile.createdAt}
+            today={parseIsoDate(today.date)}
+          />
+        )}
 
         {/* Nejdřív nabídka přeplánování: když se cíl rozešel se
             skutečností, nemá cenu odškrtávat úkoly ze starého plánu. */}
