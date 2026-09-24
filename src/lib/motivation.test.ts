@@ -134,6 +134,23 @@ describe("teaser", () => {
     expect(teaser(["Jenom tohle."])).toBe("Jenom tohle.");
   });
 
+  it("přeskočí oslovení", () => {
+    // Texty začínají pozdravem. Na zamčené obrazovce by jinak stálo jen
+    // „Ahoj," a nikdo by se nedozvěděl, o čem to dnes je.
+    expect(
+      teaser([
+        "Ahoj, ty na cestě za svými cíli,",
+        "Napadlo tě někdy, jak ty nejjasnější nápady skoro nikdy nepřicházejí, když jedeš na sto procent? Čekají na něco měkčího.",
+      ]),
+    ).toBe(
+      "Napadlo tě někdy, jak ty nejjasnější nápady skoro nikdy nepřicházejí, když jedeš na sto procent?",
+    );
+  });
+
+  it("text ze samých krátkých odstavců nevrátí prázdno", () => {
+    expect(teaser(["Ahoj.", "Měj se."])).toBe("Ahoj.");
+  });
+
   it("prázdný text nespadne", () => {
     expect(teaser([])).toBe("");
   });

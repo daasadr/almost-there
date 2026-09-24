@@ -112,12 +112,31 @@ function endsSentence(part: string): boolean {
 }
 
 /**
+ * Kratší odstavec než tohle je oslovení nebo podpis, ne obsah.
+ *
+ * Číslo je od oka, ale rozdíl je velký: „Ahoj, ty na cestě za svými
+ * cíli," má kolem třiceti znaků, první skutečná věta textu vždycky
+ * podstatně víc.
+ */
+const GREETING_MAX_CHARS = 60;
+
+/**
  * Upoutávka do oznámení a na kartičku — první věta textu.
  *
  * Oznámení unese jen pár řádků a kartička na dnešku taky ne víc; zbytek
  * se otevře až na vyžádání. Proto musí první věta dávat smysl i vytržená.
+ *
+ * Oslovení se přeskakuje. Texty začínají pozdravem a ten jako upoutávka
+ * nefunguje — na zamčené obrazovce by stálo jen „Ahoj," a nikdo by se
+ * nedozvěděl, o čem to dnes je.
  */
 export function teaser(paragraphs: string[]): string {
-  const first = paragraphs[0] ?? "";
-  return splitSentences(first)[0] ?? first;
+  const body =
+    paragraphs.find(
+      (paragraph) => paragraph.trim().length > GREETING_MAX_CHARS,
+    ) ??
+    paragraphs[0] ??
+    "";
+
+  return splitSentences(body)[0] ?? body;
 }
