@@ -909,7 +909,7 @@
     },
     "notify": {
       "title": "Připomínky",
-      "body": "Aplikace se ti může ozvat, když máš na dnešek úkoly. Bez toho si na ni musíš vzpomenout sám — a přesně ve dnech, kdy se nechce, si nevzpomene nikdo.",
+      "body": "Aplikace se ti ráno ozve s myšlenkou na den a připomene, co máš na dnešek. Myšlenka chodí, i když zrovna žádný cíl nemáš — přesně ve dnech, kdy se nechce, si na aplikaci nevzpomene nikdo.",
       "modeLabel": "Jak často",
       "OFF": "Vůbec",
       "DAILY": "Každý den",
@@ -929,7 +929,15 @@
       "eveningTitle": "Je to hotovo?",
       "eveningBody": "{count, plural, one {Zbývá jeden dnešní úkol.} few {Zbývají # dnešní úkoly.} other {Zbývá # dnešních úkolů.}}",
       "actionOk": "Jasně",
-      "actionSnooze": "Připomenout později"
+      "actionSnooze": "Připomenout později",
+      "restDay": "Dnes na tebe v aplikaci nic nečeká — buď máš podle plánu volno, nebo se dnešek prostě rozepsat nestihl. Obojí je v pořádku.",
+      "noGoalLines": [
+        "Pěkný den ti přeje AlmostThere.",
+        "Dnešek bude stát za to.",
+        "Dnes tu na tebe nic nečeká. Ať se ti daří všechno, na co sáhneš.",
+        "Nic na práci, jen tahle myšlenka. Měj se hezky."
+      ],
+      "noGoalNudge": "Žádný rozjetý cíl teď nemáš. Kdyby tě něco napadlo, je pondělí — dobrý den na začátek."
     }
   },
   "withdrawal": {

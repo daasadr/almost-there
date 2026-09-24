@@ -2,7 +2,9 @@ import "server-only";
 import { getTranslations } from "next-intl/server";
 import { db } from "@/lib/db";
 import { getToday } from "@/lib/goals/queries";
-import { todayIso } from "@/lib/plan/calendar";
+import { parseIsoDate, todayIso } from "@/lib/plan/calendar";
+import { motivationByLocale } from "@/content/motivation";
+import { pieceNumberForDay, teaser } from "@/lib/motivation";
 import { sendToUser } from "./push";
 import type { Locale } from "@/i18n/routing";
 
@@ -39,6 +41,8 @@ type Candidate = {
   notifiedOn: string | null;
   notifiedEveningOn: string | null;
   notifySnoozedUntil: Date | null;
+  /** Den registrace — podle něj se řadí myšlenky na den. */
+  createdAt: Date;
 };
 
 /** Místní čas uživatele jako minuty od půlnoci a den v týdnu. */
@@ -130,6 +134,8 @@ export async function dispatchReminders(): Promise<DispatchResult> {
       notifyMode: true,
       notifiedOn: true,
       notifiedEveningOn: true,
+      // Podle dne registrace se vybírá myšlenka na den.
+      createdAt: true,
       notifySnoozedUntil: true,
     },
   });
@@ -150,38 +156,45 @@ export async function dispatchReminders(): Promise<DispatchResult> {
     const open = plan.tasks.filter((task) => task.status !== "DONE").length;
 
     /*
-     * Bez otevřených úkolů se mlčí.
+     * Večerní kontrola se ptá, jestli je hotovo. Bez otevřených úkolů
+     * není na co se ptát — a „nemáš nic“ je přesně ten druh zprávy, po
+     * které si lidé připomínky vypnou.
      *
-     * Ráno to znamená volno podle plánu nebo den, na který se plán
-     * nedostal; večer, že je hotovo. Ani v jednom případě není co
-     * připomínat a oznámení „nemáš nic“ je přesně ten druh zprávy,
-     * po kterém si lidé připomínky vypnou.
+     * Ráno je to jinak: tam nese oznámení myšlenku na den, a ta má smysl
+     * i pro toho, kdo zrovna žádný cíl nemá. Právě on ji potřebuje
+     * nejvíc.
      *
-     * Značka se přesto zapíše — aby se to za pět minut nezkoušelo znovu.
+     * Značka se zapíše i při mlčení — aby se to za pět minut nezkoušelo
+     * znovu.
      */
-    if (open === 0) {
+    if (kind === "evening" && open === 0) {
       await mark(user.id, kind, today);
       continue;
     }
 
-    const { minutes } = localNow(user.timezone);
+    const { minutes, weekday } = localNow(user.timezone);
 
     const message =
       kind === "morning"
-        ? {
-            title: t("morningTitle", { greeting: t(greetingKey(minutes)) }),
-            body: t("morningBody", { count: open }),
-            tag: "almostthere-daily",
-          }
+        ? await morningMessage({
+            t,
+            locale,
+            userId: user.id,
+            createdAt: user.createdAt,
+            today,
+            open,
+            weekday,
+            minutes,
+          })
         : {
             title: t("eveningTitle"),
             body: t("eveningBody", { count: open }),
             tag: "almostthere-evening",
+            url: `/${locale}/app`,
           };
 
     const delivered = await sendToUser(user.id, {
       ...message,
-      url: `/${locale}/app`,
       lang: locale,
       actions: [
         { action: "open", title: t("actionOk") },
@@ -194,6 +207,89 @@ export async function dispatchReminders(): Promise<DispatchResult> {
   }
 
   return { checked: users.length, sent };
+}
+
+/**
+ * Ranní zpráva.
+ *
+ * Nese myšlenku na den — nadpis je dnešní téma, tělo jeho první věta.
+ * Pod ní jedna řádka o tom, co má člověk dnes před sebou.
+ *
+ * Tohle je ta část, kvůli které se ráno posílá i tomu, kdo žádný cíl
+ * nemá. Připomínka úkolů by mu byla k ničemu; myšlenka na den ne —
+ * a je docela možné, že právě jemu je k něčemu nejvíc.
+ *
+ * Nabídka založit cíl se přidává **jen v pondělí**. Každý den by z ní
+ * byla výčitka a z oznámení otrava; jednou týdně je to nabídka. Ostatní
+ * dny se jen popřeje hezký den a nic se nechce.
+ */
+async function morningMessage({
+  t,
+  locale,
+  userId,
+  createdAt,
+  today,
+  open,
+  weekday,
+  minutes,
+}: {
+  t: Awaited<ReturnType<typeof getTranslations>>;
+  locale: Locale;
+  userId: string;
+  createdAt: Date;
+  today: string;
+  open: number;
+  weekday: number;
+  minutes: number;
+}): Promise<{ title: string; body: string; tag: string; url: string }> {
+  const pieces = motivationByLocale[locale] ?? [];
+  const number = pieceNumberForDay(createdAt, parseIsoDate(today), pieces.length);
+  const piece = number > 0 ? pieces[number - 1] : null;
+
+  let context: string;
+  let url = `/${locale}/app`;
+
+  if (open > 0) {
+    context = t("morningBody", { count: open });
+  } else {
+    const active = await db.goal.count({
+      where: { userId, status: "ACTIVE" },
+    });
+
+    if (active > 0) {
+      // Volno podle plánu, nebo den, na který se plán nedostal. Obojí
+      // je v pořádku a nemá se z toho dělat výtka.
+      context = t("restDay");
+    } else {
+      const lines = t.raw("noGoalLines") as string[];
+      context =
+        weekday === 1
+          ? t("noGoalNudge")
+          : (lines[number % lines.length] ?? lines[0]);
+    }
+
+    // V aplikaci by nebylo co dělat, tak ať klepnutí otevře rovnou text.
+    if (piece) url = `/${locale}/motivation/${number}`;
+  }
+
+  // Prázdná knihovna textů: zůstane původní připomínka.
+  if (!piece) {
+    return {
+      title: t("morningTitle", { greeting: t(greetingKey(minutes)) }),
+      body: context,
+      tag: "almostthere-daily",
+      url,
+    };
+  }
+
+  return {
+    title: piece.title,
+    body: `${teaser(piece.paragraphs)}
+
+${context}`,
+    tag: "almostthere-daily",
+    url,
+  };
 }
 
 function mark(userId: string, kind: "morning" | "evening", today: string) {

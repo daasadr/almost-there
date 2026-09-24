@@ -909,7 +909,7 @@
     },
     "notify": {
       "title": "Reminders",
-      "body": "The app can speak up when there are tasks waiting for you today. Without it you have to remember on your own — and on the days it matters most, nobody does.",
+      "body": "In the morning the app sends you a thought for the day and a reminder of what today holds. The thought comes even when you have no goal running — because on the days it is hard, nobody remembers the app on their own.",
       "modeLabel": "How often",
       "OFF": "Never",
       "DAILY": "Every day",
@@ -929,7 +929,15 @@
       "eveningTitle": "Is it done?",
       "eveningBody": "{count, plural, one {One of today's tasks is still open.} other {# of today's tasks are still open.}}",
       "actionOk": "Got it",
-      "actionSnooze": "Remind me later"
+      "actionSnooze": "Remind me later",
+      "restDay": "Nothing waiting for you in the app today — either the plan gives you the day off, or today simply has not been written out yet. Both are fine.",
+      "noGoalLines": [
+        "Have a good day, from AlmostThere.",
+        "Today is going to be worth it.",
+        "Nothing waiting here today. May everything you touch go well.",
+        "Nothing to do, just this thought. Take care."
+      ],
+      "noGoalNudge": "You have no goal running right now. If something comes to mind — it is Monday, a good day to begin."
     }
   },
   "withdrawal": {

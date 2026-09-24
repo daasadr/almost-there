@@ -909,7 +909,7 @@
     },
     "notify": {
       "title": "Erinnerungen",
-      "body": "Die App kann sich melden, wenn heute Aufgaben auf dich warten. Sonst musst du selbst daran denken — und genau an den Tagen, an denen es zählt, denkt niemand daran.",
+      "body": "Morgens meldet sich die App mit einem Gedanken des Tages und erinnert daran, was heute ansteht. Der Gedanke kommt auch dann, wenn gerade kein Ziel läuft — denn an den schweren Tagen denkt niemand von selbst an die App.",
       "modeLabel": "Wie oft",
       "OFF": "Gar nicht",
       "DAILY": "Jeden Tag",
@@ -929,7 +929,15 @@
       "eveningTitle": "Ist es erledigt?",
       "eveningBody": "{count, plural, one {Eine der heutigen Aufgaben ist noch offen.} other {# der heutigen Aufgaben sind noch offen.}}",
       "actionOk": "Alles klar",
-      "actionSnooze": "Später erinnern"
+      "actionSnooze": "Später erinnern",
+      "restDay": "Heute wartet in der App nichts auf dich — entweder hast du laut Plan frei, oder heute wurde schlicht noch nicht ausgeschrieben. Beides ist in Ordnung.",
+      "noGoalLines": [
+        "Einen schönen Tag wünscht dir AlmostThere.",
+        "Heute wird sich lohnen.",
+        "Heute wartet hier nichts. Möge dir alles gelingen, was du anfasst.",
+        "Nichts zu tun, nur dieser Gedanke. Mach's gut."
+      ],
+      "noGoalNudge": "Gerade läuft kein Ziel. Falls dir etwas einfällt — es ist Montag, ein guter Tag zum Anfangen."
     }
   },
   "withdrawal": {
