@@ -192,10 +192,32 @@ export async function getPaceStatus(
    * Okno začíná nejpozději založením cíle — dny před ním nikomu
    * chybět nemohly.
    */
-  const from = goal.createdAt > windowStart ? goal.createdAt : windowStart;
+  /**
+   * Odkdy má smysl počítat dny, na které se plán nedostal.
+   *
+   * Ne od založení cíle. Mezi „mám cíl“ a „mám rozepsané dny“ je krok,
+   * který dělá uživatel sám — a dokud ho neudělá, žádné denní úkoly
+   * neexistují. Bez téhle hranice se cíl, který si někdo večer založil
+   * a nechal ležet, po třech dnech sám ohlásil jako zmeškaný a nabídl
+   * posunutí termínu plánu, který ještě nikdo nenapsal.
+   *
+   * Rozhoduje proto první rozepsaný den. Kdo ho nemá, nemá co zmeškat;
+   * kdo ho má a pak zmizel, ten ano — a přesně na to je tohle počítadlo.
+   */
+  const firstPlanned = await db.timeBlock.findFirst({
+    where: { goalId, level: "DAY" },
+    orderBy: { startDate: "asc" },
+    select: { startDate: true },
+  });
+
+  const from = [
+    windowStart,
+    goal.createdAt,
+    firstPlanned?.startDate ?? today,
+  ].reduce((latest, date) => (date > latest ? date : latest));
 
   for (
-    let day = new Date(Math.max(from.getTime(), windowStart.getTime()));
+    let day = new Date(from.getTime());
     day < today;
     day = new Date(day.getTime() + 86_400_000)
   ) {
