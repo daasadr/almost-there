@@ -126,6 +126,8 @@ export function NotifySettings({
             <label className="flex cursor-pointer items-start gap-3">
               <input
                 type="checkbox"
+                // Stav drží aplikace, ne paměť prohlížeče — viz TodayChecklist.
+                autoComplete="off"
                 checked={evening}
                 disabled={busy}
                 onChange={(event) =>

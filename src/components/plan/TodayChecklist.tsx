@@ -198,6 +198,18 @@ export function TodayChecklist({
                         type="checkbox"
                         checked={checked}
                         onChange={() => toggle(task)}
+                        /*
+                          Prohlížeč si při obnovení relace nebo reloadu
+                          pamatuje, jak byla zaškrtávátka nastavená, a
+                          obnoví je sám — po vykreslení a bez vědomí Reactu.
+                          Stav úkolu ale patří databázi, ne paměti
+                          prohlížeče. Vznikal tím nesmyslný stav: úkol
+                          přeškrtnutý, protože React ví, že je hotový,
+                          ale čtvereček prázdný, protože ho prohlížeč
+                          přepsal svou uloženou hodnotou.
+                        */
+                        autoComplete="off"
+
                         style={{ accentColor: goalHex(task.goalColor) }}
                         className="mt-0.5 h-5 w-5 shrink-0"
                       />

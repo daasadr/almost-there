@@ -163,6 +163,8 @@ export function DailyReminder() {
       <label className="mt-6 flex items-start gap-3">
         <input
           type="checkbox"
+          // Stav drží aplikace, ne paměť prohlížeče — viz TodayChecklist.
+          autoComplete="off"
           checked={state.enabled}
           disabled={busy}
           onChange={(event) =>
