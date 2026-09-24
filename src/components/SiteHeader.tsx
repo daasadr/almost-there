@@ -135,7 +135,12 @@ export function SiteHeader() {
               pokaždé jinam. Sem patří jen cesta dovnitř, a to zvenčí.
             */
             !isAppSection && (
-              <Link href="/app" className="btn-primary !px-4 !py-1.5 text-sm">
+              <Link
+                href="/app"
+                /* `whitespace-nowrap` kvůli delším popiskům: „Otevřít
+                   aplikaci" se v těsné hlavičce zalomilo a přeteklo. */
+                className="btn-primary !px-4 !py-1.5 whitespace-nowrap text-sm"
+              >
                 {t("openApp")}
               </Link>
             )

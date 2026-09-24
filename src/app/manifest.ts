@@ -6,13 +6,19 @@ import type { MetadataRoute } from "next";
  * `start_url` míří rovnou na dnešek, ne na úvodní stránku. Kdo si appku
  * nainstaloval, cíl už zná; marketingová stránka by mu při každém spuštění
  * jen překážela. Nepřihlášeného odtud middleware pošle na přihlášení.
+ *
+ * **Bez jazyka v adrese.** Dřív tu byla natvrdo česká varianta, takže se
+ * nainstalovaná appka při každém spuštění vracela do češtiny — ať si
+ * uživatel přepnul cokoliv. Vypadalo to jako chyba v přepínači jazyků,
+ * přitom to byl tenhle jeden řetězec. Bez předpony jazyk dohledá
+ * middleware podle volby, kterou si uživatel uložil.
  */
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "AlmostThere",
     short_name: "AlmostThere",
     description: "Turn any goal into today's checklist.",
-    start_url: "/cs/app",
+    start_url: "/app",
     scope: "/",
     display: "standalone",
     orientation: "portrait",

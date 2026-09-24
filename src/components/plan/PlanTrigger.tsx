@@ -34,6 +34,15 @@ export function PlanTrigger({
   const [running, setRunning] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const started = useRef(false);
+  /**
+   * Je komponenta ještě na stránce?
+   *
+   * Rozpad běží desítky sekund a uživatel mezitím může odejít jinam.
+   * `router.refresh()` puštěný po odchodu překreslí cestu, na kterou
+   * se zrovna přechází, a rozdělaný přechod se ztratí — navenek to
+   * vypadá, jako by aplikace uživatele vracela zpátky na dnešek.
+   */
+  const onPage = useRef(true);
   const box = useRef<HTMLDivElement>(null);
 
   const run = useCallback(async () => {
@@ -71,7 +80,7 @@ export function PlanTrigger({
           if (data.done) break;
         }
       }
-      router.refresh();
+      if (onPage.current) router.refresh();
     } catch {
       setError("generic");
     } finally {
@@ -80,7 +89,11 @@ export function PlanTrigger({
   }, [goalIds, router]);
 
   useEffect(() => {
+    onPage.current = true;
     if (auto && goalIds.length > 0) void run();
+    return () => {
+      onPage.current = false;
+    };
   }, [auto, goalIds, run]);
 
   if (goalIds.length === 0) return null;

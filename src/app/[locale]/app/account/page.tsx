@@ -68,6 +68,11 @@ export default async function AccountPage({
     },
   });
 
+  const tSettings = await getTranslations({
+    locale,
+    namespace: "plan.settings",
+  });
+
   const formatDate = new Intl.DateTimeFormat(locale, { dateStyle: "long" });
 
   return (
@@ -89,6 +94,33 @@ export default async function AccountPage({
       {!hasAccess && (
         <FreeAccountNotice locale={locale} storeApp={storeApp} />
       )}
+
+      {/*
+        Nastavení nahoru a výrazně.
+
+        Denní kapacita, odpočinek, časové pásmo, odměny a připomínky —
+        z toho se staví každý plán a podle toho chodí oznámení. Viselo to
+        dole u odhlášení jako bledý odkaz vedle „Návodu“, kde to vypadalo
+        jako další stránka s vysvětlováním. Nikdo to nenašel, a přitom je
+        to jediná věc na téhle stránce, kterou člověk opravdu nastavuje.
+      */}
+      <Link
+        href={`/${locale}/app/settings`}
+        className="card card-hover mt-6 flex items-start gap-4 border-l-[3px] border-l-[var(--color-lime-soft)] p-5 sm:p-6"
+      >
+        <span
+          aria-hidden="true"
+          className="mt-0.5 text-xl leading-none text-[var(--color-lime-soft)]"
+        >
+          ⚙
+        </span>
+        <span className="min-w-0">
+          <span className="display block text-lg">{tSettings("title")}</span>
+          <span className="mt-1 block text-sm leading-relaxed text-[var(--color-paper-dim)]">
+            {tSettings("subtitle")}
+          </span>
+        </span>
+      </Link>
 
       <div className="card mt-6 p-6 sm:p-8">
         <dl className="grid gap-4 text-sm sm:grid-cols-2">
@@ -151,13 +183,6 @@ export default async function AccountPage({
 
       <div className="mt-8 flex flex-wrap items-center gap-6">
         <SignOutButton label={t("signOut")} />
-
-        <Link
-          href={`/${locale}/app/settings`}
-          className="text-sm text-[var(--color-paper-faint)] hover:text-[var(--color-paper)]"
-        >
-          {tPlan("settings")}
-        </Link>
 
         {/* Návod patří i sem, ne jen do patičky webu. Kdo si něčím není
             jistý, hledá pomoc v aplikaci, ne na úvodní stránce. */}

@@ -386,26 +386,39 @@ async function Today({
           />
         )}
 
-        {/* Nejdřív nabídka přeplánování: když se cíl rozešel se
-            skutečností, nemá cenu odškrtávat úkoly ze starého plánu. */}
-        {behind.map((goal) => (
-          <PaceCheck
-            key={goal.goalId}
-            goalId={goal.goalId}
-            goalTitle={goal.title}
-            goalColor={goal.color}
-            missedDays={goal.missedDays}
-            completionRate={goal.completionRate}
-            targetDate={toIsoDate(goal.targetDate)}
-            suggestedDate={toIsoDate(goal.suggestedDate)}
-          />
-        ))}
+        {/*
+          Tyhle tři mluví o „teď“, ne o zobrazeném dni — nabídka
+          přeplánování, nedodělky z minulých dnů a odložené úkoly.
 
-        {/* Nedodělky z minulých dnů: kdo je má, má je vidět dřív,
-            než začne odškrtávat další. */}
-        {overdue.length > 0 && <UnfinishedTasks tasks={overdue} />}
+          Při listování do minulosti se proto neukazují. Bylo to matoucí:
+          u dne, na který žádné úkoly nebyly, svítilo „z předchozích dnů
+          se tři věci nedotáhly“ a nedalo se poznat, jestli se to týká
+          toho dne, nebo dneška.
+        */}
+        {showingToday && (
+          <>
+            {/* Nejdřív nabídka přeplánování: když se cíl rozešel se
+                skutečností, nemá cenu odškrtávat úkoly ze starého plánu. */}
+            {behind.map((goal) => (
+              <PaceCheck
+                key={goal.goalId}
+                goalId={goal.goalId}
+                goalTitle={goal.title}
+                goalColor={goal.color}
+                missedDays={goal.missedDays}
+                completionRate={goal.completionRate}
+                targetDate={toIsoDate(goal.targetDate)}
+                suggestedDate={toIsoDate(goal.suggestedDate)}
+              />
+            ))}
 
-        <DeferredTasks tasks={deferred} />
+            {/* Nedodělky z minulých dnů: kdo je má, má je vidět dřív,
+                než začne odškrtávat další. */}
+            {overdue.length > 0 && <UnfinishedTasks tasks={overdue} />}
+
+            <DeferredTasks tasks={deferred} />
+          </>
+        )}
 
         {today.goalsNeedingPlan.length > 0 && (
           <PlanTrigger goalIds={today.goalsNeedingPlan.map((goal) => goal.id)} />

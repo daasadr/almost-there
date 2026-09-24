@@ -19,6 +19,10 @@ import { useRouter } from "next/navigation";
  *  - Časovačem o půlnoci. Pokrývá toho, kdo appku nechá otevřenou přes
  *    půlnoc a dívá se na ni — tam by se jinak nic nestalo, dokud by
  *    někam neklikl.
+ *  - Při `pageshow`. Prohlížeč umí okno uspat i s celou stránkou a při
+ *    probuzení ji vrátit tak, jak byla — včetně zastavených časovačů.
+ *    Tehdy se `visibilitychange` spolehlivě neozve a appka na liště se
+ *    ráno otevřela na včerejšku. Tohle je ta chybějící událost.
  *
  * Obnovuje se jen zobrazení ze serveru, ne celá stránka: uživatel
  * zůstane tam, kde byl, jen uvidí dnešek.
@@ -89,11 +93,13 @@ export function DayRollover({
 
     document.addEventListener("visibilitychange", onVisible);
     window.addEventListener("focus", check);
+    window.addEventListener("pageshow", check);
     scheduleMidnight();
 
     return () => {
       document.removeEventListener("visibilitychange", onVisible);
       window.removeEventListener("focus", check);
+      window.removeEventListener("pageshow", check);
       if (timer) clearTimeout(timer);
     };
   }, [renderedDay, timeZone, router]);
