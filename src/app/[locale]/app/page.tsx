@@ -92,6 +92,9 @@ export default async function AppPage({
       subscriptionEndsAt: true,
       subscriptionCancelAtPeriodEnd: true,
       subscriptionSource: true,
+      // Pro myšlenku na den, která se ukazuje i bez předplatného.
+      createdAt: true,
+      timezone: true,
       /**
        * Ověření adresy z databáze, ne z přihlašovacího tokenu.
        *
@@ -231,6 +234,24 @@ export default async function AppPage({
           k němu nejspíš vrátit. Vykresluje se až v prohlížeči, koncept
           je uložený u uživatele a server o něm neví. */}
       {hasAccess && <GoalDraftNotice />}
+
+      {/*
+        Myšlenka na den i bez předplatného.
+
+        Uvnitř plánu se vykresluje taky, ale ten se bez zaplacení nenačítá
+        vůbec — a myšlenka na den není to, co se platí. Text má veřejnou
+        stránku, dá se poslat dál a je to jediná věc, kvůli které má smysl
+        se sem vracet i bez cíle. Zamykat ji by bylo jen na obtíž.
+      */}
+      {!hasAccess && account && (
+        <div className="mt-8">
+          <DailyMotivation
+            locale={locale}
+            startedAt={account.createdAt}
+            today={parseIsoDate(todayIso(account.timezone))}
+          />
+        </div>
+      )}
 
       {hasAccess && (
         <div className="mt-10 space-y-10">
