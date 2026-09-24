@@ -95,6 +95,7 @@ export default async function AppPage({
       // Pro myšlenku na den, která se ukazuje i bez předplatného.
       createdAt: true,
       timezone: true,
+      motivationPlacement: true,
       /**
        * Ověření adresy z databáze, ne z přihlašovacího tokenu.
        *
@@ -243,7 +244,7 @@ export default async function AppPage({
         stránku, dá se poslat dál a je to jediná věc, kvůli které má smysl
         se sem vracet i bez cíle. Zamykat ji by bylo jen na obtíž.
       */}
-      {!hasAccess && account && (
+      {!hasAccess && account && account.motivationPlacement !== "OFF" && (
         <div className="mt-8">
           <DailyMotivation
             locale={locale}
@@ -316,7 +317,12 @@ async function Today({
     where: { id: userId },
     // `createdAt` kvůli myšlence na den: řadí se podle toho, kolikátý
     // den uživatel aplikaci má, ne podle kalendáře.
-    select: { timezone: true, imagesBelowTasks: true, createdAt: true },
+    select: {
+      timezone: true,
+      imagesBelowTasks: true,
+      createdAt: true,
+      motivationPlacement: true,
+    },
   });
   const timezone = profile?.timezone ?? "Europe/Prague";
   const [today, overdue, deferred, behind, reached, earned] =
@@ -333,6 +339,24 @@ async function Today({
 
   // Prohlíží si uživatel jiný den? Pak ho na dnešek nepřepínáme.
   const showingToday = !day || day === todayIso(timezone);
+
+  /**
+   * Myšlenka na den. Vykresluje se jednou, umístí se podle volby.
+   *
+   * Jen na dnešku: při listování do minulosti by u starého dne visela
+   * dnešní myšlenka a nešlo by poznat, ke kterému dni patří.
+   */
+  const motivation = showingToday
+    ? (profile?.motivationPlacement ?? "BELOW")
+    : "OFF";
+
+  const motivationCard = profile ? (
+    <DailyMotivation
+      locale={locale}
+      startedAt={profile.createdAt}
+      today={parseIsoDate(today.date)}
+    />
+  ) : null;
 
   const heading = new Intl.DateTimeFormat(locale, {
     weekday: "long",
@@ -396,16 +420,12 @@ async function Today({
           }))}
         />
 
-        {/* Myšlenka na den. Až za odměnou a milníkem — ty jsou vzácné
-            a je to jediná vyloženě dobrá zpráva na stránce. Zato před
-            vším pracovním: je to ranní doprovod, ne úkol. */}
-        {showingToday && profile && (
-          <DailyMotivation
-            locale={locale}
-            startedAt={profile.createdAt}
-            today={parseIsoDate(today.date)}
-          />
-        )}
+        {/*
+          Myšlenka na den nahoře — jen když si to uživatel takhle přeje.
+          Výchozí je dole: je to delší text a nahoře by odsunul úkoly pod
+          okraj obrazovky. Viz `motivationPlacement`.
+        */}
+        {motivation === "ABOVE" && motivationCard}
 
         {/*
           Tyhle tři mluví o „teď“, ne o zobrazeném dni — nabídka
@@ -464,6 +484,10 @@ async function Today({
             </div>
           )
         )}
+
+        {/* Výchozí poloha: pod úkoly. Cesta k odškrtávání zůstane krátká
+            a myšlenka na den čeká pod ní na toho, kdo o ni stojí. */}
+        {motivation === "BELOW" && motivationCard}
       </div>
     </section>
   );

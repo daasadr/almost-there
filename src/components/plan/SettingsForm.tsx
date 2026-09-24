@@ -22,6 +22,8 @@ const REST_CHOICES = [
   "EVERY_OTHER_DAY",
 ] as const;
 
+const MOTIVATION_CHOICES = ["BELOW", "ABOVE", "OFF"] as const;
+
 /** Záloha pro prohlížeče bez `Intl.supportedValuesOf`. */
 const FALLBACK_ZONES = [
   "Europe/Prague",
@@ -52,6 +54,7 @@ export function SettingsForm({
     dailyCapacityMinutes: number;
     reflectionMinutesDay: number;
     restFrequency: string;
+    motivationPlacement: string;
     timezone: string;
     rewardLikes: string | null;
     rewardDislikes: string | null;
@@ -64,6 +67,7 @@ export function SettingsForm({
   const [capacity, setCapacity] = useState(initial.dailyCapacityMinutes);
   const [reflection, setReflection] = useState(initial.reflectionMinutesDay);
   const [rest, setRest] = useState(initial.restFrequency);
+  const [motivation, setMotivation] = useState(initial.motivationPlacement);
   const [timezone, setTimezone] = useState(initial.timezone);
   const [likes, setLikes] = useState(initial.rewardLikes ?? "");
   const [dislikes, setDislikes] = useState(initial.rewardDislikes ?? "");
@@ -105,6 +109,7 @@ export function SettingsForm({
           dailyCapacityMinutes: capacity,
           reflectionMinutesDay: reflection,
           restFrequency: rest,
+          motivationPlacement: motivation,
           timezone,
           rewardLikes: likes,
           rewardDislikes: dislikes,
@@ -170,6 +175,32 @@ export function SettingsForm({
               className="bg-[var(--color-ink-900)]"
             >
               {t(`rest.${option}`)}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="mt-8">
+        <label htmlFor="motivation" className="block text-sm font-medium">
+          {t("motivationLabel")}
+        </label>
+        <p className="mt-1.5 text-xs leading-relaxed text-[var(--color-paper-faint)]">
+          {t("motivationHint")}
+        </p>
+        <select
+          id="motivation"
+          value={motivation}
+          disabled={pending}
+          onChange={(event) => setMotivation(event.target.value)}
+          className={selectClass}
+        >
+          {MOTIVATION_CHOICES.map((option) => (
+            <option
+              key={option}
+              value={option}
+              className="bg-[var(--color-ink-900)]"
+            >
+              {t(`motivation.${option}`)}
             </option>
           ))}
         </select>

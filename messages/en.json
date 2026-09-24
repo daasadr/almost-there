@@ -727,7 +727,14 @@
       "likesLabel": "What you enjoy",
       "likesPlaceholder": "For example: running in the woods, board games with friends, vinyl records, good coffee beans, a whole day with no plan, riding",
       "dislikesLabel": "What does nothing for you",
-      "dislikesPlaceholder": "For example: sweets, sitting in a pub, anything with crowds, shopping for clothes"
+      "dislikesPlaceholder": "For example: sweets, sitting in a pub, anything with crowds, shopping for clothes",
+      "motivationLabel": "Thought for the day",
+      "motivationHint": "A short text you can also have read aloud. Below the task list it keeps the way to ticking off short; above it, it is the first thing you see in the morning.",
+      "motivation": {
+        "BELOW": "Below the task list",
+        "ABOVE": "Above the task list",
+        "OFF": "Do not show"
+      }
     },
     "status": {
       "readyTitle": "Is it done?",

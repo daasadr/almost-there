@@ -727,7 +727,14 @@
       "likesLabel": "Co ti udělá radost",
       "likesPlaceholder": "Například: běh v lese, deskovky s kamarády, vinyly, dobrá kávová zrna, celý den bez plánu, jízda na koni",
       "dislikesLabel": "Co ti radost neudělá",
-      "dislikesPlaceholder": "Například: sladké, sezení v hospodě, cokoliv s davem lidí, nakupování oblečení"
+      "dislikesPlaceholder": "Například: sladké, sezení v hospodě, cokoliv s davem lidí, nakupování oblečení",
+      "motivationLabel": "Myšlenka na den",
+      "motivationHint": "Krátký text, který se dá i přehrát nahlas. Pod seznamem úkolů nechává cestu k odškrtávání krátkou; nad ním je první, co ráno uvidíš.",
+      "motivation": {
+        "BELOW": "Pod seznamem úkolů",
+        "ABOVE": "Nad seznamem úkolů",
+        "OFF": "Neukazovat"
+      }
     },
     "status": {
       "readyTitle": "Máš to?",

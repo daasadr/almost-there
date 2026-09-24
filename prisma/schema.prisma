@@ -106,6 +106,14 @@ model User {
   /// chce hlavně odškrtávat, musí ke své práci nejdřív odrolovat.
   imagesBelowTasks Boolean @default(false)
 
+  /// Kde na dnešku ukazovat myšlenku na den, a jestli vůbec.
+  ///
+  /// Výchozí je pod checklistem. Nahoře je první, co člověk ráno uvidí,
+  /// jenže je to delší text a odsune tím úkoly pod okraj obrazovky —
+  /// kdo si přišel odškrtávat, musí ke své práci nejdřív odrolovat.
+  /// Myšlenka na den je doprovod, ne program.
+  motivationPlacement MotivationPlacement @default(BELOW)
+
   /// Co má uživatel rád a co mu nic neříká.
   ///
   /// Vstupuje do návrhů odměn za milníky. Bez toho model hádá z ničeho
@@ -239,6 +247,14 @@ enum ConsentType {
 // ---------------------------------------------------------------------------
 // Cíle a hierarchie plánu
 // ---------------------------------------------------------------------------
+
+/// Kam na dnešku patří myšlenka na den.
+enum MotivationPlacement {
+  /// Neukazovat vůbec. Kdo ji nechce, nemá ji mít pod nosem.
+  OFF
+  ABOVE
+  BELOW
+}
 
 enum GoalStatus {
   ACTIVE

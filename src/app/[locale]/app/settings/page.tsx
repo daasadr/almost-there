@@ -44,6 +44,7 @@ export default async function SettingsPage({
       dailyCapacityMinutes: true,
       reflectionMinutesDay: true,
       restFrequency: true,
+      motivationPlacement: true,
       timezone: true,
       rewardLikes: true,
       rewardDislikes: true,

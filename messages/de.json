@@ -727,7 +727,14 @@
       "likesLabel": "Was dir Freude macht",
       "likesPlaceholder": "Zum Beispiel: Laufen im Wald, Brettspiele mit Freunden, Schallplatten, gute Kaffeebohnen, ein ganzer Tag ohne Plan, Reiten",
       "dislikesLabel": "Was dir nichts sagt",
-      "dislikesPlaceholder": "Zum Beispiel: Süßes, im Wirtshaus sitzen, alles mit Menschenmengen, Kleidung einkaufen"
+      "dislikesPlaceholder": "Zum Beispiel: Süßes, im Wirtshaus sitzen, alles mit Menschenmengen, Kleidung einkaufen",
+      "motivationLabel": "Gedanke des Tages",
+      "motivationHint": "Ein kurzer Text, den du dir auch vorlesen lassen kannst. Unter der Aufgabenliste bleibt der Weg zum Abhaken kurz; darüber ist er das Erste, was du morgens siehst.",
+      "motivation": {
+        "BELOW": "Unter der Aufgabenliste",
+        "ABOVE": "Über der Aufgabenliste",
+        "OFF": "Nicht anzeigen"
+      }
     },
     "status": {
       "readyTitle": "Hast du es geschafft?",

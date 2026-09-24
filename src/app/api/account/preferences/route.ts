@@ -24,6 +24,8 @@ const bodySchema = z.object({
     "EVERY_OTHER_DAY",
   ]),
   timezone: z.string().min(1).max(64),
+  /** Kde na dnešku ukazovat myšlenku na den, a jestli vůbec. */
+  motivationPlacement: z.enum(["OFF", "ABOVE", "BELOW"]),
   /**
    * Co má uživatel rád a co ne. Vstupuje do návrhů odměn za milníky.
    *
