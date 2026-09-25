@@ -84,6 +84,34 @@ const cs: MotivationPiece[] = [
       "Vstup do něj jemně a silně. Tvé velké kameny už čekají na své místo.",
     ],
   },
+  {
+    title: "Zaneprázdněnost není pohyb vpřed",
+    paragraphs: [
+      "Ahoj, ty na cestě k tomu, na čem opravdu záleží,",
+      "je tichý rozdíl mezi tím být zaneprázdněný a tím se skutečně posouvat. Zaneprázdněnost naplňuje hodiny. Cílené jednání naplňuje nádobu těmi správnými kameny.",
+      "Když dny působí nabité, a přesto v nich chybí skutečný pokrok, bývá to tím, že se ty činnosti nikdy záměrně nevybraly. Svoboda se neobjevuje náhodou. Vzniká tehdy, když dopředu rozhodneš, co si zaslouží místo v tvých omezených hodinách. Když naplánuješ věci, které tě opravdu posouvají k životu, jaký chceš, a pak je ochráníš, přestane tě unášet proud cizích naléhavostí.",
+      "Tak se dnes podívej na svůj plán jasnýma očima. Polož si otázku: co je ta jedna konkrétní věc, která se počítá do směru, na kterém mi záleží? Ne mlhavý záměr. Ne další příprava na přípravu. Jeden skutečný krok. Ten první udělej dnes. Zítra druhý. Pozítří třetí. Malé pravidelné kroky se sčítají v něco, čeho náhlé výbuchy úsilí skoro nikdy nedosáhnou.",
+      "A ještě něco, co většině z nás dojde až později: o každé cestě platí věci, které zůstanou neviditelné, dokud po ní člověk opravdu nejde. Můžeš se připravovat donekonečna, prostudovat každý detail, promyslet všechny možnosti — a stejně ti unikne, jaké to doopravdy je. Skutečné porozumění, potřebné úpravy, tichá jistota i nečekané příležitosti přicházejí teprve tehdy, když už jsi v pohybu.",
+      "Příliš dlouhé rozmýšlení a odhodlávání se ke skoku se umí proměnit ve vlastní způsob odkládání. V určitou chvíli je to nejlaskavější, co pro sebe můžeš udělat, skočit — i nedokonale — a učit se z dopadu.",
+      "Nepotřebuješ dokonalý plán. Potřebuješ jasný směr a ochotu udělat další viditelný krok. Když to děláš každý den, začne tě učit sama cesta. Nabíráš setrvačnost. Jistota se usazuje. A svoboda, která ti podle tebe chyběla, se začíná objevovat — protože je z plánu a z jednání, ne z náhody.",
+      "Tak si dnes ráno vyber jednu věc, která se opravdu počítá. Vlož ji pevně do dne. A pak začni. Zbytek se ukáže cestou.",
+      "Jsem s tebou.",
+    ],
+  },
+  {
+    title: "Oslavuj častěji, ne až na konci",
+    paragraphs: [
+      "Ahoj, ty na téhle cestě,",
+      "je jedna tichá dovednost, na kterou ctižádostiví lidé zapomínají: umění se zastavit a oslavit.",
+      "Ne ten hlasitý druh, co potřebuje alkohol a velkou párty. Ten čistý. Skutečné uznání, že je kus práce hotový. Chvíle, kdy se nad výsledkem zastavíš, doopravdy ho procítíš a dovolíš si hrdost dřív, než se vrhneš do dalšího úkolu. Může to být hluboký nádech, tiché „dobrá práce“, malá odměna, kterou si opravdu užiješ, nebo sdílení s někým, kdo tomu rozumí. Důležité je to nepřeskakovat.",
+      "Kdo se naučí oslavu odkládat, bude ji odkládat pořád. Funguje to úplně stejně jako odkládání samotné práce. Čím dýl čekáš na „dostatečně velký“ okamžik, tím víc se malá vítězství ztrácejí v pozadí nekonečného usilování. A bez těch chvil uznání je cesta těžší, než musí být.",
+      "Oslava není odbočka od cíle. Je součástí práce — a má skutečný vliv na to, jak funguje motivace. Pokaždé, když si upřímně všimneš kusu pokroku a označíš ho, zaregistruje mozek malý pozitivní signál. Dopamin, který pohání chuť pokračovat, na takové chvíle reaguje. Časté a poctivé uznání malých vítězství vytváří klidnější a zdravější rytmus než čekání na vzácné velké vrcholy, po kterých často přijde útlum. Učí to tvůj systém jediné větě: tohle úsilí mělo smysl, dělej to zas.",
+      "Tak se dnes ohlédni za tím, co už máš za sebou. Nejen za obřími milníky. Za hotovým úkolem. Za upřímným rozhovorem. Za tréninkem, který málem nebyl. Za rozhodnutím, které konečně padlo. Zastav se u toho. Nech si na chvíli dojít, že pod nohama máš pevnou zem. A pak si klidně dej malou laskavou odměnu — ne jako úplatek, ale jako uznání, které drží motivaci v kondici.",
+      "Čím víc to budeš cvičit, tím spíš budeš chtít dojít na další místo, kde bude co slavit. Z oslavy se stane palivo i cíl zároveň. Připomíná totiž, že práce není jen o tom někdy dorazit — je taky o tom být po cestě naživu.",
+      "Máš za sebou víc, než si někdy dovolíš vidět. Dnes se zastav dost dlouho na to, aby ti to došlo. Oslav to. A pak pokračuj, lehčeji a silněji.",
+      "Mám z tebe radost.",
+    ],
+  },
 ];
 
 const en: MotivationPiece[] = [
@@ -118,6 +146,34 @@ const en: MotivationPiece[] = [
       "Go into it gently and strongly. Your big rocks are already waiting for their place.",
     ],
   },
+  {
+    title: "Being busy is not moving forward",
+    paragraphs: [
+      "Hello, you on the way to what truly matters,",
+      "there is a quiet difference between being busy and moving forward. Busyness fills the hours. Deliberate action fills the jar with the right stones.",
+      "When your days feel packed and yet real progress is missing, it is usually because those activities were never deliberately chosen. Freedom does not appear by accident. It comes from deciding in advance what deserves room in your limited hours. When you plan the things that genuinely move you toward the life you want and then protect them, the current of other people\u2019s urgencies stops carrying you along.",
+      "So today, look at your plan with clear eyes. Ask yourself: what is the one concrete thing that counts toward the direction I care about? Not a vague intention. Not more preparing to prepare. One real step. Take the first one today. The second tomorrow. The third the day after. Small, regular steps add up to something sudden bursts of effort almost never reach.",
+      "And one more thing most of us learn late: every path holds truths that stay invisible until you actually walk it. You can prepare forever, study every detail, think through every possibility — and still miss what it is really like. The real understanding, the adjustments, the quiet confidence and the unexpected openings all arrive once you are already in motion.",
+      "Thinking it over and working up to the leap can quietly turn into its own kind of delay. At some point the kindest thing you can do for yourself is to jump — imperfectly — and learn from the landing.",
+      "You do not need a perfect plan. You need a clear direction and the willingness to take the next visible step. Do that every day and the path itself starts teaching you. Momentum builds. Confidence settles. And the freedom you thought you lacked begins to appear — because it came from planning and acting, not from chance.",
+      "So this morning, choose one thing that really counts. Place it firmly in your day. Then begin. The rest will show itself as you go.",
+      "I am with you on this.",
+    ],
+  },
+  {
+    title: "Celebrate more often, not only at the end",
+    paragraphs: [
+      "Hello, you on this journey,",
+      "there is a quiet skill ambitious people forget: the art of stopping to celebrate.",
+      "Not the loud kind that needs alcohol and a big party. The pure kind. The real recognition that a piece of work is done. The moment you stop with the result, feel it properly, and allow yourself some pride before rushing into the next task. It can be a deep breath, a quiet \u201cwell done\u201d, a small reward you truly enjoy, or sharing it with someone who understands. What matters is not skipping it.",
+      "Anyone who learns to postpone celebration will keep postponing it. It works exactly like postponing the work itself. The longer you wait for the \u201cbig enough\u201d moment, the more small victories fade into the background of endless striving. And without those moments of recognition the path grows heavier than it needs to be.",
+      "Celebrating is not a detour from the goal. It is part of the work — and it genuinely affects how motivation runs. Every time you honestly notice a piece of progress and mark it, your brain registers a small positive signal. Dopamine, which drives the appetite to keep going, responds to moments like these. Frequent, sincere recognition of small wins builds a calmer, healthier rhythm than waiting for rare big peaks, which are often followed by a slump. It teaches your system one sentence: this effort mattered, do it again.",
+      "So today, look back at what you already have behind you. Not only the huge milestones. The finished task. The honest conversation. The training that almost did not happen. The decision that finally got made. Stop with it. Let it sink in for a moment that there is solid ground under your feet. And then, if you like, give yourself a small kind reward — not as a bribe, but as recognition that keeps motivation in good shape.",
+      "The more you practise this, the more you will want to reach the next place where there is something to celebrate. Celebration becomes both the fuel and the destination. It reminds you that the work is not only about arriving one day — it is also about being alive along the way.",
+      "You have more behind you than you sometimes let yourself see. Today, stop long enough for it to land. Celebrate it. Then carry on, lighter and stronger.",
+      "You make me glad.",
+    ],
+  },
 ];
 
 const de: MotivationPiece[] = [
@@ -150,6 +206,34 @@ const de: MotivationPiece[] = [
       "Viele Kleinigkeiten wirst du trotzdem erledigen. Aber du wirst sie aus Klarheit heraus erledigen, nicht aus dem Chaos. Und am Abend wirst du wissen: Das Wichtige ist nicht draußen vor dem Gefäß geblieben.",
       "Das ist Freiheit. Das ist stille Kraft. So wird aus einem Tag nicht nur ein voller, sondern ein bedeutungsvoller.",
       "Geh sanft und stark hinein. Deine großen Steine warten schon auf ihren Platz.",
+    ],
+  },
+  {
+    title: "Beschäftigt sein ist kein Vorankommen",
+    paragraphs: [
+      "Hallo, du auf dem Weg zu dem, worauf es wirklich ankommt,",
+      "es gibt einen stillen Unterschied zwischen Beschäftigtsein und Vorankommen. Beschäftigtsein füllt die Stunden. Gezieltes Handeln füllt das Gefäß mit den richtigen Steinen.",
+      "Wenn deine Tage voll wirken und echter Fortschritt trotzdem fehlt, liegt es meist daran, dass diese Tätigkeiten nie bewusst gewählt wurden. Freiheit entsteht nicht zufällig. Sie entsteht, wenn du im Voraus entscheidest, was Platz in deinen begrenzten Stunden verdient. Wenn du die Dinge planst, die dich wirklich zu dem Leben bringen, das du willst, und sie dann schützt, reißt dich der Strom fremder Dringlichkeiten nicht mehr mit.",
+      "Schau also heute mit klaren Augen auf deinen Plan. Frag dich: Was ist die eine konkrete Sache, die in die Richtung zählt, die mir wichtig ist? Keine vage Absicht. Kein weiteres Vorbereiten des Vorbereitens. Ein echter Schritt. Den ersten heute. Morgen den zweiten. Übermorgen den dritten. Kleine, regelmäßige Schritte summieren sich zu etwas, das plötzliche Kraftakte fast nie erreichen.",
+      "Und noch etwas, das die meisten von uns spät lernen: Über jeden Weg gilt etwas, das unsichtbar bleibt, bis man ihn wirklich geht. Du kannst dich ewig vorbereiten, jedes Detail studieren, jede Möglichkeit durchdenken — und dir entgeht trotzdem, wie es tatsächlich ist. Das echte Verstehen, die nötigen Anpassungen, die stille Sicherheit und die unerwarteten Gelegenheiten kommen erst, wenn du schon in Bewegung bist.",
+      "Zu langes Nachdenken und Sich-Aufraffen wird leicht zur eigenen Form des Aufschiebens. Irgendwann ist das Gütigste, was du für dich tun kannst, zu springen — auch unvollkommen — und aus der Landung zu lernen.",
+      "Du brauchst keinen perfekten Plan. Du brauchst eine klare Richtung und die Bereitschaft, den nächsten sichtbaren Schritt zu tun. Tu das jeden Tag, und der Weg selbst beginnt dich zu lehren. Du nimmst Schwung auf. Sicherheit setzt sich. Und die Freiheit, die dir angeblich fehlte, taucht auf — weil sie aus Plan und Handeln kommt, nicht aus Zufall.",
+      "Wähle also heute Morgen eine Sache, die wirklich zählt. Setze sie fest in deinen Tag. Und dann fang an. Der Rest zeigt sich unterwegs.",
+      "Ich bin bei dir.",
+    ],
+  },
+  {
+    title: "Feiere öfter, nicht erst am Ende",
+    paragraphs: [
+      "Hallo, du auf diesem Weg,",
+      "es gibt eine stille Fähigkeit, die ehrgeizige Menschen vergessen: die Kunst, innezuhalten und zu feiern.",
+      "Nicht die laute Art, die Alkohol und eine große Party braucht. Die reine. Die echte Anerkennung, dass ein Stück Arbeit fertig ist. Der Moment, in dem du beim Ergebnis innehältst, es richtig spürst und dir Stolz erlaubst, bevor du dich in die nächste Aufgabe stürzt. Es kann ein tiefer Atemzug sein, ein stilles \u201egut gemacht\u201c, eine kleine Belohnung, die du wirklich genießt, oder das Teilen mit jemandem, der es versteht. Wichtig ist, es nicht zu überspringen.",
+      "Wer lernt, das Feiern aufzuschieben, wird es immer weiter aufschieben. Es funktioniert genau wie das Aufschieben der Arbeit selbst. Je länger du auf den \u201egroß genug\u201c Moment wartest, desto mehr verschwinden die kleinen Siege im Hintergrund des endlosen Strebens. Und ohne diese Momente der Anerkennung wird der Weg schwerer, als er sein müsste.",
+      "Feiern ist kein Umweg vom Ziel. Es gehört zur Arbeit — und es wirkt tatsächlich darauf, wie Motivation läuft. Jedes Mal, wenn du ein Stück Fortschritt ehrlich bemerkst und markierst, registriert das Gehirn ein kleines positives Signal. Dopamin, das die Lust am Weitermachen antreibt, reagiert auf solche Momente. Häufige, aufrichtige Anerkennung kleiner Siege schafft einen ruhigeren, gesünderen Rhythmus als das Warten auf seltene große Höhepunkte, nach denen oft ein Durchhänger folgt. Es lehrt dein System einen einzigen Satz: Diese Anstrengung hatte Sinn, tu es wieder.",
+      "Schau also heute zurück auf das, was du schon hinter dir hast. Nicht nur die riesigen Meilensteine. Die erledigte Aufgabe. Das ehrliche Gespräch. Das Training, das fast ausgefallen wäre. Die Entscheidung, die endlich gefallen ist. Halte dabei inne. Lass es einen Moment ankommen, dass fester Boden unter deinen Füßen ist. Und gönn dir dann ruhig eine kleine, gütige Belohnung — nicht als Bestechung, sondern als Anerkennung, die die Motivation in Form hält.",
+      "Je mehr du das übst, desto eher willst du den nächsten Ort erreichen, an dem es etwas zu feiern gibt. Aus dem Feiern wird Treibstoff und Ziel zugleich. Es erinnert daran, dass es bei der Arbeit nicht nur ums Irgendwann-Ankommen geht — sondern auch darum, unterwegs lebendig zu sein.",
+      "Du hast mehr hinter dir, als du dir manchmal zugestehst. Halte heute lange genug inne, damit es ankommt. Feiere es. Und dann geh weiter, leichter und stärker.",
+      "Ich freue mich über dich.",
     ],
   },
 ];
