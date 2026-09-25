@@ -944,7 +944,8 @@
         "Heute wartet hier nichts. Möge dir alles gelingen, was du anfasst.",
         "Nichts zu tun, nur dieser Gedanke. Mach's gut."
       ],
-      "noGoalNudge": "Gerade läuft kein Ziel. Falls dir etwas einfällt — es ist Montag, ein guter Tag zum Anfangen."
+      "noGoalNudge": "Gerade läuft kein Ziel. Falls dir etwas einfällt — es ist Montag, ein guter Tag zum Anfangen.",
+      "actionRead": "Ganz lesen"
     }
   },
   "withdrawal": {

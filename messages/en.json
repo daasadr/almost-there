@@ -944,7 +944,8 @@
         "Nothing waiting here today. May everything you touch go well.",
         "Nothing to do, just this thought. Take care."
       ],
-      "noGoalNudge": "You have no goal running right now. If something comes to mind — it is Monday, a good day to begin."
+      "noGoalNudge": "You have no goal running right now. If something comes to mind — it is Monday, a good day to begin.",
+      "actionRead": "Read it all"
     }
   },
   "withdrawal": {

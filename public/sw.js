@@ -141,7 +141,9 @@ self.addEventListener("push", (event) => {
       // Stejná značka přepíše předchozí připomínku místo toho, aby se
       // hromadily. Kdo aplikaci tři dny neotevřel, nemá najít tři okénka.
       tag: payload.tag ?? "almostthere-daily",
-      data: { url: payload.url ?? "/" },
+      // `actionUrls` drží cíl pro jednotlivá tlačítka. Bez toho vedla
+      // všechna na totéž místo a „přečíst celé" nemělo kam.
+      data: { url: payload.url ?? "/", actionUrls: payload.actionUrls ?? {} },
       actions: payload.actions ?? [],
       // Bez tohohle oznámení po pár vteřinách zmizí samo a kdo se zrovna
       // nedíval, o něj přišel.
@@ -152,7 +154,9 @@ self.addEventListener("push", (event) => {
 
 self.addEventListener("notificationclick", (event) => {
   const action = event.action;
-  const url = event.notification.data?.url ?? "/";
+  const data = event.notification.data ?? {};
+  // Tlačítko může mít vlastní cíl; klepnutí na tělo oznámení ten hlavní.
+  const url = (action && data.actionUrls?.[action]) || data.url || "/";
 
   event.notification.close();
 

@@ -944,7 +944,8 @@
         "Dnes tu na tebe nic nečeká. Ať se ti daří všechno, na co sáhneš.",
         "Nic na práci, jen tahle myšlenka. Měj se hezky."
       ],
-      "noGoalNudge": "Žádný rozjetý cíl teď nemáš. Kdyby tě něco napadlo, je pondělí — dobrý den na začátek."
+      "noGoalNudge": "Žádný rozjetý cíl teď nemáš. Kdyby tě něco napadlo, je pondělí — dobrý den na začátek.",
+      "actionRead": "Přečíst celé"
     }
   },
   "withdrawal": {

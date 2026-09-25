@@ -24,6 +24,11 @@ export type PushMessage = {
   /** Stejná značka přepíše předchozí oznámení místo hromadění. */
   tag: string;
   actions?: { action: string; title: string }[];
+  /**
+   * Kam vede které tlačítko. Bez toho míří všechna tam co klepnutí
+   * na tělo oznámení — a „přečíst celé“ by nemělo kam.
+   */
+  actionUrls?: Record<string, string>;
 };
 
 let configured: boolean | null = null;

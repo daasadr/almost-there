@@ -191,16 +191,13 @@ export async function dispatchReminders(): Promise<DispatchResult> {
             body: t("eveningBody", { count: open }),
             tag: "almostthere-evening",
             url: `/${locale}/app`,
+            actions: [
+              { action: "open", title: t("actionOk") },
+              { action: "snooze", title: t("actionSnooze") },
+            ],
           };
 
-    const delivered = await sendToUser(user.id, {
-      ...message,
-      lang: locale,
-      actions: [
-        { action: "open", title: t("actionOk") },
-        { action: "snooze", title: t("actionSnooze") },
-      ],
-    });
+    const delivered = await sendToUser(user.id, { ...message, lang: locale });
 
     await mark(user.id, kind, today);
     if (delivered > 0) sent += 1;
@@ -241,7 +238,14 @@ async function morningMessage({
   open: number;
   weekday: number;
   minutes: number;
-}): Promise<{ title: string; body: string; tag: string; url: string }> {
+}): Promise<{
+  title: string;
+  body: string;
+  tag: string;
+  url: string;
+  actions: { action: string; title: string }[];
+  actionUrls?: Record<string, string>;
+}> {
   const pieces = motivationByLocale[locale] ?? [];
   const number = pieceNumberForDay(createdAt, parseIsoDate(today), pieces.length);
   const piece = number > 0 ? pieces[number - 1] : null;
@@ -279,8 +283,25 @@ async function morningMessage({
       body: context,
       tag: "almostthere-daily",
       url,
+      actions: [
+        { action: "open", title: t("actionOk") },
+        { action: "snooze", title: t("actionSnooze") },
+      ],
     };
   }
+
+  /*
+   * Tlačítko na celý text.
+   *
+   * V oznámení je jen první věta a bez tohohle nebylo kam pokračovat:
+   * klepnutí na tělo vedlo do aplikace, protože tam čekají úkoly, a ten,
+   * kdo si chtěl text dočíst, ho musel hledat. Tlačítko má proto vlastní
+   * cíl — viz `actionUrls` v service workeru.
+   *
+   * „Jasně" tu být přestalo. Dělalo totéž co klepnutí na oznámení a
+   * zabíralo jedno ze dvou míst, která prohlížeč na tlačítka dá.
+   */
+  const read = `/${locale}/motivation/${number}`;
 
   return {
     title: piece.title,
@@ -289,6 +310,11 @@ async function morningMessage({
 ${context}`,
     tag: "almostthere-daily",
     url,
+    actions: [
+      { action: "read", title: t("actionRead") },
+      { action: "snooze", title: t("actionSnooze") },
+    ],
+    actionUrls: { read },
   };
 }
 
