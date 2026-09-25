@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 import { readStored, writeStored } from "@/lib/safe-storage";
+import { syncPushTheme } from "@/lib/push-theme";
 import {
   DEFAULT_THEME,
   isTheme,
@@ -107,6 +108,12 @@ export function ThemeSwitcher() {
     setTheme(next);
     setOpen(false);
     writeStored(THEME_STORAGE_KEY, next);
+
+    // Ať ranní oznámení vypadá jako aplikace, kterou tu člověk zná.
+    // Odpověď se neřeší: vzhled se přepnul a to je to podstatné —
+    // ikona se srovná i při příštím přepnutí. Kdo nemá zapnuté
+    // připomínky, tomu se neodešle nic.
+    void syncPushTheme(next);
   };
 
   const current = SWATCHES[theme];

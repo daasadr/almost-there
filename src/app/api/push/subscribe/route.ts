@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
+import { DEFAULT_THEME, THEMES } from "@/lib/theme";
 
 export const runtime = "nodejs";
 
@@ -19,6 +20,14 @@ const bodySchema = z.object({
     p256dh: z.string().min(1).max(200),
     auth: z.string().min(1).max(200),
   }),
+  /**
+   * Vzhled zvolený na tomhle zařízení. Podle něj se vybírá ikona
+   * a obrázek do oznámení.
+   *
+   * Nepovinný: starší verze aplikace ho neposílá a odběr se kvůli tomu
+   * nemá odmítnout. Bez něj zůstane, co u odběru je.
+   */
+  theme: z.enum(THEMES).optional(),
 });
 
 export async function POST(request: Request) {
@@ -39,7 +48,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "generic" }, { status: 400 });
   }
 
-  const { endpoint, keys } = parsed.data;
+  const { endpoint, keys, theme } = parsed.data;
 
   /*
    * Podle adresy, ne podle uživatele.
@@ -55,12 +64,15 @@ export async function POST(request: Request) {
       endpoint,
       p256dh: keys.p256dh,
       auth: keys.auth,
+      theme: theme ?? DEFAULT_THEME,
     },
     update: {
       userId: session.user.id,
       p256dh: keys.p256dh,
       auth: keys.auth,
       lastSeenAt: new Date(),
+      // Bez motivu v zásilce zůstane, co u odběru je.
+      ...(theme ? { theme } : {}),
     },
   });
 

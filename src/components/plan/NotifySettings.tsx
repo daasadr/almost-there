@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { readStored } from "@/lib/safe-storage";
+import { DEFAULT_THEME, isTheme, THEME_STORAGE_KEY } from "@/lib/theme";
 
 /**
  * Nastavení připomínek pro web.
@@ -196,11 +198,17 @@ async function subscribe(
     }));
 
   const json = subscription.toJSON();
+  const stored = readStored(THEME_STORAGE_KEY);
 
   await fetch("/api/push/subscribe", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ endpoint: json.endpoint, keys: json.keys }),
+    body: JSON.stringify({
+      endpoint: json.endpoint,
+      keys: json.keys,
+      // Ať oznámení vypadá jako aplikace, kterou tu člověk zná.
+      theme: isTheme(stored) ? stored : DEFAULT_THEME,
+    }),
   });
 
   return true;

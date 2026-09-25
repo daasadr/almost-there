@@ -16,7 +16,7 @@
  * předchozího buildu.
  */
 
-const VERSION = "v1";
+const VERSION = "v2";
 const STATIC_CACHE = `almostthere-static-${VERSION}`;
 const OFFLINE_URL = "/offline.html";
 
@@ -134,7 +134,12 @@ self.addEventListener("push", (event) => {
   event.waitUntil(
     self.registration.showNotification(payload.title, {
       body: payload.body ?? "",
-      icon: "/icon-192.png",
+      // Ikona i velký obrázek přicházejí v zásilce — liší se podle
+      // vzhledu, který má uživatel na tomhle zařízení nastavený. Jsou
+      // to jediné dvě plochy oznámení, do kterých nám systém dovolí
+      // mluvit; zbytek okna kreslí on sám.
+      icon: payload.icon ?? "/icon-192.png",
+      image: payload.image,
       // Ve stavovém řádku Androidu se z ikony bere jen tvar.
       badge: "/icon-192.png",
       lang: payload.lang ?? "cs",

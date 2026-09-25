@@ -648,6 +648,17 @@ model PushSubscription {
   p256dh   String
   auth     String
 
+  /// Zvolený vzhled na tomhle zařízení.
+  ///
+  /// Sedí u odběru, ne u uživatele, protože motiv je věc zařízení a oka,
+  /// ne profilu — na telefonu v posteli chce člověk často něco jiného než
+  /// na monitoru v poledne. Odběr je taky per zařízení, takže to sedí
+  /// k sobě.
+  ///
+  /// Slouží k výběru ikony a obrázku v oznámení. Ty jsou jediné dvě
+  /// plochy, do kterých nám systém dovolí mluvit.
+  theme String @default("classic")
+
   createdAt  DateTime @default(now())
   /// Kdy odtud naposledy něco přišlo. Podle toho se uklízí mrtvá zařízení.
   lastSeenAt DateTime @default(now())

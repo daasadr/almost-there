@@ -1,6 +1,7 @@
 import "server-only";
 import webpush from "web-push";
 import { db } from "@/lib/db";
+import { DEFAULT_THEME, isTheme } from "@/lib/theme";
 
 /**
  * Odesílání webových oznámení.
@@ -29,6 +30,9 @@ export type PushMessage = {
    * na tělo oznámení — a „přečíst celé“ by nemělo kam.
    */
   actionUrls?: Record<string, string>;
+  /** Doplňuje `sendToUser` podle motivu zařízení — viz `themeArt`. */
+  icon?: string;
+  image?: string;
 };
 
 let configured: boolean | null = null;
@@ -57,6 +61,25 @@ function ready(): boolean {
  * připomínky zapnuté má, ale žádné živé zařízení — typicky si vyčistil
  * prohlížeč.
  */
+/**
+ * Obrázky do oznámení podle zvoleného vzhledu.
+ *
+ * Vzhled oznámení kreslí operační systém a stránka do něj nemá co mluvit —
+ * zaoblení, okraje ani barvy okna nastavit nelze. Ikona a velký obrázek
+ * jsou jediné dvě plochy, které jsou naše, tak ať aspoň ony nesou barvy
+ * motivu, na který je člověk v aplikaci zvyklý.
+ *
+ * Soubory vyrábí `npm run notify:assets`. Neznámý motiv (starý odběr,
+ * přejmenovaný motiv) spadne na výchozí místo toho, aby zůstal bez ikony.
+ */
+function themeArt(theme: string): { icon: string; image: string } {
+  const name = isTheme(theme) ? theme : DEFAULT_THEME;
+  return {
+    icon: `/notify/${name}-icon.png`,
+    image: `/notify/${name}-banner.png`,
+  };
+}
+
 export async function sendToUser(
   userId: string,
   message: PushMessage,
@@ -65,10 +88,11 @@ export async function sendToUser(
 
   const devices = await db.pushSubscription.findMany({
     where: { userId },
-    select: { id: true, endpoint: true, p256dh: true, auth: true },
+    // `theme` kvůli obrázkům: každé zařízení má vlastní volbu vzhledu
+    // a oznámení má vypadat jako aplikace, kterou na něm člověk zná.
+    select: { id: true, endpoint: true, p256dh: true, auth: true, theme: true },
   });
 
-  const payload = JSON.stringify(message);
   let delivered = 0;
   const dead: string[] = [];
 
@@ -80,7 +104,9 @@ export async function sendToUser(
             endpoint: device.endpoint,
             keys: { p256dh: device.p256dh, auth: device.auth },
           },
-          payload,
+          // Zásilka se skládá pro každé zařízení zvlášť — liší se
+          // obrázky podle motivu.
+          JSON.stringify({ ...message, ...themeArt(device.theme) }),
           // Poštovní služba zprávu podrží, když je zařízení offline.
           // Den je dost: starší připomínka už nemá co připomínat.
           { TTL: 86_400 },

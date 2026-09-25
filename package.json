@@ -21,7 +21,8 @@
     "test:watch": "vitest",
     "check": "npm run typecheck && npm run lint && npm run test",
     "e2e": "playwright test",
-    "e2e:ui": "playwright test --ui"
+    "e2e:ui": "playwright test --ui",
+    "notify:assets": "node scripts/notify-assets.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.115.0",
