@@ -267,9 +267,8 @@
   },
   "cookies": {
     "title": "Cookies",
-    "body": "Používáme cookies nezbytné pro fungování webu. Rádi bychom používali i analytické cookies, abychom věděli, co funguje — ale jen s tvým souhlasem.",
-    "acceptAll": "Přijmout vše",
-    "necessaryOnly": "Jen nezbytné",
+    "body": "Používáme jen cookies nezbytné pro fungování webu — přihlášení, volbu jazyka a převzetí cíle z dema. Návštěvnost měříme bez cookies, na vlastním serveru a bez přiřazení ke konkrétnímu člověku.",
+    "acknowledge": "Beru na vědomí",
     "more": "Zásady ochrany osobních údajů"
   },
   "notFound": {

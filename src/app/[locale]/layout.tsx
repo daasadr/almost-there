@@ -10,7 +10,7 @@ import {
 import { routing } from "@/i18n/routing";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
-import { CookieBanner } from "@/components/CookieBanner";
+import { CookieNotice } from "@/components/CookieNotice";
 import { BackToTop } from "@/components/BackToTop";
 import { ThemeDecor } from "@/components/ThemeDecor";
 import { RevealOnScroll } from "@/components/RevealOnScroll";
@@ -227,10 +227,10 @@ export default async function LocaleLayout({
             />
           )}
 
-          <CookieBanner />
-          {/* Vlastní vrstva pod lištou o cookies — ta se objeví jednou
-              a na mobilu zabírá celý spodek, takže jí šipka nesmí
-              konkurovat. */}
+          <CookieNotice />
+          {/* Šipka nahoru sedí vpravo dole, značka o cookies vlevo —
+              dvě plovoucí tlačítka na téže straně vypadají jako
+              nepořádek a na mobilu si překážejí. */}
           <BackToTop />
           <RevealOnScroll />
           <ServiceWorker />

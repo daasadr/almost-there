@@ -267,9 +267,8 @@
   },
   "cookies": {
     "title": "Cookies",
-    "body": "Wir verwenden Cookies, die für den Betrieb der Seite unbedingt nötig sind. Analyse-Cookies würden wir gern nutzen, um zu verstehen, was funktioniert — aber nur mit deiner Einwilligung.",
-    "acceptAll": "Alle akzeptieren",
-    "necessaryOnly": "Nur notwendige",
+    "body": "Wir verwenden nur die Cookies, die die Website zum Funktionieren braucht — Anmeldung, Sprachwahl und die Übernahme eines Ziels aus der Demo. Die Zugriffe messen wir ohne Cookies, auf unserem eigenen Server und ohne Zuordnung zu einer Person.",
+    "acknowledge": "Verstanden",
     "more": "Datenschutzerklärung"
   },
   "notFound": {

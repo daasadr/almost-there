@@ -267,9 +267,8 @@
   },
   "cookies": {
     "title": "Cookies",
-    "body": "We use cookies that are strictly necessary for the site to work. We'd also like to use analytics cookies to understand what's working — only with your consent.",
-    "acceptAll": "Accept all",
-    "necessaryOnly": "Necessary only",
+    "body": "We use only the cookies the site needs to work — signing in, your language choice, and carrying a goal over from the demo. Traffic is measured without cookies, on our own server, and without tying visits to a person.",
+    "acknowledge": "Understood",
     "more": "Privacy policy"
   },
   "notFound": {

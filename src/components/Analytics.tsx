@@ -14,8 +14,13 @@ import { usePathname } from "next/navigation";
  *
  * Proto se na to taky nemusí ptát cookie lišta: souhlas podle ePrivacy
  * potřebuje to, co si něco uloží do zařízení nebo si tam něco přečte.
- * Tohle ani jedno nedělá. Kdyby se to mělo někdy změnit, musí se změnit
- * i tohle rozhodnutí a texty v `content/legal.ts`.
+ * Tohle ani jedno nedělá.
+ *
+ * Kdyby někdy přibylo měření, které si do prohlížeče něco ukládá, musí
+ * se souhlas vrátit: skript se pak smí načíst až po něm, do `legal.ts`
+ * se vrátí souhlas jako právní základ a ze značky o cookies (viz
+ * `CookieNotice.tsx`) se zase musí stát volba, ne oznámení. Je to tedy
+ * tři místa, ne jedno — a proto se to nemá udělat jen tak mimochodem.
  *
  * ── Uvnitř aplikace se neměří ────────────────────────────────────────
  *
