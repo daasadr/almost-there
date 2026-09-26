@@ -38,6 +38,19 @@ import type { Locale } from "@/i18n/routing";
  * k otevření aplikace ani připomínat, co se nestihlo. Když někoho ráno
  * potěší nebo mu něco došlo, splnil svůj účel.
  *
+ * ── Hodnota z toho, co je ─────────────────────────────────────────────
+ *
+ * „Nikdo jiný to nemá.“ „Už se to nikdy nevrátí.“ „Nic z toho tu nebylo.“
+ * Takhle se hodnota staví na nedostatku a ráno to spíš sevře, než nabije —
+ * je to memento mori v hezkých šatech.
+ *
+ * Píše se to obráceně: jeden den z miliard, a přitom jediný svého druhu.
+ * Jedinečnost proti mnoha, ne místo nich. A když to jde, i s podmínkou,
+ * kterou čtenář může splnit hned — všimnout si.
+ *
+ * Prakticky: projít si text na „nikdo“, „nikdy“, „nic“ a „ne-“ a u každého
+ * výskytu se zeptat, jestli jde říct totéž kladně. Skoro vždycky jde.
+ *
  * ── Pořadí ────────────────────────────────────────────────────────────
  *
  * Nečte se podle kalendáře, ale podle toho, kolikátý den ten člověk
