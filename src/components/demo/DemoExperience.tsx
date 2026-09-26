@@ -15,6 +15,7 @@ import {
 } from "@/lib/demo-validation";
 import { DemoResult } from "./DemoResult";
 import { GenerationProgress } from "./GenerationProgress";
+import { trackEvent } from "@/components/Analytics";
 
 type State =
   | { status: "form" }
@@ -74,6 +75,16 @@ export function DemoExperience() {
         setState({ status: "form" });
         return;
       }
+
+      /*
+       * Kolik lidí demo doopravdy dojelo.
+       *
+       * Registrace a platby vidíš ve správě, spuštění dema je ale ten
+       * krok mezi nimi — bez něj nejde poznat, jestli lidé odcházejí
+       * před vyzkoušením, nebo po něm. Hlásí se až tady, po úspěchu:
+       * odeslaný formulář, který spadl, nic neříká.
+       */
+      trackEvent("demo");
 
       setState({
         status: "done",

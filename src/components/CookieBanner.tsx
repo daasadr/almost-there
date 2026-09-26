@@ -9,8 +9,25 @@ import { readStored, writeStored } from "@/lib/safe-storage";
  * Cookie lišta podle GDPR/ePrivacy: analytické cookies jde odmítnout
  * jedním kliknutím, ne jen odsouhlasit (zadání, bod 13).
  *
- * Analytika se zatím nikde nenačítá — až přijde, musí kontrolovat
- * `getCookieConsent()` a spustit se teprve po souhlasu, ne předem.
+ * POZOR — tahle lišta dnes nic neřídí.
+ *
+ * Měření návštěvnosti se mezitím udělalo bez cookies: Umami běží na
+ * našem serveru, neukládá nic do zařízení a nepřiřazuje návštěvy
+ * k člověku. Souhlas podle ePrivacy potřebuje to, co si něco do
+ * zařízení uloží nebo si tam něco přečte — a to se tu neděje. Skript
+ * se proto vykresluje rovnou a `getCookieConsent()` se ho neptá; viz
+ * `Analytics.tsx`.
+ *
+ * Zbývající cookies jsou nezbytné: přihlášení, jazyk, převzetí dema.
+ * U těch se souhlas nevyžaduje.
+ *
+ * Z toho plyne, že lišta nabízí volbu, která už nic nemění. Je to
+ * rozhodnutí k učinění, ne stav, který by měl vydržet — buď se zruší,
+ * nebo se z ní stane obyčejné oznámení bez tlačítek. Do té doby tu
+ * zůstává, protože zmizet má vědomě, ne omylem.
+ *
+ * Kdyby někdy přibylo měření, které si do prohlížeče něco ukládá, musí
+ * se `getCookieConsent()` znovu začít ptát — od toho tu ta funkce je.
  */
 
 const STORAGE_KEY = "almostthere.cookie-consent";

@@ -39,6 +39,18 @@ docker compose build app migrate
 echo "==> Spouštím databázi"
 docker compose up -d db
 
+# Databáze pro měření návštěvnosti.
+#
+# Postgres pouští inicializační skripty jen nad prázdným svazkem a náš je
+# dávno plný, takže ji musíme založit sami. Podmínka je tu proto, aby to
+# šlo pustit při každém nasazení a podruhé to neudělalo nic.
+echo "==> Ověřuji databázi pro měření"
+DB_USER="${POSTGRES_USER:-almostthere}"
+if ! docker compose exec -T db psql -U "$DB_USER" -tAc   "SELECT 1 FROM pg_database WHERE datname='umami'" | grep -q 1; then
+  echo "    zakládám databázi umami"
+  docker compose exec -T db psql -U "$DB_USER" -c "CREATE DATABASE umami"
+fi
+
 echo "==> Aplikuji migrace databáze"
 # Běží před startem aplikace — kdyby appka naběhla dřív než schéma,
 # první požadavky by spadly na chybějící sloupce.

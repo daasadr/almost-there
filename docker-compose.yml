@@ -153,6 +153,37 @@ services:
     # Port ven nevystavujeme — do databáze se dostaneš přes `docker compose exec`
     # nebo přes SSH tunel, ne z internetu.
 
+  # ---------------------------------------------------------------------
+  # Měření návštěvnosti.
+  #
+  # Běží u nás, ne u někoho jiného: návštěvy zůstávají na tomhle serveru
+  # a ve stejném Postgresu, jen ve vlastní databázi (`umami`). Tu zakládá
+  # deploy.sh, protože inicializační skripty Postgresu se pouštějí jen
+  # nad prázdným svazkem a náš je dávno plný.
+  #
+  # Ven se nevystavuje. Chodí se k němu přes nginx na /stats, který sedí
+  # před ním a řeší HTTPS.
+  # ---------------------------------------------------------------------
+  umami:
+    image: ghcr.io/umami-software/umami:postgresql-latest
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-almostthere}:${POSTGRES_PASSWORD}@db:5432/umami
+      DATABASE_TYPE: postgresql
+      # Podepisuje přihlášení do správy měření. Ztráta znamená jen
+      # odhlášení všech, ne ztrátu dat.
+      APP_SECRET: ${UMAMI_APP_SECRET}
+      # Aplikace i měření sdílejí jednu doménu, tohle je cesta pod ní.
+      BASE_PATH: /stats
+      # Telemetrie o nás samých autorům Umami. Neposíláme.
+      DISABLE_TELEMETRY: "1"
+    ports:
+      # Jen na smyčku — dovnitř se dostane pouze nginx z tohohle stroje.
+      - "127.0.0.1:${UMAMI_PORT:-3001}:3000"
+
 volumes:
   pgdata:
   # Uživatelská data mimo databázi. V zálohách musí být zvlášť —

@@ -330,7 +330,7 @@ export const privacyByLocale: Record<Locale, LegalDocument> = {
         paragraphs: [
           "Plnění smlouvy (čl. 6 odst. 1 písm. b GDPR): vedení účtu, generování a uchovávání plánů, sledování postupu, správa předplatného.",
           "Oprávněný zájem (čl. 6 odst. 1 písm. f GDPR): zabezpečení služby, ochrana proti zneužití a podvodům, řešení technických problémů.",
-          "Souhlas (čl. 6 odst. 1 písm. a GDPR): analytické a marketingové cookies. Bez souhlasu se nespouštějí a souhlas můžeš kdykoliv odvolat.",
+          "Oprávněný zájem (čl. 6 odst. 1 písm. f GDPR): měření návštěvnosti webu. Měří se bez cookies a bez identifikace jednotlivce, jen souhrnné počty — viz oddíl 7.",
           "Plnění právní povinnosti (čl. 6 odst. 1 písm. c GDPR): uchovávání účetních dokladů.",
         ],
       },
@@ -367,7 +367,7 @@ export const privacyByLocale: Record<Locale, LegalDocument> = {
         paragraphs: [
           "Máš právo na přístup ke svým údajům, na jejich opravu, na výmaz, na omezení zpracování, na přenositelnost a právo vznést námitku proti zpracování na základě oprávněného zájmu.",
           "Výmaz účtu je dostupný přímo v nastavení a znamená skutečné smazání dat, nikoliv jen deaktivaci účtu.",
-          "Souhlas s analytickými cookies můžeš kdykoliv odvolat v nastavení cookies.",
+          "Proti měření návštěvnosti, které stojí na oprávněném zájmu, můžeš vznést námitku. Stačí nám napsat.",
           "Pokud máš za to, že zpracováváme údaje v rozporu s předpisy, můžeš podat stížnost u Úřadu pro ochranu osobních údajů (uoou.gov.cz) nebo u dozorového úřadu ve své zemi.",
         ],
       },
@@ -375,7 +375,9 @@ export const privacyByLocale: Record<Locale, LegalDocument> = {
         heading: "7. Cookies",
         paragraphs: [
           "Nezbytné cookies zajišťují přihlášení a základní fungování webu; bez nich by služba nefungovala a nevyžadují souhlas.",
-          "Analytické cookies nám pomáhají pochopit, jak se web používá. Načítají se až po tvém souhlasu, ne dříve. Souhlas i odmítnutí jsou dostupné jedním kliknutím.",
+          "Analytické ani marketingové cookies nepoužíváme vůbec.",
+          "Návštěvnost měříme nástrojem Umami, který běží na našem serveru a ukládá do naší databáze. Neukládá nic do tvého zařízení, nepřiřazuje návštěvy ke konkrétnímu člověku a nesleduje tě napříč weby. Vidíme souhrnné počty zobrazení, odkud návštěva přišla, přibližnou zemi, typ zařízení a prohlížeč. Údaje se nepředávají nikomu dalšímu.",
+          "Uvnitř přihlášené aplikace se neměří nic. Měření běží jen na veřejných stránkách.",
         ],
       },
       {
@@ -406,7 +408,7 @@ export const privacyByLocale: Record<Locale, LegalDocument> = {
         paragraphs: [
           "Performance of a contract (Art. 6(1)(b) GDPR): running your account, generating and storing plans, tracking progress, managing your subscription.",
           "Legitimate interest (Art. 6(1)(f) GDPR): securing the service, protecting against abuse and fraud, resolving technical problems.",
-          "Consent (Art. 6(1)(a) GDPR): analytics and marketing cookies. They do not load without consent and you can withdraw it at any time.",
+          "Legitimate interest (Art. 6(1)(f) GDPR): measuring site traffic. It is measured without cookies and without identifying anyone, as aggregate counts only — see section 7.",
           "Legal obligation (Art. 6(1)(c) GDPR): retention of accounting records.",
         ],
       },
@@ -443,7 +445,7 @@ export const privacyByLocale: Record<Locale, LegalDocument> = {
         paragraphs: [
           "You have the right of access to your data, and to rectification, erasure, restriction of processing, data portability, and to object to processing based on legitimate interest.",
           "Account deletion is available directly in settings and means actual deletion of the data, not merely deactivation of the account.",
-          "You can withdraw consent to analytics cookies at any time in cookie settings.",
+          "You can object to traffic measurement, which rests on legitimate interest. Just write to us.",
           "If you believe we process your data unlawfully, you may lodge a complaint with the Czech Office for Personal Data Protection (uoou.gov.cz) or the supervisory authority in your country.",
         ],
       },
@@ -451,7 +453,9 @@ export const privacyByLocale: Record<Locale, LegalDocument> = {
         heading: "7. Cookies",
         paragraphs: [
           "Strictly necessary cookies handle sign-in and basic site function; without them the service would not work, and they do not require consent.",
-          "Analytics cookies help us understand how the site is used. They load only after you consent, never before. Accepting and refusing are both one click away.",
+          "We use no analytics or marketing cookies at all.",
+          "We measure traffic with Umami, which runs on our own server and stores into our own database. It puts nothing on your device, does not tie visits to a particular person, and does not follow you across sites. We see aggregate view counts, where a visit came from, an approximate country, device type and browser. The data is not passed to anyone else.",
+          "Nothing is measured inside the signed-in app. Measurement runs on public pages only.",
         ],
       },
       {
@@ -482,7 +486,7 @@ export const privacyByLocale: Record<Locale, LegalDocument> = {
         paragraphs: [
           "Vertragserfüllung (Art. 6 Abs. 1 lit. b DSGVO): Führung des Kontos, Erstellung und Speicherung der Pläne, Fortschrittsverfolgung, Verwaltung des Abonnements.",
           "Berechtigtes Interesse (Art. 6 Abs. 1 lit. f DSGVO): Absicherung des Dienstes, Schutz vor Missbrauch und Betrug, Behebung technischer Störungen.",
-          "Einwilligung (Art. 6 Abs. 1 lit. a DSGVO): Analyse- und Marketing-Cookies. Ohne Einwilligung werden sie nicht geladen; du kannst sie jederzeit widerrufen.",
+          "Berechtigtes Interesse (Art. 6 Abs. 1 lit. f DSGVO): Messung der Websitezugriffe. Gemessen wird ohne Cookies und ohne Identifikation einzelner Personen, nur als Gesamtzahlen — siehe Abschnitt 7.",
           "Rechtliche Verpflichtung (Art. 6 Abs. 1 lit. c DSGVO): Aufbewahrung von Buchhaltungsbelegen.",
         ],
       },
@@ -519,7 +523,7 @@ export const privacyByLocale: Record<Locale, LegalDocument> = {
         paragraphs: [
           "Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit sowie das Recht, der Verarbeitung auf Grundlage berechtigten Interesses zu widersprechen.",
           "Die Kontolöschung ist direkt in den Einstellungen verfügbar und bedeutet tatsächliche Löschung der Daten, nicht bloß eine Deaktivierung des Kontos.",
-          "Die Einwilligung in Analyse-Cookies kannst du jederzeit in den Cookie-Einstellungen widerrufen.",
+          "Gegen die Zugriffsmessung, die auf berechtigtem Interesse beruht, kannst du Widerspruch einlegen. Schreib uns einfach.",
           "Wenn du der Ansicht bist, dass wir Daten rechtswidrig verarbeiten, kannst du dich beim tschechischen Amt für Datenschutz (uoou.gov.cz) oder bei der Aufsichtsbehörde deines Landes beschweren.",
         ],
       },
@@ -527,7 +531,9 @@ export const privacyByLocale: Record<Locale, LegalDocument> = {
         heading: "7. Cookies",
         paragraphs: [
           "Unbedingt erforderliche Cookies ermöglichen Anmeldung und Grundfunktionen; ohne sie funktioniert der Dienst nicht, und sie bedürfen keiner Einwilligung.",
-          "Analyse-Cookies helfen uns zu verstehen, wie die Seite genutzt wird. Sie werden erst nach deiner Einwilligung geladen, nie vorher. Zustimmen und Ablehnen sind jeweils ein Klick.",
+          "Analyse- oder Marketing-Cookies verwenden wir überhaupt nicht.",
+          "Die Zugriffe messen wir mit Umami, das auf unserem eigenen Server läuft und in unsere eigene Datenbank schreibt. Es legt nichts auf deinem Gerät ab, ordnet Besuche keiner bestimmten Person zu und verfolgt dich nicht über Websites hinweg. Wir sehen Gesamtzahlen der Aufrufe, woher ein Besuch kam, ein ungefähres Land, den Gerätetyp und den Browser. Die Daten werden an niemanden weitergegeben.",
+          "Innerhalb der angemeldeten App wird nichts gemessen. Die Messung läuft nur auf öffentlichen Seiten.",
         ],
       },
       {

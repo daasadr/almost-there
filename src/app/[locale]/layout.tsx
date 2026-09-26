@@ -21,6 +21,7 @@ import { STORE_APP_MARKER } from "@/lib/store-app";
 import { THEME_INIT_SCRIPT } from "@/lib/theme";
 import { siteUrl } from "@/lib/seo/site";
 import "@/app/globals.css";
+import { Analytics } from "@/components/Analytics";
 
 /**
  * Oddíly překladů, které potřebují komponenty běžící v prohlížeči.
@@ -132,6 +133,12 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+
+  /**
+   * Bez nastaveného webu se měření nevykreslí vůbec. Ve vývoji
+   * a v ukázkovém prostředí proto neběží nic a nikam se nic neposílá.
+   */
+  const umamiWebsiteId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID;
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
@@ -210,6 +217,16 @@ export default async function LocaleLayout({
             <main id="main">{children}</main>
             <SiteFooter />
           </div>
+          {/* Měření návštěvnosti. Běží na našem serveru, bez cookies
+              a jen na veřejných stránkách — viz Analytics.tsx. Proto se
+              nevykresluje až po souhlasu, ale rovnou. */}
+          {umamiWebsiteId && (
+            <Analytics
+              websiteId={umamiWebsiteId}
+              scriptUrl={process.env.NEXT_PUBLIC_UMAMI_SCRIPT ?? "/stats/script.js"}
+            />
+          )}
+
           <CookieBanner />
           {/* Vlastní vrstva pod lištou o cookies — ta se objeví jednou
               a na mobilu zabírá celý spodek, takže jí šipka nesmí
