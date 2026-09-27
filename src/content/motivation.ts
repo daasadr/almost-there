@@ -177,6 +177,23 @@ const cs: MotivationPiece[] = [
       "Jsem s tebou, když to zkoušíš.",
     ],
   },
+  {
+    title: "Podmínky si vyrábíme sami",
+    paragraphs: [
+      "Ahoj,",
+      "jak často potichu čekáme? Na víc času. Na víc energie. Na správnou náladu. Na jasnější okolnosti. Na to, až někdo jiný udělá první krok. Na to, až se život uspořádá tak, aby začít bylo snadné.",
+      "A zatímco se čeká, dny ubíhají. Příležitosti řídnou. Propast mezi životem, který chceme, a tím, který žijeme, se pomalu rozšiřuje.",
+      "Přitom podmínky, na které se čeká, přicházejí hotové jen zřídka. Vyrábějí je lidé, kteří se rozhodnou začít i tak.",
+      "Ti, kdo přestanou vyjednávat s okolnostmi a začnou je utvářet. Kdo vezmou ten nedokonalý okamžik, který zrovna mají, a udělají z něj použitelný. Kdo se místo „je všechno připravené?“ ptají: „jaký nejmenší skutečný krok jde udělat s tím, co už mám?“",
+      "Dokonalé podmínky k pohybu nepotřebuješ. Potřebuješ rozhodnutí přestat odkládat a ochotu vyrobit si trochu pořádku, trochu jasna a trochu rozjezdu.",
+      "Tak si dnes všimni jednoho místa, kde se čeká. A polož si otázku: jakou podmínku si můžu vytvořit hned, i kdyby byla malá?",
+      "Jasnější plán. Chráněnou půlhodinu. Jeden poctivý krok. Jedno odmítnutí, které uvolní ruce. Rozhodnutí, které rozptýlí mlhu.",
+      "Když začneš podmínky vyrábět místo čekání na ně, něco se posune. Přestaneš se vézt a začneš řídit.",
+      "Svět ideální okolnosti rozdává zřídka. Ale vždycky nechává prostor těm, kdo si je ochotní postavit.",
+      "Tak začni. Ne až bude všechno připravené. Teď, s tím, co máš.",
+      "Jsem s tebou.",
+    ],
+  },
 ];
 
 const en: MotivationPiece[] = [
@@ -291,6 +308,23 @@ const en: MotivationPiece[] = [
       "I am with you while you practise it.",
     ],
   },
+  {
+    title: "We make the conditions ourselves",
+    paragraphs: [
+      "Hello,",
+      "how often do we quietly wait? For more time. For more energy. For the right mood. For clearer circumstances. For someone else to make the first move. For life to arrange itself so that starting feels easy.",
+      "And while the waiting goes on, days pass. Opportunities thin out. The gap between the life we want and the one we are living slowly widens.",
+      "Yet the conditions being waited for arrive ready-made only rarely. They are built by the people who decide to begin anyway.",
+      "The ones who stop negotiating with circumstance and start shaping it. Who take the imperfect moment they happen to have and make it workable. Who ask, instead of “is everything ready?”, this: “what is the smallest real step I can take with what I already have?”",
+      "You do not need perfect conditions in order to move. You need the decision to stop postponing, and the willingness to make yourself a little order, a little clarity and a little momentum.",
+      "So today, notice one place where waiting is happening. And ask: what condition can I create right now, even a small one?",
+      "A clearer plan. A protected half-hour. One honest step. One refusal that frees your hands. A decision that clears the fog.",
+      "When you start building the conditions instead of waiting for them, something shifts. You stop being carried and start steering.",
+      "The world hands out ideal circumstances rarely. But it always leaves room for those willing to build them.",
+      "So begin. Not once everything is ready. Now, with what you have.",
+      "I am with you.",
+    ],
+  },
 ];
 
 const de: MotivationPiece[] = [
@@ -403,6 +437,23 @@ const de: MotivationPiece[] = [
       "Wenn also heute etwas kommt, das dich sonst in eine automatische Reaktion stürzen würde, versuch diesen kleinen Raum zu finden. Atme. Frag dich: Welche Reaktion würde der Mensch wählen, der ich werden will? Nicht die leichteste. Die, die zu mehr Tiefe und mehr Freiheit führt.",
       "Du hast immer mehr Wahl, als es auf den ersten Blick scheint. Das ist Frankls Geschenk — und es liegt an jedem gewöhnlichen Morgen bereit.",
       "Ich bin bei dir, während du es übst.",
+    ],
+  },
+  {
+    title: "Die Bedingungen machen wir selbst",
+    paragraphs: [
+      "Hallo,",
+      "wie oft warten wir still? Auf mehr Zeit. Auf mehr Energie. Auf die richtige Stimmung. Auf klarere Umstände. Darauf, dass jemand anderes den ersten Schritt macht. Darauf, dass das Leben sich so ordnet, dass Anfangen leichtfällt.",
+      "Und während gewartet wird, vergehen Tage. Gelegenheiten dünnen aus. Die Kluft zwischen dem Leben, das wir wollen, und dem, das wir führen, wird langsam größer.",
+      "Dabei kommen die Bedingungen, auf die gewartet wird, nur selten fertig an. Gebaut werden sie von Menschen, die sich entscheiden, trotzdem anzufangen.",
+      "Von denen, die aufhören, mit den Umständen zu verhandeln, und anfangen, sie zu gestalten. Die den unvollkommenen Moment nehmen, den sie gerade haben, und ihn brauchbar machen. Die statt „ist alles bereit?“ fragen: „welchen kleinsten echten Schritt kann ich mit dem tun, was ich schon habe?“",
+      "Perfekte Bedingungen brauchst du zum Loslegen nicht. Du brauchst die Entscheidung, das Aufschieben zu beenden, und die Bereitschaft, dir selbst ein wenig Ordnung, ein wenig Klarheit und ein wenig Schwung zu schaffen.",
+      "Bemerk also heute einen Ort, an dem gewartet wird. Und frag dich: Welche Bedingung kann ich jetzt schaffen, und sei sie klein?",
+      "Einen klareren Plan. Eine geschützte halbe Stunde. Einen ehrlichen Schritt. Eine Absage, die dir die Hände frei macht. Eine Entscheidung, die den Nebel auflöst.",
+      "Wenn du anfängst, die Bedingungen zu bauen, statt auf sie zu warten, verschiebt sich etwas. Du hörst auf, gefahren zu werden, und beginnst zu lenken.",
+      "Ideale Umstände verteilt die Welt selten. Aber sie lässt immer Raum für die, die bereit sind, sie zu bauen.",
+      "Also fang an. Nicht wenn alles bereit ist. Jetzt, mit dem, was du hast.",
+      "Ich bin bei dir.",
     ],
   },
 ];
