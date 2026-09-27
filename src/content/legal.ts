@@ -153,6 +153,7 @@ export const termsByLocale: Record<Locale, LegalDocument> = {
         heading: "3. Subscription, price and payment",
         paragraphs: [
           "The service costs a single monthly subscription of 179 CZK, or 1790 CZK a year. The price shown on the website and in the app store is the final price — there are no hidden charges.",
+          "Billing is in Czech koruna. Amounts shown in euros or dollars are approximate and for orientation only; the final conversion is made by your bank or card issuer, which may add its own fee.",
           "The price shown is final and includes value added tax, which Stripe remits as the merchant of record. The operator is not registered for VAT.",
           "The subscription renews automatically at the end of each billing period until you cancel. You can cancel any time in your account settings; the service remains available until the end of the period already paid for.",
           "Payments on the web run through Stripe Managed Payments. In this arrangement Stripe acts as the merchant of record: it concludes the payment transaction with you, issues the receipt and remits value added tax. The operator is the supplier of the service itself.",
@@ -243,6 +244,7 @@ export const termsByLocale: Record<Locale, LegalDocument> = {
         heading: "3. Abonnement, Preis und Zahlung",
         paragraphs: [
           "Der Dienst kostet ein einheitliches Monatsabonnement von 179 CZK oder 1790 CZK pro Jahr. Der auf der Website und im App-Store angegebene Preis ist der Endpreis — versteckte Zuschläge gibt es nicht.",
+          "Abgerechnet wird in tschechischen Kronen. In Euro angegebene Beträge sind Näherungswerte zur Orientierung; die endgültige Umrechnung nimmt deine Bank oder dein Kartenherausgeber vor und kann eine eigene Gebühr erheben.",
           "Der angegebene Preis ist ein Endpreis und enthält die Umsatzsteuer, die Stripe als Verkäufer abführt. Der Betreiber ist nicht umsatzsteuerpflichtig.",
           "Das Abonnement verlängert sich am Ende jedes Abrechnungszeitraums automatisch, bis du kündigst. Kündigen kannst du jederzeit in den Kontoeinstellungen; der Dienst bleibt bis zum Ende des bereits bezahlten Zeitraums verfügbar.",
           "Zahlungen im Web laufen über Stripe Managed Payments. Stripe tritt dabei als Verkäufer auf (merchant of record): Stripe schließt die Zahlungstransaktion mit dir ab, stellt den Beleg aus und führt die Umsatzsteuer ab. Der Betreiber ist Anbieter der Leistung selbst.",

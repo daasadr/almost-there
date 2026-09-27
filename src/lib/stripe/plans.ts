@@ -28,14 +28,43 @@ type PriceDisplay = {
    * nepřečte: je v tom mezera i měna a v jiném jazyce by to bylo jinak.
    */
   value: number;
+  /**
+   * Přibližná částka v měně, které čtenář rozumí. Jen pro orientaci.
+   *
+   * Účtuje se v korunách a tak to zůstane, dokud nebude eurová cena ve
+   * Stripu. Cizinci ale „179 CZK" nic neříká — je to číslo bez měřítka
+   * a část lidí kvůli tomu odejde dřív, než zjistí, že je to pár eur.
+   * Tohle je ta informace, ne slib ceny: převod nakonec udělá banka
+   * kupujícího svým kurzem.
+   */
+  approx?: string;
 };
+
+/**
+ * Kurzy pro orientační přepočet.
+ *
+ * Odhad k **září 2026**, schválně hrubý. Zobrazuje se zaokrouhlené na
+ * celé jednotky se značkou „přibližně", takže běžný pohyb kurzu na
+ * výsledku nic nemění. Projít je stojí za to jednou za rok — a hlavně
+ * ve chvíli, kdy vznikne opravdová eurová cena ve Stripu, protože pak
+ * tenhle odhad zmizí úplně.
+ */
+const PER_EUR = 25;
+const PER_USD = 23;
+
+const eur = (czk: number) => Math.round(czk / PER_EUR);
+const usd = (czk: number) => Math.round(czk / PER_USD);
 
 /**
  * Ceny podle jazyka aplikace.
  *
- * Zatím všude koruna. Až se stanoví eurová cena, doplní se sem pro `en`
- * a `de` — a zároveň se musí založit odpovídající cena ve Stripu, jinak
- * by se zobrazovaná částka rozešla s účtovanou.
+ * Účtuje se všude v korunách. Cizojazyčné varianty k tomu přidávají
+ * přibližný přepočet, aby „179 CZK" nebylo číslo bez měřítka — viz
+ * `approx`. Je to orientace, ne druhá cena.
+ *
+ * Skutečná eurová cena by znamenala vlastní cenu ve Stripu; teprve pak
+ * by se účtovalo v eurech a `approx` by zmizelo. Do té doby se musí
+ * zobrazovaná částka v korunách shodovat s tou u pokladny.
  */
 const PRICES: Record<Locale, Record<BillingPeriod, PriceDisplay>> = {
   cs: {
@@ -43,12 +72,32 @@ const PRICES: Record<Locale, Record<BillingPeriod, PriceDisplay>> = {
     yearly: { amount: "1 790 Kč", currency: "CZK", value: 1790 },
   },
   en: {
-    monthly: { amount: "179 CZK", currency: "CZK", value: 179 },
-    yearly: { amount: "1790 CZK", currency: "CZK", value: 1790 },
+    monthly: {
+      amount: "179 CZK",
+      currency: "CZK",
+      value: 179,
+      approx: `about €${eur(179)} / $${usd(179)}`,
+    },
+    yearly: {
+      amount: "1790 CZK",
+      currency: "CZK",
+      value: 1790,
+      approx: `about €${eur(1790)} / $${usd(1790)}`,
+    },
   },
   de: {
-    monthly: { amount: "179 CZK", currency: "CZK", value: 179 },
-    yearly: { amount: "1790 CZK", currency: "CZK", value: 1790 },
+    monthly: {
+      amount: "179 CZK",
+      currency: "CZK",
+      value: 179,
+      approx: `etwa ${eur(179)} €`,
+    },
+    yearly: {
+      amount: "1790 CZK",
+      currency: "CZK",
+      value: 1790,
+      approx: `etwa ${eur(1790)} €`,
+    },
   },
 };
 
