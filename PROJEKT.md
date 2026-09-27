@@ -190,6 +190,33 @@ Nasazeno na **https://almost-there.eu**.
 - **Kalendář** s měsíčním přehledem plnění a proužkem posledních třiceti dnů
 - **Motivační obrázky** u cíle, s volbou polohy vůči seznamu úkolů
 - **Sdílení postupu** jako obrázek, kreslený v prohlížeči
+- **Myšlenka na den** — krátký text, který ráno přijde v oznámení a dá se
+  nechat přečíst nahlas; s volbou polohy na dnešku nebo úplného vypnutí
+
+### Myšlenka na den
+
+Texty jsou v `src/content/motivation/`, po měsících — jeden soubor drží
+třicet, cílem je tři sta šedesát pět. Pravidla pro psaní jsou v hlavičce
+`index.ts`: bezrodá čeština, kladné formulace, žádný opakovaný tah přes
+víc textů.
+
+Nečtou se podle kalendáře, ale podle toho, kolikátý den uživatel aplikaci
+má — kdo se přidá v březnu, začíná jedničkou. **Pořadí je proto závazek:**
+číslo textu je jeho veřejná adresa, takže na konec se smí přidávat, ale
+uprostřed se nemaže ani nepřehazuje.
+
+Do prohlížeče se posílá vždycky jen jeden text; knihovna zůstává na
+serveru, takže na rychlost stránky nemá vliv, ať je jakkoliv velká.
+
+`npm run motivation` vypíše přehled: délky, kolik textů ještě čeká na
+ruční úpravu, a hlavně opakované začátky, rozloučení a slova napříč
+knihovnou. Tohle jsou vady, které z jednoho textu vidět nejsou —
+u prvních osmi začínaly čtyři skoro identicky a všimlo se toho až
+hromadné srovnání.
+
+Předčítá prohlížeč, ne nahrávka. Audio se zvažovalo a zamítlo: pět minut
+denně ve třech jazycích se natáčet nedá a generované hlasy zněly špatně.
+Od strojového předčítání naproti tomu nikdo herecký výkon nečeká.
 
 ### Mobilní aplikace
 

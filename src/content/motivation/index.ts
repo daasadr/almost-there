@@ -92,6 +92,19 @@ export type MotivationPiece = {
   title: string;
   /** Tělo textu po odstavcích, včetně oslovení a rozloučení. */
   paragraphs: string[];
+  /**
+   * Prošel text ruční úpravou?
+   *
+   * Texty vznikají po dávkách a pak se jeden po druhém dopisují — přidává
+   * se do nich konkrétnost, vlastní zkušenost, věta, kterou by nikdo jiný
+   * nenapsal. To je práce na měsíce a bez značky by se po sto textech
+   * nedalo poznat, které jsou hotové.
+   *
+   * Chybí-li, text na svůj průchod čeká. Na chování aplikace to nemá
+   * vliv, je to poznámka pro autorku — `npm run motivation` vypíše,
+   * kolik jich zbývá.
+   */
+  reviewed?: true;
 };
 
 /** Jeden měsíc textů ve všech jazycích. */
