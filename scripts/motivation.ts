@@ -1,4 +1,7 @@
-import { motivationByLocale } from "../src/content/motivation/index.ts";
+import {
+  motivationByLocale,
+  type MotivationPiece,
+} from "../src/content/motivation/index";
 
 /**
  * Přehled knihovny myšlenek na den.
@@ -44,8 +47,9 @@ if (pieces.length === 0) {
   process.exit(0);
 }
 
-const words = (text) => text.split(/\s+/).filter(Boolean);
-const body = (piece) => piece.paragraphs.slice(1, -1).join(" ");
+const words = (text: string): string[] => text.split(/\s+/).filter(Boolean);
+const body = (piece: MotivationPiece): string =>
+  piece.paragraphs.slice(1, -1).join(" ");
 
 /* ── Přehled ──────────────────────────────────────────────────────── */
 
@@ -115,8 +119,8 @@ const inTexts = new Map();
 pieces.forEach((piece, i) => {
   const seen = new Set(
     words(body(piece).toLowerCase())
-      .map((w) => w.replace(/[^\p{L}]/gu, ""))
-      .filter((w) => w.length >= 5 && !EXPECTED.has(w)),
+      .map((word: string) => word.replace(/[^\p{L}]/gu, ""))
+      .filter((word: string) => word.length >= 5 && !EXPECTED.has(word)),
   );
   for (const word of seen) {
     inTexts.set(word, [...(inTexts.get(word) ?? []), i + 1]);
