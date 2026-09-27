@@ -1,76 +1,18 @@
-import type { Locale } from "@/i18n/routing";
+import type { MotivationBlock } from "./index";
 
 /**
- * Myšlenka na den.
+ * Myšlenky na den 1 až 30 — první měsíc.
  *
- * Krátký text, který uživatel dostane ráno v oznámení a může si ho nechat
- * přečíst nahlas. Původně to mělo být namluvené audio; od toho se ustoupilo,
- * protože natočit pět minut denně ve třech jazycích se udržet nedá a
- * generované hlasy zněly špatně. Text je rychlejší napsat, jde přeložit,
- * opravit překlep trvá vteřinu — a od strojového předčítání nikdo nečeká
- * herecký výkon, takže nevadí, že zní jako předčítání.
- *
- * ── Jak přidat další ──────────────────────────────────────────────────
- *
- * Přidej položku do `cs`, `en` i `de` — pořadí musí sedět, protože se
- * vybírá podle čísla. Kontrolu drží `assertSameLength` dole: když jeden
- * jazyk zůstane pozadu, projeví se to při sestavení, ne až u uživatele.
- *
- * ── Tvar ──────────────────────────────────────────────────────────────
- *
- * První odstavec je oslovení, poslední je rozloučení. Upoutávka do
- * oznámení se bere z prvního skutečného odstavce — viz `teaser()`.
- *
- * ── Čeština mluví k oběma ─────────────────────────────────────────────
- *
- * Minulý čas je v češtině rodově určený, takže „všiml sis“ a „žil jsem“
- * mluví k muži a polovina čtenářů se v tom nenajde. Texty se proto píšou
- * tak, aby se rodu vyhnuly: přítomným časem („napadlo tě někdy“),
- * podstatnými jmény („po dnech plných řešení“) nebo infinitivem („jde
- * o to rozhodnout“). Oslovení je bezrodé — „ty na cestě“, ne „příteli“.
- *
- * Němčina tenhle problém nemá, angličtina taky ne. Hlídat se musí jen
- * čeština, a je to snadné přehlédnout, protože mužský rod zní „normálně“.
- *
- * ── Tón ───────────────────────────────────────────────────────────────
- *
- * Konkrétně a vlídně, tykání. Text nemá nic chtít: nemá vybízet
- * k otevření aplikace ani připomínat, co se nestihlo. Když někoho ráno
- * potěší nebo mu něco došlo, splnil svůj účel.
- *
- * ── Hodnota z toho, co je ─────────────────────────────────────────────
- *
- * „Nikdo jiný to nemá.“ „Už se to nikdy nevrátí.“ „Nic z toho tu nebylo.“
- * Takhle se hodnota staví na nedostatku a ráno to spíš sevře, než nabije —
- * je to memento mori v hezkých šatech.
- *
- * Píše se to obráceně: jeden den z miliard, a přitom jediný svého druhu.
- * Jedinečnost proti mnoha, ne místo nich. A když to jde, i s podmínkou,
- * kterou čtenář může splnit hned — všimnout si.
- *
- * Prakticky: projít si text na „nikdo“, „nikdy“, „nic“ a „ne-“ a u každého
- * výskytu se zeptat, jestli jde říct totéž kladně. Skoro vždycky jde.
- *
- * ── Pořadí ────────────────────────────────────────────────────────────
- *
- * Nečte se podle kalendáře, ale podle toho, kolikátý den ten člověk
- * aplikaci má. Kdo se přidá v březnu, začíná jedničkou. Texty proto na
- * sebe nesmí navazovat a nesmí odkazovat na roční období ani na svátky.
+ * Jak psát a co hlídat je v `index.ts`. Tenhle soubor je jen obsah.
  */
 
-export type MotivationPiece = {
-  /** Nadpis. Krátký — jde i do oznámení na zamčenou obrazovku. */
-  title: string;
-  /** Tělo textu po odstavcích, včetně oslovení a rozloučení. */
-  paragraphs: string[];
-};
-
-const cs: MotivationPiece[] = [
+export const block: MotivationBlock = {
+  cs: [
   {
     title: "Nudit se je předpoklad nápadů",
     paragraphs: [
       "Ahoj, ty na cestě za svými cíli,",
-      "napadlo tě někdy, jak ty nejjasnější nápady skoro nikdy nepřicházejí, když jedeš na sto procent? Když máš každou minutu naplánovanou, každou hodinu naplněnou snahou a mysl se řítí z jednoho úkolu na druhý, ty skutečné nápady zůstávají zticha. Čekají na prostor, na uvolněnou chvíli.",
+      "napadlo tě někdy, jak ty nejjasnější nápady skoro nikdy nepřicházejí, když jedeš na sto procent? Když máš každou minutu naplánovanou, každou hodinu naplněnou snahou a mysl se řítí z jednoho úkolu na druhý, ty skutečné průlomy zůstávají zticha. Čekají na něco měkčího.",
       "Kdo hodně pracuje, na to většinou časem přijde sám: mysl potřebuje prostor, aby mohla bloumat. Ne to prázdné lenošení, které přichází, když člověk nikdy pořádně nezkusí. Ten prostor, který si dokáže vytvořit právě jen cílevědomý a pracovitý člověk. Po dnech plných řešení, tvoření, pomáhání a tlačení dopředu záměrně ustoupíš — a právě tehdy se stane kouzlo.",
       "Věda to potichu potvrzuje. Studie ukazují, že po soustředěné práci přináší období jemné nudy nebo bloumání mysli (výzkumníci tomu říkají inkubace) často originálnější nápady. Defaultní síť mozku — ten tichý systém na pozadí, který se rozsvítí, když se násilně nesoustředíme — začne vytvářet nečekaná spojení. Chůze je zvlášť silná. Známá stanfordská studie zjistila, že lidé při chůzi vymysleli asi o šedesát procent víc kreativních nápadů než vsedě. Tělo se jemně pohybuje, mysl může volně bloudit, a najednou se objeví řešení nebo nový pohled, jako by přišly odjinud. Někdy tomu říkáme vnuknutí. Ve skutečnosti je to tvůj pracovitý mozek, který konečně dostal prostor dořešit, co začal pod tlakem.",
       "U čistého lenocha to nefunguje. Mysl, která se nikdy nezapojí, nemá co propojovat. Funguje to tomu, kdo už byl v aréně — kdo naplnil den skutečnou snahou — a pak si chrání okénko měkkosti. Tu půlhodinovou procházku bez podcastů. To tiché kafe bez telefonu. To záměrné rozhodnutí být na chvíli buddhou tohoto parku.",
@@ -194,9 +136,9 @@ const cs: MotivationPiece[] = [
       "Ať se daří.",
     ],
   },
-];
+  ],
 
-const en: MotivationPiece[] = [
+  en: [
   {
     title: "Boredom is where ideas come from",
     paragraphs: [
@@ -325,9 +267,9 @@ const en: MotivationPiece[] = [
       "Wishing you well.",
     ],
   },
-];
+  ],
 
-const de: MotivationPiece[] = [
+  de: [
   {
     title: "Langeweile ist die Bedingung für Ideen",
     paragraphs: [
@@ -456,28 +398,5 @@ const de: MotivationPiece[] = [
       "Alles Gute dir.",
     ],
   },
-];
-
-/**
- * Jazyky musí mít stejný počet textů — vybírá se podle čísla, ne podle
- * obsahu, takže chybějící položka v jednom jazyce by znamenala, že tomu
- * uživateli ten den nepřijde nic. Padne to při sestavení.
- */
-function assertSameLength(): void {
-  if (cs.length !== en.length || cs.length !== de.length) {
-    throw new Error(
-      `Myšlenky na den: jazyky mají různý počet textů (cs=${cs.length}, en=${en.length}, de=${de.length}). Doplň chybějící překlad.`,
-    );
-  }
-}
-
-assertSameLength();
-
-export const motivationByLocale: Record<Locale, MotivationPiece[]> = {
-  cs,
-  en,
-  de,
+  ],
 };
-
-/** Kolik textů knihovna má. Všechny jazyky stejně — viz `assertSameLength`. */
-export const MOTIVATION_COUNT = cs.length;
