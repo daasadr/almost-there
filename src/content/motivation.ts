@@ -162,6 +162,21 @@ const cs: MotivationPiece[] = [
       "Jsem tu s tebou, když začínáš.",
     ],
   },
+  {
+    title: "Svoboda, která zůstává",
+    paragraphs: [
+      "Ahoj,",
+      "jsou lidé, jejichž život se stane živým důkazem jedné myšlenky. Viktor Frankl byl jeden z nich.",
+      "Rakouský psychiatr, deportovaný do nacistických koncentračních táborů včetně Osvětimi. Přišel o těhotnou manželku, o rodiče i o bratra. Prožil hlad, zimu, ponižování a každodenní blízkost smrti. A přesto i tam dál pozoroval, přemýšlel a pomáhal druhým. Po osvobození z toho napsal knihu, která u nás vyšla jako „A přesto říci životu ano“.",
+      "A tohle je na tom to pozoruhodné. Odebrat se dalo všechno: jméno, majetek, práce, zdraví, blízcí i jistota, že bude zítřek. Jedna věc zůstala celá — jak se k tomu člověk postaví. Ta poslední svoboda se ukázala jako nedobytná. Právě proto z toho místa přišla zpráva plná naděje, a ne hořkosti: duch obstál tam, kde všechno ostatní padlo.",
+      "Frankl to pojmenoval prostě. Mezi tím, co se nám stane, a tím, jak zareagujeme, je prostor. V tom prostoru leží naše volba. A v té volbě leží náš růst i naše svoboda.",
+      "Většina z nás reaguje automaticky. Něco se stane — nepříjemnost, kritika, zpoždění, strach — a hned je za to zodpovědný někdo jiný, okolnosti nebo „prostě život“. Frankl zve k něčemu jinému: všimnout si toho prostoru. Zastavit se. Uvědomit si, že ta stará automatická reakce je jedna z možností, ne povinnost.",
+      "Smysl nám život nedluží, říkal. Je to něco, co se dá najít a vytvořit: tím, co dáváme — prací, přínosem, péčí. Tím, co přijímáme — láskou, krásou, pravdou. A postojem, který zaujmeme tam, kde se utrpení vyhnout nedá.",
+      "Tak dnes, až přijde něco, co by tě obvykle spustilo do automatické reakce, zkus ten malý prostor najít. Nadechni se. Polož si otázku: jakou reakci by teď zvolil ten člověk, kterým se chci stát? Ne tu nejsnazší. Tu, která vede k větší hloubce a svobodě.",
+      "Volby máš vždycky víc, než se na první pohled zdá. To je Franklův dar — a je k mání každé obyčejné ráno.",
+      "Jsem s tebou, když to zkoušíš.",
+    ],
+  },
 ];
 
 const en: MotivationPiece[] = [
@@ -261,6 +276,21 @@ const en: MotivationPiece[] = [
       "I am here with you as you begin.",
     ],
   },
+  {
+    title: "The freedom that remains",
+    paragraphs: [
+      "Hello,",
+      "there are people whose lives become living proof of an idea. Viktor Frankl was one of them.",
+      "An Austrian psychiatrist, deported to Nazi concentration camps including Auschwitz. He lost his pregnant wife, his parents and his brother. He lived through hunger, cold, humiliation and the daily nearness of death. And even there he went on observing, thinking and helping others. After the liberation he wrote the book that became known as Man\u2019s Search for Meaning.",
+      "And here is the remarkable part. Everything could be taken: name, property, work, health, the people he loved, even the certainty that there would be a tomorrow. One thing stayed whole — how a person meets it. That last freedom turned out to be unassailable. That is why the message that came from such a place is full of hope rather than bitterness: the spirit held where everything else fell.",
+      "Frankl named it simply. Between what happens to us and how we respond, there is a space. In that space lies our choice. And in that choice lies our growth and our freedom.",
+      "Most of us respond on autopilot. Something happens — an annoyance, a criticism, a delay, a fear — and at once someone else is responsible: the circumstances, other people, or “life as it is”. Frankl invites us to something else: to notice that space. To pause. To see that the old automatic response is one option, not an obligation.",
+      "Life does not owe us meaning, he said. It is something to be found and made: through what we give — work, contribution, care. Through what we receive — love, beauty, truth. And through the attitude we take where suffering cannot be avoided.",
+      "So today, when something arrives that would usually set off an automatic response, try to find that small space. Breathe. Ask: what response would the person I want to become choose right now? Not the easiest one. The one that leads to more depth and more freedom.",
+      "You always have more choice than it first appears. That is Frankl\u2019s gift — and it is there for the taking on any ordinary morning.",
+      "I am with you while you practise it.",
+    ],
+  },
 ];
 
 const de: MotivationPiece[] = [
@@ -358,6 +388,21 @@ const de: MotivationPiece[] = [
       "Perfekt muss er nicht sein. Es genügt, auf deine Weise hineinzugehen und ihn mit Aufmerksamkeit und Absicht zu gestalten.",
       "Diesen Tag gestaltest du. Und es ist weit mehr Raum darin, als eine gedachte Schablone dir zeigt.",
       "Ich bin hier bei dir, während du beginnst.",
+    ],
+  },
+  {
+    title: "Die Freiheit, die bleibt",
+    paragraphs: [
+      "Hallo,",
+      "es gibt Menschen, deren Leben zum lebendigen Beweis einer Idee wird. Viktor Frankl war einer von ihnen.",
+      "Ein österreichischer Psychiater, deportiert in nationalsozialistische Konzentrationslager, darunter Auschwitz. Er verlor seine schwangere Frau, seine Eltern und seinen Bruder. Er erlebte Hunger, Kälte, Demütigung und die tägliche Nähe des Todes. Und auch dort beobachtete, dachte und half er weiter. Nach der Befreiung schrieb er das Buch, das als „…trotzdem Ja zum Leben sagen“ bekannt wurde.",
+      "Und das ist das Bemerkenswerte daran. Nehmen ließ sich alles: Name, Besitz, Arbeit, Gesundheit, die Menschen, die er liebte, sogar die Gewissheit, dass es ein Morgen gibt. Eines blieb ganz — wie ein Mensch dem begegnet. Diese letzte Freiheit erwies sich als uneinnehmbar. Genau deshalb kam von diesem Ort eine Botschaft voller Hoffnung statt Bitterkeit: Der Geist hielt stand, wo alles andere fiel.",
+      "Frankl hat es schlicht benannt. Zwischen dem, was uns geschieht, und dem, wie wir reagieren, liegt ein Raum. In diesem Raum liegt unsere Wahl. Und in dieser Wahl liegt unser Wachstum und unsere Freiheit.",
+      "Die meisten von uns reagieren automatisch. Etwas geschieht — eine Unannehmlichkeit, Kritik, Verzögerung, Angst — und sofort ist jemand anderes verantwortlich: die Umstände, andere Menschen oder „das Leben eben“. Frankl lädt zu etwas anderem ein: diesen Raum zu bemerken. Innezuhalten. Zu sehen, dass die alte automatische Reaktion eine Möglichkeit ist und keine Pflicht.",
+      "Sinn schuldet uns das Leben nicht, sagte er. Er ist etwas, das sich finden und schaffen lässt: durch das, was wir geben — Arbeit, Beitrag, Fürsorge. Durch das, was wir empfangen — Liebe, Schönheit, Wahrheit. Und durch die Haltung, die wir dort einnehmen, wo Leid sich nicht vermeiden lässt.",
+      "Wenn also heute etwas kommt, das dich sonst in eine automatische Reaktion stürzen würde, versuch diesen kleinen Raum zu finden. Atme. Frag dich: Welche Reaktion würde der Mensch wählen, der ich werden will? Nicht die leichteste. Die, die zu mehr Tiefe und mehr Freiheit führt.",
+      "Du hast immer mehr Wahl, als es auf den ersten Blick scheint. Das ist Frankls Geschenk — und es liegt an jedem gewöhnlichen Morgen bereit.",
+      "Ich bin bei dir, während du es übst.",
     ],
   },
 ];
