@@ -944,7 +944,17 @@
         "Nichts zu tun, nur dieser Gedanke. Mach's gut."
       ],
       "noGoalNudge": "Gerade läuft kein Ziel. Falls dir etwas einfällt — es ist Montag, ein guter Tag zum Anfangen.",
-      "actionRead": "Ganz lesen"
+      "actionRead": "Ganz lesen",
+      "dismissed": "Das Browser-Fenster ist ohne Antwort verschwunden. Versuch es bitte erneut und wähle Zulassen."
+    },
+    "notifyInvite": {
+      "title": "Jeden Morgen ein Gedanke des Tages",
+      "body": "Ein kurzer Text, den du dir auch vorlesen lassen kannst. Er kommt auch an Tagen ohne laufendes Ziel — er verlangt nichts, er wünscht dir einen guten Tag. Eingestellt ist sieben Uhr morgens; die Zeit lässt sich jederzeit ändern.",
+      "enable": "Ja, schickt sie",
+      "later": "Jetzt nicht",
+      "working": "Wird eingeschaltet…",
+      "blocked": "Dieser Browser blockiert Benachrichtigungen. Erlaube sie in seinen Einstellungen für diese Seite und versuch es erneut.",
+      "generic": "Das Einschalten hat nicht geklappt. Bitte versuch es erneut."
     }
   },
   "withdrawal": {

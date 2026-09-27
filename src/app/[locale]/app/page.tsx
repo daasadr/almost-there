@@ -6,6 +6,7 @@ import { Paywall } from "@/components/billing/Paywall";
 import { CheckoutPending } from "@/components/billing/CheckoutPending";
 import { BudgetNotice } from "@/components/plan/BudgetNotice";
 import { DailyMotivation } from "@/components/motivation/DailyMotivation";
+import { NotifyInvite } from "@/components/plan/NotifyInvite";
 import { PlanTrigger } from "@/components/plan/PlanTrigger";
 import { TodayChecklist } from "@/components/plan/TodayChecklist";
 import { PaceCheck } from "@/components/plan/PaceCheck";
@@ -85,6 +86,13 @@ export default async function AppPage({
   // stránka je stejně dynamická kvůli přihlášení, takže se nic neztrácí.
   const storeApp = isStoreApp(await headers());
 
+  /**
+   * Veřejná půlka podpisového klíče pro oznámení. Bez nastavených klíčů
+   * se nabídka neukáže — nabízet funkci, která by mlčky nefungovala, je
+   * horší než ji nemít.
+   */
+  const vapidPublicKey = process.env.VAPID_PUBLIC_KEY ?? "";
+
   const account = await db.user.findUnique({
     where: { id: session.user.id },
     select: {
@@ -96,6 +104,8 @@ export default async function AppPage({
       createdAt: true,
       timezone: true,
       motivationPlacement: true,
+      // Nabídka zapnout ranní myšlenku se ukáže jen tomu, kdo ji nemá.
+      notifyMode: true,
       /**
        * Ověření adresy z databáze, ne z přihlašovacího tokenu.
        *
@@ -244,6 +254,20 @@ export default async function AppPage({
         stránku, dá se poslat dál a je to jediná věc, kvůli které má smysl
         se sem vracet i bez cíle. Zamykat ji by bylo jen na obtíž.
       */}
+      {/*
+        Nabídka zapnout ranní myšlenku.
+
+        Nastavení připomínek sedí v „Důležitých nastaveních“ a kdo tam
+        nezabloudí, nedozví se o nich — přitom je to jediná věc, která
+        člověka do aplikace vrací sama od sebe. Ukáže se jen tomu, kdo
+        je vypnuté má, a jen dokud ji jednou neodmítne.
+      */}
+      {account?.notifyMode === "OFF" && vapidPublicKey && (
+        <div className="mt-8">
+          <NotifyInvite vapidPublicKey={vapidPublicKey} />
+        </div>
+      )}
+
       {!hasAccess && account && account.motivationPlacement !== "OFF" && (
         <div className="mt-8">
           <DailyMotivation

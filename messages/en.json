@@ -944,7 +944,17 @@
         "Nothing to do, just this thought. Take care."
       ],
       "noGoalNudge": "You have no goal running right now. If something comes to mind — it is Monday, a good day to begin.",
-      "actionRead": "Read it all"
+      "actionRead": "Read it all",
+      "dismissed": "The browser prompt closed without an answer. Please try again and choose Allow."
+    },
+    "notifyInvite": {
+      "title": "A thought for the day, every morning",
+      "body": "A short text you can also have read aloud. It arrives even on days when you have no goal running — it asks nothing of you, it just wishes you a good day. Set for seven in the morning; the time can be changed any time.",
+      "enable": "Yes, send them",
+      "later": "Not now",
+      "working": "Turning on…",
+      "blocked": "This browser has notifications blocked. Allow them in its settings for this site and try again.",
+      "generic": "Turning it on did not work. Please try again."
     }
   },
   "withdrawal": {

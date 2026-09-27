@@ -22,8 +22,23 @@ import type { Locale } from "@/i18n/routing";
  * znamenalo budit půlku Evropy uprostřed noci.
  */
 
-/** Jak dlouho po nastaveném čase ještě má smysl posílat. */
-const WINDOW_MINUTES = 30;
+/**
+ * Jak dlouho po nastaveném čase ještě má smysl posílat.
+ *
+ * Bylo to půl hodiny a bylo to křehké: rozesílání běží z úlohy v systému
+ * a stačilo, aby se netrefila — nasazení, restart kontejneru, přetížený
+ * stroj — a připomínka toho dne nevyšla vůbec. Nikdo se to nedozvěděl,
+ * protože chybějící oznámení se nijak neprojeví.
+ *
+ * Čtyři hodiny jsou kompromis. Kdo si nastaví sedmou a všechno šlape,
+ * dostane ji v sedm; když server v tu chvíli nestíhal, dorazí v devět
+ * místo vůbec. Delší okno by z ranní myšlenky udělalo odpolední.
+ *
+ * Na doručení to nemá vliv: co odejde, poštovní služba prohlížeče podrží
+ * a doručí, až se zařízení ozve. Tohle okno řeší jen to, jestli se
+ * vůbec odešle.
+ */
+const WINDOW_MINUTES = 4 * 60;
 
 /** Kdy se ptá večerní kontrola. */
 const EVENING_HOUR = 20;

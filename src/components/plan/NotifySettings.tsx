@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { readStored } from "@/lib/safe-storage";
-import { DEFAULT_THEME, isTheme, THEME_STORAGE_KEY } from "@/lib/theme";
+import { subscribe, unsubscribe } from "@/lib/push-subscribe";
 
 /**
  * Nastavení připomínek pro web.
@@ -37,8 +36,18 @@ export function NotifySettings({
   const [evening, setEvening] = useState(initial.evening);
   const [busy, setBusy] = useState(false);
   const [note, setNote] = useState<
-    "saved" | "failed" | "blocked" | "unsupported" | null
+    "saved" | "failed" | "blocked" | "dismissed" | "unsupported" | null
   >(null);
+
+  /**
+   * Co si uživatel vybral, když se to nepovedlo zapnout.
+   *
+   * Výběr je řízený uloženou hodnotou, takže při neúspěchu skákal zpátky
+   * na „Nikdy“ — vypadalo to, jako by se volba zamkla, a hláška pod tím
+   * se snadno přehlédla. Volba proto zůstane vidět a vedle ní stojí, proč
+   * zatím neplatí. Po načtení stránky se ukáže skutečný uložený stav.
+   */
+  const [wanted, setWanted] = useState<Mode | null>(null);
 
   const save = async (next: { mode: Mode; time: string; evening: boolean }) => {
     setBusy(true);
@@ -49,6 +58,7 @@ export function NotifySettings({
         const ok = await subscribe(vapidPublicKey);
         if (ok !== true) {
           setNote(ok);
+          setWanted(next.mode);
           setBusy(false);
           return;
         }
@@ -66,6 +76,7 @@ export function NotifySettings({
       setMode(next.mode);
       setTime(next.time);
       setEvening(next.evening);
+      setWanted(null);
       setNote("saved");
     } catch {
       setNote("failed");
@@ -91,7 +102,7 @@ export function NotifySettings({
           </label>
           <select
             id="notify-mode"
-            value={mode}
+            value={wanted ?? mode}
             disabled={busy}
             onChange={(event) =>
               void save({ mode: event.target.value as Mode, time, evening })
@@ -104,7 +115,7 @@ export function NotifySettings({
           </select>
         </div>
 
-        {mode !== "OFF" && (
+        {(wanted ?? mode) !== "OFF" && (
           <>
             <div>
               <label
@@ -159,95 +170,4 @@ export function NotifySettings({
       )}
     </section>
   );
-}
-
-/**
- * Přihlášení tohoto zařízení k odběru.
- *
- * Vrací `true`, nebo důvod, proč to nejde — ten se uživateli ukáže.
- * Zamítnuté svolení se z kódu vrátit nedá; prohlížeč si ho pamatuje
- * a odvolat ho může jen člověk ve svém nastavení.
- */
-async function subscribe(
-  vapidPublicKey: string,
-): Promise<true | "blocked" | "unsupported"> {
-  if (
-    typeof window === "undefined" ||
-    !("serviceWorker" in navigator) ||
-    !("PushManager" in window) ||
-    !("Notification" in window)
-  ) {
-    return "unsupported";
-  }
-
-  const permission = await Notification.requestPermission();
-  if (permission !== "granted") return "blocked";
-
-  const registration = await navigator.serviceWorker.ready;
-
-  // Existující odběr se použije, nový se vytvoří. Odebírat podruhé
-  // s jiným klíčem prohlížeč odmítne.
-  const existing = await registration.pushManager.getSubscription();
-  const subscription =
-    existing ??
-    (await registration.pushManager.subscribe({
-      // Bez tohohle prohlížeče odběr nepovolí: oznámení musí být vždycky
-      // vidět, nesmí se posílat tiše na pozadí.
-      userVisibleOnly: true,
-      applicationServerKey: urlBase64ToUint8Array(vapidPublicKey),
-    }));
-
-  const json = subscription.toJSON();
-  const stored = readStored(THEME_STORAGE_KEY);
-
-  await fetch("/api/push/subscribe", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      endpoint: json.endpoint,
-      keys: json.keys,
-      // Ať oznámení vypadá jako aplikace, kterou tu člověk zná.
-      theme: isTheme(stored) ? stored : DEFAULT_THEME,
-    }),
-  });
-
-  return true;
-}
-
-async function unsubscribe(): Promise<void> {
-  try {
-    const registration = await navigator.serviceWorker?.ready;
-    const subscription = await registration?.pushManager.getSubscription();
-
-    if (subscription) {
-      await fetch("/api/push/subscribe", {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ endpoint: subscription.endpoint }),
-      });
-      await subscription.unsubscribe();
-    }
-  } catch {
-    // Vypnutí připomínek se nesmí zaseknout na tom, že odhlášení
-    // u prohlížeče selhalo. Rozhoduje nastavení na serveru.
-  }
-}
-
-/**
- * Klíč z textové podoby do bajtů.
- *
- * VAPID klíč se předává jako base64url, ale `subscribe` chce pole bajtů.
- * Postup je daný specifikací a vypadá stejně v každé aplikaci, která
- * oznámení používá.
- */
-function urlBase64ToUint8Array(value: string): Uint8Array<ArrayBuffer> {
-  const padding = "=".repeat((4 - (value.length % 4)) % 4);
-  const base64 = (value + padding).replace(/-/g, "+").replace(/_/g, "/");
-  const raw = atob(base64);
-
-  // Vlastní ArrayBuffer schválně: `new Uint8Array(délka)` má podle typů
-  // obecný buffer, který `subscribe` nepřijme.
-  const output = new Uint8Array(new ArrayBuffer(raw.length));
-  for (let i = 0; i < raw.length; i++) output[i] = raw.charCodeAt(i);
-  return output;
 }

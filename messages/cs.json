@@ -944,7 +944,17 @@
         "Nic na práci, jen tahle myšlenka. Měj se hezky."
       ],
       "noGoalNudge": "Žádný rozjetý cíl teď nemáš. Kdyby tě něco napadlo, je pondělí — dobrý den na začátek.",
-      "actionRead": "Přečíst celé"
+      "actionRead": "Přečíst celé",
+      "dismissed": "Okénko prohlížeče zmizelo bez odpovědi. Zkus to prosím znovu a vyber Povolit."
+    },
+    "notifyInvite": {
+      "title": "Myšlenka na den každé ráno",
+      "body": "Krátký text, který se dá i přehrát nahlas. Chodí i ve dnech, kdy žádný cíl rozjetý nemáš — nic po tobě nechce, jen popřeje hezký den. Nastavená je sedmá ráno, čas se dá kdykoliv změnit.",
+      "enable": "Ano, posílejte",
+      "later": "Teď ne",
+      "working": "Zapínám…",
+      "blocked": "Oznámení má tenhle prohlížeč zakázaná. Povol je v jeho nastavení u téhle stránky a zkus to znovu.",
+      "generic": "Zapnout se to nepovedlo. Zkus to prosím znovu."
     }
   },
   "withdrawal": {
