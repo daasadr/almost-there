@@ -1,6 +1,7 @@
 import "server-only";
 import { getTranslations } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
+import { priceFor } from "@/lib/stripe/plans";
 
 /**
  * Šablony e-mailů.
@@ -194,5 +195,58 @@ export async function buildPurchaseConfirmationEmail(
       footer,
     }),
     text: plainText({ heading, paragraphs, buttonUrl: withdrawalUrl, footer }),
+  };
+}
+
+/**
+ * Upozornění, že za pár dní skončí zkušební období a strhne se platba.
+ *
+ * Datum se píše celé, ne „za dva dny": e-mail může chvíli ležet
+ * v doručené poště a „za dva dny" pak znamená něco jiného, než když
+ * odcházel. Částka je v textu taky — aby se člověk nemusel nikam
+ * proklikávat, aby zjistil, o kolik jde.
+ */
+export async function buildTrialEndingEmail(options: {
+  locale: Locale;
+  name: string;
+  endsAt: Date;
+  accountUrl: string;
+}): Promise<BuiltEmail> {
+  const t = await getTranslations({
+    locale: options.locale,
+    namespace: "emails.trialEnding",
+  });
+
+  const date = new Intl.DateTimeFormat(options.locale, {
+    day: "numeric",
+    month: "long",
+  }).format(options.endsAt);
+
+  const price = priceFor(options.locale, "monthly");
+
+  const heading = t("heading", { name: options.name });
+  const paragraphs = [
+    t("body", { date, amount: price.amount }),
+    t("cancel"),
+    t("keep"),
+  ];
+  const footer = t("footer");
+
+  return {
+    subject: t("subject", { date }),
+    html: layout({
+      heading,
+      paragraphs,
+      buttonLabel: t("button"),
+      buttonUrl: options.accountUrl,
+      fallbackNote: t("fallback"),
+      footer,
+    }),
+    text: plainText({
+      heading,
+      paragraphs,
+      buttonUrl: options.accountUrl,
+      footer,
+    }),
   };
 }

@@ -17,6 +17,23 @@ export type BillingPeriod = (typeof billingPeriods)[number];
 /** Kolik měsíců zdarma dává roční varianta oproti dvanácti měsíčním platbám. */
 export const YEARLY_MONTHS_FREE = 2;
 
+/**
+ * Délka zkušebního období, ve dnech.
+ *
+ * Sedm dní stačí na to, aby si člověk osahal provoz: denní checklist,
+ * odpočinkový den, týdenní ohlédnutí, ranní myšlenku. Co za tu dobu
+ * neuvidí, je přizpůsobení plánu — nabídka přeplánování naskakuje až po
+ * třech vynechaných dnech. To ale drží lidi, ne získává, takže texty
+ * o zkoušce mají slibovat rytmus, ne chytrost.
+ *
+ * Delší zkouška by ukázala víc, jenže každý nekonvertovaný uživatel
+ * stojí peníze za volání modelu — a ty se s délkou násobí.
+ */
+export const TRIAL_DAYS = 7;
+
+/** Kolik dní před koncem zkoušky přijde připomínka. */
+export const TRIAL_REMINDER_DAYS_BEFORE = 2;
+
 type PriceDisplay = {
   /** Částka tak, jak se ukazuje uživateli. */
   amount: string;

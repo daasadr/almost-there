@@ -33,6 +33,7 @@ import {
 import { parseIsoDate, toIsoDate, todayIso } from "@/lib/plan/calendar";
 import { db } from "@/lib/db";
 import Link from "next/link";
+import { TRIAL_DAYS } from "@/lib/stripe/plans";
 
 export async function generateMetadata({
   params,
@@ -93,6 +94,7 @@ export default async function AppPage({
    */
   const vapidPublicKey = process.env.VAPID_PUBLIC_KEY ?? "";
 
+
   const account = await db.user.findUnique({
     where: { id: session.user.id },
     select: {
@@ -106,6 +108,8 @@ export default async function AppPage({
       motivationPlacement: true,
       // Nabídka zapnout ranní myšlenku se ukáže jen tomu, kdo ji nemá.
       notifyMode: true,
+      // Pro rozhodnutí, jestli nabídnout zkušební období.
+      subscriptionStatus: true,
       /**
        * Ověření adresy z databáze, ne z přihlašovacího tokenu.
        *
@@ -129,6 +133,20 @@ export default async function AppPage({
    * komponenty vymstí: React si může vykreslení zopakovat a dostat pokaždé
    * jiný výsledek.
    */
+  /**
+   * Do kdy by běžela zkouška, kdyby ji člověk začal teď.
+   *
+   * Počítá se tady, na serveru, a do paywallu jde hotové datum — viz
+   * komentář u `Paywall`. Nabízí se jen tomu, kdo předplatné nikdy
+   * neměl; kdo ho zrušil, zkoušku už dostal.
+   */
+  const trialEndsOn =
+    account && account.subscriptionStatus === "NONE" && !account.stripeSubscriptionId
+      ? new Intl.DateTimeFormat(locale, { day: "numeric", month: "long" }).format(
+          new Date(Date.now() + TRIAL_DAYS * 86_400_000),
+        )
+      : undefined;
+
   const complimentaryEndingSoon =
     account?.subscriptionSource === "COMPLIMENTARY" &&
     account.subscriptionEndsAt !== null &&
@@ -223,7 +241,7 @@ export default async function AppPage({
               </p>
             </div>
           )}
-          <Paywall />
+          <Paywall trialEndsOn={trialEndsOn} />
 
           {/* Kdo si není jistý, nemá odejít pryč — demo je levnější
               způsob, jak se rozhodnout, než zavřená záložka. */}

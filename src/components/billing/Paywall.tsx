@@ -16,14 +16,27 @@ import {
  * Cena tu musí sedět s tou, kterou zákazník uvidí u pokladny — proto se
  * bere ze `plans.ts`, ne z překladů. Kdyby byla na dvou místech, jednou
  * by se rozešla.
+ *
+ * ── Zkušební období ─────────────────────────────────────────────────
+ *
+ * `trialEndsOn` je **datum**, ne počet dní, a je to schválně. „Sedm dní
+ * zdarma" si nikdo nepřepočítá na kalendář a přesně tak se lidi nechají
+ * překvapit strženou platbou. Datum spočítá server a pošle ho sem
+ * hotové — v prohlížeči by se mohlo rozejít s tím, co se vykreslilo,
+ * kdyby mezi obojím přeskočila půlnoc.
+ *
+ * Chybí-li, zkouška se nenabízí: uživatel už předplatné jednou měl.
  */
-export function Paywall() {
+export function Paywall({ trialEndsOn }: { trialEndsOn?: string }) {
   const t = useTranslations("billing");
   const locale = useLocale() as Locale;
 
   const [period, setPeriod] = useState<BillingPeriod>("monthly");
   const [loading, setLoading] = useState(false);
   const [failed, setFailed] = useState(false);
+
+  /** Cena zvolené varianty — do věty o tom, co se po zkoušce strhne. */
+  const price = priceFor(locale, period);
 
 
   const start = async () => {
@@ -149,11 +162,21 @@ export function Paywall() {
         disabled={loading}
         className="btn-primary mt-7 w-full"
       >
-        {loading ? t("redirecting") : t("cta")}
+        {loading ? t("redirecting") : trialEndsOn ? t("trialCta") : t("cta")}
       </button>
 
+      {/*
+        Co se stane a kdy, celou větou a před zadáním karty.
+
+        Tohle je ta věta, která dělá rozdíl mezi poctivou zkouškou a pastí
+        — a zároveň je to, co po prodejci žádá evropská úprava: zákazník
+        má před uzavřením vědět, že se to samo změní v placené, kolik to
+        bude a jak často.
+      */}
       <p className="mt-3 text-center text-xs leading-relaxed text-[var(--color-paper-faint)]">
-        {t("note")}
+        {trialEndsOn
+          ? t("trialNote", { date: trialEndsOn, amount: price.amount })
+          : t("note")}
       </p>
     </div>
   );

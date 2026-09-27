@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { timingSafeEqual } from "node:crypto";
 import { dispatchReminders } from "@/lib/notify/dispatch";
+import { sendTrialReminders } from "@/lib/billing/trial-reminder";
 
 export const runtime = "nodejs";
 // Projít všechny uživatele a rozeslat chvíli trvá.
@@ -43,7 +44,17 @@ export async function POST(request: Request) {
   }
 
   const result = await dispatchReminders();
-  return NextResponse.json({ ok: true, ...result });
+
+  /*
+   * Ze stejné úlohy jede i upozornění na konec zkušebního období.
+   *
+   * Vlastní cron by znamenal druhý řádek v `crontab`, druhé tajemství
+   * a druhou věc, na kterou se dá zapomenout při přeinstalaci serveru.
+   * Obojí je rozesílání e-mailu podle času, tak ať to má jeden spouštěč.
+   */
+  const trials = await sendTrialReminders();
+
+  return NextResponse.json({ ok: true, ...result, trials });
 }
 
 /** Aby šlo volat i obyčejným `curl` bez `-X POST`. */

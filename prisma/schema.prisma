@@ -70,6 +70,16 @@ model User {
   /// který účet se má nechat a který zrušit.
   subscriptionNote              String?
 
+  /// Kdy odešla připomínka, že končí zkušební období.
+  ///
+  /// Zkouška přejde v placené sama, takže dva dny předem chodí e-mail —
+  /// bez něj by to byla past na zapomnětlivé. Tenhle údaj hlídá, že
+  /// odejde jednou; rozesílání běží každých pár minut a bez značky by
+  /// přišel pokaždé znovu.
+  ///
+  /// Při dalším předplatném se maže, aby se příští zkouška ohlásila taky.
+  trialReminderSentAt DateTime?
+
   // Preference (zadání 5) — vstupují do AI promptu při plánování
   restFrequency        RestFrequency @default(ONE_DAY_PER_WEEK)
   reflectionMinutesDay Int           @default(10)

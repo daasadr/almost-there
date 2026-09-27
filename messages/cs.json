@@ -311,6 +311,16 @@
       "button": "Formulář pro odstoupení",
       "fallback": "Kdyby tlačítko nefungovalo, otevři tuhle adresu:",
       "footer": "AlmostThere · Platbu zpracoval Stripe jako prodejce."
+    },
+    "trialEnding": {
+      "subject": "Zkušební období končí {date}",
+      "heading": "Ahoj {name}, blíží se konec zkoušky",
+      "body": "Zkušební období AlmostThere končí {date}. Pokud do té doby nic neuděláš, předplatné bude pokračovat a strhne se {amount} měsíčně.",
+      "cancel": "Když pokračovat nechceš, zruš předplatné ve svém účtu. Je to jedno kliknutí, nic se nestrhne a do konce zkoušky ti aplikace zůstane.",
+      "keep": "Jestli chceš pokračovat, nemusíš dělat vůbec nic — jen jsme nechtěli, aby tě platba zastihla nepřipravenou.",
+      "button": "Otevřít můj účet",
+      "fallback": "Kdyby tlačítko nefungovalo, zkopíruj si tuhle adresu do prohlížeče:",
+      "footer": "Tenhle e-mail chodí jednou, dva dny před koncem zkušebního období."
     }
   },
   "auth": {
@@ -463,7 +473,11 @@
     "demoCta": "Vyzkoušet demo",
     "demoHint": "Chceš si to nejdřív osahat? Demo ukáže rozfázování zdarma.",
     "freeGoalsReason": "Cíle se zakládají až s předplatným, proto je tu prázdno.",
-    "freeNewGoalReason": "Nový cíl jde založit až s předplatným."
+    "freeNewGoalReason": "Nový cíl jde založit až s předplatným.",
+    "trialCta": "Začít zkušební týden",
+    "trialNote": "Zdarma do {date}. Pak se strhne {amount} měsíčně, dokud předplatné nezrušíš — zrušit jde kdykoliv jedním kliknutím v účtu a dva dny předem ti přijde připomínka.",
+    "trialTitle": "Zkušební období",
+    "trialBody": "Zdarma do {date}. Pak předplatné pokračuje za {amount} měsíčně. Dva dny předem ti přijde připomínka; zrušit jde kdykoliv a do konce zkoušky ti aplikace zůstane."
   },
   "plan": {
     "nav": {

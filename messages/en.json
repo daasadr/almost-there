@@ -311,6 +311,16 @@
       "button": "Withdrawal form",
       "fallback": "If the button does not work, open this address:",
       "footer": "AlmostThere · Payment processed by Stripe as the seller."
+    },
+    "trialEnding": {
+      "subject": "Your trial ends on {date}",
+      "heading": "Hello {name}, your trial is ending soon",
+      "body": "Your AlmostThere trial ends on {date}. If you do nothing before then, the subscription continues and {amount} a month will be charged.",
+      "cancel": "If you would rather not continue, cancel in your account. It is one click, nothing is charged, and the app stays with you until the trial ends.",
+      "keep": "If you do want to continue, there is nothing to do — we just did not want the payment to catch you unprepared.",
+      "button": "Open my account",
+      "fallback": "If the button does not work, copy this address into your browser:",
+      "footer": "This email is sent once, two days before the trial ends."
     }
   },
   "auth": {
@@ -463,7 +473,11 @@
     "demoCta": "Try the demo",
     "demoHint": "Want to try it first? The demo shows the breakdown for free.",
     "freeGoalsReason": "Goals come with a subscription, which is why this is empty.",
-    "freeNewGoalReason": "Creating a goal requires a subscription."
+    "freeNewGoalReason": "Creating a goal requires a subscription.",
+    "trialCta": "Start the free week",
+    "trialNote": "Free until {date}. After that {amount} a month until you cancel — cancelling takes one click in your account, and a reminder arrives two days before.",
+    "trialTitle": "Trial period",
+    "trialBody": "Free until {date}. After that the subscription continues at {amount} a month. A reminder arrives two days before; you can cancel any time and keep the app until the trial ends."
   },
   "plan": {
     "nav": {

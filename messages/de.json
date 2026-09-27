@@ -311,6 +311,16 @@
       "button": "Widerrufsformular",
       "fallback": "Falls der Button nicht funktioniert, öffne diese Adresse:",
       "footer": "AlmostThere · Zahlung abgewickelt von Stripe als Verkäufer."
+    },
+    "trialEnding": {
+      "subject": "Deine Testphase endet am {date}",
+      "heading": "Hallo {name}, deine Testphase endet bald",
+      "body": "Deine AlmostThere-Testphase endet am {date}. Wenn du bis dahin nichts tust, läuft das Abonnement weiter und {amount} pro Monat werden abgebucht.",
+      "cancel": "Wenn du lieber nicht weitermachen möchtest, kündige in deinem Konto. Das ist ein Klick, es wird nichts abgebucht, und bis zum Ende der Testphase bleibt dir die App erhalten.",
+      "keep": "Wenn du weitermachen willst, musst du gar nichts tun — wir wollten nur nicht, dass dich die Zahlung unvorbereitet trifft.",
+      "button": "Mein Konto öffnen",
+      "fallback": "Falls der Button nicht funktioniert, kopiere diese Adresse in deinen Browser:",
+      "footer": "Diese E-Mail kommt einmal, zwei Tage vor Ende der Testphase."
     }
   },
   "auth": {
@@ -463,7 +473,11 @@
     "demoCta": "Demo ausprobieren",
     "demoHint": "Erst ausprobieren? Die Demo zeigt die Aufteilung kostenlos.",
     "freeGoalsReason": "Ziele gibt es mit einem Abo, deshalb ist hier nichts.",
-    "freeNewGoalReason": "Ein neues Ziel lässt sich erst mit einem Abo anlegen."
+    "freeNewGoalReason": "Ein neues Ziel lässt sich erst mit einem Abo anlegen.",
+    "trialCta": "Kostenlose Woche starten",
+    "trialNote": "Kostenlos bis {date}. Danach {amount} pro Monat, bis du kündigst — Kündigen ist ein Klick im Konto, und zwei Tage vorher kommt eine Erinnerung.",
+    "trialTitle": "Testphase",
+    "trialBody": "Kostenlos bis {date}. Danach läuft das Abonnement für {amount} pro Monat weiter. Zwei Tage vorher kommt eine Erinnerung; kündigen kannst du jederzeit und behältst die App bis zum Ende der Testphase."
   },
   "plan": {
     "nav": {

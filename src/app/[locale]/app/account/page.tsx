@@ -12,6 +12,8 @@ import { getAccess } from "@/lib/billing/access";
 import { db } from "@/lib/db";
 import { isStoreApp } from "@/lib/store-app";
 import { FreeAccountNotice } from "@/components/billing/FreeAccountNotice";
+import { priceFor } from "@/lib/stripe/plans";
+import type { Locale } from "@/i18n/routing";
 
 /**
  * Účet: co uživatel platí, kolik spotřeboval a jak odejít.
@@ -63,10 +65,14 @@ export default async function AccountPage({
     select: {
       stripeSubscriptionId: true,
       subscriptionEndsAt: true,
+      // Kvůli upozornění, do kdy běží zkušební období.
+      subscriptionStatus: true,
       subscriptionCancelAtPeriodEnd: true,
       subscriptionSource: true,
     },
   });
+
+  const tBilling = await getTranslations({ locale, namespace: "billing" });
 
   const tSettings = await getTranslations({
     locale,
@@ -162,6 +168,26 @@ export default async function AccountPage({
             </dd>
           </div>
         </dl>
+
+        {/*
+          Zkušební období s konkrétním datem a částkou.
+
+          Že se to samo změní v placené, se člověk dozví u pokladny —
+          jenže to je jedna věta ve chvíli, kdy se soustředí na kartu.
+          Tady to má stát celý týden, kdykoliv se na účet podívá.
+        */}
+        {billing?.subscriptionStatus === "TRIAL" &&
+          billing.subscriptionEndsAt && (
+            <div className="mt-7 rounded-xl border border-[color-mix(in_oklab,var(--color-lime-glow)_30%,transparent)] bg-[color-mix(in_oklab,var(--color-lime-glow)_7%,transparent)] p-4">
+              <p className="display text-sm">{tBilling("trialTitle")}</p>
+              <p className="mt-1.5 text-sm leading-relaxed text-[var(--color-paper-dim)]">
+                {tBilling("trialBody", {
+                  date: formatDate.format(billing.subscriptionEndsAt),
+                  amount: priceFor(locale as Locale, "monthly").amount,
+                })}
+              </p>
+            </div>
+          )}
 
         {hasAccess && (
           <div className="mt-7 border-t border-edge-faint pt-6 text-sm">

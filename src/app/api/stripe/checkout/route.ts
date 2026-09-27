@@ -5,7 +5,11 @@ import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { getAccess } from "@/lib/billing/access";
 import { getStripe } from "@/lib/stripe/client";
-import { isBillingPeriod, stripePriceId } from "@/lib/stripe/plans";
+import {
+  isBillingPeriod,
+  stripePriceId,
+  TRIAL_DAYS,
+} from "@/lib/stripe/plans";
 import { routing, type Locale } from "@/i18n/routing";
 import { LEGAL_VERSION } from "@/content/legal";
 import { getClientIp, hashIp } from "@/lib/rate-limit";
@@ -92,7 +96,14 @@ export async function POST(request: Request) {
 
   const user = await db.user.findUnique({
     where: { id: session.user.id },
-    select: { id: true, email: true, stripeCustomerId: true },
+    select: {
+      id: true,
+      email: true,
+      stripeCustomerId: true,
+      // Pro rozhodnutí o zkušebním období — viz níž.
+      subscriptionStatus: true,
+      stripeSubscriptionId: true,
+    },
   });
   if (!user) {
     return NextResponse.json({ ok: false, error: "unauthorized" }, { status: 401 });
@@ -111,6 +122,15 @@ export async function POST(request: Request) {
       userAgent: request.headers.get("user-agent")?.slice(0, 500) ?? null,
     },
   });
+
+  /**
+   * Nárok na zkušební období.
+   *
+   * Jen pro toho, kdo předplatné nikdy neměl. `CANCELED` sem schválně
+   * nepatří — zrušené předplatné znamená, že zkoušku už dostal.
+   */
+  const eligibleForTrial =
+    user.subscriptionStatus === "NONE" && user.stripeSubscriptionId === null;
 
   const stripe = getStripe();
 
@@ -180,6 +200,19 @@ export async function POST(request: Request) {
       client_reference_id: user.id,
       subscription_data: {
         metadata: { userId: user.id },
+        /*
+         * Zkušební týden, ale jen napoprvé.
+         *
+         * Kdo už předplatné jednou měl — ať běží, ať skončilo — dostane
+         * zkoušku znovu jen tehdy, když by šlo o omyl. Bez téhle
+         * podmínky by stačilo rušit a zakládat dokola a platit nikdy.
+         *
+         * Karta se vyžaduje i při zkoušce: bez ní se ze zkoušky stane
+         * rozdávání a hlavně by přechod v placené nebyl na čem provést.
+         * Že to přejde samo, se člověk dozví u pokladny i v aplikaci
+         * a dva dny předem mu přijde e-mail.
+         */
+        ...(eligibleForTrial ? { trial_period_days: TRIAL_DAYS } : {}),
       },
       metadata: { userId: user.id },
 
