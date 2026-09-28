@@ -112,11 +112,36 @@ function themeArt(theme: string): { icon: string; image: string } {
   };
 }
 
+/**
+ * Jak dopadlo odeslání.
+ *
+ * Dřív se vracel jen počet doručených a všechno ostatní se ztratilo
+ * v logu kontejneru, který se přetáčí. Pak se u každé stížnosti
+ * „nepřišlo mi nic" hádalo mezi třemi příčinami, které navenek vypadají
+ * stejně: není kam poslat, poslalo se a selhalo, nebo poslalo se
+ * a poštovní služba to nedoručila.
+ *
+ * `delivered` znamená, že zásilku přijala poštovní služba prohlížeče.
+ * Dál už nevidíme a tvrdit něco o doručení na obrazovku by bylo lhaní.
+ */
+export type SendOutcome = {
+  /** Kolik zařízení bylo k dispozici. Nula znamená, že není kam. */
+  devices: number;
+  /** Kolika z nich zásilku poštovní služba přijala. */
+  delivered: number;
+  /** Proč to u ostatních nevyšlo. Prázdné, když vyšlo u všech. */
+  errors: string[];
+  /** `false` znamená, že chybí klíče a neposílalo se vůbec. */
+  configured: boolean;
+};
+
 export async function sendToUser(
   userId: string,
   message: PushMessage,
-): Promise<number> {
-  if (!ready()) return 0;
+): Promise<SendOutcome> {
+  if (!ready()) {
+    return { devices: 0, delivered: 0, errors: [], configured: false };
+  }
 
   const devices = await db.pushSubscription.findMany({
     where: { userId },
@@ -200,7 +225,12 @@ export async function sendToUser(
     });
   }
 
-  return delivered;
+  return {
+    devices: devices.length,
+    delivered,
+    errors: failed.map((item) => item.error),
+    configured: true,
+  };
 }
 
 /** Je odesílání vůbec nastavené? Pro rozhraní, ať nenabízí, co nefunguje. */

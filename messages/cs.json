@@ -959,7 +959,17 @@
       ],
       "noGoalNudge": "Žádný rozjetý cíl teď nemáš. Kdyby tě něco napadlo, je pondělí — dobrý den na začátek.",
       "actionRead": "Přečíst celé",
-      "dismissed": "Okénko prohlížeče zmizelo bez odpovědi. Zkus to prosím znovu a vyber Povolit."
+      "dismissed": "Okénko prohlížeče zmizelo bez odpovědi. Zkus to prosím znovu a vyber Povolit.",
+      "test": {
+        "button": "Poslat zkušební oznámení",
+        "sending": "Posílám…",
+        "title": "Zkušební oznámení",
+        "body": "Když tohle vidíš, oznámení fungují. Ráno ti přijde myšlenka na den.",
+        "sent": "Odesláno. Když se do pár vteřin nic neukáže, zprávu zdržel nebo zahodil prohlížeč či systém — od nás odešla v pořádku.",
+        "noDevice": "Tenhle prohlížeč není přihlášený k odběru. Přepni připomínky na „Nikdy“ a zpátky, ať se přihlášení vytvoří znovu.",
+        "notConfigured": "Na serveru chybí klíče pro oznámení, takže se neposílá nikomu. Tohle musí opravit správce.",
+        "failed": "Odeslání odmítla poštovní služba prohlížeče: {reason}"
+      }
     },
     "notifyInvite": {
       "title": "Myšlenka na den každé ráno",

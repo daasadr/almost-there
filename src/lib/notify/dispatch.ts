@@ -229,10 +229,27 @@ export async function dispatchReminders(): Promise<DispatchResult> {
             ],
           };
 
-    const delivered = await sendToUser(user.id, { ...message, lang: locale });
+    const outcome = await sendToUser(user.id, { ...message, lang: locale });
 
-    await mark(user.id, kind, today);
-    if (delivered > 0) sent += 1;
+    /*
+     * Značka „dnes už dostal svoje" jen tehdy, když to opravdu odešlo.
+     *
+     * Dřív se zapisovala vždycky. Výpadek poštovní služby prohlížeče tím
+     * spálil celý den: příští běh za pět minut už toho člověka přeskočil,
+     * protože značka tvrdila, že přišlo. Navenek to vypadalo, že
+     * oznámení chodí, jak chtějí.
+     *
+     * Takhle se to v ranním okně zkouší dál, dokud to neprojde.
+     */
+    if (outcome.delivered > 0) {
+      await mark(user.id, kind, today);
+      sent += 1;
+    } else if (outcome.errors.length > 0) {
+      console.error(
+        `[notify] ${user.id}: neodešlo na žádné zařízení —`,
+        outcome.errors.join(" | "),
+      );
+    }
   }
 
   return { checked: users.length, sent, configured: true };

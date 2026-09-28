@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { subscribe, unsubscribe } from "@/lib/push-subscribe";
 
 /**
@@ -30,6 +30,7 @@ export function NotifySettings({
   vapidPublicKey: string;
 }) {
   const t = useTranslations("plan.notify");
+  const locale = useLocale();
 
   const [mode, setMode] = useState<Mode>(initial.mode);
   const [time, setTime] = useState(initial.time);
@@ -48,6 +49,16 @@ export function NotifySettings({
    * zatím neplatí. Po načtení stránky se ukáže skutečný uložený stav.
    */
   const [wanted, setWanted] = useState<Mode | null>(null);
+
+  /**
+   * Výsledek zkušebního odeslání.
+   *
+   * Bez něj se „nepřišlo mi nic" nedá odlišit od „nemám přihlášené
+   * zařízení" ani od „odešlo a nedoručilo se". Tohle tři různé poruchy,
+   * které navenek vypadají stejně, rozdělí jedním kliknutím.
+   */
+  const [test, setTest] = useState<null | string>(null);
+  const [testing, setTesting] = useState(false);
 
   const save = async (next: { mode: Mode; time: string; evening: boolean }) => {
     setBusy(true);
@@ -82,6 +93,29 @@ export function NotifySettings({
       setNote("failed");
     } finally {
       setBusy(false);
+    }
+  };
+
+  const runTest = async () => {
+    setTesting(true);
+    setTest(null);
+
+    try {
+      const response = await fetch("/api/push/test", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ locale }),
+      });
+      const data = await response.json();
+
+      if (!data.configured) setTest(t("test.notConfigured"));
+      else if (data.devices === 0) setTest(t("test.noDevice"));
+      else if (data.delivered > 0) setTest(t("test.sent"));
+      else setTest(t("test.failed", { reason: data.errors?.[0] ?? "—" }));
+    } catch {
+      setTest(t("test.failed", { reason: "—" }));
+    } finally {
+      setTesting(false);
     }
   };
 
@@ -155,6 +189,36 @@ export function NotifySettings({
           </>
         )}
       </div>
+
+      {/*
+        Ověření, že to opravdu dojde.
+
+        Nastavení se uloží a vypadá funkčně, jenže mezi „uloženo"
+        a „přijde mi to ráno" je odběr u poštovní služby prohlížeče,
+        svolení systému a cesta k zařízení. Tohle je jediný způsob, jak
+        si člověk ověří celý řetěz, aniž by čekal do rána.
+      */}
+      {(wanted ?? mode) !== "OFF" && (
+        <div className="mt-6 border-t border-edge-faint pt-5">
+          <button
+            type="button"
+            onClick={() => void runTest()}
+            disabled={testing}
+            className="rounded-full border border-edge px-4 py-2 text-sm text-[var(--color-paper-dim)] transition hover:border-edge-hover hover:text-[var(--color-paper)] disabled:opacity-60"
+          >
+            {testing ? t("test.sending") : t("test.button")}
+          </button>
+
+          {test && (
+            <p
+              role="status"
+              className="mt-3 text-sm leading-relaxed text-[var(--color-paper-dim)]"
+            >
+              {test}
+            </p>
+          )}
+        </div>
+      )}
 
       {note && (
         <p

@@ -959,7 +959,17 @@
       ],
       "noGoalNudge": "You have no goal running right now. If something comes to mind — it is Monday, a good day to begin.",
       "actionRead": "Read it all",
-      "dismissed": "The browser prompt closed without an answer. Please try again and choose Allow."
+      "dismissed": "The browser prompt closed without an answer. Please try again and choose Allow.",
+      "test": {
+        "button": "Send a test notification",
+        "sending": "Sending…",
+        "title": "Test notification",
+        "body": "If you can see this, notifications work. Your thought for the day arrives in the morning.",
+        "sent": "Sent. If nothing appears within a few seconds, your browser or system held it back or dropped it — it left us fine.",
+        "noDevice": "This browser is not subscribed. Switch reminders to “Never” and back, so the subscription is created again.",
+        "notConfigured": "The server is missing its notification keys, so nothing is sent to anyone. An administrator needs to fix this.",
+        "failed": "The browser’s push service refused it: {reason}"
+      }
     },
     "notifyInvite": {
       "title": "A thought for the day, every morning",

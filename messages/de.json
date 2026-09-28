@@ -959,7 +959,17 @@
       ],
       "noGoalNudge": "Gerade läuft kein Ziel. Falls dir etwas einfällt — es ist Montag, ein guter Tag zum Anfangen.",
       "actionRead": "Ganz lesen",
-      "dismissed": "Das Browser-Fenster ist ohne Antwort verschwunden. Versuch es bitte erneut und wähle Zulassen."
+      "dismissed": "Das Browser-Fenster ist ohne Antwort verschwunden. Versuch es bitte erneut und wähle Zulassen.",
+      "test": {
+        "button": "Testbenachrichtigung senden",
+        "sending": "Wird gesendet…",
+        "title": "Testbenachrichtigung",
+        "body": "Wenn du das siehst, funktionieren Benachrichtigungen. Morgens kommt dein Gedanke des Tages.",
+        "sent": "Gesendet. Wenn in ein paar Sekunden nichts erscheint, hat dein Browser oder System sie zurückgehalten oder verworfen — von uns ist sie sauber rausgegangen.",
+        "noDevice": "Dieser Browser ist nicht angemeldet. Stell die Erinnerungen auf „Nie“ und zurück, damit die Anmeldung neu entsteht.",
+        "notConfigured": "Auf dem Server fehlen die Schlüssel für Benachrichtigungen, es wird an niemanden gesendet. Das muss ein Administrator beheben.",
+        "failed": "Der Push-Dienst des Browsers hat sie abgelehnt: {reason}"
+      }
     },
     "notifyInvite": {
       "title": "Jeden Morgen ein Gedanke des Tages",
