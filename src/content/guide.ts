@@ -142,6 +142,21 @@ export const guideByLocale: Record<Locale, GuideDocument> = {
         ],
       },
       {
+        heading: "Ranní připomínka a myšlenka na den",
+        paragraphs: [
+          "Ráno se ti aplikace ozve krátkým textem — myšlenkou na den. V oznámení uvidíš dnešní téma a první větu; klepnutím se otevře celý text a dá se nechat přečíst nahlas. Chodí i ve dnech, kdy žádný cíl rozjetý nemáš.",
+          "Zapíná se v Důležitých nastaveních. Hned pod nastavením je tlačítko „Poslat zkušební oznámení“ — použij ho. Odpoví ti do vteřiny a je to jediný způsob, jak si ověřit, že opravdu dorazí, aniž bys čekal do rána.",
+          "Oznámení se nastavují pro každý prohlížeč a každé zařízení zvlášť. Není to vlastnost účtu: když si je zapneš na počítači, telefon o tom neví. Na každém zařízení, kde je chceš mít, je tedy musíš zapnout znovu — a na každém se taky dá zvlášť vypnout.",
+          "Oznámení doručuje tvůj prohlížeč, ne my. My zprávu předáme jeho poštovní službě a tím naše část končí. Proto může přijít se zpožděním, když je zařízení vypnuté nebo bez signálu — počká a doručí se, jakmile se ozve. A proto taky zkušební oznámení hlásí „odesláno“: dál už nevidíme.",
+        ],
+        steps: [
+          "Nedorazilo nic a zkušební oznámení hlásí, že prohlížeč není přihlášený: přepni připomínky na „Nikdy“ a zase zpátky. Tím se přihlášení vytvoří znovu.",
+          "Prohlížeč se na svolení vůbec nezeptal: nejspíš ho má zakázané pro tuhle stránku. Povolí se v jeho nastavení u adresy webu.",
+          "Na iPhonu fungují oznámení až u aplikace přidané na plochu, v samotném Safari ne. Je to omezení systému.",
+          "V aplikaci stažené z obchodu je to jinak: tam připomínku plánuje přímo telefon. Neposílá se nic ze serveru, funguje to bez signálu — ale Android takové připomínky umí kvůli šetření baterie odkládat nebo rušit. Když ti nechodí spolehlivě, přidej aplikaci mezi výjimky z optimalizace baterie, nebo používej webovou verzi přidanou na plochu.",
+        ],
+      },
+      {
         heading: "Přihlášení v aplikaci z obchodu",
         paragraphs: [
           "V aplikaci stažené z obchodu se přihlašuje e-mailem a heslem. Tlačítko „pokračovat přes Google“ tam schválně není.",
@@ -282,6 +297,21 @@ export const guideByLocale: Record<Locale, GuideDocument> = {
         ],
       },
       {
+        heading: "The morning reminder and the thought for the day",
+        paragraphs: [
+          "In the morning the app sends you a short text — the thought for the day. The notification shows today's topic and the first sentence; tapping it opens the whole thing, and you can have it read aloud. It arrives even on days when you have no goal running.",
+          "You turn it on in Important settings. Right below the settings there is a “Send a test notification” button — use it. It answers within a second and it is the only way to check that notifications really arrive without waiting until morning.",
+          "Notifications are set up per browser and per device, not per account. Turning them on at your computer tells your phone nothing. On every device where you want them, you have to turn them on again — and on every device you can turn them off separately.",
+          "Delivery is handled by your browser, not by us. We hand the message to its push service and our part ends there. That is why it can arrive late when a device is off or offline — it waits and is delivered once the device checks in. And it is why the test says “sent”: beyond that point we cannot see.",
+        ],
+        steps: [
+          "Nothing arrived and the test says the browser is not subscribed: switch reminders to “Never” and back. That recreates the subscription.",
+          "The browser never asked for permission: it probably has notifications blocked for this site. Allow them in its settings for this address.",
+          "On iPhone, notifications only work once the app is added to the home screen — not in Safari itself. That is a system limitation.",
+          "The app from the store works differently: there the reminder is scheduled by the phone itself. Nothing is sent from a server and it works offline — but Android can delay or cancel such reminders to save battery. If they are unreliable, add the app to the battery optimisation exceptions, or use the web version added to your home screen.",
+        ],
+      },
+      {
         heading: "Signing in inside the store app",
         paragraphs: [
           "In the app from the store you sign in with your e-mail and password. The “continue with Google” button is deliberately not there.",
@@ -419,6 +449,21 @@ export const guideByLocale: Record<Locale, GuideDocument> = {
           "Die Website funktioniert im mobilen Browser und lässt sich zum Startbildschirm hinzufügen, von wo sie im Vollbild ohne Adressleiste startet. Eine Schritt-für-Schritt-Anleitung für iPhone und Android steht auf der Installationsseite.",
           "In der App aus dem Store kannst du eine tägliche Erinnerung einschalten: Das Telefon meldet sich zur gewählten Zeit, auch wenn die App geschlossen ist. Sie wird direkt auf dem Telefon geplant, also geht nichts davon an unseren Server, und sie funktioniert auch ohne Empfang.",
           "Egal von wo aus du die App öffnest — du meldest dich mit demselben Konto an und findest dieselben Ziele.",
+        ],
+      },
+      {
+        heading: "Die Morgenerinnerung und der Gedanke des Tages",
+        paragraphs: [
+          "Morgens meldet sich die App mit einem kurzen Text — dem Gedanken des Tages. In der Benachrichtigung stehen das heutige Thema und der erste Satz; ein Tippen öffnet den ganzen Text, und du kannst ihn dir vorlesen lassen. Er kommt auch an Tagen ohne laufendes Ziel.",
+          "Eingeschaltet wird das in den Wichtigen Einstellungen. Direkt darunter gibt es den Knopf „Testbenachrichtigung senden“ — nutze ihn. Er antwortet in einer Sekunde und ist die einzige Möglichkeit zu prüfen, dass wirklich etwas ankommt, ohne bis zum Morgen zu warten.",
+          "Benachrichtigungen werden pro Browser und pro Gerät eingerichtet, nicht pro Konto. Schaltest du sie am Rechner ein, weiß dein Handy nichts davon. Auf jedem Gerät, auf dem du sie willst, musst du sie erneut einschalten — und auf jedem lassen sie sich einzeln abschalten.",
+          "Zugestellt werden sie von deinem Browser, nicht von uns. Wir übergeben die Nachricht seinem Push-Dienst, und damit endet unser Teil. Deshalb kann sie verspätet kommen, wenn ein Gerät aus oder offline ist — sie wartet und wird zugestellt, sobald sich das Gerät meldet. Und deshalb meldet der Test „gesendet“: weiter sehen wir nicht.",
+        ],
+        steps: [
+          "Es kam nichts an und der Test sagt, der Browser sei nicht angemeldet: stell die Erinnerungen auf „Nie“ und zurück. Damit entsteht die Anmeldung neu.",
+          "Der Browser hat nie nach Erlaubnis gefragt: wahrscheinlich sind Benachrichtigungen für diese Seite blockiert. Erlaube sie in seinen Einstellungen für diese Adresse.",
+          "Auf dem iPhone funktionieren Benachrichtigungen erst, wenn die App auf dem Homescreen liegt — in Safari selbst nicht. Das ist eine Einschränkung des Systems.",
+          "Die App aus dem Store arbeitet anders: dort plant das Handy die Erinnerung selbst. Es wird nichts vom Server geschickt und es funktioniert offline — aber Android kann solche Erinnerungen zum Stromsparen verzögern oder streichen. Wenn sie unzuverlässig sind, nimm die App in die Ausnahmen der Akkuoptimierung auf oder nutze die Webversion auf dem Homescreen.",
         ],
       },
       {

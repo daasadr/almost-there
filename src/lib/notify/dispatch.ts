@@ -321,9 +321,25 @@ async function morningMessage({
           : (lines[number % lines.length] ?? lines[0]);
     }
 
-    // V aplikaci by nebylo co dělat, tak ať klepnutí otevře rovnou text.
-    if (piece) url = `/${locale}/motivation/${number}`;
   }
+
+  /*
+   * Klepnutí na oznámení otevře text, ne aplikaci.
+   *
+   * Původně vedlo do aplikace, kdykoliv na člověka čekaly úkoly, a text
+   * si měl otevřít tlačítkem „Přečíst celé". Jenže tlačítka v oznámeních
+   * neumí každý prohlížeč — Firefox je na počítači nekreslí vůbec
+   * (`Notification.maxActions` je tam nula) — takže cesta k textu tam
+   * prostě chyběla.
+   *
+   * Tudíž: co je v oznámení napsané, to se po klepnutí otevře. Úkoly
+   * jsou v těle zmíněné a z textu vede odkaz do aplikace, takže se
+   * k nim dostane každý, kdo o ně stojí. Obráceně to nešlo.
+   *
+   * Tlačítko zůstává pro prohlížeče, které ho umí; není na čem stavět,
+   * ale kdo ho vidí, ušetří klepnutí.
+   */
+  if (piece) url = `/${locale}/motivation/${number}`;
 
   // Prázdná knihovna textů: zůstane původní připomínka.
   if (!piece) {

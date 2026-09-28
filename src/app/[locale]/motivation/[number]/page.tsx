@@ -96,10 +96,27 @@ export default async function MotivationPage({
         />
       </div>
 
+      {/*
+        Cesta do aplikace.
+
+        Sem se chodí z ranního oznámení, takže tady řada lidí svůj den
+        s aplikací začíná — a bez odkazu by museli hledat. Ukazuje se
+        všem, i nepřihlášeným: ty pošle middleware na přihlášení, což je
+        přesně to, co v tu chvíli potřebují.
+      */}
+      <p className="mt-10">
+        <Link
+          href="/app"
+          className="text-sm font-medium text-[var(--color-lime-soft)] underline-offset-4 hover:underline"
+        >
+          {t("openApp")} →
+        </Link>
+      </p>
+
       {/* Pozvánka, ne výzva. Kdo si sem přišel přečíst text, nepřišel
           si kupovat předplatné — a kdyby na něj narazil hned, přestal
           by ty texty číst. */}
-      <p className="mt-12 border-t border-edge pt-6 text-sm text-[var(--color-paper-dim)]">
+      <p className="mt-6 border-t border-edge pt-6 text-sm text-[var(--color-paper-dim)]">
         {t("about")}{" "}
         <Link href="/" className="underline underline-offset-2">
           {t("aboutLink")}
