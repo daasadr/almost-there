@@ -5,7 +5,7 @@ import { getToday } from "@/lib/goals/queries";
 import { parseIsoDate, todayIso } from "@/lib/plan/calendar";
 import { motivationByLocale } from "@/content/motivation";
 import { pieceNumberForDay, teaser } from "@/lib/motivation";
-import { sendToUser } from "./push";
+import { pushConfigured, sendToUser } from "./push";
 import type { Locale } from "@/i18n/routing";
 
 /**
@@ -130,7 +130,12 @@ function greetingKey(minutes: number): string {
   return "morningGreetingEvening";
 }
 
-export type DispatchResult = { checked: number; sent: number };
+export type DispatchResult = {
+  checked: number;
+  sent: number;
+  /** `false` znamená, že se neodesílalo vůbec — chybí klíče. */
+  configured: boolean;
+};
 
 export async function dispatchReminders(): Promise<DispatchResult> {
   const users = await db.user.findMany({
@@ -154,6 +159,18 @@ export async function dispatchReminders(): Promise<DispatchResult> {
       notifySnoozedUntil: true,
     },
   });
+
+  /*
+   * Bez nastaveného podepisování nemá smysl procházet uživatele.
+   *
+   * Dřív se prošli všichni, každému se „poslalo" do prázdna a každému se
+   * zapsalo, že dnes dostal svoje. Den byl tím spálený: po opravě
+   * nastavení už mu ten den nic nepřišlo, protože značka tvrdila, že
+   * přišlo. Takhle se neudělá nic a po opravě všechno doběhne.
+   */
+  if (!pushConfigured()) {
+    return { checked: users.length, sent: 0, configured: false };
+  }
 
   let sent = 0;
 
@@ -218,7 +235,7 @@ export async function dispatchReminders(): Promise<DispatchResult> {
     if (delivered > 0) sent += 1;
   }
 
-  return { checked: users.length, sent };
+  return { checked: users.length, sent, configured: true };
 }
 
 /**

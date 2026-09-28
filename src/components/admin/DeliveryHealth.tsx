@@ -1,4 +1,5 @@
 import { db } from "@/lib/db";
+import { missingPushConfig } from "@/lib/notify/push";
 
 /**
  * Stav rozesílání oznámení.
@@ -49,11 +50,38 @@ export async function DeliveryHealth({ now }: { now: number }) {
 
   const stale = !cron || now - cron.ranAt.getTime() > STALE_MINUTES * 60_000;
 
+  /*
+   * Chybějící klíče jsou vážnější než nespuštěná úloha, protože
+   * z ničeho nejsou vidět: rozesílání proběhne, nikomu nic nepřijde
+   * a nic se nenahlásí. Proto stojí nahoře a samostatně.
+   */
+  const missing = missingPushConfig();
+
   return (
     <section className="mt-14">
       <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--color-paper-faint)]">
         Rozesílání oznámení
       </h2>
+
+      {missing.length > 0 && (
+        <div className="mt-3 rounded-xl border border-red-400/40 bg-red-400/10 p-4 text-sm">
+          <p className="font-semibold text-red-200">
+            Oznámení se neodesílají vůbec.
+          </p>
+          <p className="mt-1 text-red-100/80">
+            V nastavení serveru chybí:{" "}
+            {missing.map((name, i) => (
+              <span key={name}>
+                {i > 0 && ", "}
+                <code>{name}</code>
+              </span>
+            ))}
+            . Doplň do <code>.env</code> a nasaď znovu. Do té doby se
+            rozesílání ani nespouští — a proto se to nikde jinde
+            neprojeví.
+          </p>
+        </div>
+      )}
 
       <div
         className={`mt-3 rounded-xl border p-4 text-sm ${

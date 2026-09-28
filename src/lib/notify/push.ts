@@ -37,22 +37,54 @@ export type PushMessage = {
 
 let configured: boolean | null = null;
 
+/**
+ * Které z potřebných proměnných chybí. Prázdné pole znamená, že je vše.
+ *
+ * Vlastní funkce proto, že tuhle odpověď potřebuje i správa — bez ní
+ * není jak poznat rozdíl mezi „neposílá se, protože není komu"
+ * a „neposílá se, protože to není nastavené". Zvenčí vypadají stejně.
+ */
+export function missingPushConfig(): string[] {
+  return (
+    ["VAPID_PUBLIC_KEY", "VAPID_PRIVATE_KEY", "VAPID_SUBJECT"] as const
+  ).filter((name) => !process.env[name]);
+}
+
+/**
+ * Je čím podepisovat?
+ *
+ * Dřív tahle funkce při chybějícím nastavení jen vrátila `false`
+ * a `sendToUser` tiše skončil nulou. Navenek to vypadalo úplně stejně
+ * jako „nikdo nemá zapnuté připomínky": rozesílání proběhlo, nikomu nic
+ * nepřišlo, nikde ani řádka. Nejhůř se hledají poruchy, které se tváří
+ * jako klid.
+ *
+ * `VAPID_SUBJECT` se zapomíná nejčastěji, protože bez něj nastavení
+ * připomínek v aplikaci vypadá funkčně — to si vystačí s veřejným
+ * klíčem. Chybí až podpis při odesílání.
+ */
 function ready(): boolean {
   if (configured !== null) return configured;
 
-  const publicKey = process.env.VAPID_PUBLIC_KEY;
-  const privateKey = process.env.VAPID_PRIVATE_KEY;
-  const contact = process.env.VAPID_SUBJECT;
-
-  if (!publicKey || !privateKey || !contact) {
+  const missing = missingPushConfig();
+  if (missing.length > 0) {
+    console.error(
+      `[push] oznámení se neodesílají: chybí ${missing.join(", ")}. ` +
+        "Doplň do .env a restartuj aplikaci.",
+    );
     configured = false;
     return false;
   }
 
-  webpush.setVapidDetails(contact, publicKey, privateKey);
+  webpush.setVapidDetails(
+    process.env.VAPID_SUBJECT!,
+    process.env.VAPID_PUBLIC_KEY!,
+    process.env.VAPID_PRIVATE_KEY!,
+  );
   configured = true;
   return true;
 }
+
 
 /**
  * Pošle oznámení na všechna zařízení jednoho uživatele.
