@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { db } from "@/lib/db";
 import { timingSafeEqual } from "node:crypto";
 import { dispatchReminders } from "@/lib/notify/dispatch";
 import { sendTrialReminders } from "@/lib/billing/trial-reminder";
@@ -53,6 +54,26 @@ export async function POST(request: Request) {
    * Obojí je rozesílání e-mailu podle času, tak ať to má jeden spouštěč.
    */
   const trials = await sendTrialReminders();
+
+  /*
+   * Zápis, že úloha proběhla.
+   *
+   * Když se cron rozbije, nic nespadne a nic se nenahlásí — jen přestanou
+   * chodit zprávy. Tenhle řádek je jediný způsob, jak to poznat dřív, než
+   * se někdo zeptá „proč mi nic nepřišlo". Je vidět ve správě.
+   */
+  await db.cronRun.upsert({
+    where: { job: "notify" },
+    create: {
+      job: "notify",
+      ranAt: new Date(),
+      note: `prošlo ${result.checked}, odesláno ${result.sent}`,
+    },
+    update: {
+      ranAt: new Date(),
+      note: `prošlo ${result.checked}, odesláno ${result.sent}`,
+    },
+  });
 
   return NextResponse.json({ ok: true, ...result, trials });
 }

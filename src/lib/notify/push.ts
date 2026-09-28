@@ -95,6 +95,9 @@ export async function sendToUser(
 
   let delivered = 0;
   const dead: string[] = [];
+  /** Co se u kterého zařízení povedlo. Zapisuje se až na konci, najednou. */
+  const sentOk: string[] = [];
+  const failed: { id: string; error: string }[] = [];
 
   await Promise.all(
     devices.map(async (device) => {
@@ -112,6 +115,7 @@ export async function sendToUser(
           { TTL: 86_400 },
         );
         delivered += 1;
+        sentOk.push(device.id);
       } catch (error) {
         /*
          * 404 a 410 znamenají, že odběr už neexistuje — uživatel si
@@ -126,6 +130,12 @@ export async function sendToUser(
           dead.push(device.id);
         } else {
           console.error("[push] odeslání selhalo", status, device.endpoint);
+          failed.push({
+            id: device.id,
+            error: `${status ?? "bez kódu"} — ${
+              (error as Error).message?.slice(0, 200) ?? "neznámá chyba"
+            }`,
+          });
         }
       }
     }),
@@ -133,6 +143,29 @@ export async function sendToUser(
 
   if (dead.length) {
     await db.pushSubscription.deleteMany({ where: { id: { in: dead } } });
+  }
+
+  /*
+   * Výsledek u každého zařízení.
+   *
+   * „Odešlo" znamená, že zásilku přijala poštovní služba prohlížeče —
+   * doručení už není v naší moci. I tak je to ta podstatná hranice: když
+   * tu svítí dnešní datum a uživateli nic nepřišlo, problém je na cestě
+   * k jeho zařízení, ne u nás. Dokud tu nebyla, nešlo to rozhodnout
+   * vůbec a každá porucha vypadala stejně.
+   */
+  if (sentOk.length) {
+    await db.pushSubscription.updateMany({
+      where: { id: { in: sentOk } },
+      data: { lastSentAt: new Date(), lastError: null },
+    });
+  }
+
+  for (const item of failed) {
+    await db.pushSubscription.update({
+      where: { id: item.id },
+      data: { lastError: item.error },
+    });
   }
 
   return delivered;

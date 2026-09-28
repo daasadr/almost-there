@@ -649,6 +649,22 @@ enum NotifyMode {
  * na všechny. Odběry se ruší samy: když poštovní služba prohlížeče
  * odpoví 404 nebo 410, zařízení už neexistuje a záznam se smaže.
  */
+/// Kdy naposledy proběhla pravidelná úloha.
+///
+/// Rozesílání oznámení i připomínek zkušebního období spouští cron na
+/// serveru. Když se rozbije, nic nespadne a nic se nenahlásí — jen
+/// přestanou chodit zprávy. To je ten nejhorší druh poruchy: neviditelná.
+///
+/// Tenhle jeden řádek na to odpovídá jedním pohledem. Bez něj se to dá
+/// zjistit jedině tak, že se někdo zeptá „proč mi nic nepřišlo".
+model CronRun {
+  /// Název úlohy. Zatím jediná: `notify`.
+  job   String   @id
+  ranAt DateTime
+  /// Krátký souhrn posledního běhu, pro rychlé nahlédnutí.
+  note  String?
+}
+
 model PushSubscription {
   id       String @id @default(cuid())
   userId   String
@@ -657,6 +673,20 @@ model PushSubscription {
   /// Veřejný klíč zařízení a ověřovací tajemství — obojí z prohlížeče.
   p256dh   String
   auth     String
+
+  /// Kdy tomuhle zařízení naposledy něco odešlo.
+  ///
+  /// „Odešlo" znamená, že to přijala poštovní služba prohlížeče —
+  /// doručení už není v naší moci. I tak je to ta podstatná hranice:
+  /// dokud tu je dnešní datum, problém je na cestě k telefonu, ne u nás.
+  lastSentAt DateTime?
+
+  /// Čím skončil poslední pokus, když se nepovedl.
+  ///
+  /// Mrtvé odběry se mažou (404 a 410), tohle zachytí ten zbytek —
+  /// výpadky poštovní služby, zahlcení, chyby v zásilce. Bez toho se
+  /// nedalo poznat, jestli se neposílá, nebo se posílá a padá to.
+  lastError  String?
 
   /// Zvolený vzhled na tomhle zařízení.
   ///

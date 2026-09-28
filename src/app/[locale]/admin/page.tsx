@@ -10,6 +10,7 @@ import {
 } from "@/lib/admin/users";
 import { recentAdminActions } from "@/lib/admin/audit";
 import { env } from "@/lib/env";
+import { DeliveryHealth } from "@/components/admin/DeliveryHealth";
 
 export const metadata: Metadata = {
   title: "Správa — AlmostThere",
@@ -172,6 +173,9 @@ export default async function AdminPage({
           </tbody>
         </table>
       </div>
+
+      {/* Hodiny čte stránka, ne komponenta — viz komentář tam. */}
+      <DeliveryHealth now={Date.now()} />
 
       {/* Co jsi s cizími účty udělala. V logu kontejneru to bylo taky,
           jenže ten se přetáčí — a záznam, který zmizí, není záznam. */}
