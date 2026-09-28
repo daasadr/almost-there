@@ -967,7 +967,7 @@
         "body": "Wenn du das siehst, funktionieren Benachrichtigungen. Morgens kommt dein Gedanke des Tages.",
         "sent": "Gesendet. Wenn in ein paar Sekunden nichts erscheint, hat dein Browser oder System sie zurückgehalten oder verworfen — von uns ist sie sauber rausgegangen.",
         "noDevice": "Dieser Browser ist nicht angemeldet. Stell die Erinnerungen auf „Nie“ und zurück, damit die Anmeldung neu entsteht.",
-        "notConfigured": "Auf dem Server fehlen die Schlüssel für Benachrichtigungen, es wird an niemanden gesendet. Das muss ein Administrator beheben.",
+        "notConfigured": "Benachrichtigungen sind gerade auf unserer Seite außer Betrieb — es liegt nicht an deinen Browsereinstellungen und du kannst nichts dagegen tun. Wir kümmern uns darum.",
         "failed": "Der Push-Dienst des Browsers hat sie abgelehnt: {reason}"
       }
     },

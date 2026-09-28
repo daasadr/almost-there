@@ -153,9 +153,9 @@ export const termsByLocale: Record<Locale, LegalDocument> = {
       {
         heading: "3. Subscription, price and payment",
         paragraphs: [
-          "The service costs a single monthly subscription of 179 CZK, or 1790 CZK a year. The price shown on the website and in the app store is the final price — there are no hidden charges.",
+          "The service costs a single monthly subscription of $7.99, or $79 a year. The price shown on the website and in the app store is the final price — there are no hidden charges.",
           "A new customer gets a seven-day free trial. Payment details are entered at the start, and once the trial ends the subscription continues automatically at the stated price unless you cancel before then. The trial end date is shown before you enter payment details and in your account, and a reminder email arrives two days before it ends. You can cancel at any time in your account and keep the service until the trial period is over.",
-          "Billing is in Czech koruna. Amounts shown in euros or dollars are approximate and for orientation only; the final conversion is made by your bank or card issuer, which may add its own fee.",
+          "You are charged in the currency shown on the page — US dollars in the English version, euros in the German one and Czech koruna in the Czech one. The currency is fixed before checkout, so the amount you see is the amount that is charged.",
           "The price shown is final and includes value added tax, which Stripe remits as the merchant of record. The operator is not registered for VAT.",
           "The subscription renews automatically at the end of each billing period until you cancel. You can cancel any time in your account settings; the service remains available until the end of the period already paid for.",
           "Payments on the web run through Stripe Managed Payments. In this arrangement Stripe acts as the merchant of record: it concludes the payment transaction with you, issues the receipt and remits value added tax. The operator is the supplier of the service itself.",
@@ -245,9 +245,9 @@ export const termsByLocale: Record<Locale, LegalDocument> = {
       {
         heading: "3. Abonnement, Preis und Zahlung",
         paragraphs: [
-          "Der Dienst kostet ein einheitliches Monatsabonnement von 179 CZK oder 1790 CZK pro Jahr. Der auf der Website und im App-Store angegebene Preis ist der Endpreis — versteckte Zuschläge gibt es nicht.",
+          "Der Dienst kostet ein einheitliches Monatsabonnement von 6,99 € oder 69 € pro Jahr. Der auf der Website und im App-Store angegebene Preis ist der Endpreis — versteckte Zuschläge gibt es nicht.",
           "Neukunden erhalten eine siebentägige kostenlose Testphase. Die Zahlungsdaten werden zu Beginn eingegeben, und nach Ablauf der Testphase läuft das Abonnement automatisch zum genannten Preis weiter, sofern du bis dahin nicht kündigst. Das Enddatum der Testphase wird vor Eingabe der Zahlungsdaten und in deinem Konto angezeigt, und zwei Tage vor Ende kommt eine Erinnerung per E-Mail. Kündigen kannst du jederzeit im Konto und behältst den Dienst bis zum Ende der Testphase.",
-          "Abgerechnet wird in tschechischen Kronen. In Euro angegebene Beträge sind Näherungswerte zur Orientierung; die endgültige Umrechnung nimmt deine Bank oder dein Kartenherausgeber vor und kann eine eigene Gebühr erheben.",
+          "Abgerechnet wird in der auf der Seite angezeigten Währung — Euro in der deutschen Fassung, US-Dollar in der englischen und tschechische Kronen in der tschechischen. Die Währung steht vor dem Bezahlvorgang fest, der angezeigte Betrag ist also auch der abgebuchte.",
           "Der angegebene Preis ist ein Endpreis und enthält die Umsatzsteuer, die Stripe als Verkäufer abführt. Der Betreiber ist nicht umsatzsteuerpflichtig.",
           "Das Abonnement verlängert sich am Ende jedes Abrechnungszeitraums automatisch, bis du kündigst. Kündigen kannst du jederzeit in den Kontoeinstellungen; der Dienst bleibt bis zum Ende des bereits bezahlten Zeitraums verfügbar.",
           "Zahlungen im Web laufen über Stripe Managed Payments. Stripe tritt dabei als Verkäufer auf (merchant of record): Stripe schließt die Zahlungstransaktion mit dir ab, stellt den Beleg aus und führt die Umsatzsteuer ab. Der Betreiber ist Anbieter der Leistung selbst.",

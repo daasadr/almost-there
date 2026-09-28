@@ -7,6 +7,7 @@ import { getAccess } from "@/lib/billing/access";
 import { getStripe } from "@/lib/stripe/client";
 import {
   isBillingPeriod,
+  priceFor,
   stripePriceId,
   TRIAL_DAYS,
 } from "@/lib/stripe/plans";
@@ -173,6 +174,15 @@ export async function POST(request: Request) {
   try {
     const checkout = await stripe.checkout.sessions.create({
       mode: "subscription",
+      /*
+       * Měna, kterou jsme uživateli ukázali.
+       *
+       * Bez ní si ji Stripe vybere sám podle země platební karty a
+       * u pokladny by se mohla objevit jiná částka, než jaká stála na
+       * stránce. Takhle se to rozejít nemůže: cena ve Stripu tuhle měnu
+       * buď má jako variantu, nebo relace vůbec nevznikne.
+       */
+      currency: priceFor(locale, period).currency.toLowerCase(),
       // Stripe jako právní prodejce (merchant of record).
       managed_payments: { enabled: true },
       line_items: [{ price: stripePriceId(period), quantity: 1 }],

@@ -967,7 +967,7 @@
         "body": "Když tohle vidíš, oznámení fungují. Ráno ti přijde myšlenka na den.",
         "sent": "Odesláno. Když se do pár vteřin nic neukáže, zprávu zdržel nebo zahodil prohlížeč či systém — od nás odešla v pořádku.",
         "noDevice": "Tenhle prohlížeč není přihlášený k odběru. Přepni připomínky na „Nikdy“ a zpátky, ať se přihlášení vytvoří znovu.",
-        "notConfigured": "Na serveru chybí klíče pro oznámení, takže se neposílá nikomu. Tohle musí opravit správce.",
+        "notConfigured": "Oznámení jsou teď mimo provoz na naší straně — není to nastavením tvého prohlížeče a ty s tím nic neuděláš. Pracujeme na tom.",
         "failed": "Odeslání odmítla poštovní služba prohlížeče: {reason}"
       }
     },

@@ -967,7 +967,7 @@
         "body": "If you can see this, notifications work. Your thought for the day arrives in the morning.",
         "sent": "Sent. If nothing appears within a few seconds, your browser or system held it back or dropped it — it left us fine.",
         "noDevice": "This browser is not subscribed. Switch reminders to “Never” and back, so the subscription is created again.",
-        "notConfigured": "The server is missing its notification keys, so nothing is sent to anyone. An administrator needs to fix this.",
+        "notConfigured": "Notifications are down on our side right now — it is not your browser settings and there is nothing for you to fix. We are on it.",
         "failed": "The browser’s push service refused it: {reason}"
       }
     },

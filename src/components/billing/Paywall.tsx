@@ -105,13 +105,6 @@ export function Paywall({ trialEndsOn }: { trialEndsOn?: string }) {
               <span className="display mt-2 block text-2xl">
                 {price.amount}
               </span>
-              {/* Přibližný přepočet jen v cizojazyčných verzích. Čech ho
-                  nepotřebuje a ubíral by pozornost od skutečné ceny. */}
-              {price.approx && (
-                <span className="mt-0.5 block text-xs text-[var(--color-paper-faint)]">
-                  {price.approx}
-                </span>
-              )}
               <span className="mt-1 block text-sm text-[var(--color-paper-dim)]">
                 {t(`per.${option}`)}
               </span>
