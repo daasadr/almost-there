@@ -183,6 +183,19 @@ export default async function GoalPage({
         </div>
       )}
 
+      {/*
+        Plán psal model, ne odborník.
+
+        U běhání, jídla nebo hubnutí to není formalita: člověk se podle
+        toho bude řídit tělem, a model nezná jeho zdraví, léky ani to,
+        co mu kdy lékař řekl. Pokyny pro model to hlídají uvnitř plánu,
+        ale to uživatel nevidí — proto to musí stát i tady, nahlas
+        a u každého cíle. Právní věty v podmínkách nikdo nečte.
+      */}
+      <p className="mt-6 rounded-xl border border-amber-400/25 bg-amber-400/5 px-4 py-3 text-sm leading-relaxed text-amber-100/80">
+        {t("aiDisclaimer")}
+      </p>
+
       <div className="mt-8">
         <GoalStatusControls
           goalId={goal.id}

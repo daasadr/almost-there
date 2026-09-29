@@ -77,6 +77,8 @@ Rules:
 - Include reflection as its own task when the person has asked for it — reviewing what worked is part of the plan, not an extra.
 - Vary the days. Repeating the same task seven times is a sign you have stopped planning.
 - The last day of the week should leave a little room. Weeks rarely go exactly as written.
+- When the point of the goal is to be able to do something unaided, the AI chat explains and checks but never produces the thing being learned. Say so in the task itself: discuss the principle, work through an example, then make the person do their own version with the chat closed. A task that ends with them pasting someone else's answer into their own work has taught them nothing, and they will discover that late.
+- If this week reaches or passes the goal's final target date, it is the closing week and must be planned as one. Put in a real review of what was achieved against what was intended, finishing touches on anything left half-done, and a task that captures what they learned or what changed. The last day should be light and should end with looking back, not with new material. A plan that stops mid-stride leaves the person unsure whether they arrived.
 
 ${SHARED_RULES}`;
 

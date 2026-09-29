@@ -217,3 +217,56 @@ export async function getFinishState(
 
   return { ready: nearDeadline || mostlyDone, pending };
 }
+
+/** Cíl, který vypadá dotaženě a čeká na potvrzení. */
+export type FinishableGoal = {
+  id: string;
+  title: string;
+  color: string;
+  /** Kolik úkolů zůstalo neodškrtaných. Nula znamená čistý konec. */
+  pending: number;
+  /** Je termín už za námi? */
+  overdue: boolean;
+};
+
+/**
+ * Které cíle vypadají dotaženě — pro přehled dnešku.
+ *
+ * Tohle chybělo a stálo to za celou tichou díru na konci cesty. Nabídka
+ * dotažení existovala, ale jen na stránce cíle — a tam se člověk během
+ * posledního týdne nepodívá, protože odškrtává na dnešku. Takže cíl
+ * doběhl, poslední úkol se odškrtl a aplikace mlčky pokračovala dál.
+ * Plný pruh, „8 z 8", stav „běží" — a žádná oslava.
+ *
+ * Uzavírá se pořád ručně, ne samo. Jednak se tím píše shrnutí přes
+ * model a to stojí peníze, jednak je to rozhodnutí uživatele: on ví,
+ * jestli cíle dosáhl, ne my podle počtu zaškrtnutých políček. Naše
+ * úloha je zeptat se v tu správnou chvíli, hlasitě a na místě, kde se
+ * zrovna dívá.
+ */
+export async function getFinishableGoals(
+  userId: string,
+): Promise<FinishableGoal[]> {
+  const goals = await db.goal.findMany({
+    where: { userId, status: "ACTIVE" },
+    select: { id: true, title: true, color: true, targetDate: true },
+  });
+
+  const now = Date.now();
+  const checked = await Promise.all(
+    goals.map(async (goal) => {
+      const state = await getFinishState(goal.id, goal.targetDate);
+      if (!state.ready) return null;
+
+      return {
+        id: goal.id,
+        title: goal.title,
+        color: goal.color,
+        pending: state.pending,
+        overdue: goal.targetDate.getTime() < now,
+      };
+    }),
+  );
+
+  return checked.filter((goal): goal is FinishableGoal => goal !== null);
+}

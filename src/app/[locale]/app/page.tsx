@@ -6,6 +6,7 @@ import { Paywall } from "@/components/billing/Paywall";
 import { CheckoutPending } from "@/components/billing/CheckoutPending";
 import { BudgetNotice } from "@/components/plan/BudgetNotice";
 import { DailyMotivation } from "@/components/motivation/DailyMotivation";
+import { GoalFinishable } from "@/components/plan/GoalFinishable";
 import { NotifyInvite } from "@/components/plan/NotifyInvite";
 import { PlanTrigger } from "@/components/plan/PlanTrigger";
 import { TodayChecklist } from "@/components/plan/TodayChecklist";
@@ -20,6 +21,7 @@ import { UnfinishedTasks } from "@/components/plan/UnfinishedTasks";
 import { DeferredTasks } from "@/components/plan/DeferredTasks";
 import { DayRollover } from "@/components/plan/DayRollover";
 import { getAccess } from "@/lib/billing/access";
+import { getFinishableGoals } from "@/lib/goals/complete";
 import { getDeferred, getOverdue, getToday } from "@/lib/goals/queries";
 import { getBehindGoals } from "@/lib/goals/pace";
 import { getWeekProgress } from "@/lib/goals/checkin";
@@ -367,7 +369,7 @@ async function Today({
     },
   });
   const timezone = profile?.timezone ?? "Europe/Prague";
-  const [today, overdue, deferred, behind, reached, earned] =
+  const [today, overdue, deferred, behind, reached, earned, finishable] =
     await Promise.all([
       getToday(userId, timezone, day),
       getOverdue(userId, timezone),
@@ -375,6 +377,7 @@ async function Today({
       getBehindGoals(userId, timezone),
       getReachedMilestones(userId),
       getTodaysRewards(userId, timezone),
+      getFinishableGoals(userId),
     ]);
 
   const week = await getWeekProgress(userId, timezone, today.date);
@@ -445,6 +448,17 @@ async function Today({
           v kalendáři, kde na něj je místo. */}
 
       <div className="mt-5 space-y-4">
+        {/*
+          Dotažený cíl má přednost před vším ostatním.
+
+          Je to jediná chvíle, kdy se něco povedlo celé — a dřív se
+          neukázala vůbec. Cíl doběhl, poslední úkol se odškrtl,
+          aplikace mlčky jela dál a uživatelka si toho týden nevšimla.
+          Nabídka existovala, ale jen na stránce cíle, kam se v posledním
+          týdnu nikdo nedívá.
+        */}
+        {showingToday && <GoalFinishable goals={finishable} />}
+
         <EarnedRewards rewards={earned} />
 
         {/* Dosažený milník má přednost před vším ostatním — je to jediná

@@ -643,7 +643,8 @@
       "deleteConfirm": "Smaže se cíl i se všemi fázemi — obdobími, týdny i dny. Vrátit to nejde.",
       "deleteYes": "Ano, smazat",
       "deleteNo": "Ponechat",
-      "deleting": "Mažu…"
+      "deleting": "Mažu…",
+      "aiDisclaimer": "Plán sestavil jazykový model podle toho, co jsi zadal. Není to odborná rada — lékařská, právní ani finanční. U všeho, co se týká zdraví, pohybu nebo stravy: při jakékoliv pochybnosti, potížích nebo když bereš léky to prober se svým lékařem dřív, než se do toho pustíš."
     },
     "errors": {
       "goalRequired": "Napiš, čeho chceš dosáhnout.",
@@ -979,6 +980,17 @@
       "working": "Zapínám…",
       "blocked": "Oznámení má tenhle prohlížeč zakázaná. Povol je v jeho nastavení u téhle stránky a zkus to znovu.",
       "generic": "Zapnout se to nepovedlo. Zkus to prosím znovu."
+    },
+    "finish": {
+      "eyebrow": "Vypadá to na konec cesty",
+      "title": "{goal} — máš to?",
+      "bodyClean": "Všechno z plánu je odškrtané. Když je cíl dotažený, uzavři ho — sepíšeme, co za tu dobu vzniklo, a přesune se mezi dotažené.",
+      "bodyPending": "{count, plural, one {Zbývá jeden neodškrtnutý úkol} few {Zbývají # neodškrtnuté úkoly} other {Zbývá # neodškrtnutých úkolů}} — to ale nevadí. Plán byl návrh, ne podmínka. Rozhoduješ ty.",
+      "bodyOverdue": "Termín už je za námi.",
+      "finish": "Ano, mám to hotové",
+      "finishing": "Uzavírám…",
+      "later": "Ještě ne",
+      "failed": "Uzavřít se to teď nepovedlo. Zkus to prosím znovu."
     }
   },
   "withdrawal": {

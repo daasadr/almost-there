@@ -643,7 +643,8 @@
       "deleteConfirm": "Das Ziel wird samt der gesamten Phasenplanung in Abschnitte, Wochen und Tage gelöscht. Das lässt sich nicht rückgängig machen.",
       "deleteYes": "Ja, löschen",
       "deleteNo": "Behalten",
-      "deleting": "Wird gelöscht…"
+      "deleting": "Wird gelöscht…",
+      "aiDisclaimer": "Diesen Plan hat ein Sprachmodell aus deinen Angaben erstellt. Er ist keine fachliche Beratung — weder medizinisch noch rechtlich oder finanziell. Bei allem, was Gesundheit, Bewegung oder Ernährung betrifft: Bei Zweifeln, Beschwerden oder wenn du Medikamente nimmst, sprich vorher mit deiner Ärztin oder deinem Arzt."
     },
     "errors": {
       "goalRequired": "Schreib auf, was du erreichen willst.",
@@ -979,6 +980,17 @@
       "working": "Wird eingeschaltet…",
       "blocked": "Dieser Browser blockiert Benachrichtigungen. Erlaube sie in seinen Einstellungen für diese Seite und versuch es erneut.",
       "generic": "Das Einschalten hat nicht geklappt. Bitte versuch es erneut."
+    },
+    "finish": {
+      "eyebrow": "Das sieht nach dem Ziel aus",
+      "title": "{goal} — hast du es geschafft?",
+      "bodyClean": "Alles aus dem Plan ist abgehakt. Wenn das Ziel erreicht ist, schließ es ab — wir schreiben auf, was dabei entstanden ist, und legen es zu den erreichten Zielen.",
+      "bodyPending": "{count, plural, one {Eine Aufgabe ist noch offen} other {# Aufgaben sind noch offen}} — das ist in Ordnung. Der Plan war ein Vorschlag, keine Bedingung. Du entscheidest.",
+      "bodyOverdue": "Der Termin liegt bereits hinter uns.",
+      "finish": "Ja, ich bin fertig",
+      "finishing": "Wird abgeschlossen…",
+      "later": "Noch nicht",
+      "failed": "Das Abschließen hat gerade nicht geklappt. Bitte versuch es erneut."
     }
   },
   "withdrawal": {

@@ -49,6 +49,14 @@ Milestones should be capabilities, not courses finished: fixed a bug the
 assistant could not, explained a file to someone else, rejected a bad
 suggestion and said why.
 
+Using an AI chat is expected and good here — but with a hard boundary,
+and the tasks must say it out loud. The chat explains principles, walks
+through examples and asks test questions. It does not write the code
+that goes into their own work, and the person should tell it so at the
+start of the conversation. The whole goal is to be able to write it
+themselves; help is fine, substitution defeats the point and they find
+that out too late.
+
 When the person falls behind, cut the theory and keep the building and
 the explaining.
 `.trim(),

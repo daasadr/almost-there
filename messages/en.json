@@ -643,7 +643,8 @@
       "deleteConfirm": "This removes the goal together with its whole breakdown into periods, weeks and days. It cannot be undone.",
       "deleteYes": "Yes, delete",
       "deleteNo": "Keep it",
-      "deleting": "Deleting…"
+      "deleting": "Deleting…",
+      "aiDisclaimer": "This plan was written by a language model from what you entered. It is not professional advice — not medical, legal or financial. For anything touching health, exercise or diet: if you have any doubt, any symptoms, or you take medication, talk it through with your doctor before you start."
     },
     "errors": {
       "goalRequired": "Write down what you want to reach.",
@@ -979,6 +980,17 @@
       "working": "Turning on…",
       "blocked": "This browser has notifications blocked. Allow them in its settings for this site and try again.",
       "generic": "Turning it on did not work. Please try again."
+    },
+    "finish": {
+      "eyebrow": "This looks like the finish",
+      "title": "{goal} — did you make it?",
+      "bodyClean": "Everything in the plan is ticked off. If the goal is done, close it — we will write up what came of it and move it to your finished goals.",
+      "bodyPending": "{count, plural, one {One task is still unticked} other {# tasks are still unticked}} — which is fine. The plan was a proposal, not a condition. You decide.",
+      "bodyOverdue": "The target date has passed.",
+      "finish": "Yes, I'm done",
+      "finishing": "Closing…",
+      "later": "Not yet",
+      "failed": "Closing it did not work just now. Please try again."
     }
   },
   "withdrawal": {
