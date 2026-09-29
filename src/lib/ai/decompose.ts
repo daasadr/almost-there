@@ -49,6 +49,23 @@ export type DecomposeInput = {
    * kdo o věci jen slyšel.
    */
   startingPoint?: string;
+  /**
+   * Odborný pokyn k tomuhle typu cíle. Uživatel ho nevidí.
+   *
+   * Přichází ze šablony a je to to nejcennější, co modelu můžeme dát:
+   * název cíle řekne co, kontext za jakých okolností, ale tohle řekne,
+   * **jak se takový cíl dělá správně** — v jakém pořadí, čemu se
+   * vyhnout, kde lidi obvykle selhávají.
+   *
+   * Bez něj model plánuje maraton z obecné znalosti. S ním plánuje
+   * maraton tak, jak by ho naplánoval trenér.
+   *
+   * Píše se anglicky a jen jednou pro všechny jazyky — plán vzniká
+   * v jazyce uživatele, ale pokyn je instrukce pro model, ne text pro
+   * čtenáře. Kdyby byl ve třech jazycích, laděním jedné verze by se
+   * zbylé dvě tiše rozešly.
+   */
+  guidance?: string;
   /** ISO datum (YYYY-MM-DD). */
   targetDate: string;
   /** Jazyk, ve kterém má být plán napsaný. */
@@ -162,6 +179,24 @@ function buildUserPrompt(
     `${unit}s available: ${count}`,
     `Write the plan in: ${localeAiNames[input.locale]}`,
   ];
+
+  /*
+   * Odborný pokyn stojí nahoře, hned za cílem.
+   *
+   * Je to nejsilnější vstup a modely dávají větší váhu tomu, co čtou
+   * dřív. Až za ním následuje, co o sobě řekl uživatel — to je totiž
+   * upřesnění uvnitř oboru, ne jeho náhrada.
+   */
+  if (input.guidance) {
+    lines.push(
+      "",
+      "Expert guidance for this kind of goal. This comes from someone who",
+      "knows the field. Follow it over your own general assumptions, and let",
+      "it shape the order and the milestones:",
+      input.guidance,
+      "",
+    );
+  }
 
   if (input.context) {
     lines.push(
