@@ -131,6 +131,21 @@ export function TodayChecklist({
         </p>
       )}
 
+      {/*
+        Stálá připomínka, že se dá zeptat.
+        
+        Model tuhle radu do některých úkolů píše, ale nespolehlivě —
+        u programování třeba ne, protože usoudil, že jde o samostatnou
+        práci. Přitom uvíznutí je ten nejčastější důvod, proč se plán
+        přestane plnit, a většina lidí prostě nesáhne po chatu, protože
+        je to nenapadne. Takže to tu stojí natrvalo, malé a jednou.
+      */}
+      {tasks.length > 0 && (
+        <p className="mt-6 border-t border-edge-faint pt-4 text-xs leading-relaxed text-[var(--color-paper-faint)]">
+          {t("stuckHint")}
+        </p>
+      )}
+
       {failed && (
         <p
           role="alert"

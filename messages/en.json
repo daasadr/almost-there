@@ -528,7 +528,8 @@
         "Complete. These days add up faster than they feel.",
         "Done, and no putting off. Rarer than you think.",
         "Day closed. See you tomorrow."
-      ]
+      ],
+      "stuckHint": "Stuck on something? Talk it through with an AI chat — we recommend Claude.ai, but any will do. Have it explain the principle and show an example; for anything you want to learn yourself, don't let it write the result for you."
     },
     "goals": {
       "title": "Goals",

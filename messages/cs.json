@@ -528,7 +528,8 @@
         "Splněno. Tyhle dny se sčítají rychleji, než se zdá.",
         "Hotovo a bez odkladů. To je vzácnější, než si myslíš.",
         "Den uzavřený. Tak zase zítra."
-      ]
+      ],
+      "stuckHint": "Zasekl ses na něčem? Prober to s AI chatem — doporučujeme Claude.ai, ale kterýkoli poslouží. Nech si vysvětlit princip a ukázat příklad; u věcí, které se chceš naučit sám, ho nenech napsat výsledek za tebe."
     },
     "goals": {
       "title": "Cíle",

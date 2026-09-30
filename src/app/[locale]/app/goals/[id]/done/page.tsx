@@ -6,6 +6,7 @@ import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { goalHex } from "@/lib/plan/colors";
 import { DeleteGoalButton } from "@/components/plan/DeleteGoalButton";
+import { Confetti } from "@/components/plan/Confetti";
 
 export const metadata: Metadata = { robots: { index: false, follow: false } };
 
@@ -71,6 +72,9 @@ export default async function GoalDonePage({
           background: `radial-gradient(60% 45% at 50% 22%, ${color}26, transparent 70%)`,
         }}
       />
+
+      {/* Jediné místo v aplikaci, kde se něco povedlo celé. */}
+      <Confetti />
 
       <p
         style={{ color }}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { goalHex } from "@/lib/plan/colors";
@@ -14,7 +14,17 @@ import { goalHex } from "@/lib/plan/colors";
  * jediná věc, kvůli které celá aplikace existuje.
  *
  * Nabídka existovala, ale jen na stránce cíle. Tam se člověk v posledním
- * týdnu nepodívá, protože odškrtává na dnešku. Teď stojí přímo tam.
+ * týdnu nepodívá, protože odškrtává na dnešku.
+ *
+ * ── Proč okno, a ne kartička ────────────────────────────────────────
+ *
+ * Kartička v proudu stránky se dá přejet očima jako všechno ostatní —
+ * a přesně to se stalo: dva dotažené cíle týden visely mezi rozdělanými,
+ * aniž si toho někdo všiml. Aplikace nemá čekat, až člověku dojde, že
+ * došel na konec. Má mu to říct.
+ *
+ * Otevře se tedy samo a jednou. Zavřít jde klávesou i kliknutím vedle,
+ * protože okno, které nejde zavřít, je horší než žádné.
  *
  * ── Proč se ptáme a neuzavíráme sami ────────────────────────────────
  *
@@ -56,6 +66,7 @@ export function GoalFinishable({
 
       // Shrnutí se píše na serveru, takže po návratu už je na stránce
       // dotažených cílů co číst.
+      dialog.current?.close();
       router.push(`/app/goals/${id}/done`);
     } catch {
       setFailed(true);
@@ -64,15 +75,39 @@ export function GoalFinishable({
   };
 
   const visible = goals.filter((goal) => !dismissed.includes(goal.id));
-  if (visible.length === 0) return null;
+  const first = visible[0];
+
+  const dialog = useRef<HTMLDialogElement>(null);
+
+  /*
+   * Otevře se samo, jakmile je co nabídnout.
+   *
+   * `showModal` dává zdarma tři věci, které by se jinak psaly ručně
+   * a špatně: past na klávesu Tab, zavření Escapem a podklad, přes
+   * který se nedá kliknout.
+   */
+  useEffect(() => {
+    if (first && !dialog.current?.open) dialog.current?.showModal();
+  }, [first]);
+
+  if (!first) return null;
 
   return (
-    <>
-      {visible.map((goal) => (
+    <dialog
+      ref={dialog}
+      onClose={() => setDismissed((list) => [...list, first.id])}
+      onClick={(event) => {
+        // Kliknutí mimo obsah zavírá. Terč je samo `dialog`, protože
+        // vnitřek zachytí událost dřív.
+        if (event.target === dialog.current) dialog.current?.close();
+      }}
+      className="max-w-lg rounded-2xl border border-edge bg-[var(--color-ink-900)] p-0 text-[var(--color-paper)] backdrop:bg-black/60"
+    >
+      {[first].map((goal) => (
         <div
           key={goal.id}
           style={{ borderLeftColor: goalHex(goal.color) }}
-          className="card border-l-[3px] p-5 sm:p-6"
+          className="border-l-[3px] p-6 sm:p-7"
         >
           <p className="text-xs uppercase tracking-wider text-[var(--color-lime-soft)]">
             {t("eyebrow")}
@@ -113,7 +148,7 @@ export function GoalFinishable({
 
             <button
               type="button"
-              onClick={() => setDismissed((list) => [...list, goal.id])}
+              onClick={() => dialog.current?.close()}
               className="text-sm text-[var(--color-paper-faint)] hover:text-[var(--color-paper)]"
             >
               {t("later")}
@@ -121,6 +156,6 @@ export function GoalFinishable({
           </div>
         </div>
       ))}
-    </>
+    </dialog>
   );
 }

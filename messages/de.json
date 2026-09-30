@@ -528,7 +528,8 @@
         "Vollständig. Diese Tage summieren sich schneller, als es sich anfühlt.",
         "Fertig, und nichts aufgeschoben. Seltener, als du denkst.",
         "Tag abgeschlossen. Bis morgen."
-      ]
+      ],
+      "stuckHint": "Irgendwo hängen geblieben? Besprich es mit einem KI-Chat — wir empfehlen Claude.ai, aber jeder tut es. Lass dir das Prinzip erklären und ein Beispiel zeigen; bei allem, was du selbst lernen willst, lass es nicht das Ergebnis für dich schreiben."
     },
     "goals": {
       "title": "Ziele",
