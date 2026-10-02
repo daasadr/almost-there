@@ -4,7 +4,11 @@ import { db } from "@/lib/db";
 import { getToday } from "@/lib/goals/queries";
 import { parseIsoDate, todayIso } from "@/lib/plan/calendar";
 import { motivationByLocale } from "@/content/motivation";
-import { pieceNumberForDay, teaser } from "@/lib/motivation";
+import {
+  labelIndexForDay,
+  pieceNumberForDay,
+  teaser,
+} from "@/lib/motivation";
 import { pushConfigured, sendToUser } from "./push";
 import type { Locale } from "@/i18n/routing";
 
@@ -38,6 +42,18 @@ import type { Locale } from "@/i18n/routing";
  * a doručí, až se zařízení ozve. Tohle okno řeší jen to, jestli se
  * vůbec odešle.
  */
+/**
+ * Čára mezi myšlenkou a tím, co čeká v aplikaci.
+ *
+ * Ze znaků, protože v oznámení nic jiného nejde — tělo je čistý text
+ * a systém v něm nevykreslí ani čáru, ani barvu. Barevné plochy máme
+ * jen dvě, ikonu a velký obrázek, a ty jsou nad textem, ne v něm.
+ *
+ * Tenhle znak se vykreslí jako souvislá linka ve všech běžných písmech
+ * a deset kusů nepřeteče ani na úzkém displeji.
+ */
+const SEPARATOR = "━━━━━━━━━━";
+
 const WINDOW_MINUTES = 4 * 60;
 
 /** Kdy se ptá večerní kontrola. */
@@ -295,6 +311,8 @@ async function morningMessage({
   actions: { action: string; title: string }[];
   actionUrls?: Record<string, string>;
 }> {
+  const tMotivation = await getTranslations({ locale, namespace: "motivation" });
+
   const pieces = motivationByLocale[locale] ?? [];
   const number = pieceNumberForDay(createdAt, parseIsoDate(today), pieces.length);
   const piece = number > 0 ? pieces[number - 1] : null;
@@ -368,10 +386,24 @@ async function morningMessage({
    */
   const read = `/${locale}/motivation/${number}`;
 
-  return {
-    title: piece.title,
-    body: `${teaser(piece.paragraphs)}
+  /*
+   * Stavba oznámení.
+   *
+   * Dřív to byl jeden odstavec: první věta myšlenky a hned za ní
+   * informace o aplikaci. Nedalo se poznat, kde jedno končí a druhé
+   * začíná — nejvíc na počítači, kde se zobrazí celé.
+   *
+   * Nadpis teď myšlenku pojmenuje („Myšlenka na den: …"), takže je
+   * rovnou jasné, co se čte. Oslovení se střídá, aby to po třech
+   * týdnech nebyla tapeta, kterou oko přeskočí.
+   */
+  const labels = tMotivation.raw("labels") as string[];
+  const label = labels[labelIndexForDay(number, labels.length)] ?? labels[0];
 
+  return {
+    title: `${label}: ${piece.title}`,
+    body: `${teaser(piece.paragraphs)}
+${SEPARATOR}
 ${context}`,
     tag: "almostthere-daily",
     url,
