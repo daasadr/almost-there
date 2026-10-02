@@ -152,6 +152,21 @@ export const block: MotivationBlock = {
       "Jdi dnem s otevřenýma očima.",
     ],
   },
+  {
+    title: "Měj své sny a vize přímo na očích",
+    paragraphs: [
+      "Ahoj,",
+      "většina z nás si myslí, že přesně ví, za čím jde. Máme pocit, že směr je jasný. A přitom kdyby nás někdo zastavil na ulici a dal nám jen deset sekund na vyjmenování nejdůležitějších snů nebo cílů, mnozí z nás bychom stihli jen jednu nebo dvě vágní odpovědi — takové, které by dal skoro každý. Obecná přání nás nemotivují ke konkrétním krokům, natož k tomu, abychom udělali víc, nebo dokonce maximum. To dělají jen lidé, kteří po něčem opravdu jdou.",
+      "Pokud nemáš jasný důvod přímo před očima, investované úsilí zůstává nekonzistentní. Pro hodně z nás jsou živoucí motivací děti — vidíme je a víme, že bychom pro ně udělali skoro cokoliv, a tak děláme i ty těžké věci, nad kterými lidé bez tohoto každodenního připomenutí často kroutí hlavou.",
+      "Pokud ještě nemáš věci, které ti dávají skutečný drajv, umístěné tam, kde je každý den vidíš, a chceš čerstvý vítr do plachet, udělej si chvilku na výběr toho, co ti rozhodně není jedno. Jsou dvě praktické možnosti, jak si je nechat na očích.",
+      "Fyzická nástěnka — má ji mnoho lidí a slyšela jsem příběhy, kdy později porovnávali staré fotky s nástěnkou, kterou vytvořili před lety, a byli ohromeni, jak se život začal podobat těm obrázkům.",
+      "Nebo digitální nástěnka na počítači či notebooku. Obrázky se snáze mění a aktualizují, i když se nedoporučuje koukat na ni těsně před spaním (tady má fyzická nástěnka výhodu). Já osobně dávám přednost digitální z prostého důvodu: hned po probuzení, pod ranním návalem kortizolu, ani krásné obrazy vysněného života ještě nemusí působit povznášejícím dojmem. Když zapínám počítač, jsem už více vzhůru a mozek je v jedné z nejlepších kondic dne — takže pohled na nástěnku už vzbuzuje ty správné představy „jaké by to bylo už v tom žít“, a jde se pro to makat. V aplikaci Almost-There je teď pro registrované uživatele zdarma nástroj, kterým si můžeš nástěnku snadno nastavit jako plochu. Stačí stáhnout a naplnit svými sny a vizemi.",
+      "Co si na nástěnku dát? Není to snadná otázka. Mnoho z nás bylo vedeno k tomu, abychom brali v potaz, co se od nás chce a co chce svět — a tomu se snažili vyhovět. Teď by se situace měla otočit: je čas se zeptat „Co já chci od světa?“ Co ti přinese pocit štěstí? Co ti osladí život? Co tě vždycky lákalo, ale okolnosti to potichu odsunuly do pozadí? Buď velmi konkrétní. Ti odvážnější si ke svým vysněným skutečnostem připisují i datum. Za sebe uvádím bydlení u jakékoliv vodní plochy, kde se dá plavat, časovou nezávislost a finanční svobodu (s konkrétní částkou vedle).",
+      "Je to užitečné z vícero důvodů, nejen pro motivaci. Mozek filtruje obrovské množství informací, které k němu každou chvíli dorazí. Struktury spojené s pozorností a bdělostí (v populární literatuře často spojované s retikulárním aktivačním systémem) pomáhají rozhodovat, co se dostane do vědomí. Když se opakovaně vystavuješ jasným obrazům a konkrétním cílům, trénuješ tento filtrační systém, aby si všímal odpovídajících příležitostí, nápadů a zdrojů, které by jinak zůstaly neviditelné. Výzkumy kolem vision boardů a vizualizace jsou nuancované: čisté snění o už dokonalém výsledku může někdy snížit energii k akci. Ale když jsou obrazy konkrétní, osobně smysluplné a zůstávají ti před očima, podporují jasnější cíle, silnější závazek a konzistentnější pozornost vůči tomu, na čem záleží. Mění vágní myšlenky na pozadí v živý směr.",
+      "Takže pokud jsou tvé důvody stále jen myšlenky někde vzadu v hlavě, dej jim dnes místo, kam se ti oči každý den podívají. Ať ti to denní připomenutí pomáhá udělat maximum — ne proto, že se nutíš, ale proto, že vidíš, proč to stojí za to.",
+      "Ať je máš na očích.",
+    ],
+  },
   ],
 
   en: [
@@ -299,6 +314,21 @@ export const block: MotivationBlock = {
       "Go through the day with your eyes open.",
     ],
   },
+  {
+    title: "Keep your dreams where your eyes meet them",
+    paragraphs: [
+      "Hello,",
+      "most of us believe we know exactly what we are aiming for. We feel the direction is clear. Yet if someone stopped us on the street and gave us only ten seconds to name our most important dreams or goals, many of us would manage only one or two vague answers — the kind almost anyone would give. General wishes do not move us to take concrete steps, let alone to go further or to give our maximum. Only people who are truly going after something specific do that.",
+      "Without a clear reason right in front of our eyes, the effort we invest stays inconsistent. For many, children are living motivation — we see them and know we would do almost anything for them, and so we do the hard things that others without that daily reminder often hesitate to do.",
+      "If you do not yet have the things that give you real drive placed where you can see them every day, and you want fresh wind in your sails, take a few minutes to choose what truly does not leave you cold. There are two practical ways to keep them visible.",
+      "A physical vision board — many people use one, and some later compare old photos with the board they created years before and are astonished at how closely life began to match the pictures.",
+      "Or a digital board on your computer or laptop. Images are easier to update, though it is wiser not to look at it right before sleep (here the physical board has an advantage). I personally prefer the digital version for a simple reason: right after waking, under the morning cortisol surge, even beautiful images of the desired life may not yet feel uplifting. When I switch on the computer I am already more awake, and the brain is in one of its best states of the day — so the sight of the board awakens the right kind of “what if I were already living this” energy, and I get to work. In the AlmostThere app there is now a free tool for registered users that lets you set a vision board as your desktop. Just download it and fill it with your own dreams and visions.",
+      "What belongs on the board? This is not a trivial question. Many of us have spent years asking what the world wants from us and trying to meet those expectations. Now the question turns around: What do I want from the world? What will bring a real sense of happiness? What sweetens life? What have you always longed for, yet circumstances quietly pushed into the background? Be specific. The braver ones even add a date. For me it is living near any body of water where I can swim, time independence, and financial freedom (with a concrete number written beside it).",
+      "This is useful for more than motivation. Your brain filters the enormous amount of information that reaches it every moment. Structures involved in attention and arousal (often popularly linked to the reticular activating system) help decide what gets through to conscious awareness. When you repeatedly expose yourself to clear images and specific goals, you train that filtering system to notice matching opportunities, ideas and resources that would otherwise stay invisible. Research on vision boards and visualization is nuanced: pure daydreaming of an already perfect outcome can sometimes lower energy for action. But when images are concrete, personally meaningful and kept in front of you, they support clearer goals, stronger commitment and more consistent attention toward what matters. They turn vague background wishes into living direction.",
+      "So today, if your reasons are still only thoughts floating somewhere in the back of your mind, give them a place where your eyes meet them every day. Then let that daily reminder help you do the maximum — not because you force yourself, but because you can see why it is worth it.",
+      "Keep them where you can see them.",
+    ],
+  },
   ],
 
   de: [
@@ -444,6 +474,21 @@ export const block: MotivationBlock = {
       "Lass deine Aufmerksamkeit heute ein Geschenk sein. Lass jemanden sich gehört fühlen. Lass jemanden sich angenommen fühlen, und sei es kurz. Alles Nötige dafür hast du schon.",
       "Und die Beziehungen, die du pflegst — auch die kleinsten — sind ein Teil des wirklichen Reichtums, den du hast.",
       "Geh mit offenen Augen durch den Tag.",
+    ],
+  },
+  {
+    title: "Halte deine Träume dir vor Augen",
+    paragraphs: [
+      "Hallo,",
+      "die meisten von uns glauben, genau zu wissen, worauf sie hinarbeiten. Wir haben das Gefühl, die Richtung sei klar. Doch wenn uns jemand auf der Straße anhielte und uns nur zehn Sekunden gäbe, unsere wichtigsten Träume oder Ziele zu nennen, würden viele von uns nur ein oder zwei vage Antworten schaffen — solche, die fast jeder geben würde. Allgemeine Wünsche motivieren uns nicht zu konkreten Schritten, geschweige denn dazu, mehr zu tun oder sogar unser Maximum zu geben. Das tun nur Menschen, die wirklich etwas Bestimmtes verfolgen.",
+      "Ohne einen klaren Grund direkt vor Augen bleibt die investierte Anstrengung inkonsistent. Für viele sind Kinder lebendige Motivation — wir sehen sie und wissen, dass wir fast alles für sie tun würden, und so tun wir auch die schweren Dinge, über die Menschen ohne diese tägliche Erinnerung oft den Kopf schütteln.",
+      "Wenn du die Dinge, die dir echten Antrieb geben, noch nicht dort hast, wo du sie jeden Tag siehst, und du frischen Wind in den Segeln brauchst, nimm dir ein paar Minuten, um auszuwählen, was dich wirklich nicht kaltlässt. Es gibt zwei praktische Möglichkeiten, sie sichtbar zu halten.",
+      "Ein physisches Vision Board — viele Menschen haben eines, und ich habe Geschichten gehört, in denen sie später alte Fotos mit dem Board verglichen, das sie Jahre zuvor erstellt hatten, und erstaunt waren, wie sehr das Leben den Bildern zu ähneln begann.",
+      "Oder ein digitales Board auf dem Computer oder Laptop. Bilder lassen sich leichter austauschen und aktualisieren, auch wenn man es nicht direkt vor dem Schlafengehen betrachten sollte (hier hat das physische Board einen Vorteil). Ich bevorzuge persönlich die digitale Variante aus einem einfachen Grund: Direkt nach dem Aufwachen, unter dem morgendlichen Cortisol-Schub, wirken selbst schöne Bilder des ersehnten Lebens oft noch nicht erhebend. Wenn ich den Computer einschalte, bin ich bereits wacher, und das Gehirn ist in einer seiner besten Tagesverfassungen — so weckt der Anblick des Boards die richtige Art von „wie wäre es, schon so zu leben“-Energie, und ich mache mich an die Arbeit. In der AlmostThere-App gibt es jetzt für registrierte Nutzer ein kostenloses Tool, mit dem du ein Vision Board einfach als Desktop einrichten kannst. Einfach herunterladen und mit deinen eigenen Träumen und Visionen füllen.",
+      "Was gehört auf das Board? Das ist keine leichte Frage. Viele von uns wurden darauf trainiert, zu berücksichtigen, was von ihnen erwartet wird und was die Welt will — und dem zu entsprechen. Jetzt sollte sich die Situation umkehren: Es ist Zeit zu fragen „Was will ich von der Welt?“ Was bringt dir ein echtes Gefühl von Glück? Was versüßt das Leben? Was hast du dir immer gewünscht, doch die Umstände haben es still in den Hintergrund gedrängt? Sei sehr konkret. Die Mutigeren schreiben sogar ein Datum dazu. Für mich sind es Wohnen an einem beliebigen Gewässer, in dem man schwimmen kann, zeitliche Unabhängigkeit und finanzielle Freiheit (mit einer konkreten Summe daneben).",
+      "Das ist aus mehreren Gründen nützlich, nicht nur zur Motivation. Dein Gehirn filtert die enorme Menge an Informationen, die es jeden Moment erreicht. Strukturen, die mit Aufmerksamkeit und Wachheit verbunden sind (in der Populärliteratur oft mit dem retikulären aktivierenden System in Verbindung gebracht), helfen zu entscheiden, was ins Bewusstsein gelangt. Wenn du dich wiederholt klaren Bildern und spezifischen Zielen aussetzt, trainierst du dieses Filtersystem, passende Gelegenheiten, Ideen und Ressourcen zu bemerken, die sonst unsichtbar blieben. Die Forschung zu Vision Boards und Visualisierung ist nuanciert: Reines Träumen von einem bereits perfekten Ergebnis kann manchmal die Energie für Handeln senken. Aber wenn die Bilder konkret, persönlich bedeutsam und ständig vor Augen sind, unterstützen sie klarere Ziele, stärkeres Commitment und konsistentere Aufmerksamkeit auf das, was zählt. Sie verwandeln vage Hintergrundgedanken in lebendige Richtung.",
+      "Wenn deine Gründe also noch nur Gedanken irgendwo im Hinterkopf sind, gib ihnen heute einen Platz, an dem deine Augen sie jeden Tag treffen. Lass diese tägliche Erinnerung dir helfen, das Maximum zu tun — nicht weil du dich zwingst, sondern weil du siehst, warum es sich lohnt.",
+      "Halte sie dir vor Augen.",
     ],
   },
   ],
