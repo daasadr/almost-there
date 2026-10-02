@@ -23,6 +23,9 @@ import { useRouter } from "next/navigation";
  *    probuzení ji vrátit tak, jak byla — včetně zastavených časovačů.
  *    Tehdy se `visibilitychange` spolehlivě neozve a appka na liště se
  *    ráno otevřela na včerejšku. Tohle je ta chybějící událost.
+ *  - Při návratu spojení. Příčina, která zbývala: notebook se probudí,
+ *    okno dostane zaměření dřív, než naběhne wifi, požadavek na čerstvé
+ *    vykreslení spadne a nikdo to nezkusí znovu.
  *
  * Obnovuje se jen zobrazení ze serveru, ne celá stránka: uživatel
  * zůstane tam, kde byl, jen uvidí dnešek.
@@ -73,10 +76,37 @@ export function DayRollover({
   const router = useRouter();
 
   useEffect(() => {
-    let timer: ReturnType<typeof setTimeout> | undefined;
+    let midnight: ReturnType<typeof setTimeout> | undefined;
+    let retry: ReturnType<typeof setTimeout> | undefined;
+    let attempt = 0;
 
+    /**
+     * Zkontrolovat a případně si vyžádat čerstvé vykreslení.
+     *
+     * `router.refresh()` chodí na server, takže může tiše selhat — a to
+     * se děje přesně tam, kde je obnovení nejvíc potřeba: notebook se
+     * probudí, okno dostane zaměření dřív, než se vrátí wifi, požadavek
+     * spadne a nikdo to nezkusí znovu. Ráno pak člověk kouká na
+     * předvčerejšek.
+     *
+     * Proto se po pokusu ověří, jestli se datum opravdu srovnalo, a když
+     * ne, zkusí se to znovu s rostoucím odstupem. Pět pokusů pokryje
+     * zhruba minutu, což je víc než dost na obnovení spojení.
+     */
     const check = () => {
-      if (dateIn(timeZone) !== renderedDay) router.refresh();
+      if (dateIn(timeZone) === renderedDay) {
+        attempt = 0;
+        return;
+      }
+
+      router.refresh();
+
+      if (attempt >= 5) return;
+      attempt += 1;
+
+      if (retry) clearTimeout(retry);
+      // 2, 4, 8, 16, 32 vteřin.
+      retry = setTimeout(check, 2000 * 2 ** (attempt - 1));
     };
 
     const onVisible = () => {
@@ -85,7 +115,7 @@ export function DayRollover({
 
     // Časovač se po každém spuštění přeplánuje — appka může běžet dny.
     const scheduleMidnight = () => {
-      timer = setTimeout(() => {
+      midnight = setTimeout(() => {
         check();
         scheduleMidnight();
       }, msUntilMidnight(timeZone));
@@ -94,13 +124,18 @@ export function DayRollover({
     document.addEventListener("visibilitychange", onVisible);
     window.addEventListener("focus", check);
     window.addEventListener("pageshow", check);
+    // Návrat spojení po probuzení. Bez tohohle se čeká na další
+    // zaměření okna, které u appky nechané v popředí nikdy nepřijde.
+    window.addEventListener("online", check);
     scheduleMidnight();
 
     return () => {
       document.removeEventListener("visibilitychange", onVisible);
       window.removeEventListener("focus", check);
       window.removeEventListener("pageshow", check);
-      if (timer) clearTimeout(timer);
+      window.removeEventListener("online", check);
+      if (midnight) clearTimeout(midnight);
+      if (retry) clearTimeout(retry);
     };
   }, [renderedDay, timeZone, router]);
 
