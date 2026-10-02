@@ -1151,7 +1151,9 @@
     "cardMore": "Zobrazit celé",
     "cardListen": "Přečíst nahlas",
     "openApp": "Otevřít aplikaci",
-    "shareQr": "Sdílet QR kódem"
+    "shareQr": "Sdílet QR kódem",
+    "allTitle": "Myšlenky na den",
+    "allIntro": "Krátké texty na ráno. Jeden denně může chodit do oznámení, ale přečíst si jde kterýkoli a kdykoli — a nechat si ho přečíst nahlas."
   },
   "extras": {
     "nav": "Extra",
@@ -1159,7 +1161,8 @@
     "intro": "Věci, které k plánu nepatří, a přesto patří k cestě. Všechno je zdarma a přístupné i bez účtu.",
     "thoughts": {
       "title": "Myšlenka na den",
-      "body": "Krátký text na ráno. Jeden denně ti může chodit do oznámení, ale přečíst si jde kterýkoli a kdykoli — a nechat si ho přečíst nahlas."
+      "body": "Krátký text na ráno. Jeden denně ti může chodit do oznámení, ale přečíst si jde kterýkoli a kdykoli — a nechat si ho přečíst nahlas.",
+      "more": "Zobrazit všech {count}"
     },
     "music": {
       "title": "Hudba",

@@ -12,10 +12,14 @@
  * a jeho historie se nikdy nezmenšuje. I kdyby se později přesunuly
  * jinam, zůstanou v ní navždy a každý build je bude kopírovat.
  *
- * **Hranice je kolem padesáti megabajtů, tedy zhruba patnáct skladeb.**
- * Až se k ní seznam přiblíží, přesunou se do složky na serveru mimo
- * repozitář — a ještě se tím získá to, že přidání skladby nebude
- * znamenat nasazení.
+ * Rozhodnuto (říjen 2026): **zatím pět až osm skladeb a v plné kvalitě.**
+ * Dvě první mají dohromady dvanáct megabajtů, takže se osm vejde zhruba
+ * do padesáti — což je ještě únosné. Překódovat na menší se nebude;
+ * kvalita je u hudby to, co se pozná.
+ *
+ * Až jich bude mít být víc, přesunou se jinam — na server mimo
+ * repozitář nebo k někomu, kdo soubory rozdává za nás. Získá se tím
+ * navíc to, že přidání skladby přestane znamenat nasazení.
  *
  * ── Jak přidat skladbu ──────────────────────────────────────────────
  *

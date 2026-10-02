@@ -1151,7 +1151,9 @@
     "cardMore": "Ganz lesen",
     "cardListen": "Vorlesen",
     "openApp": "App öffnen",
-    "shareQr": "Per QR-Code teilen"
+    "shareQr": "Per QR-Code teilen",
+    "allTitle": "Gedanken des Tages",
+    "allIntro": "Kurze Texte für den Morgen. Einer pro Tag kann als Benachrichtigung kommen, lesen kannst du aber jeden jederzeit — und dir vorlesen lassen."
   },
   "extras": {
     "nav": "Extras",
@@ -1159,7 +1161,8 @@
     "intro": "Dinge, die nicht zum Plan gehören und trotzdem zum Weg. Alles kostenlos und auch ohne Konto zugänglich.",
     "thoughts": {
       "title": "Gedanke des Tages",
-      "body": "Ein kurzer Text für den Morgen. Einer pro Tag kann als Benachrichtigung kommen, lesen kannst du aber jeden jederzeit — und dir vorlesen lassen."
+      "body": "Ein kurzer Text für den Morgen. Einer pro Tag kann als Benachrichtigung kommen, lesen kannst du aber jeden jederzeit — und dir vorlesen lassen.",
+      "more": "Alle {count} anzeigen"
     },
     "music": {
       "title": "Musik",

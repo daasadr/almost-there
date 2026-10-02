@@ -1151,7 +1151,9 @@
     "cardMore": "Read all of it",
     "cardListen": "Read aloud",
     "openApp": "Open the app",
-    "shareQr": "Share by QR code"
+    "shareQr": "Share by QR code",
+    "allTitle": "Thoughts for the day",
+    "allIntro": "Short texts for the morning. One a day can arrive as a notification, but any of them can be read at any time — and read aloud to you."
   },
   "extras": {
     "nav": "Extras",
@@ -1159,7 +1161,8 @@
     "intro": "Things that are not part of the plan and still belong to the journey. All free and open without an account.",
     "thoughts": {
       "title": "Thought for the day",
-      "body": "A short morning text. One a day can arrive as a notification, but any of them can be read at any time — and read aloud to you."
+      "body": "A short morning text. One a day can arrive as a notification, but any of them can be read at any time — and read aloud to you.",
+      "more": "Show all {count}"
     },
     "music": {
       "title": "Music",

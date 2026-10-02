@@ -50,6 +50,18 @@ export default async function ExtrasPage({
   const t = await getTranslations({ locale, namespace: "extras" });
   const pieces = motivationByLocale[locale as Locale] ?? [];
 
+  /*
+   * Jen hrstka, od nejnovějších.
+   *
+   * Textů budou časem stovky a celý seznam by z téhle stránky udělal
+   * rejstřík. Extra má ukázat, co všechno tu je — ne všechno vypsat.
+   * Úplný seznam je na vlastní stránce.
+   */
+  const recent = pieces
+    .map((piece, index) => ({ piece, number: index + 1 }))
+    .reverse()
+    .slice(0, 5);
+
   return (
     <section className="mx-auto max-w-3xl px-5 py-12 sm:px-8 sm:py-16">
       <h1 className="display mt-6 text-3xl sm:text-4xl">{t("title")}</h1>
@@ -65,18 +77,33 @@ export default async function ExtrasPage({
         </p>
 
         {pieces.length > 0 && (
-          <ul className="mt-5 space-y-2">
-            {pieces.map((piece, index) => (
-              <li key={piece.title}>
+          <>
+            <ul className="mt-5 space-y-2">
+              {recent.map(({ piece, number }) => (
+                <li key={number}>
+                  <Link
+                    href={`/motivation/${number}`}
+                    className="card card-hover block px-4 py-3 text-base"
+                  >
+                    {piece.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+
+            {/* Odkaz se ukáže, až je co skrývat. Při pěti textech by
+                vedl na tutéž pětici a vypadal by jako chyba. */}
+            {pieces.length > recent.length && (
+              <p className="mt-4">
                 <Link
-                  href={`/motivation/${index + 1}`}
-                  className="card card-hover block px-4 py-3 text-base"
+                  href="/motivation"
+                  className="text-sm font-medium text-[var(--color-lime-soft)] underline-offset-4 hover:underline"
                 >
-                  {piece.title}
+                  {t("thoughts.more", { count: pieces.length })} →
                 </Link>
-              </li>
-            ))}
-          </ul>
+              </p>
+            )}
+          </>
         )}
       </div>
 
