@@ -6,6 +6,8 @@ import { tracks } from "@/content/music";
 import { motivationByLocale } from "@/content/motivation";
 import { localeAlternates } from "@/lib/seo/metadata";
 import type { Locale } from "@/i18n/routing";
+import { QrShare } from "@/components/QrShare";
+import { siteUrl } from "@/lib/seo/site";
 
 /**
  * Extra — co aplikace dává navíc.
@@ -87,7 +89,16 @@ export default async function ExtrasPage({
 
         <div className="mt-5">
           {tracks.length > 0 ? (
-            <MusicPlayer tracks={tracks} />
+            <>
+              <MusicPlayer tracks={tracks} />
+              <div className="mt-5">
+                <QrShare
+                  url={`${siteUrl()}/${locale}/extras`}
+                  label={t("music.shareQr")}
+                  hint={`almost-there.eu/${locale}/extras`}
+                />
+              </div>
+            </>
           ) : (
             /* Prázdný seznam se přizná. Nadpis bez obsahu vypadá jako
                rozbitá stránka, tahle věta jako příslib. */

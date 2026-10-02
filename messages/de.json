@@ -1150,7 +1150,8 @@
     "aboutLink": "Ansehen",
     "cardMore": "Ganz lesen",
     "cardListen": "Vorlesen",
-    "openApp": "App öffnen"
+    "openApp": "App öffnen",
+    "shareQr": "Per QR-Code teilen"
   },
   "extras": {
     "nav": "Extras",
@@ -1166,7 +1167,8 @@
       "empty": "Hier spielt noch nichts. Stücke kommen bald.",
       "play": "{title} abspielen",
       "pause": "Pausieren",
-      "position": "Position im Stück"
+      "position": "Position im Stück",
+      "shareQr": "Musik per QR-Code teilen"
     }
   }
 }

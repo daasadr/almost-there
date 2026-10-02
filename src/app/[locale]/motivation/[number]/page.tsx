@@ -8,6 +8,7 @@ import { teaser } from "@/lib/motivation";
 import { localeAlternates } from "@/lib/seo/metadata";
 import { siteUrl } from "@/lib/seo/site";
 import { routing, type Locale } from "@/i18n/routing";
+import { QrShare } from "@/components/QrShare";
 
 /**
  * Myšlenka na den.
@@ -104,7 +105,17 @@ export default async function MotivationPage({
         všem, i nepřihlášeným: ty pošle middleware na přihlášení, což je
         přesně to, co v tu chvíli potřebují.
       */}
-      <p className="mt-10">
+      {/* Ukázat na obrazovce a nechat naskenovat. Funguje tam, kde se
+          lidé potkají — poslat odkaz tam nejde. */}
+      <div className="mt-10">
+        <QrShare
+          url={`${siteUrl()}/${locale}/motivation/${number}`}
+          label={t("shareQr")}
+          hint={`almost-there.eu/${locale}/motivation/${number}`}
+        />
+      </div>
+
+      <p className="mt-8">
         <Link
           href="/app"
           className="text-sm font-medium text-[var(--color-lime-soft)] underline-offset-4 hover:underline"

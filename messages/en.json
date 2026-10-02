@@ -1150,7 +1150,8 @@
     "aboutLink": "Take a look",
     "cardMore": "Read all of it",
     "cardListen": "Read aloud",
-    "openApp": "Open the app"
+    "openApp": "Open the app",
+    "shareQr": "Share by QR code"
   },
   "extras": {
     "nav": "Extras",
@@ -1166,7 +1167,8 @@
       "empty": "Nothing playing here yet. Tracks are coming soon.",
       "play": "Play {title}",
       "pause": "Pause",
-      "position": "Position in the track"
+      "position": "Position in the track",
+      "shareQr": "Share the music by QR code"
     }
   }
 }

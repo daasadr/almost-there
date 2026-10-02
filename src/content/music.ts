@@ -36,7 +36,8 @@ export type Track = {
 };
 
 export const tracks: Track[] = [
-  // Zatím prázdné — skladby přibudou, jak budou připravené.
-  // Vzor:
-  // { file: "rano.mp3", title: "Ráno", note: "Na rozjezd, než se den rozběhne." },
+  // POZOR: názvy jsou odvozené od souborů a je potřeba je přepsat na
+  // skutečné. Je to první věc, kterou u skladby člověk uvidí.
+  { file: "winner.mp3", title: "Winner" },
+  { file: "secret.mp3", title: "Secret" },
 ];
