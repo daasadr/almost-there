@@ -115,6 +115,21 @@ export function SiteHeader() {
         )}
 
         <div className="ml-auto flex shrink-0 items-center gap-3">
+          {/*
+            Extra: hudba, myšlenky na den a brzy nástěnka snů.
+
+            Do hlavního menu to nepatří — to má tři položky a čtvrtá by
+            rozbila poměr, který funguje. Schovat to do nastavení by zase
+            znamenalo, že to nikdo nenajde. Tady vedle vzhledu je na to
+            místo a sousedství sedí: obojí je věc pro radost, ne pro práci.
+          */}
+          <Link
+            href="/extras"
+            className="whitespace-nowrap rounded-full border border-edge px-3 py-1.5 text-sm text-[var(--color-paper-dim)] transition hover:border-edge-hover hover:text-[var(--color-paper)]"
+          >
+            {t("extras")}
+          </Link>
+
           {/* Přepínač vzhledu je i na mobilu — na rozdíl od jazyka je úzký
               (tři barevné tečky) a je to první věc, kterou si člověk může
               nastavit po svém. Proto vpravo nahoře, naproti značce. */}

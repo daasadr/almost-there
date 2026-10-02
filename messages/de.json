@@ -17,7 +17,8 @@
     "demoShort": "Demo",
     "faq": "Fragen",
     "guide": "Anleitung",
-    "backToTop": "Nach oben"
+    "backToTop": "Nach oben",
+    "extras": "Extras"
   },
   "hero": {
     "eyebrow": "Ziel → Monate → Wochen → heute",
@@ -1150,5 +1151,22 @@
     "cardMore": "Ganz lesen",
     "cardListen": "Vorlesen",
     "openApp": "App öffnen"
+  },
+  "extras": {
+    "nav": "Extras",
+    "title": "Extras",
+    "intro": "Dinge, die nicht zum Plan gehören und trotzdem zum Weg. Alles kostenlos und auch ohne Konto zugänglich.",
+    "thoughts": {
+      "title": "Gedanke des Tages",
+      "body": "Ein kurzer Text für den Morgen. Einer pro Tag kann als Benachrichtigung kommen, lesen kannst du aber jeden jederzeit — und dir vorlesen lassen."
+    },
+    "music": {
+      "title": "Musik",
+      "body": "Stücke, die für Beiträge in sozialen Netzwerken entstanden sind. Gut zum Loslegen, zum Konzentrieren oder einfach so.",
+      "empty": "Hier spielt noch nichts. Stücke kommen bald.",
+      "play": "{title} abspielen",
+      "pause": "Pausieren",
+      "position": "Position im Stück"
+    }
   }
 }

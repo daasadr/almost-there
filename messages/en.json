@@ -17,7 +17,8 @@
     "demoShort": "Demo",
     "faq": "FAQ",
     "guide": "Guide",
-    "backToTop": "Back to top"
+    "backToTop": "Back to top",
+    "extras": "Extras"
   },
   "hero": {
     "eyebrow": "Goal → months → weeks → today",
@@ -1150,5 +1151,22 @@
     "cardMore": "Read all of it",
     "cardListen": "Read aloud",
     "openApp": "Open the app"
+  },
+  "extras": {
+    "nav": "Extras",
+    "title": "Extras",
+    "intro": "Things that are not part of the plan and still belong to the journey. All free and open without an account.",
+    "thoughts": {
+      "title": "Thought for the day",
+      "body": "A short morning text. One a day can arrive as a notification, but any of them can be read at any time — and read aloud to you."
+    },
+    "music": {
+      "title": "Music",
+      "body": "Tracks made for posts on social media. Good for getting going, for focus, or for nothing in particular.",
+      "empty": "Nothing playing here yet. Tracks are coming soon.",
+      "play": "Play {title}",
+      "pause": "Pause",
+      "position": "Position in the track"
+    }
   }
 }
