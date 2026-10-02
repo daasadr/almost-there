@@ -136,6 +136,22 @@ export const block: MotivationBlock = {
       "Ať se daří.",
     ],
   },
+  {
+    title: "Nech dnes někoho pocítit, že je slyšet",
+    paragraphs: [
+      "Ahoj,",
+      "jak snadno projdeme dnem a bereme lidi kolem jako kulisu. Máme svůj seznam, své cíle, svoje tempo. A rodina, kolegové, lidé na ulici i v obchodě se stanou pozadím, které míjíme cestou k dalšímu úkolu. Kývneme, krátce se usmějeme, odpovíme, když je potřeba, a jdeme dál. Efektivně. Soustředěně.",
+      "Přitom kvalita vztahů obvykle znamená víc než délka odškrtaného seznamu. To, co po sobě necháš v druhém člověku, přetrvá většinu z toho, co dnes stihneš.",
+      "A jsou dary, které tě nestojí skoro nic a pro toho, kdo je dostane, mají cenu, co se nedá spočítat. Chvíle skutečné pozornosti. Otázka položená s upřímným zájmem. Pár vteřin ticha, aby druhý dopověděl větu, aniž ho někdo popoháněl. Pohled, který říká: vidím tě.",
+      "Tím vším se dává jedna vzácná věc — pocit, že je člověk slyšet. Kdo se cítí slyšený, cítí se přijatý. Viděný. A míň sám. To je jedno z nejsilnějších, co může jeden člověk druhému dát.",
+      "Jiným člověkem se kvůli tomu stát nemusíš a den přestavovat taky ne. Stačí si všímat.",
+      "Tak se dnes dívej na lidi, které potkáš — na známé i na ty, které vidíš poprvé. Hledej malé chvíle, kdy jde dát trochu víc než jen minout. Teplejší pozdrav. Trpělivou pauzu. Upřímné „a jak se máš doopravdy?“. Nenápadné uznání toho, co někdo dělá.",
+      "Tyhle chvíle tvůj pokrok nezdrží. Prohloubí ho. A z obyčejného dne udělají den, po kterém zůstanou stopy.",
+      "Ať je dnes tvoje pozornost dar. Ať se někdo cítí slyšený. Ať se někdo cítí přijatý, i když jen na chvíli. Máš na to všechno potřebné už teď.",
+      "A vztahy, o které pečuješ — i ty nejmenší — jsou kus toho skutečného bohatství, co v životě máš.",
+      "Jdi dnem s otevřenýma očima.",
+    ],
+  },
   ],
 
   en: [
@@ -267,6 +283,22 @@ export const block: MotivationBlock = {
       "Wishing you well.",
     ],
   },
+  {
+    title: "Let someone feel heard today",
+    paragraphs: [
+      "Hello,",
+      "how easily a day goes by with the people in it treated as scenery. We have our list, our goals, our momentum. And family, colleagues, strangers in the street or the shop become the background we pass on the way to the next task. We nod, we smile briefly, we answer when we have to, and we move on. Efficiently. Focused.",
+      "And yet the quality of our relationships usually matters more than the length of a ticked-off list. What you leave behind in another person outlasts most of what you get done today.",
+      "There are gifts that cost you almost nothing and are worth more than can be counted to whoever receives them. A moment of real attention. A question asked with genuine interest. A few seconds of quiet so someone can finish their sentence unhurried. A look that says: I see you.",
+      "All of it gives one rare thing — the feeling of being heard. Someone who feels heard feels accepted. Seen. And less alone. That is among the strongest things one person can give another.",
+      "You do not have to become someone else for this, or rebuild your day. Noticing is enough.",
+      "So today, look at the people you meet — the familiar ones and the ones you are seeing for the first time. Watch for the small moments where a little more than passing by is possible. A warmer greeting. A patient pause. An honest “and how are you, really?”. Quiet recognition of what someone is doing.",
+      "These moments will not slow your progress. They deepen it. And they turn an ordinary day into one that leaves quiet traces behind you.",
+      "Let your attention be a gift today. Let someone feel heard. Let someone feel accepted, even briefly. You already have everything that takes.",
+      "And the relationships you tend — even the smallest — are part of the real wealth you have.",
+      "Go through the day with your eyes open.",
+    ],
+  },
   ],
 
   de: [
@@ -396,6 +428,22 @@ export const block: MotivationBlock = {
       "Ideale Umstände verteilt die Welt selten. Aber sie lässt immer Raum für die, die bereit sind, sie zu bauen.",
       "Also fang an. Nicht wenn alles bereit ist. Jetzt, mit dem, was du hast.",
       "Alles Gute dir.",
+    ],
+  },
+  {
+    title: "Lass heute jemanden sich gehört fühlen",
+    paragraphs: [
+      "Hallo,",
+      "wie leicht geht ein Tag vorbei, in dem die Menschen nur Kulisse sind. Wir haben unsere Liste, unsere Ziele, unser Tempo. Und Familie, Kollegen, Fremde auf der Straße oder im Laden werden zum Hintergrund, an dem wir auf dem Weg zur nächsten Aufgabe vorbeigehen. Wir nicken, lächeln kurz, antworten, wenn es sein muss, und gehen weiter. Effizient. Konzentriert.",
+      "Dabei zählt die Qualität der Beziehungen meist mehr als die Länge einer abgehakten Liste. Was du in einem anderen Menschen hinterlässt, überdauert das meiste von dem, was du heute schaffst.",
+      "Es gibt Geschenke, die dich fast nichts kosten und für den, der sie bekommt, unschätzbar sind. Ein Moment echter Aufmerksamkeit. Eine Frage mit aufrichtigem Interesse. Ein paar Sekunden Stille, damit jemand seinen Satz zu Ende bringt, ohne gedrängt zu werden. Ein Blick, der sagt: Ich sehe dich.",
+      "All das gibt eine seltene Sache — das Gefühl, gehört zu werden. Wer sich gehört fühlt, fühlt sich angenommen. Gesehen. Und weniger allein. Das gehört zum Stärksten, was ein Mensch einem anderen geben kann.",
+      "Du musst dafür kein anderer Mensch werden und auch deinen Tag nicht umbauen. Bemerken genügt.",
+      "Schau also heute die Menschen an, denen du begegnest — die vertrauten und die, die du zum ersten Mal siehst. Halte Ausschau nach den kleinen Momenten, in denen etwas mehr möglich ist als Vorbeigehen. Ein wärmerer Gruß. Eine geduldige Pause. Ein ehrliches „und wie geht es dir wirklich?“. Eine stille Anerkennung dessen, was jemand tut.",
+      "Diese Momente halten deinen Fortschritt nicht auf. Sie vertiefen ihn. Und sie machen aus einem gewöhnlichen Tag einen, der stille Spuren hinterlässt.",
+      "Lass deine Aufmerksamkeit heute ein Geschenk sein. Lass jemanden sich gehört fühlen. Lass jemanden sich angenommen fühlen, und sei es kurz. Alles Nötige dafür hast du schon.",
+      "Und die Beziehungen, die du pflegst — auch die kleinsten — sind ein Teil des wirklichen Reichtums, den du hast.",
+      "Geh mit offenen Augen durch den Tag.",
     ],
   },
   ],
