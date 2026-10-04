@@ -263,14 +263,29 @@ export async function getFinishableGoals(
     goals.map(async (goal) => {
       const overdue = goal.targetDate.getTime() < now;
 
-      const [pending, future] = await Promise.all([
+      const startOfToday = new Date(now);
+      startOfToday.setHours(0, 0, 0, 0);
+      const startOfTomorrow = new Date(startOfToday.getTime() + 86_400_000);
+
+      const [pending, future, openToday] = await Promise.all([
         db.task.count({ where: { goalId: goal.id, status: "PENDING" } }),
         // Zbývá ještě nějaký naplánovaný den v budoucnu?
         db.timeBlock.count({
           where: {
             goalId: goal.id,
             level: "DAY",
-            startDate: { gt: new Date(now) },
+            startDate: { gte: startOfTomorrow },
+          },
+        }),
+        // A co dnešek — zbývá na něm ještě něco odškrtnout?
+        db.task.count({
+          where: {
+            goalId: goal.id,
+            status: "PENDING",
+            timeBlock: {
+              level: "DAY",
+              startDate: { gte: startOfToday, lt: startOfTomorrow },
+            },
           },
         }),
       ]);
@@ -279,21 +294,24 @@ export async function getFinishableGoals(
        * Kdy se smí vyskočit okno.
        *
        * Tohle je přísnější než `getFinishState`, a schválně. To se ptá,
-       * jestli má *smysl nabídnout tlačítko* na stránce cíle — tam je
-       * nabídka mezi ostatními a nic nepřeruší, takže klidně může přijít
+       * jestli má smysl nabídnout *tlačítko* na stránce cíle — nabídka
+       * mezi ostatními nic nepřeruší, takže klidně může přijít
        * s předstihem.
        *
-       * Okno je něco jiného. Vyskočí přes obrazovku a nabídne nevratný
-       * krok, takže se smí ozvat jedině tehdy, když je cíl opravdu
-       * u konce. S měkkou podmínkou to vyskakovalo celý poslední týden
-       * a málem se tím uzavřel cíl, který měl ještě půlku úkolů před
-       * sebou.
+       * Okno vyskočí přes obrazovku a nabízí krok, který se dělá jednou.
+       * Nejdřív se ozývalo celý poslední týden před termínem a málem se
+       * tím uzavřel cíl, který měl ještě půlku úkolů před sebou.
        *
-       * Platí tedy jedno z:
-       *  - termín je za námi — pak je na místě se zeptat tak jako tak,
-       *  - nebo je hotovo všechno a žádný další den už plán nemá.
+       * Platí tedy jedno ze dvou, a obojí znamená „na dnešek už nic
+       * nezbývá":
+       *
+       *  - hotovo je všechno a plán nemá žádný další den — to nastane
+       *    ve chvíli, kdy se odškrtne poslední úkol, což je přesně ten
+       *    správný okamžik,
+       *  - nebo je termín za námi a dnešek je odbytý. Zeptat se je na
+       *    místě, ale až večer po práci, ne ráno místo pozdravu.
        */
-      const ready = overdue || (pending === 0 && future === 0);
+      const ready = (pending === 0 && future === 0) || (overdue && openToday === 0);
       if (!ready) return null;
 
       return {
