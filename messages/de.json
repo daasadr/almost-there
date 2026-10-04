@@ -777,7 +777,10 @@
       "footnote": "Willkommen bei dem kleinen Teil der Menschen, die sich ein Ziel nicht nur setzen, sondern es auch zu Ende bringen. Ob du es glaubst oder nicht — das ist selten.",
       "back": "Zurück zur App",
       "collection": "Erreichte Ziele",
-      "collectionEmpty": "Sobald du ein Ziel erreichst, bleibt es hier."
+      "collectionEmpty": "Sobald du ein Ziel erreichst, bleibt es hier.",
+      "continueTitle": "Willst du weitermachen?",
+      "continueBody": "Ein neues Ziel, das an dieses anschließt — gern auch in eine etwas andere Richtung. Der Plan fängt nicht bei null an: er weiß, wo du gelandet bist.",
+      "continueCta": "Anschlussziel beginnen"
     },
     "milestones": {
       "title": "Meilensteine und Belohnungen",
@@ -992,7 +995,13 @@
       "finish": "Ja, ich bin fertig",
       "finishing": "Wird abgeschlossen…",
       "later": "Noch nicht",
-      "failed": "Das Abschließen hat gerade nicht geklappt. Bitte versuch es erneut."
+      "failed": "Das Abschließen hat gerade nicht geklappt. Bitte versuch es erneut.",
+      "extend": "Ich will es noch weiterführen",
+      "extendLabel": "Was fehlt noch, damit es so wird, wie du es dir vorgestellt hast?",
+      "extendPlaceholder": "Zum Beispiel: Die Figur bekomme ich hin, aber Hände und Gesichter will ich noch richtig lernen.",
+      "extendUntil": "Bis",
+      "extendConfirm": "Plan verlängern",
+      "extending": "Plan wird geschrieben…"
     }
   },
   "withdrawal": {

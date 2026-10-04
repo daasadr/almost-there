@@ -45,7 +45,26 @@ export function GoalForm({
    */
   usedColors = {},
   planning,
+  prefill,
 }: {
+  /**
+   * Co má být ve formuláři předvyplněné.
+   *
+   * Zatím z navazujícího cíle, brzy ze šablon — obojí je totéž: založení
+   * cíle, které nezačíná prázdnou stránkou. Hodnoty jdou normálně měnit,
+   * jsou to návrhy, ne zadání.
+   *
+   * Rozepsaný koncept má přednost. Kdo si tu něco nechal rozepsané
+   * a vrátí se, nemá o to přijít jen proto, že přišel přes odkaz
+   * s předvyplněním.
+   */
+  prefill?: {
+    title?: string;
+    description?: string;
+    startingPoint?: string;
+    /** Na který dotažený cíl tenhle navazuje. */
+    continuesFromId?: string;
+  };
   /**
    * Předvolby, ze kterých se plán staví. Nastavují se jinde, ale musí
    * být vidět tady — jsou to nejsilnější vstupy do výsledku a uživatel
@@ -101,6 +120,13 @@ export function GoalForm({
     if (!userId) return;
 
     const draft = loadGoalDraft(userId);
+
+    if (!draft && prefill) {
+      if (prefill.title) setTitle(prefill.title);
+      if (prefill.description) setDescription(prefill.description);
+      if (prefill.startingPoint) setStartingPoint(prefill.startingPoint);
+    }
+
     if (draft) {
       if (typeof draft.title === "string") setTitle(draft.title);
       if (typeof draft.description === "string") setDescription(draft.description);
@@ -110,7 +136,7 @@ export function GoalForm({
       if (typeof draft.color === "string") setColor(draft.color as GoalColor);
     }
     restored.current = true;
-  }, [userId]);
+  }, [userId, prefill]);
 
   /**
    * Rozepsané zadání se drží v `localStorage`, ne v `sessionStorage`.
@@ -194,6 +220,7 @@ export function GoalForm({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          continuesFromId: prefill?.continuesFromId,
           title: title.trim(),
           description: description.trim() || undefined,
           startingPoint: startingPoint.trim() || undefined,

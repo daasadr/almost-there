@@ -125,9 +125,19 @@ export async function createGoalWithPlan({
   startingPoint,
   importance = 3,
   color = "lime",
+  continuesFromId,
 }: {
   userId: string;
   title: string;
+  /**
+   * Na který dotažený cíl tenhle navazuje.
+   *
+   * Jen záznam — plán se tím neřídí, ten vychází z výchozího bodu, kam
+   * se text předchozího cíle přenesl. Užitek je v tom, že jde později
+   * ukázat, co z čeho vzešlo, a že se dá poznat řada etap jednoho
+   * dlouhého snažení.
+   */
+  continuesFromId?: string;
   description?: string;
   targetDate: string;
   /** Jazyk stránky, ze které se cíl zakládá. V něm bude celý plán. */
@@ -206,6 +216,7 @@ export async function createGoalWithPlan({
 
   const goal = await db.goal.create({
     data: {
+        continuesFromId,
       userId,
       title,
       description: description || null,

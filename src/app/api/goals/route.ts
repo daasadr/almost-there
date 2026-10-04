@@ -26,6 +26,13 @@ const bodySchema = z.object({
   locale: z.string().optional(),
   importance: z.number().int().min(1).max(5).optional(),
   color: z.string().optional(),
+  /**
+   * Na který dotažený cíl tenhle navazuje.
+   *
+   * Vlastnictví se ověřuje níž — bez toho by šlo navázat na cizí cíl
+   * a tím si do svého plánu přitáhnout cizí text.
+   */
+  continuesFromId: z.string().max(40).optional(),
 });
 
 export async function POST(request: Request) {
@@ -77,6 +84,21 @@ export async function POST(request: Request) {
         ? guard.user.locale
         : routing.defaultLocale;
 
+    /*
+     * Navázání se ověřuje, ne jen přebírá.
+     *
+     * Bez kontroly vlastníka by šlo poslat cizí `continuesFromId`
+     * a přivázat svůj cíl k cizímu. Samo o sobě to nic neprozradí, ale
+     * je to vztah, který tam nemá co dělat — a jednou podle něj něco
+     * zobrazíme.
+     */
+    const predecessor = parsed.data.continuesFromId
+      ? await db.goal.findFirst({
+          where: { id: parsed.data.continuesFromId, userId: guard.user.id },
+          select: { id: true },
+        })
+      : null;
+
     const goalId = await createGoalWithPlan({
       userId: guard.user.id,
       title,
@@ -88,6 +110,7 @@ export async function POST(request: Request) {
       // Neznámou hodnotu zahodíme, ať se do databáze nedostane barva,
       // kterou paleta nezná a UI by ji stejně nevykreslilo.
       color: isGoalColor(parsed.data.color) ? parsed.data.color : undefined,
+      continuesFromId: predecessor?.id,
     });
 
     return NextResponse.json({ ok: true, goalId });

@@ -22,10 +22,13 @@ export async function generateMetadata({
 
 export default async function NewGoalPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{ from?: string }>;
 }) {
   const { locale } = await params;
+  const { from } = await searchParams;
   const session = await auth();
   if (!session?.user) redirect(`/${locale}/login`);
 
@@ -84,6 +87,38 @@ export default async function NewGoalPage({
 
   const t = await getTranslations({ locale, namespace: "plan.form" });
 
+  /**
+   * Navazuje tenhle cíl na dotažený?
+   *
+   * Po oslavě chce člověk někdy pokračovat, jen trochu jinam — po kurzu
+   * skicování se pustit do krajiny. Rozšířit původní cíl by znamenalo
+   * vzít zpátky jeho dotažení; navazující ho nechá být a jen z něj
+   * vyjde.
+   *
+   * Praktický užitek je ve výchozím bodě: plán nezačíná od nuly, protože
+   * ví, kde ten člověk po předchozím cíli skončil. To je u dovednostních
+   * cílů ten nejsilnější vstup, jaký model může dostat.
+   *
+   * Cizí cíl se nenačte — `userId` v podmínce. Jinak by šlo přetáhnout
+   * si do svého plánu cizí text.
+   */
+  const source = from
+    ? await db.goal.findFirst({
+        where: { id: from, userId: session.user.id, status: "COMPLETED" },
+        select: { id: true, title: true, restatement: true, completionNote: true },
+      })
+    : null;
+
+  const prefill = source
+    ? {
+        title: source.title,
+        startingPoint: [source.restatement, source.completionNote]
+          .filter(Boolean)
+          .join("\n\n"),
+        continuesFromId: source.id,
+      }
+    : undefined;
+
   return (
     <section className="mx-auto max-w-2xl px-5 py-16 sm:px-8 sm:py-24">
       <Link
@@ -99,7 +134,11 @@ export default async function NewGoalPage({
       </p>
 
       <div className="card mt-8 p-6 sm:p-8">
-        <GoalForm planning={profile} usedColors={usedColors} />
+        <GoalForm
+          planning={profile}
+          usedColors={usedColors}
+          prefill={prefill}
+        />
       </div>
     </section>
   );

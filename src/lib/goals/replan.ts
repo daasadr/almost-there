@@ -37,10 +37,14 @@ import type { Locale } from "@/i18n/routing";
  *  - catchUp      — termín zůstává, zbytek se zhustí, ať se to stihne.
  *  - moveDeadline — termín se posune podle tempa, jakým to reálně jde.
  *  - adjust       — uživatel si přeje jinou cestu; termín zůstává.
+ *  - extend       — cíl je u konce, ale ještě není dotažený tak, jak si
+ *                   ho člověk představoval. Termín se posune na zadané
+ *                   datum a zbytek plánu se dopíše podle toho, co ještě
+ *                   chce dotáhnout.
  *
- * První dva se nabízejí při skluzu, ten třetí spouští uživatel sám.
+ * První dva se nabízejí při skluzu, zbylé dva spouští uživatel sám.
  */
-export type ReplanMode = "catchUp" | "moveDeadline" | "adjust";
+export type ReplanMode = "catchUp" | "moveDeadline" | "adjust" | "extend";
 
 export class ReplanTooSoonError extends Error {
   readonly name = "ReplanTooSoonError";
@@ -80,11 +84,14 @@ export async function replanGoal({
   goalId,
   mode,
   steer,
+  extendTo,
 }: {
   goalId: string;
   mode: ReplanMode;
-  /** Jen u režimu „adjust“: co si uživatel přeje dělat jinak. */
+  /** U režimů „adjust“ a „extend“: co si uživatel přeje. */
   steer?: string;
+  /** Jen u režimu „extend“: nový termín, ISO datum. */
+  extendTo?: string;
 }): Promise<{ newTargetDate: Date }> {
   const goal = await db.goal.findUniqueOrThrow({
     where: { id: goalId },
@@ -120,7 +127,7 @@ export async function replanGoal({
    *
    * Náklady hlídá `assertWithinBudget` níž, ne tenhle strop.
    */
-  if (mode !== "adjust") {
+  if (mode !== "adjust" && mode !== "extend") {
     const recent = await db.replanEvent.findFirst({
       where: {
         goalId,
@@ -157,10 +164,19 @@ export async function replanGoal({
     const completionRate = pace?.completionRate ?? 1;
     const missedDays = pace?.missedDays ?? 0;
 
+    /*
+     * Nový termín.
+     *
+     * U „moveDeadline" se počítá z tempa, u „extend" ho zadal uživatel
+     * sám — ví líp než my, kolik času na dotažení potřebuje. Jinde se
+     * termín nemění.
+     */
     const newTargetDate =
       mode === "moveDeadline"
         ? estimateNewTarget(today, goal.targetDate, completionRate)
-        : goal.targetDate;
+        : mode === "extend" && extendTo
+          ? parseIsoDate(extendTo)
+          : goal.targetDate;
 
     // Bez budoucnosti není co plánovat. Viz DeadlinePassedError.
     if (newTargetDate.getTime() <= today.getTime()) {
@@ -300,7 +316,10 @@ export async function replanGoal({
           goalId,
           // Úprava směru není skluz. Je to vlastní rozhodnutí uživatele
           // a v historii cíle se má číst jinak než „nestíhal“.
-          reason: mode === "adjust" ? "MANUAL" : "BEHIND_SCHEDULE",
+          reason:
+          mode === "adjust" || mode === "extend"
+            ? "MANUAL"
+            : "BEHIND_SCHEDULE",
           // SCHEDULE_ONLY = termín zůstává, mění se rozvržení.
           // FULL_REDECOMPOSITION = posunul se i termín.
           scope:

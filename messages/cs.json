@@ -777,7 +777,10 @@
       "footnote": "Vítej v tom procentu lidí, kteří si cíl nejen stanoví, ale i dotáhnou do konce. Věř tomu nebo ne — je to vzácné.",
       "back": "Zpět do aplikace",
       "collection": "Dotažené cíle",
-      "collectionEmpty": "Až nějaký cíl dotáhneš, zůstane ti tady."
+      "collectionEmpty": "Až nějaký cíl dotáhneš, zůstane ti tady.",
+      "continueTitle": "Chceš v tom pokračovat?",
+      "continueBody": "Nový cíl, který na tenhle navazuje — třeba trochu jiným směrem. Plán nezačne od nuly: bude vědět, kde jsi skončila.",
+      "continueCta": "Navázat novým cílem"
     },
     "milestones": {
       "title": "Milníky a odměny",
@@ -992,7 +995,13 @@
       "finish": "Ano, mám to hotové",
       "finishing": "Uzavírám…",
       "later": "Ještě ne",
-      "failed": "Uzavřít se to teď nepovedlo. Zkus to prosím znovu."
+      "failed": "Uzavřít se to teď nepovedlo. Zkus to prosím znovu.",
+      "extend": "Chci to ještě dotáhnout",
+      "extendLabel": "Co ještě potřebuješ dotáhnout, aby to bylo, jak si představuješ?",
+      "extendPlaceholder": "Například: zvládám kresbu postavy, ale chci se ještě pořádně naučit ruce a obličeje.",
+      "extendUntil": "Dokdy",
+      "extendConfirm": "Dopsat plán",
+      "extending": "Dopisuju plán…"
     }
   },
   "withdrawal": {

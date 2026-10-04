@@ -15,7 +15,7 @@ export const runtime = "nodejs";
 export const maxDuration = 300;
 
 const bodySchema = z.object({
-  mode: z.enum(["catchUp", "moveDeadline", "decline", "adjust"]),
+  mode: z.enum(["catchUp", "moveDeadline", "decline", "adjust", "extend"]),
   /**
    * Co si uživatel přeje dělat jinak. Jen u režimu „adjust“.
    *
@@ -25,6 +25,17 @@ const bodySchema = z.object({
    * a za peníze.
    */
   steer: z.string().trim().min(10).max(1000).optional(),
+  /**
+   * Nový termín u rozšíření. Jen datum, čas nás nezajímá.
+   *
+   * Že je v budoucnu, se tu nehlídá: `replanGoal` to odmítne samo
+   * chybou `DeadlinePassedError`, protože bez budoucnosti není co
+   * plánovat. Dvě kontroly téhož by se časem rozešly.
+   */
+  extendTo: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/)
+    .optional(),
 });
 
 /** Přeplánování cíle po skluzu, nebo odmítnutí nabídky. */
@@ -70,11 +81,24 @@ export async function POST(
     );
   }
 
+  // Rozšíření bez termínu a bez popisu nedává smysl ani jedno zvlášť:
+  // termín říká dokdy, popis co ještě dotáhnout.
+  if (
+    parsed.data.mode === "extend" &&
+    (!parsed.data.extendTo || !parsed.data.steer)
+  ) {
+    return NextResponse.json(
+      { ok: false, error: "steerRequired" },
+      { status: 400 },
+    );
+  }
+
   try {
     const { newTargetDate } = await replanGoal({
       goalId: id,
       mode: parsed.data.mode,
       steer: parsed.data.steer,
+      extendTo: parsed.data.extendTo,
     });
     return NextResponse.json({ ok: true, newTargetDate });
   } catch (error) {

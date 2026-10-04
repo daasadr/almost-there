@@ -331,6 +331,17 @@ model Goal {
   feasibility     String?
   feasibilityNote String?
 
+  /// Na který dotažený cíl tenhle navazuje.
+  ///
+  /// Někdy člověk chce pokračovat, jen trochu jinam — po kurzu skicování
+  /// se pustit do krajiny. Rozšířit původní cíl by znamenalo vzít zpátky
+  /// jeho dotažení a z hotové věci udělat zase rozdělanou; navazující
+  /// cíl ten úspěch nechá být a jen z něj vyjde.
+  ///
+  /// Praktický užitek: plán nezačíná od nuly, protože výchozím bodem je
+  /// to, kde ten člověk po předchozím cíli skončil.
+  continuesFromId String?
+
   /// Kdy byl cíl dotažen. Podle toho se počítá, jak dlouho to trvalo.
   completedAt    DateTime?
   /// Závěrečné shrnutí od AI. Ukládá se, aby bylo pokaždé stejné —

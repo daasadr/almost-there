@@ -39,6 +39,17 @@ import { goalHex } from "@/lib/plan/colors";
  * jediná chvíle, kdy se něco povedlo celé. Kdyby to vypadalo jako další
  * upozornění, přejde se to jako upozornění.
  */
+/**
+ * Výchozí termín rozšíření: za měsíc.
+ *
+ * Dost na to, aby se dalo něco dotáhnout, a málo na to, aby se z toho
+ * stal další dlouhý cíl. Uživatel to kdykoliv změní.
+ */
+function defaultExtension(): string {
+  const date = new Date(Date.now() + 30 * 86_400_000);
+  return date.toISOString().slice(0, 10);
+}
+
 export function GoalFinishable({
   goals,
 }: {
@@ -51,6 +62,21 @@ export function GoalFinishable({
   const [failed, setFailed] = useState(false);
   /** Skryté napořád pro tenhle pohled — „teď ne" se nemá ptát znovu hned. */
   const [dismissed, setDismissed] = useState<string[]>([]);
+
+  /**
+   * Rozšíření místo uzavření.
+   *
+   * Nabízí se **před** uzavřením, ne po něm, a je to schválně. Rozšířit
+   * uzavřený cíl by znamenalo vzít zpátky jeho dotažení a z hotové věci
+   * udělat zase rozdělanou — i s oslavou, která už proběhla. Tady, než
+   * se cokoliv uzavře, to nic nebere.
+   *
+   * Co míří jinam, je navazující cíl. Ten se nabízí až po oslavě, na
+   * stránce dotaženého cíle, protože ten původní nechává být.
+   */
+  const [extending, setExtending] = useState(false);
+  const [addition, setAddition] = useState("");
+  const [extendTo, setExtendTo] = useState(defaultExtension());
 
   const finish = async (id: string) => {
     setWorking(id);
@@ -68,6 +94,27 @@ export function GoalFinishable({
       // dotažených cílů co číst.
       dialog.current?.close();
       router.push(`/app/goals/${id}/done`);
+    } catch {
+      setFailed(true);
+      setWorking(null);
+    }
+  };
+
+  const extend = async (id: string) => {
+    setWorking(id);
+    setFailed(false);
+
+    try {
+      const response = await fetch(`/api/goals/${id}/replan`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mode: "extend", steer: addition, extendTo }),
+      });
+      if (!response.ok) throw new Error("failed");
+
+      dialog.current?.close();
+      // Zbytek plánu se dopsal, takže dnešek vypadá jinak než před chvílí.
+      router.refresh();
     } catch {
       setFailed(true);
       setWorking(null);
@@ -136,15 +183,77 @@ export function GoalFinishable({
             </p>
           )}
 
+          {/*
+            Rozšíření.
+
+            Třetí cesta mezi „mám hotovo" a „ještě ne": cíl je u konce,
+            ale ne tak, jak si ho člověk představoval. Termín se posune
+            a zbytek plánu se dopíše podle toho, co ještě chce dotáhnout.
+          */}
+          {extending && (
+            <div className="mt-5 rounded-xl border border-edge bg-surface p-4">
+              <label
+                htmlFor="finish-addition"
+                className="block text-sm font-medium"
+              >
+                {t("extendLabel")}
+              </label>
+              <textarea
+                id="finish-addition"
+                value={addition}
+                onChange={(event) => setAddition(event.target.value)}
+                rows={3}
+                placeholder={t("extendPlaceholder")}
+                className="mt-2 w-full rounded-xl border border-edge bg-surface px-3.5 py-2.5 text-base text-[var(--color-paper)]"
+              />
+
+              <label
+                htmlFor="finish-until"
+                className="mt-4 block text-sm font-medium"
+              >
+                {t("extendUntil")}
+              </label>
+              <input
+                id="finish-until"
+                type="date"
+                value={extendTo}
+                onChange={(event) => setExtendTo(event.target.value)}
+                className="mt-2 rounded-xl border border-edge bg-surface px-3.5 py-2.5 text-base text-[var(--color-paper)]"
+              />
+            </div>
+          )}
+
           <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-3">
-            <button
-              type="button"
-              onClick={() => void finish(goal.id)}
-              disabled={working !== null}
-              className="btn-primary !px-5 !py-2.5 disabled:opacity-60"
-            >
-              {working === goal.id ? t("finishing") : t("finish")}
-            </button>
+            {extending ? (
+              <button
+                type="button"
+                onClick={() => void extend(goal.id)}
+                // Dva řádky textu jsou málo na to, aby z toho vznikl plán.
+                disabled={working !== null || addition.trim().length < 10}
+                className="btn-primary !px-5 !py-2.5 disabled:opacity-60"
+              >
+                {working === goal.id ? t("extending") : t("extendConfirm")}
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={() => void finish(goal.id)}
+                disabled={working !== null}
+                className="btn-primary !px-5 !py-2.5 disabled:opacity-60"
+              >
+                {working === goal.id ? t("finishing") : t("finish")}
+              </button>
+            )}
+
+            {!extending && (
+              <button
+                type="button"
+                onClick={() => setExtending(true)}
+                className="text-sm text-[var(--color-paper-dim)] underline-offset-4 hover:text-[var(--color-paper)] hover:underline"
+              >
+                {t("extend")}
+              </button>
+            )}
 
             <button
               type="button"

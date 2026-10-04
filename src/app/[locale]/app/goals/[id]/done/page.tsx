@@ -111,6 +111,27 @@ export default async function GoalDonePage({
         {t("footnote")}
       </p>
 
+      {/*
+        Pokračovat, ale jinam.
+
+        Nabízí se až tady, po oslavě. Rozšíření původního cíle se nabízí
+        dřív, v okně před uzavřením — rozšířit něco už uzavřeného by
+        znamenalo vzít ten úspěch zpátky. Tahle cesta ho nechá být:
+        původní zůstane ve sbírce dotažených a nový z něj vyjde.
+      */}
+      <div className="mt-12 rounded-2xl border border-edge p-5 sm:p-6">
+        <p className="display text-base">{t("continueTitle")}</p>
+        <p className="mt-1.5 text-sm leading-relaxed text-[var(--color-paper-dim)]">
+          {t("continueBody")}
+        </p>
+        <Link
+          href={`/${locale}/app/goals/new?from=${goal.id}`}
+          className="btn-primary mt-4 inline-block !px-5 !py-2.5 text-sm"
+        >
+          {t("continueCta")}
+        </Link>
+      </div>
+
       <div className="mt-10 flex flex-wrap items-center gap-6">
         <Link
           href={`/${locale}/app`}

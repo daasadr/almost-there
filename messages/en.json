@@ -777,7 +777,10 @@
       "footnote": "Welcome to the small fraction of people who not only set a goal but see it all the way through. Believe it or not, that is rare.",
       "back": "Back to the app",
       "collection": "Goals you finished",
-      "collectionEmpty": "Once you finish a goal, it stays here."
+      "collectionEmpty": "Once you finish a goal, it stays here.",
+      "continueTitle": "Do you want to carry on?",
+      "continueBody": "A new goal that follows from this one — in a slightly different direction, if you like. The plan will not start from zero: it knows where you got to.",
+      "continueCta": "Start a follow-up goal"
     },
     "milestones": {
       "title": "Milestones and rewards",
@@ -992,7 +995,13 @@
       "finish": "Yes, I'm done",
       "finishing": "Closing…",
       "later": "Not yet",
-      "failed": "Closing it did not work just now. Please try again."
+      "failed": "Closing it did not work just now. Please try again.",
+      "extend": "I want to take it further",
+      "extendLabel": "What still needs finishing to make it what you had in mind?",
+      "extendPlaceholder": "For example: I can draw the figure, but I still want to properly learn hands and faces.",
+      "extendUntil": "Until",
+      "extendConfirm": "Extend the plan",
+      "extending": "Writing the plan…"
     }
   },
   "withdrawal": {
