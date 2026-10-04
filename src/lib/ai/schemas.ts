@@ -42,6 +42,15 @@ export const planSchema = z.object({
   /** Na jakou jednotku je cíl rozložený. */
   level: z.enum(planLevels),
   periods: z.array(planPeriodSchema).min(1),
+  /**
+   * Závěrečná zkouška — čím se cíl prokáže.
+   *
+   * Ve schématu pro model povinná, tady nepovinná. Stejný ústupek jako
+   * u návodu k úkolu: kdyby ji model u jednoho plánu ze sta vynechal,
+   * je lepší přijít o jednu větu než zahodit celý rozpad, který stál
+   * peníze a dvě minuty čekání.
+   */
+  finalChallenge: z.string().min(1).optional(),
   /** Reálnost termínu — poctivá zpětná vazba místo slepého optimismu. */
   feasibility: z.enum(["comfortable", "realistic", "ambitious", "unrealistic"]),
   /** Jedna věta k tomu, proč zrovna tohle hodnocení. */
@@ -272,6 +281,11 @@ export function buildPlanJsonSchema(level: PlanLevel) {
           additionalProperties: false,
         },
       },
+      finalChallenge: {
+        type: "string",
+        description:
+          "The one thing that proves the goal is reached: done for real, unaided, in one go. One or two sentences, in the target language, addressed to the person.",
+      },
       feasibility: {
         type: "string",
         enum: ["comfortable", "realistic", "ambitious", "unrealistic"],
@@ -288,6 +302,7 @@ export function buildPlanJsonSchema(level: PlanLevel) {
       "assumptions",
       "level",
       "periods",
+      "finalChallenge",
       "feasibility",
       "feasibilityNote",
     ],

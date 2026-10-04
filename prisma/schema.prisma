@@ -342,6 +342,30 @@ model Goal {
   /// to, kde ten člověk po předchozím cíli skončil.
   continuesFromId String?
 
+  /// Závěrečná zkouška: jediná věc, kterou se cíl prokáže.
+  ///
+  /// Ne nutně zkouška. U kreslení hotová práce, u běhání ten závod,
+  /// u jazyka opravdový hovor s někým, kdo neslevuje. Společné má to, že
+  /// se dělá naostro, bez pomoci a celé — ne po kouskách jako během
+  /// cesty. Teprve tím se z „prošel jsem plán" stane „dokázal jsem to".
+  ///
+  /// Píše ji model při rozpadu cíle, protože je to součást plánu: podle
+  /// ní se pozpátku odvíjí všechno ostatní. Uživatel ji vidí od prvního
+  /// dne — cíl, u kterého není poznat, čím skončí, nemá kam dojít.
+  finalChallenge String?
+
+  /// Co si člověk dopřeje, až to dotáhne.
+  ///
+  /// Odměny za milníky už aplikace umí a drží cestu přes týdny. Na konci
+  /// ale nebylo nic — cíl se uzavřel, přišlo shrnutí a tím to skončilo.
+  /// Zrovna to největší zůstalo bez odměny.
+  ///
+  /// Stejná trojice polí jako u milníku, schválně: chování je stejné,
+  /// jen větší, a dvě různá řešení téhož by se časem rozešla.
+  finalRewardText    String?
+  finalRewardSource  RewardSource?
+  finalRewardClaimed Boolean       @default(false)
+
   /// Kdy byl cíl dotažen. Podle toho se počítá, jak dlouho to trvalo.
   completedAt    DateTime?
   /// Závěrečné shrnutí od AI. Ukládá se, aby bylo pokaždé stejné —

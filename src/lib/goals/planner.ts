@@ -96,6 +96,7 @@ function goalContext(
     title: string;
     targetDate: Date;
     restatement: string | null;
+    finalChallenge: string | null;
     locale: string;
   },
   minutesForThisGoal: number,
@@ -104,6 +105,7 @@ function goalContext(
     title: goal.title,
     targetDate: toIsoDate(goal.targetDate),
     restatement: goal.restatement,
+    finalChallenge: goal.finalChallenge,
     // Z cíle, ne z uživatele — plán nesmí v půlce změnit jazyk.
     locale: asLocale(goal.locale),
     dailyCapacityMinutes: minutesForThisGoal,
@@ -216,7 +218,7 @@ export async function createGoalWithPlan({
 
   const goal = await db.goal.create({
     data: {
-        continuesFromId,
+      continuesFromId,
       userId,
       title,
       description: description || null,
@@ -227,6 +229,7 @@ export async function createGoalWithPlan({
       priorityWeight: weightForImportance(importance),
       restatement: plan.goalRestated,
       assumptions: plan.assumptions,
+      finalChallenge: plan.finalChallenge ?? null,
       feasibility: plan.feasibility,
       feasibilityNote: plan.feasibilityNote,
       timeBlocks: {
@@ -341,6 +344,7 @@ export async function ensureCurrentPlan(
       title: true,
       targetDate: true,
       restatement: true,
+      finalChallenge: true,
       locale: true,
       status: true,
       user: {

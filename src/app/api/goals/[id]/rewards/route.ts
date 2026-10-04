@@ -7,7 +7,7 @@ import { AiBudgetError, assertWithinBudget } from "@/lib/ai/usage";
 export const runtime = "nodejs";
 export const maxDuration = 120;
 
-/** Návrhy odměn pro milníky, které zatím žádnou nemají. */
+/** Návrhy odměn: pro etapy bez odměny a pro celý cíl, když ji nemá. */
 export async function POST(
   _request: Request,
   { params }: { params: Promise<{ id: string }> },
@@ -27,8 +27,8 @@ export async function POST(
 
   try {
     await assertWithinBudget(guard.user.id);
-    const count = await suggestRewards(id);
-    return NextResponse.json({ ok: true, count });
+    const suggested = await suggestRewards(id);
+    return NextResponse.json({ ok: true, ...suggested });
   } catch (error) {
     if (error instanceof AiBudgetError) {
       return NextResponse.json(

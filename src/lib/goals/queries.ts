@@ -142,6 +142,11 @@ export type GoalDetail = {
   color: string;
   restatement: string | null;
   assumptions: string[];
+  /** Čím se cíl prokáže. Prázdné u cílů z doby, kdy zkoušky nebyly. */
+  finalChallenge: string | null;
+  finalRewardText: string | null;
+  finalRewardSource: string | null;
+  finalRewardClaimed: boolean;
   feasibility: string | null;
   feasibilityNote: string | null;
   tree: PlanNode[];
@@ -165,6 +170,10 @@ export async function getGoalDetail(
       color: true,
       restatement: true,
       assumptions: true,
+      finalChallenge: true,
+      finalRewardText: true,
+      finalRewardSource: true,
+      finalRewardClaimed: true,
       feasibility: true,
       feasibilityNote: true,
       images: {

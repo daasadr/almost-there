@@ -232,6 +232,17 @@ export type FinishableGoal = {
   pending: number;
   /** Je termín už za námi? */
   overdue: boolean;
+  /**
+   * Závěrečná zkouška a odměna za ni — pro poslední otázku.
+   *
+   * Bez nich se okno ptá „máš to hotové?" a člověk odpovídá podle
+   * pocitu. Se zkouškou se ptá na jednu konkrétní věc, která se buď
+   * stala, nebo nestala, a odměna u toho připomene, oč jde.
+   *
+   * Prázdné u cílů založených dřív, než tohle existovalo.
+   */
+  challenge: string | null;
+  reward: string | null;
 };
 
 /**
@@ -254,7 +265,14 @@ export async function getFinishableGoals(
 ): Promise<FinishableGoal[]> {
   const goals = await db.goal.findMany({
     where: { userId, status: "ACTIVE" },
-    select: { id: true, title: true, color: true, targetDate: true },
+    select: {
+      id: true,
+      title: true,
+      color: true,
+      targetDate: true,
+      finalChallenge: true,
+      finalRewardText: true,
+    },
   });
 
   const now = Date.now();
@@ -320,6 +338,8 @@ export async function getFinishableGoals(
         color: goal.color,
         pending,
         overdue,
+        challenge: goal.finalChallenge,
+        reward: goal.finalRewardText,
       };
     }),
   );

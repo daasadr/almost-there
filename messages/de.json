@@ -780,7 +780,8 @@
       "collectionEmpty": "Sobald du ein Ziel erreichst, bleibt es hier.",
       "continueTitle": "Willst du weitermachen?",
       "continueBody": "Ein neues Ziel, das an dieses anschließt — gern auch in eine etwas andere Richtung. Der Plan fängt nicht bei null an: er weiß, wo du gelandet bist.",
-      "continueCta": "Anschlussziel beginnen"
+      "continueCta": "Anschlussziel beginnen",
+      "challengeDone": "Womit es geendet hat:"
     },
     "milestones": {
       "title": "Meilensteine und Belohnungen",
@@ -801,7 +802,7 @@
       "claimed": "Belohnung eingelöst",
       "undo": "Doch noch nicht",
       "failed": "Das hat nicht geklappt. Bitte versuch es erneut.",
-      "reachedTitle": "Du hast einen Meilenstein erreicht",
+      "reachedTitle": "Du bist bei einem Meilenstein",
       "reachedBody": "Laut Plan sollte diese Etappe hinter dir liegen. Stimmt das?"
     },
     "progress": {
@@ -1001,7 +1002,30 @@
       "extendPlaceholder": "Zum Beispiel: Die Figur bekomme ich hin, aber Hände und Gesichter will ich noch richtig lernen.",
       "extendUntil": "Bis",
       "extendConfirm": "Plan verlängern",
-      "extending": "Plan wird geschrieben…"
+      "extending": "Plan wird geschrieben…",
+      "challengeLabel": "Womit es enden sollte",
+      "rewardWaiting": "Und auf dich wartet:"
+    },
+    "finale": {
+      "title": "Der Abschluss",
+      "challenge": "Woran du es zeigst",
+      "noChallenge": "Dieses Ziel entstand, bevor die App eine Abschlussprobe kannte. Sie kommt bei der nächsten Überarbeitung des Plans dazu.",
+      "reward": "Belohnung fürs Durchziehen",
+      "noReward": "Noch keine. Ein langes Ziel zu Ende zu bringen ist eine große Sache und verdient mehr als ein Häkchen.",
+      "rewardPlaceholder": "Zum Beispiel ein Wochenende am Meer",
+      "setReward": "Selbst schreiben",
+      "suggest": "Vorschlag holen",
+      "suggesting": "Überlege…",
+      "suggested": "Vorschlag",
+      "change": "Ändern",
+      "save": "Speichern",
+      "cancel": "Zurück",
+      "claim": "Einlösen",
+      "claimed": "Belohnung eingelöst",
+      "claimedDone": "Die Belohnung hast du hinter dir. Verdient.",
+      "doneEyebrow": "Und jetzt die Belohnung",
+      "doneNoReward": "Für dieses Ziel wartet keine Belohnung. Du kannst sie auch jetzt noch festlegen — und jetzt ist genau der richtige Moment dafür.",
+      "failed": "Das hat nicht geklappt. Bitte versuch es noch einmal."
     }
   },
   "withdrawal": {

@@ -7,6 +7,7 @@ import { db } from "@/lib/db";
 import { goalHex } from "@/lib/plan/colors";
 import { DeleteGoalButton } from "@/components/plan/DeleteGoalButton";
 import { Confetti } from "@/components/plan/Confetti";
+import { DonePrize } from "@/components/plan/DonePrize";
 
 export const metadata: Metadata = { robots: { index: false, follow: false } };
 
@@ -38,6 +39,9 @@ export default async function GoalDonePage({
       completedAt: true,
       completionNote: true,
       targetDate: true,
+      finalChallenge: true,
+      finalRewardText: true,
+      finalRewardClaimed: true,
     },
   });
   if (!goal) notFound();
@@ -100,12 +104,41 @@ export default async function GoalDonePage({
         </p>
       )}
 
+      {/* Čím to skončilo. Tiše, jednou větou — na stránce, která
+          nemá jiný úkol než uznat, že se to povedlo, je tohle to
+          konkrétní, co se povedlo. */}
+      {goal.finalChallenge && (
+        <p className="mx-auto mt-8 max-w-xl text-base leading-relaxed text-[var(--color-paper-dim)]">
+          <span className="text-[var(--color-paper-faint)]">
+            {t("challengeDone")}{" "}
+          </span>
+          {goal.finalChallenge}
+        </p>
+      )}
+
       <dl className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-4">
         <Stat value={days} label={t("days")} color={color} />
         <Stat value={tasksDone} label={t("tasks")} color={color} />
         <Stat value={restDays} label={t("rest")} color={color} />
         <Stat value={stages} label={t("stages")} color={color} />
       </dl>
+
+      {/*
+        Odměna.
+
+        Tohle na stránce chybělo a byla to ta největší díra: cíl na
+        měsíce se uzavřel, přišlo shrnutí a nic, co by si za to člověk
+        dopřál. Milníky přitom odměny měly celou dobu.
+
+        Stojí nad poznámkou pod čarou a pod čísly, tedy v místě, kam oko
+        dojde hned po tom, co si přečte, čím vším prošlo.
+      */}
+      <DonePrize
+        goalId={goal.id}
+        color={color}
+        rewardText={goal.finalRewardText}
+        claimed={goal.finalRewardClaimed}
+      />
 
       <p className="mx-auto mt-12 max-w-md text-sm leading-relaxed text-[var(--color-paper-faint)]">
         {t("footnote")}

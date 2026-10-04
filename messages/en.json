@@ -780,7 +780,8 @@
       "collectionEmpty": "Once you finish a goal, it stays here.",
       "continueTitle": "Do you want to carry on?",
       "continueBody": "A new goal that follows from this one — in a slightly different direction, if you like. The plan will not start from zero: it knows where you got to.",
-      "continueCta": "Start a follow-up goal"
+      "continueCta": "Start a follow-up goal",
+      "challengeDone": "How it ended:"
     },
     "milestones": {
       "title": "Milestones and rewards",
@@ -1001,7 +1002,30 @@
       "extendPlaceholder": "For example: I can draw the figure, but I still want to properly learn hands and faces.",
       "extendUntil": "Until",
       "extendConfirm": "Extend the plan",
-      "extending": "Writing the plan…"
+      "extending": "Writing the plan…",
+      "challengeLabel": "What it was meant to end with",
+      "rewardWaiting": "And waiting for you:"
+    },
+    "finale": {
+      "title": "The finish",
+      "challenge": "What proves it",
+      "noChallenge": "This goal was set before the app had a final test. It will be added the next time the plan is reworked.",
+      "reward": "Reward for finishing",
+      "noReward": "None yet. Finishing a long goal is a big thing and deserves more than a ticked box.",
+      "rewardPlaceholder": "A weekend by the sea, say",
+      "setReward": "Write your own",
+      "suggest": "Suggest one",
+      "suggesting": "Thinking…",
+      "suggested": "suggested",
+      "change": "Change",
+      "save": "Save",
+      "cancel": "Back",
+      "claim": "Take it",
+      "claimed": "Reward taken",
+      "claimedDone": "You have had your reward. Well earned.",
+      "doneEyebrow": "And now the reward",
+      "doneNoReward": "There is no reward waiting for this goal. You can still set one — and now is exactly the moment for it.",
+      "failed": "That did not work. Please try again."
     }
   },
   "withdrawal": {

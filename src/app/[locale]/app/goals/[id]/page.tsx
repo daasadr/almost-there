@@ -7,6 +7,7 @@ import { DeleteGoalButton } from "@/components/plan/DeleteGoalButton";
 import { GoalImages } from "@/components/plan/GoalImages";
 import { MAX_IMAGES_PER_GOAL } from "@/lib/uploads/images";
 import { GoalStatusControls } from "@/components/plan/GoalStatusControls";
+import { GoalFinale } from "@/components/plan/GoalFinale";
 import { Milestones } from "@/components/plan/Milestones";
 import { PaceCheck } from "@/components/plan/PaceCheck";
 import { PlanTree } from "@/components/plan/PlanTree";
@@ -182,6 +183,25 @@ export default async function GoalPage({
           )}
         </div>
       )}
+
+      {/*
+        Zakončení patří sem, ne na konec stránky.
+
+        Je to konec cesty, takže by se nabízelo dát ho dolů — jenže tam
+        se nikdo nedívá. Tohle je přitom to, k čemu celý plán míří, a kdo
+        neví, čím cíl skončí, odškrtává dny naslepo.
+      */}
+      <div className="mt-8">
+        <GoalFinale
+          goalId={goal.id}
+          goalColor={goal.color}
+          challenge={goal.finalChallenge}
+          rewardText={goal.finalRewardText}
+          rewardSource={goal.finalRewardSource}
+          rewardClaimed={goal.finalRewardClaimed}
+          completed={goal.status === "COMPLETED"}
+        />
+      </div>
 
       {/*
         Plán psal model, ne odborník.

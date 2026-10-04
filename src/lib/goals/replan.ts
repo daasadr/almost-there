@@ -296,6 +296,12 @@ export async function replanGoal({
           targetDate: newTargetDate,
           restatement: plan.goalRestated,
           assumptions: plan.assumptions,
+          // Když model zkoušku nevrátí, zůstane ta původní. Přepsat ji
+          // na prázdno by znamenalo, že člověk po přeplánování přestane
+          // vědět, k čemu míří — a to je horší než zkouška z minula.
+          ...(plan.finalChallenge
+            ? { finalChallenge: plan.finalChallenge }
+            : {}),
           feasibility: plan.feasibility,
           feasibilityNote: plan.feasibilityNote,
           timeBlocks: {

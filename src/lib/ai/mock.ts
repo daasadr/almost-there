@@ -41,6 +41,7 @@ export async function mockDecomposeGoal(
       ],
       level,
       periods,
+      finalChallenge: `Do the thing itself, start to finish, without help and in one sitting: “${input.goal}”, under real conditions rather than practice ones.`,
       feasibility: "realistic",
       feasibilityNote:
         "The timeframe works if you keep a steady rhythm rather than working in bursts.",

@@ -26,6 +26,15 @@ export type GoalContext = {
   targetDate: string;
   /** Jak AI cíl pochopila při prvním rozpadu — drží výklad pohromadě. */
   restatement?: string | null;
+  /**
+   * Závěrečná zkouška, čím se cíl prokáže.
+   *
+   * Dny se rozepisují po týdnu a každý týden model vidí jen svůj kousek
+   * plánu. Bez tohohle řádku neví, k čemu to celé směřuje, a úkoly
+   * vycházejí jako „dělej dál to co minule". Tady je to naopak jediný
+   * pevný bod: ke zkoušce se připravuje a v posledním týdnu se dělá.
+   */
+  finalChallenge?: string | null;
   locale: Locale;
   dailyCapacityMinutes: number;
   restFrequency: string;
@@ -96,6 +105,12 @@ function goalLines(goal: GoalContext): string[] {
   ];
   if (goal.restatement) {
     lines.splice(1, 0, `How the goal was understood: ${goal.restatement}`);
+  }
+  if (goal.finalChallenge) {
+    lines.push(
+      `What the person has to be able to do at the end, unaided and in one go: ${goal.finalChallenge}`,
+      "Everything here is preparation for that. In the last stretch before the target date, the tasks are doing it and recovering from it, not learning anything new.",
+    );
   }
   if (goal.reflectionMinutesPerDay > 0) {
     lines.push(

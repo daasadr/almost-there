@@ -53,7 +53,16 @@ function defaultExtension(): string {
 export function GoalFinishable({
   goals,
 }: {
-  goals: { id: string; title: string; color: string; pending: number; overdue: boolean }[];
+  goals: {
+    id: string;
+    title: string;
+    color: string;
+    pending: number;
+    overdue: boolean;
+    /** Závěrečná zkouška a odměna. Prázdné u starších cílů. */
+    challenge: string | null;
+    reward: string | null;
+  }[];
 }) {
   const t = useTranslations("plan.finish");
   const router = useRouter();
@@ -173,6 +182,36 @@ export function GoalFinishable({
               : t("bodyPending", { count: goal.pending })}
             {goal.overdue && ` ${t("bodyOverdue")}`}
           </p>
+
+          {/*
+            Poslední otázka se ptá na zkoušku, ne na pocit.
+
+            „Máš to hotové?" si každý vyloží po svém a odpoví se na to
+            podle nálady toho dne. Zkouška je jedna konkrétní věc, která
+            se buď stala, nebo nestala — a právě proto se na ni ptáme
+            tady, ve chvíli, kdy se cíl uzavírá.
+
+            Odměna visí hned pod ní. Je to to jediné místo v aplikaci,
+            kde má smysl ji připomenout: člověk právě váhá, jestli je
+            konec, a tohle je druhá polovina té dohody.
+          */}
+          {!extending && goal.challenge && (
+            <div className="mt-5 rounded-xl border border-edge bg-surface p-4">
+              <p className="text-xs font-semibold uppercase tracking-wider text-[var(--color-paper-faint)]">
+                {t("challengeLabel")}
+              </p>
+              <p className="mt-1.5 text-base leading-relaxed text-[var(--color-paper)]">
+                {goal.challenge}
+              </p>
+            </div>
+          )}
+
+          {!extending && goal.reward && (
+            <p className="mt-4 text-base leading-relaxed text-[var(--color-paper-dim)]">
+              {t("rewardWaiting")}{" "}
+              <span style={{ color: goalHex(goal.color) }}>{goal.reward}</span>
+            </p>
+          )}
 
           {failed && (
             <p

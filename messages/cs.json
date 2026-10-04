@@ -779,8 +779,9 @@
       "collection": "Dotažené cíle",
       "collectionEmpty": "Až nějaký cíl dotáhneš, zůstane ti tady.",
       "continueTitle": "Chceš v tom pokračovat?",
-      "continueBody": "Nový cíl, který na tenhle navazuje — třeba trochu jiným směrem. Plán nezačne od nuly: bude vědět, kde jsi skončila.",
-      "continueCta": "Navázat novým cílem"
+      "continueBody": "Nový cíl, který na tenhle navazuje — třeba trochu jiným směrem. Plán nezačne od nuly: ví, kde právě jsi.",
+      "continueCta": "Navázat novým cílem",
+      "challengeDone": "Čím to skončilo:"
     },
     "milestones": {
       "title": "Milníky a odměny",
@@ -801,7 +802,7 @@
       "claimed": "Odměna vybraná",
       "undo": "Přece jen ne",
       "failed": "Nepovedlo se to. Zkus to prosím znovu.",
-      "reachedTitle": "Došel jsi k milníku",
+      "reachedTitle": "Jsi u milníku",
       "reachedBody": "Podle plánu má být tahle etapa za tebou. Je?"
     },
     "progress": {
@@ -1001,7 +1002,30 @@
       "extendPlaceholder": "Například: zvládám kresbu postavy, ale chci se ještě pořádně naučit ruce a obličeje.",
       "extendUntil": "Dokdy",
       "extendConfirm": "Dopsat plán",
-      "extending": "Dopisuju plán…"
+      "extending": "Dopisuju plán…",
+      "challengeLabel": "Čím to mělo skončit",
+      "rewardWaiting": "A čeká na tebe:"
+    },
+    "finale": {
+      "title": "Zakončení",
+      "challenge": "Čím to prokážeš",
+      "noChallenge": "Tenhle cíl vznikl dřív, než aplikace uměla závěrečnou zkoušku. Doplní se při nejbližším přepracování plánu.",
+      "reward": "Odměna za dotažení",
+      "noReward": "Zatím žádná. Dotáhnout dlouhý cíl je velká věc a zaslouží si víc než odškrtnutí políčka.",
+      "rewardPlaceholder": "Např. víkend u moře",
+      "setReward": "Napsat vlastní",
+      "suggest": "Nech si poradit",
+      "suggesting": "Vymýšlím…",
+      "suggested": "návrh",
+      "change": "Změnit",
+      "save": "Uložit",
+      "cancel": "Zpět",
+      "claim": "Dopřát si ji",
+      "claimed": "Odměna vybraná",
+      "claimedDone": "Odměnu máš za sebou. Zasloužená.",
+      "doneEyebrow": "A teď odměna",
+      "doneNoReward": "U tohohle cíle žádná odměna nečeká. Nastavit ji jde i teď — a teď je na ni přesně ta správná chvíle.",
+      "failed": "Nepovedlo se to. Zkus to prosím znovu."
     }
   },
   "withdrawal": {

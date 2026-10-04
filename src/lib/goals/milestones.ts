@@ -132,6 +132,15 @@ const suggestionsSchema = z.object({
       reward: z.string().min(1),
     }),
   ),
+  /**
+   * Odměna za celý cíl. Vlastní pole, ne další položka v seznamu.
+   *
+   * Přiřazení odměn k etapám jde podle pořadí v poli, ne podle `index`
+   * z odpovědi — model ho občas přeskočí. Kdyby závěrečná odměna byla
+   * poslední položkou téhož seznamu, stačilo by jedno chybějící číslo
+   * a celý cíl by dostal odměnu za jednu etapu.
+   */
+  finalReward: z.string().min(1).optional(),
 });
 
 const SYSTEM = `You suggest small rewards a person gives themselves for reaching a stage of a long goal.
@@ -147,6 +156,8 @@ Rules for every suggestion:
 - When you are told what this person enjoys, draw the rewards from that, not from what people generally like. When you are told what they do not enjoy, avoid it entirely — a reward someone does not want is worse than none.
 - One sentence each, at most fifteen words. No exclamation marks.
 - Do not repeat the same reward twice in the list.
+
+When you are asked for a reward for the whole goal, that one is different. It closes months of work that nobody else saw, and an evening off does not mark that — it is the one place to go bigger. A weekend away, the thing they have been talking themselves out of buying, a proper dinner out with the person who put up with all those evenings. Keep it inside what an ordinary budget bears: the point is that it is unmistakably an occasion, not that it is expensive. The other rules still hold — concrete, drawn from what this person enjoys, and never anything that undoes the goal.
 
 Write in the language you are told to use.`;
 
@@ -169,8 +180,24 @@ function systemFor(locale: Locale): string {
 Write every reward in ${language}, and in no other language. The person reads the app in ${language}; a reward they cannot read is worse than no reward at all. This applies even though these instructions are in English.`;
 }
 
-/** Návrhy odměn pro milníky, které zatím žádnou nemají. */
-export async function suggestRewards(goalId: string): Promise<number> {
+export type SuggestedRewards = {
+  /** Kolik etap dostalo odměnu. */
+  milestones: number;
+  /** Vznikla i odměna za celý cíl? */
+  final: boolean;
+};
+
+/**
+ * Návrhy odměn — pro etapy bez odměny a pro celý cíl, když ji nemá.
+ *
+ * Obojí v jednom volání schválně. Jsou to dva dotazy na totéž a model
+ * potřebuje na oba stejný kontext: cíl, etapy a co má ten člověk rád.
+ * Dvě volání by stála dvakrát a odměna za cíl by nevěděla, co padlo
+ * u etap — vyšla by stejná jako některá z nich.
+ */
+export async function suggestRewards(
+  goalId: string,
+): Promise<SuggestedRewards> {
   const goal = await db.goal.findUniqueOrThrow({
     where: { id: goalId },
     select: {
@@ -178,18 +205,39 @@ export async function suggestRewards(goalId: string): Promise<number> {
       userId: true,
       title: true,
       locale: true,
+      status: true,
+      finalChallenge: true,
+      finalRewardText: true,
       // Co má uživatel rád. Bez toho model hádá z ničeho a vychází
       // z toho průměr, který nikoho neosloví.
       user: { select: { rewardLikes: true, rewardDislikes: true } },
     },
   });
 
-  const pending = await db.milestone.findMany({
-    where: { goalId, rewardText: null },
-    orderBy: { targetDate: "asc" },
-    select: { id: true, title: true, timeBlock: { select: { summary: true } } },
-  });
-  if (pending.length === 0) return 0;
+  /*
+   * U dotaženého cíle se etapy už neodměňují.
+   *
+   * Závěrečnou odměnu si spousta lidí vybere až na oslavné stránce —
+   * a kdyby se u toho rozdaly odměny i za etapy, které jsou dávno za
+   * námi, platilo by se za návrhy, které nikdo nevyužije.
+   */
+  const pending =
+    goal.status === "COMPLETED"
+      ? []
+      : await db.milestone.findMany({
+          where: { goalId, rewardText: null },
+          orderBy: { targetDate: "asc" },
+          select: {
+            id: true,
+            title: true,
+            timeBlock: { select: { summary: true } },
+          },
+        });
+
+  const wantsFinal = !goal.finalRewardText;
+  if (pending.length === 0 && !wantsFinal) {
+    return { milestones: 0, final: false };
+  }
 
   const language = asLocale(goal.locale);
 
@@ -204,15 +252,30 @@ export async function suggestRewards(goalId: string): Promise<number> {
     ...(goal.user.rewardDislikes
       ? [`This person does not enjoy: ${goal.user.rewardDislikes}`]
       : []),
-    "",
-    `Suggest one reward for each of these ${pending.length} stages, in order:`,
-    ...pending.map(
-      (milestone, i) =>
-        `  ${i + 1}. ${milestone.title}${
-          milestone.timeBlock ? ` — ${milestone.timeBlock.summary}` : ""
-        }`,
-    ),
   ];
+
+  if (pending.length) {
+    lines.push(
+      "",
+      `Suggest one reward for each of these ${pending.length} stages, in order:`,
+      ...pending.map(
+        (milestone, i) =>
+          `  ${i + 1}. ${milestone.title}${
+            milestone.timeBlock ? ` — ${milestone.timeBlock.summary}` : ""
+          }`,
+      ),
+    );
+  }
+
+  if (wantsFinal) {
+    lines.push(
+      "",
+      "Also suggest one reward for reaching the whole goal. This is the big one and it has to feel like more than the stages above.",
+      ...(goal.finalChallenge
+        ? [`What they will have just done to earn it: ${goal.finalChallenge}`]
+        : []),
+    );
+  }
 
   const { data, usage } = await callStructured({
     system: systemFor(language),
@@ -220,6 +283,14 @@ export async function suggestRewards(goalId: string): Promise<number> {
     jsonSchema: {
       type: "object",
       properties: {
+        ...(wantsFinal
+          ? {
+              finalReward: {
+                type: "string",
+                description: `One reward for reaching the whole goal, written in ${localeAiNames[language]}. Bigger than the stage rewards — this one closes months of work. At most twenty-five words.`,
+              },
+            }
+          : {}),
         rewards: {
           type: "array",
           description: `Exactly ${pending.length} rewards, in the same order as the stages.`,
@@ -240,7 +311,7 @@ export async function suggestRewards(goalId: string): Promise<number> {
           },
         },
       },
-      required: ["rewards"],
+      required: wantsFinal ? ["rewards", "finalReward"] : ["rewards"],
       additionalProperties: false,
     },
     parser: suggestionsSchema,
@@ -253,23 +324,37 @@ export async function suggestRewards(goalId: string): Promise<number> {
     userId: goal.userId,
     operation: "REWARD_SUGGESTION",
     usage,
-    label: `odměny pro ${pending.length} milníků`,
+    label: `odměny pro ${pending.length} milníků${
+      wantsFinal ? " a za celý cíl" : ""
+    }`,
   });
 
   // Podle pořadí v poli, ne podle `index` z odpovědi — model ho občas
   // přeskočí a přiřazení odměny k cizí etapě by bylo horší než žádná.
   const assignments = data.rewards.slice(0, pending.length);
+  const finalReward = wantsFinal ? data.finalReward?.trim() : undefined;
 
-  await db.$transaction(
-    assignments.map((entry, i) =>
+  await db.$transaction([
+    ...assignments.map((entry, i) =>
       db.milestone.update({
         where: { id: pending[i].id },
         data: { rewardText: entry.reward, rewardSource: "AI_SUGGESTED" },
       }),
     ),
-  );
+    ...(finalReward
+      ? [
+          db.goal.update({
+            where: { id: goalId },
+            data: {
+              finalRewardText: finalReward,
+              finalRewardSource: "AI_SUGGESTED" as const,
+            },
+          }),
+        ]
+      : []),
+  ]);
 
-  return assignments.length;
+  return { milestones: assignments.length, final: Boolean(finalReward) };
 }
 
 /**

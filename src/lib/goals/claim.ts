@@ -149,6 +149,7 @@ export async function claimDemoGoal({
         priorityWeight: weightForImportance(importance),
         restatement: plan.goalRestated,
         assumptions: plan.assumptions,
+        finalChallenge: plan.finalChallenge ?? null,
         feasibility: plan.feasibility,
         feasibilityNote: plan.feasibilityNote,
         timeBlocks: {
