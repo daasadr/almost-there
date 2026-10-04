@@ -194,6 +194,11 @@ export type FinishState = {
  * visí mezi rozdělanými. Stačí jedno z toho: blíží se termín, nebo je
  * odškrtaná drtivá většina toho, co plán chtěl.
  *
+ * **Pozor:** tohle rozhoduje o tlačítku na stránce cíle, ne o okně na
+ * dnešku. Okno má vlastní, mnohem přísnější podmínku — viz
+ * `getFinishableGoals`. Nabídka mezi ostatními může přijít s předstihem;
+ * okno přes obrazovku ne.
+ *
  * Odškrtání všeho se ale nevyžaduje. Plán je návrh, ne podmínka —
  * a hlavně: budoucí týdny se generují průběžně, takže u cíle dotaženého
  * dřív spousta úkolů ani neexistuje a odškrtnout by nešly. Aplikace, která
@@ -253,17 +258,50 @@ export async function getFinishableGoals(
   });
 
   const now = Date.now();
+
   const checked = await Promise.all(
     goals.map(async (goal) => {
-      const state = await getFinishState(goal.id, goal.targetDate);
-      if (!state.ready) return null;
+      const overdue = goal.targetDate.getTime() < now;
+
+      const [pending, future] = await Promise.all([
+        db.task.count({ where: { goalId: goal.id, status: "PENDING" } }),
+        // Zbývá ještě nějaký naplánovaný den v budoucnu?
+        db.timeBlock.count({
+          where: {
+            goalId: goal.id,
+            level: "DAY",
+            startDate: { gt: new Date(now) },
+          },
+        }),
+      ]);
+
+      /*
+       * Kdy se smí vyskočit okno.
+       *
+       * Tohle je přísnější než `getFinishState`, a schválně. To se ptá,
+       * jestli má *smysl nabídnout tlačítko* na stránce cíle — tam je
+       * nabídka mezi ostatními a nic nepřeruší, takže klidně může přijít
+       * s předstihem.
+       *
+       * Okno je něco jiného. Vyskočí přes obrazovku a nabídne nevratný
+       * krok, takže se smí ozvat jedině tehdy, když je cíl opravdu
+       * u konce. S měkkou podmínkou to vyskakovalo celý poslední týden
+       * a málem se tím uzavřel cíl, který měl ještě půlku úkolů před
+       * sebou.
+       *
+       * Platí tedy jedno z:
+       *  - termín je za námi — pak je na místě se zeptat tak jako tak,
+       *  - nebo je hotovo všechno a žádný další den už plán nemá.
+       */
+      const ready = overdue || (pending === 0 && future === 0);
+      if (!ready) return null;
 
       return {
         id: goal.id,
         title: goal.title,
         color: goal.color,
-        pending: state.pending,
-        overdue: goal.targetDate.getTime() < now,
+        pending,
+        overdue,
       };
     }),
   );
