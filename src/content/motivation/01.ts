@@ -122,7 +122,7 @@ export const block: MotivationBlock = {
   {
     title: "Podmínky si vyrábíme sami",
     paragraphs: [
-      "Ahoj budovateli svého úspěchu,",
+      "Ahoj, ty na cestě k vlastnímu úspěchu,",
       "zamysli se na chvíli, jak často potichu čekáme? Na víc času. Na víc energie. Na správnou náladu. Na jasnější okolnosti. Na to, až někdo jiný udělá první krok. Na to, až se život uspořádá tak, aby začít bylo snadné.",
       "A zatímco se čeká, dny ubíhají. Příležitosti řídnou. Propast mezi životem, který chceme, a tím, který žijeme, se pomalu rozšiřuje.",
       "Přitom podmínky, na které se čeká, přicházejí hotové jen zřídka. Málokdo z těch, kdo byl úspěšný ve své oblasti, měl před sebou ideální podmínky už připravené. Někdy člověk sice dostane nějaký impulz, nějakou přihrávku, ale jakmile se toho chopí, nikdy není zaručeno, že podmínky zůstanou po celou cestu nakloněny. Podmínky vyrábějí lidé, kteří se rozhodnou začít a pokračovat navzdory ne vždy ideálním vlivům okolí.",
@@ -285,7 +285,7 @@ export const block: MotivationBlock = {
   {
     title: "We make the conditions ourselves",
     paragraphs: [
-      "Hello, builder of your own success,",
+      "Hello, you on the way to your own success,",
       "take a moment to think — how often do we quietly wait? For more time. For more energy. For the right mood. For clearer circumstances. For someone else to make the first move. For life to arrange itself so that starting feels easy.",
       "And while the waiting goes on, days pass. Opportunities thin out. The gap between the life we want and the one we are living slowly widens.",
       "Yet the conditions being waited for arrive ready-made only rarely. Hardly anyone who has got somewhere in their field had ideal conditions laid out in front of them. Sometimes a person does get a nudge, a pass played their way — but once they take it, nothing guarantees the conditions will stay favourable the whole way. Conditions are built by the people who decide to begin, and to carry on, even when what is around them is less than ideal.",
@@ -448,7 +448,7 @@ export const block: MotivationBlock = {
   {
     title: "Die Bedingungen machen wir selbst",
     paragraphs: [
-      "Hallo, Baumeister deines Erfolgs,",
+      "Hallo, du auf dem Weg zu deinem eigenen Erfolg,",
       "denk einen Moment nach — wie oft warten wir still? Auf mehr Zeit. Auf mehr Energie. Auf die richtige Stimmung. Auf klarere Umstände. Darauf, dass jemand anderes den ersten Schritt macht. Darauf, dass das Leben sich so ordnet, dass Anfangen leichtfällt.",
       "Und während gewartet wird, vergehen Tage. Gelegenheiten dünnen aus. Die Kluft zwischen dem Leben, das wir wollen, und dem, das wir führen, wird langsam größer.",
       "Dabei kommen die Bedingungen, auf die gewartet wird, nur selten fertig an. Kaum jemand, der in seinem Feld etwas erreicht hat, hatte ideale Bedingungen schon vor sich liegen. Manchmal bekommt man einen Anstoß, eine Vorlage — aber sobald man sie annimmt, ist nichts garantiert: Die Umstände bleiben einem nicht den ganzen Weg über gewogen. Gebaut werden die Bedingungen von Menschen, die sich entscheiden anzufangen und weiterzumachen, auch wenn das Umfeld nicht immer ideal ist.",

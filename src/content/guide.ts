@@ -43,17 +43,27 @@ export const guideByLocale: Record<Locale, GuideDocument> = {
         heading: "Co aplikace vlastně dělá",
         paragraphs: [
           "Řekneš jí cíl a datum, do kdy ho chceš mít splněný. Ona z toho spočítá plán pozpátku: rozdělí cestu na fáze po měsících, každou fázi na týdny a nejbližší týdny na konkrétní denní úkoly. Ráno pak otevřeš aplikaci a vidíš seznam na dnešek.",
-          "Rozdíl proti seznamu úkolů je v tom, že si ho nepíšeš sám. Aplikace ví, kolik času do termínu zbývá a kolik ho máš denně, a podle toho rozdělí práci. Když začneš zaostávat, ozve se a nabídne řešení.",
+          "Rozdíl proti seznamu úkolů je v tom, že ho nesestavuješ ty. Aplikace ví, kolik času do termínu zbývá a kolik ho máš denně, a podle toho rozdělí práci. Když začneš zaostávat, ozve se a nabídne řešení.",
         ],
       },
       {
         heading: "Než založíš první cíl: nastavení",
         paragraphs: [
           "Tři hodnoty v nastavení určují, jak bude plán vypadat, a platí pro všechny tvoje cíle dohromady. Vyplať se je projít dřív, než něco založíš — plán se podle nich staví a měnit je zpětně znamená přeplánovat.",
-          "Kolik času denně máš na cíle dohromady. Ne kolik bys chtěl, ale kolik reálně zvládneš i ve špatném týdnu. Nadsazené číslo je nejčastější důvod, proč plány padají.",
+          "Kolik času denně máš na cíle dohromady. Ne kolik by se ti líbilo, ale kolik reálně zvládneš i ve špatném týdnu. Nadsazené číslo je nejčastější důvod, proč plány padají.",
           "Jak často chceš mít volno. Na výběr je žádné volno, jeden nebo dva dny v týdnu, nebo obden. Dny volna jsou položkou plánu, ne mezerou v něm.",
           "Kolik minut denně na ohlédnutí. Krátká chvíle na zápis, co šlo a co ne. Dá se vypnout nulou.",
           "K tomu časové pásmo — podle něj aplikace pozná, kdy ti začíná nový den.",
+        ],
+      },
+      {
+        heading: "Šablony: když nechceš začínat u prázdného políčka",
+        paragraphs: [
+          "Prázdné „jaký je tvůj cíl?“ je nejtěžší místo celé aplikace. Kdo napíše „zhubnout“, dostane průměrný plán — ne proto, že by to aplikace neuměla, ale protože v zadání nebylo z čeho vyjít.",
+          "Šablona tenhle krok neusnadňuje tím, že za tebe vyplní políčka. Nese odbornost: pořadí, které se nedá přeskočit, obvyklou chybu, kvůli které to lidé vzdávají, podle čeho se pozná postup a co se má škrtnout jako první, až přestaneš stíhat. Z toho se pak staví plán — a je to ta část, kterou nevidíš.",
+          "Místo jednoho „odkud začínáš?“ se šablona zeptá na tři konkrétní věci, které zrovna u téhle cesty rozhodují. Odpovědi jsou to, co by jinak aplikace musela hádat.",
+          "Šablony najdeš tlačítkem vedle Nového cíle. Každá má vlastní stránku, kde je dopředu napsané, jak plán postupuje a co se v něm obětuje první — a ta stránka je veřejná, takže jde poslat komukoliv i bez účtu.",
+          "Šablona je zkratka, ne podmínka. Vlastní cíl napsaný od ruky funguje úplně stejně.",
         ],
       },
       {
@@ -81,8 +91,8 @@ export const guideByLocale: Record<Locale, GuideDocument> = {
         heading: "Každodenní používání",
         paragraphs: [
           "Hlavní obrazovka ukazuje dnešek: úkoly ze všech běžících cílů, každý ve své barvě, s odhadem, kolik zabere. Odškrtáváš je, jak je plníš.",
-          "U každého úkolu je návod, jak ho dnes udělat — pár kroků, ne jedna věta. Poslední krok bývá takový, aby ověřil, že práce dopadla, ne že jen proběhla: vysvětlit látku nahlas, jeden těžší příklad, zkusit totéž ještě jednou bez pomoci. Odškrtnout „věnoval jsem se tomu“ umí každý; o to tady nejde.",
-          "U cílů, kde se něco učíš, tě úkoly občas pošlou probrat téma s AI chatem — a to i tehdy, když žádné materiály nemáš. Je to zdroj, který má opravdu každý, nic nestojí a odpovídá na tvojí úrovni tak dlouho, dokud to nepochopíš. Úkol ti řekne přesně, na co se zeptat, a často i to, ať si od chatu necháš ověřit, že tomu rozumíš. Doporučujeme Claude.ai, ale funguje jakýkoliv oblíbený chat.",
+          "U každého úkolu je návod, jak ho dnes udělat — pár kroků, ne jedna věta. Poslední krok bývá takový, aby ověřil, že práce dopadla, ne že jen proběhla: vysvětlit látku nahlas, jeden těžší příklad, zkusit totéž ještě jednou bez pomoci. Odškrtnout položku za čas u toho strávený umí každý; o to tady nejde.",
+          "U cílů, kde se něco učíš, tě úkoly občas pošlou probrat téma s AI chatem — a to i tehdy, když žádné materiály nemáš. Je to zdroj, který má opravdu každý, nic nestojí a odpovídá na tvé úrovni tak dlouho, dokud to nepochopíš. Úkol ti řekne přesně, na co se zeptat, a často i to, ať si od chatu necháš ověřit, že tomu rozumíš. Doporučujeme Claude.ai, ale funguje jakýkoliv oblíbený chat.",
           "Nad seznamem je týdenní pruh se zkratkami dnů. Odškrtnuté dny mají háček, dnešek je zvýrazněný. Klikáním se dá projít celý týden dozadu i dopředu — hodí se, když si chceš doplnit včerejšek nebo se podívat, co tě čeká zítra.",
           "Pod tím je pruh posledních třiceti dnů. Není to hodnocení, jen obrázek toho, jak ti to jde ve skutečnosti.",
         ],
@@ -92,7 +102,7 @@ export const guideByLocale: Record<Locale, GuideDocument> = {
         paragraphs: [
           "Někdy úkol splnit nejde z důvodů, o kterých plán nemůže vědět — nemáš zrovna peníze, čekáš na někoho jiného, prší. U každého úkolu je proto tlačítko „Dnes nemůžu“.",
           "Nabídne přesunout úkol na zítřek, na konkrétní datum, nebo ho odložit stranou bez data. Úkol se nevyměňuje ani nenahrazuje jiným — je to pořád tentýž úkol, jen v jiný den. Můžeš připsat, proč to nešlo; použije se to, až se bude plán přepočítávat.",
-          "Neodškrtávej, co jsi neudělal. Aplikace podle odškrtaných dní počítá tempo a podle tempa ti radí — jedno falešné zaškrtnutí a začne ti tvrdit, že stíháš.",
+          "Neodškrtávej, co není udělané. Aplikace podle odškrtaných dní počítá tempo a podle tempa ti radí — jedno falešné zaškrtnutí a začne ti tvrdit, že stíháš.",
           "Když ti po odložení na dnešek nic jiného nezbude, aplikace nabídne úkoly z nejbližších dnů, které si můžeš vzít místo toho. Plán se tím nenafoukne, jen se posune dopředu.",
           "Úkoly odložené bez data mají vlastní seznam pod denním plánem. Nic nepřipomínají, ale nezmizí — kdykoliv jim můžeš dát datum.",
         ],
@@ -100,28 +110,55 @@ export const guideByLocale: Record<Locale, GuideDocument> = {
       {
         heading: "Když začneš zaostávat",
         paragraphs: [
-          "Vynechaný den se nic neděje. Když se ale za poslední dva týdny nasbírají tři dny, kdy jsi neudělal nic, aplikace se ozve a nabídne dvě cesty.",
+          "Vynechaný den se nic neděje. Když se ale za poslední dva týdny nasbírají tři dny bez jediného odškrtnutí, aplikace se ozve a nabídne dvě cesty.",
           "Dohnat skluz znamená nechat termín být a přeplánovat zbytek tak, aby se to stihlo. Přepočítat termín znamená posunout datum na takové, které odpovídá tempu, jaké máš doopravdy.",
           "Vybíráš vždycky ty. Aplikace ti termín sama neposune a nabídku po odmítnutí týden nezopakuje.",
           "Nedodělky z posledních sedmi dnů se ukazují nad dnešním seznamem. Můžeš je dodatečně odškrtnout, odložit na jindy, nebo je nechat být — někdy je to správná odpověď.",
-          "Jedna praktická rada: přeplánovávej spíš ráno než večer. Nový plán musí začít dneškem, takže dnešní úkoly nahradí novými — a co sis dnes už odškrtal, zmizí s nimi. Odškrtané dny z minulosti ani celkovou úspěšnost přeplánování nemaže, ta zůstává celá.",
+          "Jedna praktická rada: přeplánovávej spíš ráno než večer. Nový plán musí začít dneškem, takže dnešní úkoly nahradí novými — a co je dnes už odškrtnuté, zmizí s nimi. Odškrtané dny z minulosti ani celkovou úspěšnost přeplánování nemaže, ta zůstává celá.",
           "Ještě jedna věc, se kterou je dobré počítat: denní úkoly se rozepisují na aktuální období a na to nejbližší další, takže nepřítomnost do zhruba dvou týdnů plán pokryje — na nemoc nebo dovolenou to stačí. Když se ale neozveš déle, dny mezitím zůstanou bez úkolů a plán naváže až tvým příchodem. Do vyhodnocení tempa se ty prázdné dny počítají jako vynechané, takže se po návratu dozvíš, že jsi ve skluzu, a můžeš si termín přepočítat.",
+        ],
+      },
+      {
+        heading: "Když ti plán nesedí",
+        paragraphs: [
+          "Přeplánování po skluzu řeší, že se nestíhá. Někdy je ale potíž jinde: úkoly k cíli sedí, jen nesedí k tobě. Běhat se dá v lese i na dráze, učit se ráno i večer — a plán, který nechceš, je plán, který nebudeš plnit.",
+          "Na stránce cíle je proto tlačítko Upravit směr. Napíšeš vlastními slovy, co by mělo jít jinak, a zbytek plánu se podle toho přepracuje. Termín i cíl zůstávají.",
+          "Co je k dosažení cíle opravdu potřeba, v plánu zůstane, i kdyby se to s přáním trochu tlouklo. Kdyby to nešlo dohromady vůbec, dozvíš se proč — aplikace raději řekne pravdu, než aby tiše poslechla a nechala cíl mimo dosah.",
         ],
       },
       {
         heading: "Milníky a odměny",
         paragraphs: [
           "Každá fáze plánu končí milníkem — místem, kde je co ukázat. Ke každému si můžeš přidat odměnu, kterou si dáš, až tam dojdeš.",
-          "Odměnu buď napíšeš sám, nebo ji necháš navrhnout. Aby návrh za něco stál, vyplň si v nastavení, co ti udělá radost a co naopak ne. Bez toho vychází průměr, který nesedí skoro nikomu.",
+          "Odměnu si buď napíšeš, nebo si ji necháš navrhnout. Aby návrh za něco stál, vyplň si v nastavení, co ti udělá radost a co naopak ne. Bez toho vychází průměr, který nesedí skoro nikomu.",
           "Dlouhý cíl nedává měsíce žádnou zpětnou vazbu. Milník je to, co ho drží při životě.",
+          "Odměna za celý cíl je zvlášť, u závěrečné zkoušky — viz další oddíl. Milníky drží cestu, ta poslední zavírá celou věc.",
+        ],
+      },
+      {
+        heading: "Čím cíl skončí",
+        paragraphs: [
+          "Ke každému plánu patří závěrečná zkouška: jedna konkrétní věc, kterou se cíl prokáže. Zřídka je to zkouška v tom školním smyslu. Spíš ta věc samotná, udělaná naostro — hotová kresba místo dalšího cvičení, ten závod místo dalšího tréninku, půlhodina hovoru s někým, kdo kvůli tobě nezpomaluje.",
+          "Jsou na ní tři věci podstatné: dělá se bez pomoci, za skutečných podmínek a vcelku, ne po kouskách přes týdny. Vidíš ji od prvního dne nahoře na stránce cíle, protože podle ní se celý plán odvíjí pozpátku. Poslední období plánu je na ni vyhrazené.",
+          "Vedle ní je odměna za dotažení. Tu si buď napíšeš, nebo si ji necháš navrhnout, stejně jako u milníků — jen je větší, protože zavírá měsíce práce. Je vidět celou dobu, ne až na konci: vědět, co čeká, je půlka důvodu, proč tam dojít.",
+        ],
+      },
+      {
+        heading: "Když je cíl hotový",
+        paragraphs: [
+          "Až nezůstane co odškrtnout, aplikace se zeptá — ne dřív. Dlouho se ptala celý poslední týden a dalo se tím cíl zavřít předčasně; teď se ozve, až na dnešek nic nezbývá, nebo až je termín za námi a den je odbytý.",
+          "V tu chvíli máš tři možnosti. Mám hotovo cíl uzavře. Ještě ne okno zavře a zeptá se jindy. A třetí je Chci to ještě dotáhnout: cíl je u konce, ale ne v té podobě, o kterou ti šlo. Napíšeš, co ještě chybí, zadáš nový termín a zbytek plánu se dopíše.",
+          "Uzavření není změna stavu v databázi. Dostaneš vlastní stránku se shrnutím toho, co se za tu dobu stalo, a s čísly: kolik dní, kolik úkolů, kolik dnů volna, kolik etap. Odsud si taky vyzvedneš závěrečnou odměnu.",
+          "A pak se nabídne navázat. Nový cíl, který z dotaženého vychází — po kurzu skicování třeba krajina. Nezačíná od nuly: ví, kde ta předchozí cesta skončila. Původní cíl zůstává mezi dotaženými a oslava platí.",
+          "Dotažené cíle mají vlastní sbírku. Většina lidí svůj cíl nedotáhne; tohle je to místo, kde zůstává vidět, že ty jo.",
         ],
       },
       {
         heading: "Víc cílů najednou",
         paragraphs: [
-          "Souběžně můžeš mít až pět cílů. Plánují se dohromady, takže se ti nesejdou na stejné dny a nepřekročí čas, který jsi na ně vyhradil.",
+          "Souběžně můžeš mít až pět cílů. Plánují se dohromady, takže se ti nesejdou na stejné dny a nepřekročí čas, který na ně máš vyhrazený.",
           "U každého cíle nastavuješ důležitost. Podle ní se rozděluje denní kapacita — důležitější cíl dostane víc času.",
-          "Cíl jde kdykoliv pozastavit; přestane se objevovat v denním plánu a nebere si kapacitu. Pauza může trvat klidně měsíce. Až ho rozběhneš zpátky, posune se zbytek plánu i termín přesně o tu dobu, kterou cíl stál — navážeš tam, kde jsi přestal, jen s dnešními daty. Nic se negeneruje znovu a nic to nestojí; pořadí i rozestupy zůstávají, jak byly. Co proběhlo před pauzou, se nepřepisuje.",
+          "Cíl jde kdykoliv pozastavit; přestane se objevovat v denním plánu a nebere si kapacitu. Pauza může trvat klidně měsíce. Až ho rozběhneš zpátky, posune se zbytek plánu i termín přesně o tu dobu, kterou cíl stál — navážeš tam, kde cíl stál, jen s dnešními daty. Nic se negeneruje znovu a nic to nestojí; pořadí i rozestupy zůstávají, jak byly. Co proběhlo před pauzou, se nepřepisuje.",
           "Ke každému cíli si můžeš nahrát obrázky, které ti připomínají, proč to děláš. Jeden z nich se ukáže u denního seznamu; čím víc jich nahraješ, tím větší je pestrost.",
         ],
       },
@@ -145,7 +182,7 @@ export const guideByLocale: Record<Locale, GuideDocument> = {
         heading: "Ranní připomínka a myšlenka na den",
         paragraphs: [
           "Ráno se ti aplikace ozve krátkým textem — myšlenkou na den. V oznámení uvidíš dnešní téma a první větu; klepnutím se otevře celý text a dá se nechat přečíst nahlas. Chodí i ve dnech, kdy žádný cíl rozjetý nemáš.",
-          "Zapíná se v Důležitých nastaveních. Hned pod nastavením je tlačítko „Poslat zkušební oznámení“ — použij ho. Odpoví ti do vteřiny a je to jediný způsob, jak si ověřit, že opravdu dorazí, aniž bys čekal do rána.",
+          "Zapíná se v Důležitých nastaveních. Hned pod nastavením je tlačítko „Poslat zkušební oznámení“ — použij ho. Odpoví ti do vteřiny a je to jediný způsob, jak si ověřit, že opravdu dorazí, bez čekání do rána.",
           "Oznámení se nastavují pro každý prohlížeč a každé zařízení zvlášť. Není to vlastnost účtu: když si je zapneš na počítači, telefon o tom neví. Na každém zařízení, kde je chceš mít, je tedy musíš zapnout znovu — a na každém se taky dá zvlášť vypnout.",
           "Oznámení doručuje tvůj prohlížeč, ne my. My zprávu předáme jeho poštovní službě a tím naše část končí. Proto může přijít se zpožděním, když je zařízení vypnuté nebo bez signálu — počká a doručí se, jakmile se ozve. A proto taky zkušební oznámení hlásí „odesláno“: dál už nevidíme.",
         ],
@@ -172,9 +209,19 @@ export const guideByLocale: Record<Locale, GuideDocument> = {
         ],
       },
       {
+        heading: "Extra: myšlenky, hudba, sdílení",
+        paragraphs: [
+          "Vedle plánu je v aplikaci stránka Extra — tlačítko najdeš v hlavičce vedle přepínače vzhledu. Všechno na ní je zdarma a přístupné i bez účtu.",
+          "Myšlenka na den je krátký text na ráno. Jeden denně ti může chodit do oznámení, ale přečíst si jde kterákoli a kdykoli, a dá se nechat přečíst nahlas. Úplný seznam je na vlastní stránce.",
+          "Hudba jsou skladby, které vznikly k příspěvkům na sítích. Hodí se na rozjezd, na soustředění nebo jen tak.",
+          "Text i skladbu jde sdílet QR kódem. Rozklikneš kód, ukážeš ho z obrazovky a druhý člověk si to otevře u sebe — bez posílání odkazu a bez účtu.",
+        ],
+      },
+      {
         heading: "Účet, platba a odchod",
         paragraphs: [
           "Účet a předplatné se zakládá na webu. Platí se měsíčně nebo ročně, ročně vychází dva měsíce zdarma.",
+          "Začíná se sedmidenní zkouškou zdarma. Kartu u toho zadáváš — bez ní by nebylo na čem předplatné spustit — ale během těch sedmi dnů se nic nestrhne a zrušit jde kdykoliv. Dva dny před koncem ti přijde e-mail, aby tě přechod na placené nepřekvapil. Zkouška se dává jednou; kdo předplatné už měl a zrušil ho, ji podruhé nedostane.",
           "Předplatné zrušíš v aplikaci jedním tlačítkem. Doběhne do konce zaplaceného období — zaplacený čas se neukrajuje — a pak se samo neobnoví. Do té doby jde zrušení vzít zpátky.",
           "Účet můžeš smazat v nastavení. Není to deaktivace: cíle, plány, úkoly i nahrané obrázky se opravdu smažou. Podrobnosti o tom, co zůstává a proč, jsou na samostatné stránce o rušení účtu.",
         ],
@@ -209,6 +256,16 @@ export const guideByLocale: Record<Locale, GuideDocument> = {
           "How often you want a day off. Choose none, one or two days a week, or every other day. Rest days are items in the plan, not gaps in it.",
           "How many minutes a day for reflection. A short moment to note what worked and what did not. Zero turns it off.",
           "Plus your time zone, so the app knows when your day starts.",
+        ],
+      },
+      {
+        heading: "Templates: when you do not want to start from an empty box",
+        paragraphs: [
+          "The empty “what is your goal?” is the hardest place in the whole app. Write “lose weight” and you get an average plan — not because the app cannot do better, but because there was nothing in the brief to work from.",
+          "A template does not make that step easier by filling in boxes for you. It carries expertise: the order that cannot be skipped, the usual mistake that makes people give up, what counts as progress, and what gets cut first when you stop keeping up. The plan is built on that, and it is the part you never see.",
+          "Instead of a single “where are you starting from?”, a template asks three specific things that decide how this particular route should go. Those answers are what the app would otherwise have to guess.",
+          "You will find templates on the button next to New goal. Each one has its own page saying in advance how the plan runs and what gets sacrificed first — and that page is public, so you can send it to anyone, account or not.",
+          "A template is a shortcut, not a requirement. A goal written from scratch works exactly the same way.",
         ],
       },
       {
@@ -264,11 +321,38 @@ export const guideByLocale: Record<Locale, GuideDocument> = {
         ],
       },
       {
+        heading: "When the plan does not suit you",
+        paragraphs: [
+          "Replanning after a slip deals with not keeping up. Sometimes the trouble is elsewhere: the tasks fit the goal, they just do not fit you. Running works in a forest and on a track, studying works in the morning and in the evening — and a plan you do not want is a plan you will not follow.",
+          "So the goal page has an Adjust the route button. You write in your own words what should go differently, and the rest of the plan is reworked around it. The deadline stays and so does the goal.",
+          "Whatever is genuinely needed to reach the goal stays in the plan, even if it sits awkwardly with the request. If the two cannot be reconciled at all, you will be told why — the app would rather say so than quietly obey and leave the goal out of reach.",
+        ],
+      },
+      {
         heading: "Milestones and rewards",
         paragraphs: [
           "Every phase of the plan ends with a milestone — a point where there is something to show. To each one you can attach a reward you give yourself for getting there.",
           "Write the reward yourself, or have one suggested. For a suggestion to be worth anything, fill in what you enjoy and what does nothing for you in settings. Without that you get the average, which suits almost nobody.",
           "A long goal gives no feedback for months. The milestone is what keeps it alive.",
+          "The reward for the whole goal sits separately, next to the final test — see the next section. Milestones hold the route together; that last one closes the whole thing.",
+        ],
+      },
+      {
+        heading: "How the goal ends",
+        paragraphs: [
+          "Every plan has a final test: one concrete thing that proves the goal is reached. It is rarely a test in the school sense. More often it is the thing itself, done for real — the finished drawing rather than another exercise, the race rather than another training run, half an hour of conversation with someone who does not slow down for you.",
+          "Three things make it count: it is done unaided, under real conditions, and in one go rather than in pieces over weeks. You see it from day one at the top of the goal page, because the whole plan is worked backwards from it. The last stretch of the plan is set aside for it.",
+          "Next to it is the reward for finishing. You either write it yourself or have one suggested, the same as with milestones — only bigger, because it closes months of work. It stays visible the whole way rather than appearing at the end: knowing what is waiting is half the reason for getting there.",
+        ],
+      },
+      {
+        heading: "When the goal is done",
+        paragraphs: [
+          "Once there is nothing left to tick off, the app asks — not before. It used to ask throughout the final week, and a goal could be closed too early that way; now it speaks up when today holds nothing more, or when the deadline has passed and the day is done.",
+          "At that point you have three options. I have finished closes the goal. Not yet closes the window and asks another time. And the third is I want to take it further: the goal is at its end, but not the way you pictured it. You write what is still missing, give a new date, and the rest of the plan is written out.",
+          "Closing a goal is not a change of status in a database. You get your own page with a summary of what you went through and the numbers: how many days, how many tasks, how many rest days, how many stages. That is also where you take your final reward.",
+          "And then you are offered a follow-up. A new goal that comes out of the finished one — after a sketching course, landscape, say. It does not start from zero: it knows where you got to. The original stays among your finished goals and the celebration stands.",
+          "Finished goals have a collection of their own. Most people never finish the goal they set; this is where it stays visible that you did.",
         ],
       },
       {
@@ -327,11 +411,21 @@ export const guideByLocale: Record<Locale, GuideDocument> = {
         ],
       },
       {
+        heading: "Extras: thoughts, music, sharing",
+        paragraphs: [
+          "Alongside the plan there is an Extras page — the button is in the header, next to the appearance switch. Everything on it is free and open without an account.",
+          "The thought for the day is a short piece of writing for the morning. One a day can come to you as a notification, but you can read any of them at any time, and have them read aloud. The full list has its own page.",
+          "The music is made up of tracks written for posts on social media. Good for getting going, for concentrating, or for nothing in particular.",
+          "A piece of writing and a track can both be shared by QR code. Open the code, hold the screen up, and the other person opens it on their own device — no link to send and no account needed.",
+        ],
+      },
+      {
         heading: "Account, payment and leaving",
         paragraphs: [
-          "Accounts and subscriptions are set up on the website. You pay monthly or yearly; yearly works out as two months free.",
-          "You cancel the subscription in the app with one button. It runs to the end of the period you have paid for — paid time is never cut short — and then does not renew. Until then you can undo the cancellation.",
-          "You can delete the account in settings. It is not a deactivation: goals, plans, tasks and uploaded images are really deleted. What remains and why is described on a separate page about deleting your account.",
+          "Accounts and subscriptions are set up on the web. You pay monthly or yearly; yearly works out as two months free.",
+          "It starts with a seven-day free trial. You do enter a card — there would be nothing to start the subscription on otherwise — but nothing is taken during those seven days and you can cancel at any point. Two days before the end you get an email, so the switch to paying does not catch you out. The trial is given once; anyone who has had a subscription and cancelled it does not get a second one.",
+          "You cancel the subscription in the app with one button. It runs to the end of the period you have paid for — paid time is never cut short — and then does not renew. Until then the cancellation can be undone.",
+          "You can delete your account in settings. This is not deactivation: goals, plans, tasks and uploaded images really are deleted. What remains and why is set out on a separate page about closing an account.",
         ],
       },
       {
@@ -364,6 +458,16 @@ export const guideByLocale: Record<Locale, GuideDocument> = {
           "Wie oft du frei haben willst. Zur Wahl stehen kein freier Tag, ein oder zwei Tage pro Woche oder jeder zweite Tag. Freie Tage sind Teil des Plans, keine Lücken darin.",
           "Wie viele Minuten täglich zum Innehalten. Ein kurzer Moment, um festzuhalten, was lief und was nicht. Null schaltet es ab.",
           "Dazu die Zeitzone, damit die App weiß, wann dein Tag beginnt.",
+        ],
+      },
+      {
+        heading: "Vorlagen: wenn du nicht bei einem leeren Feld anfangen willst",
+        paragraphs: [
+          "Das leere „Was ist dein Ziel?“ ist die schwerste Stelle der ganzen App. Wer „abnehmen“ schreibt, bekommt einen durchschnittlichen Plan — nicht weil die App es nicht besser könnte, sondern weil in der Vorgabe nichts war, woraus sich etwas machen ließe.",
+          "Eine Vorlage erleichtert diesen Schritt nicht dadurch, dass sie Felder für dich ausfüllt. Sie bringt Fachwissen mit: die Reihenfolge, die man nicht überspringen kann, den üblichen Fehler, an dem Leute aufgeben, woran man Fortschritt erkennt, und was als Erstes gestrichen wird, wenn du nicht mehr mitkommst. Darauf wird der Plan gebaut, und genau diesen Teil bekommst du nie zu sehen.",
+          "Statt eines einzigen „Wo stehst du gerade?“ fragt eine Vorlage drei konkrete Dinge, die genau auf diesem Weg entscheiden. Diese Antworten sind das, was die App sonst raten müsste.",
+          "Die Vorlagen findest du über die Schaltfläche neben Neues Ziel. Jede hat eine eigene Seite, auf der vorab steht, wie der Plan verläuft und was zuerst geopfert wird — und diese Seite ist öffentlich, lässt sich also auch ohne Konto an jeden weitergeben.",
+          "Eine Vorlage ist eine Abkürzung, keine Bedingung. Ein selbst geschriebenes Ziel funktioniert genauso.",
         ],
       },
       {
@@ -419,11 +523,38 @@ export const guideByLocale: Record<Locale, GuideDocument> = {
         ],
       },
       {
+        heading: "Wenn der Plan nicht zu dir passt",
+        paragraphs: [
+          "Das Neuplanen nach einem Rückstand löst das Problem, dass es zeitlich nicht aufgeht. Manchmal liegt es aber woanders: Die Aufgaben passen zum Ziel, nur nicht zu dir. Laufen geht im Wald und auf der Bahn, Lernen geht morgens und abends — und ein Plan, den du nicht willst, ist ein Plan, den du nicht befolgst.",
+          "Auf der Zielseite gibt es deshalb die Schaltfläche Richtung anpassen. Du schreibst in eigenen Worten, was anders laufen soll, und der Rest des Plans wird daraufhin überarbeitet. Der Termin bleibt, das Ziel auch.",
+          "Was zum Erreichen des Ziels wirklich nötig ist, bleibt im Plan, auch wenn es sich mit dem Wunsch etwas reibt. Ließe sich beides gar nicht vereinbaren, erfährst du warum — die App sagt das lieber, als still zu gehorchen und das Ziel außer Reichweite zu lassen.",
+        ],
+      },
+      {
         heading: "Meilensteine und Belohnungen",
         paragraphs: [
           "Jede Phase des Plans endet mit einem Meilenstein — einem Punkt, an dem es etwas zu zeigen gibt. Zu jedem kannst du eine Belohnung hinterlegen, die du dir gibst, wenn du dort ankommst.",
           "Schreib die Belohnung selbst oder lass dir eine vorschlagen. Damit ein Vorschlag etwas taugt, trag in den Einstellungen ein, was dir Freude macht und was dir nichts sagt. Ohne das kommt der Durchschnitt heraus, der fast niemandem passt.",
           "Ein langes Ziel gibt monatelang keine Rückmeldung. Der Meilenstein hält es am Leben.",
+          "Die Belohnung für das ganze Ziel steht getrennt davon, bei der Abschlussprobe — siehe den nächsten Abschnitt. Meilensteine halten den Weg zusammen, jene letzte schließt die ganze Sache ab.",
+        ],
+      },
+      {
+        heading: "Womit das Ziel endet",
+        paragraphs: [
+          "Zu jedem Plan gehört eine Abschlussprobe: eine konkrete Sache, an der sich das Ziel zeigt. Eine Prüfung im schulischen Sinn ist es selten. Eher die Sache selbst, im Ernstfall gemacht — die fertige Zeichnung statt einer weiteren Übung, das Rennen statt eines weiteren Trainings, eine halbe Stunde Gespräch mit jemandem, der für dich nicht langsamer wird.",
+          "Drei Dinge machen sie aus: ohne Hilfe, unter echten Bedingungen und am Stück, nicht in Häppchen über Wochen. Du siehst sie vom ersten Tag an oben auf der Zielseite, denn der ganze Plan wird von ihr aus rückwärts entwickelt. Der letzte Abschnitt des Plans ist für sie reserviert.",
+          "Daneben steht die Belohnung fürs Durchziehen. Die schreibst du entweder selbst oder lässt dir eine vorschlagen, genau wie bei den Meilensteinen — nur größer, weil sie Monate an Arbeit abschließt. Sie ist die ganze Zeit sichtbar und taucht nicht erst am Ende auf: zu wissen, was wartet, ist die halbe Miete.",
+        ],
+      },
+      {
+        heading: "Wenn das Ziel erreicht ist",
+        paragraphs: [
+          "Sobald nichts mehr abzuhaken ist, fragt die App — vorher nicht. Früher fragte sie die ganze letzte Woche hindurch, und so ließ sich ein Ziel zu früh schließen; jetzt meldet sie sich, wenn für heute nichts mehr ansteht oder wenn der Termin vorbei und der Tag erledigt ist.",
+          "Dann hast du drei Möglichkeiten. Ich bin fertig schließt das Ziel ab. Noch nicht schließt das Fenster und fragt ein andermal. Und die dritte ist Ich will es noch weiterführen: Das Ziel ist am Ende, aber nicht so, wie du es dir vorgestellt hast. Du schreibst, was noch fehlt, gibst einen neuen Termin an, und der Rest des Plans wird dazugeschrieben.",
+          "Ein Ziel abzuschließen ist keine Statusänderung in einer Datenbank. Du bekommst eine eigene Seite mit einer Zusammenfassung dessen, was du durchgemacht hast, und mit Zahlen: wie viele Tage, wie viele Aufgaben, wie viele Ruhetage, wie viele Etappen. Dort holst du dir auch die Abschlussbelohnung.",
+          "Und dann wird dir ein Anschluss angeboten. Ein neues Ziel, das aus dem erreichten hervorgeht — nach einem Skizzenkurs zum Beispiel die Landschaft. Es fängt nicht bei null an: es weiß, wo du gelandet bist. Das ursprüngliche bleibt unter den erreichten Zielen und die Feier gilt.",
+          "Erreichte Ziele haben eine eigene Sammlung. Die meisten Menschen bringen ihr Ziel nie zu Ende; hier bleibt sichtbar, dass du es getan hast.",
         ],
       },
       {
@@ -482,11 +613,21 @@ export const guideByLocale: Record<Locale, GuideDocument> = {
         ],
       },
       {
+        heading: "Extras: Gedanken, Musik, Teilen",
+        paragraphs: [
+          "Neben dem Plan gibt es die Seite Extras — die Schaltfläche steht in der Kopfzeile, neben dem Umschalter fürs Aussehen. Alles darauf ist kostenlos und auch ohne Konto zugänglich.",
+          "Der Gedanke des Tages ist ein kurzer Text für den Morgen. Einer pro Tag kann dir als Mitteilung kommen, lesen kannst du aber jeden, jederzeit, und dir vorlesen lassen. Die vollständige Liste hat eine eigene Seite.",
+          "Die Musik sind Stücke, die zu Beiträgen in den sozialen Netzen entstanden sind. Gut zum Loslegen, zum Konzentrieren oder einfach so.",
+          "Text und Stück lassen sich per QR-Code teilen. Du öffnest den Code, hältst den Bildschirm hin, und die andere Person öffnet es bei sich — ohne Link zu verschicken und ohne Konto.",
+        ],
+      },
+      {
         heading: "Konto, Zahlung und Abschied",
         paragraphs: [
-          "Konto und Abo werden auf der Website eingerichtet. Bezahlt wird monatlich oder jährlich; jährlich ergibt zwei Monate geschenkt.",
-          "Das Abo kündigst du in der App mit einem Knopf. Es läuft bis zum Ende des bezahlten Zeitraums — bezahlte Zeit wird nie gekürzt — und verlängert sich dann nicht. Bis dahin kannst du die Kündigung zurücknehmen.",
-          "Das Konto kannst du in den Einstellungen löschen. Das ist keine Deaktivierung: Ziele, Pläne, Aufgaben und hochgeladene Bilder werden wirklich gelöscht. Was bleibt und warum, steht auf einer eigenen Seite zum Löschen des Kontos.",
+          "Konto und Abonnement werden im Web angelegt. Bezahlt wird monatlich oder jährlich; jährlich entspricht zwei Monaten gratis.",
+          "Es beginnt mit sieben Tagen kostenlos zum Ausprobieren. Eine Karte gibst du dabei an — sonst gäbe es nichts, worauf das Abonnement starten könnte —, aber in diesen sieben Tagen wird nichts abgebucht, und kündigen kannst du jederzeit. Zwei Tage vor Ablauf bekommst du eine E-Mail, damit dich der Wechsel ins Bezahlte nicht überrascht. Die Testphase gibt es einmal; wer schon ein Abonnement hatte und es gekündigt hat, bekommt keine zweite.",
+          "Das Abonnement kündigst du in der App mit einer Schaltfläche. Es läuft bis zum Ende des bezahlten Zeitraums — bezahlte Zeit wird nie gekürzt — und verlängert sich dann nicht. Bis dahin lässt sich die Kündigung zurücknehmen.",
+          "Dein Konto kannst du in den Einstellungen löschen. Das ist keine Deaktivierung: Ziele, Pläne, Aufgaben und hochgeladene Bilder werden wirklich gelöscht. Was bleibt und warum, steht auf einer eigenen Seite über das Schließen des Kontos.",
         ],
       },
       {
