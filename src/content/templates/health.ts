@@ -66,6 +66,25 @@ the goal ends in injury instead of a finish line.
         what: "Postaví týdenní rytmus s dlouhým během, lehkými kilometry a odpočinkem, s postupným růstem a odlehčenými týdny. Včetně zúžení před závodem.",
         forWhom:
           "Pro toho, kdo už nějak běhá a chce poprvé zvládnout celý maraton.",
+        phases: [
+          {
+            when: "Týdenní objem, ne hrdinské dny",
+            what: "Jeden dlouhý běh týdně, který pomalu roste, dva až tři lehké běhy a aspoň jeden celý den volna.",
+          },
+          {
+            when: "Lehké běhy opravdu lehce",
+            what: "Konverzačním tempem. Běhat lehké běhy moc rychle je zdaleka nejčastější důvod zranění a zastavení pokroku.",
+          },
+          {
+            when: "Každý čtvrtý týden volnější",
+            what: "Zotavení není ztracený čas, je to místo, kde se tělo mění. V plánu stojí napsané, aby to nevypadalo jako selhání.",
+          },
+          {
+            when: "Vyladění před závodem",
+            what: "Poslední dva až tři týdny se objem opravdu snižuje. Bude to připadat špatně a plán vysvětluje proč. Nejdelší trénink nemusí být celá vzdálenost.",
+          },
+        ],
+        whenBehind: "Škrtají se lehké běhy. Dlouhý běh a den volna zůstávají, a nábíhání se nikdy nestlačuje, aby se to dohnalo — tak končí cíl zraněním místo v cíli.",
         goal: "Natrénovat a doběhnout maraton",
         questions: [
           {
@@ -92,6 +111,25 @@ the goal ends in injury instead of a finish line.
         what: "Builds a weekly rhythm of one long run, easy miles and real rest, with gradual build-up, recovery weeks and a proper taper.",
         forWhom:
           "For anyone who already runs and wants to cover the full distance for the first time.",
+        phases: [
+          {
+            when: "Weekly volume, not heroic days",
+            what: "One long run a week that grows slowly, two or three easy runs, and at least one full rest day.",
+          },
+          {
+            when: "Easy runs genuinely easy",
+            what: "At conversational pace. Running the easy runs too fast is by far the most common reason people get injured or stop improving.",
+          },
+          {
+            when: "Every fourth week lighter",
+            what: "Recovery is not lost time; it is where the body changes. It is written into the plan so that it does not feel like failure.",
+          },
+          {
+            when: "The taper before the race",
+            what: "The last two to three weeks really do drop in volume. It will feel wrong, and the plan explains why. The longest training run does not need to be the full distance.",
+          },
+        ],
+        whenBehind: "The easy runs get cut. The long run and the rest day stay, and the build-up is never compressed to catch up — that is how the goal ends in an injury instead of a finish line.",
         goal: "Train for and finish a marathon",
         questions: [
           {
@@ -118,6 +156,25 @@ the goal ends in injury instead of a finish line.
         what: "Baut einen Wochenrhythmus aus einem langen Lauf, lockeren Kilometern und echter Erholung, mit langsamem Aufbau, Entlastungswochen und richtigem Tapering.",
         forWhom:
           "Für alle, die schon laufen und die volle Distanz zum ersten Mal schaffen wollen.",
+        phases: [
+          {
+            when: "Wochenumfang statt heldenhafter Tage",
+            what: "Ein langer Lauf pro Woche, der langsam wächst, zwei bis drei lockere Läufe und mindestens ein ganzer Ruhetag.",
+          },
+          {
+            when: "Lockere Läufe wirklich locker",
+            what: "Im Plaudertempo. Die lockeren Läufe zu schnell zu laufen ist mit Abstand der häufigste Grund für Verletzungen und Stillstand.",
+          },
+          {
+            when: "Jede vierte Woche leichter",
+            what: "Erholung ist keine verlorene Zeit, sondern der Ort, an dem der Körper sich verändert. Sie steht im Plan, damit sie sich nicht nach Versagen anfühlt.",
+          },
+          {
+            when: "Das Tapering vor dem Rennen",
+            what: "In den letzten zwei bis drei Wochen sinkt der Umfang wirklich. Es wird sich falsch anfühlen, und der Plan erklärt warum. Der längste Trainingslauf muss nicht die volle Distanz sein.",
+          },
+        ],
+        whenBehind: "Die lockeren Läufe fallen weg. Der lange Lauf und der Ruhetag bleiben, und der Aufbau wird nie zusammengedrückt, um aufzuholen — so endet das Ziel in einer Verletzung statt im Ziel.",
         goal: "Für einen Marathon trainieren und ihn finishen",
         questions: [
           {
@@ -183,6 +240,25 @@ drop an easy run.
         what: "Nastaví postupný růst od toho, co uběhneš dnes — klidně i od střídání běhu s chůzí — až po závodní vzdálenost, s odpočinkem v plánu.",
         forWhom:
           "Pro začínající i pro toho, kdo občas běhá a chce si poprvé sáhnout na skutečný závod.",
+        phases: [
+          {
+            when: "Nejdřív vůbec zvyk běhat",
+            what: "První týdny nejsou o objemu, ale o tom dostat se ven několikrát týdně. Kdo teď neběhá skoro vůbec, začíná střídáním běhu a chůze — je to nejrychlejší bezpečná cesta dovnitř.",
+          },
+          {
+            when: "Pak jeden delší běh týdně",
+            what: "Roste postupně, k tomu dva lehké běhy, aspoň jeden den volna a každý čtvrtý týden volnější.",
+          },
+          {
+            when: "Lehké znamená lehké",
+            what: "Nejčastější chyba začátečníků je běhat všechno stejně středně těžce a pak se zastavit na místě.",
+          },
+          {
+            when: "Nejdelší trénink blízko závodní vzdálenosti",
+            what: "Na rozdíl od maratonu se k ní dá dojít a stojí to za to kvůli jistotě. Pak krátké vyladění, zhruba týden.",
+          },
+        ],
+        whenBehind: "Zůstává dlouhý běh a den volna, vypadne jeden lehký běh. S vynechaným týdnem plán počítá, protože přijde.",
         goal: "Natrénovat a doběhnout půlmaraton",
         questions: [
           {
@@ -209,6 +285,25 @@ drop an easy run.
         what: "Builds gradually from wherever you are today — run-walk intervals are a fine start — up to race distance, with rest written into the plan.",
         forWhom:
           "For beginners and for occasional runners wanting their first real race.",
+        phases: [
+          {
+            when: "First the habit of running at all",
+            what: "The early weeks are not about volume but about getting out several times a week. If you barely run now, you start with run-walk intervals — it is the fastest safe way in.",
+          },
+          {
+            when: "Then one longer run a week",
+            what: "Growing steadily, with two easy runs, at least one rest day, and every fourth week lighter.",
+          },
+          {
+            when: "Easy means easy",
+            what: "The most common beginner mistake is running everything at the same moderately hard pace and then stalling.",
+          },
+          {
+            when: "The longest run close to race distance",
+            what: "Unlike the marathon, you can reach it, and it is worth doing for the confidence. Then a short taper of about a week.",
+          },
+        ],
+        whenBehind: "The long run and the rest day stay, one easy run goes. The plan expects a missed week, because there will be one.",
         goal: "Train for and finish a half marathon",
         questions: [
           {
@@ -235,6 +330,25 @@ drop an easy run.
         what: "Baut schrittweise von deinem heutigen Stand auf — Laufen im Wechsel mit Gehen ist ein guter Anfang — bis zur Wettkampfdistanz, mit Erholung im Plan.",
         forWhom:
           "Für Einsteiger und für Gelegenheitsläufer, die ihren ersten echten Wettkampf wollen.",
+        phases: [
+          {
+            when: "Zuerst überhaupt die Gewohnheit zu laufen",
+            what: "In den ersten Wochen geht es nicht um Umfang, sondern darum, mehrmals pro Woche rauszukommen. Wer jetzt kaum läuft, beginnt mit Wechseln aus Laufen und Gehen — das ist der schnellste sichere Einstieg.",
+          },
+          {
+            when: "Dann ein längerer Lauf pro Woche",
+            what: "Er wächst stetig, dazu zwei lockere Läufe, mindestens ein Ruhetag und jede vierte Woche leichter.",
+          },
+          {
+            when: "Locker heißt locker",
+            what: "Der häufigste Anfängerfehler ist, alles im gleichen mittelschweren Tempo zu laufen und dann stehenzubleiben.",
+          },
+          {
+            when: "Der längste Lauf nah an der Renndistanz",
+            what: "Anders als beim Marathon ist sie erreichbar, und für die Sicherheit lohnt es sich. Danach ein kurzes Tapering von etwa einer Woche.",
+          },
+        ],
+        whenBehind: "Der lange Lauf und der Ruhetag bleiben, ein lockerer Lauf fällt weg. Mit einer ausgefallenen Woche rechnet der Plan, denn sie kommt.",
         goal: "Für einen Halbmarathon trainieren und ihn finishen",
         questions: [
           {
@@ -303,6 +417,25 @@ else first.
         what: "Nejdřív srovná pravidelnost jídla, pak jeho obsah, teprve nakonec porce. K tomu nákupy, vaření a pohyb — a měří se podle chování, ne jen podle váhy.",
         forWhom:
           "Pro toho, kdo chce zhubnout a udržet to, a má za sebou pár pokusů, které nevydržely.",
+        phases: [
+          {
+            when: "Nejdřív pravidelná jídla",
+            what: "Ne omezování. Začít škrtáním dá dva dobré týdny a pak pád.",
+          },
+          {
+            when: "Pak co v těch jídlech je",
+            what: "Nákup a vaření jsou plnohodnotné úkoly. Většina výsledku se rozhoduje v obchodě, ne u stolu.",
+          },
+          {
+            when: "Teprve nakonec porce",
+            what: "Až když to předchozí drží samo od sebe.",
+          },
+          {
+            when: "Pohyb zvlášť a skromně",
+            what: "Chůze se počítá. Z tohohle plánu se nemá stát tréninkový.",
+          },
+        ],
+        whenBehind: "Zůstávají pravidelná jídla, všechno ostatní jde stranou jako první.",
         goal: "Zdravě zhubnout a udržet si to",
         questions: [
           {
@@ -329,6 +462,25 @@ else first.
         what: "Regular meals first, then what is in them, portions last. Plus shopping, cooking and movement — measured by behaviour, not only by the scale.",
         forWhom:
           "For anyone who wants to lose weight and keep it off, with a few attempts behind them that did not hold.",
+        phases: [
+          {
+            when: "Regular meals first",
+            what: "Not restriction. Starting with restriction gives you two good weeks and then a collapse.",
+          },
+          {
+            when: "Then what is in those meals",
+            what: "Shopping and cooking are real tasks. Most of the outcome is decided in the shop, not at the table.",
+          },
+          {
+            when: "Portions last",
+            what: "Only once everything before it holds on its own.",
+          },
+          {
+            when: "Movement separately, and modestly",
+            what: "Walking counts. This is not meant to turn into a training plan.",
+          },
+        ],
+        whenBehind: "Regular meals stay. Everything else is the first to go.",
         goal: "Lose weight in a way that lasts",
         questions: [
           {
@@ -355,6 +507,25 @@ else first.
         what: "Erst regelmäßige Mahlzeiten, dann ihr Inhalt, zuletzt die Portionen. Dazu Einkaufen, Kochen und Bewegung — gemessen am Verhalten, nicht nur an der Waage.",
         forWhom:
           "Für alle, die abnehmen und es halten wollen und schon ein paar Versuche hinter sich haben.",
+        phases: [
+          {
+            when: "Zuerst regelmäßige Mahlzeiten",
+            what: "Kein Verzicht. Mit Verzicht anzufangen bringt zwei gute Wochen und danach den Einbruch.",
+          },
+          {
+            when: "Dann, was in diesen Mahlzeiten steckt",
+            what: "Einkauf und Kochen sind vollwertige Aufgaben. Das Meiste entscheidet sich im Laden, nicht am Tisch.",
+          },
+          {
+            when: "Portionen zuletzt",
+            what: "Erst wenn alles davor von selbst hält.",
+          },
+          {
+            when: "Bewegung getrennt und bescheiden",
+            what: "Gehen zählt. Daraus soll kein Trainingsplan werden.",
+          },
+        ],
+        whenBehind: "Die regelmäßigen Mahlzeiten bleiben. Alles andere geht als Erstes.",
         goal: "Gesund abnehmen und das Gewicht halten",
         questions: [
           {
@@ -421,6 +592,25 @@ postpone the next one.
         what: "Vyměňuje jednu kategorii po druhé — pečivo, snídaně, nápoje, svačiny — a natrvalo. K tomu čtení etiket, zásoba jídel na unavené večery a řešení návštěv.",
         forWhom:
           "Pro toho, komu na váze nesejde, ale došlo mu, že si chce vybírat vědomě.",
+        phases: [
+          {
+            when: "Jedna kategorie po druhé",
+            what: "Pečivo, snídaně, nápoje, svačiny, omáčky, hotovky. Žádná přestavba všeho naráz — kategorie, která se vyměnila doopravdy, se nevrací.",
+          },
+          {
+            when: "Číst etikety jako dovednost",
+            what: "Poznat přidaný cukr pod jeho mnoha jmény. Vidět, kolik složek ta věc opravdu má. Všimnout si, které položky v obvyklém nákupu jsou ty průmyslové.",
+          },
+          {
+            when: "Postavit kapacitu na vaření",
+            what: "Malý repertoár jídel, která jdou uvařit i unavený. Vaření do zásoby. A připravený plán na večer, kdy není nic hotového.",
+          },
+          {
+            when: "Počítat i s lidmi kolem",
+            what: "Restaurace, rodina, která vaří jinak, návštěva. Plán, který funguje jen doma, selže ve druhém měsíci.",
+          },
+        ],
+        whenBehind: "Drží se kategorie, které už jsou vyměněné, a další se odloží. Běžné výjimky jsou povolené — „všechno nebo nic“ je to, co tyhle pokusy ukončuje.",
         goal: "Přejít na zdravější a méně zpracovanou stravu",
         questions: [
           {
@@ -447,6 +637,25 @@ postpone the next one.
         what: "Replaces one category at a time — bread, breakfast, drinks, snacks — and makes it stick. Plus label reading, a store of meals for tired evenings, and what to do as a guest.",
         forWhom:
           "For anyone who does not care about the scale but has realised they want to choose deliberately.",
+        phases: [
+          {
+            when: "One category at a time",
+            what: "Bread, breakfast, drinks, snacks, sauces, ready meals. No overhaul of everything at once — a category that has genuinely been replaced does not come back.",
+          },
+          {
+            when: "Label-reading as a real skill",
+            what: "Recognising added sugar under its many names. Seeing how many ingredients a thing really has. Noticing which items in the usual basket are the processed ones.",
+          },
+          {
+            when: "Building cooking capacity",
+            what: "A small repertoire of dishes that can be made while tired. Batch cooking. And a default plan for the evening when nothing is ready.",
+          },
+          {
+            when: "Counting on the people around you",
+            what: "Eating out, family who cook differently, being a guest. A plan that only works at home fails in the second month.",
+          },
+        ],
+        whenBehind: "Hold the categories already replaced and postpone the next one. Ordinary exceptions are allowed — all-or-nothing is what ends these attempts.",
         goal: "Move to better, less processed food",
         questions: [
           {
@@ -473,6 +682,25 @@ postpone the next one.
         what: "Ersetzt eine Kategorie nach der anderen — Brot, Frühstück, Getränke, Snacks — und zwar dauerhaft. Dazu Etiketten lesen, Vorrat für müde Abende und der Umgang mit Einladungen.",
         forWhom:
           "Für alle, denen die Waage egal ist, die aber bewusst wählen wollen.",
+        phases: [
+          {
+            when: "Eine Kategorie nach der anderen",
+            what: "Brot, Frühstück, Getränke, Snacks, Saucen, Fertiggerichte. Kein Umbau von allem auf einmal — eine Kategorie, die wirklich ersetzt wurde, kommt nicht zurück.",
+          },
+          {
+            when: "Etiketten lesen als echte Fähigkeit",
+            what: "Zugesetzten Zucker unter seinen vielen Namen erkennen. Sehen, wie viele Zutaten eine Sache wirklich hat. Merken, welche Dinge im üblichen Einkauf die verarbeiteten sind.",
+          },
+          {
+            when: "Koch-Kapazität aufbauen",
+            what: "Ein kleines Repertoire an Gerichten, die auch müde gelingen. Auf Vorrat kochen. Und ein fertiger Plan für den Abend, an dem nichts da ist.",
+          },
+          {
+            when: "Mit den Menschen ringsum rechnen",
+            what: "Essen gehen, Familie, die anders kocht, zu Gast sein. Ein Plan, der nur zu Hause funktioniert, scheitert im zweiten Monat.",
+          },
+        ],
+        whenBehind: "Die bereits ersetzten Kategorien werden gehalten, die nächste wird verschoben. Gewöhnliche Ausnahmen sind erlaubt — Alles-oder-nichts ist das, was solche Versuche beendet.",
         goal: "Auf besseres, weniger verarbeitetes Essen umsteigen",
         questions: [
           {

@@ -155,3 +155,48 @@ export function articleLd(
     publisher: { "@id": `${siteUrl()}/#organization` },
   };
 }
+
+/**
+ * Šablona cíle jako návod.
+ *
+ * `HowTo` je nejbližší tvar, který schema.org má: je to postup
+ * s kroky a odhadem, jak dlouho potrvá. Vyhledávač se díky tomu může
+ * zeptat „jak na to" a najít nás, ne jen stránku produktu — a jazykový
+ * model, který tohle čte, dostane rovnou pořadí kroků místo toho, aby
+ * si ho domýšlel z marketingových vět.
+ *
+ * `totalTime` je v zápisu ISO 8601, takže „P6M" znamená šest měsíců.
+ */
+export function howToLd({
+  locale,
+  id,
+  name,
+  description,
+  months,
+  steps,
+}: {
+  locale: Locale;
+  id: string;
+  name: string;
+  description: string;
+  months: number;
+  steps: { name: string; text: string }[];
+}): Json {
+  const url = absoluteUrl(locale, `/templates/${id}`);
+
+  return {
+    "@type": "HowTo",
+    "@id": `${url}#howto`,
+    name,
+    description,
+    inLanguage: locale,
+    url,
+    totalTime: `P${months}M`,
+    step: steps.map((step, index) => ({
+      "@type": "HowToStep",
+      position: index + 1,
+      name: step.name,
+      text: step.text,
+    })),
+  };
+}

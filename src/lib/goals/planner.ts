@@ -1,5 +1,6 @@
 import "server-only";
 import { db } from "@/lib/db";
+import { templateById } from "@/content/templates";
 import { decomposeGoal, planUnit } from "@/lib/ai/decompose";
 import { expandIntoBlocks, expandIntoDays, type GoalContext } from "@/lib/ai/expand";
 import {
@@ -128,9 +129,18 @@ export async function createGoalWithPlan({
   importance = 3,
   color = "lime",
   continuesFromId,
+  templateId,
 }: {
   userId: string;
   title: string;
+  /**
+   * Ze které šablony cíl vzniká.
+   *
+   * Šablona do plánu nepřináší předvyplněná políčka — ta jsou jen
+   * pohodlí. Přináší odborný pokyn, který uživatel nevidí a sám by ho
+   * nenapsal, protože by musel ten obor umět.
+   */
+  templateId?: string;
   /**
    * Na který dotažený cíl tenhle navazuje.
    *
@@ -184,6 +194,10 @@ export async function createGoalWithPlan({
 
   const decomposed = await decomposeGoal({
     goal: title,
+    // Odborný pokyn ze šablony. Tohle je to, proč šablona existuje:
+    // uživatel ho nevidí a sám by ho nenapsal, protože by musel ten
+    // obor umět.
+    guidance: templateId ? templateById(templateId)?.guidance : undefined,
     // Popis od uživatele patří modelu, ne jen do databáze. Bez něj plánuje
     // podle názvu cíle a všechno ostatní si domýšlí.
     context: description,
@@ -227,6 +241,7 @@ export async function createGoalWithPlan({
       locale,
       color,
       priorityWeight: weightForImportance(importance),
+      templateId: templateId ?? null,
       restatement: plan.goalRestated,
       assumptions: plan.assumptions,
       finalChallenge: plan.finalChallenge ?? null,

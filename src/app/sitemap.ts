@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { locales } from "@/i18n/routing";
 import { LEGAL_VERSION } from "@/content/legal";
 import { articlesFor } from "@/content/articles";
+import { templates } from "@/content/templates";
 import { absoluteUrl } from "@/lib/seo/site";
 
 /**
@@ -18,6 +19,7 @@ import { absoluteUrl } from "@/lib/seo/site";
 const PAGES = [
   { path: "", priority: 1 },
   { path: "/demo", priority: 0.8 },
+  { path: "/templates", priority: 0.9 },
   { path: "/guide", priority: 0.7 },
   { path: "/terms", priority: 0.3, lastModified: LEGAL_VERSION },
   { path: "/privacy", priority: 0.3, lastModified: LEGAL_VERSION },
@@ -26,7 +28,11 @@ const PAGES = [
 export default function sitemap(): MetadataRoute.Sitemap {
   const buildTime = new Date();
 
-  return [...pageEntries(buildTime), ...blogEntries()];
+  return [
+    ...pageEntries(buildTime),
+    ...templateEntries(buildTime),
+    ...blogEntries(),
+  ];
 }
 
 function pageEntries(buildTime: Date): MetadataRoute.Sitemap {
@@ -43,6 +49,37 @@ function pageEntries(buildTime: Date): MetadataRoute.Sitemap {
         ),
       },
     })),
+  );
+}
+
+/**
+ * Šablony do mapy.
+ *
+ * Priorita je vysoká schválně. Tohle jsou jediné stránky webu, které
+ * mluví o tom, co lidé doopravdy hledají — o maratonu, o kreslení,
+ * o prvních zákaznících — a ne o plánovači. Úvodní stránka je nenahradí:
+ * ta mluví o nástroji, kdežto hledá se ta věc.
+ *
+ * Jazykové varianty tu jsou, na rozdíl od článků: šablona existuje ve
+ * všech třech jazycích na stejné adrese.
+ */
+function templateEntries(buildTime: Date): MetadataRoute.Sitemap {
+  return locales.flatMap((locale) =>
+    templates.map((template) => {
+      const path = `/templates/${template.id}`;
+
+      return {
+        url: absoluteUrl(locale, path),
+        lastModified: buildTime,
+        changeFrequency: "monthly" as const,
+        priority: 0.8,
+        alternates: {
+          languages: Object.fromEntries(
+            locales.map((code) => [code, absoluteUrl(code, path)]),
+          ),
+        },
+      };
+    }),
   );
 }
 

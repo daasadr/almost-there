@@ -28,6 +28,14 @@ export type GoalDraft = {
   title: string;
   description: string;
   startingPoint: string;
+  /**
+   * Odpovědi na otázky šablony, podle `id` otázky.
+   *
+   * Nepovinné, protože cíl psaný od ruky žádné nemá. Ukládají se
+   * s konceptem ze stejného důvodu jako všechno ostatní: kdo zavře
+   * záložku uprostřed vyplňování, nemá o odpovědi přijít.
+   */
+  answers?: Record<string, string>;
   targetDate: string;
   importance: number;
   color: string;

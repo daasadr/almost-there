@@ -331,6 +331,14 @@ model Goal {
   feasibility     String?
   feasibilityNote String?
 
+  /// Ze které šablony cíl vznikl. Prázdné u cílů psaných od ruky.
+  ///
+  /// Není to jen záznam pro statistiku. Šablona nese odborný pokyn pro
+  /// model a ten se znovu použije při každém přeplánování — bez tohohle
+  /// pole by plán po prvním skluzu ztratil všechno, čím se lišil od
+  /// obecného rozvrhu, a nikdo by nepoznal proč.
+  templateId String?
+
   /// Na který dotažený cíl tenhle navazuje.
   ///
   /// Někdy člověk chce pokračovat, jen trochu jinam — po kurzu skicování

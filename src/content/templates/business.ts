@@ -56,6 +56,25 @@ conversations. That is the opposite of what they will want to do.
         what: "Rozpadne cestu k deseti zaplaceným objednávkám na týdenní počty rozhovorů, nabídek a uzavření — a pohlídá, aby se místo prodávání nedělal jen produkt.",
         forWhom:
           "Pro toho, kdo má co nabídnout, ale ještě mu za to nikdo nezaplatil. I když to není úplně hotové.",
+        phases: [
+          {
+            when: "Nejdřív jedna skupina a jeden problém",
+            what: "Pojmenovat konkrétní lidi a potíž, za jejíž řešení už dnes platí. „Malé firmy“ je mlhavé zadání a vede k mlhavému oslovování, na které nikdo neodpoví.",
+          },
+          {
+            when: "Pak rozhovory, dřív než se cokoliv staví",
+            what: "Daný počet hovorů týdně, počítaný. Většina týdnů má obsahovat víc mluvení než stavění — budování je příjemné a vypadá jako práce, jenže zákazníky nepřivede.",
+          },
+          {
+            when: "Požádat o peníze brzy",
+            what: "Na nejmenší možné verzi nabídky. První skutečný prodej naučí víc než měsíc příprav, protože teprve u něj se pozná, co lidé opravdu chtějí.",
+          },
+          {
+            when: "Teprve nakonec vylepšovat",
+            what: "Podle toho, co řekli kupující, ne podle toho, co se zdálo. V plánu jsou i ty neatraktivní věci: jak vzít platbu, co napsat do první zprávy, co odpovědět na „to je drahé“.",
+          },
+        ],
+        whenBehind: "Škrtá se práce na produktu, rozhovory zůstávají. Je to přesně naopak, než na co má člověk chuť.",
         goal: "Získat prvních deset platících zákazníků",
         questions: [
           {
@@ -82,6 +101,25 @@ conversations. That is the opposite of what they will want to do.
         what: "Breaks the path to ten paid orders into weekly counts of conversations, offers and closes — and keeps you from building instead of selling.",
         forWhom:
           "For anyone who has something to offer but nobody has paid for it yet. Even if it is not quite finished.",
+        phases: [
+          {
+            when: "One group of people, one problem",
+            what: "Name people specifically, and a problem they already pay to have solved. “Small businesses” is a vague brief and produces vague outreach that nobody answers.",
+          },
+          {
+            when: "Then conversations, before anything gets built",
+            what: "A set number of conversations a week, counted. Most weeks hold more talking than building — building is pleasant and looks like work, but it does not bring customers.",
+          },
+          {
+            when: "Ask for money early",
+            what: "On the smallest possible version of the offer. One real sale teaches more than a month of preparation, because that is where you find out what people actually want.",
+          },
+          {
+            when: "Improve the product last",
+            what: "Guided by what buyers said, not by what seemed likely. The unglamorous parts are tasks too: how to take payment, what the first message says, what to answer when someone says it is too expensive.",
+          },
+        ],
+        whenBehind: "Product work gets cut and the conversations stay. That is the exact opposite of what you will feel like doing.",
         goal: "Win my first ten paying customers",
         questions: [
           {
@@ -108,6 +146,25 @@ conversations. That is the opposite of what they will want to do.
         what: "Zerlegt den Weg zu zehn bezahlten Aufträgen in wöchentliche Zahlen: Gespräche, Angebote, Abschlüsse — und verhindert, dass du baust statt verkaufst.",
         forWhom:
           "Für alle, die etwas anzubieten haben, für das noch niemand bezahlt hat. Auch wenn es noch nicht ganz fertig ist.",
+        phases: [
+          {
+            when: "Eine Gruppe, ein Problem",
+            what: "Konkrete Menschen benennen und ein Problem, für dessen Lösung sie heute schon zahlen. „Kleine Unternehmen“ ist eine vage Vorgabe und führt zu vager Ansprache, auf die niemand antwortet.",
+          },
+          {
+            when: "Dann Gespräche, bevor irgendetwas gebaut wird",
+            what: "Eine feste Zahl Gespräche pro Woche, gezählt. In den meisten Wochen wird mehr geredet als gebaut — Bauen ist angenehm und sieht nach Arbeit aus, bringt aber keine Kunden.",
+          },
+          {
+            when: "Früh nach Geld fragen",
+            what: "Bei der kleinstmöglichen Version des Angebots. Ein echter Verkauf lehrt mehr als ein Monat Vorbereitung, denn erst dort zeigt sich, was die Leute wirklich wollen.",
+          },
+          {
+            when: "Das Produkt zuletzt verbessern",
+            what: "Nach dem, was Käufer gesagt haben, nicht nach dem, was plausibel schien. Auch das Unglamouröse sind Aufgaben: wie man Zahlungen annimmt, was in der ersten Nachricht steht, was man auf „das ist zu teuer“ antwortet.",
+          },
+        ],
+        whenBehind: "Die Produktarbeit wird gestrichen, die Gespräche bleiben. Das ist genau das Gegenteil von dem, wonach dir sein wird.",
         goal: "Meine ersten zehn zahlenden Kunden gewinnen",
         questions: [
           {
@@ -169,6 +226,25 @@ Keep the administrative steps and the first offer.
         what: "Seřadí úřední kroky do pořadí, ve kterém se dělají, a rozpadne je na večerní úkoly. Pak navede k první vystavené faktuře.",
         forWhom:
           "Pro toho, kdo má práci, kterou hned tak neopustí, a chce si vedle ní něco rozjet naostro.",
+        phases: [
+          {
+            when: "Papíry v pořadí, ve kterém na sebe navazují",
+            what: "Živnost, daně, zdravotní a sociální, účet, faktury, co se musí od prvního dne evidovat. Každý krok jako jeden malý úkol s jasným „hotovo“.",
+          },
+          {
+            when: "Ověřit si to u svého úřadu",
+            what: "Přesné kroky a lhůty se liší podle země, takže plán dává pořadí a posílá si je potvrdit. Chybějící pořadí je to, kvůli čemu se celá věc zasekne dřív, než začne.",
+          },
+          {
+            when: "První nabídka, ne podnikatelský plán",
+            what: "Jedna nabídka, jedna skupina lidí, první faktura. Ne analýza trhu a ne web, který se bude ladit do léta.",
+          },
+          {
+            when: "Práce zůstává prací",
+            what: "Plán počítá s večery po běžném dni a s tím, že některé týdny padnou. Alespoň jeden opravdu volný den v týdnu — kdo vyhoří ve druhém měsíci, nedokončí nic.",
+          },
+        ],
+        whenBehind: "Škrtá se dolaďování a studium. Úřední kroky a první nabídka zůstávají.",
         goal: "Rozjet vlastní živnost vedle zaměstnání",
         questions: [
           {
@@ -184,7 +260,7 @@ Keep the administrative steps and the first offer.
           {
             id: "done",
             label: "Co už máš za sebou?",
-            hint: "nic / mám nápad a zjišťuji / už jsem něco udělal načerno",
+            hint: "nic / mám nápad a zjišťuji / něco už běží načerno",
           },
         ],
       },
@@ -195,6 +271,25 @@ Keep the administrative steps and the first offer.
         what: "Puts the administrative steps in the order they are actually done and breaks them into evening-sized tasks. Then takes you to the first invoice.",
         forWhom:
           "For anyone with a job they are not about to leave, who wants to start something real beside it.",
+        phases: [
+          {
+            when: "The paperwork, in the order it depends on itself",
+            what: "Registration, tax, health and social insurance, a bank account, invoicing, what has to be recorded from day one. Each step is one small task with a clear “done”.",
+          },
+          {
+            when: "Check it against your own authority",
+            what: "The exact steps and deadlines differ by country, so the plan gives you the sequence and sends you to confirm it. The missing sequence is what stalls the whole thing before it starts.",
+          },
+          {
+            when: "A first offer, not a business plan",
+            what: "One offer, one group of people, a first invoice. Not market analysis, and not a website that gets polished until summer.",
+          },
+          {
+            when: "The job stays the job",
+            what: "The plan assumes tired evenings and accepts that some weeks will be lost. At least one genuinely free day a week — someone who burns out in month two finishes nothing.",
+          },
+        ],
+        whenBehind: "Polishing and studying get cut. The administrative steps and the first offer stay.",
         goal: "Start my own business alongside my job",
         questions: [
           {
@@ -221,6 +316,25 @@ Keep the administrative steps and the first offer.
         what: "Bringt die Behördenschritte in die Reihenfolge, in der sie wirklich gemacht werden, und zerlegt sie in Aufgaben für einen Abend. Danach führt er zur ersten Rechnung.",
         forWhom:
           "Für alle mit einem Job, den sie so bald nicht aufgeben, und die daneben etwas Echtes aufbauen wollen.",
+        phases: [
+          {
+            when: "Der Papierkram in der Reihenfolge, in der er aufeinander aufbaut",
+            what: "Gewerbeanmeldung, Steuer, Kranken- und Sozialversicherung, Konto, Rechnungen, was vom ersten Tag an festgehalten werden muss. Jeder Schritt eine kleine Aufgabe mit klarem „erledigt“.",
+          },
+          {
+            when: "Bei deiner eigenen Behörde prüfen",
+            what: "Die genauen Schritte und Fristen unterscheiden sich je nach Land, deshalb gibt der Plan die Reihenfolge und schickt dich zum Bestätigen. Genau diese fehlende Reihenfolge lässt die Sache steckenbleiben, bevor sie anfängt.",
+          },
+          {
+            when: "Ein erstes Angebot, kein Businessplan",
+            what: "Ein Angebot, eine Gruppe von Menschen, eine erste Rechnung. Keine Marktanalyse und keine Website, an der bis zum Sommer gefeilt wird.",
+          },
+          {
+            when: "Der Job bleibt der Job",
+            what: "Der Plan rechnet mit müden Abenden und damit, dass manche Wochen ausfallen. Mindestens ein wirklich freier Tag pro Woche — wer im zweiten Monat ausbrennt, bringt gar nichts zu Ende.",
+          },
+        ],
+        whenBehind: "Feinschliff und Lernen werden gestrichen. Die behördlichen Schritte und das erste Angebot bleiben.",
         goal: "Neben meinem Job selbstständig werden",
         questions: [
           {
@@ -285,12 +399,31 @@ When the person falls behind, cut the studying, never the exposures.
         what: "Postaví denní a týdenní cvičení ve třech proudech: nanečisto o samotě, naostro mezi lidmi a trocha teorie, kterou hned použiješ.",
         forWhom:
           "Pro toho, kdo svou práci dělá dobře a je mu nepříjemné za ni říct si o cenu.",
+        phases: [
+          {
+            when: "Nácvik o samotě",
+            what: "Napsat nabídku, přepsat ceník, nahrát se, jak třicet vteřin vysvětluješ, co děláš. Nanečisto, ale pořádně.",
+          },
+          {
+            when: "Nácvik s lidmi, po malých krocích",
+            what: "Říct známému, co děláš, bez omlouvání. Poprosit jednoho člověka o doporučení. Poslat jednu zprávu někomu cizímu. Pak zavolat.",
+          },
+          {
+            when: "Ceny jako vlastní téma",
+            what: "Vyslovit číslo bez zaváhání. Zvednout cenu stávajícímu klientovi. Unést „to je drahé“, aniž by z toho byla sleva.",
+          },
+          {
+            when: "Studium po lžičkách",
+            what: "Jeden princip týdně a hned použitý. Nikdy ne další kapitola, dokud ta předchozí nebyla v praxi.",
+          },
+        ],
+        whenBehind: "Škrtá se studium, nikdy ne ty malé zkoušky s lidmi. Na nich celá věc stojí.",
         goal: "Naučit se prodávat to, co dělám, a říct si o svou cenu",
         questions: [
           {
             id: "work",
             label: "Co nabízíš?",
-            hint: "krátce, jako bys to říkal cizímu člověku",
+            hint: "krátce, jako cizímu člověku",
           },
           {
             id: "hardest",
@@ -311,6 +444,25 @@ When the person falls behind, cut the studying, never the exposures.
         what: "Builds daily and weekly exercises in three strands: rehearsal alone, real exposure with people, and just enough theory to use the same week.",
         forWhom:
           "For anyone who does good work and finds it uncomfortable to name their price.",
+        phases: [
+          {
+            when: "Practice alone",
+            what: "Write the offer. Rewrite the price list. Record yourself explaining in thirty seconds what you do. Not for real yet, but done properly.",
+          },
+          {
+            when: "Practice with people, in small steps",
+            what: "Tell an acquaintance what you do without apologising. Ask one person for a referral. Send one message to a stranger. Then make the call.",
+          },
+          {
+            when: "Pricing as its own thread",
+            what: "Say the number out loud without flinching. Raise a price with an existing client. Take “that is expensive” without it turning into a discount.",
+          },
+          {
+            when: "Study by the spoonful",
+            what: "One principle a week, used immediately. Never the next chapter until the last one has been out in the world.",
+          },
+        ],
+        whenBehind: "Studying gets cut, never the small exposures with people. The whole thing rests on those.",
         goal: "Learn to sell what I do and ask for my price",
         questions: [
           {
@@ -337,6 +489,25 @@ When the person falls behind, cut the studying, never the exposures.
         what: "Baut tägliche und wöchentliche Übungen in drei Strängen: Probe allein, echte Begegnungen mit Menschen und gerade so viel Theorie, wie du in derselben Woche anwendest.",
         forWhom:
           "Für alle, die gute Arbeit machen und denen es unangenehm ist, ihren Preis zu nennen.",
+        phases: [
+          {
+            when: "Allein üben",
+            what: "Das Angebot schreiben. Die Preisliste neu schreiben. Dich aufnehmen, wie du in dreißig Sekunden erklärst, was du tust. Noch nicht im Ernstfall, aber richtig.",
+          },
+          {
+            when: "Mit Menschen üben, in kleinen Schritten",
+            what: "Einer bekannten Person sagen, was du tust, ohne dich zu entschuldigen. Eine Person um eine Empfehlung bitten. Eine Nachricht an jemanden Fremdes schicken. Dann anrufen.",
+          },
+          {
+            when: "Preise als eigener Strang",
+            what: "Die Zahl aussprechen, ohne zu zucken. Bei einem bestehenden Kunden den Preis erhöhen. „Das ist teuer“ aushalten, ohne dass ein Rabatt daraus wird.",
+          },
+          {
+            when: "Lernen löffelweise",
+            what: "Ein Prinzip pro Woche, sofort angewendet. Nie das nächste Kapitel, solange das letzte nicht draußen war.",
+          },
+        ],
+        whenBehind: "Das Lernen wird gestrichen, nie die kleinen Versuche mit Menschen. Darauf steht die ganze Sache.",
         goal: "Lernen, meine Arbeit zu verkaufen und meinen Preis zu nennen",
         questions: [
           {

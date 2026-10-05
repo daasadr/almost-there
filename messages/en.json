@@ -552,7 +552,8 @@
       "draftContinue": "Carry on",
       "draftDiscard": "Discard",
       "openPlan": "View the full plan",
-      "ticked": "{count, plural, one {# task ticked off} other {# tasks ticked off}}"
+      "ticked": "{count, plural, one {# task ticked off} other {# tasks ticked off}}",
+      "templates": "Templates"
     },
     "form": {
       "title": "New goal",
@@ -1206,5 +1207,28 @@
       "position": "Position in the track",
       "shareQr": "Share the music by QR code"
     }
+  },
+  "templates": {
+    "metaTitle": "Goal templates",
+    "metaDescription": "Ready-made briefs for the things people set out to do most often — from a marathon to the first paying customers. Each carries what someone who has done it knows about the field.",
+    "title": "Goal templates",
+    "intro": "The empty “what is your goal?” box is the hardest place in the whole app — and the one that decides how good the plan turns out. A template does not just save you a few clicks. It carries expertise: the order that cannot be skipped, the usual mistake that makes people give up, and what gets cut first when the weeks stop going to plan.",
+    "areas": {
+      "business": "Business and money",
+      "health": "Health and fitness",
+      "learning": "Learning and making",
+      "home": "Home and surroundings"
+    },
+    "months": "{count, plural, one {# month} other {# months}}",
+    "ownGoal": "Not yours among them? That is fine — a template is a shortcut, not a requirement.",
+    "ownGoalCta": "Set your own goal",
+    "backToList": "All templates",
+    "start": "Start with this template",
+    "what": "What the plan does",
+    "forWhom": "Who it is for",
+    "shape": "How the plan runs",
+    "whenBehind": "When you fall behind",
+    "asks": "What we will ask you",
+    "closing": "The plan is built around your answers: broken down into years, months, weeks and finally today. With rest written into it, and recalculated every time the route and reality part ways."
   }
 }

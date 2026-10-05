@@ -552,7 +552,8 @@
       "draftContinue": "Pokračovat v zadávání",
       "draftDiscard": "Zahodit",
       "openPlan": "Zobrazit celý plán",
-      "ticked": "{count, plural, one {# odškrtnutý úkol} few {# odškrtnuté úkoly} other {# odškrtnutých úkolů}}"
+      "ticked": "{count, plural, one {# odškrtnutý úkol} few {# odškrtnuté úkoly} other {# odškrtnutých úkolů}}",
+      "templates": "Šablony"
     },
     "form": {
       "title": "Nový cíl",
@@ -1206,5 +1207,28 @@
       "position": "Pozice ve skladbě",
       "shareQr": "Sdílet hudbu QR kódem"
     }
+  },
+  "templates": {
+    "metaTitle": "Šablony cílů",
+    "metaDescription": "Hotová zadání pro věci, které si lidé předsevzali nejčastěji — od maratonu po první platící zákazníky. Každé nese to, co o tom oboru ví někdo, kdo to dělal.",
+    "title": "Šablony cílů",
+    "intro": "Prázdné políčko „jaký je tvůj cíl?“ je nejtěžší místo celé aplikace — a zároveň to, kde se rozhoduje, jak dobrý plán vznikne. Šablona za tebe neklikne pár políček navíc. Nese odbornost: pořadí, které se nedá přeskočit, obvyklou chybu, kvůli které to lidé vzdají, a to, co se má škrtnout jako první, až se přestane stíhat.",
+    "areas": {
+      "business": "Podnikání a peníze",
+      "health": "Zdraví a kondice",
+      "learning": "Učení a tvorba",
+      "home": "Domov a prostředí"
+    },
+    "months": "{count, plural, one {# měsíc} few {# měsíce} other {# měsíců}}",
+    "ownGoal": "Nenašlo se to tvoje? Nevadí — šablona je zkratka, ne podmínka.",
+    "ownGoalCta": "Založit vlastní cíl",
+    "backToList": "Všechny šablony",
+    "start": "Začít s touhle šablonou",
+    "what": "Co plán dělá",
+    "forWhom": "Pro koho to je",
+    "shape": "Jak plán postupuje",
+    "whenBehind": "Když se přestane stíhat",
+    "asks": "Na co se tě zeptáme",
+    "closing": "Plán vznikne na míru tomu, co odpovíš: rozpadne se na roky, měsíce, týdny a nakonec na dnešek. S odpočinkem, který v něm stojí napsaný, a s přepočítáním pokaždé, když se cesta rozejde se skutečností."
   }
 }

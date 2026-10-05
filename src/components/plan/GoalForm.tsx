@@ -46,7 +46,24 @@ export function GoalForm({
   usedColors = {},
   planning,
   prefill,
+  template,
 }: {
+  /**
+   * Šablona, ze které se cíl zakládá.
+   *
+   * Místo jednoho prázdného „odkud začínáš?" se ptá na tři věci, které
+   * u téhle konkrétní věci rozhodují. Tím to přestává být vyplňování
+   * a začíná to být rozhovor, na jehož konci model ví to, co nemohl
+   * uhodnout.
+   *
+   * `id` jde na server. Tam se podle něj dohledá odborný pokyn, který
+   * uživatel nikdy nevidí — to je ta část šablony, která doopravdy
+   * mění plán.
+   */
+  template?: {
+    id: string;
+    questions: { id: string; label: string; hint?: string }[];
+  };
   /**
    * Co má být ve formuláři předvyplněné.
    *
@@ -92,6 +109,8 @@ export function GoalForm({
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [startingPoint, setStartingPoint] = useState("");
+  /** Odpovědi na otázky šablony, podle `id` otázky. */
+  const [answers, setAnswers] = useState<Record<string, string>>({});
   const [targetDate, setTargetDate] = useState(defaultTargetDate());
   const [importance, setImportance] = useState(3);
   const [color, setColor] = useState<GoalColor>("lime");
@@ -109,6 +128,30 @@ export function GoalForm({
   const [error, setError] = useState<string | null>(null);
   /** Otevřená otázka „hotovo?“ před samotným založením. */
   const [confirming, setConfirming] = useState(false);
+
+  /**
+   * Odpovědi na otázky šablony jako jeden výchozí bod.
+   *
+   * Otázka zůstává u odpovědi. Samotné „tři roky" modelu nic neřekne,
+   * kdežto „Jak dlouho už kreslíš? tři roky" je věta, ze které se dá
+   * plánovat — a je to levnější než posílat odpovědi zvlášť a skládat
+   * je až v promptu.
+   *
+   * Strop je ten, který unese server. Useknout to tady je lepší než
+   * nechat vzniknout požadavek, který se odmítne až po odeslání.
+   */
+  const composedStart = (): string => {
+    if (!template) return startingPoint.trim();
+
+    return template.questions
+      .map((question) => {
+        const answer = answers[question.id]?.trim();
+        return answer ? `${question.label} ${answer}` : null;
+      })
+      .filter((line): line is string => line !== null)
+      .join("\n")
+      .slice(0, 1000);
+  };
 
   // Dokud se rozdělaný cíl nenačte, nesmí se nic ukládat — jinak by
   // prázdný formulář při prvním vykreslení přepsal to, co se má obnovit.
@@ -131,6 +174,9 @@ export function GoalForm({
       if (typeof draft.title === "string") setTitle(draft.title);
       if (typeof draft.description === "string") setDescription(draft.description);
       if (typeof draft.startingPoint === "string") setStartingPoint(draft.startingPoint);
+      if (draft.answers && typeof draft.answers === "object") {
+        setAnswers(draft.answers as Record<string, string>);
+      }
       if (typeof draft.targetDate === "string") setTargetDate(draft.targetDate);
       if (typeof draft.importance === "number") setImportance(draft.importance);
       if (typeof draft.color === "string") setColor(draft.color as GoalColor);
@@ -156,11 +202,21 @@ export function GoalForm({
       title,
       description,
       startingPoint,
+      answers,
       targetDate,
       importance,
       color,
     });
-  }, [userId, title, description, startingPoint, targetDate, importance, color]);
+  }, [
+    userId,
+    title,
+    description,
+    startingPoint,
+    answers,
+    targetDate,
+    importance,
+    color,
+  ]);
 
   /**
    * Enter v jednořádkovém poli nesmí odeslat formulář.
@@ -223,7 +279,8 @@ export function GoalForm({
           continuesFromId: prefill?.continuesFromId,
           title: title.trim(),
           description: description.trim() || undefined,
-          startingPoint: startingPoint.trim() || undefined,
+          templateId: template?.id,
+          startingPoint: composedStart() || undefined,
           targetDate,
           importance,
           color,
@@ -326,9 +383,46 @@ export function GoalForm({
         </p>
       </div>
 
-      {/* Výchozí bod je zvlášť schválně. Když byl jen zmínkou v dlouhém
-          zástupném textu u podrobností, nikdo ho nevyplnil — a plán pak
-          vypadal stejně pro začátečníka i pro pokročilého. */}
+      {/*
+        U šablony se ptáme konkrétně.
+
+        Jedno prázdné „odkud začínáš?" vyplní málokdo a odpověď bývá
+        jedno slovo. Tři cílené otázky vyplní skoro každý, protože je
+        jasné, co se po něm chce — a odpovědi na ně jsou přesně to, co
+        by model jinak musel hádat.
+      */}
+      {template ? (
+        <div className="mt-6 space-y-5">
+          {template.questions.map((question) => (
+            <div key={question.id}>
+              <label
+                htmlFor={`tpl-${question.id}`}
+                className="block text-sm font-medium"
+              >
+                {question.label}
+              </label>
+              <textarea
+                id={`tpl-${question.id}`}
+                value={answers[question.id] ?? ""}
+                onChange={(event) =>
+                  setAnswers((current) => ({
+                    ...current,
+                    [question.id]: event.target.value,
+                  }))
+                }
+                rows={2}
+                maxLength={300}
+                disabled={pending}
+                placeholder={question.hint}
+                className="mt-2.5 w-full resize-y rounded-xl border border-edge bg-scrim px-4 py-3 text-base leading-relaxed text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] disabled:opacity-60"
+              />
+            </div>
+          ))}
+        </div>
+      ) : (
+      /* Výchozí bod je zvlášť schválně. Když byl jen zmínkou v dlouhém
+         zástupném textu u podrobností, nikdo ho nevyplnil — a plán pak
+         vypadal stejně pro začátečníka i pro pokročilého. */
       <div className="mt-6">
         <label htmlFor="goal-start" className="block text-sm font-medium">
           {t("startLabel")}
@@ -351,6 +445,7 @@ export function GoalForm({
           {t("startHint")}
         </p>
       </div>
+      )}
 
       <div className="mt-6">
         <label htmlFor="goal-date" className="block text-sm font-medium">

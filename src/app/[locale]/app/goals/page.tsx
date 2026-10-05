@@ -77,12 +77,29 @@ export default async function GoalsPage({
     <section className="mx-auto max-w-3xl px-5 py-10 sm:px-8 sm:py-14">
       <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
         <h1 className="display text-3xl">{t("title")}</h1>
-        <Link
-          href={`/${locale}/app/goals/new`}
-          className="btn-primary !px-5 !py-2 text-sm"
-        >
-          {t("create")}
-        </Link>
+
+        {/*
+          Šablony vedle nového cíle, ne schované v nabídce.
+
+          Prázdné políčko „jaký je tvůj cíl?" je nejtěžší místo
+          aplikace. Kdo si vybere šablonu, dostane plán postavený na
+          odbornosti, kterou by sám do zadání nedal — jenže to musí
+          vědět dřív, než do toho políčka začne psát.
+        */}
+        <div className="flex flex-wrap items-center gap-3">
+          <Link
+            href={`/${locale}/templates`}
+            className="rounded-full border border-[color-mix(in_oklab,var(--color-lime-glow)_40%,transparent)] px-5 py-2 text-sm font-medium text-[var(--color-lime-soft)] transition hover:bg-[color-mix(in_oklab,var(--color-lime-glow)_12%,transparent)]"
+          >
+            {t("templates")}
+          </Link>
+          <Link
+            href={`/${locale}/app/goals/new`}
+            className="btn-primary !px-5 !py-2 text-sm"
+          >
+            {t("create")}
+          </Link>
+        </div>
       </div>
 
       {/*

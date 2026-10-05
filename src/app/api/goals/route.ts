@@ -8,6 +8,7 @@ import { createGoalWithPlan } from "@/lib/goals/planner";
 import { AiBudgetError, PlanAllowanceError } from "@/lib/ai/usage";
 import { env } from "@/lib/env";
 import { isGoalColor } from "@/lib/plan/colors";
+import { templateById } from "@/content/templates";
 import {
   validateGoalTitle,
   validateTargetDate,
@@ -33,6 +34,14 @@ const bodySchema = z.object({
    * a tím si do svého plánu přitáhnout cizí text.
    */
   continuesFromId: z.string().max(40).optional(),
+  /**
+   * Ze které šablony cíl vzniká.
+   *
+   * Neznámé `id` se tiše zahodí, ne odmítne. Šablona se může přestat
+   * nabízet a starý odkaz pak zůstane v oběhu; přijít kvůli tomu
+   * o založení cíle by bylo horší než plán bez odborného pokynu.
+   */
+  templateId: z.string().max(60).optional(),
 });
 
 export async function POST(request: Request) {
@@ -111,6 +120,7 @@ export async function POST(request: Request) {
       // kterou paleta nezná a UI by ji stejně nevykreslilo.
       color: isGoalColor(parsed.data.color) ? parsed.data.color : undefined,
       continuesFromId: predecessor?.id,
+      templateId: templateById(parsed.data.templateId ?? "")?.id,
     });
 
     return NextResponse.json({ ok: true, goalId });

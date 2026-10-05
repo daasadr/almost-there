@@ -9,6 +9,8 @@ import { FreeAccountNotice } from "@/components/billing/FreeAccountNotice";
 import { getAccess } from "@/lib/billing/access";
 import { db } from "@/lib/db";
 import { isStoreApp } from "@/lib/store-app";
+import { templateById } from "@/content/templates";
+import type { Locale } from "@/i18n/routing";
 
 export async function generateMetadata({
   params,
@@ -25,10 +27,10 @@ export default async function NewGoalPage({
   searchParams,
 }: {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{ from?: string }>;
+  searchParams: Promise<{ from?: string; template?: string }>;
 }) {
   const { locale } = await params;
-  const { from } = await searchParams;
+  const { from, template: templateId } = await searchParams;
   const session = await auth();
   if (!session?.user) redirect(`/${locale}/login`);
 
@@ -109,6 +111,20 @@ export default async function NewGoalPage({
       })
     : null;
 
+  /**
+   * Zakládá se cíl ze šablony?
+   *
+   * Předvyplněný název a termín jsou jen pohodlí. To podstatné je, že
+   * se `id` donese až do API, kde se podle něj dohledá odborný pokyn
+   * pro model — ten uživatel nevidí a sám by ho nenapsal.
+   *
+   * Neznámé `id` se tiše ignoruje. Šablona se může přestat nabízet
+   * a starý odkaz zůstane v oběhu; prázdný formulář je lepší než
+   * stránka, která se nenajde.
+   */
+  const template = templateId ? templateById(templateId) : undefined;
+  const templateText = template?.text[locale as Locale];
+
   const prefill = source
     ? {
         title: source.title,
@@ -137,7 +153,16 @@ export default async function NewGoalPage({
         <GoalForm
           planning={profile}
           usedColors={usedColors}
-          prefill={prefill}
+          prefill={
+            templateText
+              ? { title: templateText.goal }
+              : prefill
+          }
+          template={
+            template && templateText
+              ? { id: template.id, questions: templateText.questions }
+              : undefined
+          }
         />
       </div>
     </section>

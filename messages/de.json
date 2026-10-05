@@ -552,7 +552,8 @@
       "draftContinue": "Weitermachen",
       "draftDiscard": "Verwerfen",
       "openPlan": "Den ganzen Plan ansehen",
-      "ticked": "{count, plural, one {# erledigte Aufgabe} other {# erledigte Aufgaben}}"
+      "ticked": "{count, plural, one {# erledigte Aufgabe} other {# erledigte Aufgaben}}",
+      "templates": "Vorlagen"
     },
     "form": {
       "title": "Neues Ziel",
@@ -1206,5 +1207,28 @@
       "position": "Position im Stück",
       "shareQr": "Musik per QR-Code teilen"
     }
+  },
+  "templates": {
+    "metaTitle": "Zielvorlagen",
+    "metaDescription": "Fertige Vorgaben für die Dinge, die sich Menschen am häufigsten vornehmen — vom Marathon bis zu den ersten zahlenden Kunden. Jede trägt das Wissen von jemandem, der es gemacht hat.",
+    "title": "Zielvorlagen",
+    "intro": "Das leere Feld „Was ist dein Ziel?“ ist die schwerste Stelle der ganzen App — und zugleich die, an der sich entscheidet, wie gut der Plan wird. Eine Vorlage spart dir nicht bloß ein paar Klicks. Sie bringt Fachwissen mit: die Reihenfolge, die man nicht überspringen kann, den üblichen Fehler, an dem Leute aufgeben, und das, was als Erstes gestrichen wird, wenn die Wochen nicht mehr aufgehen.",
+    "areas": {
+      "business": "Geschäft und Geld",
+      "health": "Gesundheit und Kondition",
+      "learning": "Lernen und Gestalten",
+      "home": "Zuhause und Umgebung"
+    },
+    "months": "{count, plural, one {# Monat} other {# Monate}}",
+    "ownGoal": "Nichts Passendes dabei? Kein Problem — eine Vorlage ist eine Abkürzung, keine Bedingung.",
+    "ownGoalCta": "Eigenes Ziel anlegen",
+    "backToList": "Alle Vorlagen",
+    "start": "Mit dieser Vorlage beginnen",
+    "what": "Was der Plan tut",
+    "forWhom": "Für wen das ist",
+    "shape": "Wie der Plan verläuft",
+    "whenBehind": "Wenn du zurückfällst",
+    "asks": "Was wir dich fragen",
+    "closing": "Der Plan entsteht entlang deiner Antworten: aufgeteilt in Jahre, Monate, Wochen und schließlich den heutigen Tag. Mit Erholung, die darin festgeschrieben ist, und neu gerechnet, sobald Weg und Wirklichkeit auseinandergehen."
   }
 }

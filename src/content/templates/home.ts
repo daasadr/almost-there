@@ -69,6 +69,25 @@ category open across a pause.
         what: "Nejdřív očista po místnostech, pak místa, která rozhodují nejvíc — spaní, ráno, světlo, vzduch. Pak rozmístění věcí a nakonec postupná výměna toho, z čeho je domov udělaný.",
         forWhom:
           "Pro toho, kdo má pocit, že se doma úplně neodpočine, a neví, kde začít.",
+        phases: [
+          {
+            when: "Nejdřív vyklidit",
+            what: "Místnost po místnosti, kategorie po kategorii. Dokud je věcí moc, nedá se nic uspořádat. Součástí je i konec příběhu: kam ty věci půjdou, a termín pro krabice „ještě rozmyslet“, protože jinak zůstanou roky.",
+          },
+          {
+            when: "Místa, která rozhodují, jak se člověk cítí",
+            what: "Spánek: pohodlná postel, dost tma a ticho, stáří matrace, světélka v noci. Prvních deset minut rána a posledních večer. Místo, kde se pracuje. Kde se jí. Vzduch, denní světlo, teplota.",
+          },
+          {
+            when: "Uspořádání a průchodnost",
+            what: "Až po vyklizení. Kde věci bydlí vzhledem k tomu, kde se používají. Co překáží v cestě. Přesouvat se dává přednost před kupováním — plán, ze kterého je nákupní seznam, selhal.",
+          },
+          {
+            when: "Z čeho je domov udělaný",
+            what: "Úklidové prostředky a co po nich zůstává ve vzduchu, plasty v kuchyni, vonné věci, materiály v ložním prádle. Postupná výměna, až věci dojdou — ne vyhazování toho, co slouží.",
+          },
+        ],
+        whenBehind: "Vyklízení pokračuje, uspořádání se odloží. Rozdělaná kategorie se nenechává přes pauzu — napůl vyklizeno je horší než nezačato.",
         goal: "Proměnit svůj domov v místo, kde si opravdu odpočinu",
         questions: [
           {
@@ -95,6 +114,25 @@ category open across a pause.
         what: "Clearing out room by room first, then the places that matter most — sleep, mornings, light, air. Then how things are arranged, and finally a gradual swap of what the home is made of.",
         forWhom:
           "For anyone who does not quite rest at home and does not know where to start.",
+        phases: [
+          {
+            when: "Clear out first",
+            what: "Room by room, category by category. Nothing can be arranged while there is too much stuff. That includes the end of the story: where things actually go, and a deadline for the boxes that are “still to be decided”, because otherwise they stay for years.",
+          },
+          {
+            when: "The places that decide how you feel",
+            what: "Sleep: a comfortable bed, dark and quiet enough, the age of the mattress, the little lights at night. The first ten minutes of the morning and the last of the evening. Where you work. Where you eat. Air, daylight, temperature.",
+          },
+          {
+            when: "Arrangement and flow",
+            what: "Only after clearing. Where things live relative to where they are used. What is blocking a path. Moving things is preferred to buying them — a plan that turns into a shopping list has failed.",
+          },
+          {
+            when: "What the home is made of",
+            what: "Cleaning products and what they leave in the air, plastic in the kitchen, scented things, the materials in bedding. A gradual swap as things run out — not throwing away what works.",
+          },
+        ],
+        whenBehind: "Clearing carries on and the arranging is postponed. A category is never left open across a pause — half-cleared is worse than not started.",
         goal: "Turn my home into a place where I actually rest",
         questions: [
           {
@@ -121,6 +159,25 @@ category open across a pause.
         what: "Zuerst ausmisten, Raum für Raum, dann die Orte, die am meisten zählen — Schlaf, Morgen, Licht, Luft. Dann die Anordnung und zuletzt der schrittweise Austausch dessen, woraus das Zuhause besteht.",
         forWhom:
           "Für alle, die sich zu Hause nicht richtig erholen und nicht wissen, wo sie anfangen sollen.",
+        phases: [
+          {
+            when: "Zuerst ausräumen",
+            what: "Raum für Raum, Kategorie für Kategorie. Solange zu viel da ist, lässt sich nichts ordnen. Dazu gehört auch das Ende der Geschichte: wohin die Dinge wirklich gehen, und eine Frist für die Kisten, die „noch zu entscheiden“ sind, sonst bleiben sie Jahre.",
+          },
+          {
+            when: "Die Orte, die entscheiden, wie du dich fühlst",
+            what: "Schlaf: ein wirklich bequemes Bett, dunkel und leise genug, das Alter der Matratze, die kleinen Lichter in der Nacht. Die ersten zehn Minuten des Morgens und die letzten des Abends. Wo du arbeitest. Wo du isst. Luft, Tageslicht, Temperatur.",
+          },
+          {
+            when: "Anordnung und Wege",
+            what: "Erst nach dem Ausräumen. Wo die Dinge wohnen, gemessen daran, wo sie benutzt werden. Was einen Weg versperrt. Umstellen hat Vorrang vor Kaufen — ein Plan, aus dem eine Einkaufsliste wird, ist gescheitert.",
+          },
+          {
+            when: "Woraus das Zuhause gemacht ist",
+            what: "Putzmittel und was sie in der Luft hinterlassen, Plastik in der Küche, Duftprodukte, Materialien in der Bettwäsche. Ein allmählicher Tausch, wenn Dinge aufgebraucht sind — nicht wegwerfen, was funktioniert.",
+          },
+        ],
+        whenBehind: "Das Ausräumen geht weiter, das Ordnen wird verschoben. Eine Kategorie bleibt nie über eine Pause offen — halb ausgeräumt ist schlechter als gar nicht angefangen.",
         goal: "Mein Zuhause in einen Ort verwandeln, an dem ich wirklich ausruhe",
         questions: [
           {

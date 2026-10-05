@@ -1,5 +1,6 @@
 import "server-only";
 import { db } from "@/lib/db";
+import { templateById } from "@/content/templates";
 import { decomposeGoal, planUnit } from "@/lib/ai/decompose";
 import { AiFormatError } from "@/lib/ai/call";
 import { assertWithinBudget, recordUsage } from "@/lib/ai/usage";
@@ -104,6 +105,7 @@ export async function replanGoal({
       targetDate: true,
       locale: true,
       restatement: true,
+      templateId: true,
       user: {
         select: {
           timezone: true,
@@ -232,6 +234,12 @@ export async function replanGoal({
 
     const { plan, usage, ranges } = await decomposeGoal({
       goal: goal.title,
+      // Šablona platí i při přeplánování. Bez toho by plán po prvním
+      // skluzu ztratil všechno, čím se lišil od obecného rozvrhu —
+      // a uživatel by nepoznal proč.
+      guidance: goal.templateId
+        ? templateById(goal.templateId)?.guidance
+        : undefined,
       // Bez těchhle dvou by přeplánovaný cíl vyšel obecnější než původní.
       context: goal.description ?? undefined,
       startingPoint: goal.startingPoint ?? undefined,

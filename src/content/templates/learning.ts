@@ -64,15 +64,34 @@ the explaining.
       cs: {
         title: "Od vibecodingu ke skutečnému programování",
         pitch:
-          "Umíš s pomocí AI postavit funkční věc — a zároveň tušíš, že nerozumíš tomu, co ti vzniklo pod rukama. Tenhle plán tu mezeru zavírá, aniž bys přestal stavět.",
+          "Umíš s pomocí AI postavit funkční věc — a zároveň tušíš, že nerozumíš tomu, co ti vzniklo pod rukama. Tenhle plán tu mezeru zavírá a stavět přitom nepřestaneš.",
         what: "Staví dál s asistentem, ale s pravidlem: nic, co neumíš vysvětlit řádek po řádku. K tomu čtení cizího kódu, hledání chyb bez nápovědy a základy v pořadí, ve kterém doopravdy zaberou.",
         forWhom:
           "Pro toho, kdo už něco navibecodoval a nechce u toho zůstat. Včetně úplných začátečníků — dnes většina začíná právě takhle.",
-        goal: "Od vibecodingu k tomu, abych programování opravdu rozuměl",
+        phases: [
+          {
+            when: "Číst kód a sledovat běh ručně",
+            what: "Vysvětlit cizí soubor je rychlejší cesta než psát od nuly. Pravidlo, na kterém celý plán stojí: nic, co se neumí vysvětlit řádek po řádku, nejde dál.",
+          },
+          {
+            when: "Hledat chyby záměrně",
+            what: "Zopakovat, zúžit, mít domněnku — místo vkládání chybové hlášky zpátky do asistenta.",
+          },
+          {
+            when: "Jak jazyk doopravdy funguje",
+            what: "Typy, rozsah platnosti, odkazy, asynchronní běh. Pak data a stav: kde je pravda uložená a co ji může změnit.",
+          },
+          {
+            when: "Posoudit návrh",
+            what: "Poznat verzi, která funguje dnes a za půl roku se rozsype. K tomu krátká sezení bez asistenta — ne jako trest, ale jako jediný způsob, jak zjistit, co člověk opravdu umí.",
+          },
+        ],
+        whenBehind: "Škrtá se teorie. Stavění a vysvětlování zůstávají.",
+        goal: "Od vibecodingu ke skutečnému porozumění kódu",
         questions: [
           {
             id: "built",
-            label: "Co jsi už postavil?",
+            label: "Co už máš postavené?",
             hint: "krátce — co to dělá a v čem to je",
           },
           {
@@ -94,6 +113,25 @@ the explaining.
         what: "Keep building with the assistant, under one rule: nothing you cannot explain line by line. Plus reading other people's code, debugging without help, and fundamentals in the order they actually bite.",
         forWhom:
           "For anyone who has vibecoded something and does not want to stop there. Complete beginners included — most people start this way now.",
+        phases: [
+          {
+            when: "Read code and trace it by hand",
+            what: "Explaining someone else's file is a faster route than writing from scratch. The rule the whole plan rests on: nothing goes further that cannot be explained line by line.",
+          },
+          {
+            when: "Debug deliberately",
+            what: "Reproduce, isolate, form a hypothesis — instead of pasting the error back into the assistant.",
+          },
+          {
+            when: "How the language actually works",
+            what: "Types, scope, references, async. Then data and state: where the truth lives and what can change it.",
+          },
+          {
+            when: "Judge a suggestion",
+            what: "Spot the version that works today and breaks in six months. Plus short sessions with no assistant — not as punishment, but as the only way to find out what you actually know.",
+          },
+        ],
+        whenBehind: "Theory gets cut. Building and explaining stay.",
         goal: "Go from vibecoding to actually understanding code",
         questions: [
           {
@@ -120,6 +158,25 @@ the explaining.
         what: "Weiterbauen mit dem Assistenten, aber mit einer Regel: nichts, was du nicht Zeile für Zeile erklären kannst. Dazu fremden Code lesen, Fehler ohne Hilfe suchen und Grundlagen in der Reihenfolge, in der sie wirklich zubeißen.",
         forWhom:
           "Für alle, die schon etwas zusammenvibecodet haben und nicht dabei stehen bleiben wollen. Auch für Anfänger — heute fangen die meisten so an.",
+        phases: [
+          {
+            when: "Code lesen und den Ablauf von Hand verfolgen",
+            what: "Die Datei eines anderen zu erklären ist der schnellere Weg als von null zu schreiben. Die Regel, auf der der ganze Plan steht: nichts geht weiter, was sich nicht Zeile für Zeile erklären lässt.",
+          },
+          {
+            when: "Gezielt Fehler suchen",
+            what: "Reproduzieren, eingrenzen, eine Vermutung bilden — statt die Fehlermeldung zurück in den Assistenten zu kippen.",
+          },
+          {
+            when: "Wie die Sprache tatsächlich funktioniert",
+            what: "Typen, Gültigkeitsbereich, Referenzen, Asynchronität. Dann Daten und Zustand: wo die Wahrheit liegt und was sie ändern kann.",
+          },
+          {
+            when: "Einen Vorschlag beurteilen",
+            what: "Die Variante erkennen, die heute läuft und in einem halben Jahr zerbricht. Dazu kurze Einheiten ohne Assistenten — nicht als Strafe, sondern als einziger Weg herauszufinden, was du wirklich kannst.",
+          },
+        ],
+        whenBehind: "Die Theorie wird gestrichen. Bauen und Erklären bleiben.",
         goal: "Vom Vibecoding dahin, Code wirklich zu verstehen",
         questions: [
           {
@@ -189,6 +246,25 @@ Breaking the chain costs more than a short session.
         what: "Krátké denní kreslení v týdenních tématech: pozorování, pohyb, světlo, tvar, kompozice. Včetně cvičení naschvál nedokonalých, protože perfekcionismus je to, co tohle nejčastěji utne.",
         forWhom:
           "Pro toho, kdo chce v kreslení skokově povyrůst — od úplného začátku i od rozkoukané úrovně.",
+        phases: [
+          {
+            when: "Krátce, ale opravdu každý den",
+            what: "Dvacet soustředěných minut denně předčí tři hodiny v neděli. Četnost tu poráží délku na celé čáře.",
+          },
+          {
+            when: "Každý týden jedno téma",
+            what: "Pozorování podle skutečnosti, gesto a pohyb, světlo a valéry, tvar před detailem, kompozice. Témata se střídají a pak vracejí — teprve napodruhé to sedne.",
+          },
+          {
+            when: "Záměrně nedokonalá práce",
+            what: "Kresby na čas, zaplnit stránku bez gumování, schválně špatné kresby. Perfekcionismus je hlavní věc, která denní kreslení zabíjí, a musí se z plánu vyřadit předem.",
+          },
+          {
+            when: "Ohlédnout se po dvou a čtyřech týdnech",
+            what: "Důkaz o pokroku není v dnešní kresbě, ale ve srovnání se starší. Na konci jedna dotažená práce, kterou je co ukázat.",
+          },
+        ],
+        whenBehind: "Zkrátí se sezení, ale den se nevynechá. Přetržený řetěz stojí víc než krátké kreslení.",
         goal: "Zvednout své kreslení a kreativitu intenzivní denní praxí",
         questions: [
           {
@@ -203,7 +279,7 @@ Breaking the chain costs more than a short session.
           },
           {
             id: "want",
-            label: "Co bys chtěl umět nakreslit?",
+            label: "Co chceš umět nakreslit?",
             hint: "lidi, zvířata, krajina, věci kolem, vlastní příběhy",
           },
         ],
@@ -215,6 +291,25 @@ Breaking the chain costs more than a short session.
         what: "A short daily session with weekly themes: observation, gesture, light, shape, composition. Including deliberately rough exercises, because perfectionism is what usually ends this.",
         forWhom:
           "For anyone who wants a step change in their drawing — from scratch or from somewhere in the middle.",
+        phases: [
+          {
+            when: "Short, but genuinely every day",
+            what: "Twenty focused minutes a day beats three hours on Sunday. Frequency wins over duration here by a wide margin.",
+          },
+          {
+            when: "One theme a week",
+            what: "Observation from life, gesture and movement, light and value, shape before detail, composition. Themes rotate and then come back — the second pass is where it lands.",
+          },
+          {
+            when: "Deliberately unpolished work",
+            what: "Timed sketches, filling a page without erasing, deliberately bad drawings. Perfectionism is the main thing that kills daily practice, and it has to be designed out in advance.",
+          },
+          {
+            when: "Look back after two and four weeks",
+            what: "The evidence of progress is not in today's page but in the comparison with an older one. At the end, one finished piece worth showing someone.",
+          },
+        ],
+        whenBehind: "Shorten the session but do not skip the day. Breaking the chain costs more than a short sitting.",
         goal: "Raise my drawing and creativity through intensive daily practice",
         questions: [
           {
@@ -241,6 +336,25 @@ Breaking the chain costs more than a short session.
         what: "Eine kurze tägliche Einheit mit Wochenthemen: Beobachtung, Bewegung, Licht, Form, Komposition. Samt absichtlich unfertiger Übungen, denn Perfektionismus beendet das meistens.",
         forWhom:
           "Für alle, die im Zeichnen einen Sprung machen wollen — von null oder von irgendwo dazwischen.",
+        phases: [
+          {
+            when: "Kurz, aber wirklich jeden Tag",
+            what: "Zwanzig konzentrierte Minuten täglich schlagen drei Stunden am Sonntag. Häufigkeit gewinnt hier deutlich gegen Dauer.",
+          },
+          {
+            when: "Ein Thema pro Woche",
+            what: "Beobachtung nach der Natur, Geste und Bewegung, Licht und Helligkeitswerte, Form vor Detail, Komposition. Die Themen wechseln und kommen wieder — beim zweiten Durchgang sitzt es.",
+          },
+          {
+            when: "Absichtlich unfertige Arbeiten",
+            what: "Skizzen auf Zeit, eine Seite füllen ohne zu radieren, absichtlich schlechte Zeichnungen. Perfektionismus ist das Hauptproblem beim täglichen Üben und muss vorher aus dem Plan herausgeplant werden.",
+          },
+          {
+            when: "Nach zwei und vier Wochen zurückschauen",
+            what: "Der Beweis für Fortschritt steckt nicht in der heutigen Seite, sondern im Vergleich mit einer älteren. Am Ende eine fertige Arbeit, die du jemandem zeigen würdest.",
+          },
+        ],
+        whenBehind: "Die Einheit wird kürzer, der Tag fällt nicht aus. Eine unterbrochene Kette kostet mehr als eine kurze Sitzung.",
         goal: "Mein Zeichnen und meine Kreativität durch tägliche Praxis heben",
         questions: [
           {

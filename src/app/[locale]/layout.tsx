@@ -30,6 +30,13 @@ import { Analytics } from "@/components/Analytics";
  * paywall, demo, přepínač jazyka a lišta o cookies. Zbytek — úvodní
  * stránka, otázky, právní texty, e-maily — se vykresluje na serveru
  * a klient je nikdy nepotřebuje.
+ *
+ * **Chybějící oddíl se nikde neprojeví jako chyba.** Komponenta prostě
+ * vypíše holý klíč a běží dál — přehrávač hudby takhle nějakou dobu
+ * ukazoval „extras.music.play" místo „Přehrát". Při sestavení to sice
+ * padne do výpisu jako `MISSING_MESSAGE`, jenže mezi stovkou řádků
+ * o generování stránek to nikdo nevidí. Když přibude komponenta
+ * s „use client" a vlastním oddílem, musí přibýt i tady.
  */
 const CLIENT_NAMESPACES = [
   "nav",
@@ -40,6 +47,8 @@ const CLIENT_NAMESPACES = [
   "demo",
   "plan",
   "theme",
+  "extras",
+  "motivation",
 ] as const;
 
 function clientMessages(messages: Record<string, unknown>) {

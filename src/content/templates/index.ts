@@ -84,6 +84,24 @@ export type TemplateText = {
   what: string;
   /** Komu sedne. Ať se pozná ten, kdo váhá mezi dvěma. */
   forWhom: string;
+  /**
+   * Čím plán postupně prochází. Tři až pět kroků.
+   *
+   * Tohle je na veřejné stránce šablony to jediné, co jinde nenajdeš,
+   * a zároveň to jediné, co někoho přesvědčí: ne „pomůžeme ti“, ale
+   * co se děje první měsíc a co třetí. Vychází z `guidance`, takže se
+   * slibuje přesně to, co plán opravdu udělá.
+   */
+  phases: { when: string; what: string }[];
+  /**
+   * Co se škrtne, když se přestane stíhat.
+   *
+   * Jedna věta, a je to ta nejcennější na celé stránce. Každý plán se
+   * dřív nebo později rozejde se skutečností a tohle je rozdíl mezi
+   * plánem, který to ustojí, a seznamem předsevzetí. Navíc to nikdo
+   * jiný neříká dopředu.
+   */
+  whenBehind: string;
   /** Předvyplněné zadání cíle. Uživatel ho může poupravit. */
   goal: string;
   questions: TemplateQuestion[];
