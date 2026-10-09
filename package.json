@@ -12,7 +12,7 @@
     "db:migrate": "prisma migrate deploy",
     "db:push": "prisma db push",
     "db:encrypt": "tsx scripts/encrypt-existing.ts",
-    "og": "node scripts/og-images.mjs",
+    "og": "tsx scripts/og-images.mts",
     "indexnow": "node scripts/indexnow.mjs",
     "stripe:check": "tsx scripts/stripe-check.ts",
     "play:assets": "node scripts/play-assets.mjs",

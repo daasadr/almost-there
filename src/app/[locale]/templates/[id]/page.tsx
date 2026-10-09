@@ -52,6 +52,24 @@ export async function generateMetadata({
       type: "article",
       title: text.title,
       description: text.pitch,
+      // Vlastní obrázek na každou šablonu. Dokud měly všechny ten
+      // obecný, vypadal odkaz na maraton v chatu stejně jako odkaz na
+      // kreslení — tedy jako reklama na aplikaci, ne jako ta věc,
+      // kterou ten člověk zrovna řeší. Vyrábí se `npm run og`.
+      images: [
+        {
+          url: `/og-template-${id}-${locale}.png`,
+          width: 1200,
+          height: 630,
+          alt: text.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: text.title,
+      description: text.pitch,
+      images: [`/og-template-${id}-${locale}.png`],
     },
   };
 }
