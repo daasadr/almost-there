@@ -57,6 +57,17 @@ start of the conversation. The whole goal is to be able to write it
 themselves; help is fine, substitution defeats the point and they find
 that out too late.
 
+Build the whole plan around the stack they name. "Types, scope, async"
+means the types, scope and async of THEIR language, and every example
+should use what they are actually building with. A plan about
+programming in general is one they will read and not do.
+
+Plenty of them genuinely do not know what their project is made of —
+the assistant chose it. If that is the answer, the first task is to find
+out: open the project, go through what is in it, and name the language,
+the framework and the runtime. That is not a detour. Not knowing what
+you are working in is the same gap as not knowing why the code runs.
+
 When the person falls behind, cut the theory and keep the building and
 the explaining.
 `.trim(),
@@ -70,29 +81,34 @@ the explaining.
           "Pro toho, kdo už něco navibecodoval a nechce u toho zůstat. Včetně úplných začátečníků — dnes většina začíná právě takhle.",
         phases: [
           {
-            when: "Číst kód a sledovat běh ručně",
-            what: "Vysvětlit cizí soubor je rychlejší cesta než psát od nuly. Pravidlo, na kterém celý plán stojí: nic, co se neumí vysvětlit řádek po řádku, nejde dál.",
+            when: "Číst kód a sledovat, co se v něm děje",
+            what: "Vezmi soubor, který ti vygenerovala AI, a projdi ho řádek po řádku — nahlas nebo písemně. Co tenhle řádek dělá? Co by se stalo, kdyby tam nebyl? Vysvětlit hotový kód je rychlejší cesta k porozumění než psát od nuly. A platí tu pravidlo, na kterém stojí celý plán: co neumíš vysvětlit, to nejde dál.",
           },
           {
-            when: "Hledat chyby záměrně",
-            what: "Zopakovat, zúžit, mít domněnku — místo vkládání chybové hlášky zpátky do asistenta.",
+            when: "Hledat chyby po svém",
+            what: "Zopakovat chybu, zúžit, kde přesně se děje, a mít domněnku proč — místo toho, aby hláška hned putovala zpátky do asistenta. Je to pomalejší přesně těch pár minut, ve kterých se to člověk naučí.",
           },
           {
-            when: "Jak jazyk doopravdy funguje",
-            what: "Typy, rozsah platnosti, odkazy, asynchronní běh. Pak data a stav: kde je pravda uložená a co ji může změnit.",
+            when: "Jak tvůj jazyk doopravdy funguje",
+            what: "Typy, rozsah platnosti, odkazy, asynchronní běh — v tom, v čem stavíš, ne obecně. Pak data a stav: kde je uložená pravda a co ji může změnit. Tady se zpětně vysvětlí půlka věcí, které dřív „prostě fungovaly“.",
           },
           {
-            when: "Posoudit návrh",
-            what: "Poznat verzi, která funguje dnes a za půl roku se rozsype. K tomu krátká sezení bez asistenta — ne jako trest, ale jako jediný způsob, jak zjistit, co člověk opravdu umí.",
+            when: "Poznat dobrý návrh od špatného",
+            what: "Rozeznat verzi, která funguje dnes a za půl roku se rozsype. K tomu krátká sezení bez asistenta — ne jako trest, ale jako jediný způsob, jak zjistit, co opravdu umíš a co jen opisuješ.",
           },
         ],
-        whenBehind: "Škrtá se teorie. Stavění a vysvětlování zůstávají.",
+        whenBehind: "Škrtá se teorie. Stavění a vysvětlování zůstávají — na těch dvou to celé stojí.",
         goal: "Od vibecodingu ke skutečnému porozumění kódu",
         questions: [
           {
+            id: "stack",
+            label: "V jakém jazyce a s čím stavíš?",
+            hint: "třeba JavaScript, Next.js a Node.js — nebo Python, nebo klidně „nevím, co mi to AI nasadila“",
+          },
+          {
             id: "built",
             label: "Co už máš postavené?",
-            hint: "krátce — co to dělá a v čem to je",
+            hint: "krátce — co to dělá",
           },
           {
             id: "stuck",
@@ -115,29 +131,34 @@ the explaining.
           "For anyone who has vibecoded something and does not want to stop there. Complete beginners included — most people start this way now.",
         phases: [
           {
-            when: "Read code and trace it by hand",
-            what: "Explaining someone else's file is a faster route than writing from scratch. The rule the whole plan rests on: nothing goes further that cannot be explained line by line.",
+            when: "Read the code and follow what it does",
+            what: "Take a file the assistant generated and go through it line by line, out loud or in writing. What does this line do? What would break without it? Explaining finished code is a faster route to understanding than writing from scratch. And the rule the whole plan rests on applies here: what you cannot explain does not go further.",
           },
           {
-            when: "Debug deliberately",
-            what: "Reproduce, isolate, form a hypothesis — instead of pasting the error back into the assistant.",
+            when: "Find the bug yourself",
+            what: "Reproduce it, narrow down where it happens, form a hypothesis about why — instead of the error going straight back into the assistant. It is slower by exactly the few minutes in which you learn it.",
           },
           {
-            when: "How the language actually works",
-            what: "Types, scope, references, async. Then data and state: where the truth lives and what can change it.",
+            when: "How your language actually works",
+            what: "Types, scope, references, async — in what you are building with, not in the abstract. Then data and state: where the truth lives and what can change it. This is where half the things that used to “just work” get explained in hindsight.",
           },
           {
-            when: "Judge a suggestion",
-            what: "Spot the version that works today and breaks in six months. Plus short sessions with no assistant — not as punishment, but as the only way to find out what you actually know.",
+            when: "Tell a good suggestion from a bad one",
+            what: "Spot the version that works today and breaks in six months. Plus short sessions with no assistant — not as punishment, but as the only way to find out what you actually know and what you are copying.",
           },
         ],
-        whenBehind: "Theory gets cut. Building and explaining stay.",
+        whenBehind: "Theory gets cut. Building and explaining stay — the whole thing rests on those two.",
         goal: "Go from vibecoding to actually understanding code",
         questions: [
           {
+            id: "stack",
+            label: "What language and tools are you building with?",
+            hint: "JavaScript with Next.js and Node.js, say — or Python, or honestly “no idea, the assistant picked it”",
+          },
+          {
             id: "built",
             label: "What have you built?",
-            hint: "briefly — what it does and what it is written in",
+            hint: "briefly — what it does",
           },
           {
             id: "stuck",
@@ -160,29 +181,34 @@ the explaining.
           "Für alle, die schon etwas zusammenvibecodet haben und nicht dabei stehen bleiben wollen. Auch für Anfänger — heute fangen die meisten so an.",
         phases: [
           {
-            when: "Code lesen und den Ablauf von Hand verfolgen",
-            what: "Die Datei eines anderen zu erklären ist der schnellere Weg als von null zu schreiben. Die Regel, auf der der ganze Plan steht: nichts geht weiter, was sich nicht Zeile für Zeile erklären lässt.",
+            when: "Den Code lesen und verfolgen, was er tut",
+            what: "Nimm eine Datei, die dir der Assistent erzeugt hat, und geh sie Zeile für Zeile durch — laut oder schriftlich. Was macht diese Zeile? Was ginge kaputt ohne sie? Fertigen Code zu erklären führt schneller zum Verstehen als von null zu schreiben. Und die Regel, auf der der ganze Plan steht, gilt hier: was du nicht erklären kannst, geht nicht weiter.",
           },
           {
-            when: "Gezielt Fehler suchen",
-            what: "Reproduzieren, eingrenzen, eine Vermutung bilden — statt die Fehlermeldung zurück in den Assistenten zu kippen.",
+            when: "Den Fehler selbst finden",
+            what: "Reproduzieren, eingrenzen, wo genau es passiert, und eine Vermutung bilden, warum — statt dass die Meldung sofort zurück in den Assistenten wandert. Es ist genau um die paar Minuten langsamer, in denen man es lernt.",
           },
           {
-            when: "Wie die Sprache tatsächlich funktioniert",
-            what: "Typen, Gültigkeitsbereich, Referenzen, Asynchronität. Dann Daten und Zustand: wo die Wahrheit liegt und was sie ändern kann.",
+            when: "Wie deine Sprache tatsächlich funktioniert",
+            what: "Typen, Gültigkeitsbereich, Referenzen, Asynchronität — in dem, womit du baust, nicht im Allgemeinen. Dann Daten und Zustand: wo die Wahrheit liegt und was sie ändern kann. Hier erklärt sich im Nachhinein die Hälfte der Dinge, die vorher „einfach liefen“.",
           },
           {
-            when: "Einen Vorschlag beurteilen",
-            what: "Die Variante erkennen, die heute läuft und in einem halben Jahr zerbricht. Dazu kurze Einheiten ohne Assistenten — nicht als Strafe, sondern als einziger Weg herauszufinden, was du wirklich kannst.",
+            when: "Einen guten Vorschlag von einem schlechten unterscheiden",
+            what: "Die Variante erkennen, die heute läuft und in einem halben Jahr zerbricht. Dazu kurze Einheiten ohne Assistenten — nicht als Strafe, sondern als einziger Weg herauszufinden, was du wirklich kannst und was du nur abschreibst.",
           },
         ],
-        whenBehind: "Die Theorie wird gestrichen. Bauen und Erklären bleiben.",
+        whenBehind: "Die Theorie wird gestrichen. Bauen und Erklären bleiben — darauf steht das Ganze.",
         goal: "Vom Vibecoding dahin, Code wirklich zu verstehen",
         questions: [
           {
+            id: "stack",
+            label: "In welcher Sprache und womit baust du?",
+            hint: "zum Beispiel JavaScript mit Next.js und Node.js — oder Python, oder ehrlich „keine Ahnung, das hat der Assistent ausgesucht“",
+          },
+          {
             id: "built",
             label: "Was hast du schon gebaut?",
-            hint: "kurz — was es tut und worin es geschrieben ist",
+            hint: "kurz — was es tut",
           },
           {
             id: "stuck",
