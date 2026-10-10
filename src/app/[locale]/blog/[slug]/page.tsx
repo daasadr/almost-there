@@ -7,6 +7,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { articles, findArticle, readingMinutes } from "@/content/articles";
 import { articleLd, graph } from "@/lib/seo/jsonLd";
 import { absoluteUrl } from "@/lib/seo/site";
+import { pageSocial } from "@/lib/seo/metadata";
 import type { Locale } from "@/i18n/routing";
 
 /**
@@ -37,12 +38,17 @@ export async function generateMetadata({
     title: `${article.title} — AlmostThere`,
     description: article.excerpt,
     alternates: { canonical: absoluteUrl(locale, `/blog/${slug}`) },
-    openGraph: {
-      type: "article",
+    // Vlastní obrázek článek nemá, bere ten obecný — ale musí projít
+    // tudy, jinak přijde o `og:url` a náhled zahodí WhatsApp i další.
+    ...pageSocial({
+      locale,
+      path: `/blog/${slug}`,
       title: article.title,
       description: article.excerpt,
+      image: `/og-${locale}.png`,
+      type: "article",
       publishedTime: article.publishedAt,
-    },
+    }),
   };
 }
 

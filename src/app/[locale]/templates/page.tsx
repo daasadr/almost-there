@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { templateAreas, templates } from "@/content/templates";
-import { localeAlternates } from "@/lib/seo/metadata";
+import { localeAlternates, pageSocial } from "@/lib/seo/metadata";
 import type { Locale } from "@/i18n/routing";
 
 /**
@@ -30,25 +30,13 @@ export async function generateMetadata({
     title: `${t("metaTitle")} — AlmostThere`,
     description: t("metaDescription"),
     ...localeAlternates(locale, "/templates"),
-    openGraph: {
-      type: "website",
+    ...pageSocial({
+      locale,
+      path: "/templates",
       title: t("metaTitle"),
       description: t("metaDescription"),
-      images: [
-        {
-          url: `/og-templates-${locale}.png`,
-          width: 1200,
-          height: 630,
-          alt: t("title"),
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: t("metaTitle"),
-      description: t("metaDescription"),
-      images: [`/og-templates-${locale}.png`],
-    },
+      image: `/og-templates-${locale}.png`,
+    }),
   };
 }
 

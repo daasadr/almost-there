@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { graph, howToLd } from "@/lib/seo/jsonLd";
-import { localeAlternates } from "@/lib/seo/metadata";
+import { localeAlternates, pageSocial } from "@/lib/seo/metadata";
 import { templateById, templates } from "@/content/templates";
 import { locales, type Locale } from "@/i18n/routing";
 
@@ -48,29 +48,18 @@ export async function generateMetadata({
     title: `${text.title} — AlmostThere`,
     description: text.pitch,
     ...localeAlternates(locale, `/templates/${id}`),
-    openGraph: {
+    // Vlastní obrázek na každou šablonu. Dokud měly všechny ten obecný,
+    // vypadal odkaz na maraton v chatu stejně jako odkaz na kreslení —
+    // tedy jako reklama na aplikaci, ne jako ta věc, kterou ten člověk
+    // zrovna řeší. Vyrábí se `npm run og`.
+    ...pageSocial({
+      locale,
+      path: `/templates/${id}`,
+      title: text.title,
+      description: text.pitch,
+      image: `/og-template-${id}-${locale}.png`,
       type: "article",
-      title: text.title,
-      description: text.pitch,
-      // Vlastní obrázek na každou šablonu. Dokud měly všechny ten
-      // obecný, vypadal odkaz na maraton v chatu stejně jako odkaz na
-      // kreslení — tedy jako reklama na aplikaci, ne jako ta věc,
-      // kterou ten člověk zrovna řeší. Vyrábí se `npm run og`.
-      images: [
-        {
-          url: `/og-template-${id}-${locale}.png`,
-          width: 1200,
-          height: 630,
-          alt: text.title,
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: text.title,
-      description: text.pitch,
-      images: [`/og-template-${id}-${locale}.png`],
-    },
+    }),
   };
 }
 
