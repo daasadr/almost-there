@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   labelIndexForDay,
+  nextPieceNumber,
   pieceNumberForDay,
   splitSentences,
   teaser,
@@ -153,5 +154,40 @@ describe("teaser", () => {
 
   it("prázdný text nespadne", () => {
     expect(teaser([])).toBe("");
+  });
+});
+
+/**
+ * Myšlenka se neopakuje.
+ *
+ * Text se dřív vybíral jako „kolikátý je den, zbytek po dělení počtem
+ * textů". Při deseti textech chodily od jedenáctého dne dokola ty samé,
+ * i se stejným titulkem v oznámení.
+ *
+ * Mlčet po vyčerpání knihovny podle data by bylo horší: kdo má za sebou
+ * dvě stě dní, nedostane nic, dokud knihovna nepřeroste dvě stě textů,
+ * a pak o těch dvě stě přijde. Proto počitadlo.
+ */
+describe("nextPieceNumber", () => {
+  it("začíná u prvního", () => {
+    expect(nextPieceNumber(0, 10)).toBe(1);
+  });
+
+  it("jde po pořádku", () => {
+    expect(nextPieceNumber(4, 10)).toBe(5);
+    expect(nextPieceNumber(9, 10)).toBe(10);
+  });
+
+  it("po vyčerpání knihovny mlčí", () => {
+    expect(nextPieceNumber(10, 10)).toBe(0);
+    expect(nextPieceNumber(57, 10)).toBe(0);
+  });
+
+  it("po dopsání textů plynule pokračuje, nic nepřeskočí", () => {
+    expect(nextPieceNumber(10, 40)).toBe(11);
+  });
+
+  it("prázdná knihovna mlčí", () => {
+    expect(nextPieceNumber(0, 0)).toBe(0);
   });
 });

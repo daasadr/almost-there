@@ -103,6 +103,24 @@ model User {
   /// průchodu poslal další oznámení. Datum, ne časové razítko: rozhoduje
   /// se „už dnes šlo ven?“, a to se čte i přes změnu pásma.
   notifiedOn        String?
+
+  /// Kolik myšlenek na den už uživateli doručených odešlo.
+  ///
+  /// Počitadlo, ne datum, a je to to podstatné. Dřív se text vybíral
+  /// jako „kolikátý je den od založení účtu, zbytek po dělení počtem
+  /// textů". Při deseti textech to znamenalo, že od jedenáctého dne
+  /// chodily dokola ty samé — a v oznámení se opakoval i titulek.
+  ///
+  /// Nabízelo se po vyčerpání knihovny prostě mlčet, jenže to je horší:
+  /// kdo má za sebou dvě stě dní, nedostal by nic, dokud knihovna
+  /// nepřeroste dvě stě textů, a pak by o těch dvě stě přišel.
+  ///
+  /// Takhle dostane pokaždé ten další v pořadí. Když knihovna doroste,
+  /// plynule pokračuje tam, kde přestal, a nic nepřeskočí.
+  ///
+  /// Zvyšuje se jen při doručení, ze stejného důvodu jako `notifiedOn`:
+  /// za nedoručené oznámení se nemá platit přeskočeným textem.
+  motivationSent    Int     @default(0)
   /// Totéž pro večerní kontrolu.
   notifiedEveningOn String?
 

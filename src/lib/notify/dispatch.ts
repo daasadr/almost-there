@@ -2,11 +2,11 @@ import "server-only";
 import { getTranslations } from "next-intl/server";
 import { db } from "@/lib/db";
 import { getToday } from "@/lib/goals/queries";
-import { parseIsoDate, todayIso } from "@/lib/plan/calendar";
+import { todayIso } from "@/lib/plan/calendar";
 import { motivationByLocale } from "@/content/motivation";
 import {
   labelIndexForDay,
-  pieceNumberForDay,
+  nextPieceNumber,
   teaser,
 } from "@/lib/motivation";
 import { pushConfigured, sendToUser } from "./push";
@@ -72,8 +72,8 @@ type Candidate = {
   notifiedOn: string | null;
   notifiedEveningOn: string | null;
   notifySnoozedUntil: Date | null;
-  /** Den registrace — podle něj se řadí myšlenky na den. */
-  createdAt: Date;
+  /** Kolik myšlenek na den už člověku doručených odešlo. */
+  motivationSent: number;
 };
 
 /** Místní čas uživatele jako minuty od půlnoci a den v týdnu. */
@@ -172,6 +172,7 @@ export async function dispatchReminders(): Promise<DispatchResult> {
       notifiedEveningOn: true,
       // Podle dne registrace se vybírá myšlenka na den.
       createdAt: true,
+      motivationSent: true,
       notifySnoozedUntil: true,
     },
   });
@@ -228,8 +229,7 @@ export async function dispatchReminders(): Promise<DispatchResult> {
             t,
             locale,
             userId: user.id,
-            createdAt: user.createdAt,
-            today,
+            motivationSent: user.motivationSent,
             open,
             weekday,
             minutes,
@@ -258,7 +258,10 @@ export async function dispatchReminders(): Promise<DispatchResult> {
      * Takhle se to v ranním okně zkouší dál, dokud to neprojde.
      */
     if (outcome.delivered > 0) {
-      await mark(user.id, kind, today);
+      // Text se počítá jako spotřebovaný jen s doručeným oznámením,
+      // ze stejného důvodu jako značka výš: za výpadek poštovní služby
+      // se nemá platit přeskočenou myšlenkou.
+      await mark(user.id, kind, today, message.piece);
       sent += 1;
     } else if (outcome.errors.length > 0) {
       console.error(
@@ -289,8 +292,7 @@ async function morningMessage({
   t,
   locale,
   userId,
-  createdAt,
-  today,
+  motivationSent,
   open,
   weekday,
   minutes,
@@ -298,8 +300,8 @@ async function morningMessage({
   t: Awaited<ReturnType<typeof getTranslations>>;
   locale: Locale;
   userId: string;
-  createdAt: Date;
-  today: string;
+  /** Kolik textů už člověku došlo. Podle toho se vybírá další. */
+  motivationSent: number;
   open: number;
   weekday: number;
   minutes: number;
@@ -310,11 +312,13 @@ async function morningMessage({
   url: string;
   actions: { action: string; title: string }[];
   actionUrls?: Record<string, string>;
+  /** Nese zpráva myšlenku na den? Podle toho se posune počitadlo. */
+  piece?: boolean;
 }> {
   const tMotivation = await getTranslations({ locale, namespace: "motivation" });
 
   const pieces = motivationByLocale[locale] ?? [];
-  const number = pieceNumberForDay(createdAt, parseIsoDate(today), pieces.length);
+  const number = nextPieceNumber(motivationSent, pieces.length);
   const piece = number > 0 ? pieces[number - 1] : null;
 
   let context: string;
@@ -362,6 +366,7 @@ async function morningMessage({
   // Prázdná knihovna textů: zůstane původní připomínka.
   if (!piece) {
     return {
+      piece: false,
       title: t("morningTitle", { greeting: t(greetingKey(minutes)) }),
       body: context,
       tag: "almostthere-daily",
@@ -412,15 +417,26 @@ ${context}`,
       { action: "snooze", title: t("actionSnooze") },
     ],
     actionUrls: { read },
+    piece: true,
   };
 }
 
-function mark(userId: string, kind: "morning" | "evening", today: string) {
+function mark(
+  userId: string,
+  kind: "morning" | "evening",
+  today: string,
+  /** Nesla zpráva myšlenku na den? Pak se posune počitadlo. */
+  carriedPiece = false,
+) {
   return db.user.update({
     where: { id: userId },
     data:
       kind === "morning"
-        ? { notifiedOn: today, notifySnoozedUntil: null }
+        ? {
+            notifiedOn: today,
+            notifySnoozedUntil: null,
+            ...(carriedPiece ? { motivationSent: { increment: 1 } } : {}),
+          }
         : { notifiedEveningOn: today },
   });
 }

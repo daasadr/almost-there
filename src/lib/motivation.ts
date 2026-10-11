@@ -19,6 +19,19 @@
  *
  * Vrací číslo od 1 do `count`, nebo 0, když knihovna je prázdná.
  */
+/**
+ * Který text poslat dál, podle počtu už doručených.
+ *
+ * Vrací nulu, když je knihovna vyčerpaná — volající pak pošle obyčejnou
+ * ranní připomínku bez textu. To je lepší než poslat popáté tentýž:
+ * oznámení, které už člověk zná, přestane otevírat, a s ním přestane
+ * otevírat i ta ostatní.
+ */
+export function nextPieceNumber(sent: number, count: number): number {
+  if (count <= 0 || sent < 0) return 0;
+  return sent < count ? sent + 1 : 0;
+}
+
 export function pieceNumberForDay(
   startedAt: Date,
   today: Date,
