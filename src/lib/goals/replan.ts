@@ -293,6 +293,35 @@ export async function replanGoal({
       // z jeho první poloviny — a právě podle nich se počítá, jak rychle
       // to člověku jde. Bez té historie by příští vyhodnocení tempa začínalo
       // od nuly a vyšlo by nesmyslně optimisticky.
+      /*
+       * Milníky zkrácených etap odcházejí s nimi.
+       *
+       * Etapa, kterou dnešek teprve procházel, se nemaže, jen zkrátí
+       * ke včerejšku — kvůli historii odškrtávání. Její milník ale
+       * zůstával viset s původním datem, které je po zkrácení v
+       * minulosti, takže aplikace hned hlásila „jsi u milníku".
+       *
+       * Po rozšíření cíle to bylo vidět nejhůř: milník vyskočil po
+       * prvním splněném úkolu nové řady, tedy po jediném dni práce.
+       *
+       * Dosažené milníky zůstávají. Ty už jsou zážitek, ne položka
+       * rozvrhu, a nový plán je nemá co brát.
+       */
+      const truncated = await tx.timeBlock.findMany({
+        where: { goalId, endDate: { gte: today } },
+        select: { id: true },
+      });
+
+      if (truncated.length) {
+        await tx.milestone.deleteMany({
+          where: {
+            goalId,
+            achievedAt: null,
+            timeBlockId: { in: truncated.map((block) => block.id) },
+          },
+        });
+      }
+
       await tx.timeBlock.updateMany({
         where: { goalId, endDate: { gte: today } },
         data: { endDate: yesterday },

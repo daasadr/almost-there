@@ -61,7 +61,7 @@ export async function GoalList({
                     className="h-full rounded-full"
                     style={{
                       backgroundColor: goalHex(goal.color),
-                      width: `${Math.round((goal.stageCurrent / goal.stagesTotal) * 100)}%`,
+                      width: `${Math.round(goal.progress * 100)}%`,
                     }}
                   />
                 </div>

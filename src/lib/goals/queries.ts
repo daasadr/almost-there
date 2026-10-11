@@ -28,6 +28,14 @@ export type GoalSummary = {
    */
   stageCurrent: number;
   stagesTotal: number;
+  /**
+   * Jak daleko plán je, mezi nulou a jedničkou — šířka pruhu.
+   *
+   * Zvlášť od `stageCurrent` schválně. Číslo etapy je správná odpověď
+   * na „v kolikáté jsem", ale jako podíl selže: poslední etapa vyjde
+   * na plno hned v den, kdy začne. Viz `planProgress`.
+   */
+  progress: number;
   /** Kolik úkolů má za sebou. Absolutní číslo, které nemá jak klamat. */
   tasksDone: number;
 };
@@ -89,6 +97,8 @@ export async function listGoals(userId: string): Promise<GoalSummary[]> {
       stageCurrent:
         goal.status === "COMPLETED" ? own.length : stageOf(own, now),
       stagesTotal: own.length,
+      // Šířka pruhu zvlášť od čísla etapy — viz `planProgress`.
+      progress: goal.status === "COMPLETED" ? 1 : planProgress(own, now),
       tasksDone: doneByGoal.get(goal.id) ?? 0,
     };
   });
@@ -113,6 +123,48 @@ export function stageOf(
   if (index >= 0) return index + 1;
 
   return now < stages[0].startDate ? 0 : stages.length;
+}
+
+/**
+ * Jak daleko je plán, jako podíl mezi nulou a jedničkou.
+ *
+ * Proč zvlášť od `stageOf`: ten odpovídá na „v kolikáté etapě jsem",
+ * což je správná odpověď na jinou otázku. Jako šířka pruhu to selže,
+ * protože poslední etapa vyjde na plno hned v den, kdy začne — takže
+ * každý cíl vypadá hotově celý svůj poslední měsíc.
+ *
+ * Naplno se to projevilo po rozšíření cíle. Staré etapy v plánu
+ * zůstávají schválně, aby se neztratila historie odškrtávání, takže
+ * nová etapa je z nich poslední — a pruh skočil na sto procent po
+ * prvním splněném úkolu nové řady.
+ *
+ * Tady se proto počítá i kus rozdělané etapy. Čtyři etapy a druhý den
+ * té čtvrté nedají plno, ale něco málo přes tři čtvrtiny, což je
+ * zhruba pravda.
+ */
+export function planProgress(
+  stages: { startDate: Date; endDate: Date }[],
+  now: Date,
+): number {
+  if (stages.length === 0) return 0;
+
+  const index = stages.findIndex(
+    (stage) => stage.startDate <= now && now <= stage.endDate,
+  );
+
+  if (index < 0) {
+    // Mimo všechny etapy: buď se ještě nezačalo, nebo je po termínu.
+    return now < stages[0].startDate ? 0 : 1;
+  }
+
+  const stage = stages[index];
+  const span = stage.endDate.getTime() - stage.startDate.getTime();
+  const within =
+    span > 0
+      ? Math.min(1, (now.getTime() - stage.startDate.getTime()) / span)
+      : 0;
+
+  return (index + within) / stages.length;
 }
 
 export type PlanNode = {

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { stageOf } from "./queries";
+import { planProgress, stageOf } from "./queries";
 import { parseIsoDate } from "@/lib/plan/calendar";
 
 /**
@@ -59,5 +59,37 @@ describe("stageOf", () => {
     // To je přesně ta chyba, kvůli které tenhle výpočet vznikl.
     const share = stageOf(year, parseIsoDate("2026-01-05")) / year.length;
     expect(share).toBeLessThan(0.5);
+  });
+});
+
+/**
+ * Pruh postupu bral číslo etapy jako podíl, takže poslední etapa
+ * znamenala plno hned v den, kdy začala. Po rozšíření cíle to bylo
+ * vidět nejhůř: nová etapa je v plánu poslední, takže pruh skočil na
+ * sto procent po jednom splněném dni.
+ */
+describe("planProgress", () => {
+  it("na začátku poslední etapy není plno", () => {
+    const share = planProgress(year, parseIsoDate("2026-10-02"));
+    expect(share).toBeGreaterThan(0.7);
+    expect(share).toBeLessThan(0.8);
+  });
+
+  it("roste v průběhu etapy", () => {
+    const early = planProgress(year, parseIsoDate("2026-10-05"));
+    const late = planProgress(year, parseIsoDate("2026-12-20"));
+    expect(late).toBeGreaterThan(early);
+  });
+
+  it("cíl, který teprve začne, je na nule", () => {
+    expect(planProgress(year, parseIsoDate("2025-12-01"))).toBe(0);
+  });
+
+  it("po termínu je na plnu", () => {
+    expect(planProgress(year, parseIsoDate("2027-06-01"))).toBe(1);
+  });
+
+  it("cíl bez etap je na nule", () => {
+    expect(planProgress([], parseIsoDate("2026-05-15"))).toBe(0);
   });
 });
