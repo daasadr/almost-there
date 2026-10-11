@@ -176,8 +176,24 @@ services:
       # Podepisuje přihlášení do správy měření. Ztráta znamená jen
       # odhlášení všech, ne ztrátu dat.
       APP_SECRET: ${UMAMI_APP_SECRET}
-      # Aplikace i měření sdílejí jednu doménu, tohle je cesta pod ní.
-      BASE_PATH: /stats
+      # `BASE_PATH` tu schválně není, i když by se nabízel.
+      #
+      # Next.js si cestu zapéká při sestavení, takže hotový obraz ji za
+      # běhu ignoruje — Umami poslouchá na „/" a `/stats/cokoliv` mu nic
+      # neříká. Stálo to jeden večer hledání, proč nginx vrací 404,
+      # které ve skutečnosti posílalo Umami.
+      #
+      # Měří se proto přes dvě úzké cesty v nginxu, které prefix
+      # `/stats` useknou (`/stats/script.js` a `/stats/api/`). Ty dvě
+      # žádné další soubory nenačítají, takže žádnou zapečenou cestu
+      # nepotřebují — a skript zůstane na naší doméně, což je celý
+      # důvod, proč Umami hostujeme sami.
+      #
+      # Na správu se chodí tunelem, ne z internetu:
+      #   ssh -L 3100:127.0.0.1:3100 root@<server>
+      # a pak http://localhost:3100. Nástěnka si assety tahá z kořene,
+      # takže pod podsložkou běžet neumí — a tohle má navíc tu výhodu,
+      # že se k ní zvenčí nikdo nedostane.
       # Telemetrie o nás samých autorům Umami. Neposíláme.
       DISABLE_TELEMETRY: "1"
     ports:

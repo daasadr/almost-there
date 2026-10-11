@@ -59,9 +59,21 @@ function isPrivate(pathname: string): boolean {
 export function Analytics({
   websiteId,
   scriptUrl,
+  hostUrl,
 }: {
   websiteId: string;
   scriptUrl: string;
+  /**
+   * Kam skript posílá naměřené údaje.
+   *
+   * Uvádí se natvrdo, i když si to skript umí odvodit sám. Odvozuje to
+   * totiž z vlastní adresy a verze od verze jinak — jednou z celé cesty,
+   * jindy jen z domény. U nás je ten rozdíl osudový: Umami poslouchá na
+   * `/api/send`, ale ven je vystavené pod `/stats/api/send`, takže když
+   * si skript sáhne o složku výš, posílá data do prázdna. A je to tichá
+   * porucha: nic nespadne, jen se nic nenaměří.
+   */
+  hostUrl: string;
 }) {
   const pathname = usePathname();
   const skip = isPrivate(pathname);
@@ -80,6 +92,7 @@ export function Analytics({
     <Script
       src={scriptUrl}
       data-website-id={websiteId}
+      data-host-url={hostUrl}
       data-auto-track="false"
       strategy="afterInteractive"
     />

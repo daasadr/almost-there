@@ -166,18 +166,35 @@ server {
 
     # --- Měření návštěvnosti ---
     #
-    # Umami běží u nás a chodí se k němu pod naší doménou, ne na cizí
-    # adrese. Má to dva důvody a oba jsou praktické: data nikam
-    # neodcházejí a měřicí skript není na doméně, kterou blokovače
-    # reklam znají podle jména — takže měří i ty návštěvy, o které by
-    # cizí služba přišla.
+    # Ven míří jen dvě cesty, ne celé Umami. Měřicí skript a sběrný
+    # bod — nic jiného prohlížeč návštěvníka nepotřebuje.
     #
-    # `BASE_PATH: /stats` v compose musí souhlasit s touhle cestou,
-    # jinak si Umami vyrobí odkazy, které nikam nevedou.
-    location /stats {
-        proxy_pass http://almostthere_umami;
+    # Zůstávají na naší doméně schválně: to je celý důvod, proč Umami
+    # hostujeme sami. Skript na cizí adrese zablokuje každý druhý
+    # blokovač reklam podle jména domény a naměřená čísla jsou pak
+    # tiše nižší, než jaká jsou doopravdy.
+    #
+    # Lomítko na konci `proxy_pass` je to podstatné: usekne prefix
+    # `/stats`, takže Umami dostane `/script.js` a `/api/send`, na
+    # kterých poslouchá. Bez něj by mu přišlo `/stats/script.js`
+    # a odpovědělo by 404 — `BASE_PATH` u hotového obrazu nefunguje,
+    # Next.js si cestu zapéká při sestavení.
+    #
+    # Nástěnka tudy nechodí. Ta si tahá assety z kořene a pod
+    # podsložkou běžet neumí; na správu se chodí tunelem:
+    #   ssh -L 3100:127.0.0.1:3100 root@<server>
+    location = /stats/script.js {
+        proxy_pass http://almostthere_umami/script.js;
         proxy_http_version 1.1;
         proxy_set_header Host $host;
+    }
+
+    location /stats/api/ {
+        proxy_pass http://almostthere_umami/api/;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        # Umami počítá návštěvy podle IP. Bez tohohle by viděla
+        # u všech adresu nginxu a statistika by byla k ničemu.
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;

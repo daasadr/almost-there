@@ -232,7 +232,13 @@ export default async function LocaleLayout({
           {umamiWebsiteId && (
             <Analytics
               websiteId={umamiWebsiteId}
-              scriptUrl={process.env.NEXT_PUBLIC_UMAMI_SCRIPT ?? "/stats/script.js"}
+              scriptUrl={
+                process.env.NEXT_PUBLIC_UMAMI_SCRIPT ?? "/stats/script.js"
+              }
+              // Absolutní adresa, ne „/stats". Některé verze skriptu si
+              // z hodnoty dělají `new URL(...)` a na relativní cestě
+              // spadnou.
+              hostUrl={`${siteUrl()}/stats`}
             />
           )}
 
