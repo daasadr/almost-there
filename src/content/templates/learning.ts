@@ -107,18 +107,13 @@ the explaining.
           },
           {
             id: "built",
-            label: "Co už máš postavené?",
-            hint: "krátce — co to dělá",
+            label: "Co už máš postavené, nebo co postavit chceš?",
+            hint: "obojí se hodí — hotová věc i ta, která teprve bude",
           },
           {
             id: "stuck",
             label: "Kde se nejčastěji zasekneš?",
             hint: "chyba, se kterou si asistent neví rady / nevím, proč to funguje / neumím to poskládat dohromady",
-          },
-          {
-            id: "time",
-            label: "Kolik času týdně na to máš?",
-            hint: "počítej reálně, ne ideál",
           },
         ],
       },
@@ -157,18 +152,13 @@ the explaining.
           },
           {
             id: "built",
-            label: "What have you built?",
-            hint: "briefly — what it does",
+            label: "What have you built, or what do you want to build?",
+            hint: "both help — the finished thing and the one still to come",
           },
           {
             id: "stuck",
             label: "Where do you get stuck most often?",
             hint: "a bug the assistant cannot solve / I don't know why it works / I can't hold it together",
-          },
-          {
-            id: "time",
-            label: "How many hours a week do you have?",
-            hint: "realistically, not the ideal",
           },
         ],
       },
@@ -207,18 +197,13 @@ the explaining.
           },
           {
             id: "built",
-            label: "Was hast du schon gebaut?",
-            hint: "kurz — was es tut",
+            label: "Was hast du gebaut, oder was willst du bauen?",
+            hint: "beides hilft — das Fertige und das, was noch kommt",
           },
           {
             id: "stuck",
             label: "Wo bleibst du am häufigsten hängen?",
             hint: "ein Fehler, den der Assistent nicht löst / ich weiß nicht, warum es funktioniert / ich kriege es nicht zusammen",
-          },
-          {
-            id: "time",
-            label: "Wie viele Stunden pro Woche hast du?",
-            hint: "realistisch, nicht der Idealfall",
           },
         ],
       },
@@ -246,6 +231,12 @@ the second pass at a theme is where it lands.
 Put drawing from life or photograph reference above drawing from
 imagination in the early weeks. Imagination draws from a library the
 person has not built yet.
+
+Build the tasks around what they actually draw with. Charcoal, pencil
+and a tablet each want different exercises, and a plan that ignores
+this asks for things they cannot do tonight. The same goes for whether
+they have anything to draw from life: without it, lean on photograph
+reference and say so rather than assuming a still life on the table.
 
 Include deliberately unpolished work: timed sketches, filling a page
 without erasing, deliberately bad drawings. Perfectionism is the main
@@ -299,9 +290,9 @@ Breaking the chain costs more than a short session.
             hint: "nekreslím / občas si čmárám / kreslím a chci dál",
           },
           {
-            id: "minutes",
-            label: "Kolik minut denně tomu můžeš dát?",
-            hint: "radši míň a každý den než hodně a jednou týdně",
+            id: "tools",
+            label: "Čím kreslíš?",
+            hint: "tužka, uhel, tablet — a jestli máš kde kreslit podle skutečnosti",
           },
           {
             id: "want",
@@ -344,9 +335,9 @@ Breaking the chain costs more than a short session.
             hint: "I don't draw / I doodle sometimes / I draw and want more",
           },
           {
-            id: "minutes",
-            label: "How many minutes a day can you give it?",
-            hint: "less every day beats a lot once a week",
+            id: "tools",
+            label: "What do you draw with?",
+            hint: "pencil, charcoal, tablet — and whether you have somewhere to draw from life",
           },
           {
             id: "want",
@@ -389,9 +380,9 @@ Breaking the chain costs more than a short session.
             hint: "ich zeichne nicht / ich kritzele manchmal / ich zeichne und will weiter",
           },
           {
-            id: "minutes",
-            label: "Wie viele Minuten täglich kannst du dafür aufbringen?",
-            hint: "lieber wenig jeden Tag als viel einmal die Woche",
+            id: "tools",
+            label: "Womit zeichnest du?",
+            hint: "Bleistift, Kohle, Tablet — und ob du irgendwo nach der Natur zeichnen kannst",
           },
           {
             id: "want",

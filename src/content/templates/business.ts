@@ -203,10 +203,12 @@ task with a clear "done": trade licence or registration, tax
 registration, health and social insurance notifications, a business bank
 account, invoicing, and what records have to be kept from day one.
 
-Say plainly that the exact steps and their order depend on the country,
-and instruct the person to verify against their own authority — but
-still give the sequence, because the sequence is what they are missing.
-Do not invent specific fees, deadlines or form numbers.
+They tell you which country they are setting up in. Use it: name the
+actual institutions and the actual documents of that country, because
+"register your business" is useless and "go to the trade licensing
+office" is a task. Still tell them to verify dates and amounts against
+their own authority, and do not invent specific fees, deadlines or form
+numbers — those change and a wrong one costs them a trip.
 
 After the admin, the plan turns to the first income. Do not let it become
 a business-plan exercise: one offer, one group of people, first invoice.
@@ -253,9 +255,9 @@ Keep the administrative steps and the first offer.
             hint: "co budeš nabízet a komu",
           },
           {
-            id: "hours",
-            label: "Kolik hodin týdně na to reálně máš?",
-            hint: "počítej večery a víkendy, ne ideál",
+            id: "country",
+            label: "V jaké zemi to budeš rozjíždět?",
+            hint: "podle toho se liší živnosťák, daně i pojištění",
           },
           {
             id: "done",
@@ -298,9 +300,9 @@ Keep the administrative steps and the first offer.
             hint: "what you will offer and to whom",
           },
           {
-            id: "hours",
-            label: "How many hours a week do you realistically have?",
-            hint: "count evenings and weekends, not the ideal",
+            id: "country",
+            label: "Which country will you be setting up in?",
+            hint: "registration, tax and insurance differ by country",
           },
           {
             id: "done",
@@ -343,9 +345,9 @@ Keep the administrative steps and the first offer.
             hint: "was du anbieten willst und wem",
           },
           {
-            id: "hours",
-            label: "Wie viele Stunden pro Woche hast du realistisch?",
-            hint: "rechne mit Abenden und Wochenenden, nicht mit dem Idealfall",
+            id: "country",
+            label: "In welchem Land wirst du gründen?",
+            hint: "Anmeldung, Steuer und Versicherung unterscheiden sich je nach Land",
           },
           {
             id: "done",

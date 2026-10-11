@@ -36,6 +36,16 @@ export type GoalDraft = {
    * záložku uprostřed vyplňování, nemá o odpovědi přijít.
    */
   answers?: Record<string, string>;
+  /**
+   * Ze které šablony se cíl rozepisoval.
+   *
+   * Bez tohohle se rozepsaný cíl vracel do prázdného formuláře.
+   * Šablona se totiž bere z adresy (`?template=…`) a kdo odešel
+   * a vrátil se na „nový cíl", přišel rovnou o otázky — a s nimi
+   * i o odpovědi, které do nich napsal. Vypadalo to, že se koncept
+   * uložil jen napůl.
+   */
+  templateId?: string;
   targetDate: string;
   importance: number;
   color: string;

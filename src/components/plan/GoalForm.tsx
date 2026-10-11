@@ -170,6 +170,21 @@ export function GoalForm({
       if (prefill.startingPoint) setStartingPoint(prefill.startingPoint);
     }
 
+    /*
+     * Koncept ze šablony se vrací do šablony.
+     *
+     * Otázky přicházejí ze serveru podle `?template=…` v adrese, takže
+     * při návratu na holý „nový cíl" by se vykreslil obyčejný formulář
+     * a odpovědi by zůstaly v konceptu bez míst, kam je vypsat.
+     * Doplníme tedy adresu a stránka se vykreslí znovu i s otázkami.
+     *
+     * Jen když se liší — jinak by `replace` běžel pořád dokola.
+     */
+    if (draft?.templateId && draft.templateId !== template?.id) {
+      router.replace(`?template=${encodeURIComponent(draft.templateId)}`);
+      return;
+    }
+
     if (draft) {
       if (typeof draft.title === "string") setTitle(draft.title);
       if (typeof draft.description === "string") setDescription(draft.description);
@@ -182,7 +197,7 @@ export function GoalForm({
       if (typeof draft.color === "string") setColor(draft.color as GoalColor);
     }
     restored.current = true;
-  }, [userId, prefill]);
+  }, [userId, prefill, template?.id, router]);
 
   /**
    * Rozepsané zadání se drží v `localStorage`, ne v `sessionStorage`.
@@ -203,6 +218,7 @@ export function GoalForm({
       description,
       startingPoint,
       answers,
+      templateId: template?.id,
       targetDate,
       importance,
       color,
@@ -213,6 +229,7 @@ export function GoalForm({
     description,
     startingPoint,
     answers,
+    template?.id,
     targetDate,
     importance,
     color,
