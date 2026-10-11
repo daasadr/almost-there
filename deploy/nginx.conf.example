@@ -15,6 +15,12 @@ upstream almostthere_app {
     keepalive 16;
 }
 
+# Měření návštěvnosti. Musí sedět s UMAMI_PORT v .env.
+upstream almostthere_umami {
+    server 127.0.0.1:3003;
+    keepalive 8;
+}
+
 # Rate limit na demo endpoint. Aplikace má vlastní strop na IP, tohle je
 # druhá vrstva před ní — sem se útok nedostane ani k Node procesu.
 limit_req_zone $binary_remote_addr zone=demo_api:10m rate=10r/m;
@@ -155,6 +161,25 @@ server {
         proxy_read_timeout 330s;
         proxy_send_timeout 330s;
         proxy_buffering off;
+    }
+
+    # --- Měření návštěvnosti ---
+    #
+    # Umami běží u nás a chodí se k němu pod naší doménou, ne na cizí
+    # adrese. Má to dva důvody a oba jsou praktické: data nikam
+    # neodcházejí a měřicí skript není na doméně, kterou blokovače
+    # reklam znají podle jména — takže měří i ty návštěvy, o které by
+    # cizí služba přišla.
+    #
+    # `BASE_PATH: /stats` v compose musí souhlasit s touhle cestou,
+    # jinak si Umami vyrobí odkazy, které nikam nevedou.
+    location /stats {
+        proxy_pass http://almostthere_umami;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
     }
 
     # --- Zbytek aplikace ---

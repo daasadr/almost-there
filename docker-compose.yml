@@ -182,7 +182,13 @@ services:
       DISABLE_TELEMETRY: "1"
     ports:
       # Jen na smyčku — dovnitř se dostane pouze nginx z tohohle stroje.
-      - "127.0.0.1:${UMAMI_PORT:-3001}:3000"
+      #
+      # Výchozí 3003, ne 3001. Na produkčním serveru běží ještě jeden
+      # projekt a ten drží 3000 i 3001 — proto je aplikace na 3002.
+      # Umami tu výchozí 3001 zdědilo a Docker ho odmítl spustit se
+      # stručným „port is already allocated", což je hláška, nad kterou
+      # člověk stráví večer.
+      - "127.0.0.1:${UMAMI_PORT:-3003}:3000"
 
 volumes:
   pgdata:
