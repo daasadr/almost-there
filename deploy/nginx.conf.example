@@ -16,8 +16,9 @@ upstream almostthere_app {
 }
 
 # Měření návštěvnosti. Musí sedět s UMAMI_PORT v .env.
+# Mimo blok 3000–3004, který je na tomhle serveru celý obsazený.
 upstream almostthere_umami {
-    server 127.0.0.1:3003;
+    server 127.0.0.1:3100;
     keepalive 8;
 }
 

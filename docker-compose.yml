@@ -183,12 +183,14 @@ services:
     ports:
       # Jen na smyčku — dovnitř se dostane pouze nginx z tohohle stroje.
       #
-      # Výchozí 3003, ne 3001. Na produkčním serveru běží ještě jeden
-      # projekt a ten drží 3000 i 3001 — proto je aplikace na 3002.
-      # Umami tu výchozí 3001 zdědilo a Docker ho odmítl spustit se
-      # stručným „port is already allocated", což je hláška, nad kterou
-      # člověk stráví večer.
-      - "127.0.0.1:${UMAMI_PORT:-3003}:3000"
+      # Výchozí 3100, a to s odstupem schválně.
+      #
+      # Na produkčním serveru běží ještě jeden projekt a dohromady je
+      # obsazené celé 3000–3004; naše aplikace z toho drží 3002. Umami
+      # mělo původně 3001, pak 3003, a Docker obojí odmítl stejně
+      # stručně: „port is already allocated". Hádat po jedné nemá cenu,
+      # proto je to teď mimo ten blok.
+      - "127.0.0.1:${UMAMI_PORT:-3100}:3000"
 
 volumes:
   pgdata:
