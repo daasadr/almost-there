@@ -14,91 +14,105 @@ export const learning: GoalTemplate[] = [
     area: "learning",
     defaultMonths: 6,
     guidance: `
-Going from building things with an AI assistant to actually
-understanding the code. The person can already produce working software
-— that is the starting point, and it is a real one. Do not plan for
-someone who has never seen a program.
+Going from building things with an AI assistant to actually being able to
+build them. The person can already get working software out of an
+assistant — that is the starting point and it is a real one. Do not plan
+for someone who has never seen a program, and do not start at "Hello
+World" theory.
 
-The gap is specific and worth naming: they can get code that runs but
-cannot reliably tell why it runs, cannot debug when the assistant is
-wrong, cannot judge whether a suggestion is good, and cannot hold the
-shape of a system in their head. Everything in the plan should close one
-of those four.
+They tell you which of two routes they want, and it changes the whole
+plan:
 
-The method that works, and it is counter-intuitive: keep building with
-the assistant, but add a rule — nothing gets committed that cannot be
-explained line by line. Reading and explaining existing code is the
-fastest route here, faster than writing from scratch.
+ROUTE A, BUILD SOMETHING NEW (the default, and the better one for most).
+They build one real application from nothing to a working base, and keep
+going from there. This is a construction plan, not a syllabus. Theory
+appears only when the thing they are building needs it, and never more
+than a week ahead of that need.
 
-Sequence the fundamentals in the order they bite:
-1. Reading code and tracing execution by hand.
-2. Debugging deliberately — reproducing, isolating, forming a hypothesis
-   — instead of pasting the error back into the assistant.
-3. The language's own model: types, scope, references, async.
-4. Data and state: where truth lives, what can change it.
-5. Judging a suggestion: spotting the version that works today and
-   breaks in six months.
+ROUTE B, UNDERSTAND WHAT ALREADY EXISTS. They work through code they
+already produced with an assistant until they can account for all of it.
+Choose this only if they ask for it.
 
-Include regular "no assistant" sessions, short and deliberate. Not as
-punishment — as the only way to find out what is actually known.
+Most people are best served by a mix weighted heavily to A: build new,
+and raid the old project for comparison when something is unclear.
 
-Tests deserve a strand of their own: they are the fastest feedback a
-learner can get and they force clear thinking about behaviour.
+For ROUTE A, sequence it like this:
 
-Milestones should be capabilities, not courses finished: fixed a bug the
-assistant could not, explained a file to someone else, rejected a bad
-suggestion and said why.
+1. Something that runs, in the first few days. The smallest thing that
+   starts, shows something and is in version control. Not three weeks of
+   setup, tooling and folder structure — that is where this kind of plan
+   dies. If they can deploy it somewhere public in week one, better.
+2. Then one capability at a time, each one whole. Show something. Take
+   input. Store it. Read it back. Show what happens when it fails. Each
+   of those goes through the entire stack, top to bottom. Do not plan by
+   layers — a week of "the database", then a week of "the API" — because
+   nothing works until the end and nothing is learned in between.
+3. Each capability gets the theory it needs, right then. Storing data is
+   when you learn how data is shaped and where the truth lives. Handling
+   input is when you learn validation and why you never trust it.
+4. Later: the same application, but harder. Authentication, a second kind
+   of user, something that runs on a schedule, something that costs money
+   if it goes wrong.
 
-Using an AI chat is expected and good here — but with a hard boundary,
-and the tasks must say it out loud. The chat explains principles, walks
-through examples and asks test questions. It does not write the code
-that goes into their own work, and the person should tell it so at the
-start of the conversation. The whole goal is to be able to write it
-themselves; help is fine, substitution defeats the point and they find
-that out too late.
+The rule that makes this learning and not more vibecoding, and it has to
+be in the tasks out loud: THEY WRITE THE CODE. The assistant explains,
+answers questions, reviews what they wrote and suggests what to read. It
+does not produce the code that goes into their project. They should say
+this to the chat at the start of each session. Help is fine;
+substitution defeats the whole thing, and they find out too late.
 
-Build the whole plan around the stack they name. "Types, scope, async"
-means the types, scope and async of THEIR language, and every example
-should use what they are actually building with. A plan about
-programming in general is one they will read and not do.
+Build in regular short sessions with no assistant at all. Not as
+punishment — as the only way to find out what they actually know.
 
-Plenty of them genuinely do not know what their project is made of —
-the assistant chose it. If that is the answer, the first task is to find
-out: open the project, go through what is in it, and name the language,
-the framework and the runtime. That is not a detour. Not knowing what
-you are working in is the same gap as not knowing why the code runs.
+Debugging is its own strand from early on. Reproduce it, narrow down
+where it happens, form a guess about why, and only then look it up.
+Pasting the error straight back into the assistant is the single habit
+that keeps people where they are.
 
-When the person falls behind, cut the theory and keep the building and
-the explaining.
+Tutorials deserve a warning. Following along feels productive and teaches
+very little, because the hard part — deciding what to do next — is done
+for you. If a tutorial is used, the task is to close it afterwards and
+rebuild the same thing without it.
+
+Version control from the first week, with real commit messages. Tests as
+soon as there is anything worth breaking; they are the fastest feedback
+a learner can get.
+
+Milestones are capabilities, not chapters: a working page they wrote
+themselves, data that survives a restart, a bug they found and fixed
+unaided, a feature added without the assistant touching the code.
+
+When the person falls behind, cut the new features and the reading. Keep
+the building and keep the sessions without the assistant.
 `.trim(),
     text: {
       cs: {
         title: "Od vibecodingu ke skutečnému programování",
         pitch:
-          "Umíš s pomocí AI postavit funkční věc — a zároveň tušíš, že nerozumíš tomu, co ti vzniklo pod rukama. Tenhle plán tu mezeru zavírá a stavět přitom nepřestaneš.",
-        what: "Staví dál s asistentem, ale s pravidlem: nic, co neumíš vysvětlit řádek po řádku. K tomu čtení cizího kódu, hledání chyb bez nápovědy a základy v pořadí, ve kterém doopravdy zaberou.",
+          "Umíš s pomocí AI postavit funkční věc — a zároveň tušíš, že od nuly a bez ní by to dohromady nešlo. Tenhle plán tě provede stavbou jedné vlastní aplikace od prvního souboru po funkční základ, s pravidlem, že kód píšeš ty.",
+        what: "Postaví s tebou jednu aplikaci od nuly: nejdřív něco, co běží, pak jednu schopnost po druhé, celou odshora dolů. Teorie přichází vždycky až s tím, co zrovna potřebuješ. Asistent vysvětluje a kontroluje, ale kód píšeš ty.",
         forWhom:
-          "Pro toho, kdo už něco navibecodoval a nechce u toho zůstat. Včetně úplných začátečníků — dnes většina začíná právě takhle.",
+          "Pro toho, kdo už něco navibecodoval a nechce u toho zůstat. Včetně úplných začátečníků — dnes většina začíná právě takhle. Kdo chce místo stavby nové věci porozumět tomu, co už má, dostane plán i na to.",
         phases: [
           {
-            when: "Číst kód a sledovat, co se v něm děje",
-            what: "Vezmi soubor, který ti vygenerovala AI, a projdi ho řádek po řádku — nahlas nebo písemně. Co tenhle řádek dělá? Co by se stalo, kdyby tam nebyl? Vysvětlit hotový kód je rychlejší cesta k porozumění než psát od nuly. A platí tu pravidlo, na kterém stojí celý plán: co neumíš vysvětlit, to nejde dál.",
+            when: "Hned první dny něco, co běží",
+            what: "Ne tři týdny zakládání, nastavování a rovnání složek — přesně tam tyhle plány umírají. Nejmenší věc, která se spustí, něco ukáže a je ve verzování. Když ji první týden dostaneš i někam ven, tím líp.",
           },
           {
-            when: "Hledat chyby po svém",
-            what: "Zopakovat chybu, zúžit, kde přesně se děje, a mít domněnku proč — místo toho, aby hláška hned putovala zpátky do asistenta. Je to pomalejší přesně těch pár minut, ve kterých se to člověk naučí.",
+            when: "Jedna schopnost po druhé, vždycky celá",
+            what: "Něco ukázat. Přijmout, co uživatel zadá. Uložit to. Přečíst zpátky. Ukázat, co se stane, když to selže. Každá z nich projde celou aplikací odshora dolů — ne týden na databázi a pak týden na rozhraní, protože při tom nic nefunguje až do konce a cestou se nic nenaučíš.",
           },
           {
-            when: "Jak tvůj jazyk doopravdy funguje",
-            what: "Typy, rozsah platnosti, odkazy, asynchronní běh — v tom, v čem stavíš, ne obecně. Pak data a stav: kde je uložená pravda a co ji může změnit. Tady se zpětně vysvětlí půlka věcí, které dřív „prostě fungovaly“.",
+            when: "Teorie až ve chvíli, kdy je k něčemu",
+            what: "Ukládání dat je ta chvíle, kdy se učíš, jak data vypadají a kde je uložená pravda. Přijímání vstupu je ta chvíle na ověřování a na to, proč se vstupu nikdy nevěří. Nikdy víc než týden napřed před tím, k čemu to potřebuješ.",
           },
           {
-            when: "Poznat dobrý návrh od špatného",
-            what: "Rozeznat verzi, která funguje dnes a za půl roku se rozsype. K tomu krátká sezení bez asistenta — ne jako trest, ale jako jediný způsob, jak zjistit, co opravdu umíš a co jen opisuješ.",
+            when: "Kód píšeš ty, asistent vysvětluje",
+            what: "Tohle je celý rozdíl mezi učením a dalším vibecodingem. Asistent odpovídá, vysvětluje a kontroluje tvůj kód — ale nepíše ten,  který ti jde do projektu. Řekni mu to na začátku každého sezení. K tomu krátká sezení úplně bez něj: ne jako trest, ale jako jediný způsob, jak zjistit, co doopravdy umíš.",
           },
         ],
-        whenBehind: "Škrtá se teorie. Stavění a vysvětlování zůstávají — na těch dvou to celé stojí.",
-        goal: "Od vibecodingu ke skutečnému porozumění kódu",
+        whenBehind: "Škrtají se nové funkce a čtení. Stavění a sezení bez asistenta zůstávají — na těch dvou to celé stojí.",
+        goal: "Postavit vlastní aplikaci od nuly a rozumět každému řádku",
         questions: [
           {
             id: "stack",
@@ -106,9 +120,14 @@ the explaining.
             hint: "třeba JavaScript, Next.js a Node.js — nebo Python, nebo klidně „nevím, co mi to AI nasadila“",
           },
           {
-            id: "built",
-            label: "Co už máš postavené, nebo co postavit chceš?",
-            hint: "obojí se hodí — hotová věc i ta, která teprve bude",
+            id: "path",
+            label: "Chceš stavět novou věc, nebo rozumět tomu, co už máš?",
+            hint: "postavit novou od nuly / projít si to, co už mám / hlavně stavět a to staré brát jako srovnání",
+          },
+          {
+            id: "build",
+            label: "Co chceš postavit?",
+            hint: "čím konkrétnější, tím líp — plán se staví kolem té jedné věci",
           },
           {
             id: "stuck",
@@ -120,30 +139,30 @@ the explaining.
       en: {
         title: "From vibecoding to actually coding",
         pitch:
-          "You can build something that works with an AI assistant — and you suspect you do not understand what appeared under your hands. This closes that gap without asking you to stop building.",
-        what: "Keep building with the assistant, under one rule: nothing you cannot explain line by line. Plus reading other people's code, debugging without help, and fundamentals in the order they actually bite.",
+          "You can get something working out of an AI assistant — and you also suspect you could not put it together yourself from nothing. This walks you through building one application of your own, from the first file to a working base, under one rule: you write the code.",
+        what: "Builds one application with you from zero: first something that runs, then one capability at a time, each one whole. Theory arrives when the thing you are building needs it, never earlier. The assistant explains and reviews; you write the code.",
         forWhom:
-          "For anyone who has vibecoded something and does not want to stop there. Complete beginners included — most people start this way now.",
+          "For anyone who has vibecoded something and does not want to stop there. Complete beginners included — most people start this way now. If you would rather understand what you already have than build something new, the plan does that too.",
         phases: [
           {
-            when: "Read the code and follow what it does",
-            what: "Take a file the assistant generated and go through it line by line, out loud or in writing. What does this line do? What would break without it? Explaining finished code is a faster route to understanding than writing from scratch. And the rule the whole plan rests on applies here: what you cannot explain does not go further.",
+            when: "Something that runs, in the first few days",
+            what: "Not three weeks of setup, tooling and tidying folders — that is exactly where plans like this die. The smallest thing that starts, shows something and is in version control. If you can get it somewhere public in week one, better still.",
           },
           {
-            when: "Find the bug yourself",
-            what: "Reproduce it, narrow down where it happens, form a hypothesis about why — instead of the error going straight back into the assistant. It is slower by exactly the few minutes in which you learn it.",
+            when: "One capability at a time, each one whole",
+            what: "Show something. Take what the user types. Store it. Read it back. Show what happens when it fails. Each of those goes through the entire application, top to bottom — not a week on the database and then a week on the interface, because nothing works until the end and nothing is learned on the way.",
           },
           {
-            when: "How your language actually works",
-            what: "Types, scope, references, async — in what you are building with, not in the abstract. Then data and state: where the truth lives and what can change it. This is where half the things that used to “just work” get explained in hindsight.",
+            when: "Theory only once it is good for something",
+            what: "Storing data is the moment you learn how data is shaped and where the truth lives. Taking input is the moment for validation and for why you never trust it. Never more than a week ahead of what you need it for.",
           },
           {
-            when: "Tell a good suggestion from a bad one",
-            what: "Spot the version that works today and breaks in six months. Plus short sessions with no assistant — not as punishment, but as the only way to find out what you actually know and what you are copying.",
+            when: "You write the code, the assistant explains",
+            what: "This is the whole difference between learning and more vibecoding. The assistant answers, explains and reviews what you wrote — but does not produce the code that goes into your project. Tell it so at the start of each session. Plus short sessions with none of it: not as punishment, but as the only way to find out what you actually know.",
           },
         ],
-        whenBehind: "Theory gets cut. Building and explaining stay — the whole thing rests on those two.",
-        goal: "Go from vibecoding to actually understanding code",
+        whenBehind: "New features and reading get cut. The building and the sessions without the assistant stay — the whole thing rests on those two.",
+        goal: "Build my own application from scratch and understand every line",
         questions: [
           {
             id: "stack",
@@ -151,9 +170,14 @@ the explaining.
             hint: "JavaScript with Next.js and Node.js, say — or Python, or honestly “no idea, the assistant picked it”",
           },
           {
-            id: "built",
-            label: "What have you built, or what do you want to build?",
-            hint: "both help — the finished thing and the one still to come",
+            id: "path",
+            label: "Do you want to build something new, or understand what you already have?",
+            hint: "build a new one from scratch / go through what I already have / mostly build, and use the old one for comparison",
+          },
+          {
+            id: "build",
+            label: "What do you want to build?",
+            hint: "the more specific the better — the plan is built around that one thing",
           },
           {
             id: "stuck",
@@ -165,30 +189,30 @@ the explaining.
       de: {
         title: "Vom Vibecoding zum echten Programmieren",
         pitch:
-          "Du bekommst mit einem KI-Assistenten etwas Funktionierendes hin — und ahnst zugleich, dass du nicht verstehst, was da unter deinen Händen entstanden ist. Das schließt diese Lücke, ohne dass du aufhören musst zu bauen.",
-        what: "Weiterbauen mit dem Assistenten, aber mit einer Regel: nichts, was du nicht Zeile für Zeile erklären kannst. Dazu fremden Code lesen, Fehler ohne Hilfe suchen und Grundlagen in der Reihenfolge, in der sie wirklich zubeißen.",
+          "Du bekommst mit einem KI-Assistenten etwas Funktionierendes hin — und ahnst zugleich, dass du es von null allein nicht zusammenbrächtest. Das hier führt dich durch den Bau einer eigenen Anwendung, von der ersten Datei bis zu einer funktionierenden Grundlage, unter einer Regel: den Code schreibst du.",
+        what: "Baut mit dir eine Anwendung von null: erst etwas, das läuft, dann eine Fähigkeit nach der anderen, jede ganz. Theorie kommt dann, wenn das, was du baust, sie braucht, nie früher. Der Assistent erklärt und prüft; den Code schreibst du.",
         forWhom:
-          "Für alle, die schon etwas zusammenvibecodet haben und nicht dabei stehen bleiben wollen. Auch für Anfänger — heute fangen die meisten so an.",
+          "Für alle, die schon etwas zusammenvibecodet haben und nicht dabei stehen bleiben wollen. Auch für Anfänger — heute fangen die meisten so an. Wer lieber das versteht, was er schon hat, bekommt dafür ebenfalls einen Plan.",
         phases: [
           {
-            when: "Den Code lesen und verfolgen, was er tut",
-            what: "Nimm eine Datei, die dir der Assistent erzeugt hat, und geh sie Zeile für Zeile durch — laut oder schriftlich. Was macht diese Zeile? Was ginge kaputt ohne sie? Fertigen Code zu erklären führt schneller zum Verstehen als von null zu schreiben. Und die Regel, auf der der ganze Plan steht, gilt hier: was du nicht erklären kannst, geht nicht weiter.",
+            when: "Schon in den ersten Tagen etwas, das läuft",
+            what: "Keine drei Wochen Einrichten, Konfigurieren und Ordnersortieren — genau daran sterben solche Pläne. Das Kleinste, was startet, etwas anzeigt und in der Versionsverwaltung liegt. Wenn du es in der ersten Woche auch nach draußen bekommst, umso besser.",
           },
           {
-            when: "Den Fehler selbst finden",
-            what: "Reproduzieren, eingrenzen, wo genau es passiert, und eine Vermutung bilden, warum — statt dass die Meldung sofort zurück in den Assistenten wandert. Es ist genau um die paar Minuten langsamer, in denen man es lernt.",
+            when: "Eine Fähigkeit nach der anderen, und jede ganz",
+            what: "Etwas anzeigen. Annehmen, was eingegeben wird. Speichern. Zurücklesen. Zeigen, was passiert, wenn es schiefgeht. Jede davon geht durch die ganze Anwendung, von oben bis unten — nicht eine Woche Datenbank und dann eine Woche Oberfläche, denn dabei funktioniert bis zum Schluss nichts und unterwegs lernt man nichts.",
           },
           {
-            when: "Wie deine Sprache tatsächlich funktioniert",
-            what: "Typen, Gültigkeitsbereich, Referenzen, Asynchronität — in dem, womit du baust, nicht im Allgemeinen. Dann Daten und Zustand: wo die Wahrheit liegt und was sie ändern kann. Hier erklärt sich im Nachhinein die Hälfte der Dinge, die vorher „einfach liefen“.",
+            when: "Theorie erst, wenn sie zu etwas gut ist",
+            what: "Daten zu speichern ist der Moment, in dem du lernst, wie Daten geformt sind und wo die Wahrheit liegt. Eingaben anzunehmen ist der Moment für Validierung und dafür, warum man Eingaben nie traut. Nie mehr als eine Woche vor dem, wofür du es brauchst.",
           },
           {
-            when: "Einen guten Vorschlag von einem schlechten unterscheiden",
-            what: "Die Variante erkennen, die heute läuft und in einem halben Jahr zerbricht. Dazu kurze Einheiten ohne Assistenten — nicht als Strafe, sondern als einziger Weg herauszufinden, was du wirklich kannst und was du nur abschreibst.",
+            when: "Den Code schreibst du, der Assistent erklärt",
+            what: "Das ist der ganze Unterschied zwischen Lernen und weiterem Vibecoding. Der Assistent antwortet, erklärt und prüft, was du geschrieben hast — aber er erzeugt nicht den Code, der in dein Projekt geht. Sag ihm das zu Beginn jeder Sitzung. Dazu kurze Einheiten ganz ohne ihn: nicht als Strafe, sondern als einziger Weg herauszufinden, was du wirklich kannst.",
           },
         ],
-        whenBehind: "Die Theorie wird gestrichen. Bauen und Erklären bleiben — darauf steht das Ganze.",
-        goal: "Vom Vibecoding dahin, Code wirklich zu verstehen",
+        whenBehind: "Neue Funktionen und Lesestoff werden gestrichen. Das Bauen und die Einheiten ohne Assistenten bleiben — darauf steht das Ganze.",
+        goal: "Eine eigene Anwendung von null bauen und jede Zeile verstehen",
         questions: [
           {
             id: "stack",
@@ -196,9 +220,14 @@ the explaining.
             hint: "zum Beispiel JavaScript mit Next.js und Node.js — oder Python, oder ehrlich „keine Ahnung, das hat der Assistent ausgesucht“",
           },
           {
-            id: "built",
-            label: "Was hast du gebaut, oder was willst du bauen?",
-            hint: "beides hilft — das Fertige und das, was noch kommt",
+            id: "path",
+            label: "Willst du etwas Neues bauen oder verstehen, was du schon hast?",
+            hint: "etwas Neues von null bauen / durchgehen, was ich schon habe / hauptsächlich bauen und das Alte zum Vergleich nehmen",
+          },
+          {
+            id: "build",
+            label: "Was willst du bauen?",
+            hint: "je konkreter, desto besser — der Plan wird um diese eine Sache herum gebaut",
           },
           {
             id: "stuck",
