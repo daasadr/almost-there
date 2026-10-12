@@ -204,6 +204,22 @@ export const block: MotivationBlock = {
       "Ať ti první hodina dneška patří.",
     ],
   },
+  {
+    title: "Cizí rychlost není tvoje měřítko",
+    paragraphs: [
+      "Ahoj,",
+      "je skoro jedenáct večer, telefon v ruce, a najednou je to tam. Někdo, kdo začal se stejnou věcí o půl roku později, ukazuje výsledky. Vypadá jistěji. Mluví o tom, jako by to bylo snadné. A ta malá věc, co ti ráno udělala radost, je rázem k ničemu.",
+      "Ozve se otázka: zaostávám? Jenže ta otázka skoro nikdy nic nevyřeší. Jen si vezme energii, která měla jít do dalšího kroku — a odnese ji do cizího příběhu, kde se s ní nedá nic dělat.",
+      "Psychologie tenhle zvyk zná. Srovnávat se je normální; když člověk nemá jiné měřítko, vezme za měřítko lidi kolem. Jenže srovnávání směrem nahoru, tedy s těmi, kdo vypadají dál, se docela spolehlivě pojí s horší náladou, menší sebedůvěrou a časem i s tím, že toho člověk udělá míň. Ne proto, že by byl slabý. Proto, že porovnávání samo o sobě spotřebuje spoustu síly a nic za ni nevrátí.",
+      "Tady je ale věc, kterou si řekněme rovnou: občas to srovnání mluví pravdu. Někdy opravdu stojíš na místě a zrovna tohle je ta chvíle, kdy ti to došlo. Rozdíl není v tom, jestli je to pravda. Rozdíl je v tom, co to s tebou udělá. Když tě to zvedne a chce se ti začít, byla to informace. Když po tom zavřeš notebook a týden se k tomu nevrátíš, nebyla to informace, jen rána.",
+      "A většinou je to rána, protože se porovnává něco neporovnatelného. Zevnitř znáš každý svůj váhavý týden, každý večer, kdy to nešlo. Z druhého člověka vidíš sestříhanou verzi. Nevidíš roky předtím. Nevidíš, kdo mu pomohl, kdo to zaplatil, co se mu tiše nepovedlo a o čem radši mlčí.",
+      "A nevidíš, odkud kdo startoval. Někdo má volné večery, uspořené peníze a klid. Někdo má hodinu po uspání dětí a hlavu po celém dni. Ti dva se nedají porovnat ani náhodou a vypadá to jen tak, že jeden je rychlejší.",
+      "Pomalé období není selhání. Jsou měsíce, kdy jde všechno hladce, a měsíce, kdy se bojuje o jeden úkol denně — a obojí patří k té samé cestě. Jen si u toho nelži: pomalé a zastavené není totéž, a kde zrovna jsi, víš nejlíp ty. Na to srovnávání s ostatními nepotřebuješ.",
+      "Takže až se to dnes ozve, zkus to obrátit. Jsem o kousek dál než minulý týden? Udělal se dneska jeden poctivý krok, který patří mně? A míří to pořád tam, kam chci, i když to nejede rychle?",
+      "Jestli vyjde třikrát ano, je všechno v pořádku, i když to zvenčí nevypadá působivě. Tempo, které vydrží roky, je vždycky pomalejší než tempo, kterým se někdo předvádí měsíc.",
+      "Ať ti dnešek jde po tvém.",
+    ],
+  },
   ],
 
   en: [
@@ -403,6 +419,22 @@ export const block: MotivationBlock = {
       "May the first hour of today be yours.",
     ],
   },
+  {
+    title: "Someone else's speed is not your measure",
+    paragraphs: [
+      "Hello,",
+      "it is nearly eleven at night, the phone is in your hand, and suddenly there it is. Someone who started the same thing six months after you is showing results. They look more certain. They talk about it as though it were easy. And the small thing you were pleased with this morning is suddenly worth nothing.",
+      "A question turns up: am I falling behind? Except that question almost never settles anything. It just takes the energy that was meant for the next step and carries it off into somebody else's story, where there is nothing to be done with it.",
+      "Psychology knows this habit. Comparing is normal; when a person has no other yardstick, the people around them become the yardstick. But comparing upwards, with those who look further along, is fairly reliably tied to a worse mood, less confidence, and in time to getting less done. Not because anyone is weak. Because the comparing itself uses up a great deal of strength and gives nothing back.",
+      "Here is the thing worth saying plainly, though: sometimes the comparison is telling the truth. Sometimes you really have been standing still and this is simply the moment it landed. The difference is not whether it is true. The difference is what it does to you. If it lifts you and you want to start, it was information. If you close the laptop afterwards and do not come back for a week, it was not information, only a blow.",
+      "And usually it is a blow, because what is being compared cannot be compared. From the inside you know every hesitant week, every evening that went nowhere. Of the other person you see the edited version. You do not see the years before. You do not see who helped, who paid, what failed quietly and what they would rather not mention.",
+      "Nor do you see where anyone started. One person has free evenings, savings and quiet. Another has an hour after the children are asleep and a head full of the day. Those two cannot be compared at all, and it merely looks as though one is faster.",
+      "A slow season is not failure. There are months when everything runs smoothly and months spent fighting for one task a day — and both belong to the same road. Just be honest with yourself about it: slow and stopped are not the same, and you can tell which one you are in. You do not need anyone else for that.",
+      "So when it turns up today, try turning it round. Am I a little further than last week? Was there one honest step today that belongs to me? And is it still pointing where I want to go, even if it is not going fast?",
+      "If that is three times yes, everything is fine, even if it does not look impressive from the outside. A pace that lasts for years is always slower than a pace somebody keeps up for a month in public.",
+      "May today go your way.",
+    ],
+  },
   ],
 
   de: [
@@ -600,6 +632,22 @@ export const block: MotivationBlock = {
       "Wähl dir also heute eine Sache, die ganz in deiner Macht liegt, und tu sie, bevor der Lärm beginnt. Dann trag diesen stillen Beweis durch die übrigen Stunden.",
       "Ein Tag, der mit einem ehrlichen Stück begann, sieht anders aus als einer, der einfach ins Rollen kam.",
       "Möge die erste Stunde von heute dir gehören.",
+    ],
+  },
+  {
+    title: "Fremdes Tempo ist nicht dein Maßstab",
+    paragraphs: [
+      "Hallo,",
+      "es ist fast elf Uhr abends, das Handy in der Hand, und plötzlich ist es da. Jemand, der ein halbes Jahr nach dir mit derselben Sache angefangen hat, zeigt Ergebnisse. Wirkt sicherer. Redet darüber, als wäre es leicht. Und die kleine Sache, über die du dich heute Morgen gefreut hast, ist auf einmal nichts wert.",
+      "Eine Frage meldet sich: bleibe ich zurück? Nur klärt diese Frage fast nie etwas. Sie nimmt bloß die Energie, die für den nächsten Schritt gedacht war, und trägt sie in die Geschichte eines anderen, wo sich damit nichts anfangen lässt.",
+      "Die Psychologie kennt diese Gewohnheit. Sich zu vergleichen ist normal; wer keinen anderen Maßstab hat, nimmt die Menschen ringsum als Maßstab. Nur hängt der Vergleich nach oben, mit denen, die weiter vorn wirken, ziemlich verlässlich mit schlechterer Stimmung zusammen, mit weniger Zutrauen und mit der Zeit damit, dass man weniger schafft. Nicht weil jemand schwach wäre. Weil das Vergleichen selbst viel Kraft verbraucht und nichts zurückgibt.",
+      "Eines gehört aber geradeheraus gesagt: manchmal sagt der Vergleich die Wahrheit. Manchmal stehst du wirklich still, und das ist schlicht der Moment, in dem es angekommen ist. Der Unterschied liegt nicht darin, ob es stimmt. Der Unterschied liegt darin, was es mit dir macht. Hebt es dich und du willst anfangen, war es eine Information. Klappst du danach den Laptop zu und kommst eine Woche nicht wieder, war es keine Information, nur ein Schlag.",
+      "Und meistens ist es ein Schlag, weil verglichen wird, was sich nicht vergleichen lässt. Von innen kennst du jede zögerliche Woche, jeden Abend, an dem nichts ging. Vom anderen siehst du die geschnittene Fassung. Du siehst nicht die Jahre davor. Du siehst nicht, wer geholfen hat, wer es bezahlt hat, was still gescheitert ist und wovon lieber nicht die Rede ist.",
+      "Und du siehst nicht, wo wer gestartet ist. Der eine hat freie Abende, Erspartes und Ruhe. Die andere hat eine Stunde, nachdem die Kinder schlafen, und einen Kopf voll vom Tag. Die beiden lassen sich überhaupt nicht vergleichen, und es sieht nur so aus, als wäre eine schneller.",
+      "Eine langsame Phase ist kein Scheitern. Es gibt Monate, in denen alles glatt läuft, und Monate, in denen um eine Aufgabe am Tag gekämpft wird — beides gehört zum selben Weg. Sei dabei nur ehrlich zu dir: langsam und stehengeblieben ist nicht dasselbe, und welches davon gerade gilt, erkennst du selbst. Dafür brauchst du niemanden sonst.",
+      "Wenn es sich heute also meldet, versuch es umzudrehen. Bin ich ein Stück weiter als letzte Woche? Gab es heute einen ehrlichen Schritt, der mir gehört? Und zeigt es noch dorthin, wo ich hinwill, auch wenn es nicht schnell geht?",
+      "Wenn das dreimal ja ist, ist alles in Ordnung, auch wenn es von außen nicht beeindruckend aussieht. Ein Tempo, das Jahre hält, ist immer langsamer als eines, das jemand einen Monat lang vorführt.",
+      "Möge der heutige Tag nach deinem gehen.",
     ],
   },
   ],
