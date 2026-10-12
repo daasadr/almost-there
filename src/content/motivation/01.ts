@@ -220,6 +220,22 @@ export const block: MotivationBlock = {
       "Ať ti dnešek jde po tvém.",
     ],
   },
+  {
+    title: "Vděčnost je spíš počítání než cítění",
+    paragraphs: [
+      "Zdravím tě,",
+      "vděčnost má smůlu na to, jak se o ní mluví. Zní jako pokyn cítit něco, co se zrovna necítí. A když má člověk za sebou mizerný den, zní dokonce trochu jako výsměch.",
+      "Je ale užitečnější brát ji úplně jinak. Ne jako pocit, ale jako přesnější sčítání. Protože to, co si z dneška pamatuješ, není dnešek — je to výběr, a je pokřivený.",
+      "Hlava si vede neúplný zápis a dělá to schválně. Co nevyšlo, co se nestihlo, co visí nedodělané — to se zapíše samo a vrací se i v noci. Co proběhlo hladce, projde bez povšimnutí, protože nic nehrozí. K přežití je to výborné nastavení. K tomu, aby člověk věděl, jaký den vlastně měl, je nepoužitelné.",
+      "Vděčnost tedy není o tom vidět věci lépe, než jsou. Je to oprava chyby v měření. Ten den měl i druhou stranu, jen se nezapsala, a ty si ji dopisuješ zpátky.",
+      "Právě proto je skoro jedno, co cítíš, a skoro všechno, jak konkrétní jsi. Vděčnost za zdraví a za rodinu nedělá nic. Je to příliš velké, příliš známé a hlava to odbyde jako už přečtené. Zabírá tohle: ráno přijel autobus hned, bez čekání. Soused přidržel dveře, i když ho to zdrželo. Kafe bylo ještě teplé, i když se k němu došlo až za půl hodiny.",
+      "Rozdíl je v tom, že obecná věta se dá odškrtnout bez přemýšlení, kdežto konkrétní si tě donutí ten okamžik znovu vybavit. A teprve to vybavení je ta práce — ne ten seznam.",
+      "Výzkum tomuhle fandí, ale ne tak, jak se obvykle podává. Všímat si a pojmenovat pár dobrých věcí denně patří k těm lépe ověřeným drobnostem, co se o sobě v téhle oblasti tvrdí; účinky na náladu a spokojenost bývají doložené, ale mírné, ne zázračné. A berou se z toho všímání, ne z toho, že se podaří něco ucítit.",
+      "Jedna hranice je důležitá. Když je v životě něco doopravdy zlé — ztráta, nemoc, něco, co se nedá přejít — tohle to nespraví a nemá se tak používat. Nutit se v takové chvíli do vděčnosti bývá hlavně způsob, jak si nedovolit, že je zle. Tenhle text mluví o obyčejných dnech, kterých je většina.",
+      "Takže dnes jednou, maximálně dvakrát, zastav a zeptej se: co tady zrovna je a skoro mi to uteklo? Nemusí to být krásné ani důležité. Čím menší to je, tím spolehlivěji to funguje, protože o to míň je to chtěné.",
+      "Ať ti dnes padne něco do oka.",
+    ],
+  },
   ],
 
   en: [
@@ -435,6 +451,22 @@ export const block: MotivationBlock = {
       "May today go your way.",
     ],
   },
+  {
+    title: "Gratitude is more counting than feeling",
+    paragraphs: [
+      "Hello there,",
+      "gratitude is unlucky in how people talk about it. It sounds like an instruction to feel something you do not happen to feel. And after a miserable day it sounds faintly like mockery.",
+      "It is far more useful taken another way altogether. Not as a feeling, but as more accurate counting. Because what you remember of today is not today — it is a selection, and the selection is skewed.",
+      "Your head keeps an incomplete record, and it does so on purpose. What went wrong, what did not get done, what is left hanging — that writes itself down and comes back at night. What went smoothly passes unnoticed, because nothing was at stake. For staying alive that is an excellent setting. For knowing what sort of day you actually had, it is useless.",
+      "So gratitude is not about seeing things as better than they are. It is correcting a measurement error. The day had another side as well; it simply never got written down, and you are putting it back.",
+      "Which is why what you feel hardly matters and how specific you are matters almost entirely. “I am grateful for my health and my family” does nothing. It is too large, too familiar, and your head files it as already read. This is what works: the bus came the moment I reached the stop. A neighbour held the door even though it cost him a wait. The coffee was still warm when I got back to it.",
+      "The difference is that a general sentence can be ticked off without thinking, whereas a specific one forces you to call the moment back. And the calling back is the work — not the list.",
+      "Research is on this side, though not in the way it is usually sold. Noticing and naming a few good things a day is among the better-supported small practices in this field; the effects on mood and satisfaction do show up, but they are modest rather than miraculous. And they come from the noticing, not from managing to feel something.",
+      "One limit matters. When something in your life is genuinely bad — a loss, an illness, something that cannot be walked around — this does not fix it and should not be used as though it could. Forcing gratitude at such a time is mostly a way of not letting yourself admit how bad it is. This piece is about ordinary days, which are most of them.",
+      "So once today, twice at most, stop and ask: what is here that I very nearly failed to notice? It does not have to be lovely or important. The smaller it is, the more reliably it works, because that much less of it is wishful.",
+      "May something catch your eye today.",
+    ],
+  },
   ],
 
   de: [
@@ -648,6 +680,22 @@ export const block: MotivationBlock = {
       "Wenn es sich heute also meldet, versuch es umzudrehen. Bin ich ein Stück weiter als letzte Woche? Gab es heute einen ehrlichen Schritt, der mir gehört? Und zeigt es noch dorthin, wo ich hinwill, auch wenn es nicht schnell geht?",
       "Wenn das dreimal ja ist, ist alles in Ordnung, auch wenn es von außen nicht beeindruckend aussieht. Ein Tempo, das Jahre hält, ist immer langsamer als eines, das jemand einen Monat lang vorführt.",
       "Möge der heutige Tag nach deinem gehen.",
+    ],
+  },
+  {
+    title: "Dankbarkeit ist eher Zählen als Fühlen",
+    paragraphs: [
+      "Hallo du,",
+      "Dankbarkeit hat Pech damit, wie über sie geredet wird. Sie klingt wie die Anweisung, etwas zu fühlen, das man gerade nicht fühlt. Und nach einem miesen Tag klingt sie beinahe wie Hohn.",
+      "Viel brauchbarer wird sie ganz anders verstanden. Nicht als Gefühl, sondern als genaueres Zählen. Denn was du vom heutigen Tag erinnerst, ist nicht der Tag — es ist eine Auswahl, und die ist schief.",
+      "Dein Kopf führt ein unvollständiges Protokoll, und zwar mit Absicht. Was schiefging, was liegen blieb, was unerledigt hängt — das schreibt sich von selbst auf und kommt nachts wieder. Was glattlief, geht unbemerkt vorbei, weil nichts auf dem Spiel stand. Fürs Überleben ist das eine hervorragende Einstellung. Um zu wissen, was für einen Tag man eigentlich hatte, ist sie unbrauchbar.",
+      "Dankbarkeit heißt also nicht, die Dinge besser zu sehen, als sie sind. Sie korrigiert einen Messfehler. Der Tag hatte auch eine andere Seite, sie wurde nur nie notiert, und du trägst sie nach.",
+      "Genau deshalb ist fast egal, was du fühlst, und fast alles, wie konkret du wirst. „Ich bin dankbar für Gesundheit und Familie“ bewirkt nichts. Es ist zu groß, zu vertraut, und dein Kopf legt es als schon gelesen ab. Das hier wirkt: Der Bus kam in dem Moment, als ich die Haltestelle erreichte. Ein Nachbar hielt die Tür auf, obwohl es ihn Wartezeit kostete. Der Kaffee war noch warm, als ich zu ihm zurückkam.",
+      "Der Unterschied ist, dass sich ein allgemeiner Satz gedankenlos abhaken lässt, während ein konkreter dich zwingt, den Moment zurückzuholen. Und das Zurückholen ist die Arbeit — nicht die Liste.",
+      "Die Forschung steht auf dieser Seite, nur nicht so, wie es üblicherweise verkauft wird. Ein paar gute Dinge am Tag zu bemerken und zu benennen gehört zu den besser belegten kleinen Übungen in diesem Feld; die Effekte auf Stimmung und Zufriedenheit zeigen sich durchaus, sind aber moderat und nicht wundersam. Und sie kommen vom Bemerken, nicht davon, dass es gelingt, etwas zu empfinden.",
+      "Eine Grenze ist wichtig. Wenn etwas im Leben wirklich schlimm ist — ein Verlust, eine Krankheit, etwas, um das man nicht herumkommt — richtet das hier nichts aus und sollte auch nicht so verwendet werden. Sich in einem solchen Moment zur Dankbarkeit zu zwingen ist meist vor allem eine Art, sich nicht einzugestehen, wie schlimm es steht. Dieser Text spricht von gewöhnlichen Tagen, und das sind die meisten.",
+      "Also halte heute einmal inne, höchstens zweimal, und frag: Was ist hier, das ich beinahe übersehen hätte? Es muss nicht schön sein und nicht wichtig. Je kleiner es ist, desto verlässlicher wirkt es, weil umso weniger daran gewollt ist.",
+      "Möge dir heute etwas ins Auge fallen.",
     ],
   },
   ],
