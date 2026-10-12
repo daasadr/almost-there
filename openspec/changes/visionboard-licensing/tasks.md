@@ -2,7 +2,7 @@
 
 ## 1. Základ
 
-- [ ] 1.1 Datový model: `VisionBoardInstallation`, `VisionBoardActivationCode`,
+- [x] 1.1 Datový model: `VisionBoardInstallation`, `VisionBoardActivationCode`,
       `User.visionBoardRef`, `User.invitedById`. Migrace.
       Ověřit: `npm run check` a `npx prisma migrate deploy` na čisté databázi.
 - [ ] 1.2 Podepisování licencí (`jose`, EdDSA), klíč a `kid` z prostředí.

@@ -123,4 +123,18 @@ Vyplní se při posledním úkolu.
 
 ## Odchylky při implementaci
 
-Zatím žádné.
+**12. 10. 2026 — migrace se neověřila proti databázi.** Úkol 1.1 počítal
+s `prisma migrate deploy` na čisté databázi. Na vývojovém stroji není
+Docker ani lokální Postgres, takže to nešlo.
+
+Ověřeno náhradou, která nepotřebuje databázi: `prisma migrate diff
+--from-empty --to-schema` vygeneruje SQL, které by Prisma pro tohle
+schéma napsala sama, a to se porovnalo s ručně psanou migrací. Těla obou
+tabulek sedí řádek po řádku, indexy a cizí klíče včetně `ON DELETE` taky.
+Zbývá riziko, že se migrace nesnese s **existujícími** daty na serveru —
+to tahle kontrola neodhalí. U čistě přidávající migrace bez `NOT NULL`
+sloupců bez výchozí hodnoty je ale malé.
+
+Přibyl `prisma/migrations/migration_lock.toml`. Chyběl, protože migrace
+v tomhle repu vznikaly ručně, ne přes `prisma migrate dev`. Bez něj
+nástroje nepoznají, na jaký databázový stroj jsou migrace psané.

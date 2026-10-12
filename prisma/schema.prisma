@@ -102,7 +102,7 @@ model User {
   /// Rozesílač běží každých pár minut a bez téhle značky by při každém
   /// průchodu poslal další oznámení. Datum, ne časové razítko: rozhoduje
   /// se „už dnes šlo ven?“, a to se čte i přes změnu pásma.
-  notifiedOn        String?
+  notifiedOn String?
 
   /// Kolik myšlenek na den už uživateli doručených odešlo.
   ///
@@ -166,6 +166,20 @@ model User {
   // Soft delete pro retenční politiku; skutečný výmaz řeší GDPR job.
   deletedAt DateTime?
 
+  /// Kód osobní pozvánky k Vision Boardu.
+  ///
+  /// Trvalý a náhodný, neprozrazuje id ani e-mail. Vzniká líně, až když
+  /// si ho někdo poprvé zobrazí — většina uživatelů ho nikdy neuvidí
+  /// a plnit tabulku kódy do zásoby nemá cenu.
+  visionBoardRef String? @unique
+
+  /// Kdo tohohle uživatele pozval. Jen pro přehled, nic to neodemyká.
+  ///
+  /// Licenci dostává každý registrovaný, takže pozvánka nedává nic navíc;
+  /// smysl má v tom, že přivádí nové účty. Při smazání zvoucího se
+  /// nastaví na prázdno, aby pozvaný o účet nepřišel s ním.
+  invitedById String?
+
   goals          Goal[]
   checkIns       CheckIn[]
   consents       Consent[]
@@ -174,7 +188,13 @@ model User {
   accounts       Account[]
   sessions       Session[]
 
+  invitedBy          User?                       @relation("VisionBoardInvite", fields: [invitedById], references: [id], onDelete: SetNull)
+  invited            User[]                      @relation("VisionBoardInvite")
+  visionBoardDevices VisionBoardInstallation[]
+  visionBoardCodes   VisionBoardActivationCode[]
+
   @@index([subscriptionStatus])
+  @@index([invitedById])
 }
 
 // --- Modely vyžadované NextAuth --------------------------------------------
@@ -747,7 +767,7 @@ model PushSubscription {
   /// Mrtvé odběry se mažou (404 a 410), tohle zachytí ten zbytek —
   /// výpadky poštovní služby, zahlcení, chyby v zásilce. Bez toho se
   /// nedalo poznat, jestli se neposílá, nebo se posílá a padá to.
-  lastError  String?
+  lastError String?
 
   /// Zvolený vzhled na tomhle zařízení.
   ///
@@ -767,4 +787,80 @@ model PushSubscription {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
+}
+
+// ---------------------------------------------------------------------------
+// Vision Board
+//
+// Samostatná desktopová aplikace, kterou si uživatel aktivuje účtem. Licence
+// se tu **needviduje** a je to schválně: nárok na ni plyne z existence účtu,
+// takže tabulka „kdo má licenci" by byla jen druhá kopie seznamu uživatelů —
+// a ta se dřív nebo později rozejde. Eviduje se jen to, co z účtu neplyne:
+// na kterých zařízeních licence běží a jaké kódy čekají na uplatnění.
+//
+// Rozhraní popisuje docs/visionboard-api.md. Nemění se jednostranně.
+// ---------------------------------------------------------------------------
+
+/// Jedno zařízení, na kterém je Vision Board aktivovaný.
+model VisionBoardInstallation {
+  id     String @id @default(cuid())
+  userId String
+
+  /// Identifikátor instalace, který si aplikace drží sama.
+  ///
+  /// Táž dvojice účet + `installationId` je totéž zařízení, takže
+  /// přeinstalace nebo opakovaná aktivace nezabere další místo z limitu.
+  /// Bez téhle unikátnosti by se dal limit obejít prostým zopakováním.
+  installationId String
+
+  /// windows | macos | linux. Jen pro přehled zařízení, nic se tím neřídí.
+  platform String
+
+  activatedAt   DateTime  @default(now())
+  /// Kdy si aplikace naposledy prodloužila licenci.
+  lastRenewedAt DateTime?
+
+  /// Kdy bylo zařízení uvolněné. Prázdné u aktivního.
+  ///
+  /// Nemaže se, jen označuje. Kdyby záznam zmizel, přišlo by se s ním
+  /// o to, že se k témuž `installationId` nemá vydávat nová licence —
+  /// a odebrané zařízení by se dalo oživit opakovanou aktivací.
+  deactivatedAt DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, installationId])
+  @@index([userId, deactivatedAt])
+}
+
+/// Jednorázový kód, kterým si aplikace vyzvedne licenci.
+model VisionBoardActivationCode {
+  id     String @id @default(cuid())
+  userId String
+
+  /// Otisk kódu, ne kód sám.
+  ///
+  /// Kdo by se dostal k databázi, nesmí umět aktivovat cizím jménem.
+  /// Kód žije deset minut a existuje jen na obrazovce a v paměti
+  /// aplikace; tady po něm zůstává jen stopa, proti které se porovnává.
+  codeHash String @unique
+
+  /// Z PKCE: base64url(SHA-256(verifier)), 43 znaků.
+  ///
+  /// `verifier` zná jen ta instalace aplikace, která aktivaci zahájila.
+  /// Bez něj je odchycený kód bezcenný — a právě proto se kód smí
+  /// ukázat na obrazovce.
+  challenge String
+
+  expiresAt DateTime
+  /// Kdy byl kód spotřebovaný. Vyplní se i po špatném verifieru, aby
+  /// nešlo zkoušet dokola.
+  usedAt    DateTime?
+
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
 }
