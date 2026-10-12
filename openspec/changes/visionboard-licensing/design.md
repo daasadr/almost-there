@@ -56,12 +56,18 @@ kopie seznamu uživatelů, která se rozejde.
 ## Podepisování
 
 Knihovna `jose`, kterou kontrakt uvádí v příkladu. **Dopad na balík žádný** —
-běží jen na serveru v API trasách, do klienta se nedostane. Alternativou by
+běží jen na serveru v API trasách, do klienta se nedostane. V repu už byla
+přes NextAuth, ale jen přenesená závislost; teď je přímá, protože spoléhat
+na to, co si s sebou tahá někdo jiný, je způsob, jak si jednou ráno
+nespustit build. Alternativou by
 byl `crypto.sign` z Node, ale `jose` zvládne EdDSA i JWT najednou a používá
 ji i příklad v kontraktu, takže se nebudou rozcházet drobnosti ve tvaru.
 
 Soukromý klíč je v `VISIONBOARD_LICENSE_PRIVATE_KEY` (PEM PKCS#8), `kid`
-v `VISIONBOARD_LICENSE_KID`. **Nikdy ne s prefixem `NEXT_PUBLIC_`** —
+v `VISIONBOARD_LICENSE_KID`. **Veřejný klíč se odvozuje ze soukromého**,
+neukládá se zvlášť: dvě proměnné by se mohly rozejít a obnova licencí by
+pak tiše odmítala každou platnou — poruchu, kterou nikdo nehledá na
+správném místě. **Nikdy ne s prefixem `NEXT_PUBLIC_`** —
 takto pojmenovaná proměnná se zapéká do stránky.
 
 Testy se píšou proti vektorům z oddílu 9 kontraktu. Nejsou to naše vektory:

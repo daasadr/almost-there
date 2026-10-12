@@ -5,7 +5,7 @@
 - [x] 1.1 Datový model: `VisionBoardInstallation`, `VisionBoardActivationCode`,
       `User.visionBoardRef`, `User.invitedById`. Migrace.
       Ověřit: `npm run check` a `npx prisma migrate deploy` na čisté databázi.
-- [ ] 1.2 Podepisování licencí (`jose`, EdDSA), klíč a `kid` z prostředí.
+- [x] 1.2 Podepisování licencí (`jose`, EdDSA), klíč a `kid` z prostředí.
       Ověřit: test proti vektorům z oddílu 9 kontraktu — token se znak po
       znaku shoduje; cizí `alg`, `none` a upravený payload neprojdou.
 - [ ] 1.3 Vydání a ověření aktivačního kódu (abeceda, 12 znaků, otisk,
