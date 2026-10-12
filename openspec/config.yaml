@@ -1,0 +1,54 @@
+schema: spec-driven
+
+context: |
+  Language: cs
+  All artifacts must be written in cs.
+  Keep OpenSpec structural headings and SHALL/MUST keywords in English.
+
+  Projekt: AlmostThere (almost-there.eu) — z cíle a termínu udělá plán až na
+  úroveň dnešního dne: roky → měsíce → týdny → denní checklist, s odpočinkem
+  a s přepočítáním, když se cesta rozejde se skutečností.
+
+  Stack: Next.js 16 (App Router), React 19, TypeScript, Tailwind 4,
+  next-intl (cs/en/de, prefix v URL vždy), Prisma 7 + PostgreSQL,
+  NextAuth v5, Stripe, web push (VAPID). Vlastní server, Docker, nginx.
+  Aplikace běží i jako PWA a jako obal z obchodu Play.
+
+  Jazyk: kód, identifikátory a názvy souborů anglicky. Komentáře v kódu,
+  zprávy commitů a projektová dokumentace česky — tak je psaný celý
+  dosavadní repozitář a míchat jazyky by historii rozbilo.
+
+  Tvrdá omezení:
+  - Tři jazyky. Nový text znamená cs, en i de zároveň; chybějící překlad
+    se neprojeví jako chyba, jen se uživateli ukáže holý klíč.
+  - Čeština musí být bezrodá. Minulý čas v češtině určuje rod a „všiml
+    sis" mluví k polovině lidí. Platí i pro texty v UI, ne jen pro obsah.
+  - Názvy a popisy cílů i úkolů jsou v databázi šifrované.
+  - Plán píše model, ne odborník. U zdraví, jídla a pohybu musí být
+    u plánu vidět upozornění; v promptech je to ošetřené zvlášť.
+  - Volání modelu stojí peníze a mají měsíční strop na uživatele.
+    Nové volání se nepřidává bez rozmyslu.
+  - Oznámení se značí jako doručená, až když opravdu odejdou. Značka
+    zapsaná napřed spálí celý den.
+
+rules:
+  proposal:
+    - Vždy uveď sekci "Non-goals".
+  design:
+    - U každé nové závislosti uveď dopad na velikost balíku a výkon.
+    - U změn, které se dotýkají tří jazyků, uveď, kde texty vznikají.
+  tasks:
+    - Úkol nanejvýš zhruba na dvě hodiny práce.
+    - Každý úkol uvádí, čím se ověří — test, příkaz nebo pozorovatelné chování.
+    - Testy a dokumentace patří k úkolu, ne na konec změny.
+    - Úkoly, které se dotýkají přihlašování, plateb, licencí nebo vstupů od
+      uživatele, mají navazující úkol "Review bezpečnosti".
+
+operations:
+  apply:
+    guidance:
+      - Před zavřením úkolu musí projít `npm run check` i `npm run build`.
+      - Odchylky od designu zapiš do design.md i s datem a důvodem.
+  archive:
+    guidance:
+      - Požadavky z delta specs přesuň do openspec/specs/<capability>/spec.md.
