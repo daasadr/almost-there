@@ -109,5 +109,25 @@ Desktopová aplikace (repo `daasadr/vision-board`) se aktivuje účtem
 AlmostThere. Kontrakt mezi oběma stranami:
 `https://github.com/daasadr/vision-board/blob/main/docs/almost-there-api.md`.
 
+Kopie kontraktu je v `docs/visionboard-api.md` i s tím, z kterého commitu
+pochází. Build ani testy nesmí záviset na tom, jestli je vedle naklonované
+druhé repo — a při aktualizaci kontraktu je v naší historii vidět diff.
+
 Kontrakt se nemění jednostranně. Když je potřeba změna, navrhnout ji Dagmar,
 která ji předá druhé straně, aby se obě změnily zároveň.
+
+Rozpracovaná změna: `openspec/changes/visionboard-licensing/`, epic `at-xzf`.
+
+### Klon Vision Boardu je jen ke čtení
+
+Leží v `D:\Users\Dasa\vision-board`. Vyvíjí ho jiné sezení Claude Code,
+takže se do něj **necommituje ani nepushuje** a **nespouští se v něm `bd`** —
+úkoly AlmostThere patří do Beads tohoto repa. Před čtením kontraktu `git pull`.
+
+Repozitář `daasadr/vision-board` musí zůstat veřejný: aplikace i stránka ke
+stažení čtou GitHub Releases bez přihlášení. Když byl soukromý, aktualizace
+přestaly fungovat.
+
+Podpisový klíč aktualizací aplikace se nás netýká, vydávání dělá druhá strana.
+Klíč pro licence je jiný — pár Ed25519 vygeneruje AlmostThere a soukromá část
+zůstane jen na našem serveru.
