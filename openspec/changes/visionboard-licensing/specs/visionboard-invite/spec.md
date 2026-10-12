@@ -4,15 +4,17 @@
 
 ### Requirement: Osobní pozvánka
 
-Každý účet SHALL mít trvalý náhodný kód pozvánky a v účtu odkaz
-`/visionboard?ref=<kód>` s možností zkopírovat a sdílet. Kód SHALL NOT
+Každý účet SHALL mít trvalý náhodný kód pozvánky a na stránce Extra odkaz
+`/visionboard?ref=<kód>` s možností zkopírovat a sdílet. Uživatel SHALL
+tamtéž vidět, kolik lidí se přes jeho pozvánku zaregistrovalo. Kód SHALL NOT
 prozrazovat id účtu ani e-mail.
 
 #### Scenario: Zobrazení pozvánky
 
-- **WHEN** přihlášený uživatel otevře svůj účet
+- **WHEN** přihlášený uživatel otevře stránku Extra
 - **THEN** vidí svůj odkaz a může ho zkopírovat
 - **AND** odkaz je pokaždé stejný
+- **AND** vidí počet lidí, kteří se přes něj zaregistrovali
 
 ### Requirement: Veřejná stránka Vision Boardu
 

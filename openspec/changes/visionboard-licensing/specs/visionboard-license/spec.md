@@ -22,6 +22,20 @@ bez ohledu na předplatné. Nárok SHALL zaniknout jen smazáním účtu.
 - **WHEN** uživatel smaže účet
 - **THEN** všechny jeho instalace jsou označené za deaktivované
 - **AND** obnova jeho licence vrátí `403 revoked`
+- **AND** už vydaná licence doběhne, až vyprší — ověřuje se offline,
+  takže na ni zpětně nedosáhneme
+
+### Requirement: Licence platí rok a obnovuje se sama
+
+Vydaná licence SHALL mít `exp` nastavené na rok od vydání. Expirace SHALL
+být povinná, ne volitelná: licence bez ní je neodvolatelná, protože se
+ověřuje offline a aplikace se serveru po aktivaci neptá.
+
+#### Scenario: Běžný uživatel expiraci nepozná
+
+- **WHEN** aplikace 14 dní před koncem platnosti zavolá obnovu
+- **THEN** dostane novou licenci se stejným `iid` a novým `exp`
+- **AND** uživatel nedělá nic
 
 ### Requirement: Evidence instalací
 
@@ -50,9 +64,9 @@ Táž dvojice účet + `installationId` SHALL znamenat totéž zařízení.
 - **THEN** API odpoví `403 too_many_installations`
 - **AND** aktivační kód je i tak zneplatněný
 
-### Requirement: Přehled zařízení v účtu
+### Requirement: Přehled zařízení na stránce Extra
 
-Uživatel SHALL v účtu vidět svá aktivní zařízení s platformou a datem
+Uživatel SHALL na stránce Extra vidět svá aktivní zařízení s platformou a datem
 aktivace a SHALL je moci jednotlivě odebrat.
 
 #### Scenario: Odebrání zařízení

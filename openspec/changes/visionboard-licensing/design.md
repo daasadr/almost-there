@@ -10,6 +10,27 @@ sem a navrhne Dagmar; obě strany se mění zároveň a zvedá se verze.
 Klon Vision Boardu (`D:\Users\Dasa\vision-board`) je **jen ke čtení**.
 Nic se do něj necommituje, `bd` se v něm nespouští.
 
+## Rozhodnutí Dagmar (12. 10. 2026)
+
+- **Licenci má každý registrovaný, i neplatící.** Je to dárek za přidání se,
+  ne odměna za předplatné. Zaniká jen smazáním účtu.
+- **Tři zařízení** na účet.
+- **Platnost rok s automatickou obnovou.** Zvažovalo se vydávat licence bez
+  expirace, ať se „nevyčerpávají". Nejde to: licence se ověřuje offline
+  a aplikace se serveru po aktivaci neptá, takže licence bez `exp` je
+  neodvolatelná — ani smazání účtu by na ni nedosáhlo. Roční `exp` je
+  jediné, co nám nad licencemi nechává kontrolu, a uživatele nic nestojí,
+  protože obnovu dělá aplikace sama 14 dní předem. Důsledek, se kterým se
+  počítá: po smazání účtu licence doběhne, až vyprší.
+- **Vision Board patří na Extra, ne do účtu.** Pozvánka, moje zařízení
+  i odkaz ke stažení jsou na jedné stránce; účet má zůstat jednoduchý.
+- **Počet přijatých pozvánek** se uživateli ukazuje.
+- **Sdílení nastavené nástěnky mezi zařízeními se nedělá.** Data nástěnky
+  zůstávají v počítači, synchronizace je mimo rozsah na obou stranách.
+  Dodělat by znamenalo ukládat fotky uživatelů na náš server — místo,
+  přenosy, šifrování, zálohy a nové povinnosti kolem osobních údajů.
+  Samostatné rozhodnutí na jindy, ne součást téhle změny.
+
 ## Datový model
 
 Čtyři nové věci v Prismě. Licence sama se neukládá — nárok na ni plyne

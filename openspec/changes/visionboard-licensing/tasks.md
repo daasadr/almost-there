@@ -30,10 +30,10 @@
       kódu, přesměrování na pevné `visionboard://activate`. Texty cs/en/de.
       Ověřit: e2e — nepřihlášený projde registrací a vrátí se se stejnými
       parametry; samotné otevření stránky kód nevydá.
-- [ ] 3.2 „Moje zařízení" v účtu: seznam aktivních instalací, odebrání.
-      Texty cs/en/de. Ověřit: e2e — po odebrání se uvolní místo z limitu.
-- [ ] 3.3 Pozvánka v účtu: trvalý odkaz, kopírovat a sdílet, počet pozvaných.
-      Texty cs/en/de. Ověřit: e2e — odkaz je při druhém otevření stejný.
+- [ ] 3.2 Oddíl Vision Boardu na Extra: moje zařízení (platforma, datum,
+      odebrat). Texty cs/en/de. Ověřit: e2e — po odebrání se uvolní místo.
+- [ ] 3.3 Tamtéž pozvánka: trvalý odkaz, kopírovat a sdílet, počet
+      přijatých. Texty cs/en/de. Ověřit: e2e — odkaz je podruhé stejný.
 - [ ] 3.4 Uložení zvoucího při registraci přes `ref`; neznámý `ref` se
       ignoruje. Ověřit: testy obou případů, včetně toho, že registrace
       s podvrženým `ref` projde.
