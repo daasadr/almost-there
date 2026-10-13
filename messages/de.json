@@ -619,7 +619,10 @@
       "confirmYes": "Ja, Plan erstellen",
       "confirmBack": "Noch nicht",
       "discard": "Entwurf verwerfen",
-      "discardConfirm": "Wirklich verwerfen, was geschrieben ist?"
+      "discardConfirm": "Wirklich verwerfen, was geschrieben ist?",
+      "replaceLabel": "Das ursprüngliche Ziel „{goal}“ löschen, sobald der neue Plan steht",
+      "replaceClean": "Daran ist nichts abgehakt, es geht also nichts verloren.",
+      "replaceHasHistory": "{count, plural, one {Achtung: # abgehakte Aufgabe} other {Achtung: # abgehakte Aufgaben}} — beim Löschen sind sie weg."
     },
     "detail": {
       "back": "Zurück zur Übersicht",
@@ -647,7 +650,9 @@
       "deleteYes": "Ja, löschen",
       "deleteNo": "Behalten",
       "deleting": "Wird gelöscht…",
-      "aiDisclaimer": "Diesen Plan hat ein Sprachmodell aus deinen Angaben erstellt. Er ist keine fachliche Beratung — weder medizinisch noch rechtlich oder finanziell. Bei allem, was Gesundheit, Bewegung oder Ernährung betrifft: Bei Zweifeln, Beschwerden oder wenn du Medikamente nimmst, sprich vorher mit deiner Ärztin oder deinem Arzt."
+      "aiDisclaimer": "Diesen Plan hat ein Sprachmodell aus deinen Angaben erstellt. Er ist keine fachliche Beratung — weder medizinisch noch rechtlich oder finanziell. Bei allem, was Gesundheit, Bewegung oder Ernährung betrifft: Bei Zweifeln, Beschwerden oder wenn du Medikamente nimmst, sprich vorher mit deiner Ärztin oder deinem Arzt.",
+      "redoLead": "Stimmt die Vorgabe selbst nicht — zu wenig Zeit, ein vager Ausgangspunkt?",
+      "redoCta": "Neu planen aus dem ausgefüllten Formular"
     },
     "errors": {
       "goalRequired": "Schreib auf, was du erreichen willst.",

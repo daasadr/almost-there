@@ -619,7 +619,10 @@
       "confirmYes": "Ano, vytvořit plán",
       "confirmBack": "Ještě ne",
       "discard": "Zahodit rozepsaný cíl",
-      "discardConfirm": "Opravdu zahodit, co je napsané?"
+      "discardConfirm": "Opravdu zahodit, co je napsané?",
+      "replaceLabel": "Až nový plán vznikne, smazat původní cíl „{goal}“",
+      "replaceClean": "Nic na něm není odškrtnuté, takže se nic neztratí.",
+      "replaceHasHistory": "{count, plural, one {Pozor: je na něm # odškrtnutý úkol} few {Pozor: jsou na něm # odškrtnuté úkoly} other {Pozor: je na něm # odškrtnutých úkolů}} a smazáním o ně přijdeš."
     },
     "detail": {
       "back": "Zpět na přehled",
@@ -647,7 +650,9 @@
       "deleteYes": "Ano, smazat",
       "deleteNo": "Ponechat",
       "deleting": "Mažu…",
-      "aiDisclaimer": "Plán sestavil jazykový model podle toho, co jsi zadal. Není to odborná rada — lékařská, právní ani finanční. U všeho, co se týká zdraví, pohybu nebo stravy: při jakékoliv pochybnosti, potížích nebo když bereš léky to prober se svým lékařem dřív, než se do toho pustíš."
+      "aiDisclaimer": "Plán sestavil jazykový model podle toho, co jsi zadal. Není to odborná rada — lékařská, právní ani finanční. U všeho, co se týká zdraví, pohybu nebo stravy: při jakékoliv pochybnosti, potížích nebo když bereš léky to prober se svým lékařem dřív, než se do toho pustíš.",
+      "redoLead": "Nesedí samo zadání — málo času, mlhavý výchozí bod?",
+      "redoCta": "Naplánovat znovu z vyplněného formuláře"
     },
     "errors": {
       "goalRequired": "Napiš, čeho chceš dosáhnout.",

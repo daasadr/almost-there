@@ -69,6 +69,27 @@ export function weightForImportance(importance: number): number {
 }
 
 /**
+ * Zpátky z váhy na stupeň 1–5.
+ *
+ * Potřeba při plánování cíle znovu: ve formuláři se vybírá důležitost,
+ * v databázi leží váha. Váha, která v řadě není (ze starých dat nebo
+ * z ruční úpravy), spadne na nejbližší — lepší než prostředek, protože
+ * se tím zachová, jestli šlo o okrajovou nebo hlavní věc.
+ */
+export function importanceFromWeight(weight: number): number {
+  let best = 0;
+  for (let i = 1; i < IMPORTANCE_WEIGHTS.length; i += 1) {
+    if (
+      Math.abs(IMPORTANCE_WEIGHTS[i] - weight) <
+      Math.abs(IMPORTANCE_WEIGHTS[best] - weight)
+    ) {
+      best = i;
+    }
+  }
+  return best + 1;
+}
+
+/**
  * Zaúčtuje spotřebu i u volání, které skončilo chybou.
  *
  * Tokeny se platí za každou odpověď, i za tu zahozenou. Kdyby se

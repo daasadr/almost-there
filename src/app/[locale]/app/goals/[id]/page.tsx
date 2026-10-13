@@ -225,6 +225,27 @@ export default async function GoalPage({
         />
       </div>
 
+      {/*
+        Naplánovat znovu jinak.
+
+        Úprava směru pod tím mění cestu, ne zadání. Když je špatně
+        samotné zadání — málo času, mlhavý výchozí bod, přestřelená
+        důležitost — nedalo se s tím dělat nic než založit cíl od
+        začátku a vyplnit celý formulář znovu. Tohle otevře tentýž
+        formulář se vším, co už je uložené.
+      */}
+      {goal.status === "ACTIVE" && (
+        <p className="mt-6 text-sm leading-relaxed text-[var(--color-paper-dim)]">
+          {t("redoLead")}{" "}
+          <Link
+            href={`/${locale}/app/goals/new?redo=${goal.id}`}
+            className="text-[var(--color-lime-soft)] underline-offset-4 hover:underline"
+          >
+            {t("redoCta")}
+          </Link>
+        </p>
+      )}
+
       {/* Úprava směru jen u běžícího cíle, který už má co upravovat.
           U pozastaveného ani dotaženého by přepracování plánu nedávalo
           smysl a u čerstvě založeného ještě není podle čeho soudit. */}

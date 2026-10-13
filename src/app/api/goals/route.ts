@@ -9,6 +9,7 @@ import { AiBudgetError, PlanAllowanceError } from "@/lib/ai/usage";
 import { env } from "@/lib/env";
 import { isGoalColor } from "@/lib/plan/colors";
 import { templateById } from "@/content/templates";
+import { deleteGoalImages } from "@/lib/uploads/images";
 import {
   validateGoalTitle,
   validateTargetDate,
@@ -42,6 +43,14 @@ const bodySchema = z.object({
    * o založení cíle by bylo horší než plán bez odborného pokynu.
    */
   templateId: z.string().max(60).optional(),
+  /**
+   * Cíl, který tenhle nahrazuje a který se má po úspěchu smazat.
+   *
+   * Maže se **až po** tom, co nový plán vznikne. Kdyby se mazalo
+   * napřed a rozpad selhal, zůstal by uživatel bez obojího — a to je
+   * ta nejhorší možná odpověď na „zkus to naplánovat jinak".
+   */
+  replacesId: z.string().max(40).optional(),
 });
 
 export async function POST(request: Request) {
@@ -122,6 +131,25 @@ export async function POST(request: Request) {
       continuesFromId: predecessor?.id,
       templateId: templateById(parsed.data.templateId ?? "")?.id,
     });
+
+    /*
+     * Původní cíl odchází až teď, když nový stojí.
+     *
+     * Vlastnictví je v podmínce, ne v kontrole po načtení: cizí cíl se
+     * nesmaže ani tomu, kdo zná jeho id. A nesmí to shodit odpověď —
+     * cíl je vytvořený, takže neúspěšné uklizení toho starého je
+     * nepořádek, ne chyba.
+     */
+    if (parsed.data.replacesId && parsed.data.replacesId !== goalId) {
+      try {
+        const removed = await db.goal.deleteMany({
+          where: { id: parsed.data.replacesId, userId: guard.user.id },
+        });
+        if (removed.count > 0) await deleteGoalImages(parsed.data.replacesId);
+      } catch (error) {
+        console.error("[goals] původní cíl se nepovedlo smazat", error);
+      }
+    }
 
     return NextResponse.json({ ok: true, goalId });
   } catch (error) {

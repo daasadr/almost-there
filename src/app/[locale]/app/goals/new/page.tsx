@@ -10,6 +10,8 @@ import { getAccess } from "@/lib/billing/access";
 import { db } from "@/lib/db";
 import { isStoreApp } from "@/lib/store-app";
 import { templateById } from "@/content/templates";
+import { importanceFromWeight } from "@/lib/goals/planner";
+import { toIsoDate } from "@/lib/plan/calendar";
 import type { Locale } from "@/i18n/routing";
 
 export async function generateMetadata({
@@ -27,10 +29,10 @@ export default async function NewGoalPage({
   searchParams,
 }: {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{ from?: string; template?: string }>;
+  searchParams: Promise<{ from?: string; template?: string; redo?: string }>;
 }) {
   const { locale } = await params;
-  const { from, template: templateId } = await searchParams;
+  const { from, template: templateId, redo } = await searchParams;
   const session = await auth();
   if (!session?.user) redirect(`/${locale}/login`);
 
@@ -122,7 +124,43 @@ export default async function NewGoalPage({
    * a starý odkaz zůstane v oběhu; prázdný formulář je lepší než
    * stránka, která se nenajde.
    */
-  const template = templateId ? templateById(templateId) : undefined;
+  /**
+   * Plánuje se tenhle cíl znovu?
+   *
+   * Když plán vyjde špatně — málo času, špatně popsaný výchozí bod —
+   * nedá se opravit. Úprava směru mění cestu, ne termín, a přepočet po
+   * skluzu se nabídne až při skluzu a datum si určí sám. Zbývalo tedy
+   * založit cíl znovu a vyplnit celý formulář od začátku, což při pěti
+   * polích a třech odpovědích ze šablony nikdo dvakrát dělat nebude.
+   *
+   * Tohle vezme, co už je uložené, a nabídne to k úpravě. Předvyplňuje
+   * se všechno, i termín a důležitost — hledá se tu obvykle právě ta
+   * jedna věc, která byla špatně.
+   *
+   * Cizí cíl se nenačte, `userId` je v podmínce.
+   */
+  const previous = redo
+    ? await db.goal.findFirst({
+        where: { id: redo, userId: session.user.id },
+        select: {
+          id: true,
+          title: true,
+          description: true,
+          startingPoint: true,
+          targetDate: true,
+          priorityWeight: true,
+          color: true,
+          templateId: true,
+          _count: { select: { tasks: { where: { status: "DONE" } } } },
+        },
+      })
+    : null;
+
+  const template = templateId
+    ? templateById(templateId)
+    : previous?.templateId
+      ? templateById(previous.templateId)
+      : undefined;
   const templateText = template?.text[locale as Locale];
 
   const prefill = source
@@ -154,9 +192,23 @@ export default async function NewGoalPage({
           planning={profile}
           usedColors={usedColors}
           prefill={
-            templateText
-              ? { title: templateText.goal }
-              : prefill
+            previous
+              ? {
+                  title: previous.title,
+                  description: previous.description ?? undefined,
+                  startingPoint: previous.startingPoint ?? undefined,
+                  targetDate: toIsoDate(previous.targetDate),
+                  importance: importanceFromWeight(previous.priorityWeight),
+                  color: previous.color,
+                }
+              : templateText
+                ? { title: templateText.goal }
+                : prefill
+          }
+          replaces={
+            previous
+              ? { id: previous.id, title: previous.title, done: previous._count.tasks }
+              : undefined
           }
           template={
             template && templateText

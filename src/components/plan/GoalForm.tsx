@@ -47,6 +47,7 @@ export function GoalForm({
   planning,
   prefill,
   template,
+  replaces,
 }: {
   /**
    * Šablona, ze které se cíl zakládá.
@@ -79,9 +80,22 @@ export function GoalForm({
     title?: string;
     description?: string;
     startingPoint?: string;
+    /** ISO datum. Vyplňuje se při plánování cíle znovu. */
+    targetDate?: string;
+    importance?: number;
+    color?: string;
     /** Na který dotažený cíl tenhle navazuje. */
     continuesFromId?: string;
   };
+  /**
+   * Cíl, který se tímhle plánuje znovu.
+   *
+   * Nabídne se smazat ho, až nový plán vznikne — a předzaškrtnuté je to
+   * jen u cíle, na kterém nic není odškrtnuté. Jakmile na něm nějaká
+   * historie je, musí si smazání člověk odkliknout sám; ztratit odškrtané
+   * dny omylem je horší než mít v seznamu cíl navíc.
+   */
+  replaces?: { id: string; title: string; done: number };
   /**
    * Předvolby, ze kterých se plán staví. Nastavují se jinde, ale musí
    * být vidět tady — jsou to nejsilnější vstupy do výsledku a uživatel
@@ -128,6 +142,8 @@ export function GoalForm({
   const [error, setError] = useState<string | null>(null);
   /** Otevřená otázka „hotovo?“ před samotným založením. */
   const [confirming, setConfirming] = useState(false);
+  /** Smazat původní cíl, až se ten nový povede? */
+  const [dropPrevious, setDropPrevious] = useState(replaces?.done === 0);
 
   /**
    * Odpovědi na otázky šablony jako jeden výchozí bod.
@@ -168,6 +184,11 @@ export function GoalForm({
       if (prefill.title) setTitle(prefill.title);
       if (prefill.description) setDescription(prefill.description);
       if (prefill.startingPoint) setStartingPoint(prefill.startingPoint);
+      // Termín, důležitost a barva jen při plánování znovu — tam se
+      // hledá obvykle právě ta jedna věc, která byla špatně.
+      if (prefill.targetDate) setTargetDate(prefill.targetDate);
+      if (prefill.importance) setImportance(prefill.importance);
+      if (prefill.color) setColor(prefill.color as GoalColor);
     }
 
     /*
@@ -294,6 +315,7 @@ export function GoalForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           continuesFromId: prefill?.continuesFromId,
+          replacesId: dropPrevious ? replaces?.id : undefined,
           title: title.trim(),
           description: description.trim() || undefined,
           templateId: template?.id,
@@ -680,6 +702,36 @@ export function GoalForm({
         >
           {tError(error)}
         </p>
+      )}
+
+      {/*
+        Co s původním cílem.
+
+        Stojí těsně nad odesláním schválně — je to poslední rozhodnutí
+        před tím, než se něco smaže, a nemá být o dvě obrazovky výš.
+      */}
+      {replaces && (
+        <div className="mt-7 rounded-xl border border-edge bg-surface p-4">
+          <label className="flex cursor-pointer items-start gap-3">
+            <input
+              type="checkbox"
+              checked={dropPrevious}
+              onChange={(event) => setDropPrevious(event.target.checked)}
+              disabled={pending}
+              className="mt-1 size-4 shrink-0 accent-[var(--color-lime-soft)]"
+            />
+            <span className="text-sm leading-relaxed">
+              <span className="font-medium">
+                {t("replaceLabel", { goal: replaces.title })}
+              </span>
+              <span className="mt-1 block text-[var(--color-paper-dim)]">
+                {replaces.done > 0
+                  ? t("replaceHasHistory", { count: replaces.done })
+                  : t("replaceClean")}
+              </span>
+            </span>
+          </label>
+        </div>
       )}
 
       <button type="submit" disabled={pending} className="btn-primary mt-7">

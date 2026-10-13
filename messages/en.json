@@ -619,7 +619,10 @@
       "confirmYes": "Yes, build the plan",
       "confirmBack": "Not yet",
       "discard": "Discard this draft",
-      "discardConfirm": "Really discard what you have written?"
+      "discardConfirm": "Really discard what you have written?",
+      "replaceLabel": "Delete the original goal “{goal}” once the new plan exists",
+      "replaceClean": "Nothing on it is ticked off, so nothing is lost.",
+      "replaceHasHistory": "{count, plural, one {Careful: it has # ticked task} other {Careful: it has # ticked tasks}} and deleting loses them."
     },
     "detail": {
       "back": "Back to overview",
@@ -647,7 +650,9 @@
       "deleteYes": "Yes, delete",
       "deleteNo": "Keep it",
       "deleting": "Deleting…",
-      "aiDisclaimer": "This plan was written by a language model from what you entered. It is not professional advice — not medical, legal or financial. For anything touching health, exercise or diet: if you have any doubt, any symptoms, or you take medication, talk it through with your doctor before you start."
+      "aiDisclaimer": "This plan was written by a language model from what you entered. It is not professional advice — not medical, legal or financial. For anything touching health, exercise or diet: if you have any doubt, any symptoms, or you take medication, talk it through with your doctor before you start.",
+      "redoLead": "Is the brief itself wrong — too little time, a vague starting point?",
+      "redoCta": "Plan again from the filled-in form"
     },
     "errors": {
       "goalRequired": "Write down what you want to reach.",
