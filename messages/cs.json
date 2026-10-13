@@ -1245,6 +1245,7 @@
     "shape": "Jak plán postupuje",
     "whenBehind": "Když se přestane stíhat",
     "asks": "Na co se tě zeptáme",
-    "closing": "Plán vznikne na míru tomu, co odpovíš: rozpadne se na roky, měsíce, týdny a nakonec na dnešek. S odpočinkem, který v něm stojí napsaný, a s přepočítáním pokaždé, když se cesta rozejde se skutečností."
+    "closing": "Plán vznikne na míru tomu, co odpovíš: rozpadne se na roky, měsíce, týdny a nakonec na dnešek. S odpočinkem, který v něm stojí napsaný, a s přepočítáním pokaždé, když se cesta rozejde se skutečností.",
+    "starting": "Otevírám formulář…"
   }
 }

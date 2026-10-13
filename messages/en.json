@@ -1245,6 +1245,7 @@
     "shape": "How the plan runs",
     "whenBehind": "When you fall behind",
     "asks": "What we will ask you",
-    "closing": "The plan is built around your answers: broken down into years, months, weeks and finally today. With rest written into it, and recalculated every time the route and reality part ways."
+    "closing": "The plan is built around your answers: broken down into years, months, weeks and finally today. With rest written into it, and recalculated every time the route and reality part ways.",
+    "starting": "Opening the form…"
   }
 }

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { PendingLink } from "@/components/PendingLink";
 import { graph, howToLd } from "@/lib/seo/jsonLd";
 import { localeAlternates, pageSocial } from "@/lib/seo/metadata";
 import { templateById, templates } from "@/content/templates";
@@ -118,12 +119,13 @@ export default async function TemplatePage({
           kvůli tomu projíždět celou stránku; kdo si ji přečte celou,
           nemá se kvůli tomu vracet nahoru. */}
       <div className="mt-8 flex flex-wrap items-center gap-5">
-        <Link
+        <PendingLink
           href={`/${locale}/app/goals/new?template=${template.id}`}
           className="btn-primary !px-6 !py-3"
+          label={t("starting")}
         >
           {t("start")}
-        </Link>
+        </PendingLink>
         <span className="text-sm text-[var(--color-paper-faint)]">
           {t("months", { count: template.defaultMonths })}
         </span>
@@ -205,12 +207,13 @@ export default async function TemplatePage({
         <p className="text-lg leading-relaxed text-[var(--color-paper)]">
           {t("closing")}
         </p>
-        <Link
+        <PendingLink
           href={`/${locale}/app/goals/new?template=${template.id}`}
           className="btn-primary mt-6 inline-flex !px-6 !py-3"
+          label={t("starting")}
         >
           {t("start")}
-        </Link>
+        </PendingLink>
       </div>
     </article>
   );

@@ -568,6 +568,13 @@ model Milestone {
   timeBlock TimeBlock? @relation(fields: [timeBlockId], references: [id], onDelete: SetNull)
 
   @@index([goalId])
+  /// Bez tohohle indexu je mazání cíle i přeplánování pomalé.
+  ///
+  /// Vazba na blok je `SetNull`, takže při smazání každého bloku musí
+  /// databáze najít milníky, které na něj ukazují. Bez indexu to znamená
+  /// projít celou tabulku milníků — a smazání cíle maže stovky bloků,
+  /// přeplánování desítky. Tedy stovky průchodů za jednu akci.
+  @@index([timeBlockId])
 }
 
 /// Denní souhrn plnění — vstup pro vyhodnocení tempa.
