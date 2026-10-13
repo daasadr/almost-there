@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 
 /**
@@ -30,6 +30,29 @@ export function GenerationProgress({
   const stages = t.raw("stages") as string[];
 
   const [elapsedMs, setElapsedMs] = useState(0);
+  const box = useRef<HTMLDivElement>(null);
+
+  /*
+   * Posunout pohled na ukazatel, jakmile se objeví.
+   *
+   * Ukazatel sedí pod odesílacím tlačítkem, tedy na konci dlouhého
+   * formuláře. Kdo odeslal z jeho horní části, zůstal koukat na
+   * vyplněná políčka a nic se podle něj nedělo — přitom se zrovna
+   * čtyřicet sekund počítal plán. Nejhorší možný okamžik na to nechat
+   * člověka na pochybách, jestli to kliknutí vůbec prošlo.
+   *
+   * Patří to sem, ne do formulářů: ukazatel je ta věc, která se právě
+   * objevila a na kterou se má uživatel dívat. Používají ho čtyři
+   * místa a všechna čtyři to potřebují stejně.
+   */
+  useEffect(() => {
+    box.current?.scrollIntoView({
+      block: "center",
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+    });
+  }, []);
 
   useEffect(() => {
     const startedAt = performance.now();
@@ -48,7 +71,7 @@ export function GenerationProgress({
   );
 
   return (
-    <div className="mt-6" aria-live="polite">
+    <div ref={box} className="mt-6 scroll-mt-24" aria-live="polite">
       <div className="flex items-baseline justify-between gap-4">
         <p className="text-sm font-medium text-[var(--color-paper)]">
           {stages[Math.min(stageIndex, stages.length - 1)]}
