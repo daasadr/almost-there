@@ -9,7 +9,7 @@ export const maxDuration = 120;
 
 /** Návrhy odměn: pro etapy bez odměny a pro celý cíl, když ji nemá. */
 export async function POST(
-  _request: Request,
+  request: Request,
   { params }: { params: Promise<{ id: string }> },
 ) {
   const guard = await requireSubscriber();
@@ -27,7 +27,16 @@ export async function POST(
 
   try {
     await assertWithinBudget(guard.user.id);
-    const suggested = await suggestRewards(id);
+
+    // Tělo je nepovinné: bez něj se doplní všechno, co odměnu nemá.
+    const body = await request.json().catch(() => ({}));
+    const scope = {
+      milestoneId:
+        typeof body?.milestoneId === "string" ? body.milestoneId : undefined,
+      final: body?.final === true,
+    };
+
+    const suggested = await suggestRewards(id, scope);
     return NextResponse.json({ ok: true, ...suggested });
   } catch (error) {
     if (error instanceof AiBudgetError) {

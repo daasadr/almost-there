@@ -197,6 +197,16 @@ export type SuggestedRewards = {
  */
 export async function suggestRewards(
   goalId: string,
+  /**
+   * Na co se ptát. Bez upřesnění na všechno, co odměnu nemá.
+   *
+   * `milestoneId` se ptá na jeden milník, a to i když odměnu **už má** —
+   * od toho to je, když se návrh nelíbí a chce se jiný. `final` se ptá
+   * jen na odměnu za celý cíl; dřív ji nešlo vyžádat samostatně a
+   * klepnutí u Zakončení potichu vyplnilo i všechny milníky, takže
+   * z oddílu milníků zmizela nabídka a vypadalo to, že tam nikdy nebyla.
+   */
+  scope?: { milestoneId?: string; final?: boolean },
 ): Promise<SuggestedRewards> {
   const goal = await db.goal.findUniqueOrThrow({
     where: { id: goalId },
@@ -221,20 +231,27 @@ export async function suggestRewards(
    * a kdyby se u toho rozdaly odměny i za etapy, které jsou dávno za
    * námi, platilo by se za návrhy, které nikdo nevyužije.
    */
+  const only = scope?.milestoneId;
+
   const pending =
-    goal.status === "COMPLETED"
+    scope?.final || (goal.status === "COMPLETED" && !only)
       ? []
       : await db.milestone.findMany({
-          where: { goalId, rewardText: null },
+          where: only
+            ? { id: only, goalId }
+            : // U dotaženého cíle se etapy už neodměňují: platit za návrhy
+              // k něčemu, co je dávno za námi, nemá smysl.
+              { goalId, rewardText: null },
           orderBy: { targetDate: "asc" },
           select: {
             id: true,
             title: true,
+            rewardText: true,
             timeBlock: { select: { summary: true } },
           },
         });
 
-  const wantsFinal = !goal.finalRewardText;
+  const wantsFinal = only ? false : !goal.finalRewardText || Boolean(scope?.final);
   if (pending.length === 0 && !wantsFinal) {
     return { milestones: 0, final: false };
   }
@@ -262,6 +279,12 @@ export async function suggestRewards(
         (milestone, i) =>
           `  ${i + 1}. ${milestone.title}${
             milestone.timeBlock ? ` — ${milestone.timeBlock.summary}` : ""
+          }${
+            // Když už odměnu má, chce se jiná — jinak by se vrátila
+            // skoro tatáž a klepnutí by vypadalo, že nic nedělá.
+            milestone.rewardText
+              ? ` (they already have "${milestone.rewardText}" here and want something different)`
+              : ""
           }`,
       ),
     );

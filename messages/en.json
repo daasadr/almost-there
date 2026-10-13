@@ -809,7 +809,18 @@
       "undo": "Not yet after all",
       "failed": "That did not work. Please try again.",
       "reachedTitle": "You have reached a milestone",
-      "reachedBody": "By the plan, this stage should be behind you. Is it?"
+      "reachedBody": "By the plan, this stage should be behind you. Is it?",
+      "suggestOne": "suggest one",
+      "suggestAnother": "another suggestion",
+      "failures": {
+        "generic": "Saving did not work. Please try again.",
+        "offline": "Could not reach the server. Check your connection.",
+        "notSubscribed": "This needs an active subscription.",
+        "unauthorized": "Your session expired. Reload the page.",
+        "notFound": "This milestone no longer exists. Reload the page.",
+        "budgetExhausted": "The monthly limit for suggestions is used up. Write the reward yourself for now.",
+        "aiFailed": "The suggestion did not come through. Try again shortly."
+      }
     },
     "progress": {
       "title": "Last thirty days",

@@ -809,7 +809,18 @@
       "undo": "Přece jen ne",
       "failed": "Nepovedlo se to. Zkus to prosím znovu.",
       "reachedTitle": "Jsi u milníku",
-      "reachedBody": "Podle plánu má být tahle etapa za tebou. Je?"
+      "reachedBody": "Podle plánu má být tahle etapa za tebou. Je?",
+      "suggestOne": "nech si poradit",
+      "suggestAnother": "jiný návrh",
+      "failures": {
+        "generic": "Uložit se to nepovedlo. Zkus to prosím znovu.",
+        "offline": "Nepodařilo se spojit se serverem. Zkontroluj připojení.",
+        "notSubscribed": "Tohle jde až s aktivním předplatným.",
+        "unauthorized": "Přihlášení vypršelo. Načti stránku znovu.",
+        "notFound": "Tenhle milník už neexistuje. Načti stránku znovu.",
+        "budgetExhausted": "Měsíční strop návrhů je vyčerpaný. Odměnu zatím napiš sama.",
+        "aiFailed": "Návrh se teď nepovedl. Zkus to za chvíli."
+      }
     },
     "progress": {
       "title": "Posledních třicet dní",

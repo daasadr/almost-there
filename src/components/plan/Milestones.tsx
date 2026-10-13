@@ -32,44 +32,107 @@ export function Milestones({
   const [editing, setEditing] = useState<string | null>(null);
   const [draft, setDraft] = useState("");
   const [pending, setPending] = useState<string | null>(null);
-  const [suggesting, setSuggesting] = useState(false);
-  const [error, setError] = useState(false);
+  const [suggesting, setSuggesting] = useState<string | null>(null);
+  /**
+   * Chyba u toho milníku, kterého se týká.
+   *
+   * Dřív to byl jeden příznak pro celý oddíl a hláška se vypisovala
+   * nahoře pod nadpisem. U šestého milníku v pořadí ji nikdo neuvidí —
+   * uložení tedy vypadalo, že mlčky nefunguje, i když server řekl proč.
+   */
+  const [failed, setFailed] = useState<{ id: string; reason: string } | null>(
+    null,
+  );
+
+  /**
+   * Odměny uložené v tomhle sezení.
+   *
+   * Hodnota přijde ze serveru až po `router.refresh()`, což chvíli trvá
+   * a občas to člověk nestihne zaregistrovat. Do té doby se bere odsud,
+   * takže je uložená odměna vidět okamžitě.
+   */
+  const [saved, setSaved] = useState<Record<string, string | null>>({});
 
   const color = goalHex(goalColor);
-  const withoutReward = milestones.filter((m) => !m.rewardText).length;
+  // Počítá se i s tím, co se právě uložilo — jinak by tlačítko „poradit
+  // se vším" zůstalo viset i poté, co se poslední odměna doplnila ručně.
+  const withoutReward = milestones.filter(
+    (m) => !(m.id in saved ? saved[m.id] : m.rewardText),
+  ).length;
 
   const patch = async (id: string, body: Record<string, unknown>) => {
     setPending(id);
-    setError(false);
+    setFailed(null);
     try {
       const response = await fetch(`/api/milestones/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
-      if (!response.ok) throw new Error("failed");
+
+      if (!response.ok) {
+        // Server říká, proč to nešlo — vypršelý přístup vypadá jinak
+        // než překlep a uživatel podle toho pozná, co s tím.
+        const payload = await response.json().catch(() => null);
+        setFailed({ id, reason: payload?.error ?? "generic" });
+        return;
+      }
+
+      if (typeof body.rewardText === "string") {
+        setSaved((current) => ({
+          ...current,
+          [id]: body.rewardText as string || null,
+        }));
+      }
+
       setEditing(null);
       router.refresh();
     } catch {
-      setError(true);
+      setFailed({ id, reason: "offline" });
     } finally {
       setPending(null);
     }
   };
 
-  const suggest = async () => {
-    setSuggesting(true);
-    setError(false);
+  /**
+   * Nechat si poradit — buď se vším, nebo s jedním milníkem.
+   *
+   * U jednoho to jde i tehdy, když odměnu už má: od toho to je, když se
+   * návrh nelíbí. Model se v tom případě dozví, co tam stojí, a vrátí
+   * něco jiného.
+   */
+  const suggest = async (milestoneId?: string) => {
+    setSuggesting(milestoneId ?? "all");
+    setFailed(null);
     try {
       const response = await fetch(`/api/goals/${goalId}/rewards`, {
         method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(milestoneId ? { milestoneId } : {}),
       });
-      if (!response.ok) throw new Error("failed");
+
+      if (!response.ok) {
+        const payload = await response.json().catch(() => null);
+        setFailed({
+          id: milestoneId ?? "all",
+          reason: payload?.error ?? "generic",
+        });
+        return;
+      }
+
+      // Návrh přišel ze serveru, takže místní kopie je zastaralá.
+      if (milestoneId) {
+        setSaved((current) => {
+          const next = { ...current };
+          delete next[milestoneId];
+          return next;
+        });
+      }
       router.refresh();
     } catch {
-      setError(true);
+      setFailed({ id: milestoneId ?? "all", reason: "offline" });
     } finally {
-      setSuggesting(false);
+      setSuggesting(null);
     }
   };
 
@@ -82,11 +145,11 @@ export function Milestones({
         {withoutReward > 0 && (
           <button
             type="button"
-            onClick={suggest}
-            disabled={suggesting}
+            onClick={() => void suggest()}
+            disabled={suggesting !== null}
             className="text-sm font-medium text-[var(--color-lime-soft)] underline-offset-4 hover:underline disabled:opacity-50"
           >
-            {suggesting ? t("suggesting") : t("suggest")}
+            {suggesting === "all" ? t("suggesting") : t("suggest")}
           </button>
         )}
       </div>
@@ -95,15 +158,13 @@ export function Milestones({
         {t("body")}
       </p>
 
-      {error && (
-        <p role="alert" className="mt-4 text-sm text-[var(--color-danger)]">
-          {t("failed")}
-        </p>
-      )}
-
       <ol className="mt-5 space-y-3">
         {milestones.map((milestone) => {
           const achieved = Boolean(milestone.achievedAt);
+          // Dokud nedoběhne obnovení ze serveru, platí, co se právě uložilo.
+          const reward =
+            milestone.id in saved ? saved[milestone.id] : milestone.rewardText;
+          const problem = failed?.id === milestone.id ? failed.reason : null;
           const reached = new Date(milestone.targetDate) <= new Date();
 
           return (
@@ -169,11 +230,12 @@ export function Milestones({
                 </div>
               ) : (
                 <div className="mt-3 flex flex-wrap items-baseline gap-x-4 gap-y-1">
-                  {milestone.rewardText ? (
+                  {reward ? (
                     <span className="text-sm text-[var(--color-paper)]">
                       {t("rewardIs")}{" "}
-                      <span style={{ color }}>{milestone.rewardText}</span>
-                      {milestone.rewardSource === "AI_SUGGESTED" && (
+                      <span style={{ color }}>{reward}</span>
+                      {milestone.rewardSource === "AI_SUGGESTED" &&
+                        !(milestone.id in saved) && (
                         <span className="ml-2 text-xs text-[var(--color-paper-faint)]">
                           {t("suggested")}
                         </span>
@@ -189,13 +251,38 @@ export function Milestones({
                     type="button"
                     onClick={() => {
                       setEditing(milestone.id);
-                      setDraft(milestone.rewardText ?? "");
+                      setDraft(reward ?? "");
                     }}
                     className="text-xs text-[var(--color-paper-faint)] underline-offset-4 hover:text-[var(--color-paper-dim)] hover:underline"
                   >
-                    {milestone.rewardText ? t("change") : t("setReward")}
+                    {reward ? t("change") : t("setReward")}
+                  </button>
+
+                  {/* Návrh u každého milníku zvlášť. Dřív to šlo jen
+                      hromadně a tlačítko mizelo, jakmile měly odměnu
+                      všechny — takže o jiný návrh nešlo požádat. */}
+                  <button
+                    type="button"
+                    onClick={() => void suggest(milestone.id)}
+                    disabled={suggesting !== null}
+                    className="text-xs text-[var(--color-paper-faint)] underline-offset-4 hover:text-[var(--color-paper-dim)] hover:underline disabled:opacity-50"
+                  >
+                    {suggesting === milestone.id
+                      ? t("suggesting")
+                      : reward
+                        ? t("suggestAnother")
+                        : t("suggestOne")}
                   </button>
                 </div>
+              )}
+
+              {problem && (
+                <p
+                  role="alert"
+                  className="mt-2 text-xs text-[var(--color-danger)]"
+                >
+                  {t(`failures.${problem}`)}
+                </p>
               )}
 
               {/* Dosažení a vyzvednutí */}
@@ -205,7 +292,7 @@ export function Milestones({
                     <span style={{ color }} className="text-xs font-medium">
                       {t("achieved")}
                     </span>
-                    {milestone.rewardText &&
+                    {reward &&
                       (milestone.rewardClaimed ? (
                         <span className="text-xs text-[var(--color-paper-faint)]">
                           {t("claimed")}

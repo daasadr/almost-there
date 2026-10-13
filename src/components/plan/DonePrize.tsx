@@ -76,7 +76,13 @@ export function DonePrize({
     );
 
   const suggest = () =>
-    run(() => fetch(`/api/goals/${goalId}/rewards`, { method: "POST" }));
+    run(() =>
+      fetch(`/api/goals/${goalId}/rewards`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ final: true }),
+      }),
+    );
 
   return (
     <div

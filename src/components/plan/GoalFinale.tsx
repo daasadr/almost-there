@@ -76,8 +76,12 @@ export function GoalFinale({
     setBusy(true);
     setFailed(false);
     try {
+      // `final` schválně: dřív tohle klepnutí potichu vyplnilo i odměny
+      // u všech milníků a z jejich oddílu tím zmizela nabídka.
       const response = await fetch(`/api/goals/${goalId}/rewards`, {
         method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ final: true }),
       });
       if (!response.ok) throw new Error("failed");
       router.refresh();
