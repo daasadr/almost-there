@@ -15,6 +15,8 @@ const KNOWN = new Set([
   "dateTooSoon",
   "dateTooFar",
   "aiFailed",
+  // Model odmítl zadání. Není to výpadek, takže se neopakuje.
+  "aiRefused",
   "budgetExhausted",
   "planLimitReached",
   "replanTooSoon",

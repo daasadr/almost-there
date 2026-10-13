@@ -3,6 +3,7 @@ import { db } from "@/lib/db";
 import { requireSubscriber } from "@/lib/api/guard";
 import { ensureCurrentPlan } from "@/lib/goals/planner";
 import { AiBudgetError } from "@/lib/ai/usage";
+import { AiRefusalError } from "@/lib/ai/call";
 
 export const runtime = "nodejs";
 // Může se dogenerovávat i několik úrovní za sebou.
@@ -41,6 +42,21 @@ export async function POST(
       return NextResponse.json(
         { ok: false, error: "budgetExhausted" },
         { status: 429 },
+      );
+    }
+
+    /*
+     * Odmítnutí modelu není výpadek.
+     *
+     * Rozlišuje se kvůli klientovi: ten přechodné chyby opakuje, a kdyby
+     * se pod stejný kód schovalo i odmítnutí, zkoušelo by se zadání,
+     * které model odmítne pokaždé — třikrát za sebou a za peníze.
+     */
+    if (error instanceof AiRefusalError) {
+      console.warn("[goals] model zadání odmítl", id, error.message);
+      return NextResponse.json(
+        { ok: false, error: "aiRefused" },
+        { status: 422 },
       );
     }
 

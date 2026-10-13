@@ -671,7 +671,8 @@
       "replanInProgress": "Přepočet tohohle cíle už běží. Počkej, než doběhne.",
       "nameTooShort": "Název je moc krátký. Stačí pár slov.",
       "nameTooLong": "Název je moc dlouhý. Zkrať ho na pár slov — podrobnosti patří do pole níž.",
-      "deadlinePassed": "Termín už uplynul, takže dohnat skluz a stihnout ho nejde. Posuň termín — plán se přepočítá podle tempa, jakým ti to reálně jde."
+      "deadlinePassed": "Termín už uplynul, takže dohnat skluz a stihnout ho nejde. Posuň termín — plán se přepočítá podle tempa, jakým ti to reálně jde.",
+      "aiRefused": "Model tohle zadání odmítl zpracovat. Zkus cíl popsat jinak."
     },
     "budget": {
       "meter": "Měsíční limit plánů",

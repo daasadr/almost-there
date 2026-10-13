@@ -62,7 +62,22 @@ function addUsage(a: AiUsage | null, b: AiUsage): AiUsage {
  * pomoct ničím jiným než kliknutím na „zkusit znovu“. Dvě jsou kompromis:
  * spolehlivost za nejvýš dvojnásobnou cenu ve vzácném případě.
  */
-const ATTEMPTS = 2;
+const ATTEMPTS = 3;
+
+/**
+ * Čekání mezi pokusy, v milisekundách.
+ *
+ * Dřív se zkoušelo dvakrát hned po sobě. Proti překlepu ve formátu
+ * odpovědi to stačí, proti přetíženému modelu ne: oba pokusy spadnou
+ * během vteřiny na tutéž příčinu, která za dvě vteřiny zmizí. Pro
+ * uživatele z toho bylo „rozpad selhal", přestože o chvíli později
+ * tentýž požadavek prošel.
+ */
+const BACKOFF_MS = [1_000, 4_000];
+
+function wait(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 export type AiCallOptions<T> = {
   system: string;
@@ -106,6 +121,9 @@ export async function callStructured<T>(
         `[ai] pokus ${attempt} z ${ATTEMPTS} selhal`,
         error instanceof Error ? error.message : error,
       );
+
+      const pause = BACKOFF_MS[attempt - 1];
+      if (pause !== undefined) await wait(pause);
     }
   }
 

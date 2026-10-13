@@ -671,7 +671,8 @@
       "replanInProgress": "This goal is already being replanned. Wait for it to finish.",
       "nameTooShort": "That name is too short. A few words is enough.",
       "nameTooLong": "That name is too long. Cut it to a few words — details belong in the field below.",
-      "deadlinePassed": "The deadline has already passed, so there is no catching up to it. Move the deadline instead — the plan will be recalculated from the pace you are actually keeping."
+      "deadlinePassed": "The deadline has already passed, so there is no catching up to it. Move the deadline instead — the plan will be recalculated from the pace you are actually keeping.",
+      "aiRefused": "The model declined this brief. Try describing the goal differently."
     },
     "budget": {
       "meter": "Monthly plan limit",

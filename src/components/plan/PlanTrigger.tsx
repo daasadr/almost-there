@@ -20,6 +20,64 @@ import { planErrorKey } from "@/lib/plan/errors";
  *  Čtvrté kolo je rezerva, ne očekávaný stav. */
 const MAX_ROUNDS = 4;
 
+/**
+ * Kolikrát zopakovat kolo, které spadlo na něčem přechodném.
+ *
+ * Jedno škobrtnutí modelu dřív shodilo celý rozpad: klient při první
+ * neúspěšné odpovědi skončil a vypsal chybu, i když předchozí kola
+ * prošla. Uživatel pak viděl „nepovedlo se" u cíle, který se z poloviny
+ * rozpadl — a musel to spouštět znovu a znovu, dokud netrefil okamžik,
+ * kdy byl model volný.
+ *
+ * Opakovat je bezpečné i levné: každé povedené kolo se ukládá, takže
+ * další pokus navazuje tam, kde se přestalo, a znovu se neplatí za to,
+ * co už je hotové.
+ */
+const ROUND_RETRIES = 2;
+const RETRY_WAIT_MS = [2_000, 6_000];
+
+/** Chyby, u kterých má smysl to zkusit znovu. */
+const TRANSIENT = new Set(["aiFailed", "generic"]);
+
+type RoundOutcome = { done?: boolean; error?: string };
+
+/**
+ * Jedno kolo rozpadu i s opakováním.
+ *
+ * Vyčerpaný strop ani chybějící předplatné se neopakují — ty se
+ * opakováním nespraví a jen by uživatele nechaly čekat.
+ */
+async function planRound(goalId: string): Promise<RoundOutcome> {
+  let last = "generic";
+
+  for (let attempt = 0; attempt <= ROUND_RETRIES; attempt++) {
+    try {
+      const response = await fetch(`/api/goals/${goalId}/plan`, {
+        method: "POST",
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        return { done: Boolean(data.done) };
+      }
+
+      const data = await response.json().catch(() => ({}));
+      last = typeof data.error === "string" ? data.error : "generic";
+      if (!TRANSIENT.has(last)) return { error: last };
+    } catch {
+      // Spadlé spojení — na mobilu běžné, když se telefon uspí.
+      last = "generic";
+    }
+
+    const pause = RETRY_WAIT_MS[attempt];
+    if (pause !== undefined) {
+      await new Promise((resolve) => setTimeout(resolve, pause));
+    }
+  }
+
+  return { error: last };
+}
+
 export function PlanTrigger({
   goalIds,
   auto = true,
@@ -66,18 +124,13 @@ export function PlanTrigger({
         // a týdny až na dny, tedy tři kola. Strop je pojistka proti tomu,
         // aby se při chybě točilo donekonečna.
         for (let round = 0; round < MAX_ROUNDS; round++) {
-          const response = await fetch(`/api/goals/${goalId}/plan`, {
-            method: "POST",
-          });
+          const outcome = await planRound(goalId);
 
-          if (!response.ok) {
-            const data = await response.json().catch(() => ({}));
-            setError(planErrorKey(data.error));
+          if (outcome.error) {
+            setError(planErrorKey(outcome.error));
             return;
           }
-
-          const data = await response.json();
-          if (data.done) break;
+          if (outcome.done) break;
         }
       }
       if (onPage.current) router.refresh();
