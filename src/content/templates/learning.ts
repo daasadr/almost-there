@@ -112,7 +112,7 @@ the building and keep the sessions without the assistant.
           },
         ],
         whenBehind: "Škrtají se nové funkce a čtení. Stavění a sezení bez asistenta zůstávají — na těch dvou to celé stojí.",
-        goal: "Postavit vlastní aplikaci od nuly a rozumět každému řádku",
+        goal: "Postavit vlastní aplikaci od nuly",
         questions: [
           {
             id: "stack",
@@ -162,7 +162,7 @@ the building and keep the sessions without the assistant.
           },
         ],
         whenBehind: "New features and reading get cut. The building and the sessions without the assistant stay — the whole thing rests on those two.",
-        goal: "Build my own application from scratch and understand every line",
+        goal: "Build my own app from scratch",
         questions: [
           {
             id: "stack",
@@ -212,7 +212,7 @@ the building and keep the sessions without the assistant.
           },
         ],
         whenBehind: "Neue Funktionen und Lesestoff werden gestrichen. Das Bauen und die Einheiten ohne Assistenten bleiben — darauf steht das Ganze.",
-        goal: "Eine eigene Anwendung von null bauen und jede Zeile verstehen",
+        goal: "Eine eigene App von null bauen",
         questions: [
           {
             id: "stack",
@@ -311,7 +311,7 @@ Breaking the chain costs more than a short session.
           },
         ],
         whenBehind: "Zkrátí se sezení, ale den se nevynechá. Přetržený řetěz stojí víc než krátké kreslení.",
-        goal: "Zvednout své kreslení a kreativitu intenzivní denní praxí",
+        goal: "Posunout kreslení denní praxí",
         questions: [
           {
             id: "level",
@@ -356,7 +356,7 @@ Breaking the chain costs more than a short session.
           },
         ],
         whenBehind: "Shorten the session but do not skip the day. Breaking the chain costs more than a short sitting.",
-        goal: "Raise my drawing and creativity through intensive daily practice",
+        goal: "Push my drawing with daily practice",
         questions: [
           {
             id: "level",
@@ -401,7 +401,7 @@ Breaking the chain costs more than a short session.
           },
         ],
         whenBehind: "Die Einheit wird kürzer, der Tag fällt nicht aus. Eine unterbrochene Kette kostet mehr als eine kurze Sitzung.",
-        goal: "Mein Zeichnen und meine Kreativität durch tägliche Praxis heben",
+        goal: "Zeichnen durch tägliche Praxis heben",
         questions: [
           {
             id: "level",

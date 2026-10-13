@@ -88,7 +88,7 @@ category open across a pause.
           },
         ],
         whenBehind: "Vyklízení pokračuje, uspořádání se odloží. Rozdělaná kategorie se nenechává přes pauzu — napůl vyklizeno je horší než nezačato.",
-        goal: "Proměnit svůj domov v místo, kde si opravdu odpočinu",
+        goal: "Domov, kde si opravdu odpočinu",
         questions: [
           {
             id: "place",
@@ -133,7 +133,7 @@ category open across a pause.
           },
         ],
         whenBehind: "Clearing carries on and the arranging is postponed. A category is never left open across a pause — half-cleared is worse than not started.",
-        goal: "Turn my home into a place where I actually rest",
+        goal: "A home where I actually rest",
         questions: [
           {
             id: "place",
@@ -178,7 +178,7 @@ category open across a pause.
           },
         ],
         whenBehind: "Das Ausräumen geht weiter, das Ordnen wird verschoben. Eine Kategorie bleibt nie über eine Pause offen — halb ausgeräumt ist schlechter als gar nicht angefangen.",
-        goal: "Mein Zuhause in einen Ort verwandeln, an dem ich wirklich ausruhe",
+        goal: "Ein Zuhause, in dem ich ausruhe",
         questions: [
           {
             id: "place",

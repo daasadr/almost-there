@@ -356,16 +356,30 @@ export function GoalForm({
         <label htmlFor="goal-title" className="block text-sm font-medium">
           {t("nameLabel")}
         </label>
-        <input
+        {/*
+          Textarea, ne jednořádkový vstup.
+
+          Název smí mít až osmdesát znaků, jenže do jednoho řádku se jich
+          vejde míň — a co se nevejde, odjede doprava a není vidět.
+          U delšího názvu to vypadá, jako by se text uřízl. Nerozšiřuje
+          se o řádek, jen zalomí.
+
+          Odřádkování se zahazuje: je to pořád název, ne odstavec,
+          a Enter má formulář odeslat jako dřív.
+        */}
+        <textarea
           id="goal-title"
           aria-describedby="goal-title-hint"
-          type="text"
           value={title}
-          onChange={(event) => setTitle(event.target.value)}
+          onChange={(event) => setTitle(event.target.value.replace(/\n/g, " "))}
+          onKeyDown={(event) => {
+            if (event.key === "Enter") event.preventDefault();
+          }}
+          rows={2}
           maxLength={MAX_GOAL_TITLE}
           disabled={pending}
           placeholder={t("namePlaceholder")}
-          className="mt-2.5 w-full rounded-xl border border-edge bg-scrim px-4 py-3 text-base text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] disabled:opacity-60"
+          className="mt-2.5 w-full resize-none rounded-xl border border-edge bg-scrim px-4 py-3 text-base leading-snug text-[var(--color-paper)] placeholder:text-[var(--color-paper-faint)] transition focus:border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] disabled:opacity-60"
         />
         <p
           id="goal-title-hint"

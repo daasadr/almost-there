@@ -175,7 +175,7 @@ the goal ends in injury instead of a finish line.
           },
         ],
         whenBehind: "Die lockeren Läufe fallen weg. Der lange Lauf und der Ruhetag bleiben, und der Aufbau wird nie zusammengedrückt, um aufzuholen — so endet das Ziel in einer Verletzung statt im Ziel.",
-        goal: "Für einen Marathon trainieren und ihn finishen",
+        goal: "Einen Marathon finishen",
         questions: [
           {
             id: "current",
@@ -349,7 +349,7 @@ drop an easy run.
           },
         ],
         whenBehind: "Der lange Lauf und der Ruhetag bleiben, ein lockerer Lauf fällt weg. Mit einer ausgefallenen Woche rechnet der Plan, denn sie kommt.",
-        goal: "Für einen Halbmarathon trainieren und ihn finishen",
+        goal: "Einen Halbmarathon finishen",
         questions: [
           {
             id: "current",
@@ -526,7 +526,7 @@ else first.
           },
         ],
         whenBehind: "Die regelmäßigen Mahlzeiten bleiben. Alles andere geht als Erstes.",
-        goal: "Gesund abnehmen und das Gewicht halten",
+        goal: "Gesund abnehmen und halten",
         questions: [
           {
             id: "situation",
@@ -611,7 +611,7 @@ postpone the next one.
           },
         ],
         whenBehind: "Drží se kategorie, které už jsou vyměněné, a další se odloží. Běžné výjimky jsou povolené — „všechno nebo nic“ je to, co tyhle pokusy ukončuje.",
-        goal: "Přejít na zdravější a méně zpracovanou stravu",
+        goal: "Jíst méně zpracovaně",
         questions: [
           {
             id: "situation",
@@ -701,7 +701,7 @@ postpone the next one.
           },
         ],
         whenBehind: "Die bereits ersetzten Kategorien werden gehalten, die nächste wird verschoben. Gewöhnliche Ausnahmen sind erlaubt — Alles-oder-nichts ist das, was solche Versuche beendet.",
-        goal: "Auf besseres, weniger verarbeitetes Essen umsteigen",
+        goal: "Weniger verarbeitet essen",
         questions: [
           {
             id: "situation",

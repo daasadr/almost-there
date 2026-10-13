@@ -75,7 +75,7 @@ conversations. That is the opposite of what they will want to do.
           },
         ],
         whenBehind: "Škrtá se práce na produktu, rozhovory zůstávají. Je to přesně naopak, než na co má člověk chuť.",
-        goal: "Získat prvních deset platících zákazníků",
+        goal: "Prvních deset platících zákazníků",
         questions: [
           {
             id: "stage",
@@ -165,7 +165,7 @@ conversations. That is the opposite of what they will want to do.
           },
         ],
         whenBehind: "Die Produktarbeit wird gestrichen, die Gespräche bleiben. Das ist genau das Gegenteil von dem, wonach dir sein wird.",
-        goal: "Meine ersten zehn zahlenden Kunden gewinnen",
+        goal: "Meine ersten zehn Kunden",
         questions: [
           {
             id: "stage",
@@ -420,7 +420,7 @@ When the person falls behind, cut the studying, never the exposures.
           },
         ],
         whenBehind: "Škrtá se studium, nikdy ne ty malé zkoušky s lidmi. Na nich celá věc stojí.",
-        goal: "Naučit se prodávat to, co dělám, a říct si o svou cenu",
+        goal: "Naučit se prodávat svou práci",
         questions: [
           {
             id: "work",
@@ -465,7 +465,7 @@ When the person falls behind, cut the studying, never the exposures.
           },
         ],
         whenBehind: "Studying gets cut, never the small exposures with people. The whole thing rests on those.",
-        goal: "Learn to sell what I do and ask for my price",
+        goal: "Learn to sell my own work",
         questions: [
           {
             id: "work",
@@ -510,7 +510,7 @@ When the person falls behind, cut the studying, never the exposures.
           },
         ],
         whenBehind: "Das Lernen wird gestrichen, nie die kleinen Versuche mit Menschen. Darauf steht die ganze Sache.",
-        goal: "Lernen, meine Arbeit zu verkaufen und meinen Preis zu nennen",
+        goal: "Meine Arbeit verkaufen lernen",
         questions: [
           {
             id: "work",
