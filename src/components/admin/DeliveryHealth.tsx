@@ -65,10 +65,10 @@ export async function DeliveryHealth({ now }: { now: number }) {
 
       {missing.length > 0 && (
         <div className="mt-3 rounded-xl border border-red-400/40 bg-red-400/10 p-4 text-sm">
-          <p className="font-semibold text-red-200">
+          <p className="font-semibold text-[var(--color-danger)]">
             Oznámení se neodesílají vůbec.
           </p>
-          <p className="mt-1 text-red-100/80">
+          <p className="mt-1 text-[var(--color-danger)]">
             V nastavení serveru chybí:{" "}
             {missing.map((name, i) => (
               <span key={name}>
@@ -89,7 +89,7 @@ export async function DeliveryHealth({ now }: { now: number }) {
         }`}
       >
         {cron ? (
-          <p className={stale ? "text-red-200" : "text-[var(--color-paper)]"}>
+          <p className={stale ? "text-[var(--color-danger)]" : "text-[var(--color-paper)]"}>
             Úloha běžela <strong>{ago(cron.ranAt, now)}</strong>
             {cron.note && (
               <span className="text-[var(--color-paper-dim)]">
@@ -105,7 +105,7 @@ export async function DeliveryHealth({ now }: { now: number }) {
             )}
           </p>
         ) : (
-          <p className="text-red-200">
+          <p className="text-[var(--color-danger)]">
             Úloha zatím neproběhla ani jednou. Buď není v <code>crontab</code>,
             nebo se nedovolá — zkus ji spustit ručně a podívej se, co odpoví.
           </p>

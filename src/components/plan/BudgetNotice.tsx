@@ -40,7 +40,7 @@ export async function BudgetNotice({
     >
       <h2
         className={`text-sm font-semibold ${
-          exhausted ? "text-red-200" : "text-amber-200"
+          exhausted ? "text-[var(--color-danger)]" : "text-[var(--color-warn)]"
         }`}
       >
         {exhausted ? t("exhaustedTitle") : t("warningTitle")}

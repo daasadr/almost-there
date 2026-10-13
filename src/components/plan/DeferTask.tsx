@@ -252,7 +252,7 @@ export function DeferTask({
         </button>
       </div>
 
-      {error && <p className="mt-3 text-xs text-red-300">{t("failed")}</p>}
+      {error && <p className="mt-3 text-xs text-[var(--color-danger)]">{t("failed")}</p>}
 
       <button
         type="button"

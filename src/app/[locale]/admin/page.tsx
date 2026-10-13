@@ -271,7 +271,7 @@ function Stat({
         {label}
       </dt>
       <dd
-        className={`display mt-2 text-2xl ${warn ? "text-amber-200" : ""}`}
+        className={`display mt-2 text-2xl ${warn ? "text-[var(--color-warn)]" : ""}`}
       >
         {value}
       </dd>

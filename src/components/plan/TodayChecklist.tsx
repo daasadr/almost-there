@@ -149,7 +149,7 @@ export function TodayChecklist({
       {failed && (
         <p
           role="alert"
-          className="mt-4 rounded-xl border border-red-400/25 bg-red-400/10 px-4 py-3 text-sm text-red-200"
+          className="mt-4 rounded-xl border border-red-400/25 bg-red-400/10 px-4 py-3 text-sm text-[var(--color-danger)]"
         >
           {failed === "replanInProgress"
             ? t("replanInProgress")
@@ -295,7 +295,7 @@ function badgeClass(type: string): string {
     case "REST":
       return `${base} border-sky-300/25 text-sky-200/80`;
     case "REFLECTION":
-      return `${base} border-amber-300/25 text-amber-200/80`;
+      return `${base} border-amber-300/25 text-[var(--color-warn)]`;
     default:
       return `${base} border-edge-strong text-[var(--color-paper-dim)]`;
   }

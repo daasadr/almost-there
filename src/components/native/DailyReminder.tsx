@@ -195,7 +195,7 @@ export function DailyReminder() {
       )}
 
       {denied && (
-        <p className="mt-5 text-sm leading-relaxed text-amber-200/90">
+        <p className="mt-5 text-sm leading-relaxed text-[var(--color-warn)]">
           {t("denied")}
         </p>
       )}

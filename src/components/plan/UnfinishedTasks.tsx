@@ -61,7 +61,7 @@ export function UnfinishedTasks({ tasks }: { tasks: OverdueTask[] }) {
       </p>
 
       {failed && (
-        <p role="alert" className="mt-4 text-sm text-red-200">
+        <p role="alert" className="mt-4 text-sm text-[var(--color-danger)]">
           {t("failed")}
         </p>
       )}

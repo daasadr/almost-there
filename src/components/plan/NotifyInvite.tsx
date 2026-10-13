@@ -115,7 +115,7 @@ export function NotifyInvite({ vapidPublicKey }: { vapidPublicKey: string }) {
       {failed && (
         <p
           role="status"
-          className="mt-3 rounded-xl border border-amber-400/25 bg-amber-400/5 px-3.5 py-2.5 text-xs leading-relaxed text-amber-100/90"
+          className="mt-3 rounded-xl border border-amber-400/25 bg-amber-400/5 px-3.5 py-2.5 text-xs leading-relaxed text-[var(--color-warn)]"
         >
           {t(failed)}
         </p>

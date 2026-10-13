@@ -73,11 +73,11 @@ export function AccessControls({
           type="button"
           onClick={() => send(false)}
           disabled={pending}
-          className="text-xs text-[var(--color-paper-faint)] underline-offset-4 hover:text-red-300 hover:underline disabled:opacity-50"
+          className="text-xs text-[var(--color-paper-faint)] underline-offset-4 hover:text-[var(--color-danger)] hover:underline disabled:opacity-50"
         >
           {pending ? "Odebírám…" : "Odebrat přístup"}
         </button>
-        {error && <p className="mt-1 text-xs text-red-300">{error}</p>}
+        {error && <p className="mt-1 text-xs text-[var(--color-danger)]">{error}</p>}
       </div>
     );
   }
@@ -118,7 +118,7 @@ export function AccessControls({
         />
       </label>
 
-      {error && <p className="mt-2 text-xs text-red-300">{error}</p>}
+      {error && <p className="mt-2 text-xs text-[var(--color-danger)]">{error}</p>}
 
       <div className="mt-3 flex gap-2">
         <button

@@ -162,10 +162,10 @@ export default async function AppPage({
 
       {!account?.emailVerified && (
         <div className="mt-8 rounded-2xl border border-amber-400/25 bg-amber-400/5 p-5">
-          <h2 className="text-sm font-semibold text-amber-200">
+          <h2 className="text-sm font-semibold text-[var(--color-warn)]">
             {t("verifyTitle")}
           </h2>
-          <p className="mt-1.5 text-sm leading-relaxed text-amber-100/80">
+          <p className="mt-1.5 text-sm leading-relaxed text-[var(--color-warn)]">
             {t("verifyBody")}
           </p>
         </div>
@@ -184,10 +184,10 @@ export default async function AppPage({
       */}
       {hasAccess && complimentaryEndingSoon && account?.subscriptionEndsAt && (
           <div className="mt-8 rounded-2xl border border-amber-400/25 bg-amber-400/5 p-5">
-            <h2 className="text-sm font-semibold text-amber-200">
+            <h2 className="text-sm font-semibold text-[var(--color-warn)]">
               {t("endingTitle")}
             </h2>
-            <p className="mt-1.5 text-sm leading-relaxed text-amber-100/80">
+            <p className="mt-1.5 text-sm leading-relaxed text-[var(--color-warn)]">
               {t("endingBody", {
                 date: new Intl.DateTimeFormat(locale, {
                   dateStyle: "long",

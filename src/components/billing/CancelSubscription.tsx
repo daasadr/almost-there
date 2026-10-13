@@ -55,7 +55,7 @@ export function CancelSubscription({
   if (cancelAtPeriodEnd) {
     return (
       <div className="rounded-xl border border-amber-400/25 bg-amber-400/5 p-4">
-        <p className="text-sm leading-relaxed text-amber-100/85">
+        <p className="text-sm leading-relaxed text-[var(--color-warn)]">
           {until ? t("endingOn", { date: until }) : t("ending")}
         </p>
         <button
@@ -67,7 +67,7 @@ export function CancelSubscription({
           {pending ? t("working") : t("resume")}
         </button>
         {error && (
-          <p role="alert" className="mt-2 text-sm text-red-200">
+          <p role="alert" className="mt-2 text-sm text-[var(--color-danger)]">
             {t("failed")}
           </p>
         )}
@@ -94,7 +94,7 @@ export function CancelSubscription({
       </p>
 
       {error && (
-        <p role="alert" className="mt-2 text-sm text-red-200">
+        <p role="alert" className="mt-2 text-sm text-[var(--color-danger)]">
           {t("failed")}
         </p>
       )}

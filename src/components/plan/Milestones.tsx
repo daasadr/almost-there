@@ -96,7 +96,7 @@ export function Milestones({
       </p>
 
       {error && (
-        <p role="alert" className="mt-4 text-sm text-red-200">
+        <p role="alert" className="mt-4 text-sm text-[var(--color-danger)]">
           {t("failed")}
         </p>
       )}

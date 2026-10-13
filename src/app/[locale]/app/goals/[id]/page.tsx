@@ -36,10 +36,10 @@ export async function generateMetadata({
 
 /** Barva podle toho, jak upřímné hodnocení termínu je. */
 const FEASIBILITY_STYLE: Record<string, string> = {
-  comfortable: "border-emerald-400/25 text-emerald-200/85",
-  realistic: "border-emerald-400/25 text-emerald-200/85",
-  ambitious: "border-amber-400/25 text-amber-200/85",
-  unrealistic: "border-red-400/30 text-red-200/85",
+  comfortable: "border-emerald-400/25 text-[var(--color-emerald-soft)]",
+  realistic: "border-emerald-400/25 text-[var(--color-emerald-soft)]",
+  ambitious: "border-amber-400/25 text-[var(--color-warn)]",
+  unrealistic: "border-red-400/30 text-[var(--color-danger)]",
 };
 
 export default async function GoalPage({
@@ -212,7 +212,7 @@ export default async function GoalPage({
         ale to uživatel nevidí — proto to musí stát i tady, nahlas
         a u každého cíle. Právní věty v podmínkách nikdo nečte.
       */}
-      <p className="mt-6 rounded-xl border border-amber-400/25 bg-amber-400/5 px-4 py-3 text-sm leading-relaxed text-amber-100/80">
+      <p className="mt-6 rounded-xl border border-amber-400/25 bg-amber-400/5 px-4 py-3 text-sm leading-relaxed text-[var(--color-warn)]">
         {t("aiDisclaimer")}
       </p>
 

@@ -29,6 +29,18 @@
   --color-violet-glow: #8b5cf6;
   --color-violet-soft: #a78bfa;
 
+  /*
+   * Varování a chyby.
+   *
+   * Vlastní proměnné, ne odstíny z palety Tailwindu. Ty se psaly pro
+   * tmavé pozadí — `text-red-200` je světle růžová, na bílé skoro
+   * neviditelná. Na pěti světlých motivech tím zmizely všechny chybové
+   * hlášky a s nimi i upozornění, že plán psal model a ne odborník.
+   * To je u zdraví a jídla ta nejdůležitější věta na stránce.
+   */
+  --color-warn: #fde68a;
+  --color-danger: #fecaca;
+
   /* Text */
   --color-paper: #f2f7f4;
   --color-paper-dim: #a9bdb4;
@@ -459,6 +471,10 @@
   --color-surface-strong: rgb(0 0 0 / 0.08);
   --color-scrim: rgb(0 0 0 / 0.15);
   --color-scrim-strong: rgb(0 0 0 / 0.5);
+
+  /* Tmavé odstíny varování — ty světlé by na světlém pozadí zmizely. */
+  --color-warn: #92400e;
+  --color-danger: #b91c1c;
 }
 
 /* Mosaz a stará kůže na zažloutlém papíru. */

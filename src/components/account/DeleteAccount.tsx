@@ -76,7 +76,7 @@ export function DeleteAccount({ email }: { email: string }) {
 
   return (
     <section className="mt-8 rounded-2xl border border-red-400/25 bg-red-400/[0.03] p-6 sm:p-8">
-      <h2 className="display text-lg text-red-200">{t("title")}</h2>
+      <h2 className="display text-lg text-[var(--color-danger)]">{t("title")}</h2>
 
       <p className="mt-2 text-base leading-relaxed text-[var(--color-paper-dim)]">
         {t("body")}
@@ -106,7 +106,7 @@ export function DeleteAccount({ email }: { email: string }) {
         />
       </label>
 
-      {error && <p className="mt-4 text-sm text-red-300">{error}</p>}
+      {error && <p className="mt-4 text-sm text-[var(--color-danger)]">{error}</p>}
 
       <div className="mt-6 flex flex-wrap items-center gap-5">
         <button

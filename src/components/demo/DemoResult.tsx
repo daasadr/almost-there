@@ -177,8 +177,8 @@ function FeasibilityBadge({ value }: { value: Plan["feasibility"] }) {
       "border-[color-mix(in_oklab,var(--color-emerald-soft)_45%,transparent)] text-[var(--color-emerald-soft)]",
     realistic:
       "border-[color-mix(in_oklab,var(--color-lime-glow)_45%,transparent)] text-[var(--color-lime-soft)]",
-    ambitious: "border-amber-400/45 text-amber-300",
-    unrealistic: "border-red-400/45 text-red-300",
+    ambitious: "border-amber-400/45 text-[var(--color-warn)]",
+    unrealistic: "border-red-400/45 text-[var(--color-danger)]",
   };
 
   return (

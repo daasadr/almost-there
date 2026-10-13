@@ -103,7 +103,7 @@ export function GoalStatusControls({
       )}
 
       {error && (
-        <p role="alert" className="mb-4 text-sm text-red-200">
+        <p role="alert" className="mb-4 text-sm text-[var(--color-danger)]">
           {t("failed")}
         </p>
       )}

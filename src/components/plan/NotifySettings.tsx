@@ -226,7 +226,7 @@ export function NotifySettings({
           className={`mt-5 text-sm leading-relaxed ${
             note === "saved"
               ? "text-[var(--color-paper-faint)]"
-              : "rounded-xl border border-amber-400/25 bg-amber-400/5 px-4 py-3 text-amber-100/90"
+              : "rounded-xl border border-amber-400/25 bg-amber-400/5 px-4 py-3 text-[var(--color-warn)]"
           }`}
         >
           {t(note)}
