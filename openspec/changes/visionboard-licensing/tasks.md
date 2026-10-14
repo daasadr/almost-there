@@ -8,7 +8,7 @@
 - [x] 1.2 Podepisování licencí (`jose`, EdDSA), klíč a `kid` z prostředí.
       Ověřit: test proti vektorům z oddílu 9 kontraktu — token se znak po
       znaku shoduje; cizí `alg`, `none` a upravený payload neprojdou.
-- [ ] 1.3 Vydání a ověření aktivačního kódu (abeceda, 12 znaků, otisk,
+- [x] 1.3 Vydání a ověření aktivačního kódu (abeceda, 12 znaků, otisk,
       10 minut, jednorázovost, zneplatnění i po špatném verifieru).
       Ověřit: unit testy včetně druhého pokusu se stejným kódem.
 
