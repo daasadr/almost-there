@@ -125,7 +125,14 @@ někdy měnila, musí se to říct druhé straně dřív, než se změní.
 
 ## Review
 
-Vyplní se při posledním úkolu.
+Vyplní se při posledním úkolu. Na co se u něj podívat, už teď:
+
+- **Limit zařízení není v transakci.** `activateInstallation` nejdřív
+  spočítá aktivní zařízení a pak zapíše nové. Dvě aktivace různých
+  zařízení téhož účtu ve stejné milisekundě proto můžou projít obě a
+  účet skončí se čtyřmi. Následek je mírný a ta souběžnost nepravdě­
+  podobná (jeden člověk, dva počítače, tentýž okamžik), ale patří to
+  na seznam — řeší se transakcí nebo kontrolou při zápisu.
 
 ## Odchylky při implementaci
 

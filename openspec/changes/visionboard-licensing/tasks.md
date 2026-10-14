@@ -14,7 +14,7 @@
 
 ## 2. API
 
-- [ ] 2.1 `POST /api/visionboard/v1/licenses`: výměna kódu, kontrola PKCE,
+- [x] 2.1 `POST /api/visionboard/v1/licenses`: výměna kódu, kontrola PKCE,
       limit 3 zařízení, znovuaktivace téhož `installationId`.
       Ověřit: testy všech chybových kódů z oddílu 3.4 kontraktu.
 - [ ] 2.2 Omezení pokusů na `/licenses` (10 za minutu z IP, `429 rate_limited`).
