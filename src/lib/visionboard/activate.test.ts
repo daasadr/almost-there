@@ -104,6 +104,7 @@ describe("stavy HTTP", () => {
       expired_code: 400,
       no_license: 403,
       too_many_installations: 403,
+      rate_limited: 429,
     });
   });
 });

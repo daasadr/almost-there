@@ -23,7 +23,8 @@ export type ActivationError =
   | "invalid_code"
   | "expired_code"
   | "no_license"
-  | "too_many_installations";
+  | "too_many_installations"
+  | "rate_limited";
 
 /** Stav HTTP ke každé chybě. Kontrakt, oddíl 3.4. */
 export const ERROR_STATUS: Record<ActivationError, number> = {
@@ -32,7 +33,22 @@ export const ERROR_STATUS: Record<ActivationError, number> = {
   expired_code: 400,
   no_license: 403,
   too_many_installations: 403,
+  rate_limited: 429,
 };
+
+/**
+ * Kolik pokusů o aktivaci z jedné adresy za minutu. Kontrakt, oddíl 3.4.
+ *
+ * Deset je štědré: poctivá aktivace je jedno volání a opakuje se jen
+ * tehdy, když něco selže. Zároveň to stačí na celou domácnost nebo
+ * kancelář za jednou adresou, kde se počítače tváří jako jeden.
+ *
+ * Proti hádání kódu to samo o sobě není — dvanáct znaků z třiceti je
+ * skoro šedesát bitů a ty se neuhodnou ani za roky. Je to druhá vrstva
+ * pod tím, že se kód spálí při prvním uplatnění.
+ */
+export const ATTEMPTS_PER_MINUTE = 10;
+export const ATTEMPT_WINDOW_MS = 60_000;
 
 export type ActivationFacts = {
   /** Co vyšlo z uplatnění kódu. */

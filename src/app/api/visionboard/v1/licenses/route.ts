@@ -2,9 +2,12 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import {
   activateInstallation,
+  ATTEMPTS_PER_MINUTE,
+  ATTEMPT_WINDOW_MS,
   ERROR_STATUS,
   type ActivationError,
 } from "@/lib/visionboard/activate";
+import { checkRateLimit, getClientIp, hashIp } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 
@@ -35,6 +38,30 @@ function fail(error: ActivationError) {
 }
 
 export async function POST(request: Request) {
+  /*
+   * Strop se počítá dřív, než se cokoliv přečte.
+   *
+   * Smysl je, aby ani neúspěšné pokusy nestály práci. Kód sám se spálí
+   * při prvním uplatnění, takže hádat ho nejde — tohle je vrstva pod
+   * tím, hlavně proti tomu, aby někdo endpoint zahltil.
+   */
+  const ip = getClientIp(request.headers);
+  const limit = checkRateLimit(
+    `vb-licenses:${hashIp(ip)}`,
+    ATTEMPTS_PER_MINUTE,
+    ATTEMPT_WINDOW_MS,
+  );
+
+  if (!limit.allowed) {
+    const seconds = Math.max(1, Math.ceil((limit.resetAt - Date.now()) / 1000));
+    return NextResponse.json(
+      { ok: false, error: "rate_limited" },
+      // `Retry-After` kontrakt nežádá, ale je to jediný způsob, jak
+      // aplikaci říct, kdy to má zkusit znovu, místo aby hádala.
+      { status: ERROR_STATUS.rate_limited, headers: { "Retry-After": String(seconds) } },
+    );
+  }
+
   let body: unknown;
   try {
     body = await request.json();
