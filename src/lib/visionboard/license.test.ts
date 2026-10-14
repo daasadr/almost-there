@@ -157,4 +157,30 @@ describe("čtení vlastní licence", () => {
   it("odmítne nesmysl místo tokenu", async () => {
     expect(await readOwnLicense("tohle token není", await publicPem())).toBeNull();
   });
+
+  /**
+   * Prošlá licence se smí obnovit, ale jen do devadesáti dnů.
+   *
+   * Kontrakt, oddíl 3.2. Kdo aplikaci nespustil čtvrt roku, aktivuje
+   * znovu; kdo ji nespustil měsíc, nemá kvůli tomu přijít o nic.
+   * Hranice je jen v jednom čísle v `readOwnLicense` a bez téhle
+   * dvojice testů by se její posunutí nepoznalo.
+   */
+  const DAY = 24 * 60 * 60;
+
+  it("prošlá do devadesáti dnů se ještě přečte", async () => {
+    const now = Math.floor(Date.now() / 1000);
+    // Vydaná před 400 dny, platnost rok → prošlá 35 dní.
+    const token = await signWithTestKey({ issuedAt: now - 400 * DAY });
+
+    expect(await readOwnLicense(token, await publicPem())).not.toBeNull();
+  });
+
+  it("prošlá déle než devadesát dnů se odmítne", async () => {
+    const now = Math.floor(Date.now() / 1000);
+    // Vydaná před 500 dny → prošlá 135 dní.
+    const token = await signWithTestKey({ issuedAt: now - 500 * DAY });
+
+    expect(await readOwnLicense(token, await publicPem())).toBeNull();
+  });
 });

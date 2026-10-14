@@ -19,7 +19,7 @@
       Ověřit: testy všech chybových kódů z oddílu 3.4 kontraktu.
 - [x] 2.2 Omezení pokusů na `/licenses` (10 za minutu z IP, `429 rate_limited`).
       Ověřit: test, že jedenáctý požadavek v minutě dostane 429.
-- [ ] 2.3 `POST /licenses/renew` a `POST /licenses/deactivate`.
+- [x] 2.3 `POST /licenses/renew` a `POST /licenses/deactivate`.
       Ověřit: testy — prošlá licence do 90 dní projde, deaktivovaná vrátí
       `403 revoked`, cizí podpis `400 invalid_license`, druhá deaktivace `204`.
 
