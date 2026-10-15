@@ -1248,5 +1248,30 @@
     "asks": "What we will ask you",
     "closing": "The plan is built around your answers: broken down into years, months, weeks and finally today. With rest written into it, and recalculated every time the route and reality part ways.",
     "starting": "Opening the form…"
+  },
+  "visionboard": {
+    "activate": {
+      "missingTitle": "No activation request",
+      "missingBody": "This page is opened from the Vision Board app. Start it, go to Settings → Licence and tap Activate. If you arrived here more than fifteen minutes ago, the request has expired and you can simply start again.",
+      "signInTitle": "Sign in and the activation goes through",
+      "signInBody": "Every AlmostThere account has a Vision Board licence, paid or not. Just sign in; if you do not have an account yet, make one.",
+      "signIn": "Sign in",
+      "register": "Create an account",
+      "signInNote": "We remember the request from the app for fifteen minutes, so you will come back here afterwards and can carry on.",
+      "confirmTitle": "Activate Vision Board on this computer?",
+      "confirmBody": "It takes one of your three places. You can free it up any time on the Extras page.",
+      "confirmAccount": "Account: {email}",
+      "confirm": "Activate",
+      "confirming": "Issuing the code…",
+      "confirmNote": "The code lasts ten minutes and can be used once.",
+      "openedBody": "Vision Board should open by itself. If it did not, use the button — your browser will probably ask whether to launch the app.",
+      "open": "Open Vision Board",
+      "codeLabel": "Or copy the code",
+      "codeNote": "In the app: Settings → Licence → I have a code. Valid for ten minutes.",
+      "failures": {
+        "expired": "The request from the app has expired. Start Vision Board and tap Activate again.",
+        "unauthorized": "Your session expired. Reload the page and sign in."
+      }
+    }
   }
 }

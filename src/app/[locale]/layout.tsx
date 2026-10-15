@@ -49,6 +49,7 @@ const CLIENT_NAMESPACES = [
   "theme",
   "extras",
   "motivation",
+  "visionboard",
 ] as const;
 
 function clientMessages(messages: Record<string, unknown>) {

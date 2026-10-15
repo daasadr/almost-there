@@ -25,7 +25,7 @@
 
 ## 3. Stránky
 
-- [ ] 3.1 `/visionboard/activate`: validace `challenge` a `state`, zachování
+- [x] 3.1 `/visionboard/activate`: validace `challenge` a `state`, zachování
       parametrů přes přihlášení i registraci, potvrzení POSTem, zobrazení
       kódu, přesměrování na pevné `visionboard://activate`. Texty cs/en/de.
       Ověřit: e2e — nepřihlášený projde registrací a vrátí se se stejnými

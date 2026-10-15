@@ -1248,5 +1248,30 @@
     "asks": "Na co se tě zeptáme",
     "closing": "Plán vznikne na míru tomu, co odpovíš: rozpadne se na roky, měsíce, týdny a nakonec na dnešek. S odpočinkem, který v něm stojí napsaný, a s přepočítáním pokaždé, když se cesta rozejde se skutečností.",
     "starting": "Otevírám formulář…"
+  },
+  "visionboard": {
+    "activate": {
+      "missingTitle": "Chybí zadání aktivace",
+      "missingBody": "Tahle stránka se otevírá z aplikace Vision Board. Spusť ji, jdi do Nastavení → Licence a klepni na Aktivovat. Pokud jsi sem přišla před víc než čtvrt hodinou, zadání už vypršelo a stačí to zkusit znovu.",
+      "signInTitle": "Přihlas se a aktivace proběhne",
+      "signInBody": "Licenci k Vision Boardu má každý účet na AlmostThere, placený i neplacený. Stačí se přihlásit; když účet ještě nemáš, založ si ho.",
+      "signIn": "Přihlásit se",
+      "register": "Založit účet",
+      "signInNote": "Zadání z aplikace si pamatujeme čtvrt hodiny, takže se sem po přihlášení vrátíš a budeš moct pokračovat.",
+      "confirmTitle": "Aktivovat Vision Board na tomhle počítači?",
+      "confirmBody": "Zabere to jedno místo ze tří. Uvolnit ho můžeš kdykoliv na stránce Extra.",
+      "confirmAccount": "Účet: {email}",
+      "confirm": "Aktivovat",
+      "confirming": "Vydávám kód…",
+      "confirmNote": "Kód platí deset minut a dá se použít jednou.",
+      "openedBody": "Vision Board by se měl otevřít sám. Pokud se neotevřel, klepni na tlačítko — prohlížeč se nejspíš zeptá, jestli aplikaci spustit.",
+      "open": "Otevřít Vision Board",
+      "codeLabel": "Nebo kód opiš",
+      "codeNote": "V aplikaci: Nastavení → Licence → Mám kód. Platí deset minut.",
+      "failures": {
+        "expired": "Zadání z aplikace vypršelo. Spusť Vision Board a klepni na Aktivovat znovu.",
+        "unauthorized": "Přihlášení vypršelo. Načti stránku znovu a přihlas se."
+      }
+    }
   }
 }

@@ -26,15 +26,37 @@ export async function generateMetadata({
 
 export default async function LoginPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{ callbackUrl?: string }>;
 }) {
   const { locale } = await params;
+
+  /*
+   * Kam po přihlášení.
+   *
+   * Bere se jen vlastní cesta, ne celá adresa: `callbackUrl` přichází
+   * z adresního řádku a kdyby se použil, jak přijde, dal by se tím
+   * člověk po přihlášení poslat na cizí web. Otevřené přesměrování je
+   * klasická díra a stojí jednu podmínku.
+   */
+  const requested = (await searchParams).callbackUrl;
+  const back =
+    requested && requested.startsWith("/") && !requested.startsWith("//")
+      ? requested
+      : `/${locale}/app`;
   setRequestLocale(locale);
-  return <LoginContent locale={locale} />;
+  return <LoginContent locale={locale} back={back} />;
 }
 
-function LoginContent({ locale }: { locale: string }) {
+function LoginContent({
+  locale,
+  back,
+}: {
+  locale: string;
+  back: string;
+}) {
   const t = useTranslations("auth.login");
 
   return (
@@ -45,7 +67,7 @@ function LoginContent({ locale }: { locale: string }) {
         <>
           {t("noAccount")}{" "}
           <Link
-            href="/register"
+            href={`/${locale}/register?callbackUrl=${encodeURIComponent(back)}`}
             className="font-medium text-[var(--color-lime-soft)] underline underline-offset-4"
           >
             {t("registerLink")}
@@ -81,7 +103,10 @@ function LoginContent({ locale }: { locale: string }) {
       */}
       <div className="store-hidden">
         <Divider label={t("or")} />
-        <GoogleButton label={t("google")} callbackUrl={`/${locale}/app`} />
+        {/* Návratová adresa i tady. Bez toho by přihlášení Googlem
+            skončilo na dnešku a rozdělaná aktivace Vision Boardu by
+            se ztratila. */}
+        <GoogleButton label={t("google")} callbackUrl={back} />
       </div>
 
       <p className="store-only mt-6 rounded-2xl border border-edge bg-surface p-4 text-sm leading-relaxed text-[var(--color-paper-dim)]">

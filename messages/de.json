@@ -1248,5 +1248,30 @@
     "asks": "Was wir dich fragen",
     "closing": "Der Plan entsteht entlang deiner Antworten: aufgeteilt in Jahre, Monate, Wochen und schließlich den heutigen Tag. Mit Erholung, die darin festgeschrieben ist, und neu gerechnet, sobald Weg und Wirklichkeit auseinandergehen.",
     "starting": "Formular wird geöffnet…"
+  },
+  "visionboard": {
+    "activate": {
+      "missingTitle": "Keine Aktivierungsanfrage",
+      "missingBody": "Diese Seite wird aus der Vision-Board-App geöffnet. Starte sie, geh zu Einstellungen → Lizenz und tippe auf Aktivieren. Wenn du vor mehr als einer Viertelstunde hier gelandet bist, ist die Anfrage abgelaufen und du fängst einfach neu an.",
+      "signInTitle": "Melde dich an, dann läuft die Aktivierung durch",
+      "signInBody": "Jedes Konto bei AlmostThere hat eine Vision-Board-Lizenz, bezahlt oder nicht. Du musst dich nur anmelden; wenn du noch kein Konto hast, leg eines an.",
+      "signIn": "Anmelden",
+      "register": "Konto anlegen",
+      "signInNote": "Die Anfrage aus der App merken wir uns eine Viertelstunde, du kommst also hierher zurück und kannst weitermachen.",
+      "confirmTitle": "Vision Board auf diesem Computer aktivieren?",
+      "confirmBody": "Das belegt einen von drei Plätzen. Freigeben kannst du ihn jederzeit auf der Seite Extras.",
+      "confirmAccount": "Konto: {email}",
+      "confirm": "Aktivieren",
+      "confirming": "Code wird ausgestellt…",
+      "confirmNote": "Der Code gilt zehn Minuten und lässt sich einmal verwenden.",
+      "openedBody": "Vision Board sollte sich von selbst öffnen. Falls nicht, nimm die Schaltfläche — der Browser fragt vermutlich nach, ob die App gestartet werden soll.",
+      "open": "Vision Board öffnen",
+      "codeLabel": "Oder den Code abtippen",
+      "codeNote": "In der App: Einstellungen → Lizenz → Ich habe einen Code. Zehn Minuten gültig.",
+      "failures": {
+        "expired": "Die Anfrage aus der App ist abgelaufen. Starte Vision Board und tippe erneut auf Aktivieren.",
+        "unauthorized": "Deine Anmeldung ist abgelaufen. Lade die Seite neu und melde dich an."
+      }
+    }
   }
 }

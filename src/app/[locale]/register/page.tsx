@@ -25,15 +25,31 @@ export async function generateMetadata({
 
 export default async function RegisterPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{ callbackUrl?: string }>;
 }) {
   const { locale } = await params;
+
+  // Jen vlastní cesta, ne celá adresa — jinak by šlo člověka po
+  // registraci poslat na cizí web.
+  const requested = (await searchParams).callbackUrl;
+  const back =
+    requested && requested.startsWith("/") && !requested.startsWith("//")
+      ? requested
+      : `/${locale}/app`;
   setRequestLocale(locale);
-  return <RegisterContent locale={locale} />;
+  return <RegisterContent locale={locale} back={back} />;
 }
 
-function RegisterContent({ locale }: { locale: string }) {
+function RegisterContent({
+  locale,
+  back,
+}: {
+  locale: string;
+  back: string;
+}) {
   const t = useTranslations("auth.register");
 
   return (
@@ -44,7 +60,7 @@ function RegisterContent({ locale }: { locale: string }) {
         <>
           {t("hasAccount")}{" "}
           <Link
-            href="/login"
+            href={`/${locale}/login?callbackUrl=${encodeURIComponent(back)}`}
             className="font-medium text-[var(--color-lime-soft)] underline underline-offset-4"
           >
             {t("loginLink")}
@@ -61,7 +77,7 @@ function RegisterContent({ locale }: { locale: string }) {
 
         {/* Přihlášením přes Google uživatel prochází touhle stránkou, kde je
             souhlas s podmínkami uvedený u tlačítka — nesmí chybět ani tady. */}
-        <GoogleButton label={t("google")} callbackUrl={`/${locale}/app`} />
+        <GoogleButton label={t("google")} callbackUrl={back} />
         <p className="mt-3 text-center text-xs leading-relaxed text-[var(--color-paper-faint)]">
           {t.rich("googleConsent", {
             terms: (chunks) => (
