@@ -1272,6 +1272,21 @@
         "expired": "The request from the app has expired. Start Vision Board and tap Activate again.",
         "unauthorized": "Your session expired. Reload the page and sign in."
       }
+    },
+    "devices": {
+      "title": "Vision Board on your devices",
+      "body": "You can have the dream board activated on {max} computers. A place frees up as soon as you remove a device.",
+      "empty": "Nowhere yet. Vision Board is activated from the app itself: Settings → Licence → Activate.",
+      "since": "since {date}",
+      "remove": "remove",
+      "removing": "removing…",
+      "removeNote": "A removed device frees its place straight away. The app on it keeps working until the licence runs out — it checks offline, so it finds out about the removal only when it renews.",
+      "failed": "That did not work. Please try again.",
+      "platforms": {
+        "windows": "Windows",
+        "macos": "Mac",
+        "linux": "Linux"
+      }
     }
   }
 }

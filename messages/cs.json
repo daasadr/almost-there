@@ -1272,6 +1272,21 @@
         "expired": "Zadání z aplikace vypršelo. Spusť Vision Board a klepni na Aktivovat znovu.",
         "unauthorized": "Přihlášení vypršelo. Načti stránku znovu a přihlas se."
       }
+    },
+    "devices": {
+      "title": "Vision Board na tvých zařízeních",
+      "body": "Nástěnku snů můžeš mít aktivovanou na {max} počítačích. Místo se uvolní, jakmile zařízení odebereš.",
+      "empty": "Zatím nikde. Vision Board se aktivuje v samotné aplikaci: Nastavení → Licence → Aktivovat.",
+      "since": "od {date}",
+      "remove": "odebrat",
+      "removing": "odebírám…",
+      "removeNote": "Odebrané zařízení uvolní místo hned. Aplikace na něm bude fungovat do konce platnosti licence — ověřuje se bez připojení, takže se o odebrání dozví až při prodloužení.",
+      "failed": "Nepovedlo se to. Zkus to prosím znovu.",
+      "platforms": {
+        "windows": "Windows",
+        "macos": "Mac",
+        "linux": "Linux"
+      }
     }
   }
 }

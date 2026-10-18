@@ -1272,6 +1272,21 @@
         "expired": "Die Anfrage aus der App ist abgelaufen. Starte Vision Board und tippe erneut auf Aktivieren.",
         "unauthorized": "Deine Anmeldung ist abgelaufen. Lade die Seite neu und melde dich an."
       }
+    },
+    "devices": {
+      "title": "Vision Board auf deinen Geräten",
+      "body": "Das Traumboard kannst du auf {max} Rechnern aktiviert haben. Ein Platz wird frei, sobald du ein Gerät entfernst.",
+      "empty": "Noch nirgends. Vision Board wird in der App selbst aktiviert: Einstellungen → Lizenz → Aktivieren.",
+      "since": "seit {date}",
+      "remove": "entfernen",
+      "removing": "wird entfernt…",
+      "removeNote": "Ein entferntes Gerät gibt seinen Platz sofort frei. Die App darauf läuft bis zum Ende der Lizenz weiter — sie prüft offline und erfährt vom Entfernen erst bei der Verlängerung.",
+      "failed": "Das hat nicht geklappt. Bitte versuch es noch einmal.",
+      "platforms": {
+        "windows": "Windows",
+        "macos": "Mac",
+        "linux": "Linux"
+      }
     }
   }
 }

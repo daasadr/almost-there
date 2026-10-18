@@ -30,7 +30,7 @@
       kódu, přesměrování na pevné `visionboard://activate`. Texty cs/en/de.
       Ověřit: e2e — nepřihlášený projde registrací a vrátí se se stejnými
       parametry; samotné otevření stránky kód nevydá.
-- [ ] 3.2 Oddíl Vision Boardu na Extra: moje zařízení (platforma, datum,
+- [x] 3.2 Oddíl Vision Boardu na Extra: moje zařízení (platforma, datum,
       odebrat). Texty cs/en/de. Ověřit: e2e — po odebrání se uvolní místo.
 - [ ] 3.3 Tamtéž pozvánka: trvalý odkaz, kopírovat a sdílet, počet
       přijatých. Texty cs/en/de. Ověřit: e2e — odkaz je podruhé stejný.
