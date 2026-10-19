@@ -82,6 +82,29 @@ function required(name: string): string {
 let keys: Promise<{ sign: CryptoKey; verify: CryptoKey }> | null = null;
 
 /**
+ * Klíč z proměnné prostředí převedený na PEM.
+ *
+ * PEM má tři řádky, jenže proměnná prostředí je v praxi jednořádková:
+ * Docker Compose čte soubor `.env` řádek po řádku, takže by z klíče
+ * zbyla hlavička a zbytek by zmizel. `createPrivateKey` by pak spadl
+ * při prvním podpisu licence, ne při startu — tedy ve chvíli, kdy se
+ * na to nikdo nedívá.
+ *
+ * Proto se bere obojí: buď PEM (s `\n` skutečnými nebo zapsanými jako
+ * dva znaky), nebo celý PEM zakódovaný base64 na jeden řádek, což je
+ * pro nasazení nejpohodlnější — `base64 -w0 klic.pem` a hotovo.
+ */
+export function toPem(value: string): string {
+  const trimmed = value.trim();
+
+  if (trimmed.includes("-----BEGIN")) {
+    return trimmed.replace(/\\n/g, "\n");
+  }
+
+  return Buffer.from(trimmed, "base64").toString("utf8").trim();
+}
+
+/**
  * Veřejný klíč se **odvozuje** ze soukromého, neukládá se zvlášť.
  *
  * Dvě proměnné prostředí by znamenaly dvě věci, které se můžou rozejít —
@@ -91,7 +114,7 @@ let keys: Promise<{ sign: CryptoKey; verify: CryptoKey }> | null = null;
  */
 function licenseKeys(): Promise<{ sign: CryptoKey; verify: CryptoKey }> {
   keys ??= (async () => {
-    const pem = required("VISIONBOARD_LICENSE_PRIVATE_KEY");
+    const pem = toPem(required("VISIONBOARD_LICENSE_PRIVATE_KEY"));
     const node = createPrivateKey(pem);
     const publicPem = createPublicKey(node)
       .export({ format: "pem", type: "spki" })

@@ -1,7 +1,13 @@
 import crypto from "node:crypto";
 import { describe, expect, it } from "vitest";
 import { exportPKCS8, exportSPKI } from "jose";
-import { LICENSE_DAYS, maskEmail, readOwnLicense, signLicense } from "./license";
+import {
+  LICENSE_DAYS,
+  maskEmail,
+  readOwnLicense,
+  signLicense,
+  toPem,
+} from "./license";
 
 /**
  * Testovací vektory z kontraktu, oddíl 9.
@@ -182,5 +188,33 @@ describe("čtení vlastní licence", () => {
     const token = await signWithTestKey({ issuedAt: now - 500 * DAY });
 
     expect(await readOwnLicense(token, await publicPem())).toBeNull();
+  });
+});
+
+/**
+ * Klíč z prostředí.
+ *
+ * Nasazení je jediné místo, kde se tohle použije, a zároveň jediné
+ * místo, kam se nedá nahlédnout. Když se překlep uhlídá tady, nebude
+ * se hledat v logu kontejneru.
+ */
+describe("toPem", () => {
+  const pem =
+    "-----BEGIN PRIVATE KEY-----\nMC4CAQAwBQYDK2Vw\n-----END PRIVATE KEY-----";
+
+  it("nechá PEM, jak je", () => {
+    expect(toPem(pem)).toBe(pem);
+  });
+
+  it("rozbalí zapsané \n na skutečné řádky", () => {
+    expect(toPem(pem.replace(/\n/g, "\n"))).toBe(pem);
+  });
+
+  it("rozbalí celý PEM z base64", () => {
+    expect(toPem(Buffer.from(pem).toString("base64"))).toBe(pem);
+  });
+
+  it("nevadí mu mezery a konce řádků kolem", () => {
+    expect(toPem(`  ${Buffer.from(pem).toString("base64")}\n`)).toBe(pem);
   });
 });
