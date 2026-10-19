@@ -47,7 +47,7 @@
 
 ## 4. Dokončení
 
-- [ ] 4.1 Review bezpečnosti: projít diff proti hrozbám z oddílu 8 kontraktu
+- [x] 4.1 Review bezpečnosti: projít diff proti hrozbám z oddílu 8 kontraktu
       a oddílu „Review bezpečnosti" v CLAUDE.md. Nálezy opravit, přijatá
       rizika zapsat do `design.md`.
 - [ ] 4.2 Vygenerovat produkční pár klíčů Ed25519 **na serveru**, soukromý

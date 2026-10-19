@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { safeRedirect } from "@/lib/auth/safe-redirect";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
@@ -19,7 +20,20 @@ export function LoginForm() {
   const [error, setError] = useState<AuthErrorKey | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const callbackUrl = params.get("callbackUrl") ?? `/${locale}/app`;
+  /*
+   * Návratová adresa přichází z adresního řádku, takže si ji může
+   * zvolit útočník — a o kus níž se na ni opravdu naviguje. Bez
+   * `safeRedirect` by stačilo poslat někomu odkaz na naše přihlášení
+   * s cizí doménou v parametru: člověk by se přihlásil u nás, skončil
+   * na podvržené stránce a ta by ho požádala o heslo znovu.
+   *
+   * Kontroluje se tady, ne jen na serveru. Server sestavuje odkazy
+   * a tlačítko Google, ale tenhle řádek je ten, který naviguje.
+   */
+  const callbackUrl = safeRedirect(
+    params.get("callbackUrl"),
+    `/${locale}/app`,
+  );
 
   const submit = async (event: React.FormEvent) => {
     event.preventDefault();

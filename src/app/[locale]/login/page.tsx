@@ -6,6 +6,7 @@ import { Link } from "@/i18n/navigation";
 import { AuthShell, Divider } from "@/components/auth/AuthShell";
 import { LoginForm } from "@/components/auth/LoginForm";
 import { GoogleButton } from "@/components/auth/GoogleButton";
+import { safeRedirect } from "@/lib/auth/safe-redirect";
 
 export async function generateMetadata({
   params,
@@ -33,19 +34,11 @@ export default async function LoginPage({
 }) {
   const { locale } = await params;
 
-  /*
-   * Kam po přihlášení.
-   *
-   * Bere se jen vlastní cesta, ne celá adresa: `callbackUrl` přichází
-   * z adresního řádku a kdyby se použil, jak přijde, dal by se tím
-   * člověk po přihlášení poslat na cizí web. Otevřené přesměrování je
-   * klasická díra a stojí jednu podmínku.
-   */
-  const requested = (await searchParams).callbackUrl;
-  const back =
-    requested && requested.startsWith("/") && !requested.startsWith("//")
-      ? requested
-      : `/${locale}/app`;
+  // Jen vlastní cesta, nikdy cizí doména — viz safeRedirect.
+  const back = safeRedirect(
+    (await searchParams).callbackUrl,
+    `/${locale}/app`,
+  );
   setRequestLocale(locale);
   return <LoginContent locale={locale} back={back} />;
 }
