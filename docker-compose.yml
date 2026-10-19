@@ -94,6 +94,13 @@ services:
       VAPID_SUBJECT: ${VAPID_SUBJECT}
       # Tajemství pro spouštěč rozesílání. Bez něj koncový bod nedělá nic.
       CRON_SECRET: ${CRON_SECRET}
+
+      # --- Vision Board ---
+      # Podpis licencí pro desktopovou aplikaci. Vyrábí se na serveru
+      # skriptem scripts/visionboard-key.sh. Když chybí, aktivace vrátí
+      # chybu a zbytek aplikace běží dál.
+      VISIONBOARD_LICENSE_PRIVATE_KEY: ${VISIONBOARD_LICENSE_PRIVATE_KEY:-}
+      VISIONBOARD_LICENSE_KID: ${VISIONBOARD_LICENSE_KID:-}
     depends_on:
       db:
         condition: service_healthy

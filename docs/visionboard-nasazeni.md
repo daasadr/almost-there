@@ -7,9 +7,8 @@ Celé to jsou tři příkazy na serveru:
 
 ```sh
 cd /opt/almostthere
-git pull
 sh scripts/visionboard-key.sh
-docker compose up -d --build
+./deploy/deploy.sh
 ```
 
 Skript vygeneruje klíč, zapíše ho do `.env` a vypíše veřejnou část
@@ -17,19 +16,22 @@ i s označením (`kid`) — **to je to, co patří do Vision Boardu.**
 Soukromou část nevypíše schválně; co je na obrazovce, to se jednou
 zkopíruje i tam, kam nemá.
 
-Migrace (`finalChallenge` s odměnou, `templateId`, `motivationSent`,
-index `Milestone_timeBlockId_idx`, `visionboard_licensing`) jedou samy
-při posledním příkazu.
+`deploy.sh` si sám stáhne změny z gitu, pustí migrace a teprve pak
+nasadí novou verzi. **Nestačí `docker compose up -d --build`** —
+kontejner s migracemi je v profilu `tools` a ten se takhle nespustí,
+takže by nová aplikace běžela nad starým schématem databáze.
 
 Nikdy ne `docker compose down -v` ani `docker volume prune` — smazalo
 by to databázi.
 
 ## Zálohovat klíč
 
-Z notebooku:
+**Z notebooku, ne ze serveru** — na serveru by `scp` sahal sám na sebe
+a skončil by na `Permission denied (publickey)`. Adresa je tatáž, jakou
+používáš pro `ssh`:
 
 ```sh
-scp root@handmade-production:/opt/almostthere/visionboard-license.pem .
+scp root@<adresa serveru>:/opt/almostthere/visionboard-license.pem .
 ```
 
 Obsah do správce hesel, stažený soubor pak z notebooku smazat.
