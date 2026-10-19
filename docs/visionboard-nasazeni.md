@@ -18,14 +18,29 @@ Jedou samy kontejnerem `migrate` při `docker compose up`.
 cd /opt/almostthere
 openssl genpkey -algorithm ed25519 -out visionboard-license.pem
 chmod 600 visionboard-license.pem
-base64 -w0 visionboard-license.pem
+
+# zapíše klíč rovnou do .env, aniž by se vypsal na obrazovku
+KEY=$(base64 -w0 visionboard-license.pem)
+if grep -q '^VISIONBOARD_LICENSE_PRIVATE_KEY=' .env; then
+  sed -i "s|^VISIONBOARD_LICENSE_PRIVATE_KEY=.*|VISIONBOARD_LICENSE_PRIVATE_KEY=$KEY|" .env
+else
+  echo "VISIONBOARD_LICENSE_PRIVATE_KEY=$KEY" >> .env
+fi
+unset KEY
+
+grep -q '^VISIONBOARD_LICENSE_KID=' .env || echo 'VISIONBOARD_LICENSE_KID=at-2026-1' >> .env
 ```
 
-Poslední příkaz vypíše jeden dlouhý řádek. Ten patří do `.env`:
+**Klíč se schválně nikam nevypisuje.** Co se objeví na obrazovce, to se
+dá zkopírovat — a pak se jednou zkopíruje i tam, kam nemá, třeba do
+chatu nebo do hlášení chyby. Kdyby se to přesto stalo, stačí celý
+oddíl 2 spustit znovu; dokud jím nejsou podepsané licence, výměna nic
+nestojí.
 
-```
-VISIONBOARD_LICENSE_PRIVATE_KEY=<ten řádek>
-VISIONBOARD_LICENSE_KID=at-2026-1
+Kontrola, že se zápis povedl (vypíše `1`, ne klíč):
+
+```sh
+grep -c '^VISIONBOARD_LICENSE_PRIVATE_KEY=.\{100,\}' .env
 ```
 
 Base64 proto, že PEM má tři řádky a Docker Compose čte `.env` po
@@ -35,6 +50,10 @@ až při prvním podpisu licence, ne při startu.
 ### Zálohovat
 
 Soubor `visionboard-license.pem` patří do správce hesel, mimo server.
+Stáhni ho z notebooku (`scp root@server:/opt/almostthere/visionboard-license.pem .`),
+vlož obsah do správce hesel a stažený soubor smaž. Ne přes chat, ne
+e-mailem.
+
 Kdyby se ztratil a vygeneroval se nový, **všechny vydané licence
 přestanou platit** — aplikace je ověřuje offline vestavěným veřejným
 klíčem a o výměně se nemá jak dozvědět. Stejná kategorie jako
