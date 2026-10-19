@@ -4,6 +4,11 @@ import { hasLocale } from "next-intl";
 import NextAuth from "next-auth";
 import { authConfig } from "@/lib/auth/config";
 import { routing } from "@/i18n/routing";
+import {
+  REF_COOKIE,
+  REF_TTL_SECONDS,
+  isRefCode,
+} from "@/lib/visionboard/ref-cookie";
 
 /**
  * Middleware dělá dvě věci najednou: řeší jazyk v URL a hlídá přístup
@@ -58,7 +63,24 @@ export default auth((request) => {
     return NextResponse.redirect(new URL(`/${locale}/app`, request.nextUrl));
   }
 
-  return intlMiddleware(request);
+  const response = intlMiddleware(request);
+
+  // Kód pozvánky z adresy. Dělá se to tady, a ne na stránce, aby
+  // stránka Vision Boardu zůstala statická — jakmile by sáhla na
+  // parametry adresy, Next by ji vykresloval znovu při každém
+  // zobrazení. Middleware běží tak jako tak.
+  const ref = request.nextUrl.searchParams.get("ref");
+  if (isRefCode(ref)) {
+    response.cookies.set(REF_COOKIE, ref, {
+      httpOnly: true,
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+      path: "/",
+      maxAge: REF_TTL_SECONDS,
+    });
+  }
+
+  return response;
 });
 
 export const config = {

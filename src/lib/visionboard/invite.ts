@@ -2,6 +2,7 @@ import "server-only";
 import { randomBytes } from "node:crypto";
 import { cookies } from "next/headers";
 import { db } from "@/lib/db";
+import { REF_COOKIE, REF_TTL_SECONDS, isRefCode } from "./ref-cookie";
 
 /**
  * Osobní pozvánka k Vision Boardu.
@@ -13,9 +14,6 @@ import { db } from "@/lib/db";
  *
  * Aplikace Vision Board o pozvánkách neví vůbec; jsou celé na webu.
  */
-
-const COOKIE = "vb_ref";
-const TTL_SECONDS = 30 * 24 * 60 * 60;
 
 /**
  * Kód pozvánky.
@@ -73,14 +71,14 @@ export function invitedCount(userId: string): Promise<number> {
  * štědré — pozvánka se často otevře, odloží a vyřídí jindy.
  */
 export async function rememberReferrer(code: string): Promise<void> {
-  if (!/^[A-Za-z0-9_-]{8,40}$/.test(code)) return;
+  if (!isRefCode(code)) return;
 
-  (await cookies()).set(COOKIE, code, {
+  (await cookies()).set(REF_COOKIE, code, {
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
     path: "/",
-    maxAge: TTL_SECONDS,
+    maxAge: REF_TTL_SECONDS,
   });
 }
 
@@ -92,7 +90,7 @@ export async function rememberReferrer(code: string): Promise<void> {
  * kvůli ní zakládání účtu selhalo, byla by to ta nejdražší možná chyba.
  */
 export async function resolveReferrer(): Promise<string | null> {
-  const code = (await cookies()).get(COOKIE)?.value;
+  const code = (await cookies()).get(REF_COOKIE)?.value;
   if (!code) return null;
 
   try {

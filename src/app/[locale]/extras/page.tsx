@@ -138,6 +138,22 @@ export default async function ExtrasPage({
         </div>
       </div>
 
+      {/* ── Vision Board ────────────────────────────────────────── */}
+      <div className="mt-14">
+        <h2 className="display text-xl">{t("visionboard.title")}</h2>
+        <p className="mt-2 max-w-xl text-base leading-relaxed text-[var(--color-paper-dim)]">
+          {t("visionboard.body")}
+        </p>
+        <p className="mt-4">
+          <Link
+            href="/visionboard"
+            className="text-sm font-medium text-[var(--color-lime-soft)] underline-offset-4 hover:underline"
+          >
+            {t("visionboard.more")} →
+          </Link>
+        </p>
+      </div>
+
       {/* Zařízení s Vision Boardem. Načítá se až v prohlížeči, aby
           tahle veřejná stránka zůstala staticky generovaná — viz
           komentář v MyDevices. Nepřihlášenému se nevykreslí nic. */}

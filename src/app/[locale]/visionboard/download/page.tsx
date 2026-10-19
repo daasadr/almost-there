@@ -98,6 +98,16 @@ export default async function DownloadPage({
         </ol>
       </div>
 
+      {/* Instalátor není podepsaný certifikátem, takže Windows u něj
+          zdvihne varování. Vysvětlení patří sem, ne do nápovědy: kdo
+          ho uvidí až po stažení, aplikaci rovnou smaže. */}
+      <div className="mt-6 rounded-2xl border border-edge bg-[var(--color-warn)]/10 p-5 sm:p-6">
+        <h2 className="display text-base">{t("smartscreenTitle")}</h2>
+        <p className="mt-3 text-base leading-relaxed text-[var(--color-paper-dim)]">
+          {t("smartscreenBody")}
+        </p>
+      </div>
+
       <p className="mt-8 text-sm leading-relaxed text-[var(--color-paper-faint)]">
         {t("updates")}{" "}
         <a
@@ -108,7 +118,13 @@ export default async function DownloadPage({
         </a>
       </p>
 
-      <p className="mt-6 text-sm">
+      <p className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+        <Link
+          href={`/${locale}/visionboard`}
+          className="text-[var(--color-paper-faint)] underline-offset-4 hover:text-[var(--color-paper-dim)] hover:underline"
+        >
+          {t("aboutLink")}
+        </Link>
         <Link
           href={`/${locale}/extras`}
           className="text-[var(--color-paper-faint)] underline-offset-4 hover:text-[var(--color-paper-dim)] hover:underline"

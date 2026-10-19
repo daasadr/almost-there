@@ -37,10 +37,10 @@
 - [x] 3.4 Uložení zvoucího při registraci přes `ref`; neznámý `ref` se
       ignoruje. Ověřit: testy obou případů, včetně toho, že registrace
       s podvrženým `ref` projde.
-- [ ] 3.5 Veřejná stránka `/visionboard`: co to je, ukázky, výzva
+- [x] 3.5 Veřejná stránka `/visionboard`: co to je, ukázky, výzva
       k registraci, odkaz ke stažení. Texty cs/en/de, náhledový obrázek,
-      strukturovaná data, do mapy stránek. **Čeká na texty a snímky
-      obrazovky od Dagmar.**
+      strukturovaná data, do mapy stránek. Zachycení `ref` se přesunulo
+      do middlewaru, aby stránka zůstala předgenerovaná.
 - [x] 3.6 Stránka ke stažení podle GitHub Releases, cache aspoň hodinu,
       záložní odkaz při výpadku. Ověřit: test, že při selhání API se ukáže
       trvalý odkaz a ne chyba.

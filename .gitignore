@@ -75,3 +75,9 @@ android/keystore.properties
 .beads-credential-key
 .beads/proxieddb/
 *.gate.lock*
+
+# Podklady k marketingu: originální snímky obrazovky.
+# NESMÍ ležet v public/ — tam by je server vydával komukoliv, kdo uhodne
+# adresu, i bez odkazu odkudkoliv. A do gitu nepatří kvůli velikosti
+# (desítky megabajtů) i kvůli tomu, že zachycují osobní plochu.
+podklady/

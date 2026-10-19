@@ -1223,6 +1223,11 @@
       "pause": "Pause",
       "position": "Position in the track",
       "shareQr": "Share the music by QR code"
+    },
+    "visionboard": {
+      "title": "Vision Board",
+      "body": "A dream board for your desktop. You arrange photos and words of where you are heading, and it reminds you by itself. Free for everyone registered here.",
+      "more": "See what it does"
     }
   },
   "templates": {
@@ -1314,7 +1319,62 @@
       "step3": "A browser opens, you sign in, and that is it.",
       "updates": "The app updates itself.",
       "changelog": "What is new in the latest version",
-      "backToExtras": "← Back to Extras"
+      "backToExtras": "← Back to Extras",
+      "smartscreenTitle": "When Windows says it protected your PC",
+      "smartscreenBody": "With a new app that few people have downloaded yet, Windows shows a blue box saying “Windows protected your PC”. It is not a virus warning, only a sign that the installer is still new. Click More info and then Run anyway.",
+      "aboutLink": "What Vision Board does"
+    },
+    "landing": {
+      "metaTitle": "Vision Board — a dream board on your desktop",
+      "title": "A dream board you actually see",
+      "subtitle": "A small Windows app where you lay out where you are heading: photos, quotes, a few words. Then it reminds you, gently. On your desktop, between tasks, at the moment you need it.",
+      "boardAlt": "The Vision Board window with a board made of photos in polaroid frames",
+      "intro": "Most of us made a dream board once. Cut-out photos, a quote on a sticky note, a few big plans. And then it ended up behind a wardrobe, or in a phone among a thousand other pictures. Vision Board is a better place for that board: on the computer where you spend most of the day. It does not interrupt and it wants nothing from you. It is simply there — and when you look at it, it reminds you why you are doing what you are doing.",
+      "featuresTitle": "What it does",
+      "wallpaperTitle": "The board instead of a wallpaper",
+      "wallpaperBody": "Your board becomes the desktop background. The icons stay where they were, and underneath them is the place you want to live in a year from now, or the sea you are heading for. Every time you close the last window.",
+      "reminderTitle": "It speaks up by itself, at the right moment",
+      "reminderBody": "You choose when the board should appear for a while: with your morning coffee, after lunch, or every two hours. You look at it for a few seconds and it is gone again — and when it does not suit you, one tap puts it off.",
+      "reminderAlt": "A bar with Close and Snooze for five, fifteen or sixty minutes",
+      "hotspotTitle": "Pictures that lead somewhere",
+      "hotspotBody": "You add a point to a photo that opens a link, or more photos and notes. The dream house with its floor plan, the trip with its route, the course you are saving for. A dream stops being only a picture and starts to have edges.",
+      "hotspotAlt": "A photo on the board with a point showing the note about living by the lake with a boat",
+      "stepsTitle": "From a dream to a step, if you want",
+      "stepsBody": "Beside the board you can keep a short list: what you will do today, what tomorrow. In the evening you plan one small step, in the morning it is in front of you. Anyone who dislikes lists leaves it switched off.",
+      "looksTitle": "It looks how you want",
+      "looksBody": "Two themes — a light Gallery in paper tones and a dark Night in glass and metal — and frames from a fine line to a polaroid. A board you will enjoy looking at.",
+      "privateTitle": "Light and private",
+      "privateBody": "The app barely troubles your computer and sits quietly by the clock. Your photos and plans stay with you; nothing is sent anywhere and nothing is tracked. This is not another social network, it is your private board.",
+      "whyTitle": "Why it works",
+      "whyBody": "There is no magic in it. What is in front of our eyes is what we think about — and what we think about is what we move towards, day after day. Vision Board only makes sure your goals do not get lost among emails, deadlines and tiredness.",
+      "getTitle": "How to get it",
+      "getBody": "Vision Board is free for anyone who signs up at almost-there.eu — no paid account needed. Register, download the app, sign in, and you can start arranging. And if you like it, send the link to anyone else.",
+      "getCta": "Sign up and download, free",
+      "haveAccount": "I have an account, I just want the download",
+      "faqTitle": "Common questions",
+      "faq": {
+        "platform": {
+          "q": "What does it run on?",
+          "a": "Windows 10 and 11. A Mac version is on the way."
+        },
+        "offline": {
+          "q": "Do I need to be online?",
+          "a": "No. The board works without the internet. It connects only for updates and for the first sign-in."
+        },
+        "wallpaper": {
+          "q": "What happens to my wallpaper?",
+          "a": "The app remembers it and puts it back when you switch the feature off or uninstall the app."
+        },
+        "speed": {
+          "q": "Will it slow my computer down?",
+          "a": "No. At rest it takes a few megabytes of memory, less than one browser tab."
+        },
+        "privacy": {
+          "q": "Who sees my photos?",
+          "a": "Only you. They stay on your computer and are never sent to our server."
+        }
+      },
+      "ogNote": "A Windows app · free with every account"
     }
   }
 }

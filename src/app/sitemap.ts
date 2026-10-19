@@ -22,6 +22,11 @@ const PAGES = [
   { path: "/templates", priority: 0.9 },
   // Stránka aktivace v mapě není schválně: otevírá se z aplikace
   // a bez zadání z ní nemá co ukázat.
+  //
+  // Představení Vision Boardu má vyšší prioritu než stažení ze
+  // stejného důvodu jako šablony: mluví o nástěnce snů, což lidé
+  // doopravdy hledají, kdežto „stáhnout“ hledá jen ten, kdo už ví.
+  { path: "/visionboard", priority: 0.9 },
   { path: "/visionboard/download", priority: 0.6 },
   { path: "/guide", priority: 0.7 },
   { path: "/terms", priority: 0.3, lastModified: LEGAL_VERSION },

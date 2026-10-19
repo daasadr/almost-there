@@ -209,6 +209,9 @@ type Messages = {
     areas: Record<string, string>;
     months: string;
   };
+  visionboard: {
+    landing: { title: string; ogNote: string };
+  };
 };
 
 /** Názvy oblastí a tvar „N měsíců" se berou z překladů, ne odsud. */
@@ -260,6 +263,18 @@ for (const locale of locales) {
       eyebrow: "AlmostThere",
       title: messages.templates.title,
       note: Object.values(messages.templates.areas).join(" · "),
+    }),
+  );
+
+  // Vision Board. Vlastní obrázek ze stejného důvodu jako u šablon:
+  // odkaz se posílá samostatně a nástěnka snů je něco jiného než
+  // plánovač, takže úvodní karta webu by u něj mátla.
+  await write(
+    `og-visionboard-${locale}.png`,
+    titleCard({
+      eyebrow: "Vision Board",
+      title: messages.visionboard.landing.title,
+      note: messages.visionboard.landing.ogNote,
     }),
   );
 

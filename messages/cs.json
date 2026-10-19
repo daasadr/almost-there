@@ -1223,6 +1223,11 @@
       "pause": "Pozastavit",
       "position": "Pozice ve skladbě",
       "shareQr": "Sdílet hudbu QR kódem"
+    },
+    "visionboard": {
+      "title": "Vision Board",
+      "body": "Nástěnka snů na plochu počítače. Poskládáš si na ni fotky a slova toho, kam míříš, a ona se ti pak sama připomíná. Má ji zdarma každý, kdo je tady zaregistrovaný.",
+      "more": "Podívat se, co umí"
     }
   },
   "templates": {
@@ -1314,7 +1319,62 @@
       "step3": "Otevře se prohlížeč, přihlásíš se a tím je hotovo.",
       "updates": "Aplikace se aktualizuje sama.",
       "changelog": "Co je v poslední verzi nového",
-      "backToExtras": "← Zpět na Extra"
+      "backToExtras": "← Zpět na Extra",
+      "smartscreenTitle": "Když Windows řekne, že chrání tvůj počítač",
+      "smartscreenBody": "U nové aplikace, kterou zatím stáhlo málo lidí, Windows ukáže modré okno „Systém Windows ochránil váš počítač“. Není to nález viru, jen to, že instalátor ještě nemá dost stažení. Klepni na Další informace a pak na Přesto spustit.",
+      "aboutLink": "Co Vision Board umí"
+    },
+    "landing": {
+      "metaTitle": "Vision Board — nástěnka snů na ploše počítače",
+      "title": "Nástěnka snů, která je vidět",
+      "subtitle": "Malá aplikace pro Windows, ve které si poskládáš, kam míříš: fotky, citáty, pár slov. Pak se ti to nenásilně připomíná. Na ploše počítače, mezi prací, ve chvíli, kdy to potřebuješ.",
+      "boardAlt": "Okno aplikace Vision Board s nástěnkou poskládanou z fotek v polaroidových rámech",
+      "intro": "Většina z nás si někdy udělala nástěnku snů. Vystřihané fotky, citát na lepicím papírku, pár velkých plánů. A pak skončila za skříní nebo v telefonu mezi tisíci jinými obrázky. Vision Board je pro tu nástěnku lepší místo: na počítači, kde trávíš většinu dne. Neruší a nechce po tobě nic. Jen tam je — a když se na ni podíváš, připomene ti, proč děláš to, co děláš.",
+      "featuresTitle": "Co umí",
+      "wallpaperTitle": "Nástěnka místo tapety",
+      "wallpaperBody": "Tvoje nástěnka se stane pozadím plochy. Ikony zůstanou, kde byly, a pod nimi uvidíš místo, kde chceš za rok bydlet, nebo moře, ke kterému se chystáš. Pokaždé, když zavřeš poslední okno.",
+      "reminderTitle": "Připomene se sama, ve správnou chvíli",
+      "reminderBody": "Nastavíš si, kdy se má nástěnka na chvíli ukázat: ráno ke kávě, po obědě, nebo každé dvě hodiny. Pár vteřin se na ni podíváš a zase zmizí — a když se ti to zrovna nehodí, odložíš ji jedním klepnutím.",
+      "reminderAlt": "Lišta s tlačítky Zavřít a Odložit o pět, patnáct nebo šedesát minut",
+      "hotspotTitle": "Obrázky, které vedou dál",
+      "hotspotBody": "Na fotku přidáš bod, který otevře odkaz nebo další fotky a poznámky. Dům snů s půdorysem, cesta s plánem trasy, kurz, na který šetříš. Sen přestane být jen obrázek a začne mít obrysy.",
+      "hotspotAlt": "Fotka v nástěnce s bodem, u kterého se ukázala poznámka „Bydlet u jezera s lodí“",
+      "stepsTitle": "Od snu ke kroku, když chceš",
+      "stepsBody": "Vedle nástěnky můžeš mít krátký seznam: co uděláš dnes, co zítra. Večer si naplánuješ jeden malý krok, ráno ho máš před sebou. Komu seznamy nesedí, nechá ho vypnutý.",
+      "looksTitle": "Vypadá tak, jak chceš",
+      "looksBody": "Dvě témata — světlá Galerie s papírovými tóny a tmavá Noc se sklem a kovem — a rámy od jemné linky po polaroid. Nástěnka, na kterou se budeš chtít dívat.",
+      "privateTitle": "Lehká a soukromá",
+      "privateBody": "Aplikace téměř nezatěžuje počítač a běží potichu u hodin. Tvoje fotky a plány zůstávají jen u tebe; nic se nikam neposílá a nic se nesleduje. Není to další sociální síť, je to tvoje soukromá nástěnka.",
+      "whyTitle": "Proč to funguje",
+      "whyBody": "Nejde o kouzlo. Co máme na očích, na to myslíme — a o čem přemýšlíme, k tomu se den po dni přibližujeme. Vision Board jen zařídí, aby se tvoje cíle neztratily mezi e-maily, termíny a únavou.",
+      "getTitle": "Jak ho získat",
+      "getBody": "Vision Board je zdarma pro každého, kdo se zaregistruje na almost-there.eu — placený účet k tomu není potřeba. Stačí se zaregistrovat, aplikaci stáhnout, přihlásit se a můžeš skládat. A když se ti bude líbit, pošli odkaz komukoliv dalšímu.",
+      "getCta": "Zaregistrovat se a stáhnout zdarma",
+      "haveAccount": "Účet už mám, chci jen stáhnout",
+      "faqTitle": "Časté otázky",
+      "faq": {
+        "platform": {
+          "q": "Na čem to funguje?",
+          "a": "Na Windows 10 a 11. Verzi pro Mac připravujeme."
+        },
+        "offline": {
+          "q": "Musím být online?",
+          "a": "Ne. Nástěnka funguje i bez internetu. Připojuje se jen kvůli aktualizacím a kvůli prvnímu přihlášení."
+        },
+        "wallpaper": {
+          "q": "Co se stane s mojí tapetou?",
+          "a": "Aplikace si ji zapamatuje a vrátí ji, když funkci vypneš nebo aplikaci odinstaluješ."
+        },
+        "speed": {
+          "q": "Zpomalí mi to počítač?",
+          "a": "Ne. V klidu si vezme pár megabajtů paměti, míň než jedna záložka v prohlížeči."
+        },
+        "privacy": {
+          "q": "Kdo uvidí moje fotky?",
+          "a": "Jen ty. Zůstávají ve tvém počítači a na náš server se nikdy neposílají."
+        }
+      },
+      "ogNote": "Aplikace pro Windows · zdarma ke každému účtu"
     }
   }
 }
