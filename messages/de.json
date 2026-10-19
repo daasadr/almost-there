@@ -1297,6 +1297,24 @@
       "shareTitle": "Vision Board, gratis zum AlmostThere-Konto",
       "none": "Bisher ist niemand darüber gekommen. Macht nichts — eine Person, der es passt, genügt.",
       "accepted": "{count, plural, one {# Person hat sich über deine Einladung angemeldet.} other {# Personen haben sich über deine Einladung angemeldet.}}"
+    },
+    "download": {
+      "title": "Vision Board herunterladen",
+      "intro": "Ein Traumboard für den Rechner. Jedes AlmostThere-Konto hat eine Lizenz dafür, bezahlt oder nicht.",
+      "get": {
+        "windows": "Für Windows laden",
+        "macos": "Für Mac laden",
+        "linux": "Für Linux laden"
+      },
+      "version": "Version {version} · {size} MB",
+      "fallback": "Die Release-Seite auf GitHub öffnen",
+      "afterTitle": "Wenn es heruntergeladen ist",
+      "step1": "Starte das Installationsprogramm und lass die App installieren.",
+      "step2": "Geh in der App zu Einstellungen → Lizenz → Aktivieren.",
+      "step3": "Ein Browser öffnet sich, du meldest dich an, fertig.",
+      "updates": "Die App aktualisiert sich selbst.",
+      "changelog": "Was in der neuesten Version neu ist",
+      "backToExtras": "← Zurück zu Extras"
     }
   }
 }

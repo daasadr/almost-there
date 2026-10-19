@@ -41,7 +41,7 @@
       k registraci, odkaz ke stažení. Texty cs/en/de, náhledový obrázek,
       strukturovaná data, do mapy stránek. **Čeká na texty a snímky
       obrazovky od Dagmar.**
-- [ ] 3.6 Stránka ke stažení podle GitHub Releases, cache aspoň hodinu,
+- [x] 3.6 Stránka ke stažení podle GitHub Releases, cache aspoň hodinu,
       záložní odkaz při výpadku. Ověřit: test, že při selhání API se ukáže
       trvalý odkaz a ne chyba.
 

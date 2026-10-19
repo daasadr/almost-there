@@ -20,6 +20,9 @@ const PAGES = [
   { path: "", priority: 1 },
   { path: "/demo", priority: 0.8 },
   { path: "/templates", priority: 0.9 },
+  // Stránka aktivace v mapě není schválně: otevírá se z aplikace
+  // a bez zadání z ní nemá co ukázat.
+  { path: "/visionboard/download", priority: 0.6 },
   { path: "/guide", priority: 0.7 },
   { path: "/terms", priority: 0.3, lastModified: LEGAL_VERSION },
   { path: "/privacy", priority: 0.3, lastModified: LEGAL_VERSION },

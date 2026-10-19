@@ -1297,6 +1297,24 @@
       "shareTitle": "Vision Board zdarma k účtu na AlmostThere",
       "none": "Zatím přes tebe nikdo nepřišel. Nevadí — stačí jeden člověk, kterému to sedne.",
       "accepted": "{count, plural, one {Přes tvou pozvánku se zaregistroval # člověk.} few {Přes tvou pozvánku se zaregistrovali # lidé.} other {Přes tvou pozvánku se zaregistrovalo # lidí.}}"
+    },
+    "download": {
+      "title": "Stáhnout Vision Board",
+      "intro": "Nástěnka snů pro počítač. Licenci k ní má každý účet na AlmostThere, placený i neplacený.",
+      "get": {
+        "windows": "Stáhnout pro Windows",
+        "macos": "Stáhnout pro Mac",
+        "linux": "Stáhnout pro Linux"
+      },
+      "version": "Verze {version} · {size} MB",
+      "fallback": "Otevřít stránku vydání na GitHubu",
+      "afterTitle": "Až se to stáhne",
+      "step1": "Spusť instalátor a nech aplikaci nainstalovat.",
+      "step2": "V aplikaci jdi do Nastavení → Licence → Aktivovat.",
+      "step3": "Otevře se prohlížeč, přihlásíš se a tím je hotovo.",
+      "updates": "Aplikace se aktualizuje sama.",
+      "changelog": "Co je v poslední verzi nového",
+      "backToExtras": "← Zpět na Extra"
     }
   }
 }
