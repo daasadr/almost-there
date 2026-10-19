@@ -1287,6 +1287,16 @@
         "macos": "Mac",
         "linux": "Linux"
       }
+    },
+    "invite": {
+      "title": "Invite whoever you like to Vision Board",
+      "body": "This link is yours and it never changes. Anyone who signs up through it gets the dream board just as you did — send it to anyone, as many times as you want.",
+      "copy": "Copy the link",
+      "copied": "Copied",
+      "share": "Share",
+      "shareTitle": "Vision Board, free with an AlmostThere account",
+      "none": "Nobody has come through yet. That is fine — one person it suits is enough.",
+      "accepted": "{count, plural, one {# person has signed up through your invite.} other {# people have signed up through your invite.}}"
     }
   }
 }

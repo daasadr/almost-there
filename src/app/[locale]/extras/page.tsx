@@ -8,6 +8,7 @@ import { localeAlternates } from "@/lib/seo/metadata";
 import type { Locale } from "@/i18n/routing";
 import { QrShare } from "@/components/QrShare";
 import { MyDevices } from "@/components/visionboard/MyDevices";
+import { MyInvite } from "@/components/visionboard/MyInvite";
 import { siteUrl } from "@/lib/seo/site";
 
 /**
@@ -141,6 +142,7 @@ export default async function ExtrasPage({
           tahle veřejná stránka zůstala staticky generovaná — viz
           komentář v MyDevices. Nepřihlášenému se nevykreslí nic. */}
       <MyDevices />
+      <MyInvite />
     </section>
   );
 }

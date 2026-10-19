@@ -1287,6 +1287,16 @@
         "macos": "Mac",
         "linux": "Linux"
       }
+    },
+    "invite": {
+      "title": "Lade zum Vision Board ein, wen du möchtest",
+      "body": "Dieser Link gehört dir und bleibt immer gleich. Wer sich darüber anmeldet, bekommt das Traumboard genauso wie du — schick ihn, an wen du willst, und so oft du willst.",
+      "copy": "Link kopieren",
+      "copied": "Kopiert",
+      "share": "Teilen",
+      "shareTitle": "Vision Board, gratis zum AlmostThere-Konto",
+      "none": "Bisher ist niemand darüber gekommen. Macht nichts — eine Person, der es passt, genügt.",
+      "accepted": "{count, plural, one {# Person hat sich über deine Einladung angemeldet.} other {# Personen haben sich über deine Einladung angemeldet.}}"
     }
   }
 }

@@ -7,6 +7,7 @@ import { createVerificationToken } from "@/lib/auth/tokens";
 import { sendEmail } from "@/lib/email/send";
 import { buildVerificationEmail } from "@/lib/email/templates";
 import { checkRateLimit, getClientIp, hashIp } from "@/lib/rate-limit";
+import { resolveReferrer } from "@/lib/visionboard/invite";
 import { LEGAL_VERSION } from "@/content/legal";
 import { routing, type Locale } from "@/i18n/routing";
 import { hasLocale } from "next-intl";
@@ -98,6 +99,16 @@ export async function POST(request: Request) {
   const userAgent = request.headers.get("user-agent")?.slice(0, 500) ?? null;
   const ipHash = hashIp(ip);
 
+  /*
+   * Kdo tohohle člověka přivedl.
+   *
+   * Nikdy to nesmí registraci zablokovat: neznámý nebo podvržený kód
+   * vrátí prázdno a účet vznikne stejně. Pozvánka je přílepek, ne
+   * podmínka — kdyby kvůli ní zakládání účtu selhalo, byla by to ta
+   * nejdražší možná chyba.
+   */
+  const invitedById = await resolveReferrer();
+
   const user = await db.user.create({
     data: {
       email,
@@ -106,6 +117,7 @@ export async function POST(request: Request) {
       authProvider: "CREDENTIALS",
       locale,
       timezone,
+      invitedById,
       consents: {
         create: [
           {

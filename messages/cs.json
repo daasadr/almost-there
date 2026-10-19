@@ -1287,6 +1287,16 @@
         "macos": "Mac",
         "linux": "Linux"
       }
+    },
+    "invite": {
+      "title": "Pozvi k Vision Boardu, koho chceš",
+      "body": "Tenhle odkaz je tvůj a je pořád stejný. Kdo se přes něj zaregistruje, dostane nástěnku snů zrovna tak jako ty — posílat ho můžeš komukoliv a kolikrát chceš.",
+      "copy": "Zkopírovat odkaz",
+      "copied": "Zkopírováno",
+      "share": "Sdílet",
+      "shareTitle": "Vision Board zdarma k účtu na AlmostThere",
+      "none": "Zatím přes tebe nikdo nepřišel. Nevadí — stačí jeden člověk, kterému to sedne.",
+      "accepted": "{count, plural, one {Přes tvou pozvánku se zaregistroval # člověk.} few {Přes tvou pozvánku se zaregistrovali # lidé.} other {Přes tvou pozvánku se zaregistrovalo # lidí.}}"
     }
   }
 }

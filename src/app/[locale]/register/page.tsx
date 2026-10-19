@@ -5,6 +5,7 @@ import { Link } from "@/i18n/navigation";
 import { AuthShell, Divider } from "@/components/auth/AuthShell";
 import { RegisterForm } from "@/components/auth/RegisterForm";
 import { GoogleButton } from "@/components/auth/GoogleButton";
+import { rememberReferrer } from "@/lib/visionboard/invite";
 
 export async function generateMetadata({
   params,
@@ -28,13 +29,19 @@ export default async function RegisterPage({
   searchParams,
 }: {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{ callbackUrl?: string }>;
+  searchParams: Promise<{ callbackUrl?: string; ref?: string }>;
 }) {
   const { locale } = await params;
 
   // Jen vlastní cesta, ne celá adresa — jinak by šlo člověka po
   // registraci poslat na cizí web.
-  const requested = (await searchParams).callbackUrl;
+  const query = await searchParams;
+
+  // Pozvánka se zapamatuje hned při příchodu. Mezi klepnutím na odkaz
+  // a odesláním formuláře je několik kroků a uživatel si může odskočit.
+  if (query.ref) await rememberReferrer(query.ref);
+
+  const requested = query.callbackUrl;
   const back =
     requested && requested.startsWith("/") && !requested.startsWith("//")
       ? requested
