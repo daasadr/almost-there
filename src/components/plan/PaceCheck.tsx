@@ -61,8 +61,14 @@ export function PaceCheck({
       });
 
       if (!response.ok) {
-        const data = await response.json().catch(() => ({}));
-        setError(planErrorKey(data.error));
+        /*
+         * Odpověď bez JSON je typicky proxy, které došla trpělivost.
+         * Přepočet přitom na serveru běží dál a za chvíli doběhne —
+         * „zkus to znovu" by ho zaplatilo podruhé. Proto se to odlišuje
+         * od skutečné chyby a říká se, co se s tím má dělat.
+         */
+        const data = await response.json().catch(() => null);
+        setError(data ? planErrorKey(data.error) : "replanTimedOut");
         setPending(null);
         return;
       }

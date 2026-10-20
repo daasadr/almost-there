@@ -672,7 +672,8 @@
       "nameTooShort": "Název je moc krátký. Stačí pár slov.",
       "nameTooLong": "Název je moc dlouhý. Zkrať ho na pár slov — podrobnosti patří do pole níž.",
       "deadlinePassed": "Termín už uplynul, takže dohnat skluz a stihnout ho nejde. Posuň termín — plán se přepočítá podle tempa, jakým ti to reálně jde.",
-      "aiRefused": "Model tohle zadání odmítl zpracovat. Zkus cíl popsat jinak."
+      "aiRefused": "Model tohle zadání odmítl zpracovat. Zkus cíl popsat jinak.",
+      "replanTimedOut": "Spojení se přerušilo dřív, než server odpověděl. Přepočet běží dál — za minutu obnov stránku a plán už tam bude. Znovu ho nespouštěj, zaplatil by se dvakrát."
     },
     "budget": {
       "meter": "Měsíční limit plánů",

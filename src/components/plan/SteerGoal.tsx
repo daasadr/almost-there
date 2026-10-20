@@ -53,7 +53,16 @@ export function SteerGoal({ goalId }: { goalId: string }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ mode: "adjust", steer: text.trim() }),
       });
-      const data = await response.json();
+      // Odpověď bez JSON znamená proxy, které došla trpělivost. Přepočet
+      // na serveru běží dál, takže opakovat ho je to poslední, co se má
+      // uživateli radit — viz stejné místo v PaceCheck.
+      const data = await response.json().catch(() => null);
+
+      if (!data) {
+        setError("replanTimedOut");
+        setPending(false);
+        return;
+      }
 
       if (!response.ok || !data.ok) {
         setError(planErrorKey(data.error));

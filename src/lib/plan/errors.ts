@@ -20,6 +20,13 @@ const KNOWN = new Set([
   "budgetExhausted",
   "planLimitReached",
   "replanTooSoon",
+  // Na témže cíli už jeden přepočet běží. Chybělo to tady, takže se to
+  // uživateli ukazovalo jako „něco se pokazilo" — tedy rada zkusit to
+  // znovu, což je přesně to, co dělat nemá.
+  "replanInProgress",
+  // Spojení se přerušilo dřív, než server odpověděl. Přepočet přitom
+  // běží dál, takže „zkus to znovu" by znamenalo zaplatit ho dvakrát.
+  "replanTimedOut",
   "deadlinePassed",
   "tooManyGoals",
   "notSubscribed",

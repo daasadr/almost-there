@@ -672,7 +672,8 @@
       "nameTooShort": "Der Name ist zu kurz. Ein paar Wörter genügen.",
       "nameTooLong": "Der Name ist zu lang. Kürz ihn auf ein paar Wörter — Details gehören ins Feld darunter.",
       "deadlinePassed": "Der Termin ist bereits verstrichen, aufholen lässt er sich also nicht mehr. Verschiebe den Termin — der Plan wird nach dem Tempo neu berechnet, das du tatsächlich hältst.",
-      "aiRefused": "Das Modell hat diese Vorgabe abgelehnt. Beschreib das Ziel anders."
+      "aiRefused": "Das Modell hat diese Vorgabe abgelehnt. Beschreib das Ziel anders.",
+      "replanTimedOut": "Die Verbindung brach ab, bevor der Server geantwortet hat. Die Neuberechnung läuft weiter — lade die Seite in einer Minute neu, dann ist der Plan da. Starte sie nicht erneut, sie würde doppelt bezahlt."
     },
     "budget": {
       "meter": "Monatslimit für Pläne",

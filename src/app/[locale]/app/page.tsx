@@ -20,6 +20,7 @@ import { EarnedRewards } from "@/components/plan/EarnedRewards";
 import { UnfinishedTasks } from "@/components/plan/UnfinishedTasks";
 import { DeferredTasks } from "@/components/plan/DeferredTasks";
 import { DayRollover } from "@/components/plan/DayRollover";
+import { TodayGuard } from "@/components/plan/TodayGuard";
 import { getAccess } from "@/lib/billing/access";
 import { getFinishableGoals } from "@/lib/goals/complete";
 import { getDeferred, getOverdue, getToday } from "@/lib/goals/queries";
@@ -413,9 +414,13 @@ async function Today({
     <section>
       {/* Appka na ploše nemá tlačítko pro obnovení. Kdo ji nechá otevřenou
           přes noc, uviděl by ráno včerejšek i s odškrtanými úkoly. */}
-      {showingToday && (
+      {showingToday ? (
         <DayRollover renderedDay={today.date} timeZone={timezone} />
-      )}
+      ) : day ? (
+        /* A naopak: kdo na jiný den přišel zvenčí, ten na něj nechtěl.
+           Typicky mu prohlížeč obnovil včerejší záložku. */
+        <TodayGuard locale={locale} day={day} />
+      ) : null}
 
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
         <h2 className="display text-2xl">{t("title")}</h2>
