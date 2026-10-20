@@ -667,7 +667,7 @@
       "notSubscribed": "Na tohle je potřeba předplatné.",
       "generic": "Něco se pokazilo. Zkus to prosím znovu.",
       "planLimitReached": "Vyčerpal jsi měsíční limit nových plánů. Běžící cíle fungují dál; limit se obnoví prvního dne dalšího měsíce.",
-      "replanTooSoon": "Cíl jsi přeplánoval nedávno. Zkus to prosím zítra — plán potřebuje aspoň den, aby bylo co vyhodnocovat.",
+      "replanTooSoon": "Cíl se přeplánovával nedávno. Zkus to prosím zítra — plán potřebuje aspoň den, aby bylo co vyhodnocovat.",
       "replanInProgress": "Přepočet tohohle cíle už běží. Počkej, než doběhne.",
       "nameTooShort": "Název je moc krátký. Stačí pár slov.",
       "nameTooLong": "Název je moc dlouhý. Zkrať ho na pár slov — podrobnosti patří do pole níž.",
@@ -714,10 +714,12 @@
       "title": "{days, plural, one {Jeden den se nedotáhl} few {Poslední dny se nedotáhly — # z nich} other {Poslední dny se nedotáhly — # z nich}}",
       "body": "Ze všeho, co už mělo být hotové, se stihlo {percent} %. To není důvod k výčitkám, ale plán s tím musí něco udělat — jinak se zbytek práce natlačí do zbývajícího času a termín začne lhát.",
       "catchUp": "Doženu skluz",
-      "catchUpBody": "Termín zůstane {date}. Plán zbytku se přepíše tak, aby to ještě šlo stihnout — a řeknu ti na rovinu, jestli to vychází.",
+      "catchUpBody": "Termín zůstane {date} a na plánu se nic nemění. Nedodělky z minulých dnů máš níž na této stránce — odškrtej je, jak ti to půjde. Za pár dní se podívám, jak to dopadlo.",
       "moveDeadline": "Přepočítat termín",
       "moveDeadlineBody": "Nový termín podle tempa, kterým ti to reálně jde: {date}. Plán se přepíše na klidnější rozvržení.",
-      "later": "Teď ne, zeptej se za týden"
+      "later": "Teď ne, zeptej se za týden",
+      "againTitle": "Skluz se táhne dál",
+      "againBody": "Před pár dny padla volba dohnat, co zůstalo. Nepovedlo se a dluh roste — na tom není nic špatného, jen už se nedá odbýt tím, že to doženeš. Poctivá cesta je posunout termín podle tempa, kterým ti to reálně jde."
     },
     "settings": {
       "title": "Důležitá nastavení",

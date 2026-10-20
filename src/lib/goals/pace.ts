@@ -21,6 +21,23 @@ const WINDOW_DAYS = 14;
  */
 const SILENCE_AFTER_DECLINE_DAYS = 7;
 /**
+ * Jak dlouho mlčet po slibu, že uživatel skluz dožene sám.
+ *
+ * Kratší než po odmítnutí a schválně stejně dlouhé jako `RECOVERY_DAYS`:
+ * až se ozveme znovu, rozhoduje přesně těch pár dnů, které mezitím
+ * uplynuly. Buď jsou čisté — pak se nabídka neukáže vůbec — nebo nejsou
+ * a slib se nenaplnil.
+ */
+const SILENCE_AFTER_CATCH_UP_DAYS = 5;
+/**
+ * Jak dlouho zpátky se slib počítá za nenaplněný.
+ *
+ * Sliboval-li někdo dohánění před třemi týdny, dohnal to a teď má skluz
+ * nový, je to nová situace a dohnat ho smí zkusit znovu. Rozhoduje
+ * proto stejné okno, ve kterém se počítají vynechané dny.
+ */
+const CATCH_UP_MEMORY_DAYS = WINDOW_DAYS;
+/**
  * Dolní mez úspěšnosti pro výpočet nového termínu. Bez ní by při nule
  * hotových úkolů vyšel termín v nekonečnu.
  */
@@ -70,6 +87,30 @@ export function hasRecovered(
   return plannedInStretch > 0;
 }
 
+/**
+ * Co znamená slib „doženu skluz" v danou chvíli.
+ *
+ * Dvě čísla na jedné ose: dokud běží lhůta, mlčíme, protože uživatel
+ * právě dělá to, co slíbil, a připomínat mu to je totéž jako mu
+ * nevěřit. Jakmile lhůta vyprší a skluz je pořád tady, slib se
+ * nenaplnil a dohánění se podruhé nenabízí.
+ *
+ * Vlastní funkce proto, že tohle je celé rozhodnutí — zbytek
+ * `getPaceStatus` jsou dotazy do databáze a nedá se vyzkoušet.
+ */
+export function catchUpState(
+  promisedAt: Date | null,
+  today: Date,
+  silenceDays: number = SILENCE_AFTER_CATCH_UP_DAYS,
+): { silent: boolean; failed: boolean } {
+  if (!promisedAt) return { silent: false, failed: false };
+
+  const silent =
+    promisedAt.getTime() > today.getTime() - silenceDays * 86_400_000;
+
+  return { silent, failed: !silent };
+}
+
 export type PaceStatus = {
   goalId: string;
   /** Dnů v okně, kdy něco zůstalo nesplněné. */
@@ -78,6 +119,14 @@ export type PaceStatus = {
   completionRate: number;
   /** Má se uživateli nabídnout přeplánování? */
   behind: boolean;
+  /**
+   * Slíbil už u tohohle skluzu, že ho dožene sám?
+   *
+   * Pak se mu dohánění podruhé nenabízí. Nabídnout totéž znovu by
+   * znamenalo tvrdit, že to příště vyjde — a poctivá odpověď na dluh,
+   * který se táhne, je posunout termín.
+   */
+  catchUpFailed: boolean;
   /** Původní termín. */
   targetDate: Date;
   /** Termín, který odpovídá skutečnému tempu. */
@@ -136,8 +185,17 @@ export async function getPaceStatus(
    * Po přeplánování je minulost vyřízená. Rozhoduje, jak se daří proti
    * novému plánu, a na to jsou potřeba nové dny.
    */
+  /*
+   * Slib dohánění tu mezi přeplánování nepatří, i když se zapisuje do
+   * téže tabulky. Přeplánování minulost vyřídí a začíná se nanovo;
+   * slib ji naopak nechává stát — jeho smyslem je právě to, aby bylo
+   * pak vidět, jestli dluh zmizel.
+   */
   const lastReplan = await db.replanEvent.findFirst({
-    where: { goalId, reason: { not: "USER_DECLINED_REPLAN" } },
+    where: {
+      goalId,
+      reason: { notIn: ["USER_DECLINED_REPLAN", "USER_WILL_CATCH_UP"] },
+    },
     orderBy: { triggeredAt: "desc" },
     select: { triggeredAt: true },
   });
@@ -249,6 +307,25 @@ export async function getPaceStatus(
     select: { id: true },
   });
 
+  /*
+   * Slib dohánění. Dokud běží lhůta, mlčíme — uživatel právě dělá to,
+   * co slíbil, a připomínat mu to je totéž jako mu nevěřit. Po lhůtě
+   * se ptáme znovu, ale už bez nabídky dohánění.
+   */
+  const promise = await db.replanEvent.findFirst({
+    where: {
+      goalId,
+      reason: "USER_WILL_CATCH_UP",
+      triggeredAt: {
+        gte: new Date(today.getTime() - CATCH_UP_MEMORY_DAYS * 86_400_000),
+      },
+    },
+    orderBy: { triggeredAt: "desc" },
+    select: { triggeredAt: true },
+  });
+
+  const catchUp = catchUpState(promise?.triggeredAt ?? null, today);
+
   return {
     goalId,
     missedDays,
@@ -261,7 +338,9 @@ export async function getPaceStatus(
     behind:
       missedDays >= MISSED_DAYS_THRESHOLD &&
       !hasRecovered(missedDates, plannedDates, today) &&
-      !recentlyDeclined,
+      !recentlyDeclined &&
+      !catchUp.silent,
+    catchUpFailed: catchUp.failed,
     targetDate: goal.targetDate,
     suggestedDate: estimateNewTarget(today, goal.targetDate, completionRate),
   };

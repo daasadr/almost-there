@@ -511,6 +511,7 @@ async function Today({
                 completionRate={goal.completionRate}
                 targetDate={toIsoDate(goal.targetDate)}
                 suggestedDate={toIsoDate(goal.suggestedDate)}
+                catchUpFailed={goal.catchUpFailed}
               />
             ))}
 

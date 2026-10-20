@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { estimateNewTarget, hasRecovered } from "./pace";
+import { catchUpState, estimateNewTarget, hasRecovered } from "./pace";
 import { parseIsoDate, toIsoDate } from "@/lib/plan/calendar";
 
 /**
@@ -124,5 +124,49 @@ describe("hasRecovered", () => {
 
   it("bez jediného vynechaného dne je to návrat", () => {
     expect(hasRecovered([], planned, today)).toBe(true);
+  });
+});
+
+/**
+ * Slib „doženu skluz".
+ *
+ * Vzniklo z provozu: ta volba dřív spouštěla přeplánování, tedy nový
+ * plán zhuštěný do zbývajícího času. Dělala tedy něco jiného, než co
+ * slibuje — kdo říká „doženu to", chce dodělat, co zůstalo, a aby se
+ * mu pod rukama nic nehýbalo. Teď se plán nemění a hlídá se jen to,
+ * jestli dluh opravdu zmizel.
+ */
+describe("catchUpState", () => {
+  const today = day("2026-10-20");
+
+  it("bez slibu se nemlčí a nic neselhalo", () => {
+    expect(catchUpState(null, today)).toEqual({ silent: false, failed: false });
+  });
+
+  it("čerstvý slib znamená mlčet — uživatel právě dělá, co slíbil", () => {
+    expect(catchUpState(day("2026-10-19"), today)).toEqual({
+      silent: true,
+      failed: false,
+    });
+  });
+
+  it("slib těsně před vypršením lhůty ještě platí", () => {
+    expect(catchUpState(day("2026-10-16"), today).silent).toBe(true);
+  });
+
+  it("po lhůtě se slib považuje za nenaplněný", () => {
+    expect(catchUpState(day("2026-10-14"), today)).toEqual({
+      silent: false,
+      failed: true,
+    });
+  });
+
+  /*
+   * Důležité: „selhalo" se smí stát jen tehdy, když se na to vůbec
+   * ptáme — a ptáme se jen u cíle, který má skluz i teď. Kdo mezitím
+   * dohnal, se sem nedostane, protože `behind` je nepravda.
+   */
+  it("hranice mlčení se dá nastavit", () => {
+    expect(catchUpState(day("2026-10-14"), today, 10).silent).toBe(true);
   });
 });

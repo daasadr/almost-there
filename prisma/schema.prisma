@@ -598,6 +598,9 @@ enum ReplanReason {
   AHEAD_OF_SCHEDULE
   MANUAL
   USER_DECLINED_REPLAN
+  /// Uživatel slíbil, že skluz dožene sám. Plán se nemění — jen se pár
+  /// dní mlčí a pak se kouká, jestli dluh opravdu zmizel.
+  USER_WILL_CATCH_UP
 }
 
 enum ReplanScope {

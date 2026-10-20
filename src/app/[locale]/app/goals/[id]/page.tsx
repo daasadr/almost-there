@@ -267,6 +267,7 @@ export default async function GoalPage({
             completionRate={pace.completionRate}
             targetDate={toIsoDate(pace.targetDate)}
             suggestedDate={toIsoDate(pace.suggestedDate)}
+            catchUpFailed={pace.catchUpFailed}
             showTitle={false}
           />
         </div>

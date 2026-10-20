@@ -35,7 +35,6 @@ import type { Locale } from "@/i18n/routing";
 /**
  * Režimy přeplánování.
  *
- *  - catchUp      — termín zůstává, zbytek se zhustí, ať se to stihne.
  *  - moveDeadline — termín se posune podle tempa, jakým to reálně jde.
  *  - adjust       — uživatel si přeje jinou cestu; termín zůstává.
  *  - extend       — cíl je u konce, ale ještě není dotažený tak, jak si
@@ -43,9 +42,15 @@ import type { Locale } from "@/i18n/routing";
  *                   datum a zbytek plánu se dopíše podle toho, co ještě
  *                   chce dotáhnout.
  *
- * První dva se nabízejí při skluzu, zbylé dva spouští uživatel sám.
+ * První se nabízí při skluzu, zbylé dva spouští uživatel sám.
+ *
+ * „Doženu skluz" tu schválně není. Dřív bývalo a znamenalo totéž co
+ * moveDeadline, jen bez posunu termínu — tedy nový plán zhuštěný do
+ * zbývajícího času. Jenže to dělalo něco jiného, než co ta volba
+ * slibuje, takže se z ní stal `promiseCatchUp`: plán zůstává a jen se
+ * pak kouká, jestli dluh zmizel. Model se u ní nevolá vůbec.
  */
-export type ReplanMode = "catchUp" | "moveDeadline" | "adjust" | "extend";
+export type ReplanMode = "moveDeadline" | "adjust" | "extend";
 
 export class ReplanTooSoonError extends Error {
   readonly name = "ReplanTooSoonError";
@@ -133,7 +138,10 @@ export async function replanGoal({
     const recent = await db.replanEvent.findFirst({
       where: {
         goalId,
-        reason: { not: "USER_DECLINED_REPLAN" },
+        // Slib dohánění nic nepřeplánoval, takže nemá co blokovat.
+        // Kdo se pokusil dohnat a za pár dní uzná, že to nejde, musí
+        // smět posunout termín hned — ne čekat další den.
+        reason: { notIn: ["USER_DECLINED_REPLAN", "USER_WILL_CATCH_UP"] },
         triggeredAt: { gte: new Date(Date.now() - COOLDOWN_HOURS * 3_600_000) },
       },
       select: { id: true },
@@ -391,5 +399,27 @@ export async function replanGoal({
 export async function declineReplan(goalId: string): Promise<void> {
   await db.replanEvent.create({
     data: { goalId, reason: "USER_DECLINED_REPLAN", scope: "NONE" },
+  });
+}
+
+/**
+ * „Doženu skluz“ — slib, že si uživatel zbytek dodělá sám.
+ *
+ * Plán se **nemění**. Dlouho to bylo naopak: tahle volba smazala zbytek
+ * plánu a nechala model napsat nový, zhuštěný do zbývajícího času. Bylo
+ * to drahé, trvalo to minuty a hlavně to dělalo něco jiného, než co
+ * tlačítko slibuje. Kdo říká „doženu to“, nechce nový plán — chce
+ * dodělat, co zůstalo, a aby se mu pod rukama nic nehýbalo.
+ *
+ * Nedodělané úkoly z posledního týdne má na přehledu a může je odškrtat.
+ * Tím mizí i ze statistiky vynechaných dnů, takže „dohnal jsem to“ se
+ * nemusí nikam hlásit — pozná se to samo.
+ *
+ * Zapisuje se jen proto, aby se pár dní mlčelo a pak se dalo zjistit,
+ * jestli dluh opravdu zmizel. Viz `getPaceStatus`.
+ */
+export async function promiseCatchUp(goalId: string): Promise<void> {
+  await db.replanEvent.create({
+    data: { goalId, reason: "USER_WILL_CATCH_UP", scope: "NONE" },
   });
 }

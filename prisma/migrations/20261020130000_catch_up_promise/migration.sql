@@ -1,0 +1,13 @@
+-- „Doženu skluz" jako slib, ne jako přeplánování.
+--
+-- Dosud se tahle volba chovala jako přeplánování: smazala zbytek plánu
+-- a nechala model napsat nový, zhuštěný do zbývajícího času. Jenže kdo
+-- říká „doženu to", nechce nový plán — chce dodělat, co zůstalo, a aby
+-- se na něj zbytek nehýbal. Nový důvod to odlišuje od skutečných
+-- přeplánování, protože se čte jinde a jinak: nesmí posunout okno, ve
+-- kterém se počítají vynechané dny, a nesmí blokovat pozdější posun
+-- termínu.
+--
+-- Postgres od verze 12 tohle v transakci dovolí, pokud se nová hodnota
+-- ve stejné transakci nepoužije. Tady se jen zavádí.
+ALTER TYPE "ReplanReason" ADD VALUE IF NOT EXISTS 'USER_WILL_CATCH_UP';

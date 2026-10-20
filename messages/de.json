@@ -714,10 +714,12 @@
       "title": "{days, plural, one {Ein Tag wurde nicht fertig} other {# der letzten Tage wurden nicht fertig}}",
       "body": "Von allem, was schon fällig war, sind {percent} % geschafft. Das ist kein Vorwurf, aber der Plan muss reagieren — sonst wird der Rest der Arbeit in die verbleibende Zeit gequetscht und der Termin fängt an zu lügen.",
       "catchUp": "Ich hole es auf",
-      "catchUpBody": "Der Termin bleibt {date}. Der restliche Plan wird so neu geschrieben, dass es noch machbar ist — und ich sage dir offen, ob es aufgeht.",
+      "catchUpBody": "Der Termin bleibt {date} und am Plan ändert sich nichts. Was offen blieb, findest du weiter unten auf dieser Seite — hak es ab, wie es geht. In ein paar Tagen schaue ich nach.",
       "moveDeadline": "Termin neu berechnen",
       "moveDeadlineBody": "Ein neuer Termin nach dem Tempo, das du tatsächlich hältst: {date}. Der Plan wird ruhiger verteilt.",
-      "later": "Jetzt nicht, frag mich in einer Woche"
+      "later": "Jetzt nicht, frag mich in einer Woche",
+      "againTitle": "Der Rückstand bleibt",
+      "againBody": "Vor ein paar Tagen wolltest du aufholen, was liegen geblieben ist. Es hat nicht geklappt und der Rückstand wächst — daran ist nichts falsch, nur lässt er sich nicht mehr durch Aufholen erledigen. Der ehrliche Weg ist, den Termin an das Tempo anzupassen, das tatsächlich geht."
     },
     "settings": {
       "title": "Wichtige Einstellungen",

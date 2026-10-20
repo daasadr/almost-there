@@ -6,6 +6,7 @@ import { AiBudgetError } from "@/lib/ai/usage";
 import {
   declineReplan,
   DeadlinePassedError,
+  promiseCatchUp,
   replanGoal,
   ReplanTooSoonError,
 } from "@/lib/goals/replan";
@@ -70,6 +71,13 @@ export async function POST(
 
   if (parsed.data.mode === "decline") {
     await declineReplan(id);
+    return NextResponse.json({ ok: true });
+  }
+
+  // „Doženu skluz“ nic nepřeplánovává — jen si to poznamená a za pár
+  // dní se podívá, jestli dluh zmizel. Viz `promiseCatchUp`.
+  if (parsed.data.mode === "catchUp") {
+    await promiseCatchUp(id);
     return NextResponse.json({ ok: true });
   }
 

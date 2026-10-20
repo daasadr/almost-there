@@ -8,12 +8,28 @@ import { goalHex } from "@/lib/plan/colors";
 import { planErrorKey } from "@/lib/plan/errors";
 
 /**
- * Nabídka přeplánování, když cíl nabral skluz.
+ * Nabídka, když cíl nabral skluz.
  *
  * Obě možnosti jsou postavené jako rovnocenné. Posunout termín není
  * prohra — je to jediná poctivá reakce na to, že plán počítal s tempem,
  * které nesedí. Kdyby aplikace tlačila do dohánění, naučila by lidi
  * lhát si do termínů.
+ *
+ * ── Dohánění plán nemění ────────────────────────────────────────────
+ *
+ * „Doženu skluz" dlouho spouštělo přeplánování: zbytek plánu se smazal
+ * a model napsal nový, zhuštěný do zbývajícího času. Trvalo to minuty,
+ * stálo to peníze a dělalo to něco jiného, než co ta volba slibuje —
+ * kdo říká „doženu to", chce dodělat, co zůstalo, a aby se mu pod
+ * rukama nic nehýbalo.
+ *
+ * Teď se jen poznamená, že to člověk zkusí, a pár dní se mlčí.
+ * Nedodělky z minulých dnů má hned pod touhle kartou a může je
+ * odškrtat; tím zmizí i ze statistiky a nabídka se sama nevrátí.
+ *
+ * Podruhé se dohánění nenabízí. Opakovat ho by znamenalo tvrdit, že
+ * tentokrát to vyjde, a poctivá odpověď na dluh, který se táhne, je
+ * posunout termín.
  */
 export function PaceCheck({
   goalId,
@@ -23,6 +39,7 @@ export function PaceCheck({
   completionRate,
   targetDate,
   suggestedDate,
+  catchUpFailed = false,
   showTitle = true,
 }: {
   goalId: string;
@@ -32,6 +49,8 @@ export function PaceCheck({
   completionRate: number;
   targetDate: string;
   suggestedDate: string;
+  /** Dohánění už jednou slíbil a nevyšlo. Podruhé se nenabízí. */
+  catchUpFailed?: boolean;
   showTitle?: boolean;
 }) {
   const t = useTranslations("plan.pace");
@@ -73,7 +92,9 @@ export function PaceCheck({
         return;
       }
 
-      if (mode === "decline") setDismissed(true);
+      // Dohánění ani odmítnutí nic nepřepočítávají — karta prostě
+      // zmizí a plán zůstává, jak byl.
+      if (mode !== "moveDeadline") setDismissed(true);
       router.refresh();
     } catch {
       setError("generic");
@@ -98,9 +119,13 @@ export function PaceCheck({
         </p>
       )}
 
-      <h2 className="display mt-2 text-lg">{t("title", { days: missedDays })}</h2>
+      <h2 className="display mt-2 text-lg">
+        {catchUpFailed ? t("againTitle") : t("title", { days: missedDays })}
+      </h2>
       <p className="mt-1.5 text-base leading-relaxed text-[var(--color-paper-dim)]">
-        {t("body", { percent: Math.round(completionRate * 100) })}
+        {catchUpFailed
+          ? t("againBody")
+          : t("body", { percent: Math.round(completionRate * 100) })}
       </p>
 
       {error && (
@@ -112,17 +137,21 @@ export function PaceCheck({
         </p>
       )}
 
-      {pending && pending !== "decline" ? (
+      {pending === "moveDeadline" ? (
         <GenerationProgress namespace="plan.form.progress" />
       ) : (
-        <div className={`mt-5 grid gap-3 ${deadlinePassed ? "" : "sm:grid-cols-2"}`}>
+        <div
+          className={`mt-5 grid gap-3 ${
+            deadlinePassed || catchUpFailed ? "" : "sm:grid-cols-2"
+          }`}
+        >
           {/*
             Dohnat skluz jde jedině k termínu, který ještě nenastal.
             U uplynulého není do čeho tlačit a pokus by skončil chybou —
             tak ho radši nenabízíme vůbec. Server to odmítne taky, tohle
             je jen o tom, aby na to člověk nenarazil.
           */}
-          {!deadlinePassed && (
+          {!deadlinePassed && !catchUpFailed && (
             <button
               type="button"
               onClick={() => send("catchUp")}

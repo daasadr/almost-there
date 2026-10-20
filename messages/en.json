@@ -714,10 +714,12 @@
       "title": "{days, plural, one {One day did not get finished} other {# of the last days did not get finished}}",
       "body": "Of everything that was already due, {percent}% got done. That is not a reproach, but the plan has to react — otherwise the remaining work gets squeezed into the time that is left and the deadline starts lying.",
       "catchUp": "I will catch up",
-      "catchUpBody": "The deadline stays {date}. The rest of the plan gets rewritten so it can still be met — and I will tell you plainly whether it adds up.",
+      "catchUpBody": "The deadline stays {date} and the plan does not change. What you did not finish is listed further down this page — tick it off as you go. I will check back in a few days.",
       "moveDeadline": "Recalculate the deadline",
       "moveDeadlineBody": "A new date based on the pace you are actually keeping: {date}. The plan gets rewritten at a calmer spread.",
-      "later": "Not now, ask me in a week"
+      "later": "Not now, ask me in a week",
+      "againTitle": "The slip is still here",
+      "againBody": "A few days ago you wanted to catch up on what was left. It did not happen and the backlog is growing — nothing wrong with that, it just cannot be settled by catching up any more. The honest move is to shift the deadline to the pace that actually works."
     },
     "settings": {
       "title": "Important settings",
