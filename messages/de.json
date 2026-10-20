@@ -1374,7 +1374,8 @@
           "a": "Nur du. Sie bleiben auf deinem Rechner und werden nie an unseren Server geschickt."
         }
       },
-      "ogNote": "Eine Windows-App · gratis zu jedem Konto"
+      "ogNote": "Eine Windows-App · gratis zu jedem Konto",
+      "stepsAlt": "Das Panel „Steps toward the goal“ mit heute und zwei für morgen geplanten Schritten"
     }
   }
 }

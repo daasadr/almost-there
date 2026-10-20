@@ -1374,7 +1374,8 @@
           "a": "Only you. They stay on your computer and are never sent to our server."
         }
       },
-      "ogNote": "A Windows app · free with every account"
+      "ogNote": "A Windows app · free with every account",
+      "stepsAlt": "The Steps toward the goal panel showing today and two steps planned for tomorrow"
     }
   }
 }

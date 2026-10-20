@@ -1374,7 +1374,8 @@
           "a": "Jen ty. Zůstávají ve tvém počítači a na náš server se nikdy neposílají."
         }
       },
-      "ogNote": "Aplikace pro Windows · zdarma ke každému účtu"
+      "ogNote": "Aplikace pro Windows · zdarma ke každému účtu",
+      "stepsAlt": "Panel Steps toward the goal s dneškem a dvěma kroky naplánovanými na zítřek"
     }
   }
 }

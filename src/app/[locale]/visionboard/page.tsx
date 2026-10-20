@@ -112,7 +112,15 @@ export default async function VisionBoardPage({
           />
         </Feature>
 
-        <Feature title={t("stepsTitle")} body={t("stepsBody")} />
+        <Feature title={t("stepsTitle")} body={t("stepsBody")}>
+          <Image
+            src="/visionboard/steps.webp"
+            alt={t("stepsAlt")}
+            width={500}
+            height={450}
+            className="mt-4 rounded-xl border border-edge"
+          />
+        </Feature>
         <Feature title={t("looksTitle")} body={t("looksBody")} />
         <Feature title={t("privateTitle")} body={t("privateBody")} />
       </div>
