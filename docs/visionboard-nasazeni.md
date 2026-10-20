@@ -27,14 +27,14 @@ by to databázi.
 ## Zálohovat klíč
 
 **Z notebooku, ne ze serveru** — na serveru by `scp` sahal sám na sebe
-a skončil by na `Permission denied (publickey)`. Adresa je tatáž, jakou
-používáš pro `ssh`:
+a skončil by na `Permission denied (publickey)`:
 
 ```sh
-scp root@<adresa serveru>:/opt/almostthere/visionboard-license.pem .
+scp root@46.224.46.43:/opt/almostthere/visionboard-license.pem .
 ```
 
-Obsah do správce hesel, stažený soubor pak z notebooku smazat.
+Obsah do správce hesel, stažený soubor pak z notebooku smazat
+(`del visionboard-license.pem`).
 
 Kdyby se klíč ztratil a vygeneroval se nový, **všechny vydané licence
 přestanou platit.** Aplikace je ověřuje offline vestavěným veřejným
