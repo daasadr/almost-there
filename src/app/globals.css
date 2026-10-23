@@ -691,10 +691,25 @@
 
 /* --- Sweet -------------------------------------------------------------
  *
- * Měkké obláčky, které se samy pomalu sunou. Animuje se výhradně posun,
- * nikdy rozostření — to je nejdražší operace v prohlížeči a animovat ho
- * znamená přepočítávat rozmazání každý snímek. Takhle je rozostření
- * spočítané jednou a karta obrázek jen posouvá.
+ * Měkké obláčky, které se samy pomalu sunou. Animuje se výhradně posun
+ * a velikost, nikdy rozostření — to je nejdražší operace v prohlížeči
+ * a animovat ho znamená přepočítávat rozmazání každý snímek. Takhle je
+ * rozostření spočítané jednou a karta obrázek jen posouvá.
+ *
+ * ── Proč každý obláček jinam ────────────────────────────────────────
+ *
+ * První verze měla jedinou sadu klíčových snímků pro všechny čtyři
+ * a posouvala je o 3,5 rem. Výsledek nebyl vidět vůbec: tvar rozostřený
+ * o 40 px nemá hranu, podle které by se dal posun změřit, a když se
+ * všechny čtyři sunou stejným směrem stejně daleko, nemá se to ani
+ * vůči čemu poznat. Navenek to vypadalo, jako by tam žádná animace
+ * nebyla — a taky se na to přišlo až z dotazu, ne z kódu.
+ *
+ * Teď má každý vlastní dráhu jiným směrem a k posunu přibyla mírná
+ * změna velikosti. Právě ta je u měkkého tvaru nejvíc znát: hrana
+ * chybí, ale to, že obláček nadechne a zase splaskne, oko zachytí.
+ * Pořád je to pomalé — jde o to, aby se to dalo tušit koutkem oka,
+ * ne aby to tahalo pozornost od textu.
  */
 .decor-cloud {
   position: absolute;
@@ -710,7 +725,7 @@
   height: 13rem;
   top: 3rem;
   left: -6rem;
-  animation: decor-drift 34s ease-in-out infinite alternate;
+  animation: decor-drift-a 31s ease-in-out infinite alternate;
 }
 
 .decor-cloud-b {
@@ -719,7 +734,7 @@
   top: 12rem;
   right: -10rem;
   background: color-mix(in oklab, var(--color-ink-700) 70%, transparent);
-  animation: decor-drift 46s ease-in-out infinite alternate-reverse;
+  animation: decor-drift-b 43s ease-in-out infinite alternate;
 }
 
 .decor-cloud-c {
@@ -727,7 +742,7 @@
   height: 11rem;
   bottom: 6rem;
   left: 12%;
-  animation: decor-drift 40s ease-in-out infinite alternate;
+  animation: decor-drift-c 37s ease-in-out infinite alternate;
 }
 
 .decor-cloud-d {
@@ -736,15 +751,46 @@
   bottom: 22%;
   right: 8%;
   background: color-mix(in oklab, var(--color-ink-700) 55%, transparent);
-  animation: decor-drift 52s ease-in-out infinite alternate-reverse;
+  animation: decor-drift-d 49s ease-in-out infinite alternate;
 }
 
-@keyframes decor-drift {
+/* Doprava a nahoru. */
+@keyframes decor-drift-a {
   from {
-    transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0) scale(1);
   }
   to {
-    transform: translate3d(3.5rem, -1.5rem, 0);
+    transform: translate3d(9rem, -3rem, 0) scale(1.12);
+  }
+}
+
+/* Doleva a dolů — proti áčku, ať je mezi nimi vidět pohyb. */
+@keyframes decor-drift-b {
+  from {
+    transform: translate3d(0, 0, 0) scale(1.08);
+  }
+  to {
+    transform: translate3d(-11rem, 3.5rem, 0) scale(1);
+  }
+}
+
+/* Spíš nahoru než do strany. */
+@keyframes decor-drift-c {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(4rem, -6rem, 0) scale(1.1);
+  }
+}
+
+/* Nejmenší obláček má nejdelší dráhu, takže putuje nejvýrazněji. */
+@keyframes decor-drift-d {
+  from {
+    transform: translate3d(0, 0, 0) scale(1.06);
+  }
+  to {
+    transform: translate3d(-8rem, -5rem, 0) scale(1);
   }
 }
 
