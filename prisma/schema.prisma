@@ -192,6 +192,7 @@ model User {
   invited            User[]                      @relation("VisionBoardInvite")
   visionBoardDevices VisionBoardInstallation[]
   visionBoardCodes   VisionBoardActivationCode[]
+  feedback           Feedback[]
 
   @@index([subscriptionStatus])
   @@index([invitedById])
@@ -873,4 +874,41 @@ model VisionBoardActivationCode {
 
   @@index([userId])
   @@index([expiresAt])
+}
+
+/// Co uživateli nevyhovuje — závada i nešikovné ovládání.
+///
+/// Text je šifrovaný stejně jako obsah cílů: uživatel píše vlastními
+/// slovy a „nejde mi uložit cíl o odvykání" je hlášení o chybě i údaj
+/// o zdraví zároveň.
+///
+/// Mizí s účtem (`Cascade`). Výmaz účtu podle zásad znamená smazání dat
+/// doslova a tohle je osobní údaj — na rozdíl od záznamů o spotřebě AI,
+/// které se od uživatele jen odpojují.
+model Feedback {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  message String
+
+  /// Odkud hlášení přišlo. Doplňuje server, ne formulář — z těla
+  /// požadavku by se to dalo podvrhnout a hledala by se pak chyba
+  /// na stránce, které se netýká.
+  path      String?
+  locale    String
+  storeApp  Boolean @default(false)
+  /// Zkrácený na 200 znaků; delší nic nepřidá.
+  userAgent String?
+
+  status    FeedbackStatus @default(NEW)
+  createdAt DateTime       @default(now())
+
+  @@index([status, createdAt])
+  @@index([userId])
+}
+
+enum FeedbackStatus {
+  NEW
+  DONE
 }

@@ -1380,5 +1380,18 @@
       "ogNote": "Eine Windows-App · gratis zu jedem Konto",
       "stepsAlt": "Das Panel „Steps toward the goal“ mit heute und zwei für morgen geplanten Schritten"
     }
+  },
+  "feedback": {
+    "title": "Etwas kaputt oder lästig?",
+    "subtitle": "Ein Fehler, eine unklare Stelle, eine Bedienung, die sich anders verhält als erwartet. Schreib es in eigenen Worten — ich lese das.",
+    "label": "Was dir nicht passt",
+    "placeholder": "Was passiert ist, wo, und was du stattdessen erwartet hast. Ein paar Sätze genügen, es muss nicht genau sein.",
+    "send": "Senden",
+    "sending": "Wird gesendet…",
+    "note": "Die Seite, von der du schreibst, geht mit — damit es auffindbar ist.",
+    "failed": "Das Senden hat nicht geklappt. Bitte versuch es noch einmal.",
+    "thanksTitle": "Angekommen, danke.",
+    "thanksBody": "Ich lese es. Wenn daraus eine Korrektur wird, siehst du sie in einer der nächsten Versionen.",
+    "again": "Noch etwas schreiben"
   }
 }

@@ -1380,5 +1380,18 @@
       "ogNote": "A Windows app · free with every account",
       "stepsAlt": "The Steps toward the goal panel showing today and two steps planned for tomorrow"
     }
+  },
+  "feedback": {
+    "title": "Something broken or annoying?",
+    "subtitle": "A bug, an unclear spot, a control that behaves differently than you expect. Write it in your own words — I read these.",
+    "label": "What is not working for you",
+    "placeholder": "What happened, where, and what you expected instead. A few sentences are enough; it does not have to be precise.",
+    "send": "Send",
+    "sending": "Sending…",
+    "note": "The page you are writing from goes with it, so it can be found.",
+    "failed": "Sending failed. Please try again.",
+    "thanksTitle": "It arrived, thank you.",
+    "thanksBody": "I will read it. If it turns into a fix, you will see it in one of the next versions.",
+    "again": "Write something else"
   }
 }

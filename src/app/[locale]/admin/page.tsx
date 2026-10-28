@@ -11,6 +11,8 @@ import {
 import { recentAdminActions } from "@/lib/admin/audit";
 import { env } from "@/lib/env";
 import { DeliveryHealth } from "@/components/admin/DeliveryHealth";
+import { FeedbackList } from "@/components/admin/FeedbackList";
+import { db } from "@/lib/db";
 
 export const metadata: Metadata = {
   title: "Správa — AlmostThere",
@@ -42,6 +44,23 @@ export default async function AdminPage({
 
   const budget = complimentaryBudget(data.totals.paying);
   const audit = await recentAdminActions();
+
+  /* Nová nahoře, vyřízená pod nimi. Padesát stačí: kdo jich má víc
+     nevyřízených, má co dělat i bez posouvání stránky. */
+  const feedback = await db.feedback.findMany({
+    orderBy: [{ status: "asc" }, { createdAt: "desc" }],
+    take: 50,
+    select: {
+      id: true,
+      message: true,
+      path: true,
+      locale: true,
+      storeApp: true,
+      status: true,
+      createdAt: true,
+      user: { select: { email: true } },
+    },
+  });
   const formatDate = new Intl.DateTimeFormat("cs", { dateStyle: "medium" });
   const formatDateTime = new Intl.DateTimeFormat("cs", {
     dateStyle: "short",
@@ -176,6 +195,26 @@ export default async function AdminPage({
 
       {/* Hodiny čte stránka, ne komponenta — viz komentář tam. */}
       <DeliveryHealth now={Date.now()} />
+
+      {/* Hlášení od uživatelů. Jediné místo, kde se text dá přečíst —
+          e-mail jen oznamuje, že něco přišlo. */}
+      <section className="mt-14">
+        <h2 className="text-xs font-semibold uppercase tracking-wider text-[var(--color-paper-faint)]">
+          Hlášení od uživatelů
+        </h2>
+        <FeedbackList
+          items={feedback.map((item) => ({
+            id: item.id,
+            message: item.message,
+            path: item.path,
+            locale: item.locale,
+            storeApp: item.storeApp,
+            email: item.user?.email ?? null,
+            createdAt: item.createdAt,
+            done: item.status === "DONE",
+          }))}
+        />
+      </section>
 
       {/* Co jsi s cizími účty udělala. V logu kontejneru to bylo taky,
           jenže ten se přetáčí — a záznam, který zmizí, není záznam. */}

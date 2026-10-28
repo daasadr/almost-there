@@ -43,6 +43,10 @@ const ENCRYPTED_FIELDS = new Set([
   "rewardDislikes",
   // Proč úkol nešlo splnit — uživatel to píše vlastními slovy.
   "deferReason",
+  // Hlášení od uživatele. „Nejde mi uložit cíl o odvykání" je hlášení
+  // o chybě i údaj o zdraví zároveň — šifruje se ze stejného důvodu
+  // jako `deferReason`.
+  "message",
   "note",
   "alt",
 ]);

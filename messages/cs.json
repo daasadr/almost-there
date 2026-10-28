@@ -1380,5 +1380,18 @@
       "ogNote": "Aplikace pro Windows · zdarma ke každému účtu",
       "stepsAlt": "Panel Steps toward the goal s dneškem a dvěma kroky naplánovanými na zítřek"
     }
+  },
+  "feedback": {
+    "title": "Něco nefunguje nebo zlobí?",
+    "subtitle": "Chyba, nejasné místo, ovládání, které se chová jinak, než čekáš. Napiš to vlastními slovy — čtu to.",
+    "label": "Co ti nevyhovuje",
+    "placeholder": "Co se stalo, kde to bylo a co má být místo toho. Stačí pár vět, nemusí to být přesné.",
+    "send": "Odeslat",
+    "sending": "Odesílám…",
+    "note": "Pošle se i stránka, ze které píšeš — ať se to dá najít.",
+    "failed": "Odeslání se nepovedlo. Zkus to prosím znovu.",
+    "thanksTitle": "Dorazilo, díky.",
+    "thanksBody": "Přečtu si to. Když z toho bude oprava, uvidíš ji v některé z dalších verzí.",
+    "again": "Napsat ještě něco"
   }
 }

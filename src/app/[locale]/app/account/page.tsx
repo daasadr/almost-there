@@ -5,6 +5,7 @@ import { headers } from "next/headers";
 import { getTranslations } from "next-intl/server";
 import { auth } from "@/auth";
 import { SignOutButton } from "@/components/auth/SignOutButton";
+import { ReportProblem } from "@/components/account/ReportProblem";
 import { CancelSubscription } from "@/components/billing/CancelSubscription";
 import { UsageMeter } from "@/components/plan/UsageMeter";
 import { isAdminEmail } from "@/lib/admin/guard";
@@ -206,6 +207,10 @@ export default async function AccountPage({
           </div>
         )}
       </div>
+
+      {/* Hlášení závad. Nenápadné, ale k nalezení — a nad odhlášením,
+          protože kdo odchází naštvaný, projde kolem něj. */}
+      <ReportProblem />
 
       <div className="mt-8 flex flex-wrap items-center gap-6">
         <SignOutButton label={t("signOut")} />
