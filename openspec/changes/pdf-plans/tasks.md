@@ -2,13 +2,13 @@
 
 ## 1. Základy
 
-- [ ] 1.1 Model `PdfPlan` + stavy (čeká na platbu / zaplaceno /
+- [x] 1.1 Model `PdfPlan` + stavy (čeká na platbu / zaplaceno /
       generuje se / hotovo / selhalo), vazba na uživatele, šifrovaná
       pole. Ruční migrace, ověřit proti `prisma migrate diff`.
 - [ ] 1.2 Šablony pro časté situace v `src/content/pdf-plans/`:
       název, osnova fází, výchozí délka, pokyny pro model. Texty
       cs/en/de. Ověřit: test, že má každá šablona všechny jazyky.
-- [ ] 1.3 Ceník podle počtu týdnů jako čistá funkce. Ověřit: testy
+- [x] 1.3 Ceník podle počtu týdnů jako čistá funkce. Ověřit: testy
       hranic 4/8/12 a odmítnutí nad 12.
 
 ## 2. Platba

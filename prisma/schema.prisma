@@ -193,6 +193,7 @@ model User {
   visionBoardDevices VisionBoardInstallation[]
   visionBoardCodes   VisionBoardActivationCode[]
   feedback           Feedback[]
+  pdfPlans           PdfPlan[]
 
   @@index([subscriptionStatus])
   @@index([invitedById])
@@ -911,4 +912,78 @@ model Feedback {
 enum FeedbackStatus {
   NEW
   DONE
+}
+
+/// Jednorázově zakoupený plán v PDF.
+///
+/// Vlastní model, ne příznak u `Goal`. Na `Goal.status: ACTIVE` se ptá
+/// spousta míst — denní přehled, oznámení, vyhodnocení tempa — a „cíl,
+/// který vypadá jako cíl, ale neodškrtává se" by znamenal projít je
+/// všechna a na jednom to zapomenout. Takhle se do denního chodu
+/// aplikace nemá jak dostat.
+///
+/// Po předplacení se z `plan` dá založit skutečný `Goal` bez volání
+/// modelu, takže vytištěný plán sedí s tím v aplikaci.
+model PdfPlan {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  /// Zadání od uživatele. Šifrované jako obsah cílů.
+  title         String
+  description   String?
+  /// Odkud člověk začíná. Bez toho vyjde plán obecný.
+  startingPoint String?
+
+  /// Šablona, ze které se vyšlo. Prázdné u vlastního zadání.
+  templateId String?
+
+  weeks        Int
+  hoursPerWeek Int
+  locale       String
+  startDate    DateTime
+  targetDate   DateTime
+
+  status PdfPlanStatus @default(AWAITING_PAYMENT)
+
+  /// Hotový plán tak, jak ho vrátil model. Z něj se sází PDF
+  /// i zakládá cíl, takže obojí vychází ze stejných dat.
+  ///
+  /// Text, ne Json: šifruje se podle názvu pole a sloupec typu Json
+  /// by rozšíření neprošlo. Nikdy se do něj nedotazujeme, takže se
+  /// tím nic neztrácí.
+  planJson String?
+
+  /// Kolik se zaplatilo, v haléřích, a čím. Pro případ reklamace.
+  amountMinor     Int
+  currency        String  @default("czk")
+  stripeSessionId String? @unique
+
+  /// Souhlas s okamžitým dodáním, kterým zaniká lhůta na odstoupení.
+  /// Bez něj se platba nezačíná — viz design.md.
+  consentedAt DateTime?
+
+  createdAt   DateTime  @default(now())
+  paidAt      DateTime?
+  generatedAt DateTime?
+
+  /// Cíl, který z plánu vznikl po předplacení. Prázdné, dokud
+  /// uživatel převod nevyužije.
+  goalId String? @unique
+
+  @@index([userId, createdAt])
+  @@index([status])
+}
+
+enum PdfPlanStatus {
+  /// Zadáno, čeká se na zaplacení.
+  AWAITING_PAYMENT
+  /// Zaplaceno, plán se ještě nezačal generovat.
+  PAID
+  /// Běží volání modelu.
+  GENERATING
+  /// Hotovo, PDF se dá stáhnout.
+  READY
+  /// Generování se nepovedlo ani po opakování. Patří sem zásah rukou.
+  FAILED
 }

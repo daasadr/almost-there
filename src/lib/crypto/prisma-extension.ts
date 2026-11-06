@@ -47,6 +47,9 @@ const ENCRYPTED_FIELDS = new Set([
   // o chybě i údaj o zdraví zároveň — šifruje se ze stejného důvodu
   // jako `deferReason`.
   "message",
+  // Hotový plán koupený v PDF. Je to obsah cíle jako každý jiný,
+  // jen uložený v jednom kuse.
+  "planJson",
   "note",
   "alt",
 ]);
