@@ -8,7 +8,7 @@ import { checkRateLimit } from "@/lib/rate-limit";
 import { todayIso } from "@/lib/plan/calendar";
 import { templateById } from "@/content/pdf-plans";
 import { checkDraft, TEXT_MAX, TITLE_MAX } from "@/lib/pdf-plans/order";
-import { CURRENCY, priceFor, toCrowns } from "@/lib/pdf-plans/pricing";
+import { formatPrice, priceFor } from "@/lib/pdf-plans/pricing";
 import { routing } from "@/i18n/routing";
 
 export const runtime = "nodejs";
@@ -104,7 +104,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: checked.error }, { status: 400 });
   }
 
-  const amountMinor = priceFor(checked.weeks);
+  const price = priceFor(checked.weeks, locale);
 
   const order = await db.pdfPlan.create({
     data: {
@@ -118,8 +118,8 @@ export async function POST(request: Request) {
       locale,
       startDate: new Date(`${startIso}T00:00:00Z`),
       targetDate: new Date(`${parsed.data.targetDate}T00:00:00Z`),
-      amountMinor,
-      currency: CURRENCY,
+      amountMinor: price.amountMinor,
+      currency: price.currency,
       // Souhlas padl před platbou; ukládá se s časem kvůli případnému
       // sporu o právo na odstoupení.
       consentedAt: new Date(),
@@ -135,7 +135,11 @@ export async function POST(request: Request) {
       // `payment`, ne `subscription` — tohle je jednorázový nákup.
       // Webhook se podle toho rozhoduje, kterou větví jít.
       mode: "payment",
-      currency: CURRENCY,
+      /*
+       * Měna, kterou jsme ukázali na stránce. Bez ní si ji Stripe
+       * vybere podle karty a u pokladny by stála jiná částka.
+       */
+      currency: price.currency,
       managed_payments: { enabled: true },
 
       /*
@@ -147,8 +151,8 @@ export async function POST(request: Request) {
         {
           quantity: 1,
           price_data: {
-            currency: CURRENCY,
-            unit_amount: amountMinor,
+            currency: price.currency,
+            unit_amount: price.amountMinor,
             product_data: {
               name: `Plán na ${checked.weeks} týdnů v PDF`,
               description: draft.title.trim().slice(0, 300),
@@ -181,7 +185,7 @@ export async function POST(request: Request) {
     return NextResponse.json({
       ok: true,
       url: checkout.url,
-      amount: toCrowns(amountMinor),
+      amount: formatPrice(price, locale),
     });
   } catch (error) {
     console.error("[pdf-plans] vytvoření platby selhalo", error);

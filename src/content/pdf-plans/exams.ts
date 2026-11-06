@@ -9,10 +9,10 @@ export const exams: PdfPlanTemplate[] = [
     id: "maturita",
     area: "exams",
     suggestedWeeks: 12,
-    guidance: `The goal is a Czech maturita exam (final secondary-school exam). The date is fixed and cannot move, so the plan works backwards from it.
+    guidance: `The goal is a final secondary-school exam — in the Czech system the maturita, elsewhere A-levels, Abitur or their equivalent. Do not assume a country: the person's own goal text names the subject and the system, and the plan must follow that rather than any one country's format. The date is fixed and cannot move, so the plan works backwards from it.
 
 Order that cannot be reversed:
-1. First, find out what is actually missing. The first week is diagnosis, not studying: go through the official topic list (maturitní okruhy) and mark each topic as "can explain it to someone", "recognise it", or "never seen it". Everything after this depends on that list.
+1. First, find out what is actually missing. The first week is diagnosis, not studying: go through the official topic list for their exam and mark each topic as "can explain it to someone", "recognise it", or "never seen it". Everything after this depends on that list.
 2. Then the gaps, hardest first, while there is still time to fail at them.
 3. Only then whole past papers under exam conditions.
 4. The last two weeks are revision and spaced repetition of what was already learned. No new topics — anything started this late will not hold.
@@ -75,7 +75,7 @@ Daily tasks must be small enough to finish on a school night — the person has 
     id: "prijimacky",
     area: "exams",
     suggestedWeeks: 10,
-    guidance: `The goal is a Czech entrance exam (přijímačky) — to secondary school or university. Unlike school exams, the content is narrow and known in advance, and the scoring is competitive: it is not about passing, it is about scoring higher than other candidates.
+    guidance: `The goal is an entrance exam to a selective school or university — in the Czech system přijímačky, elsewhere an admissions test. Do not assume a country; the person's goal text names the school. Unlike school-leaving exams, the content is narrow and known in advance, and the scoring is competitive: it is not about passing, it is about scoring higher than other candidates.
 
 That changes the plan:
 1. Week one: take one full past paper cold, before any studying, and score it honestly. Without that number there is nothing to improve against and no way to tell whether the plan is working.
