@@ -5,7 +5,7 @@
 - [x] 1.1 Model `PdfPlan` + stavy (čeká na platbu / zaplaceno /
       generuje se / hotovo / selhalo), vazba na uživatele, šifrovaná
       pole. Ruční migrace, ověřit proti `prisma migrate diff`.
-- [ ] 1.2 Šablony pro časté situace v `src/content/pdf-plans/`:
+- [x] 1.2 Šablony pro časté situace v `src/content/pdf-plans/`:
       název, osnova fází, výchozí délka, pokyny pro model. Texty
       cs/en/de. Ověřit: test, že má každá šablona všechny jazyky.
 - [x] 1.3 Ceník podle počtu týdnů jako čistá funkce. Ověřit: testy
@@ -13,12 +13,12 @@
 
 ## 2. Platba
 
-- [ ] 2.1 Stripe Checkout v režimu `payment`. Ověřit: test, že se
+- [x] 2.1 Stripe Checkout v režimu `payment`. Ověřit: test, že se
       cena počítá na serveru a nebere se z těla požadavku.
-- [ ] 2.2 Zpracování `checkout.session.completed` pro jednorázovou
+- [x] 2.2 Zpracování `checkout.session.completed` pro jednorázovou
       platbu — odlišit od předplatného, které týž koncový bod už
       zpracovává. Ověřit: test obou větví.
-- [ ] 2.3 Souhlas s okamžitým dodáním: povinné zaškrtávátko před
+- [x] 2.3 Souhlas s okamžitým dodáním: povinné zaškrtávátko před
       platbou, uloží se s datem. Ověřit: test, že bez něj platba
       nezačne.
 

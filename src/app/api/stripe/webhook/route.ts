@@ -155,6 +155,22 @@ export async function POST(request: Request) {
     switch (event.type) {
       case "checkout.session.completed": {
         const session = event.data.object;
+
+        /*
+         * Jednorázový nákup plánu v PDF. Týž koncový bod obsluhuje
+         * i předplatné, takže se větve rozlišují podle režimu relace.
+         *
+         * Generování se odtud nespouští. Trvá minuty a webhook musí
+         * odpovědět hned, jinak ho Stripe prohlásí za neúspěšný
+         * a pošle ho znovu — a plán by se vyrobil dvakrát. Tady se jen
+         * zapíše, že je zaplaceno; o rozpad si řekne stránka,
+         * na kterou zákazník po platbě přistane.
+         */
+        if (session.mode === "payment") {
+          await markPdfPlanPaid(session);
+          break;
+        }
+
         if (session.mode !== "subscription" || !session.subscription) break;
 
         const subscriptionId =
@@ -201,4 +217,43 @@ export async function POST(request: Request) {
   }
 
   return NextResponse.json({ received: true });
+}
+
+/**
+ * Zaplacený jednorázový plán.
+ *
+ * Hledá se podle id v metadatech, a když chybí, podle id relace —
+ * to se ukládá při zakládání objednávky. Dvě cesty proto, že metadata
+ * se v některých tocích nepropíšou a přijít o zaplacenou objednávku
+ * je ta nejdražší možná chyba.
+ *
+ * `updateMany` s podmínkou na stav zajistí, že opakované doručení
+ * téhož webhooku nic nepřepíše: podruhé se netrefí do
+ * `AWAITING_PAYMENT` a neudělá nic.
+ */
+async function markPdfPlanPaid(
+  session: Stripe.Checkout.Session,
+): Promise<void> {
+  if (session.payment_status !== "paid") return;
+
+  const id = session.metadata?.pdfPlanId;
+  const where = id ? { id } : { stripeSessionId: session.id };
+
+  const { count } = await db.pdfPlan.updateMany({
+    where: { ...where, status: "AWAITING_PAYMENT" },
+    data: { status: "PAID", paidAt: new Date(), stripeSessionId: session.id },
+  });
+
+  if (count === 0) {
+    // Buď už to proběhlo, nebo objednávka chybí. To druhé je vážné:
+    // zákazník zaplatil a nemá za co.
+    const exists = await db.pdfPlan.count({ where });
+    if (exists === 0) {
+      console.error(
+        "[stripe] zaplacený plán v PDF nemá objednávku",
+        session.id,
+        id ?? "bez id",
+      );
+    }
+  }
 }
