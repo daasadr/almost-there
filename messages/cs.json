@@ -1393,5 +1393,15 @@
     "thanksTitle": "Dorazilo, díky.",
     "thanksBody": "Přečtu si to. Když z toho bude oprava, uvidíš ji v některé z dalších verzí.",
     "again": "Napsat ještě něco"
+  },
+  "pdfPlans": {
+    "doc": {
+      "subtitle": "{weeks, plural, one {Plán na # týden} few {Plán na # týdny} other {Plán na # týdnů}} · almost-there.eu",
+      "assumptions": "Z čeho plán vychází",
+      "challenge": "Čím to prokážeš",
+      "week": "Týden {index}",
+      "minutes": "{value} min",
+      "page": "{current} / {total}"
+    }
   }
 }

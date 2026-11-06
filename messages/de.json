@@ -1393,5 +1393,15 @@
     "thanksTitle": "Angekommen, danke.",
     "thanksBody": "Ich lese es. Wenn daraus eine Korrektur wird, siehst du sie in einer der nächsten Versionen.",
     "again": "Noch etwas schreiben"
+  },
+  "pdfPlans": {
+    "doc": {
+      "subtitle": "{weeks, plural, one {Plan für # Woche} other {Plan für # Wochen}} · almost-there.eu",
+      "assumptions": "Wovon der Plan ausgeht",
+      "challenge": "Woran du es misst",
+      "week": "Woche {index}",
+      "minutes": "{value} Min.",
+      "page": "{current} / {total}"
+    }
   }
 }

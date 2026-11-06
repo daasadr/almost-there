@@ -1393,5 +1393,15 @@
     "thanksTitle": "It arrived, thank you.",
     "thanksBody": "I will read it. If it turns into a fix, you will see it in one of the next versions.",
     "again": "Write something else"
+  },
+  "pdfPlans": {
+    "doc": {
+      "subtitle": "{weeks, plural, one {A # week plan} other {A # week plan}} · almost-there.eu",
+      "assumptions": "What the plan assumes",
+      "challenge": "How you will prove it",
+      "week": "Week {index}",
+      "minutes": "{value} min",
+      "page": "{current} / {total}"
+    }
   }
 }

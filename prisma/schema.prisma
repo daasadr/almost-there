@@ -652,6 +652,13 @@ enum AiOperation {
   REWARD_SUGGESTION
   /// Závěrečné shrnutí při dotažení cíle.
   GOAL_COMPLETED
+  /// Jednorázově zaplacený plán v PDF.
+  ///
+  /// Vlastní hodnota schválně, i když jde o tentýž rozpad: do měsíčního
+  /// limitu nových plánů se počítají záznamy DECOMPOSE_GOAL, a zaplacený
+  /// plán ho ukrajovat nesmí. Opačně taky ne — kdo si koupí PDF a nemá
+  /// předplatné, žádný limit nemá.
+  PDF_PLAN
 }
 
 /// Jeden záznam na volání AI. Součet za kalendářní měsíc slouží

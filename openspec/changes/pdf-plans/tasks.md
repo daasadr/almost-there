@@ -24,13 +24,13 @@
 
 ## 3. Plán a PDF
 
-- [ ] 3.1 Generování po zaplacení, po kolech jako rozpad cíle.
+- [x] 3.1 Generování po zaplacení, po kolech jako rozpad cíle.
       Ověřit: test, že se nedokončené generování dá bezpečně
       zopakovat a nevznikne plán dvakrát.
-- [ ] 3.2 Sazba PDF: A4, zaškrtávátka, týdny a dny, hlavička
+- [x] 3.2 Sazba PDF: A4, zaškrtávátka, týdny a dny, hlavička
       s cílem a termínem, patička s adresou. Ověřit: test, že
       hotový soubor obsahuje vložené písmo a zadaný český text.
-- [ ] 3.3 Stažení: jen vlastníkovi, opakovaně. Ověřit: test, že
+- [x] 3.3 Stažení: jen vlastníkovi, opakovaně. Ověřit: test, že
       cizí účet dostane 404.
 
 ## 4. Obrazovky

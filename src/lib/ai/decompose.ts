@@ -38,6 +38,16 @@ export { AiRefusalError, AiFormatError } from "./call";
 export type DecomposeInput = {
   goal: string;
   /**
+   * Vynutí úroveň nejvyššího rozpadu místo odhadu podle délky.
+   *
+   * Kvůli jednorázovým plánům v PDF, které jsou vždycky po týdnech.
+   * Dvanáctitýdenní cíl by jinak `pickPlanLevel` rozpadl na měsíce,
+   * protože počítá s tím, že na delší cestu se ve dnech plánovat
+   * nedá — jenže tady se prodává právě rozpis po dnech a délka je
+   * shora omezená.
+   */
+  level?: PlanLevel;
+  /**
    * Co uživatel k cíli dopsal — výchozí úroveň, omezení, co je pro něj
    * důležité. Je to nejcennější vstup, jaký od něj dostaneme: název cíle
    * říká co, tohle říká za jakých okolností.
@@ -372,7 +382,7 @@ export async function decomposeGoal(
 ): Promise<DecomposeResult> {
   const today = input.today ?? todayIso("UTC");
   const days = daysUntil(input.targetDate, parseIsoDate(today));
-  const level = pickPlanLevel(days);
+  const level = input.level ?? pickPlanLevel(days);
 
   // Počet období si nevymýšlíme — vyplyne z kalendáře. Kdybychom modelu
   // řekli jiné číslo, než na kolik rozsah reálně vychází, nesedělo by
