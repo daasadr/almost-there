@@ -1,4 +1,3 @@
-import "server-only";
 import path from "node:path";
 import {
   Document,
@@ -27,6 +26,13 @@ import type { StoredPlan } from "./plan";
  *
  * Soubory leží v `public/`, protože Dockerfile ten adresář do běhového
  * obrazu kopíruje — jinde by v nasazené aplikaci nebyly.
+ *
+ * ── Proč tu není značka „server-only" ───────────────────────────────
+ *
+ * Na rozdíl od ostatních modulů v této složce tu není, protože tenhle
+ * se pouští i ze skriptu na ukázková PDF, kde se značka nedá přeložit.
+ * Nic se tím neriskuje: žádné tajemství tu není a `node:path` i tak
+ * zabrání tomu, aby se modul dostal do prohlížeče.
  *
  * ── Na co je to vlastně ─────────────────────────────────────────────
  *

@@ -35,7 +35,7 @@
 
 ## 4. Obrazovky
 
-- [ ] 4.1 Rozcestník šablon a formulář vlastního zadání, s ukázkou
+- [x] 4.1 Rozcestník šablon a formulář vlastního zadání, s ukázkou
       a cenou. Texty cs/en/de, čeština bezrodá.
 - [ ] 4.2 Tlačítko na úvodní stránce pod předplatným.
 - [ ] 4.3 Záznam v seznamu cílů jako oddělená část, s odkazem na

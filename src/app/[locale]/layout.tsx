@@ -51,6 +51,7 @@ const CLIENT_NAMESPACES = [
   "motivation",
   "visionboard",
   "feedback",
+  "pdfPlans",
 ] as const;
 
 function clientMessages(messages: Record<string, unknown>) {

@@ -20,6 +20,9 @@ const PAGES = [
   { path: "", priority: 1 },
   { path: "/demo", priority: 0.8 },
   { path: "/templates", priority: 0.9 },
+  // Jednorázové plány v PDF. Vysoká priorita ze stejného důvodu jako
+  // u šablon: lidé hledají „plán na maturitu“, ne plánovač.
+  { path: "/pdf-plans", priority: 0.9 },
   // Stránka aktivace v mapě není schválně: otevírá se z aplikace
   // a bez zadání z ní nemá co ukázat.
   //
