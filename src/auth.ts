@@ -10,7 +10,7 @@ import { checkRateLimit, getClientIp, hashIp } from "@/lib/rate-limit";
 
 /**
  * Plná konfigurace přihlašování. Importuj jen v Node runtimu —
- * middleware používá `src/lib/auth/config.ts`, který je bez databáze.
+ * proxy používá `src/lib/auth/config.ts`, který je bez databáze.
  */
 /** Okno pro počítání pokusů o přihlášení. */
 const LOGIN_WINDOW_MS = 15 * 60 * 1000;

@@ -1,9 +1,9 @@
 import type { NextAuthConfig } from "next-auth";
 
 /**
- * Část konfigurace, která musí fungovat i v middleware.
+ * Část konfigurace, která musí fungovat i v proxy.
  *
- * Middleware běží v Edge runtimu, kde nejde spustit Prisma ani bcrypt.
+ * Proxy běží v Edge runtimu, kde nejde spustit Prisma ani bcrypt.
  * Proto je konfigurace rozdělená: tady zůstává jen to, co Edge zvládne
  * (callbacky, cesty), a poskytovatelé s databází se přidávají až
  * v `src/auth.ts`, které se importuje pouze v Node runtimu.
@@ -14,7 +14,7 @@ export const authConfig = {
     error: "/login",
   },
   session: {
-    // JWT, ne databázové sessions — middleware tak ověří přihlášení
+    // JWT, ne databázové sessions — proxy tak ověří přihlášení
     // bez dotazu do databáze, což by v Edge runtimu ani nešlo.
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60, // 30 dnů

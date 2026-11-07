@@ -11,12 +11,18 @@ import {
 } from "@/lib/visionboard/ref-cookie";
 
 /**
- * Middleware dělá dvě věci najednou: řeší jazyk v URL a hlídá přístup
+ * Proxy dělá dvě věci najednou: řeší jazyk v URL a hlídá přístup
  * do chráněné oblasti.
  *
  * Autentizace se sem přidává přes `authConfig` bez poskytovatelů —
- * middleware běží v Edge runtimu, kde Prisma ani bcrypt nefungují.
- * Ověřuje se jen podpis JWT, což Edge zvládne.
+ * běží to v Edge runtimu, kde Prisma ani bcrypt nefungují. Ověřuje se
+ * jen podpis JWT, což Edge zvládne.
+ *
+ * ── Proč `proxy.ts` a ne `proxy.ts` ────────────────────────────
+ *
+ * Next 16 přejmenoval tuhle konvenci; starý název od 16.4 hlásí, že
+ * je zastaralý, a v příští velké verzi přestane fungovat. Je to jen
+ * jiné jméno souboru, chování i `config` zůstávají stejné.
  */
 
 const intlMiddleware = createIntlMiddleware(routing);
@@ -27,7 +33,7 @@ const { auth } = NextAuth(authConfig);
  *
  * `/admin` je tu jen kvůli tomu, aby nepřihlášený skončil na přihlášení
  * místo na chybové stránce. Že je někdo správce, se ověřuje až na serveru —
- * middleware má k dispozici jen podpis tokenu, ne databázi.
+ * proxy má k dispozici jen podpis tokenu, ne databázi.
  */
 const PROTECTED_PREFIXES = ["/app", "/admin"];
 
@@ -68,7 +74,7 @@ export default auth((request) => {
   // Kód pozvánky z adresy. Dělá se to tady, a ne na stránce, aby
   // stránka Vision Boardu zůstala statická — jakmile by sáhla na
   // parametry adresy, Next by ji vykresloval znovu při každém
-  // zobrazení. Middleware běží tak jako tak.
+  // zobrazení. Proxy běží tak jako tak.
   const ref = request.nextUrl.searchParams.get("ref");
   if (isRefCode(ref)) {
     response.cookies.set(REF_COOKIE, ref, {

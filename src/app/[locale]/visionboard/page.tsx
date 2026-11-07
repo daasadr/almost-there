@@ -14,7 +14,7 @@ import { locales } from "@/i18n/routing";
  * pro vyhledávač být stránkou o nástěnce snů, ne o plánovači.
  *
  * Zároveň je to cíl osobních pozvánek (`?ref=`). Kód z adresy
- * zachytí middleware, ne tahle stránka — kdyby na parametry sáhla
+ * zachytí proxy, ne tahle stránka — kdyby na parametry sáhla
  * sama, přestala by se předgenerovat.
  */
 

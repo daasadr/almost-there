@@ -102,7 +102,7 @@ export default async function MotivationPage({
 
         Sem se chodí z ranního oznámení, takže tady řada lidí svůj den
         s aplikací začíná — a bez odkazu by museli hledat. Ukazuje se
-        všem, i nepřihlášeným: ty pošle middleware na přihlášení, což je
+        všem, i nepřihlášeným: ty pošle proxy na přihlášení, což je
         přesně to, co v tu chvíli potřebují.
       */}
       {/* Ukázat na obrazovce a nechat naskenovat. Funguje tam, kde se

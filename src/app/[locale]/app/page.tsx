@@ -62,7 +62,7 @@ export default async function AppPage({
   const { locale } = await params;
   const session = await auth();
 
-  // Middleware sem nepřihlášeného nepustí, tohle je druhá pojistka
+  // Proxy sem nepřihlášeného nepustí, tohle je druhá pojistka
   // pro případ, že by se sem někdy sáhlo jinou cestou.
   if (!session?.user) redirect(`/${locale}/login`);
 
