@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { pdfPlanAreas, pdfPlanTemplates, templateById } from "./index";
+import { MAX_WEEKS, MIN_WEEKS, weeksAllowed } from "@/lib/pdf-plans/pricing";
 import type { Locale } from "@/i18n/routing";
 
 /**
@@ -65,10 +66,23 @@ describe("šablony PDF", () => {
     }
   });
 
-  it("navržená délka se vejde do ceníku", () => {
+  /*
+   * Strop je jiný podle podrobnosti: denní plán na rok by rozepisoval
+   * devadesátý den, což je výmysl, kdežto týdenní říká jen pořadí
+   * a lhůty a rok vydrží. Roční svatba proto projde a roční maraton
+   * po dnech ne.
+   */
+  it("navržená délka se vejde do ceníku dané podrobnosti", () => {
     for (const template of pdfPlanTemplates) {
-      expect(template.suggestedWeeks, template.id).toBeGreaterThanOrEqual(2);
-      expect(template.suggestedWeeks, template.id).toBeLessThanOrEqual(12);
+      expect(
+        weeksAllowed(template.suggestedWeeks, template.granularity),
+        `${template.id}: ${template.suggestedWeeks} týdnů u ${template.granularity}`,
+      ).toBe(true);
     }
+  });
+
+  it("meze podrobností dávají smysl", () => {
+    expect(MAX_WEEKS.weekly).toBeGreaterThan(MAX_WEEKS.daily);
+    expect(MAX_WEEKS.daily).toBeGreaterThan(MIN_WEEKS);
   });
 });

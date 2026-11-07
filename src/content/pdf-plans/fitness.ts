@@ -8,6 +8,7 @@ export const fitness: PdfPlanTemplate[] = [
   {
     id: "pulmaraton",
     area: "fitness",
+    granularity: "daily",
     suggestedWeeks: 12,
     disclaimer: "health",
     guidance: `The goal is to run a half marathon (21.1 km) on a fixed race date.

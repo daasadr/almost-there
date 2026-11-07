@@ -27,10 +27,10 @@ const STRINGS: RenderStrings = {
   closingBody: "Tenhle plán je snímek — platí tak, jak je vytištěný.",
   assumptionsLabel: "Z čeho plán vychází",
   challengeLabel: "Čím to prokážeš",
-  weekLabel: (i) => `Týden ${i}`,
+  periodLabel: (i) => `Týden ${i}`,
   minutes: (v) => `${v} min`,
-  dayHeading: (iso) => `pondělí ${iso}`,
-  weekRange: (a, b) => `${a} – ${b}`,
+  slotHeading: (a) => `pondělí ${a}`,
+  periodRange: (a, b) => `${a} – ${b}`,
   page: (c, t) => `${c} / ${t}`,
 };
 
@@ -40,16 +40,18 @@ const PLAN: StoredPlan = {
   finalChallenge: "Napíšeš celý test nanečisto a opravíš si ho sám.",
   feasibility: "realistic",
   feasibilityNote: "Termín vychází, když se udrží tempo.",
-  weeks: [
+  granularity: "daily",
+  periods: [
     {
       index: 1,
       title: "Rozbor větných členů",
       milestone: "Poznáš přívlastek těsný i volný bez váhání.",
       startDate: "2026-11-09",
       endDate: "2026-11-15",
-      days: [
+      slots: [
         {
-          date: "2026-11-09",
+          startDate: "2026-11-09",
+          endDate: "2026-11-09",
           summary: "Začínáme zlehka.",
           tasks: [
             { title: "Přečíst kapitolu o příčestí trpném", estimatedMinutes: 25 },
@@ -64,9 +66,10 @@ const PLAN: StoredPlan = {
       milestone: "Rozlišíš souřadné a podřadné.",
       startDate: "2026-11-16",
       endDate: "2026-11-22",
-      days: [
+      slots: [
         {
-          date: "2026-11-16",
+          startDate: "2026-11-16",
+          endDate: "2026-11-16",
           summary: "Těžší část.",
           tasks: [{ title: "Deset souvětí k rozboru", estimatedMinutes: 40 }],
         },
@@ -135,11 +138,12 @@ describe("renderPlanPdf", () => {
   it("delší plán se zalomí na víc stran", async () => {
     const dlouhy: StoredPlan = {
       ...PLAN,
-      weeks: Array.from({ length: 12 }, (_, i) => ({
-        ...PLAN.weeks[0],
+      periods: Array.from({ length: 12 }, (_, i) => ({
+        ...PLAN.periods[0],
         index: i + 1,
-        days: Array.from({ length: 6 }, (_, d) => ({
-          date: `2026-11-${String(9 + d).padStart(2, "0")}`,
+        slots: Array.from({ length: 6 }, (_, d) => ({
+          startDate: `2026-11-${String(9 + d).padStart(2, "0")}`,
+          endDate: `2026-11-${String(9 + d).padStart(2, "0")}`,
           summary: "Den plný práce s dlouhým popisem, ať to zabere místo.",
           tasks: Array.from({ length: 4 }, (_, t) => ({
             title: `Úkol číslo ${t + 1} s přiměřeně dlouhým názvem k zaškrtnutí`,
@@ -196,3 +200,63 @@ function inflateStreams(pdf: Buffer): string {
 
   return parts.join("\n");
 }
+
+/**
+ * Týdenní podrobnost.
+ *
+ * Sází se týmž kódem jako denní — liší se jen nadpis oddílu. Právě
+ * proto se to musí vyzkoušet: kdyby se tvar rozešel, vyšlo by to
+ * najevo až u zákazníka, který si koupil roční plán svatby.
+ */
+describe("týdenní plán", () => {
+  const TYDENNI: StoredPlan = {
+    ...PLAN,
+    granularity: "weekly",
+    periods: [
+      {
+        index: 1,
+        title: "Místo a termín",
+        milestone: "Obřad i hostina jsou závazně potvrzené písemně.",
+        startDate: "2027-01-04",
+        endDate: "2027-01-31",
+        slots: [
+          {
+            startDate: "2027-01-04",
+            endDate: "2027-01-10",
+            summary: "Obvolat místa.",
+            tasks: [
+              { title: "Obejít tři místa a zapsat ceny i kapacitu", estimatedMinutes: 0 },
+              { title: "Vybrat datum a sepsat zálohu", estimatedMinutes: 60 },
+            ],
+          },
+        ],
+      },
+    ],
+  };
+
+  it("vysází se stejně jako denní", async () => {
+    const pdf = await renderPlanPdf({
+      title: "Svatba za dvanáct měsíců",
+      plan: TYDENNI,
+      strings: { ...STRINGS, periodLabel: (i) => `Měsíc ${i}` },
+    });
+
+    expect(pdf.subarray(0, 5).toString("latin1")).toBe("%PDF-");
+    expect(inflateStreams(pdf)).toContain("017e"); // ž ze slova „zapsat"… diakritika
+  });
+
+  /*
+   * Nula minut znamená „zařizování, nedá se odhadnout". Takový údaj
+   * se nemá tisknout — „0 min" u obvolávání míst je horší než nic.
+   */
+  it("nulový odhad se nevypisuje", async () => {
+    const pdf = await renderPlanPdf({
+      title: "Svatba",
+      plan: TYDENNI,
+      strings: { ...STRINGS, minutes: (v) => `NIKDY${v}` },
+    });
+
+    const text = inflateStreams(pdf);
+    expect(text).not.toContain("NIKDY0");
+  });
+});

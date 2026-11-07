@@ -71,7 +71,7 @@ describe("priceFor", () => {
 
 describe("weeksAllowed", () => {
   it("souhlasí s priceFor na celém rozsahu", () => {
-    for (let weeks = -2; weeks <= MAX_WEEKS + 3; weeks++) {
+    for (let weeks = -2; weeks <= MAX_WEEKS.daily + 3; weeks++) {
       let priced = true;
       try {
         priceFor(weeks, "cs");
@@ -87,7 +87,7 @@ describe("priceBands", () => {
   it.each(LOCALES)("%s: pásma pokrývají celý rozsah bez děr", (locale) => {
     const bands = priceBands(locale);
     expect(bands[0].fromWeeks).toBe(MIN_WEEKS);
-    expect(bands.at(-1)?.toWeeks).toBe(MAX_WEEKS);
+    expect(bands.at(-1)?.toWeeks).toBe(MAX_WEEKS.daily);
 
     for (let i = 1; i < bands.length; i++) {
       expect(bands[i].fromWeeks).toBe(bands[i - 1].toWeeks + 1);
@@ -113,5 +113,47 @@ describe("formatPrice", () => {
   it.each(LOCALES)("%s: ve výsledku je značka měny", (locale) => {
     const text = formatPrice(priceFor(4, locale), locale);
     expect(text).toMatch(/[^\d\s.,]/);
+  });
+});
+
+/**
+ * Týdenní plány.
+ *
+ * Omezená není délka, ale podrobnost: „do konce března zaplatit zálohu
+ * fotografovi" je za rok stejně pravdivé jako dnes, kdežto rozpis toho,
+ * co se bude dělat devadesátý den, je výmysl. Ceny jsou stejné, dělí se
+ * jen jinak — rozhoduje počet oddílů k odškrtání, a ten vyjde podobně.
+ */
+describe("týdenní podrobnost", () => {
+  it("roční plán projde, u denního ne", () => {
+    expect(weeksAllowed(52, "weekly")).toBe(true);
+    expect(weeksAllowed(52, "daily")).toBe(false);
+    expect(weeksAllowed(53, "weekly")).toBe(false);
+  });
+
+  it.each([
+    [2, 9_900],
+    [13, 9_900],
+    [14, 14_900],
+    [26, 14_900],
+    [27, 19_900],
+    [52, 19_900],
+  ])("týdenní plán na %i týdnů stojí %i haléřů", (weeks, expected) => {
+    expect(priceFor(weeks, "cs", "weekly").amountMinor).toBe(expected);
+  });
+
+  it("ceny jsou v obou podrobnostech tytéž, jen jinak rozdělené", () => {
+    const daily = priceBands("cs", "daily").map((b) => b.price.amountMinor);
+    const weekly = priceBands("cs", "weekly").map((b) => b.price.amountMinor);
+    expect(weekly).toEqual(daily);
+  });
+
+  it("pásma navazují i u týdenní podrobnosti", () => {
+    const bands = priceBands("cs", "weekly");
+    expect(bands[0].fromWeeks).toBe(MIN_WEEKS);
+    expect(bands.at(-1)?.toWeeks).toBe(MAX_WEEKS.weekly);
+    for (let i = 1; i < bands.length; i++) {
+      expect(bands[i].fromWeeks).toBe(bands[i - 1].toWeeks + 1);
+    }
   });
 });

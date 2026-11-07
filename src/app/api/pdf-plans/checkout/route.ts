@@ -31,6 +31,8 @@ const bodySchema = z.object({
   templateId: z.string().max(64).optional(),
   hoursPerWeek: z.number(),
   targetDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  /** Dny, na které se neplánuje. 0 je neděle, 6 sobota. */
+  restDays: z.array(z.number()).max(7).optional(),
   consent: z.boolean(),
   locale: z.enum(routing.locales),
 });
@@ -88,6 +90,14 @@ export async function POST(request: Request) {
 
   const startIso = todayIso(user.timezone);
 
+  /*
+   * Podrobnost určuje šablona, ne požadavek. Je to odborné rozhodnutí
+   * o tom, jak se takový cíl dělá — a zároveň rozhoduje o stropu
+   * délky, takže kdyby ji posílal prohlížeč, dal by se roční plán
+   * objednat i tam, kde nemá smysl.
+   */
+  const granularity = template?.granularity ?? "daily";
+
   const draft = {
     title: parsed.data.title,
     description: parsed.data.description,
@@ -97,6 +107,10 @@ export async function POST(request: Request) {
     startIso,
     targetIso: parsed.data.targetDate,
     consent: parsed.data.consent,
+    granularity,
+    // U týdenní podrobnosti si den volí člověk sám, takže se volno
+    // neřeší a případně poslané dny se zahodí.
+    restDays: granularity === "weekly" ? [] : (parsed.data.restDays ?? []),
   };
 
   const checked = checkDraft(draft);
@@ -104,7 +118,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: checked.error }, { status: 400 });
   }
 
-  const price = priceFor(checked.weeks, locale);
+  const price = priceFor(checked.weeks, locale, granularity);
 
   const order = await db.pdfPlan.create({
     data: {
@@ -115,6 +129,8 @@ export async function POST(request: Request) {
       templateId: template?.id ?? null,
       weeks: checked.weeks,
       hoursPerWeek: draft.hoursPerWeek,
+      granularity,
+      restDays: draft.restDays,
       locale,
       startDate: new Date(`${startIso}T00:00:00Z`),
       targetDate: new Date(`${parsed.data.targetDate}T00:00:00Z`),

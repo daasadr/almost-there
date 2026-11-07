@@ -8,6 +8,7 @@ export const exams: PdfPlanTemplate[] = [
   {
     id: "maturita",
     area: "exams",
+    granularity: "daily",
     suggestedWeeks: 12,
     guidance: `The goal is a final secondary-school exam — in the Czech system the maturita, elsewhere A-levels, Abitur or their equivalent. Do not assume a country: the person's own goal text names the subject and the system, and the plan must follow that rather than any one country's format. The date is fixed and cannot move, so the plan works backwards from it.
 
@@ -80,6 +81,7 @@ Daily tasks must be small enough to finish on a school night — the person has 
   {
     id: "prijimacky",
     area: "exams",
+    granularity: "daily",
     suggestedWeeks: 10,
     guidance: `The goal is an entrance exam to a selective school or university — in the Czech system přijímačky, elsewhere an admissions test. Do not assume a country; the person's goal text names the school. Unlike school-leaving exams, the content is narrow and known in advance, and the scoring is competitive: it is not about passing, it is about scoring higher than other candidates.
 

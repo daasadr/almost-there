@@ -15,6 +15,8 @@ const DRAFT: OrderDraft = {
   startIso: "2026-11-07",
   targetIso: "2027-01-09", // devět týdnů
   consent: true,
+  granularity: "daily",
+  restDays: [],
 };
 
 describe("weeksBetween", () => {
@@ -105,5 +107,33 @@ describe("checkDraft", () => {
       ok: false,
       error: "titleTooShort",
     });
+  });
+});
+
+describe("podrobnost a volné dny", () => {
+  it("roční plán projde jen u týdenní podrobnosti", () => {
+    const rocni = { ...DRAFT, targetIso: "2027-11-06" };
+    expect(checkDraft(rocni)).toEqual({ ok: false, error: "dateTooFar" });
+    expect(checkDraft({ ...rocni, granularity: "weekly" as const }).ok).toBe(true);
+  });
+
+  /*
+   * Sedm volných dnů znamená plán bez jediného pracovního dne.
+   * Zaškrtávátko to nedovolí, ale požadavek může přijít odkudkoliv.
+   */
+  it("všech sedm dnů volna neprojde", () => {
+    expect(
+      checkDraft({ ...DRAFT, restDays: [0, 1, 2, 3, 4, 5, 6] }),
+    ).toEqual({ ok: false, error: "restDaysInvalid" });
+  });
+
+  it("opakovaný ani neplatný den neprojde", () => {
+    expect(checkDraft({ ...DRAFT, restDays: [6, 6] }).ok).toBe(false);
+    expect(checkDraft({ ...DRAFT, restDays: [7] }).ok).toBe(false);
+    expect(checkDraft({ ...DRAFT, restDays: [-1] }).ok).toBe(false);
+  });
+
+  it("obvyklý víkend projde", () => {
+    expect(checkDraft({ ...DRAFT, restDays: [6, 0] }).ok).toBe(true);
   });
 });

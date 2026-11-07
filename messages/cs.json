@@ -1412,7 +1412,8 @@
       "closingTitle": "Kdyby se ti to mělo odškrtávat samo",
       "closingBody": "Tenhle plán je snímek — platí tak, jak je vytištěný. V aplikaci na almost-there.eu máš totéž živé: odškrtáváš v telefonu, vidíš, jak ti to jde, a když se cesta rozejde se skutečností, zbytek se přepočítá podle tvého skutečného tempa.",
       "disclaimerHealth": "Plán sestavil počítačový model, ne lékař ani trenér. Je to pomůcka k rozvržení času, ne zdravotní doporučení. Když tě něco bolí, když máš zdravotní potíže nebo začínáš po delší pauze, poraď se napřed s lékařem — a bolest nikdy nepřecházej proto, že to má den v plánu.",
-      "disclaimerFinance": "Plán sestavil počítačový model, ne finanční poradce. Je to pomůcka k rozvržení splátek, ne finanční poradenství. U smluv, exekucí a insolvence se obrať na odborníka nebo na bezplatnou dluhovou poradnu."
+      "disclaimerFinance": "Plán sestavil počítačový model, ne finanční poradce. Je to pomůcka k rozvržení splátek, ne finanční poradenství. U smluv, exekucí a insolvence se obrať na odborníka nebo na bezplatnou dluhovou poradnu.",
+      "month": "Měsíc {index}"
     },
     "metaTitle": "Hotový plán v PDF",
     "title": "Hotový plán, který si vytiskneš",
@@ -1456,7 +1457,8 @@
       "dateTooFar": "Termín je dál než dvanáct týdnů. Na takhle dlouhou cestu je lepší aplikace.",
       "consentRequired": "Bez souhlasu se platba nedá spustit.",
       "tooMany": "Zkoušíš to moc často. Počkej chvíli.",
-      "generic": "Něco se pokazilo. Zkus to prosím znovu."
+      "generic": "Něco se pokazilo. Zkus to prosím znovu.",
+      "restDaysInvalid": "Vyber aspoň jeden den, kdy se dá pracovat."
     },
     "statusTitle": "Plán se vyrábí",
     "statusBody": "Chvíli to trvá — píše se celý rozpis, týden po týdnu. Stránku můžeš nechat otevřenou nebo se vrátit později, nic se neztratí.",
@@ -1468,6 +1470,18 @@
     "failedBody": "Zaplaceno máš a plán o nic nepřišel. Zkus to spustit znovu; když to nepůjde ani potom, napiš nám a vyřídíme to.",
     "retry": "Zkusit znovu",
     "awaitingTitle": "Platba zatím nedorazila",
-    "awaitingBody": "Po dokončení platby chvilku počkej a obnov stránku — potvrzení od banky občas jde pár vteřin."
+    "awaitingBody": "Po dokončení platby chvilku počkej a obnov stránku — potvrzení od banky občas jde pár vteřin.",
+    "restLabel": "Dny, kdy máš volno",
+    "restHint": "Na vybrané dny se nic nenaplánuje. Víkend je předvyplněný, ale přepni si to podle sebe — plán, který zabere jediné volné odpoledne, se neudrží.",
+    "priceWeeklyBody": "U plánů, které se počítají po týdnech — zařizování, kde nejde o to, co se dělá v úterý, ale co se má stihnout do neděle — platí tytéž ceny, jen se dělí jinak:",
+    "weekday": {
+      "1": "po",
+      "2": "út",
+      "3": "st",
+      "4": "čt",
+      "5": "pá",
+      "6": "so",
+      "0": "ne"
+    }
   }
 }
