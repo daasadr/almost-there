@@ -21,6 +21,17 @@ COPY . .
 # takže je nestačí nastavit až za běhu.
 ARG NEXT_PUBLIC_APP_URL
 ENV NEXT_PUBLIC_APP_URL=$NEXT_PUBLIC_APP_URL
+
+# Měření návštěvnosti.
+#
+# Proměnné s prefixem NEXT_PUBLIC_ Next **zapéká při sestavení**, ne
+# za běhu — do kontejneru je dopsat nestačí, musí být tady. Bez toho
+# se měřicí skript do stránky nevloží a neměří se nic, aniž by se
+# kdekoliv objevila chyba.
+ARG NEXT_PUBLIC_UMAMI_WEBSITE_ID
+ENV NEXT_PUBLIC_UMAMI_WEBSITE_ID=$NEXT_PUBLIC_UMAMI_WEBSITE_ID
+ARG NEXT_PUBLIC_UMAMI_SCRIPT
+ENV NEXT_PUBLIC_UMAMI_SCRIPT=$NEXT_PUBLIC_UMAMI_SCRIPT
 ENV NEXT_TELEMETRY_DISABLED=1
 
 # Typy se kontrolují před commitem, ne tady. Na tomhle stroji to trvá

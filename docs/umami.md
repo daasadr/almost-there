@@ -61,6 +61,45 @@ Dokud ID chybí, **měřicí skript se do stránky vůbec nevloží**. Nic se
 nerozbije a nikam se nic neposílá — jen se nic neměří. Pozná se to
 tak, že ve zdroji stránky není `script` s `/stats/script.js`.
 
+## Jak zjistit, jestli to funguje
+
+Čtyři kontroly od nejrychlejší:
+
+**1. Je skript ve stránce?** Otevři `almost-there.eu`, `Ctrl+U`
+(zobrazit zdroj) a hledej `stats/script.js`. Když tam je, měří se.
+Když ne, chybí ID webu — a nic se neměří, aniž by se kdekoliv
+objevila chyba.
+
+**2. Došlo ID do kontejneru?** Na serveru:
+
+```sh
+docker compose exec app printenv NEXT_PUBLIC_UMAMI_WEBSITE_ID
+```
+
+Nic tajného, je to identifikátor webu. Prázdný výstup znamená, že se
+nezapekl do sestavení.
+
+**3. Běží Umami?**
+
+```sh
+docker compose ps umami
+```
+
+**4. Chodí návštěvy?** Přes tunel na nástěnku, záložka Realtime.
+Otevři si web v jiném okně a návštěva se objeví do pár vteřin.
+
+### Past: NEXT_PUBLIC_ se zapéká při sestavení
+
+Proměnné s tímhle prefixem Next **nahrazuje hodnotou při sestavení**,
+ne za běhu. Dopsat je do `.env` a restartovat kontejner proto
+nestačí — musí projít jako `args` v `docker-compose.yml` až do
+`Dockerfile`.
+
+Dlouho tam nebyly a projevilo se to tak, že měření prostě neběželo,
+nikde nic nehlásilo a nedalo se poznat, jestli je špatně nastavení,
+nginx, nebo Umami. Teď tam jsou; po změně ID je ale **vždycky
+potřeba přestavět** (`./deploy/deploy.sh`), ne jen restartovat.
+
 ## Jak s tím pracovat
 
 ### Co se měří samo
