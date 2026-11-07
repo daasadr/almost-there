@@ -947,9 +947,21 @@ model PdfPlan {
 
   weeks        Int
   hoursPerWeek Int
-  locale       String
-  startDate    DateTime
-  targetDate   DateTime
+
+  /// Jak podrobný plán je: "daily" (týdny a dny) nebo "weekly"
+  /// (měsíce a týdny). Dáno šablonou, ne uživatelem — u svatby by
+  /// rozpis po dnech předstíral přesnost, kterou nikdo nedodrží.
+  granularity String @default("daily")
+
+  /// Dny, na které se neplánuje. 0 je neděle, 6 sobota.
+  ///
+  /// Volí je uživatel: volno není u každého o víkendu, a plán, který
+  /// zabere jediné volné odpoledne, skončí v koši. U týdenní
+  /// podrobnosti se nepoužívá — tam si den volí člověk sám.
+  restDays   Int[]    @default([])
+  locale     String
+  startDate  DateTime
+  targetDate DateTime
 
   status PdfPlanStatus @default(AWAITING_PAYMENT)
 
