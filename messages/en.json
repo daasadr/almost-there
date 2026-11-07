@@ -1490,6 +1490,11 @@
     "listNote": "Finished plans to print. Nothing ticks itself off and nothing is recalculated — that is what the app is for.",
     "listWeeks": "{weeks, plural, one {# week} other {# weeks}}",
     "listWorking": "being made",
-    "listFailed": "stuck"
+    "listFailed": "stuck",
+    "convertTitle": "Want to tick it off in the app?",
+    "convertBody": "It becomes a goal — the same plan, only live. You tick things off on your phone, you see how you are doing, and when the path parts ways with reality the rest is recalculated. Nothing is generated again, so it will match what you have printed.",
+    "convertCta": "Turn into a goal",
+    "converting": "Converting…",
+    "convertDone": "Open the goal in the app"
   }
 }

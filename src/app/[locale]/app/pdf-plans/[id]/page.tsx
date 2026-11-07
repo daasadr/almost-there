@@ -5,6 +5,8 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { PlanProgress } from "@/components/pdf-plans/PlanProgress";
+import { ConvertToGoal } from "@/components/pdf-plans/ConvertToGoal";
+import { getAccess } from "@/lib/billing/access";
 import { isComplete, parsePlan, progress } from "@/lib/pdf-plans/plan";
 
 /**
@@ -38,13 +40,31 @@ export default async function PdfPlanPage({
   // jako neexistující a nedá se podle odpovědi hádat.
   const order = await db.pdfPlan.findFirst({
     where: { id, userId: session.user.id },
-    select: { id: true, title: true, status: true, planJson: true, weeks: true },
+    select: {
+      id: true,
+      title: true,
+      status: true,
+      planJson: true,
+      weeks: true,
+      goalId: true,
+    },
   });
   if (!order) notFound();
 
   const t = await getTranslations({ locale, namespace: "pdfPlans" });
   const plan = parsePlan(order.planJson);
   const ready = order.status === "READY" && plan && isComplete(plan);
+
+  /*
+   * Nabídka převodu patří jen předplatitelům. Nabízet ji ostatním by
+   * znamenalo ukázat něco, co si nemůžou vzít — a hned vedle toho
+   * prosit o předplatné, což je přesně ten nátlak, kterému se tu
+   * vyhýbáme. Kdo ho nemá, vidí plán a nic víc.
+   */
+  const { hasAccess } = await getAccess(
+    session.user.id,
+    session.user.issuedAt,
+  );
 
   return (
     <section className="mx-auto max-w-2xl px-5 py-10 sm:px-8 sm:py-14">
@@ -79,6 +99,10 @@ export default async function PdfPlanPage({
             plan ? progress(plan) : { done: 0, total: order.weeks }
           }
         />
+      )}
+
+      {ready && hasAccess && (
+        <ConvertToGoal planId={order.id} goalId={order.goalId} />
       )}
 
       <p className="mt-8 text-sm">

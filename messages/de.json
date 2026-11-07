@@ -1490,6 +1490,11 @@
     "listNote": "Fertige Pläne zum Ausdrucken. Nichts hakt sich ab und nichts wird neu gerechnet — dafür ist die App da.",
     "listWeeks": "{weeks, plural, one {# Woche} other {# Wochen}}",
     "listWorking": "wird erstellt",
-    "listFailed": "hängt"
+    "listFailed": "hängt",
+    "convertTitle": "Willst du ihn in der App abhaken?",
+    "convertBody": "Daraus wird ein Ziel — derselbe Plan, nur lebendig. Du hakst am Handy ab, siehst, wie es läuft, und wenn der Weg abweicht, wird der Rest neu gerechnet. Es wird nichts neu erzeugt, es passt also zu dem, was du ausgedruckt hast.",
+    "convertCta": "In ein Ziel umwandeln",
+    "converting": "Wird umgewandelt…",
+    "convertDone": "Das Ziel in der App öffnen"
   }
 }

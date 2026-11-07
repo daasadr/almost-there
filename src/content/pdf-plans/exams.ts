@@ -6,6 +6,82 @@ import type { PdfPlanTemplate } from "./index";
  */
 export const exams: PdfPlanTemplate[] = [
   {
+    id: "zkouskove",
+    area: "exams",
+    granularity: "daily",
+    suggestedWeeks: 6,
+    guidance: `The goal is a university exam period: several exams with fixed, known dates, taken over a few weeks. This is not one exam — it is a queue of them, and that changes everything.
+
+What makes it different from a single exam:
+1. The order is given by the dates, not by difficulty or by what the person feels like. The first task of the plan is to list every exam with its date, its weight (credits) and how many attempts are left, and to sort by date. Everything after that follows from the list.
+2. Work on an exam starts late and ends on its date. Studying for an exam three weeks out while the nearest one is in four days is the most common way people fail the nearest one.
+3. The days right after an exam belong to the next one, not to rest. Say that explicitly, because the temptation after an exam is to take two days off and those two days are usually the ones that were missing.
+4. Subjects with only one attempt left come before everything else of the same date. Failing those costs a year, not a resit.
+
+The mistake that sinks people: spreading effort evenly across all subjects. The exam that is closest and the exam that can still be failed outright are not equal to the rest.
+
+**A rescue mode belongs in the plan, as its own named part.** When someone falls behind — and in an exam period most people do — the plan must say what to drop. The rule: drop breadth in the subjects that are already passed-level, keep the subjects with one attempt left, and never drop sleep the night before an exam. Someone who studies all night before an exam writes it worse than someone who did two thirds and slept.
+
+How to measure progress: being able to answer the exam questions out loud without notes, not having read through the material.
+
+Do not include: making new notes from scratch, or any subject that is not on the list. The plan covers the exam period, nothing else.
+
+Respect the stated hours per week; in an exam period people usually have whole days, so the days can be long — but never all seven, because the period lasts weeks and nobody holds that.`,
+    text: {
+      cs: {
+        title: "Plán na zkouškové",
+        pitch:
+          "Několik zkoušek s pevnými termíny za pár týdnů. Plán řeší pořadí a to, co obětovat, když začne hořet.",
+        forWhom:
+          "Pro vysokoškoláka, který má v kalendáři pět termínů a neví, čím začít.",
+        outline: [
+          "První úkol je sepsat všechny zkoušky s termínem, kredity a počtem zbývajících pokusů — teprve z toho seznamu plán vychází",
+          "Pořadí určují data, ne obtížnost. Učit se na zkoušku za tři týdny, když je nejbližší za čtyři dny, je nejčastější způsob, jak tu nejbližší položit",
+          "Dny hned po zkoušce patří té další, ne odpočinku. Zní to tvrdě, ale právě ty dva dny volna většinou chybí",
+          "Předměty, kde zbývá poslední pokus, jdou před vším ostatním ze stejného data",
+          "Záchranný režim jako vlastní část plánu: co škrtnout, až začne hořet",
+        ],
+        whenBehind:
+          "Škrtá se šířka u předmětů, které už jsou na projití, a drží se ty s posledním pokusem. Nikdy se neškrtá spánek před zkouškou — kdo se učí celou noc, napíše ji hůř než ten, kdo uměl dvě třetiny a vyspal se. A radši jeden předmět pořádně než tři napůl: z napůl naučených tří projdou obvykle nula.",
+        goal: "Zvládnout zkouškové ",
+      },
+      en: {
+        title: "A plan for exam period",
+        pitch:
+          "Several exams with fixed dates over a few weeks. The plan handles the order and what to sacrifice when it starts burning.",
+        forWhom:
+          "For a university student with five dates in the calendar and no idea where to start.",
+        outline: [
+          "The first task is listing every exam with its date, credits and attempts left — the plan is built from that list",
+          "The dates decide the order, not the difficulty. Studying for an exam three weeks out while the nearest is in four days is the usual way to fail the nearest one",
+          "The days right after an exam belong to the next one, not to rest. It sounds harsh, but those two days off are usually the ones that were missing",
+          "Subjects with one attempt left come before everything else on the same date",
+          "A rescue mode as its own part of the plan: what to drop when it starts burning",
+        ],
+        whenBehind:
+          "Drop breadth in the subjects already at passing level and keep the ones with a single attempt left. Never drop sleep the night before an exam — someone who studies all night writes it worse than someone who knew two thirds and slept. And one subject properly beats three half-done: of three half-learned subjects, usually none pass.",
+        goal: "Get through my exam period ",
+      },
+      de: {
+        title: "Plan für die Prüfungsphase",
+        pitch:
+          "Mehrere Prüfungen mit festen Terminen in wenigen Wochen. Der Plan regelt die Reihenfolge und das, was geopfert wird, wenn es brennt.",
+        forWhom:
+          "Für Studierende mit fünf Terminen im Kalender und keiner Ahnung, womit anfangen.",
+        outline: [
+          "Die erste Aufgabe ist, alle Prüfungen mit Termin, Credits und verbleibenden Versuchen aufzuschreiben — darauf baut der ganze Plan",
+          "Die Termine bestimmen die Reihenfolge, nicht die Schwierigkeit. Für eine Prüfung in drei Wochen zu lernen, während die nächste in vier Tagen ist, ist der übliche Weg, die nächste zu verhauen",
+          "Die Tage direkt nach einer Prüfung gehören der nächsten, nicht der Erholung. Das klingt hart, aber genau diese zwei freien Tage fehlen am Ende",
+          "Fächer mit dem letzten Versuch kommen vor allem anderen desselben Termins",
+          "Ein Rettungsmodus als eigener Teil des Plans: was wegfällt, wenn es brennt",
+        ],
+        whenBehind:
+          "Streiche die Breite bei Fächern, die schon auf Bestehen stehen, und halte die mit dem letzten Versuch. Nie gestrichen wird der Schlaf vor einer Prüfung — wer die ganze Nacht lernt, schreibt schlechter als jemand, der zwei Drittel konnte und geschlafen hat. Und ein Fach richtig schlägt drei halb: von drei halb gelernten besteht meist keines.",
+        goal: "Die Prüfungsphase schaffen ",
+      },
+    },
+  },
+  {
     id: "maturita",
     area: "exams",
     granularity: "daily",

@@ -1490,6 +1490,11 @@
     "listNote": "Hotové plány k vytištění. Neodškrtávají se a nepřepočítávají — na to je aplikace.",
     "listWeeks": "{weeks, plural, one {# týden} few {# týdny} other {# týdnů}}",
     "listWorking": "vyrábí se",
-    "listFailed": "zaseklo se"
+    "listFailed": "zaseklo se",
+    "convertTitle": "Chceš ho odškrtávat v aplikaci?",
+    "convertBody": "Založí se z něj cíl — tentýž plán, jen živý. Odškrtáváš v telefonu, vidíš, jak ti to jde, a když se cesta rozejde se skutečností, zbytek se přepočítá. Nic se negeneruje znovu, takže bude sedět s tím, co máš vytištěné.",
+    "convertCta": "Převést na cíl",
+    "converting": "Převádím…",
+    "convertDone": "Otevřít cíl v aplikaci"
   }
 }
