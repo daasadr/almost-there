@@ -1,6 +1,7 @@
 import type { Locale } from "@/i18n/routing";
 import { exams } from "./exams";
 import { fitness } from "./fitness";
+import { life } from "./life";
 
 /**
  * Šablony jednorázových plánů v PDF.
@@ -19,7 +20,7 @@ import { fitness } from "./fitness";
  */
 
 /** Oblasti v pořadí, ve kterém se zobrazují. */
-export const pdfPlanAreas = ["exams", "fitness"] as const;
+export const pdfPlanAreas = ["exams", "fitness", "life"] as const;
 
 export type PdfPlanArea = (typeof pdfPlanAreas)[number];
 
@@ -58,6 +59,22 @@ export type PdfPlanText = {
 export type PdfPlanTemplate = {
   id: string;
   area: PdfPlanArea;
+  /**
+   * Jak podrobný plán je.
+   *
+   * `daily` — období je týden, oddíl den. Pro cíle, u kterých se
+   * cvičí nebo učí: tam má smysl říct, co se dělá v úterý.
+   *
+   * `weekly` — období je měsíc, oddíl týden. Pro zařizování: u svatby
+   * nemá smysl plánovat „v úterý zavolej fotografovi", zavolá se, až
+   * to půjde, a důležité je, že se to má stihnout tenhle týden. Rozpis
+   * po dnech by tam jen předstíral přesnost, kterou nikdo nedodrží —
+   * a první nedodržený den zpochybní celý plán.
+   *
+   * Volí to šablona, ne uživatel. Je to odborné rozhodnutí o tom, jak
+   * se takový cíl dělá, stejně jako `guidance`.
+   */
+  granularity: "daily" | "weekly";
   /** Rozumná délka v týdnech. Uživatel zadává termín, tohle jen radí. */
   suggestedWeeks: number;
   /** Odborný pokyn pro model. Anglicky, jednou pro všechny jazyky. */
@@ -75,7 +92,7 @@ export type PdfPlanTemplate = {
   text: Record<Locale, PdfPlanText>;
 };
 
-const ALL: PdfPlanTemplate[] = [...exams, ...fitness];
+const ALL: PdfPlanTemplate[] = [...exams, ...fitness, ...life];
 
 /**
  * Jazyky musí mít všechny šablony stejné. Chybějící překlad by nebyl

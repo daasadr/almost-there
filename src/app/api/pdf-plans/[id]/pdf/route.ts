@@ -2,7 +2,11 @@ import { getTranslations } from "next-intl/server";
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
-import { parsePlan, isComplete } from "@/lib/pdf-plans/plan";
+import {
+  isComplete,
+  parsePlan,
+  type Granularity,
+} from "@/lib/pdf-plans/plan";
 import { renderPlanPdf, type RenderStrings } from "@/lib/pdf-plans/render";
 import { templateById } from "@/content/pdf-plans";
 import type { Locale } from "@/i18n/routing";
@@ -57,6 +61,7 @@ export async function GET(
   const strings = await buildStrings({
     locale,
     weeks: order.weeks,
+    granularity: plan.granularity,
     startDate: order.startDate,
     targetDate: order.targetDate,
     createdAt: order.createdAt,
@@ -106,6 +111,7 @@ function fileName(title: string): string {
 async function buildStrings({
   locale,
   weeks,
+  granularity,
   startDate,
   targetDate,
   createdAt,
@@ -114,6 +120,7 @@ async function buildStrings({
 }: {
   locale: Locale;
   weeks: number;
+  granularity: Granularity;
   startDate: Date;
   targetDate: Date;
   createdAt: Date;
@@ -138,6 +145,9 @@ async function buildStrings({
   // nepřeteče do sousedního dne.
   const at = (iso: string) => new Date(`${iso}T12:00:00Z`);
 
+  const span = (startIso: string, endIso: string) =>
+    `${dateFormat.format(at(startIso))} – ${dateFormat.format(at(endIso))}`;
+
   return {
     subtitle: t("subtitle", { weeks }),
     coverEyebrow: t("coverEyebrow"),
@@ -157,11 +167,23 @@ async function buildStrings({
           : undefined,
     assumptionsLabel: t("assumptions"),
     challengeLabel: t("challenge"),
-    weekLabel: (index) => t("week", { index }),
+    /*
+     * U podrobného plánu je období týden, u týdenního měsíc. Nadpis
+     * se tím musí řídit, jinak by v ročním plánu svatby stálo
+     * „Týden 7" nad čtyřmi týdny.
+     */
+    periodLabel: (index) =>
+      granularity === "weekly" ? t("month", { index }) : t("week", { index }),
     minutes: (value) => t("minutes", { value }),
-    dayHeading: (iso) => dayFormat.format(at(iso)),
-    weekRange: (startIso, endIso) =>
-      `${dateFormat.format(at(startIso))} – ${dateFormat.format(at(endIso))}`,
+    /*
+     * Oddíl je den, nebo týden. U dne se píše název dne v týdnu,
+     * protože podle něj se v rozpisu hledá; u týdne rozsah dat.
+     */
+    slotHeading: (startIso, endIso) =>
+      granularity === "weekly"
+        ? span(startIso, endIso)
+        : dayFormat.format(at(startIso)),
+    periodRange: (startIso, endIso) => span(startIso, endIso),
     page: (current, total) => t("page", { current, total }),
   };
 }

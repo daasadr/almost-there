@@ -1412,7 +1412,8 @@
       "closingTitle": "If you would rather it ticked itself off",
       "closingBody": "This plan is a snapshot — it holds exactly as printed. The app at almost-there.eu gives you the same thing live: you tick things off on your phone, you see how you are doing, and when the path parts ways with reality the rest is recalculated to the pace you actually keep.",
       "disclaimerHealth": "This plan was written by a computer model, not a doctor or a coach. It is an aid for scheduling your time, not medical advice. If something hurts, if you have a health condition, or if you are starting again after a long break, talk to a doctor first — and never run through pain because a day in the plan says so.",
-      "disclaimerFinance": "This plan was written by a computer model, not a financial adviser. It is an aid for scheduling repayments, not financial advice. For contracts, enforcement or insolvency, speak to a professional or a free debt advice service."
+      "disclaimerFinance": "This plan was written by a computer model, not a financial adviser. It is an aid for scheduling repayments, not financial advice. For contracts, enforcement or insolvency, speak to a professional or a free debt advice service.",
+      "month": "Month {index}"
     },
     "metaTitle": "A finished plan as a PDF",
     "title": "A finished plan you can print",
@@ -1456,7 +1457,8 @@
       "dateTooFar": "The deadline is more than twelve weeks away. For a path that long the app is the better fit.",
       "consentRequired": "Without the agreement the payment cannot start.",
       "tooMany": "You are trying too often. Give it a moment.",
-      "generic": "Something went wrong. Please try again."
+      "generic": "Something went wrong. Please try again.",
+      "restDaysInvalid": "Leave at least one day you can work on."
     },
     "statusTitle": "Your plan is being made",
     "statusBody": "This takes a while — the whole schedule is being written, week by week. You can leave the page open or come back later; nothing is lost.",
@@ -1468,6 +1470,18 @@
     "failedBody": "Your payment went through and nothing is lost. Try running it again; if it still will not go, write to us and we will sort it out.",
     "retry": "Try again",
     "awaitingTitle": "The payment has not arrived yet",
-    "awaitingBody": "If you completed the payment, wait a moment and refresh — confirmation from the bank sometimes takes a few seconds."
+    "awaitingBody": "If you completed the payment, wait a moment and refresh — confirmation from the bank sometimes takes a few seconds.",
+    "restLabel": "Days you have off",
+    "restHint": "Nothing is planned for the days you pick. The weekend is pre-selected, but change it to suit you — a plan that takes your only free afternoon does not survive.",
+    "priceWeeklyBody": "Plans counted in weeks — organising, where the question is not what you do on Tuesday but what has to be done by Sunday — cost the same, the bands are just split differently:",
+    "weekday": {
+      "1": "Mon",
+      "2": "Tue",
+      "3": "Wed",
+      "4": "Thu",
+      "5": "Fri",
+      "6": "Sat",
+      "0": "Sun"
+    }
   }
 }

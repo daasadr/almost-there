@@ -10,6 +10,8 @@ import {
   weeksAllowed,
 } from "@/lib/pdf-plans/pricing";
 import { weeksBetween } from "@/lib/pdf-plans/order";
+import { WEEKEND } from "@/lib/pdf-plans/rest-days";
+import type { Granularity } from "@/lib/pdf-plans/plan";
 import type { Locale } from "@/i18n/routing";
 
 /**
@@ -25,16 +27,21 @@ import type { Locale } from "@/i18n/routing";
 
 const HOURS = [2, 4, 6, 8, 10, 15, 20];
 
+/** Dny v týdnu od pondělí, jak je lidé čtou. Hodnota je číslo dne. */
+const DAYS = [1, 2, 3, 4, 5, 6, 0];
+
 export function OrderForm({
   templateId,
   defaultGoal,
   suggestedWeeks,
+  granularity,
   signedIn,
   today,
 }: {
   templateId?: string;
   defaultGoal: string;
   suggestedWeeks: number;
+  granularity: Granularity;
   signedIn: boolean;
   /** Dnešek v pásmu uživatele, RRRR-MM-DD. Posílá server. */
   today: string;
@@ -48,12 +55,20 @@ export function OrderForm({
   const [hours, setHours] = useState(6);
   const [context, setContext] = useState("");
   const [start, setStart] = useState("");
+  /*
+   * Víkend předvyplněný, ale ne vnucený. Většina lidí ho chce volný,
+   * kdo dělá na směny nebo má děti každý druhý týden si to přepne —
+   * a plán, který zabere jediné volné odpoledne, skončí v koši.
+   */
+  const [restDays, setRestDays] = useState<number[]>(WEEKEND);
   const [consent, setConsent] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [sending, setSending] = useState(false);
 
   const weeks = useMemo(() => weeksBetween(today, date), [today, date]);
-  const price = weeksAllowed(weeks) ? priceFor(weeks, locale) : null;
+  const price = weeksAllowed(weeks, granularity)
+    ? priceFor(weeks, locale, granularity)
+    : null;
 
   const ready =
     goal.trim().length >= 10 && price !== null && consent && !sending;
@@ -73,6 +88,7 @@ export function OrderForm({
           templateId,
           hoursPerWeek: hours,
           targetDate: date,
+          restDays,
           consent,
           locale,
         }),
@@ -137,7 +153,7 @@ export function OrderForm({
             type="date"
             value={date}
             min={isoPlusWeeks(today, MIN_WEEKS)}
-            max={isoPlusWeeks(today, MAX_WEEKS)}
+            max={isoPlusWeeks(today, MAX_WEEKS[granularity])}
             onChange={(e) => setDate(e.target.value)}
             className="w-full rounded-xl border border-edge bg-surface p-3 text-base text-[var(--color-paper)]"
           />
@@ -158,6 +174,45 @@ export function OrderForm({
           </select>
         </Field>
       </div>
+
+      {/* Jen u podrobného plánu. U týdenního si den volí člověk sám,
+          takže ptát se na volno by bylo matoucí. */}
+      {granularity === "daily" && (
+        <div>
+          <span className="block text-base font-medium text-[var(--color-paper)]">
+            {t("restLabel")}
+          </span>
+          <p className="mt-1 text-sm leading-relaxed text-[var(--color-paper-faint)]">
+            {t("restHint")}
+          </p>
+          <div className="mt-2 flex flex-wrap gap-2">
+            {DAYS.map((day) => {
+              const on = restDays.includes(day);
+              return (
+                <button
+                  key={day}
+                  type="button"
+                  aria-pressed={on}
+                  onClick={() =>
+                    setRestDays((current) =>
+                      current.includes(day)
+                        ? current.filter((d) => d !== day)
+                        : [...current, day],
+                    )
+                  }
+                  className={`rounded-xl border px-3 py-2 text-sm transition ${
+                    on
+                      ? "border-[var(--color-lime-soft)] bg-surface text-[var(--color-paper)]"
+                      : "border-edge text-[var(--color-paper-faint)] hover:border-edge-hover"
+                  }`}
+                >
+                  {t(`weekday.${day}`)}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       <Field
         id={`${ids}-start`}
@@ -284,6 +339,7 @@ const KNOWN = new Set([
   "dateTooSoon",
   "dateTooFar",
   "consentRequired",
+  "restDaysInvalid",
   "tooMany",
 ]);
 

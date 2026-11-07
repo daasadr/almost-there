@@ -110,19 +110,19 @@ const styles = StyleSheet.create({
   },
   note: { fontSize: 9.5, lineHeight: 1.5, color: "#444444", marginBottom: 3 },
 
-  weekHeader: {
+  periodHeader: {
     marginTop: 20,
     paddingBottom: 6,
     borderBottomWidth: 1,
     borderBottomColor: "#111111",
   },
-  weekTitle: { fontSize: 13, fontWeight: 700 },
-  weekDates: { fontSize: 9, color: "#666666", marginTop: 2 },
-  weekMilestone: { fontSize: 10, lineHeight: 1.45, marginTop: 6 },
+  periodTitle: { fontSize: 13, fontWeight: 700 },
+  periodDates: { fontSize: 9, color: "#666666", marginTop: 2 },
+  periodMilestone: { fontSize: 10, lineHeight: 1.45, marginTop: 6 },
 
-  day: { marginTop: 13 },
-  dayHeader: { fontSize: 10, fontWeight: 700, marginBottom: 4 },
-  daySummary: { fontSize: 9, color: "#555555", marginBottom: 5 },
+  slot: { marginTop: 13 },
+  slotHeader: { fontSize: 10, fontWeight: 700, marginBottom: 4 },
+  slotSummary: { fontSize: 9, color: "#555555", marginBottom: 5 },
 
   taskRow: { flexDirection: "row", marginBottom: 4.5, alignItems: "flex-start" },
   checkbox: {
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     marginBottom: 7,
     alignItems: "flex-start",
   },
-  overviewWeek: {
+  overviewPeriod: {
     width: 62,
     fontSize: 9,
     fontWeight: 700,
@@ -223,13 +223,17 @@ export type RenderStrings = {
   disclaimer?: string;
   assumptionsLabel: string;
   challengeLabel: string;
-  weekLabel: (index: number) => string;
+  /** Nadpis období: „Týden 3" u podrobného, „Měsíc 3" u týdenního. */
+  periodLabel: (index: number) => string;
   /** Jak se zapisuje odhad času, třeba „25 min". */
   minutes: (value: number) => string;
-  /** Datum dne v hlavičce, třeba „pondělí 9. 11." */
-  dayHeading: (iso: string) => string;
-  /** Rozsah týdne v podnadpisu. */
-  weekRange: (startIso: string, endIso: string) => string;
+  /**
+   * Nadpis oddílu. U podrobného plánu den („pondělí 9. 11."),
+   * u týdenního rozsah týdne („9. – 15. 11.").
+   */
+  slotHeading: (startIso: string, endIso: string) => string;
+  /** Rozsah období v podnadpisu. */
+  periodRange: (startIso: string, endIso: string) => string;
   page: (current: number, total: number) => string;
 };
 
@@ -299,43 +303,43 @@ function PlanDocument({
         <Text style={styles.sectionLabel}>
           {strings.overviewTitle.toUpperCase()}
         </Text>
-        {plan.weeks.map((week) => (
-          <View key={`o${week.index}`} style={styles.overviewRow} wrap={false}>
-            <Text style={styles.overviewWeek}>
-              {strings.weekLabel(week.index)}
+        {plan.periods.map((period) => (
+          <View key={`o${period.index}`} style={styles.overviewRow} wrap={false}>
+            <Text style={styles.overviewPeriod}>
+              {strings.periodLabel(period.index)}
             </Text>
-            <Text style={styles.overviewText}>{week.milestone}</Text>
+            <Text style={styles.overviewText}>{period.milestone}</Text>
           </View>
         ))}
 
-        {plan.weeks.map((week) => (
+        {plan.periods.map((period) => (
           /*
-           * `wrap={false}` jen na hlavičku týdne, ne na celý týden:
-           * týden s denními úkoly je delší než strana a nezlomit ho
-           * by znamenalo prázdné půlstrany. Takhle se nikdy nestane,
-           * že by nadpis týdne zůstal sám dole na straně.
+           * `wrap={false}` jen na hlavičku období, ne na celé období:
+           * období s úkoly je delší než strana a nezlomit ho by
+           * znamenalo prázdné půlstrany. Takhle se nikdy nestane,
+           * že by nadpis zůstal sám dole na straně.
            */
-          <View key={week.index}>
-            <View style={styles.weekHeader} wrap={false}>
-              <Text style={styles.weekTitle}>
-                {strings.weekLabel(week.index)} — {week.title}
+          <View key={period.index}>
+            <View style={styles.periodHeader} wrap={false}>
+              <Text style={styles.periodTitle}>
+                {strings.periodLabel(period.index)} — {period.title}
               </Text>
-              <Text style={styles.weekDates}>
-                {strings.weekRange(week.startDate, week.endDate)}
+              <Text style={styles.periodDates}>
+                {strings.periodRange(period.startDate, period.endDate)}
               </Text>
-              <Text style={styles.weekMilestone}>{week.milestone}</Text>
+              <Text style={styles.periodMilestone}>{period.milestone}</Text>
             </View>
 
-            {week.days.map((day) => (
-              <View key={day.date} style={styles.day} wrap={false}>
-                <Text style={styles.dayHeader}>
-                  {strings.dayHeading(day.date)}
+            {period.slots.map((slot) => (
+              <View key={slot.startDate} style={styles.slot} wrap={false}>
+                <Text style={styles.slotHeader}>
+                  {strings.slotHeading(slot.startDate, slot.endDate)}
                 </Text>
-                {day.summary ? (
-                  <Text style={styles.daySummary}>{day.summary}</Text>
+                {slot.summary ? (
+                  <Text style={styles.slotSummary}>{slot.summary}</Text>
                 ) : null}
 
-                {day.tasks.map((task, i) => (
+                {slot.tasks.map((task, i) => (
                   <View key={i} style={styles.taskRow}>
                     <View style={styles.checkbox} />
                     <Text style={styles.taskText}>{task.title}</Text>

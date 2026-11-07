@@ -1412,7 +1412,8 @@
       "closingTitle": "Falls es sich von selbst abhaken soll",
       "closingBody": "Dieser Plan ist eine Momentaufnahme — er gilt genau so, wie er gedruckt ist. In der App auf almost-there.eu hast du dasselbe lebendig: Du hakst am Handy ab, siehst, wie es läuft, und wenn der Weg von der Wirklichkeit abweicht, wird der Rest an dein tatsächliches Tempo angepasst.",
       "disclaimerHealth": "Diesen Plan hat ein Computermodell geschrieben, kein Arzt und kein Trainer. Er ist eine Hilfe zur Zeiteinteilung, keine medizinische Empfehlung. Wenn etwas wehtut, wenn du gesundheitliche Beschwerden hast oder nach langer Pause wieder anfängst, sprich zuerst mit einer Ärztin — und lauf nie durch Schmerzen, nur weil es im Plan steht.",
-      "disclaimerFinance": "Diesen Plan hat ein Computermodell geschrieben, keine Finanzberaterin. Er ist eine Hilfe zur Einteilung der Raten, keine Finanzberatung. Bei Verträgen, Pfändung oder Insolvenz wende dich an eine Fachperson oder eine kostenlose Schuldnerberatung."
+      "disclaimerFinance": "Diesen Plan hat ein Computermodell geschrieben, keine Finanzberaterin. Er ist eine Hilfe zur Einteilung der Raten, keine Finanzberatung. Bei Verträgen, Pfändung oder Insolvenz wende dich an eine Fachperson oder eine kostenlose Schuldnerberatung.",
+      "month": "Monat {index}"
     },
     "metaTitle": "Ein fertiger Plan als PDF",
     "title": "Ein fertiger Plan zum Ausdrucken",
@@ -1456,7 +1457,8 @@
       "dateTooFar": "Der Termin liegt mehr als zwölf Wochen entfernt. Für so lange Wege passt die App besser.",
       "consentRequired": "Ohne Einverständnis lässt sich die Zahlung nicht starten.",
       "tooMany": "Du versuchst es zu oft. Warte einen Moment.",
-      "generic": "Etwas ist schiefgelaufen. Bitte versuch es noch einmal."
+      "generic": "Etwas ist schiefgelaufen. Bitte versuch es noch einmal.",
+      "restDaysInvalid": "Lass mindestens einen Tag, an dem du arbeiten kannst."
     },
     "statusTitle": "Dein Plan wird erstellt",
     "statusBody": "Das dauert einen Moment — der ganze Ablauf wird geschrieben, Woche für Woche. Du kannst die Seite offen lassen oder später wiederkommen; nichts geht verloren.",
@@ -1468,6 +1470,18 @@
     "failedBody": "Deine Zahlung ist durch und nichts ist verloren. Versuch es noch einmal; wenn es dann immer noch nicht geht, schreib uns und wir regeln das.",
     "retry": "Noch einmal versuchen",
     "awaitingTitle": "Die Zahlung ist noch nicht angekommen",
-    "awaitingBody": "Wenn du die Zahlung abgeschlossen hast, warte kurz und lade die Seite neu — die Bestätigung der Bank braucht manchmal ein paar Sekunden."
+    "awaitingBody": "Wenn du die Zahlung abgeschlossen hast, warte kurz und lade die Seite neu — die Bestätigung der Bank braucht manchmal ein paar Sekunden.",
+    "restLabel": "Tage, an denen du frei hast",
+    "restHint": "Für die gewählten Tage wird nichts geplant. Das Wochenende ist vorausgewählt, ändere es nach deinem Rhythmus — ein Plan, der den einzigen freien Nachmittag belegt, hält nicht.",
+    "priceWeeklyBody": "Pläne, die in Wochen rechnen — Organisieren, wo es nicht darum geht, was du am Dienstag tust, sondern was bis Sonntag erledigt sein muss — kosten dasselbe, nur anders aufgeteilt:",
+    "weekday": {
+      "1": "Mo",
+      "2": "Di",
+      "3": "Mi",
+      "4": "Do",
+      "5": "Fr",
+      "6": "Sa",
+      "0": "So"
+    }
   }
 }

@@ -145,6 +145,7 @@ export default async function PdfPlanTemplatePage({
         templateId={template?.id}
         defaultGoal={text?.goal ?? ""}
         suggestedWeeks={template?.suggestedWeeks ?? 8}
+        granularity={template?.granularity ?? "daily"}
         signedIn={signedIn}
         today={todayIso(timezone)}
       />

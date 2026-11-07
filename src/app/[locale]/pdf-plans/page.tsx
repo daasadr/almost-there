@@ -55,6 +55,7 @@ export default async function PdfPlansPage({
 
   const t = await getTranslations({ locale, namespace: "pdfPlans" });
   const bands = priceBands(locale as Locale);
+  const weeklyBands = priceBands(locale as Locale, "weekly");
 
   return (
     <article className="mx-auto max-w-3xl px-5 py-16 sm:px-8 sm:py-24">
@@ -119,6 +120,28 @@ export default async function PdfPlansPage({
 
       <dl className="mt-6 divide-y divide-[var(--color-edge)] border-y border-edge">
         {bands.map((band) => (
+          <div
+            key={band.toWeeks}
+            className="flex items-baseline justify-between gap-4 py-3"
+          >
+            <dt className="text-base text-[var(--color-paper-dim)]">
+              {t("priceRow", { from: band.fromWeeks, to: band.toWeeks })}
+            </dt>
+            <dd className="text-base font-medium text-[var(--color-paper)]">
+              {formatPrice(band.price, locale as Locale)}
+            </dd>
+          </div>
+        ))}
+      </dl>
+
+      {/* Týdenní plány mají tytéž ceny, jen jinak rozdělené: rozhoduje
+          počet oddílů k odškrtání, a roční svatba jich má podobně jako
+          dvanáctitýdenní příprava na zkoušku. */}
+      <p className="mt-6 text-base leading-relaxed text-[var(--color-paper-dim)]">
+        {t("priceWeeklyBody")}
+      </p>
+      <dl className="mt-4 divide-y divide-[var(--color-edge)] border-y border-edge">
+        {weeklyBands.map((band) => (
           <div
             key={band.toWeeks}
             className="flex items-baseline justify-between gap-4 py-3"

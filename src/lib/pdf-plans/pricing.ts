@@ -16,18 +16,28 @@ import type { Locale } from "@/i18n/routing";
  * a nikdy se nebere z těla požadavku. Jinak by se dala přepsat.
  */
 
-/** Nejkratší plán, který má smysl rozfázovat na týdny. */
+import type { Granularity } from "./plan";
+
+/** Nejkratší plán, který má smysl rozfázovat. */
 export const MIN_WEEKS = 2;
 
 /**
- * Nejdelší jednorázový plán.
+ * Nejdelší plán, podle podrobnosti.
  *
- * Nad dvanáct týdnů se nenabízí schválně. Tak dlouhá cesta se beze
- * změn neujde a statický snímek by po čase lhal — tam patří
- * předplatné, které plán přepočítá. Je to zároveň poctivý argument,
- * proč si ho pořídit.
+ * Omezená není délka, ale podrobnost. Původně tu stál jeden strop
+ * dvanácti týdnů s tím, že delší statický snímek začne lhát — a to
+ * platí, jenže jen pro **denní** úkoly. Kdo si nechá rozepsat, co bude
+ * dělat devadesátý den, dostane výmysl.
+ *
+ * U týdenního plánu to neplatí: „do konce března zaplatit zálohu
+ * fotografovi" je za rok stejně pravdivé jako dnes, protože se neslibuje
+ * den, ale pořadí a lhůty. Proto se roční svatba naplánovat dá a roční
+ * příprava na maraton po dnech ne.
  */
-export const MAX_WEEKS = 12;
+export const MAX_WEEKS: Record<Granularity, number> = {
+  daily: 12,
+  weekly: 52,
+};
 
 export type PdfCurrency = "czk" | "usd" | "eur";
 
@@ -35,6 +45,19 @@ type Band = {
   upToWeeks: number;
   /** V nejmenších jednotkách měny — haléřích, centech. */
   amountMinor: number;
+};
+
+/**
+ * Hranice pásem podle podrobnosti.
+ *
+ * Ceny jsou stejné, dělí se jen jinak. Rozhoduje, kolik je v dokumentu
+ * oddílů k odškrtání — a dvanáctitýdenní denní plán jich má kolem
+ * sedmdesáti, kdežto roční týdenní dvaapadesát. Je to tedy srovnatelná
+ * práce za srovnatelné peníze, i když týdnů je čtyřikrát víc.
+ */
+const BOUNDS: Record<Granularity, [number, number, number]> = {
+  daily: [4, 8, 12],
+  weekly: [13, 26, 52],
 };
 
 /**
@@ -84,21 +107,36 @@ export type Price = {
  * pásmo. Plán zadarmo nebo plán za jinou cenu, než jaká je vidět,
  * jsou dvě chyby, které by se zjistily až na výpisu z účtu.
  */
-export function priceFor(weeks: number, locale: Locale): Price {
-  if (!weeksAllowed(weeks)) {
+export function priceFor(
+  weeks: number,
+  locale: Locale,
+  granularity: Granularity = "daily",
+): Price {
+  if (!weeksAllowed(weeks, granularity)) {
     throw new WeeksOutOfRangeError(`Nepodporovaný počet týdnů: ${weeks}`);
   }
 
   const table = BANDS[locale];
-  const band = table.bands.find((b) => weeks <= b.upToWeeks);
-  if (!band) throw new WeeksOutOfRangeError(`Nepodporovaný počet týdnů: ${weeks}`);
+  const bounds = BOUNDS[granularity];
+  const index = bounds.findIndex((limit) => weeks <= limit);
+  if (index < 0) throw new WeeksOutOfRangeError(`Nepodporovaný počet týdnů: ${weeks}`);
 
-  return { amountMinor: band.amountMinor, currency: table.currency };
+  return {
+    amountMinor: table.bands[index].amountMinor,
+    currency: table.currency,
+  };
 }
 
 /** Je tenhle počet týdnů k mání? Pro formulář, který se nemá ptát. */
-export function weeksAllowed(weeks: number): boolean {
-  return Number.isInteger(weeks) && weeks >= MIN_WEEKS && weeks <= MAX_WEEKS;
+export function weeksAllowed(
+  weeks: number,
+  granularity: Granularity = "daily",
+): boolean {
+  return (
+    Number.isInteger(weeks) &&
+    weeks >= MIN_WEEKS &&
+    weeks <= MAX_WEEKS[granularity]
+  );
 }
 
 /**
@@ -119,17 +157,22 @@ export function formatPrice(price: Price, locale: Locale): string {
 /** Pásma pro ceník na stránce: od kolika do kolika týdnů a za kolik. */
 export function priceBands(
   locale: Locale,
+  granularity: Granularity = "daily",
 ): { fromWeeks: number; toWeeks: number; price: Price }[] {
   const table = BANDS[locale];
+  const bounds = BOUNDS[granularity];
   let from = MIN_WEEKS;
 
-  return table.bands.map((band) => {
+  return bounds.map((upTo, i) => {
     const entry = {
       fromWeeks: from,
-      toWeeks: band.upToWeeks,
-      price: { amountMinor: band.amountMinor, currency: table.currency },
+      toWeeks: upTo,
+      price: {
+        amountMinor: table.bands[i].amountMinor,
+        currency: table.currency,
+      },
     };
-    from = band.upToWeeks + 1;
+    from = upTo + 1;
     return entry;
   });
 }

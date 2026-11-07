@@ -1,4 +1,6 @@
 import { MAX_WEEKS, MIN_WEEKS } from "./pricing";
+import { validRestDays } from "./rest-days";
+import type { Granularity } from "./plan";
 
 /**
  * Zadání jednorázového plánu, než se z něj stane objednávka.
@@ -51,6 +53,10 @@ export type OrderDraft = {
   targetIso: string;
   /** Zaškrtnutý souhlas s okamžitým dodáním. Bez něj se neplatí. */
   consent: boolean;
+  /** Podrobnost ze šablony, ne od uživatele. */
+  granularity: Granularity;
+  /** Dny, na které se neplánuje. U týdenní podrobnosti se neřeší. */
+  restDays: number[];
 };
 
 export type DraftError =
@@ -60,6 +66,7 @@ export type DraftError =
   | "hoursOutOfRange"
   | "dateTooSoon"
   | "dateTooFar"
+  | "restDaysInvalid"
   | "consentRequired";
 
 export type DraftCheck =
@@ -91,9 +98,20 @@ export function checkDraft(draft: OrderDraft): DraftCheck {
     return { ok: false, error: "hoursOutOfRange" };
   }
 
+  /*
+   * Volné dny se kontrolují, i když je vybírá naše zaškrtávátko:
+   * požadavek může přijít odkudkoliv a sedm volných dnů by znamenalo
+   * plán bez jediného pracovního dne.
+   */
+  if (!validRestDays(draft.restDays)) {
+    return { ok: false, error: "restDaysInvalid" };
+  }
+
   const weeks = weeksBetween(draft.startIso, draft.targetIso);
   if (weeks < MIN_WEEKS) return { ok: false, error: "dateTooSoon" };
-  if (weeks > MAX_WEEKS) return { ok: false, error: "dateTooFar" };
+  if (weeks > MAX_WEEKS[draft.granularity]) {
+    return { ok: false, error: "dateTooFar" };
+  }
 
   /*
    * Souhlas až nakonec, aby se člověk nedozvěděl „zaškrtni souhlas"

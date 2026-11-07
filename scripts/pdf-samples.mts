@@ -41,7 +41,8 @@ const SAMPLES: Record<Locale, Sample> = {
         "Napíšeš celý maturitní test nanečisto, v čase, bez pomoci a bez tahání — a sám si ho opravíš.",
       feasibility: "realistic",
       feasibilityNote: "Při šesti hodinách týdně to vychází, když se udrží tempo.",
-      weeks: [
+      granularity: "daily",
+      periods: [
         {
           index: 1,
           title: "Zjistit, co vlastně chybí",
@@ -49,9 +50,10 @@ const SAMPLES: Record<Locale, Sample> = {
             "Máš rozdělené všechny okruhy na tři hromádky: umím vysvětlit, poznám, nikdy jsem neviděl.",
           startDate: "2027-01-11",
           endDate: "2027-01-17",
-          days: [
+          slots: [
             {
-              date: "2027-01-11",
+              startDate: "2027-01-11",
+              endDate: "2027-01-11",
               summary: "Dneska se neučí, dneska se třídí.",
               tasks: [
                 { title: "Vytisknout si oficiální seznam maturitních okruhů", estimatedMinutes: 10 },
@@ -59,7 +61,8 @@ const SAMPLES: Record<Locale, Sample> = {
               ],
             },
             {
-              date: "2027-01-12",
+              startDate: "2027-01-12",
+              endDate: "2027-01-12",
               summary: "Druhá polovina seznamu.",
               tasks: [
                 { title: "Dotřídit zbylé okruhy stejným způsobem", estimatedMinutes: 45 },
@@ -67,7 +70,8 @@ const SAMPLES: Record<Locale, Sample> = {
               ],
             },
             {
-              date: "2027-01-14",
+              startDate: "2027-01-14",
+              endDate: "2027-01-14",
               summary: "První mezera, ta nejtěžší.",
               tasks: [
                 { title: "Stereometrie: objem a povrch rotačních těles, přečíst a shrnout vlastními slovy", estimatedMinutes: 50 },
@@ -83,9 +87,10 @@ const SAMPLES: Record<Locale, Sample> = {
             "Stereometrii umíš vysvětlit nahlas a spočítáš běžnou úlohu bez nahlížení do vzorců.",
           startDate: "2027-01-18",
           endDate: "2027-01-24",
-          days: [
+          slots: [
             {
-              date: "2027-01-18",
+              startDate: "2027-01-18",
+              endDate: "2027-01-18",
               summary: "Kuželosečky od začátku.",
               tasks: [
                 { title: "Kružnice a elipsa: odvodit rovnice, ne se je učit nazpaměť", estimatedMinutes: 50 },
@@ -93,7 +98,8 @@ const SAMPLES: Record<Locale, Sample> = {
               ],
             },
             {
-              date: "2027-01-20",
+              startDate: "2027-01-20",
+              endDate: "2027-01-20",
               summary: "Kontrola, že to drží.",
               tasks: [
                 { title: "Vysvětlit stereometrii nahlas, jako bys ji někomu učil — bez poznámek", estimatedMinutes: 20 },
@@ -137,7 +143,8 @@ const SAMPLES: Record<Locale, Sample> = {
         "You sit a whole past paper, timed, unaided and without looking anything up — and mark it yourself.",
       feasibility: "realistic",
       feasibilityNote: "Six hours a week works, as long as the pace holds.",
-      weeks: [
+      granularity: "daily",
+      periods: [
         {
           index: 1,
           title: "Find out what is actually missing",
@@ -145,9 +152,10 @@ const SAMPLES: Record<Locale, Sample> = {
             "Every topic is in one of three piles: can explain it, recognise it, never seen it.",
           startDate: "2027-01-11",
           endDate: "2027-01-17",
-          days: [
+          slots: [
             {
-              date: "2027-01-11",
+              startDate: "2027-01-11",
+              endDate: "2027-01-11",
               summary: "No studying today. Sorting.",
               tasks: [
                 { title: "Print the official topic list for your exam", estimatedMinutes: 10 },
@@ -155,7 +163,8 @@ const SAMPLES: Record<Locale, Sample> = {
               ],
             },
             {
-              date: "2027-01-12",
+              startDate: "2027-01-12",
+              endDate: "2027-01-12",
               summary: "The second half of the list.",
               tasks: [
                 { title: "Sort the remaining topics the same way", estimatedMinutes: 45 },
@@ -163,7 +172,8 @@ const SAMPLES: Record<Locale, Sample> = {
               ],
             },
             {
-              date: "2027-01-14",
+              startDate: "2027-01-14",
+              endDate: "2027-01-14",
               summary: "The first gap, the hardest one.",
               tasks: [
                 { title: "Solid geometry: volume and surface area of solids of revolution, read and summarise in your own words", estimatedMinutes: 50 },
@@ -179,9 +189,10 @@ const SAMPLES: Record<Locale, Sample> = {
             "You can explain solid geometry out loud and solve a standard problem without looking up formulas.",
           startDate: "2027-01-18",
           endDate: "2027-01-24",
-          days: [
+          slots: [
             {
-              date: "2027-01-18",
+              startDate: "2027-01-18",
+              endDate: "2027-01-18",
               summary: "Conic sections from scratch.",
               tasks: [
                 { title: "Circle and ellipse: derive the equations rather than memorising them", estimatedMinutes: 50 },
@@ -189,7 +200,8 @@ const SAMPLES: Record<Locale, Sample> = {
               ],
             },
             {
-              date: "2027-01-20",
+              startDate: "2027-01-20",
+              endDate: "2027-01-20",
               summary: "Checking it held.",
               tasks: [
                 { title: "Explain solid geometry out loud as if teaching it — no notes", estimatedMinutes: 20 },
@@ -233,7 +245,8 @@ const SAMPLES: Record<Locale, Sample> = {
         "Du schreibst eine ganze alte Prüfung, auf Zeit, ohne Hilfe und ohne Nachschlagen — und korrigierst sie selbst.",
       feasibility: "realistic",
       feasibilityNote: "Sechs Stunden pro Woche reichen, wenn das Tempo hält.",
-      weeks: [
+      granularity: "daily",
+      periods: [
         {
           index: 1,
           title: "Herausfinden, was wirklich fehlt",
@@ -241,9 +254,10 @@ const SAMPLES: Record<Locale, Sample> = {
             "Jedes Thema liegt auf einem von drei Stapeln: kann ich erklären, erkenne ich, nie gesehen.",
           startDate: "2027-01-11",
           endDate: "2027-01-17",
-          days: [
+          slots: [
             {
-              date: "2027-01-11",
+              startDate: "2027-01-11",
+              endDate: "2027-01-11",
               summary: "Heute wird nicht gelernt, heute wird sortiert.",
               tasks: [
                 { title: "Die offizielle Themenliste für deine Prüfung ausdrucken", estimatedMinutes: 10 },
@@ -251,7 +265,8 @@ const SAMPLES: Record<Locale, Sample> = {
               ],
             },
             {
-              date: "2027-01-12",
+              startDate: "2027-01-12",
+              endDate: "2027-01-12",
               summary: "Die zweite Hälfte der Liste.",
               tasks: [
                 { title: "Die restlichen Themen genauso sortieren", estimatedMinutes: 45 },
@@ -259,7 +274,8 @@ const SAMPLES: Record<Locale, Sample> = {
               ],
             },
             {
-              date: "2027-01-14",
+              startDate: "2027-01-14",
+              endDate: "2027-01-14",
               summary: "Die erste Lücke, die schwerste.",
               tasks: [
                 { title: "Stereometrie: Volumen und Oberfläche von Rotationskörpern lesen und in eigenen Worten zusammenfassen", estimatedMinutes: 50 },
@@ -275,9 +291,10 @@ const SAMPLES: Record<Locale, Sample> = {
             "Du kannst Stereometrie laut erklären und eine übliche Aufgabe ohne Formelsammlung lösen.",
           startDate: "2027-01-18",
           endDate: "2027-01-24",
-          days: [
+          slots: [
             {
-              date: "2027-01-18",
+              startDate: "2027-01-18",
+              endDate: "2027-01-18",
               summary: "Kegelschnitte von vorn.",
               tasks: [
                 { title: "Kreis und Ellipse: die Gleichungen herleiten statt auswendig lernen", estimatedMinutes: 50 },
@@ -285,7 +302,8 @@ const SAMPLES: Record<Locale, Sample> = {
               ],
             },
             {
-              date: "2027-01-20",
+              startDate: "2027-01-20",
+              endDate: "2027-01-20",
               summary: "Prüfen, ob es hält.",
               tasks: [
                 { title: "Stereometrie laut erklären, als würdest du sie unterrichten — ohne Notizen", estimatedMinutes: 20 },
@@ -359,10 +377,10 @@ function strings(
     closingBody: labels.closingBody,
     assumptionsLabel: labels.assumptions,
     challengeLabel: labels.challenge,
-    weekLabel: (index) => `${labels.week} ${index}`,
+    periodLabel: (index) => `${labels.week} ${index}`,
     minutes: (value) => `${value} ${labels.min}`,
-    dayHeading: (iso) => dayFormat.format(at(iso)),
-    weekRange: (a, b) => `${dateFormat.format(at(a))} – ${dateFormat.format(at(b))}`,
+    slotHeading: (iso) => dayFormat.format(at(iso)),
+    periodRange: (a, b) => `${dateFormat.format(at(a))} – ${dateFormat.format(at(b))}`,
     page: (current, total) => `${current} / ${total}`,
   };
 }
