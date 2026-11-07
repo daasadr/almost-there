@@ -130,7 +130,10 @@
       "Milestones with your own or AI-suggested rewards"
     ],
     "limitsTitle": "What ten plans a month means",
-    "limitsBody": "A new plan counts when you create a goal. Everything after that — the breakdown into weeks and days, the daily tasks, replanning when your pace changes — does not count and is unlimited for a running goal. Ten new plans is room to try different wordings and deadlines; someone who sets a goal and works on it will not use half of it in a month. The app shows you how much is left."
+    "limitsBody": "A new plan counts when you create a goal. Everything after that — the breakdown into weeks and days, the daily tasks, replanning when your pace changes — does not count and is unlimited for a running goal. Ten new plans is room to try different wordings and deadlines; someone who sets a goal and works on it will not use half of it in a month. The app shows you how much is left.",
+    "oneOffTitle": "Not keen on a subscription?",
+    "oneOffBody": "You can buy a finished plan once and print it — with checkboxes, on A4. It is a snapshot: nothing ticks itself off on your phone and nothing is recalculated when the path parts ways with reality. But you pay once.",
+    "oneOffCta": "A plan as a PDF from $4.99"
   },
   "finalCta": {
     "title": "Your goal already has a deadline.",
@@ -1482,6 +1485,11 @@
       "5": "Fri",
       "6": "Sat",
       "0": "Sun"
-    }
+    },
+    "listTitle": "Plans you bought as PDFs",
+    "listNote": "Finished plans to print. Nothing ticks itself off and nothing is recalculated — that is what the app is for.",
+    "listWeeks": "{weeks, plural, one {# week} other {# weeks}}",
+    "listWorking": "being made",
+    "listFailed": "stuck"
   }
 }

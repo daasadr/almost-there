@@ -37,8 +37,8 @@
 
 - [x] 4.1 Rozcestník šablon a formulář vlastního zadání, s ukázkou
       a cenou. Texty cs/en/de, čeština bezrodá.
-- [ ] 4.2 Tlačítko na úvodní stránce pod předplatným.
-- [ ] 4.3 Záznam v seznamu cílů jako oddělená část, s odkazem na
+- [x] 4.2 Tlačítko na úvodní stránce pod předplatným.
+- [x] 4.3 Záznam v seznamu cílů jako oddělená část, s odkazem na
       stažení a s nabídkou převést plán do aplikace.
 - [ ] 4.4 Převod na skutečný cíl po předplacení, bez volání modelu.
       Ověřit: test, že vzniklý cíl odpovídá uloženému plánu.

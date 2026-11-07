@@ -7,6 +7,7 @@ import { auth } from "@/auth";
 import { GoalList } from "@/components/plan/GoalList";
 import { FreeAccountNotice } from "@/components/billing/FreeAccountNotice";
 import { getAccess } from "@/lib/billing/access";
+import { PurchasedPlans } from "@/components/pdf-plans/PurchasedPlans";
 import { listGoals } from "@/lib/goals/queries";
 import { isStoreApp } from "@/lib/store-app";
 
@@ -133,6 +134,11 @@ export default async function GoalsPage({
       <div className="mt-6">
         <GoalList goals={goals} locale={locale} />
       </div>
+
+      {/* Koupené plány v PDF jako oddělená část, ne mezi cíli: nejsou
+          to běžící cíle a mezi nimi by slibovaly chování, které nemají.
+          Nevykreslí se, dokud něco není. */}
+      <PurchasedPlans userId={session.user.id} locale={locale} />
     </section>
   );
 }

@@ -130,7 +130,10 @@
       "Milníky s vlastní nebo AI navrženou odměnou"
     ],
     "limitsTitle": "Co znamená deset plánů měsíčně",
-    "limitsBody": "Nový plán se počítá při založení cíle. Všechno další — rozfázování na týdny a dny, denní úkoly, přeplánování, když se změní tempo — se u běžícího cíle nepočítá a je bez omezení. Deset nových plánů je prostor na to zkoušet různá zadání i termíny; kdo si cíl založí a pracuje na něm, nevyčerpá za měsíc ani polovinu. Kolik ti zbývá, vidíš v aplikaci."
+    "limitsBody": "Nový plán se počítá při založení cíle. Všechno další — rozfázování na týdny a dny, denní úkoly, přeplánování, když se změní tempo — se u běžícího cíle nepočítá a je bez omezení. Deset nových plánů je prostor na to zkoušet různá zadání i termíny; kdo si cíl založí a pracuje na něm, nevyčerpá za měsíc ani polovinu. Kolik ti zbývá, vidíš v aplikaci.",
+    "oneOffTitle": "Nechceš předplatné?",
+    "oneOffBody": "Hotový plán se dá koupit jednorázově a vytisknout — se zaškrtávátky, na A4. Je to snímek: neodškrtává se v telefonu a nepřepočítává, když se cesta rozejde se skutečností. Zato zaplatíš jednou.",
+    "oneOffCta": "Plán v PDF od 99 Kč"
   },
   "finalCta": {
     "title": "Tvůj cíl už termín má.",
@@ -1482,6 +1485,11 @@
       "5": "pá",
       "6": "so",
       "0": "ne"
-    }
+    },
+    "listTitle": "Koupené plány v PDF",
+    "listNote": "Hotové plány k vytištění. Neodškrtávají se a nepřepočítávají — na to je aplikace.",
+    "listWeeks": "{weeks, plural, one {# týden} few {# týdny} other {# týdnů}}",
+    "listWorking": "vyrábí se",
+    "listFailed": "zaseklo se"
   }
 }

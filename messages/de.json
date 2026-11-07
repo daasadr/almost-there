@@ -130,7 +130,10 @@
       "Meilensteine mit eigener oder KI-vorgeschlagener Belohnung"
     ],
     "limitsTitle": "Was zehn Pläne pro Monat bedeuten",
-    "limitsBody": "Ein neuer Plan zählt beim Anlegen eines Ziels. Alles danach — die Phasenplanung in Wochen und Tage, die Tagesaufgaben, die Neuplanung bei geändertem Tempo — zählt nicht und ist bei laufenden Zielen unbegrenzt. Zehn neue Pläne sind Raum, verschiedene Formulierungen und Termine auszuprobieren; wer ein Ziel setzt und daran arbeitet, verbraucht im Monat nicht einmal die Hälfte. Wie viel übrig ist, zeigt dir die App."
+    "limitsBody": "Ein neuer Plan zählt beim Anlegen eines Ziels. Alles danach — die Phasenplanung in Wochen und Tage, die Tagesaufgaben, die Neuplanung bei geändertem Tempo — zählt nicht und ist bei laufenden Zielen unbegrenzt. Zehn neue Pläne sind Raum, verschiedene Formulierungen und Termine auszuprobieren; wer ein Ziel setzt und daran arbeitet, verbraucht im Monat nicht einmal die Hälfte. Wie viel übrig ist, zeigt dir die App.",
+    "oneOffTitle": "Kein Abo?",
+    "oneOffBody": "Einen fertigen Plan kannst du einmalig kaufen und ausdrucken — mit Kästchen zum Abhaken, auf A4. Er ist eine Momentaufnahme: nichts hakt sich am Handy ab und nichts wird neu gerechnet, wenn der Weg abweicht. Dafür zahlst du einmal.",
+    "oneOffCta": "Plan als PDF ab 4,49 €"
   },
   "finalCta": {
     "title": "Dein Ziel hat schon eine Frist.",
@@ -1482,6 +1485,11 @@
       "5": "Fr",
       "6": "Sa",
       "0": "So"
-    }
+    },
+    "listTitle": "Gekaufte Pläne als PDF",
+    "listNote": "Fertige Pläne zum Ausdrucken. Nichts hakt sich ab und nichts wird neu gerechnet — dafür ist die App da.",
+    "listWeeks": "{weeks, plural, one {# Woche} other {# Wochen}}",
+    "listWorking": "wird erstellt",
+    "listFailed": "hängt"
   }
 }

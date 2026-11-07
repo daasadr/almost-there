@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { useTranslations } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 import { LandingCta } from "@/components/LandingCta";
 import { TreeBackground } from "@/components/TreeBackground";
 import { ExampleBreakdown } from "@/components/ExampleBreakdown";
@@ -295,6 +296,29 @@ function Pricing() {
               />
             </div>
           </div>
+
+          {/*
+            Jednorázová možnost hned pod předplatným, ne schovaná
+            v patičce. Část lidí předplatné odmítne ne kvůli ceně, ale
+            protože je pravidelné — a ti by jinak odešli s tím, že se
+            tu nedá koupit nic jiného.
+
+            Rozdíl je napsaný rovnou a nelichotivě: PDF je snímek.
+            Prodat ho někomu, kdo čekal odškrtávání v telefonu, je
+            horší než neprodat nic.
+          */}
+          <Link
+            href="/pdf-plans"
+            className="card card-hover reveal mt-6 block p-6"
+          >
+            <span className="display block text-lg">{t("oneOffTitle")}</span>
+            <span className="mt-2 block text-base leading-relaxed text-[var(--color-paper-dim)]">
+              {t("oneOffBody")}
+            </span>
+            <span className="mt-3 block text-sm font-medium text-[var(--color-lime-soft)]">
+              {t("oneOffCta")} →
+            </span>
+          </Link>
 
           {/* Limit AI musí být vysvětlený transparentně, ne schovaný v ToC */}
           <div className="reveal mt-6 rounded-2xl border border-edge-faint bg-surface p-6">
