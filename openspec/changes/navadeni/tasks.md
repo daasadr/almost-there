@@ -2,8 +2,8 @@
 
 ## 1. Jádro bez DOM
 
-- [ ] 1.1 `rules.ts`: prahy, časy, počty, zakázané cíle. Žádná logika.
-- [ ] 1.2 `machine.ts`: čtyři stavy, přechody událostmi. Ověřit:
+- [x] 1.1 `rules.ts`: prahy, časy, počty, zakázané cíle. Žádná logika.
+- [x] 1.2 `machine.ts`: čtyři stavy, přechody událostmi. Ověřit:
       posloupnost událostí → očekávaný stav; nenapovídá v PŘÍCHOD
       ani ČTE; strop za návštěvu a klid mezi nápovědami se dodrží
       i při záplavě událostí.
@@ -12,8 +12,8 @@
 
 ## 2. Vzhled
 
-- [ ] 2.1 `--color-guide` ve všech šesti motivech, kontrast aspoň 3:1.
-- [ ] 2.2 Prstenec v CSS, `pointer-events: none`, dvakrát objede
+- [x] 2.1 `--color-guide` ve všech šesti motivech, kontrast aspoň 3:1.
+- [x] 2.2 Prstenec v CSS, `pointer-events: none`, dvakrát objede
       a zhasne. Při `prefers-reduced-motion` jen klidné zabarvení.
 
 ## 3. Zapojení

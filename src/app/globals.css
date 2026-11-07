@@ -41,6 +41,26 @@
   --color-warn: #fde68a;
   --color-danger: #fecaca;
 
+  /*
+   * Navádění.
+   *
+   * Jediná barva na webu, která znamená „tudy" — a nesmí znamenat nic
+   * jiného. Není to barva odkazů, tlačítek ani hlášek, protože jen tak
+   * z ní může být slovník: kdo ji potká potřetí, pozná ji dřív, než
+   * stihne přečíst, co u ní stojí.
+   *
+   * Každý motiv má vlastní. Není to rozmar: na papírovém podkladu
+   * Steampunku by světlý azur zmizel a na zelené Jungle by splynul
+   * s akcenty. Vybírá se jako doplněk k hlavní barvě motivu — zůstane
+   * v rodině, ale nesplyne — a kontrast proti pozadí musí být aspoň
+   * 3 : 1 podle WCAG pro netextové prvky. Nejtěsnější je Sweet blue
+   * s 4,88 : 1, ostatní mají víc.
+   *
+   * Azur schválně: v zelenofialové paletě aplikace se nevyskytuje
+   * a na tmavém podkladu je vidět koutkem oka.
+   */
+  --color-guide: #7dd3fc;
+
   /* Text */
   --color-paper: #f2f7f4;
   --color-paper-dim: #a9bdb4;
@@ -479,6 +499,9 @@
 
 /* Mosaz a stará kůže na zažloutlém papíru. */
 [data-theme="steampunk"] {
+  /* Doplněk k mosazi. Na zažloutlém papíru drží, aniž by křičel. */
+  --color-guide: #0f6f6c;
+
   --color-ink-950: #f3ead8;
   --color-ink-900: #e9dcc4;
   --color-ink-800: #ddcdaf;
@@ -501,6 +524,9 @@
 
 /* Slonovina a cukrově růžová. */
 [data-theme="sweet-pink"] {
+  /* Doplněk k růžové. Měkká zeleň, která se k ní nepere. */
+  --color-guide: #0f766e;
+
   --color-ink-950: #fffaf8;
   --color-ink-900: #fff0f3;
   --color-ink-800: #ffe3ea;
@@ -523,6 +549,9 @@
 
 /* Slonovina a bledě modrá. */
 [data-theme="sweet-blue"] {
+  /* Doplněk k modré. Teplá jantarová mezi studenými odstíny svítí. */
+  --color-guide: #b45309;
+
   --color-ink-950: #f9fcff;
   --color-ink-900: #edf5fd;
   --color-ink-800: #dfecfa;
@@ -545,6 +574,9 @@
 
 /* Šťavnatá zeleň na písku, s ostrým teplým kontrastem. */
 [data-theme="jungle"] {
+  /* Doplněk k zeleni. Terakota je tu už zabraná, zbývá purpur. */
+  --color-guide: #6d28d9;
+
   --color-ink-950: #f8f4e9;
   --color-ink-900: #f0e9d7;
   --color-ink-800: #e5dcc4;
@@ -568,6 +600,9 @@
 /* Bílá, černá, tenká linka a nic navíc. */
 [data-theme="minimalist"] {
   --color-ink-950: #ffffff;
+  /* Jediná sytá barva na celém motivu. Právě proto je poznat. */
+  --color-guide: #1d4ed8;
+
   --color-ink-900: #fbfbfb;
   --color-ink-800: #f5f5f5;
   --color-ink-700: #e7e7e7;
@@ -1018,4 +1053,90 @@ body {
  */
 [data-store-app] .page-shell > header {
   padding-top: max(env(safe-area-inset-top), 28px);
+}
+
+/* --- Navádění ----------------------------------------------------------
+ *
+ * Tenký prstenec, který dvakrát objede obrys cíle a zhasne. Žádná
+ * knihovna: kuželový přechod v `::after` a dvě masky, které vyříznou
+ * vnitřek, takže se obarví jen okraj a ne plocha pod textem.
+ *
+ * ── Čtyři vlastnosti, které to drží ─────────────────────────────────
+ *
+ * Nejsou doporučení. Když kterákoli padne, není to navádění, ale
+ * reklama uvnitř vlastního webu — a návštěvník to pozná rychleji
+ * než my.
+ *
+ *  1. Zhasne samo. Animace má pevný počet oběhů, takže nic nemusí nic
+ *     zavírat. Nápověda, kterou musí člověk odklikat, je překážka.
+ *  2. Nic nezakrývá. `inset: -2px` kreslí vně obrysu, nikdy přes obsah.
+ *  3. Nebere klepnutí. Viz `pointer-events` níž.
+ *  4. Je nenápadné. Krytí 0,7, ne plná plocha — má to být vidět jako
+ *     pohyb v periferním vidění, ne jako prvek rozhraní.
+ */
+@property --guide-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.is-guided {
+  position: relative;
+}
+
+.is-guided::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  padding: 2px;
+  opacity: 0.7;
+
+  /*
+   * Bez tohohle vrstva sebere klepnutí a člověk klepne na radu místo
+   * na cíl. Platí i pro prvky s nulovým krytím — ty jsou pořád
+   * klikací, jen je není vidět, což je ta nejhůř hledatelná podoba
+   * téhle chyby.
+   */
+  pointer-events: none;
+
+  background: conic-gradient(
+    from var(--guide-angle),
+    transparent 0deg 300deg,
+    var(--color-guide) 345deg,
+    transparent 360deg
+  );
+
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+
+  animation: guide-sweep 2.4s linear 2;
+}
+
+@keyframes guide-sweep {
+  to {
+    --guide-angle: 360deg;
+  }
+}
+
+/*
+ * Vypnuté animace nejsou volitelné: pohyb v periferním vidění je
+ * u části lidí spouštěč nevolnosti. Zůstane klidné zabarvení okraje,
+ * takže nápověda nezmizí — jen se přestane hýbat.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .is-guided::after {
+    background: none;
+    border: 2px solid var(--color-guide);
+    padding: 0;
+    -webkit-mask: none;
+    mask: none;
+    animation: none;
+  }
 }
