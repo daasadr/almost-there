@@ -115,8 +115,8 @@
     "fullOnly": "Full version only"
   },
   "pricing": {
-    "title": "One plan. No tiers, no upsells.",
-    "subtitle": "Everyone uses this for the same thing, so there's nothing to upgrade to.",
+    "title": "A subscription, or a one-off",
+    "subtitle": "The subscription is a plan you tick off on your phone and that recalculates as you go. One-off, you can buy a finished plan as a PDF to print: you pay once and it does not change afterwards. No tiers and no add-ons in either case.",
     "price": "179 CZK",
     "period": "/ month",
     "yearlyNote": "Or pay yearly and get two months free.",

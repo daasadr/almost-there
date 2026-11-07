@@ -115,8 +115,8 @@
     "fullOnly": "Jen v plné verzi"
   },
   "pricing": {
-    "title": "Jeden tarif. Žádné úrovně, žádné dokupování.",
-    "subtitle": "Všichni to používají na totéž, takže není na co upgradovat.",
+    "title": "Předplatné, nebo jednorázově",
+    "subtitle": "Předplatné je plán, který se odškrtává v telefonu a přepočítává podle toho, jak ti to jde. Jednorázově se dá koupit hotový plán v PDF k vytištění: zaplatíš jednou a dál se nemění. Žádné úrovně a žádné dokupování ani u jednoho.",
     "price": "179 Kč",
     "period": "/ měsíc",
     "yearlyNote": "Nebo roční platba a dva měsíce zdarma.",

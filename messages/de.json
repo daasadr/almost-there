@@ -115,8 +115,8 @@
     "fullOnly": "Nur in der Vollversion"
   },
   "pricing": {
-    "title": "Ein Tarif. Keine Stufen, keine Zusatzkäufe.",
-    "subtitle": "Alle nutzen es für dasselbe — es gibt also nichts zum Upgraden.",
+    "title": "Abo oder einmalig",
+    "subtitle": "Das Abo ist ein Plan, den du am Handy abhakst und der sich daran anpasst, wie es läuft. Einmalig kannst du einen fertigen Plan als PDF zum Ausdrucken kaufen: einmal bezahlt, danach unverändert. Keine Stufen und keine Zusatzpakete, bei beidem nicht.",
     "price": "179 CZK",
     "period": "/ Monat",
     "yearlyNote": "Oder jährlich zahlen und zwei Monate geschenkt bekommen.",
