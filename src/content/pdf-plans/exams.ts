@@ -39,6 +39,8 @@ Daily tasks must be small enough to finish on a school night — the person has 
           "Celé zkouškové testy nanečisto, za stejných podmínek jako doopravdy",
           "Poslední dva týdny jen opakování. Nic nového, to by se neudrželo",
         ],
+        whenBehind:
+          "Škrtají se okruhy s nejmenší vahou u zkoušky. Celé testy nanečisto zůstávají vždycky — přijít ke zkoušce se čtyřmi hotovými testy je lepší než každý okruh znát z poloviny.",
         goal: "Připravit se na maturitu z ",
       },
       en: {
@@ -53,6 +55,8 @@ Daily tasks must be small enough to finish on a school night — the person has 
           "Whole past papers under real exam conditions",
           "The last two weeks are revision only. Nothing new; it would not hold",
         ],
+        whenBehind:
+          "The topics worth fewest marks get cut. Whole past papers always stay — walking in having done four complete papers beats half-knowing everything.",
         goal: "Prepare for my final exam in ",
       },
       de: {
@@ -67,6 +71,8 @@ Daily tasks must be small enough to finish on a school night — the person has 
           "Ganze alte Prüfungen unter echten Bedingungen",
           "Die letzten zwei Wochen nur Wiederholung. Nichts Neues, das würde nicht halten",
         ],
+        whenBehind:
+          "Die Themen mit dem geringsten Gewicht fallen weg. Ganze Prüfungen zur Übung bleiben immer — mit vier fertigen Prüfungen anzutreten ist besser, als alles halb zu können.",
         goal: "Mich auf die Abschlussprüfung vorbereiten in ",
       },
     },
@@ -104,6 +110,8 @@ Respect the stated hours per week; the person is usually also at school.`,
           "Od poloviny se měří čas. Většina bodů se neztrácí neznalostí, ale tím, že se to nestihne",
           "Na konci test každých pár dní a hlavně rozbor chyb, který trvá dýl než test sám",
         ],
+        whenBehind:
+          "Škrtají se nejvzácnější typy úloh. Testy na čas a rozbor chyb zůstávají — bez rozboru se z testu nenaučíš nic a právě tam se body získávají.",
         goal: "Dostat se na ",
       },
       en: {
@@ -117,6 +125,8 @@ Respect the stated hours per week; the person is usually also at school.`,
           "From halfway, everything is timed. Most points go to running out of time, not to not knowing",
           "At the end, a paper every few days and, above all, going through the mistakes — which takes longer than the paper",
         ],
+        whenBehind:
+          "The rarest question types get cut. Timed papers and going through the mistakes stay — a paper you do not review teaches nothing, and that review is where the marks come from.",
         goal: "Get into ",
       },
       de: {
@@ -130,6 +140,8 @@ Respect the stated hours per week; the person is usually also at school.`,
           "Ab der Hälfte wird die Zeit gemessen. Die meisten Punkte gehen durch Zeitmangel verloren, nicht durch Unwissen",
           "Am Ende alle paar Tage eine Prüfung und vor allem die Fehleranalyse, die länger dauert als die Prüfung selbst",
         ],
+        whenBehind:
+          "Die seltensten Aufgabentypen fallen weg. Prüfungen auf Zeit und die Fehleranalyse bleiben — eine Prüfung ohne Nachbereitung bringt nichts, und genau dort entstehen die Punkte.",
         goal: "Aufgenommen werden an ",
       },
     },

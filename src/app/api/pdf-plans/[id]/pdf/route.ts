@@ -4,6 +4,7 @@ import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { parsePlan, isComplete } from "@/lib/pdf-plans/plan";
 import { renderPlanPdf, type RenderStrings } from "@/lib/pdf-plans/render";
+import { templateById } from "@/content/pdf-plans";
 import type { Locale } from "@/i18n/routing";
 
 export const runtime = "nodejs";
@@ -37,6 +38,9 @@ export async function GET(
       locale: true,
       weeks: true,
       planJson: true,
+      templateId: true,
+      startDate: true,
+      targetDate: true,
       createdAt: true,
     },
   });
@@ -48,7 +52,20 @@ export async function GET(
   }
 
   const locale = order.locale as Locale;
-  const strings = await buildStrings(locale, order.weeks);
+  const template = order.templateId ? templateById(order.templateId) : undefined;
+
+  const strings = await buildStrings({
+    locale,
+    weeks: order.weeks,
+    startDate: order.startDate,
+    targetDate: order.targetDate,
+    createdAt: order.createdAt,
+    // Co se škrtá při skluzu je ze šablony, ne od modelu: je to
+    // nejcennější věta v dokumentu a nemá kolísat od objednávky
+    // k objednávce. U vlastního cíle se použije obecná.
+    whenBehind: template?.text[locale].whenBehind,
+    disclaimer: template?.disclaimer,
+  });
 
   const pdf = await renderPlanPdf({ title: order.title, plan, strings });
 
@@ -86,11 +103,26 @@ function fileName(title: string): string {
   return `${base || "plan"}.pdf`;
 }
 
-async function buildStrings(
-  locale: Locale,
-  weeks: number,
-): Promise<RenderStrings> {
+async function buildStrings({
+  locale,
+  weeks,
+  startDate,
+  targetDate,
+  createdAt,
+  whenBehind,
+  disclaimer,
+}: {
+  locale: Locale;
+  weeks: number;
+  startDate: Date;
+  targetDate: Date;
+  createdAt: Date;
+  whenBehind?: string;
+  disclaimer?: "health" | "finance";
+}): Promise<RenderStrings> {
   const t = await getTranslations({ locale, namespace: "pdfPlans.doc" });
+
+  const longDate = new Intl.DateTimeFormat(locale, { dateStyle: "long" });
 
   const dayFormat = new Intl.DateTimeFormat(locale, {
     weekday: "long",
@@ -108,6 +140,21 @@ async function buildStrings(
 
   return {
     subtitle: t("subtitle", { weeks }),
+    coverEyebrow: t("coverEyebrow"),
+    coverStart: t("coverStart", { date: longDate.format(startDate) }),
+    coverTarget: t("coverTarget", { date: longDate.format(targetDate) }),
+    coverMade: t("coverMade", { date: longDate.format(createdAt) }),
+    overviewTitle: t("overview"),
+    behindTitle: t("behindTitle"),
+    behindText: whenBehind ?? t("behindGeneric"),
+    closingTitle: t("closingTitle"),
+    closingBody: t("closingBody"),
+    disclaimer:
+      disclaimer === "health"
+        ? t("disclaimerHealth")
+        : disclaimer === "finance"
+          ? t("disclaimerFinance")
+          : undefined,
     assumptionsLabel: t("assumptions"),
     challengeLabel: t("challenge"),
     weekLabel: (index) => t("week", { index }),

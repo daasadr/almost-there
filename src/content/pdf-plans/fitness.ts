@@ -9,6 +9,7 @@ export const fitness: PdfPlanTemplate[] = [
     id: "pulmaraton",
     area: "fitness",
     suggestedWeeks: 12,
+    disclaimer: "health",
     guidance: `The goal is to run a half marathon (21.1 km) on a fixed race date.
 
 This is a plan for a body, not a calendar, so the limit is not time but recovery:
@@ -41,6 +42,8 @@ Daily tasks should say the distance or the time and the pace, and include the re
           "Nejdelší trénink je šestnáct až osmnáct kilometrů, ne celá trať",
           "Poslední dva týdny se ubírá. Budeš se cítit těžce a myslet si, že jsi ztratil formu — to je v plánu napsané, protože právě tehdy se dá všechno pokazit",
         ],
+        whenBehind:
+          "Škrtá se rychlejší trénink. Dlouhý běh a dny volna zůstávají — vytrvalost roste z dlouhého běhu, rychlost ubere jen minuty. A nábíhání se nikdy nestlačuje, aby se dohnalo zameškané; tak končí příprava zraněním místo v cíli.",
         goal: "Uběhnout půlmaraton ",
       },
       en: {
@@ -55,6 +58,8 @@ Daily tasks should say the distance or the time and the pace, and include the re
           "The longest run is 16 to 18 km, not the full distance",
           "The last two weeks wind down. You will feel heavy and think you have lost form — that is written into the plan, because that is exactly when people ruin it",
         ],
+        whenBehind:
+          "The faster session gets cut. The long run and the rest days stay — endurance comes from the long run, speed only shaves off minutes. And the build-up is never compressed to catch up; that is how preparation ends in injury instead of at the finish.",
         goal: "Run a half marathon on ",
       },
       de: {
@@ -69,6 +74,8 @@ Daily tasks should say the distance or the time and the pace, and include the re
           "Der längste Lauf geht über 16 bis 18 km, nicht über die ganze Distanz",
           "Die letzten zwei Wochen wird reduziert. Du wirst dich schwer fühlen und denken, du hättest die Form verloren — das steht im Plan, denn genau dann macht man alles kaputt",
         ],
+        whenBehind:
+          "Die schnellere Einheit fällt weg. Der lange Lauf und die Ruhetage bleiben — Ausdauer kommt vom langen Lauf, Tempo spart nur Minuten. Und der Aufbau wird nie gestaucht, um Versäumtes aufzuholen; so endet die Vorbereitung mit einer Verletzung statt im Ziel.",
         goal: "Einen Halbmarathon laufen am ",
       },
     },

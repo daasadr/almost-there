@@ -40,6 +40,26 @@ import type { StoredPlan } from "./plan";
  * (barevná tiskárna se nepředpokládá), zaškrtávátka dost velká na
  * propisku, čísla stran, a na každé straně je vidět, o který týden jde
  * — vytištěné listy se rozsypou a musí jít složit zpátky.
+ *
+ * ── Z čeho se dokument skládá ───────────────────────────────────────
+ *
+ *  1. titulní strana — cíl, termín, datum pořízení,
+ *  2. přehled celého plánu na jednu stranu,
+ *  3. týdny s denními úkoly,
+ *  4. **co dělat, když to nestíhám**,
+ *  5. závěr: upozornění, pokud obor zasahuje do zdraví nebo peněz,
+ *     a nabídka mít totéž živé v aplikaci.
+ *
+ * Čtvrtá strana je ta, kvůli které se to vyplatí. Každý plán se dřív
+ * nebo později rozejde se skutečností, a vytištěný papír se na rozdíl
+ * od aplikace sám nepřepočítá — bez návodu, co obětovat jako první, se
+ * z něj po prvním zameškaném týdnu stane výčitka a zahodí se.
+ *
+ * ── Co v dokumentu nikdy nebude ─────────────────────────────────────
+ *
+ * Sliby výsledku. Prodává se struktura, ne záruka: „s námi uspěješ" tu
+ * nemá co dělat, protože to nemůžeme vědět a každý, kdo takovou větu
+ * čte, to ví taky.
  */
 
 let registered = false;
@@ -116,6 +136,60 @@ const styles = StyleSheet.create({
   taskText: { flex: 1, fontSize: 10, lineHeight: 1.4 },
   minutes: { fontSize: 8.5, color: "#888888", marginLeft: 6, marginTop: 1.5 },
 
+  coverPage: {
+    paddingTop: 150,
+    paddingBottom: 56,
+    paddingHorizontal: 52,
+    fontFamily: "Instrument",
+    color: "#111111",
+  },
+  coverEyebrow: {
+    fontSize: 9,
+    fontWeight: 700,
+    letterSpacing: 1.4,
+    color: "#777777",
+  },
+  coverTitle: { fontSize: 30, fontWeight: 700, lineHeight: 1.2, marginTop: 14 },
+  coverMeta: { fontSize: 11, lineHeight: 1.7, color: "#444444", marginTop: 26 },
+  coverRule: {
+    borderTopWidth: 1.4,
+    borderTopColor: "#111111",
+    width: 64,
+    marginTop: 26,
+  },
+
+  overviewRow: {
+    flexDirection: "row",
+    marginBottom: 7,
+    alignItems: "flex-start",
+  },
+  overviewWeek: {
+    width: 62,
+    fontSize: 9,
+    fontWeight: 700,
+    color: "#666666",
+    marginTop: 1,
+  },
+  overviewText: { flex: 1, fontSize: 10, lineHeight: 1.4 },
+
+  behindBox: {
+    marginTop: 14,
+    borderWidth: 1,
+    borderColor: "#111111",
+    padding: 16,
+  },
+  behindText: { fontSize: 11, lineHeight: 1.6 },
+  closing: { fontSize: 10.5, lineHeight: 1.6, color: "#333333", marginTop: 10 },
+  disclaimer: {
+    fontSize: 9,
+    lineHeight: 1.5,
+    color: "#666666",
+    marginTop: 22,
+    paddingTop: 12,
+    borderTopWidth: 0.7,
+    borderTopColor: "#cccccc",
+  },
+
   footer: {
     position: "absolute",
     bottom: 26,
@@ -131,6 +205,22 @@ const styles = StyleSheet.create({
 export type RenderStrings = {
   /** „Plán na 12 týdnů · almost-there.eu" */
   subtitle: string;
+  /** Nadpisek nad názvem na titulní straně. */
+  coverEyebrow: string;
+  /** „Termín: 9. ledna 2027" */
+  coverTarget: string;
+  /** „Začátek: 7. listopadu 2026" */
+  coverStart: string;
+  /** „Vytvořeno 7. 11. 2026" */
+  coverMade: string;
+  overviewTitle: string;
+  behindTitle: string;
+  /** Co se škrtá, když se nestíhá. Ze šablony, ne od modelu. */
+  behindText: string;
+  closingTitle: string;
+  closingBody: string;
+  /** Upozornění k oboru. Prázdné, když se ho netýká. */
+  disclaimer?: string;
   assumptionsLabel: string;
   challengeLabel: string;
   weekLabel: (index: number) => string;
@@ -154,6 +244,26 @@ function PlanDocument({
 }) {
   return (
     <Document title={title} author="almost-there.eu">
+      {/* Titulní strana. Dokument se tiskne a zakládá, takže musí na
+          první pohled říct, čí je a k čemu — i za rok v šuplíku. */}
+      <Page size="A4" style={styles.coverPage}>
+        <Text style={styles.coverEyebrow}>
+          {strings.coverEyebrow.toUpperCase()}
+        </Text>
+        <Text style={styles.coverTitle}>{title}</Text>
+        <View style={styles.coverRule} />
+        <View style={styles.coverMeta}>
+          <Text>{strings.coverStart}</Text>
+          <Text>{strings.coverTarget}</Text>
+          <Text>{strings.coverMade}</Text>
+        </View>
+
+        <View style={styles.footer} fixed>
+          <Text>almost-there.eu</Text>
+          <Text />
+        </View>
+      </Page>
+
       <Page size="A4" style={styles.page} wrap>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.subtitle}>{strings.subtitle}</Text>
@@ -181,6 +291,22 @@ function PlanDocument({
             ))}
           </>
         ) : null}
+
+        {/* Přehled celého plánu na jednom místě. Bez něj se
+            v dvacetistránkovém dokumentu nedá zjistit, kde člověk je
+            a co ho ještě čeká — a právě to se při tisku ztrácí
+            nejvíc. */}
+        <Text style={styles.sectionLabel}>
+          {strings.overviewTitle.toUpperCase()}
+        </Text>
+        {plan.weeks.map((week) => (
+          <View key={`o${week.index}`} style={styles.overviewRow} wrap={false}>
+            <Text style={styles.overviewWeek}>
+              {strings.weekLabel(week.index)}
+            </Text>
+            <Text style={styles.overviewText}>{week.milestone}</Text>
+          </View>
+        ))}
 
         {plan.weeks.map((week) => (
           /*
@@ -224,6 +350,25 @@ function PlanDocument({
             ))}
           </View>
         ))}
+
+        {/* Co dělat, když to nestíhám. Vlastní strana, protože
+            vytištěný plán se sám nepřepočítá a bez tohohle se z něj
+            po prvním zameškaném týdnu stane výčitka. */}
+        <View break>
+          <Text style={styles.title}>{strings.behindTitle}</Text>
+          <View style={styles.behindBox}>
+            <Text style={styles.behindText}>{strings.behindText}</Text>
+          </View>
+
+          <Text style={styles.sectionLabel}>
+            {strings.closingTitle.toUpperCase()}
+          </Text>
+          <Text style={styles.closing}>{strings.closingBody}</Text>
+
+          {strings.disclaimer ? (
+            <Text style={styles.disclaimer}>{strings.disclaimer}</Text>
+          ) : null}
+        </View>
 
         <View style={styles.footer} fixed>
           <Text>almost-there.eu</Text>

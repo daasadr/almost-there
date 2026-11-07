@@ -109,6 +109,17 @@ const SAMPLES: Record<Locale, Sample> = {
       challenge: "Čím to prokážeš",
       week: "Týden",
       min: "min",
+      eyebrow: "Ukázka plánu k vytištění",
+      start: "Začátek: 11. ledna 2027",
+      target: "Termín: 2. dubna 2027",
+      made: "Vytvořeno 7. listopadu 2026",
+      overview: "Celý plán na jednom místě",
+      behindTitle: "Když to nestíháš",
+      behindText:
+        "Škrtají se okruhy s nejmenší vahou u zkoušky. Celé testy nanečisto zůstávají vždycky — přijít ke zkoušce se čtyřmi hotovými testy je lepší než každý okruh znát z poloviny.",
+      closingTitle: "Kdyby se ti to mělo odškrtávat samo",
+      closingBody:
+        "Tenhle plán je snímek — platí tak, jak je vytištěný. V aplikaci na almost-there.eu máš totéž živé: odškrtáváš v telefonu, vidíš, jak ti to jde, a když se cesta rozejde se skutečností, zbytek se přepočítá podle tvého skutečného tempa.",
     }),
   },
 
@@ -194,6 +205,17 @@ const SAMPLES: Record<Locale, Sample> = {
       challenge: "How you will prove it",
       week: "Week",
       min: "min",
+      eyebrow: "A sample plan to print",
+      start: "Starts: 11 January 2027",
+      target: "Deadline: 2 April 2027",
+      made: "Created 7 November 2026",
+      overview: "The whole plan in one place",
+      behindTitle: "When you fall behind",
+      behindText:
+        "The topics worth fewest marks get cut. Whole past papers always stay — walking in having done four complete papers beats half-knowing everything.",
+      closingTitle: "If you would rather it ticked itself off",
+      closingBody:
+        "This plan is a snapshot — it holds exactly as printed. The app at almost-there.eu gives you the same thing live: you tick things off on your phone, you see how you are doing, and when the path parts ways with reality the rest is recalculated to the pace you actually keep.",
     }),
   },
 
@@ -279,6 +301,17 @@ const SAMPLES: Record<Locale, Sample> = {
       challenge: "Woran du es misst",
       week: "Woche",
       min: "Min.",
+      eyebrow: "Beispielplan zum Ausdrucken",
+      start: "Beginn: 11. Januar 2027",
+      target: "Termin: 2. April 2027",
+      made: "Erstellt am 7. November 2026",
+      overview: "Der ganze Plan an einer Stelle",
+      behindTitle: "Wenn du hinterherhinkst",
+      behindText:
+        "Die Themen mit dem geringsten Gewicht fallen weg. Ganze Prüfungen zur Übung bleiben immer — mit vier fertigen Prüfungen anzutreten ist besser, als alles halb zu können.",
+      closingTitle: "Falls es sich von selbst abhaken soll",
+      closingBody:
+        "Dieser Plan ist eine Momentaufnahme — er gilt genau so, wie er gedruckt ist. In der App auf almost-there.eu hast du dasselbe lebendig: Du hakst am Handy ab, siehst, wie es läuft, und wenn der Weg von der Wirklichkeit abweicht, wird der Rest an dein tatsächliches Tempo angepasst.",
     }),
   },
 };
@@ -286,7 +319,21 @@ const SAMPLES: Record<Locale, Sample> = {
 function strings(
   locale: Locale,
   subtitle: string,
-  labels: { assumptions: string; challenge: string; week: string; min: string },
+  labels: {
+    assumptions: string;
+    challenge: string;
+    week: string;
+    min: string;
+    eyebrow: string;
+    start: string;
+    target: string;
+    made: string;
+    overview: string;
+    behindTitle: string;
+    behindText: string;
+    closingTitle: string;
+    closingBody: string;
+  },
 ): RenderStrings {
   const dayFormat = new Intl.DateTimeFormat(locale, {
     weekday: "long",
@@ -301,6 +348,15 @@ function strings(
 
   return {
     subtitle,
+    coverEyebrow: labels.eyebrow,
+    coverStart: labels.start,
+    coverTarget: labels.target,
+    coverMade: labels.made,
+    overviewTitle: labels.overview,
+    behindTitle: labels.behindTitle,
+    behindText: labels.behindText,
+    closingTitle: labels.closingTitle,
+    closingBody: labels.closingBody,
     assumptionsLabel: labels.assumptions,
     challengeLabel: labels.challenge,
     weekLabel: (index) => `${labels.week} ${index}`,

@@ -39,6 +39,18 @@ export type PdfPlanText = {
    * co `guidance` opravdu udělá.
    */
   outline: string[];
+  /**
+   * Co se škrtá, když se přestane stíhat.
+   *
+   * Má v PDF vlastní stranu. Každý plán se dřív nebo později rozejde
+   * se skutečností a tohle je rozdíl mezi plánem, který to ustojí,
+   * a seznamem předsevzetí — vytištěný papír se navíc sám
+   * nepřepočítá, takže je to tam potřeba ještě víc než v aplikaci.
+   *
+   * Píše se ručně, ne modelem: je to to nejcennější na celém
+   * dokumentu a nemá kolísat od objednávky k objednávce.
+   */
+  whenBehind: string;
   /** Předvyplněné zadání. Uživatel ho upraví. */
   goal: string;
 };
@@ -50,6 +62,16 @@ export type PdfPlanTemplate = {
   suggestedWeeks: number;
   /** Odborný pokyn pro model. Anglicky, jednou pro všechny jazyky. */
   guidance: string;
+  /**
+   * Upozornění na poslední straně, když obor zasahuje do zdraví
+   * nebo peněz.
+   *
+   * Plán píše model, ne lékař ani poradce. U běhání, cvičení
+   * a dluhů to musí být napsané — ne kvůli pojistce, ale protože
+   * člověk, který si koupil tréninkový plán, má vědět, kdy má jít
+   * za někým jiným.
+   */
+  disclaimer?: "health" | "finance";
   text: Record<Locale, PdfPlanText>;
 };
 
@@ -65,7 +87,12 @@ function assertComplete(): void {
   for (const template of ALL) {
     for (const locale of locales) {
       const text = template.text[locale];
-      if (!text?.title || !text.goal || text.outline.length === 0) {
+      if (
+        !text?.title ||
+        !text.goal ||
+        !text.whenBehind ||
+        text.outline.length === 0
+      ) {
         throw new Error(
           `Šablona PDF ${template.id} nemá úplný text pro jazyk ${locale}.`,
         );

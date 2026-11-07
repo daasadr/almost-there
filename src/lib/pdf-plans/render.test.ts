@@ -15,6 +15,16 @@ import type { StoredPlan } from "./plan";
 
 const STRINGS: RenderStrings = {
   subtitle: "Plán na 2 týdny · almost-there.eu",
+  coverEyebrow: "Plán k vytištění",
+  coverStart: "Začátek: 9. listopadu 2026",
+  coverTarget: "Termín: 22. listopadu 2026",
+  coverMade: "Vytvořeno 7. listopadu 2026",
+  overviewTitle: "Celý plán na jednom místě",
+  behindTitle: "Když to nestíháš",
+  behindText:
+    "Škrtá se odzadu: nejdřív to, co je navíc, až nakonec to, na čem cíl stojí.",
+  closingTitle: "Kdyby se ti to mělo odškrtávat samo",
+  closingBody: "Tenhle plán je snímek — platí tak, jak je vytištěný.",
   assumptionsLabel: "Z čeho plán vychází",
   challengeLabel: "Čím to prokážeš",
   weekLabel: (i) => `Týden ${i}`,

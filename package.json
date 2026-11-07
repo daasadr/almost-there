@@ -24,7 +24,7 @@
     "e2e:ui": "playwright test --ui",
     "notify:assets": "node scripts/notify-assets.mjs",
     "motivation": "tsx scripts/motivation.ts",
-    "pdf-samples": "vite-node scripts/pdf-samples.mts"
+    "pdf-samples": "npx vite-node scripts/pdf-samples.mts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.115.0",
