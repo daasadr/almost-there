@@ -97,7 +97,7 @@ function Hero() {
             {t("eyebrow")}
           </p>
 
-          <h1 className="display mt-6 text-5xl sm:text-6xl lg:text-7xl">
+          <h1 className="display type-hero mt-7">
             {t("title")}
             <br />
             <span className="text-gradient">{t("titleAccent")}</span>
@@ -150,11 +150,11 @@ function HowItWorks() {
   const steps = t.raw("steps") as Step[];
 
   return (
-    <section id="how" className="relative py-24 sm:py-32">
+    <section id="how" className="relative py-28 sm:py-40">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <div className="max-w-2xl reveal">
-          <h2 className="display text-4xl sm:text-5xl">{t("title")}</h2>
-          <p className="mt-4 text-lg text-[var(--color-paper-dim)]">
+          <h2 className="display type-section">{t("title")}</h2>
+          <p className="type-lead measure mt-6 text-[var(--color-paper-dim)]">
             {t("subtitle")}
           </p>
         </div>
@@ -186,7 +186,7 @@ function Features() {
   const items = t.raw("items") as Feature[];
 
   return (
-    <section id="features" className="relative py-24 sm:py-32">
+    <section id="features" className="relative py-28 sm:py-40">
       {/* Jemná záře, aby sekce nebyla jen plochý tmavý blok */}
       <div
         aria-hidden="true"
@@ -200,8 +200,8 @@ function Features() {
       <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
         <div className="max-w-2xl reveal">
           <p className="eyebrow">02</p>
-          <h2 className="display mt-4 text-4xl sm:text-5xl">{t("title")}</h2>
-          <p className="mt-4 text-lg text-[var(--color-paper-dim)]">
+          <h2 className="display type-section mt-5">{t("title")}</h2>
+          <p className="type-lead measure mt-6 text-[var(--color-paper-dim)]">
             {t("subtitle")}
           </p>
         </div>
@@ -237,12 +237,12 @@ function Pricing() {
   const includes = t.raw("includes") as string[];
 
   return (
-    <section id="pricing" className="relative py-24 sm:py-32">
+    <section id="pricing" className="relative py-28 sm:py-40">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <div className="mx-auto max-w-2xl text-center reveal">
           <p className="eyebrow justify-center">03</p>
-          <h2 className="display mt-4 text-4xl sm:text-5xl">{t("title")}</h2>
-          <p className="mt-4 text-lg text-[var(--color-paper-dim)]">
+          <h2 className="display type-section mt-5">{t("title")}</h2>
+          <p className="type-lead measure-wide mx-auto mt-6 text-[var(--color-paper-dim)]">
             {t("subtitle")}
           </p>
         </div>
@@ -340,11 +340,11 @@ function FinalCta() {
   const tNav = useTranslations("nav");
 
   return (
-    <section className="relative py-24 sm:py-32">
+    <section className="relative py-28 sm:py-40">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <div className="hairline" />
         <div className="mx-auto mt-16 max-w-2xl text-center reveal">
-          <h2 className="display text-4xl sm:text-5xl">
+          <h2 className="display type-section">
             {t("title")}
             <br />
             <span className="text-gradient">{t("subtitle")}</span>

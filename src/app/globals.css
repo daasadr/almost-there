@@ -1140,3 +1140,57 @@ body {
     animation: none;
   }
 }
+
+/* --- Typografická stupnice -------------------------------------------
+ *
+ * Velikosti plynule podle šířky okna, ne ve třech skocích podle
+ * breakpointů.
+ *
+ * Proč na tom záleží: žebříček `text-4xl sm:text-5xl lg:text-6xl` je
+ * výchozí sada nástroje a je na webu poznat — nadpis se při zmenšování
+ * okna lomí po schodech a mezi dvěma breakpointy je buď moc velký,
+ * nebo moc malý. `clamp()` tohle řeší jednou hodnotou a výsledek
+ * působí jako navržený, ne jako poskládaný.
+ *
+ * Rozdíl mezi nadpisem a textem je přitom větší než dřív. Právě ten
+ * kontrast dělá dojem klidu: velký nadpis, tichý odstavec a mezi nimi
+ * nic. Plynulá řada velikostí vypadá levněji než dvě, které k sobě
+ * nemají blízko.
+ */
+.type-hero {
+  font-size: clamp(2.75rem, 1.6rem + 5.2vw, 5.5rem);
+  line-height: 0.98;
+  /* U velkých stupňů se mezery opticky roztahují, proto se stahují víc. */
+  letter-spacing: -0.035em;
+}
+
+.type-section {
+  font-size: clamp(2.25rem, 1.5rem + 3vw, 3.75rem);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+}
+
+/*
+ * Odstavec pod nadpisem. Menší, než bývá zvykem, zato vzdušnější —
+ * a hlavně užší.
+ */
+.type-lead {
+  font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  line-height: 1.65;
+  letter-spacing: -0.005em;
+}
+
+/*
+ * Šířka textového sloupce v znacích, ne v pixelech.
+ *
+ * Dlouhé řádky se čtou hůř a vypadají lacině. Typografie doporučuje
+ * 45 až 75 znaků; pod nadpisem na úvodní stránce je lepší spodní
+ * polovina toho rozsahu, protože se to čte na jeden nádech.
+ */
+.measure {
+  max-width: 46ch;
+}
+
+.measure-wide {
+  max-width: 62ch;
+}
