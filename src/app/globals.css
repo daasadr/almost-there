@@ -1486,19 +1486,37 @@ body {
   }
 }
 
-/* Pobídka k rolování se sama nenápadně hýbe; stojí u první scény. */
+/*
+ * Pobídka k rolování.
+ *
+ * Mizí plynule, a proto se o ni dělí dva prvky: obal drží zmizení,
+ * šipka uvnitř pohyb. Kdyby nekonečná animace sahala na `opacity`
+ * obalu, přebila by přechod a pobídka by při zmizení poskočila.
+ */
 .journey-hint {
-  animation: journey-hint 2.4s ease-in-out infinite;
+  transition:
+    opacity 400ms ease,
+    transform 400ms ease;
+}
+
+/* Zmizelá zůstává v dokumentu — jinak by neměla odkud zmizet. */
+.journey-hint[data-gone] {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+
+.journey-hint-arrow {
+  animation: journey-hint 1.9s ease-in-out infinite;
 }
 
 @keyframes journey-hint {
   0%,
   100% {
-    opacity: 0.55;
+    opacity: 0.5;
     transform: none;
   }
   50% {
     opacity: 1;
-    transform: translateY(3px);
+    transform: translateY(4px);
   }
 }

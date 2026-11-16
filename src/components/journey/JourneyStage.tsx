@@ -252,11 +252,28 @@ export function JourneyStage({
               {scene === 6 && <SceneDone strings={strings} sub={sub} />}
             </div>
 
-            {step === 0 && (
-              <p className="journey-hint mt-5 text-center text-sm text-[var(--color-paper-faint)]">
-                {strings.scrollHint}
-              </p>
-            )}
+            {/*
+              Rada, co udělat, aby se ukázka rozběhla. Scéna se sama
+              nehýbe, takže bez pobídky se dá minout jako obrázek —
+              a kdo odroluje jen kolem, neuvidí z celé cesty nic.
+              Po prvním kroku zmizí: kdo roluje, radu už nepotřebuje.
+            */}
+            <p
+              className="journey-hint mx-auto mt-5 flex w-fit items-center gap-2 rounded-full border border-edge-faint bg-surface px-4 py-1.5 text-sm text-[var(--color-paper-faint)]"
+              data-gone={step > 0 || undefined}
+            >
+              {strings.scrollHint}
+              <svg
+                viewBox="0 0 16 16"
+                className="journey-hint-arrow h-4 w-4 shrink-0 fill-none stroke-[var(--color-lime-soft)] stroke-[1.8]"
+              >
+                <path
+                  d="M8 2.5v10M3.8 8.6 8 12.8l4.2-4.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </p>
           </div>
         </div>
       </div>
