@@ -94,8 +94,34 @@ export type DecomposeInput = {
 };
 
 export type ReplanContext = {
+  /**
+   * Odkdy se na cíli pracuje (ISO datum založení).
+   *
+   * Dává věk tomu, co model čte dál: výchozí bod z května a odškrtané
+   * úkoly z minulého týdne jsou dvě různě staré zprávy o jednom člověku
+   * a bez data se čtou stejně.
+   */
+  startedOn?: string;
   /** Milníky období, která už uplynula — jejich obsah je zčásti za námi. */
   pastMilestones: string[];
+  /**
+   * Milníky, kterých člověk **opravdu** dosáhl.
+   *
+   * Rozdíl proti `pastMilestones` je celá tahle oprava: tam je, co plán
+   * chtěl, tady, co se stalo. Dokud model viděl jen to první a procento
+   * splnění, neměl z čeho poznat, co existuje — a po skluzu naplánoval
+   * znovu založení repozitáře, který byl půl roku starý.
+   */
+  achieved: string[];
+  /**
+   * Poslední odškrtané úkoly, od nejnovějšího.
+   *
+   * Nejkonkrétnější důkaz, jaký máme: jejich názvy psal model stejným
+   * jazykem jako plán, takže se čtou jako jeho část. Dvanáct je zhruba
+   * dva týdny práce — tedy kde je člověk teď; delší seznam by v zadání
+   * jen ředil podstatné.
+   */
+  recentlyDone: string[];
   /** Podíl hotové práce z toho, co už mělo být hotové (0–1). */
   completionRate: number;
   /** Kolik dní se za poslední dva týdny nedotáhlo. */
@@ -156,6 +182,8 @@ How to build the plan:
 - Start a skill plan where the person actually stands, not at the beginning of the subject. Someone who has been building real things for a year does not need a period on the basics; they need the parts they have been getting away with skipping. Their own description of where they start is what tells you this — take it literally.
 - If several goals are active at once, spread their heavy periods apart. Two goals must not both demand a peak effort at the same time.
 
+When you are told this is a replan of a goal already under way, you are continuing something, not starting it. The person has weeks or months of work behind them and you will be shown what they have finished. None of it may appear in the new plan as something to do again. Plan the road ahead from where they stand today — and where the expert guidance or their own description of their starting point describes a beginning they are already past, skip that beginning.
+
 Be honest about the deadline. If the goal genuinely does not fit the time available at the stated capacity, say so in the feasibility rating and note — a plan that quietly pretends is worse than no plan. Still produce the best possible breakdown either way.
 
 Write the plan in the language you are told to use, including every field. Use the second person ("you"), plain concrete language, and no motivational filler. Never mention that you are an AI or describe your own process.`;
@@ -173,7 +201,8 @@ For goals that depend on other people, money or market conditions, name what the
 With a short horizon, be concrete. Each week's milestone should read like something the person could show someone at the end of that week.`,
 };
 
-function buildUserPrompt(
+/** Exportované kvůli testům: zadání se jinak nedá přečíst. */
+export function buildUserPrompt(
   input: DecomposeInput,
   level: PlanLevel,
   ranges: DateRange[],
@@ -207,6 +236,26 @@ function buildUserPrompt(
       input.guidance,
       "",
     );
+
+    /*
+     * Pokyn popisuje cestu od nuly — v prvních dnech něco, co běží,
+     * verzování od prvního týdne. Při přeplánování ho model četl stejně
+     * naléhavě jako při zakládání cíle, a protože stojí výš než cokoliv
+     * o postupu, poslušně naplánoval začátek znovu i člověku, který ho
+     * má půl roku za sebou.
+     *
+     * Rámuje se tady, ne v textech šablon: pro první rozpad jsou ty
+     * texty správné a bylo by jich dvacet. Takhle to platí i pro
+     * šablony, které teprve vzniknou.
+     */
+    if (input.replan) {
+      lines.push(
+        "That guidance describes such a goal from its very beginning. This person is",
+        "already well into it. Apply it to what is still ahead of them; do not plan",
+        "its opening steps again. What they have already done is listed further down.",
+        "",
+      );
+    }
   }
 
   if (input.context) {
@@ -220,11 +269,30 @@ function buildUserPrompt(
   }
 
   if (input.startingPoint) {
+    /*
+     * Totéž políčko, dvakrát jiný význam.
+     *
+     * Při zakládání cíle je to dnešní stav člověka. Při přeplánování je
+     * to stav z doby, kdy cíl zakládal — klidně před půl rokem. Dokud
+     * se posílalo stejně, četl ho model jako kde ten člověk stojí
+     * a naplánoval cestu pro začátečníka podruhé.
+     */
     lines.push(
       "",
-      "Where they are starting from. Do not plan the beginner path for someone",
-      "who is already part of the way there, and do not skip foundations for",
-      "someone who is not:",
+      ...(input.replan
+        ? [
+            "Where they were starting from when they set this goal" +
+              (input.replan.startedOn ? " on " + input.replan.startedOn : "") +
+              ". This is history,",
+            "not where they stand today. What they have done since is listed below —",
+            "read that as their level now, and do not plan the beginner path again",
+            "for ground they have already covered:",
+          ]
+        : [
+            "Where they are starting from. Do not plan the beginner path for someone",
+            "who is already part of the way there, and do not skip foundations for",
+            "someone who is not:",
+          ]),
       input.startingPoint,
       "",
     );
@@ -282,18 +350,35 @@ function buildUserPrompt(
 /**
  * Kontext pro opakovaný rozpad po skluzu.
  *
- * Podstatná je poslední instrukce: nedodělané úkoly se nepřenášejí.
- * Doplňovat je mezi nadcházející dny je nejspolehlivější způsob, jak
- * plán zabít — kupka roste rychleji, než se dá odbourat. Přenáší se
- * to, co z milníku ještě chybí, ne seznam propadlých položek.
+ * Dvě pravidla proti sobě a obě musí platit najednou:
+ *
+ *  - **Nedodělané úkoly se nepřenášejí.** Doplňovat je mezi nadcházející
+ *    dny je nejspolehlivější způsob, jak plán zabít — kupka roste
+ *    rychleji, než se dá odbourat. Přenáší se to, co z milníku ještě
+ *    chybí, ne seznam propadlých položek.
+ *  - **Hotové se neplánuje podruhé.** Tohle tu dlouho chybělo a stálo
+ *    to Dagmar celý cíl: po přepočtu v polovině cesty dostala za úkol
+ *    založit aplikaci a repozitář, které měla měsíce. Plán, který
+ *    nepozná, co člověk udělal, se přestane číst — a právem.
+ *
+ * Proti druhému pravidlu nestačí prosba. Musí k němu být důkazy, a to
+ * o skutečnosti, ne o plánu: dosažené milníky a odškrtané úkoly.
  */
 function buildReplanBlock(replan: ReplanContext): string {
   const percent = Math.round(replan.completionRate * 100);
 
   const lines = [
     "This is a REPLAN of a goal already in progress, not a new goal.",
+    replan.startedOn
+      ? "The person has been working on it since " + replan.startedOn + "."
+      : "The person has been working on it for a while already.",
     "",
-    `Completion so far: ${percent}% of the work that was already due got done.`,
+    "The hard rule: do not plan anything they have already done. Finished work must",
+    "not come back as a task. Nothing makes a person give up on a plan faster than",
+    "being told to set up again what they built months ago — it tells them the plan",
+    "has not been paying attention. Start from where they actually stand today.",
+    "",
+    `Completion so far: ${percent}% of the work that was already due got done. That is a measure of their pace, not of how far along the goal they are.`,
     `Days missed in the last two weeks: ${replan.missedDays}.`,
     replan.deadlineMoved
       ? "The deadline has been moved to the date given above, at the person's request. Plan to the new date at a pace they can actually keep — the old one was not it."
@@ -303,8 +388,24 @@ function buildReplanBlock(replan: ReplanContext): string {
   if (replan.pastMilestones.length) {
     lines.push(
       "",
-      "What the earlier plan asked for in the periods that have already passed. Treat it as partly done — around the completion rate above — and pick up from there:",
+      "What the earlier plan asked for in the periods that have already passed. This is what was planned, not what happened — what actually got done is listed after it:",
       ...replan.pastMilestones.map((milestone) => `  - ${milestone}`),
+    );
+  }
+
+  if (replan.achieved.length) {
+    lines.push(
+      "",
+      "Milestones they have actually reached. These are done. Build on them and never plan them again:",
+      ...replan.achieved.map((milestone) => `  - ${milestone}`),
+    );
+  }
+
+  if (replan.recentlyDone.length) {
+    lines.push(
+      "",
+      "The most recent work they ticked off, newest first. This is the concrete evidence of where they stand — whatever these produced exists already and is not to be made again:",
+      ...replan.recentlyDone.map((task) => `  - ${task}`),
     );
   }
 
@@ -340,6 +441,7 @@ function buildReplanBlock(replan: ReplanContext): string {
   lines.push(
     "",
     "Do not carry unfinished tasks over one by one. Work out what is still missing from those earlier milestones and fold it into the new plan where it still matters; drop what has been overtaken by events. A plan that stacks yesterday's leftovers onto today gets abandoned within a week.",
+    "Where the expert guidance or their starting point describes a beginning this person is already past, skip that beginning. Those were written for someone setting out; this one is on the way.",
     "Do not reproach the person anywhere in the plan. They know. Write it as if starting from where they are today.",
     "The final challenge stays the same thing unless the goal itself changed. It is what this person set out to be able to do, and they have been aiming at it for weeks; quietly swapping it for something easier takes that away, and swapping it for something else entirely means they no longer know what they are working towards. Reword it to fit the new timing where you must, but keep what it asks of them.",
   );

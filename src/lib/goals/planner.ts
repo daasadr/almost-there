@@ -122,6 +122,8 @@ function goalContext(
     locale: string;
   },
   minutesForThisGoal: number,
+  /** Dosažené milníky — ať se hotové nenaplánuje znovu jako denní úkol. */
+  achieved: string[] = [],
 ): GoalContext {
   return {
     title: goal.title,
@@ -133,6 +135,7 @@ function goalContext(
     dailyCapacityMinutes: minutesForThisGoal,
     restFrequency: REST_WORDS[user.restFrequency] ?? REST_WORDS.ONE_DAY_PER_WEEK,
     reflectionMinutesPerDay: user.reflectionMinutesDay,
+    achieved,
   };
 }
 
@@ -405,7 +408,23 @@ export async function ensureCurrentPlan(
     goal.id,
     goal.user.dailyCapacityMinutes,
   );
-  const context = goalContext(goal.user, goal, budget.mine);
+  /*
+   * Potvrzené milníky. Jen potvrzené: datum dosažení zapisuje uživatel
+   * sám, takže je to jeho slovo o tom, co má za sebou — ne náš odhad.
+   */
+  const achieved = await db.milestone.findMany({
+    where: { goalId, achievedAt: { not: null } },
+    orderBy: { targetDate: "asc" },
+    // Souhrn období říká, co se tím umí; název milníku bývá jen štítek.
+    select: { title: true, timeBlock: { select: { summary: true } } },
+  });
+
+  const context = goalContext(
+    goal.user,
+    goal,
+    budget.mine,
+    achieved.map((milestone) => milestone.timeBlock?.summary ?? milestone.title),
+  );
 
   // Nejvyšší úroveň vznikla při založení cíle.
   let siblings = await db.timeBlock.findMany({

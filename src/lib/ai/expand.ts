@@ -39,6 +39,17 @@ export type GoalContext = {
   dailyCapacityMinutes: number;
   restFrequency: string;
   reflectionMinutesPerDay: number;
+  /**
+   * Milníky, kterých už člověk na tomhle cíli dosáhl.
+   *
+   * Pojistka pro úroveň, na které se píšou skutečné úkoly. Týden i den
+   * se odvozují ze souhrnu nadřazeného období a ten po přeplánování psal
+   * model — když se do něj dostane něco hotového, zopakuje se to tady
+   * jako úkol na dnešek. Seznam je krátký (milník je jeden na období)
+   * a u dnů jde o nejčastější volání v provozu, takže se platí jednotky
+   * řádků za to, že se nenaplánuje práce, která je za námi.
+   */
+  achieved?: string[];
 };
 
 export type ParentBlock = {
@@ -95,7 +106,8 @@ function unitWord(unit: Unit): string {
   return unit.toLowerCase();
 }
 
-function goalLines(goal: GoalContext): string[] {
+/** Exportované kvůli testům: jinak se zadání nedá přečíst. */
+export function goalLines(goal: GoalContext): string[] {
   const lines = [
     `Goal: ${goal.title}`,
     `Final target date: ${goal.targetDate}`,
@@ -110,6 +122,12 @@ function goalLines(goal: GoalContext): string[] {
     lines.push(
       `What the person has to be able to do at the end, unaided and in one go: ${goal.finalChallenge}`,
       "Everything here is preparation for that. In the last stretch before the target date, the tasks are doing it and recovering from it, not learning anything new.",
+    );
+  }
+  if (goal.achieved?.length) {
+    lines.push(
+      "Already reached on this goal. Done, not to be planned again:",
+      ...goal.achieved.map((milestone) => `  - ${milestone}`),
     );
   }
   if (goal.reflectionMinutesPerDay > 0) {

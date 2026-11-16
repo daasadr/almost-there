@@ -49,6 +49,20 @@ import { learning } from "./learning";
  * Tohle je to místo, které se má ladit donekonečna. Čím lepší je, tím
  * víc se plán liší od toho, co by si člověk vygoogloval.
  *
+ * ── Pokyn se čte i při přeplánování ─────────────────────────────────
+ *
+ * Nejde jen o první rozpad. Při každém přepočtu cíle se pokyn vkládá
+ * znovu, takže ho model čte i pro někoho, kdo je v jeho půlce. Píše se
+ * proto jako **pořadí**, ne jako kalendář: „nejdřív něco, co běží, pak
+ * jedna schopnost po druhé“ vydrží, „v prvním týdnu založ repozitář“
+ * ne.
+ *
+ * Věty o začátku se tím nezakazují — pro člověka, který cíl zakládá,
+ * jsou správné. Při přeplánování se zarámují v `buildUserPrompt`,
+ * tedy v `lib/ai/decompose.ts`: pokyn popisuje celou cestu, tenhle
+ * člověk je kus za jejím začátkem. Tam se posílá i soupis hotového,
+ * aby měl model podle čeho poznat, kde ten kus končí.
+ *
  * ── Pořadí a `id` ───────────────────────────────────────────────────
  *
  * `id` je stabilní klíč: jde do adresy, do statistik a do záznamu

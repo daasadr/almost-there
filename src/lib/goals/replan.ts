@@ -111,6 +111,9 @@ export async function replanGoal({
       locale: true,
       restatement: true,
       templateId: true,
+      // Odkdy se na cíli pracuje. Dává věk výchozímu bodu, který se
+      // jinak čte, jako by platil dnes.
+      createdAt: true,
       user: {
         select: {
           timezone: true,
@@ -240,6 +243,36 @@ export async function replanGoal({
       .map((task) => task.deferReason?.trim())
       .filter((reason): reason is string => Boolean(reason));
 
+    /**
+     * Co je prokazatelně hotové.
+     *
+     * Tohle je rozdíl mezi plánem, který navazuje, a plánem, který začne
+     * znovu od nuly. Model dosud viděl jen souhrny uplynulých období —
+     * tedy co plán **chtěl** — a procento splnění. Z toho se nedá poznat,
+     * že repozitář existuje, a tak ho po skluzu naplánoval podruhé.
+     *
+     * Čte se až tady, pod zámkem: mezi čtením a zápisem nového plánu se
+     * plnění měnit nemůže, takže seznam nemůže zestárnout.
+     *
+     * Odpočinkové úkoly se nepočítají — odškrtnutý odpočinek není důkaz
+     * o práci a v seznamu by vytlačil něco, co jím je.
+     */
+    const [achievedMilestones, recentlyDoneTasks] = await Promise.all([
+      db.milestone.findMany({
+        where: { goalId, achievedAt: { not: null } },
+        orderBy: { targetDate: "asc" },
+        // Název milníku bývá jen štítek („Základy"). Co se tím doopravdy
+        // umí, stojí v souhrnu období — a právě to má model vědět.
+        select: { title: true, timeBlock: { select: { summary: true } } },
+      }),
+      db.task.findMany({
+        where: { goalId, status: "DONE", completedAt: { not: null }, type: { not: "REST" } },
+        orderBy: { completedAt: "desc" },
+        take: 12,
+        select: { title: true },
+      }),
+    ]);
+
     const { plan, usage, ranges } = await decomposeGoal({
       goal: goal.title,
       // Šablona platí i při přeplánování. Bez toho by plán po prvním
@@ -258,7 +291,12 @@ export async function replanGoal({
       restFrequency: REST_WORDS[goal.user.restFrequency],
       reflectionMinutesPerDay: goal.user.reflectionMinutesDay,
       replan: {
+        startedOn: toIsoDate(goal.createdAt),
         pastMilestones: pastBlocks.map((block) => block.summary),
+        achieved: achievedMilestones.map(
+          (milestone) => milestone.timeBlock?.summary ?? milestone.title,
+        ),
+        recentlyDone: recentlyDoneTasks.map((task) => task.title),
         upcomingMilestones: upcomingBlocks.map((block) => block.summary),
         completionRate,
         missedDays,
