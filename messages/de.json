@@ -114,6 +114,33 @@
     ],
     "fullOnly": "Nur in der Vollversion"
   },
+  "journey": {
+    "sampleLabel": "Beispiel",
+    "scrollHint": "Scrollen entfaltet den Weg",
+    "goalLabel": "Ziel",
+    "goalTitle": "Deutsch auf A2-Niveau",
+    "deadlineLabel": "Frist",
+    "deadline": "in sechs Monaten",
+    "steps": [
+      "Ziel",
+      "Monate",
+      "Wochen",
+      "Heute",
+      "Abhaken",
+      "Nachfrage",
+      "Fertig"
+    ],
+    "monthLabel": "Monat {n}",
+    "weekLabel": "Woche {n}",
+    "todayLabel": "Heute",
+    "checkTitle": "Geschafft?",
+    "checkBody": "Diese Frage kommt von selbst. Aus der Antwort wird neu berechnet, was bleibt — nichts wird gelöscht und nichts zweimal gelernt.",
+    "checkYes": "Geschafft",
+    "checkNo": "Nein, neu berechnen",
+    "doneTitle": "Ziel erreicht",
+    "doneBody": "Deutsch auf A2-Niveau. Nicht durch einen Willensausbruch, sondern weil jeden Tag dastand, was zu tun ist.",
+    "doneStat": "6 Monate · 26 Wochen · 156 Tage"
+  },
   "pricing": {
     "title": "Abo oder einmalig",
     "subtitle": "Das Abo ist ein Plan, den du am Handy abhakst und der sich daran anpasst, wie es läuft. Einmalig kannst du einen fertigen Plan als PDF zum Ausdrucken kaufen: einmal bezahlt, danach unverändert. Keine Stufen und keine Zusatzpakete, bei beidem nicht.",

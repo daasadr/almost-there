@@ -114,6 +114,33 @@
     ],
     "fullOnly": "Jen v plné verzi"
   },
+  "journey": {
+    "sampleLabel": "Ukázka",
+    "scrollHint": "Rolováním se cesta rozbalí",
+    "goalLabel": "Cíl",
+    "goalTitle": "Němčina na úrovni A2",
+    "deadlineLabel": "Termín",
+    "deadline": "za šest měsíců",
+    "steps": [
+      "Cíl",
+      "Měsíce",
+      "Týdny",
+      "Dnešek",
+      "Odškrtávání",
+      "Kontrola",
+      "Hotovo"
+    ],
+    "monthLabel": "Měsíc {n}",
+    "weekLabel": "Týden {n}",
+    "todayLabel": "Dnes",
+    "checkTitle": "Máte splněno?",
+    "checkBody": "Tahle otázka přijde sama. Z odpovědi se přepočítá, co zbývá — nic se nemaže a nic se nestuduje dvakrát.",
+    "checkYes": "Splněno",
+    "checkNo": "Ne, přepočítat",
+    "doneTitle": "Cíl splněn",
+    "doneBody": "Němčina na úrovni A2. Ne výbuchem vůle, ale tím, že každý den stálo napsané, co se má dělat.",
+    "doneStat": "6 měsíců · 26 týdnů · 156 dní"
+  },
   "pricing": {
     "title": "Předplatné, nebo jednorázově",
     "subtitle": "Předplatné je plán, který se odškrtává v telefonu a přepočítává podle toho, jak ti to jde. Jednorázově se dá koupit hotový plán v PDF k vytištění: zaplatíš jednou a dál se nemění. Žádné úrovně a žádné dokupování ani u jednoho.",

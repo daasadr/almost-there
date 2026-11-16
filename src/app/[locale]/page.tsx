@@ -92,8 +92,11 @@ function Hero() {
 
       <div className="relative mx-auto max-w-6xl px-5 pb-28 pt-20 sm:px-8 sm:pb-36 sm:pt-28">
         <div className="max-w-2xl">
+          {/* Kovový korálek. První prvek stránky a jediná věc nad
+              nadpisem — na jednom hmotném bodě se dá poznat materiál
+              celého webu dřív, než se přečte jedno slovo. */}
           <p className="eyebrow">
-            <span className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--color-lime-glow)]" />
+            <span className="metal-bead inline-block h-2.5 w-2.5" />
             {t("eyebrow")}
           </p>
 
@@ -216,7 +219,10 @@ function Features() {
               }`}
               style={{ transitionDelay: `${index * 70}ms` }}
             >
-              <div className="flex h-9 w-9 items-center justify-center rounded-full border border-[color-mix(in_oklab,var(--color-lime-glow)_30%,transparent)] text-sm font-semibold text-[var(--color-lime-soft)]">
+              {/* Číslo na kovové minci místo v kroužku z tenké linky.
+                  Vlastnosti jsou to, co se tu prodává, takže smí být
+                  hmotné. */}
+              <div className="metal metal-coin h-9 w-9 text-sm">
                 {index + 1}
               </div>
               <h3 className="display mt-5 text-xl">{item.title}</h3>

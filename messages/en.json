@@ -114,6 +114,33 @@
     ],
     "fullOnly": "Full version only"
   },
+  "journey": {
+    "sampleLabel": "Example",
+    "scrollHint": "Scroll to unfold the path",
+    "goalLabel": "Goal",
+    "goalTitle": "German at A2 level",
+    "deadlineLabel": "Deadline",
+    "deadline": "in six months",
+    "steps": [
+      "Goal",
+      "Months",
+      "Weeks",
+      "Today",
+      "Ticking off",
+      "Check-in",
+      "Done"
+    ],
+    "monthLabel": "Month {n}",
+    "weekLabel": "Week {n}",
+    "todayLabel": "Today",
+    "checkTitle": "Did you get it done?",
+    "checkBody": "The question comes to you. Your answer recalculates what is left — nothing is deleted and nothing is studied twice.",
+    "checkYes": "Done",
+    "checkNo": "No, recalculate",
+    "doneTitle": "Goal reached",
+    "doneBody": "German at A2 level. Not through a burst of willpower, but because every single day said what to do.",
+    "doneStat": "6 months · 26 weeks · 156 days"
+  },
   "pricing": {
     "title": "A subscription, or a one-off",
     "subtitle": "The subscription is a plan you tick off on your phone and that recalculates as you go. One-off, you can buy a finished plan as a PDF to print: you pay once and it does not change afterwards. No tiers and no add-ons in either case.",
