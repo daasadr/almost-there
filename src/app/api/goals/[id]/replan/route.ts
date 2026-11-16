@@ -37,6 +37,12 @@ const bodySchema = z.object({
     .string()
     .regex(/^\d{4}-\d{2}-\d{2}$/)
     .optional(),
+  /**
+   * Vrátit propadlé úkoly na nejbližší dny? Volba z nabídky při posunu
+   * termínu. Chybějící hodnota znamená ne — do plánu se nic nepřidává
+   * nikomu, kdo si o to neřekl.
+   */
+  catchUpMissed: z.boolean().optional(),
 });
 
 /** Přeplánování cíle po skluzu, nebo odmítnutí nabídky. */
@@ -107,6 +113,7 @@ export async function POST(
       mode: parsed.data.mode,
       steer: parsed.data.steer,
       extendTo: parsed.data.extendTo,
+      catchUpMissed: parsed.data.catchUpMissed ?? false,
     });
     return NextResponse.json({ ok: true, newTargetDate });
   } catch (error) {

@@ -509,6 +509,7 @@ async function Today({
                 goalColor={goal.color}
                 missedDays={goal.missedDays}
                 completionRate={goal.completionRate}
+                unfinishedPast={goal.unfinishedPast}
                 targetDate={toIsoDate(goal.targetDate)}
                 suggestedDate={toIsoDate(goal.suggestedDate)}
                 catchUpFailed={goal.catchUpFailed}

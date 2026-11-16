@@ -4,9 +4,10 @@ import { templateById } from "@/content/templates";
 import { decomposeGoal, planUnit } from "@/lib/ai/decompose";
 import { AiFormatError } from "@/lib/ai/call";
 import { assertWithinBudget, recordUsage } from "@/lib/ai/usage";
-import { parseIsoDate, toIsoDate, todayIso } from "@/lib/plan/calendar";
+import { addDays, parseIsoDate, toIsoDate, todayIso } from "@/lib/plan/calendar";
 import { estimateNewTarget, getPaceStatus } from "./pace";
 import { syncMilestones } from "./milestones";
+import { catchUpDates, stretchRanges } from "./stretch";
 import {
   acquireReplanLock,
   ReplanInProgressError,
@@ -19,13 +20,35 @@ import type { Locale } from "@/i18n/routing";
  * Přeplánování cíle, který nabral skluz (zadání, bod 6 — adaptivní část).
  *
  * Dvě cesty: dohnat skluz ve stejném termínu, nebo posunout termín podle
- * tempa, kterým to reálně jde. V obou případech se zbytek plánu vytvoří
- * znovu od dneška.
+ * tempa, kterým to reálně jde.
  *
- * Nedodělané úkoly se nepřenášejí. Zůstanou v minulosti jako záznam toho,
- * co se nestihlo, a nový plán z nich vezme jen to, co ještě dává smysl —
- * viz instrukce v promptu. Přesouvat propadlé úkoly dopředu je nejrychlejší
- * způsob, jak z plánu udělat kupku, kterou nikdo neotevře.
+ * ── Posun termínu obsah nepřepisuje ─────────────────────────────────
+ *
+ * Dlouho to tak bylo a byla to ta nejdražší chyba v celém produktu:
+ * posun termínu smazal zbytek plánu a nechal model napsat nový. Člověk,
+ * který si v polovině cesty nechal posunout termín, dostal cíl
+ * rozplánovaný od začátku — „založit aplikaci, založit repozitář" —
+ * a práci několika měsíců nikde.
+ *
+ * Termín se přitom posouvá právě proto, že obsah platí a jen potřebuje
+ * víc času. Zbytek plánu se tedy roztáhne: období si nechají název,
+ * milník i pořadí a dostanou jen nová data. Model se nevolá vůbec.
+ * Viz `stretch.ts`.
+ *
+ * Přepisovat obsah má smysl jen tam, kde se obsah opravdu mění — tedy
+ * u úpravy směru a u rozšíření cíle.
+ *
+ * ── Co s prací, která propadla ──────────────────────────────────────
+ *
+ * Rozhoduje uživatel, ne kód. Nechat ji být znamená, že zůstane
+ * v minulosti jako záznam toho, co se nestihlo; vrátit ji znamená, že
+ * se nedodělané úkoly rozloží po jednom na nejbližší dny.
+ *
+ * Dřív o tom rozhodoval kód a vždycky stejně — nepřenášet. Mělo to
+ * dobrý důvod (kupka propadlých úkolů plán spolehlivě zabije), ale je
+ * to rozhodnutí o cizí práci a jen její autor ví, jestli ještě dává
+ * smysl. Při přepisu plánu modelem platí dál, že se jednotlivé úkoly
+ * do promptu netahají.
  *
  * Do měsíčního limitu nových plánů se přeplánování nepočítá. Podmínky
  * slibují, že práce s už založeným cílem je bez omezení, a tohle je přesně
@@ -35,7 +58,8 @@ import type { Locale } from "@/i18n/routing";
 /**
  * Režimy přeplánování.
  *
- *  - moveDeadline — termín se posune podle tempa, jakým to reálně jde.
+ *  - moveDeadline — termín se posune podle tempa, jakým to reálně jde,
+ *                   a zbytek plánu se do něj roztáhne beze změny obsahu.
  *  - adjust       — uživatel si přeje jinou cestu; termín zůstává.
  *  - extend       — cíl je u konce, ale ještě není dotažený tak, jak si
  *                   ho člověk představoval. Termín se posune na zadané
@@ -91,6 +115,7 @@ export async function replanGoal({
   mode,
   steer,
   extendTo,
+  catchUpMissed = false,
 }: {
   goalId: string;
   mode: ReplanMode;
@@ -98,6 +123,13 @@ export async function replanGoal({
   steer?: string;
   /** Jen u režimu „extend“: nový termín, ISO datum. */
   extendTo?: string;
+  /**
+   * Vrátit nedodělané úkoly z minulosti na nejbližší dny?
+   *
+   * Volba uživatele z nabídky při posunu termínu. Výchozí je ne —
+   * kdo se nerozhodl, tomu se do plánu nic nepřidává.
+   */
+  catchUpMissed?: boolean;
 }): Promise<{ newTargetDate: Date }> {
   const goal = await db.goal.findUniqueOrThrow({
     where: { id: goalId },
@@ -154,7 +186,17 @@ export async function replanGoal({
     }
   }
 
-  await assertWithinBudget(goal.userId);
+  /*
+   * Rozpočet se hlídá jen tam, kde se opravdu volá model.
+   *
+   * Posun termínu je od téhle změny pouhý přepočet dat a nestojí nic.
+   * Odmítnout ho kvůli vyčerpanému stropu by znamenalo nechat člověka
+   * se skluzem bez jediné možnosti, jak se z něj dostat — a to zrovna
+   * u volby, která je zadarmo.
+   */
+  if (mode !== "moveDeadline") {
+    await assertWithinBudget(goal.userId);
+  }
 
   /**
    * Odtud dál se do cíle nesmí sahat zvenčí.
@@ -194,6 +236,46 @@ export async function replanGoal({
     // Bez budoucnosti není co plánovat. Viz DeadlinePassedError.
     if (newTargetDate.getTime() <= today.getTime()) {
       throw new DeadlinePassedError("Termín cíle už uplynul.");
+    }
+
+    /*
+     * Posun termínu: roztáhnout, ne přepsat.
+     *
+     * Tohle je od téhle změny ta hlavní cesta a model se v ní nevolá.
+     * Pod ní zůstává přepis modelem pro případ, že roztahovat není co —
+     * tedy když je cíl ve svém posledním období a žádné další po něm
+     * nepřijde. Tam se obsah opravdu dopsat musí.
+     */
+    if (mode === "moveDeadline") {
+      const stretched = await stretchRemainingPlan({
+        goalId,
+        today,
+        oldTarget: goal.targetDate,
+        newTarget: newTargetDate,
+      });
+
+      if (stretched) {
+        if (catchUpMissed) await carryMissedForward(goalId, today);
+
+        await db.replanEvent.create({
+          data: {
+            goalId,
+            reason: "BEHIND_SCHEDULE",
+            // Obsah zůstal, změnila se jen data — stejně jako u návratu
+            // z pozastavení, viz `pause.ts`.
+            scope: "SCHEDULE_ONLY",
+            oldTargetDate: goal.targetDate,
+            newTargetDate,
+            completionRate,
+          },
+        });
+
+        // Milníky roztažených období už mají nová data; tohle dopíše
+        // jen ty, které by snad chyběly.
+        await syncMilestones(goalId);
+
+        return { newTargetDate };
+      }
     }
 
     // Milníky období, která už začala — vstup pro model, ať ví, odkud
@@ -272,6 +354,9 @@ export async function replanGoal({
         select: { title: true },
       }),
     ]);
+
+    // Odsud dál se volá model, takže teď na strop v korunách.
+    await assertWithinBudget(goal.userId);
 
     const { plan, usage, ranges } = await decomposeGoal({
       goal: goal.title,
@@ -421,6 +506,11 @@ export async function replanGoal({
       });
     });
 
+    // Volba uživatele platí i tady. Propadlé úkoly visí na blocích
+    // z minulosti, které přepis nemaže, takže se jim dá dát nový den
+    // stejně jako po roztažení.
+    if (catchUpMissed) await carryMissedForward(goalId, today);
+
     // Nová období, nové milníky. Dosažené zůstávají — jsou to zážitky,
     // ne položky rozvrhu.
     await syncMilestones(goalId);
@@ -431,6 +521,161 @@ export async function replanGoal({
     // už nikdy nic neodškrtne.
     await releaseReplanLock(goalId);
   }
+}
+
+/**
+ * Roztažení zbytku plánu do pozdějšího termínu.
+ *
+ * Běžící období se nehýbe: jsou v něm rozepsané dny, odškrtnuté úkoly
+ * a dnešek, na který se člověk dívá. Kotvou je proto den po jeho konci
+ * — odtud dál se období roztáhnou v poměru, o kolik se posunul termín.
+ *
+ * Vrátí `false`, když roztahovat není co: cíl je ve svém posledním
+ * období a žádné další po něm nepřijde. Tam se obsah musí dopsat a volá
+ * se model.
+ */
+async function stretchRemainingPlan({
+  goalId,
+  today,
+  oldTarget,
+  newTarget,
+}: {
+  goalId: string;
+  today: Date;
+  oldTarget: Date;
+  newTarget: Date;
+}): Promise<boolean> {
+  const blocks = await db.timeBlock.findMany({
+    where: { goalId, parentBlockId: null },
+    orderBy: { startDate: "asc" },
+    select: { id: true, startDate: true, endDate: true },
+  });
+
+  const current = blocks.filter((block) => block.startDate <= today).at(-1);
+  const future = blocks.filter((block) => block.startDate > today);
+
+  if (future.length === 0) return false;
+
+  const anchor = current ? addDays(current.endDate, 1) : today;
+
+  /*
+   * Pojistky proti plánu s dírou na konci.
+   *
+   * Roztažení drží jedno: poslední období končí novým termínem. Kdyby
+   * se termín neposouval dopředu nebo kdyby za kotvou nebyl žádný
+   * prostor, nemá se co roztáhnout — a kdyby se přesto zapsal nový
+   * termín, vznikl by za posledním obdobím kus času bez úkolů, na
+   * kterém se plán tiše zastaví. V takovém případě radši dopíše model.
+   */
+  if (
+    newTarget.getTime() <= oldTarget.getTime() ||
+    anchor.getTime() >= oldTarget.getTime()
+  ) {
+    return false;
+  }
+  const ranges = stretchRanges({ blocks: future, anchor, oldTarget, newTarget });
+
+  await db.$transaction([
+    /*
+     * Rozepsané týdny a dny budoucích období odcházejí.
+     *
+     * Za normálních okolností žádné nejsou — nižší úrovně se dopisují
+     * až ve chvíli, kdy na ně dojde. Kdyby přece jen byly, nesedělo by
+     * jim datum a plán by měl uvnitř období kus rozvrhu mimo něj.
+     * Kaskáda vezme s bloky i jejich úkoly.
+     */
+    db.timeBlock.deleteMany({
+      where: { goalId, parentBlockId: { in: future.map((block) => block.id) } },
+    }),
+
+    ...ranges.map((range, index) =>
+      db.timeBlock.update({
+        where: { id: future[index].id },
+        data: { startDate: range.startDate, endDate: range.endDate },
+      }),
+    ),
+
+    // Milník patří svému období a jde s ním. Dosažené se nehýbou —
+    // datum, kdy se něco povedlo, se posouvat nedá.
+    ...ranges.map((range, index) =>
+      db.milestone.updateMany({
+        where: { goalId, timeBlockId: future[index].id, achievedAt: null },
+        data: { targetDate: range.endDate },
+      }),
+    ),
+
+    db.goal.update({
+      where: { id: goalId },
+      data: { targetDate: newTarget },
+    }),
+  ]);
+
+  return true;
+}
+
+/**
+ * Vrácení propadlé práce na nejbližší dny.
+ *
+ * Jen na výslovné přání uživatele. Po jednom úkolu na den, od nejstaršího
+ * — dvě dodělávky denně by vedle skutečného plánu postavily druhý a
+ * nejspíš by se nestihlo ani jedno.
+ *
+ * Mění se jen den, na který úkol patří, ne jeho obsah. Zaplatit zkoušku
+ * pořád musíš, jen ne tehdy; je to tentýž úkol v jiný den — stejně jako
+ * u ručního odložení.
+ */
+async function carryMissedForward(goalId: string, today: Date): Promise<number> {
+  const missed = await db.task.findMany({
+    where: {
+      goalId,
+      status: "PENDING",
+      // Odpočinek se nedohání a odložené „nevím kdy" si uživatel
+      // odložil sám — do těch se nesahá.
+      type: { not: "REST" },
+      OR: [
+        { deferredTo: { lt: today } },
+        {
+          deferredTo: null,
+          timeBlock: { level: "DAY", startDate: { lt: today } },
+        },
+      ],
+    },
+    orderBy: [{ timeBlock: { startDate: "asc" } }, { position: "asc" }],
+    select: { id: true },
+  });
+
+  if (missed.length === 0) return 0;
+
+  // Dny, na kterých už odpočinek stojí v plánu. Rozepsaný bývá jen
+  // nejbližší týden, takže jich je pár — ale právě na ty by dodělávka
+  // dopadla nejhůř.
+  const restDays = await db.timeBlock.findMany({
+    where: {
+      goalId,
+      level: "DAY",
+      startDate: { gte: today },
+      tasks: { some: { type: "REST" } },
+    },
+    select: { startDate: true },
+  });
+
+  const dates = catchUpDates({
+    count: missed.length,
+    // Od zítřka: dnešek už člověk zčásti prožil a jeho plán zná.
+    from: addDays(today, 1),
+    restDates: new Set(restDays.map((block) => toIsoDate(block.startDate))),
+  });
+
+  await db.$transaction(
+    missed.map((task, index) =>
+      db.task.update({
+        where: { id: task.id },
+        data: { deferredTo: dates[index] },
+      }),
+    ),
+  );
+
+  return missed.length;
 }
 
 /** Uživatel nabídku odmítl. Zapíšeme to, ať se neptáme hned zítra znovu. */

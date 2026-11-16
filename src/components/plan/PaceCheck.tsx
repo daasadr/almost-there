@@ -15,6 +15,20 @@ import { planErrorKey } from "@/lib/plan/errors";
  * které nesedí. Kdyby aplikace tlačila do dohánění, naučila by lidi
  * lhát si do termínů.
  *
+ * ── Posun termínu plán nepřepisuje ──────────────────────────────────
+ *
+ * Dřív ano a bylo to špatně: zbytek plánu se smazal a model napsal
+ * nový, takže člověk v polovině cesty dostal cíl rozplánovaný od
+ * začátku. Teď se zbytek jen roztáhne do nového termínu — obsah
+ * zůstává, mění se data. Je to okamžité a zadarmo.
+ *
+ * ── Na propadlou práci se ptáme ─────────────────────────────────────
+ *
+ * Nedodělané úkoly z minulých dnů se buď vrátí na nejbližší dny, nebo
+ * zůstanou v minulosti. Obojí je obhajitelné a rozhodnout to může jen
+ * ten, kdo ví, jestli ta práce ještě dává smysl — tak se ptáme.
+ * Nabídka se objeví jen tomu, kdo něco propadlého má.
+ *
  * ── Dohánění plán nemění ────────────────────────────────────────────
  *
  * „Doženu skluz" dlouho spouštělo přeplánování: zbytek plánu se smazal
@@ -37,6 +51,7 @@ export function PaceCheck({
   goalColor,
   missedDays,
   completionRate,
+  unfinishedPast,
   targetDate,
   suggestedDate,
   catchUpFailed = false,
@@ -47,6 +62,8 @@ export function PaceCheck({
   goalColor: string;
   missedDays: number;
   completionRate: number;
+  /** Kolik úkolů z minulých dnů zůstalo nesplněných. */
+  unfinishedPast: number;
   targetDate: string;
   suggestedDate: string;
   /** Dohánění už jednou slíbil a nevyšlo. Podruhé se nenabízí. */
@@ -61,6 +78,8 @@ export function PaceCheck({
   const [pending, setPending] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [dismissed, setDismissed] = useState(false);
+  /** Druhý krok posunu termínu: co s propadlou prací. */
+  const [asking, setAsking] = useState(false);
 
   if (dismissed) return null;
 
@@ -68,15 +87,19 @@ export function PaceCheck({
   // se do toho časová pásma.
   const deadlinePassed = targetDate <= new Date().toISOString().slice(0, 10);
 
-  const send = async (mode: "catchUp" | "moveDeadline" | "decline") => {
+  const send = async (
+    mode: "catchUp" | "moveDeadline" | "decline",
+    catchUpMissed = false,
+  ) => {
     setPending(mode);
     setError(null);
+    setAsking(false);
 
     try {
       const response = await fetch(`/api/goals/${goalId}/replan`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ mode }),
+        body: JSON.stringify({ mode, catchUpMissed }),
       });
 
       if (!response.ok) {
@@ -139,6 +162,51 @@ export function PaceCheck({
 
       {pending === "moveDeadline" ? (
         <GenerationProgress namespace="plan.form.progress" />
+      ) : asking ? (
+        <div className="mt-5">
+          <p className="text-base font-medium text-[var(--color-paper)]">
+            {t("carryTitle")}
+          </p>
+          <p className="mt-1.5 text-sm leading-relaxed text-[var(--color-paper-dim)]">
+            {t("carryBody", { count: unfinishedPast })}
+          </p>
+
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            <button
+              type="button"
+              onClick={() => send("moveDeadline", true)}
+              className="rounded-2xl border border-edge p-4 text-left transition hover:border-edge-hover"
+            >
+              <span className="block text-base font-medium text-[var(--color-paper)]">
+                {t("carryYes")}
+              </span>
+              <span className="mt-1 block text-sm leading-relaxed text-[var(--color-paper-dim)]">
+                {t("carryYesBody")}
+              </span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => send("moveDeadline", false)}
+              className="rounded-2xl border border-edge p-4 text-left transition hover:border-edge-hover"
+            >
+              <span className="block text-base font-medium text-[var(--color-paper)]">
+                {t("carryNo")}
+              </span>
+              <span className="mt-1 block text-sm leading-relaxed text-[var(--color-paper-dim)]">
+                {t("carryNoBody")}
+              </span>
+            </button>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setAsking(false)}
+            className="mt-4 text-sm text-[var(--color-paper-faint)] underline-offset-4 hover:text-[var(--color-paper-dim)] hover:underline"
+          >
+            {t("carryBack")}
+          </button>
+        </div>
       ) : (
         <div
           className={`mt-5 grid gap-3 ${
@@ -169,7 +237,11 @@ export function PaceCheck({
 
           <button
             type="button"
-            onClick={() => send("moveDeadline")}
+            // Kdo nemá co dohánět, tomu se volba nenabízí — otázka
+            // bez obsahu je jen krok navíc.
+            onClick={() =>
+              unfinishedPast > 0 ? setAsking(true) : send("moveDeadline")
+            }
             disabled={Boolean(pending)}
             className="rounded-2xl border border-edge p-4 text-left transition hover:border-edge-hover disabled:opacity-50"
           >
@@ -183,7 +255,7 @@ export function PaceCheck({
         </div>
       )}
 
-      {!pending && (
+      {!pending && !asking && (
         <button
           type="button"
           onClick={() => send("decline")}

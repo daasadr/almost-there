@@ -117,6 +117,14 @@ export type PaceStatus = {
   missedDays: number;
   /** Podíl hotových úkolů ze všech, které už měly být hotové (0–1). */
   completionRate: number;
+  /**
+   * Kolik úkolů z minulých dnů zůstalo nesplněných.
+   *
+   * Kvůli nabídce při posunu termínu: uživatel se rozhoduje, jestli je
+   * chce dodělat, a bez čísla je to rozhodnutí naslepo. „23 úkolů" je
+   * něco jiného než „3".
+   */
+  unfinishedPast: number;
   /** Má se uživateli nabídnout přeplánování? */
   behind: boolean;
   /**
@@ -287,10 +295,26 @@ export async function getPaceStatus(
 
   // Úspěšnost se počítá z celé historie cíle, ne jen z okna — pár
   // špatných dnů po dobrém měsíci nemá znamenat, že se termín zdvojnásobí.
-  const [doneCount, dueCount] = await Promise.all([
+  const [doneCount, dueCount, unfinishedPast] = await Promise.all([
     db.task.count({ where: { goalId, status: "DONE" } }),
     db.task.count({
       where: { goalId, timeBlock: { level: "DAY", startDate: { lt: today } } },
+    }),
+    // Totéž, co by se vrátilo na nejbližší dny, kdyby si o to uživatel
+    // řekl — odpočinek a vlastní odklady „nevím kdy" se nepočítají.
+    db.task.count({
+      where: {
+        goalId,
+        status: "PENDING",
+        type: { not: "REST" },
+        OR: [
+          { deferredTo: { lt: today } },
+          {
+            deferredTo: null,
+            timeBlock: { level: "DAY", startDate: { lt: today } },
+          },
+        ],
+      },
     }),
   ]);
 
@@ -330,6 +354,7 @@ export async function getPaceStatus(
     goalId,
     missedDays,
     completionRate,
+    unfinishedPast,
     /**
      * Nabídka se ukáže jen tomu, kdo skluz *teď* má. Ne tomu, kdo ho
      * měl před deseti dny a od té doby se trefuje do všeho — ten by

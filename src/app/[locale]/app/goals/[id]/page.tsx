@@ -265,6 +265,7 @@ export default async function GoalPage({
             goalColor={goal.color}
             missedDays={pace.missedDays}
             completionRate={pace.completionRate}
+            unfinishedPast={pace.unfinishedPast}
             targetDate={toIsoDate(pace.targetDate)}
             suggestedDate={toIsoDate(pace.suggestedDate)}
             catchUpFailed={pace.catchUpFailed}
